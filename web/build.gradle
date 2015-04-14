@@ -1,0 +1,25 @@
+buildscript {
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
+    }
+	repositories {
+		maven { url "http://repo.spring.io/libs-release" }
+		mavenLocal()
+        mavenCentral()
+	}
+}
+        apply plugin: 'java'
+        apply plugin: 'war'
+        apply plugin: 'jetty'
+        apply plugin: 'spring-boot'
+        
+    dependencies{
+		compile project(':repository')
+        providedCompile 'javax.servlet:servlet-api:2.5'
+        runtime 'javax.servlet:jstl:1.1.2'
+        compile("org.springframework.boot:spring-boot-starter-web")
+        compile("org.springframework.boot:spring-boot-starter-security")
+        compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity3")
+    	compile("org.thymeleaf:thymeleaf-spring4")
+    	compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
+    }
