@@ -35,14 +35,11 @@ public class Application {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
-			/*
 			http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
 					.antMatchers("/center/**").hasRole("USER").anyRequest()
 					.permitAll().and().formLogin().defaultSuccessUrl("/home")
 					.usernameParameter("name").passwordParameter("password")
 					.loginPage("/login").failureUrl("/login?error").permitAll();
-					*/
 		}
 
 		@Override
@@ -58,15 +55,15 @@ public class Application {
 	}
 
 	@Bean
-	public ConversionServiceFactoryBean conversionService(){
-		ConversionServiceFactoryBean factoryBean=new ConversionServiceFactoryBean();
-		Set<Converter> converters=new HashSet<Converter>();
+	public ConversionServiceFactoryBean conversionService() {
+		ConversionServiceFactoryBean factoryBean = new ConversionServiceFactoryBean();
+		Set<Converter> converters = new HashSet<Converter>();
 		factoryBean.setConverters(converters);
 		return factoryBean;
 	}
-	
+
 	@Bean
-	public SpringSecurityDialect springSecurityDialect(){
+	public SpringSecurityDialect springSecurityDialect() {
 		return new SpringSecurityDialect();
 	}
 }
