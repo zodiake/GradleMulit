@@ -3,7 +3,7 @@ package com.sj.repository.service.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sj.repository.model.Category;
+import com.sj.model.model.Category;
 import com.sj.repository.repository.CategoryRepository;
 import com.sj.repository.service.CategoryService;
 

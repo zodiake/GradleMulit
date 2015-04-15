@@ -9,7 +9,7 @@ allprojects{
 subprojects{
 	apply plugin :'java'
 	repositories {
-				mavenLocal()
+		mavenLocal()
 		mavenCentral()
 	}
 }

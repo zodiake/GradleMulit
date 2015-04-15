@@ -1,4 +1,4 @@
-package com.sj.repository.model;
+package com.sj.model.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
