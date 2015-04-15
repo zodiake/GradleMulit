@@ -7,13 +7,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"com.sj"})
-@EnableJpaRepositories(basePackages = {"com.sj.repository.repository"})
+@Import(com.sj.repository.Application.class)
 public class Application {
 
 	public static void main(String[] args) {
