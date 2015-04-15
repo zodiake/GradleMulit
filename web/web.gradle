@@ -4,22 +4,14 @@ buildscript {
     }
 	repositories {
 		maven { url "http://repo.spring.io/libs-release" }
-		mavenLocal()
+        mavenLocal()
         mavenCentral()
 	}
 }
-        apply plugin: 'java'
-        apply plugin: 'war'
-        apply plugin: 'jetty'
-        apply plugin: 'spring-boot'
+
+apply plugin: 'spring-boot'
         
-    dependencies{
-		compile project(':repository')
-        providedCompile 'javax.servlet:servlet-api:2.5'
-        runtime 'javax.servlet:jstl:1.1.2'
-        compile("org.springframework.boot:spring-boot-starter-web")
-        compile("org.springframework.boot:spring-boot-starter-security")
-        compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity3")
-    	compile("org.thymeleaf:thymeleaf-spring4")
-    	compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
-    }
+dependencies{
+    compile("org.springframework.boot:spring-boot-starter-web")
+	compile project(':repository')
+}
