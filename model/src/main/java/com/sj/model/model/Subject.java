@@ -22,11 +22,11 @@ public class Subject {
 
 	private String name;
 
-	@Enumerated(EnumType.STRING)
+	@Enumerated
 	private ActivateEnum showOnIndex;
 
-	@Enumerated(EnumType.STRING)
-	private ActivateEnum active;
+	@Enumerated
+	private ActivateEnum activate;
 
 	@ManyToMany(mappedBy = "subjects")
 	private Set<Product> products;

@@ -35,7 +35,7 @@ public class Category {
 	@JoinColumn(name = "parent_id")
 	private Category parent;
 
-	@Enumerated(EnumType.STRING)
+	@Enumerated
 	private ActivateEnum activate;
 
 	@Temporal(TemporalType.TIMESTAMP)

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import com.sj.model.type.ActivateEnum;
 
 @Entity
-@Table(name = "siteUser")
+@Table(name = "site_user")
 public class SiteUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +21,7 @@ public class SiteUser {
 
 	private String password;
 
-	@Enumerated(EnumType.STRING)
+	@Enumerated
 	private ActivateEnum enabled;
 
 	public int getId() {
