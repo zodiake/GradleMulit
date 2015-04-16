@@ -4,6 +4,8 @@ buildscript {
     }
 	repositories {
 		maven { url "http://repo.spring.io/libs-release" }
+		maven {url "http://repo.spring.io/libs-snapshot"}
+    	maven {url 'http://repo.spring.io/milestone' }
         mavenLocal()
         mavenCentral()
 	}
@@ -13,5 +15,7 @@ apply plugin: 'spring-boot'
         
 dependencies{
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-security")
 	compile project(':repository')
 }

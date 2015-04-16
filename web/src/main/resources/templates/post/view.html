@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<meta name="id" th:content="${post.id}" />
+<title>Insert title here</title>
+<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script>
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var id=$("meta[name='id']").attr("content");
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		$('#praise').click(function(event) {
+			event.preventDefault();
+			$.ajax({
+				method : 'post',
+				url : '/posts/praise',
+				data : {
+					id : id
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div th:object="${post}">
+		<header>
+			<p>
+				title: <span th:text="*{title}">Sebastian</span>
+			</p>
+			<p>
+				content: <span th:text="*{content.content}">Sebastian</span>
+			</p>
+		</header>
+	</div>
+	<a id="praise" href="#">add</a>
+</body>
+</html>

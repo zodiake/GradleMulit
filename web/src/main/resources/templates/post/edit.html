@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:class="${message!=null}?${message.state}" th:text="${message!=null}? ${message.message}">test</div>
+
+	<form th:object="${post}" th:method="put">
+		<input th:field="*{title}" /> 
+		<input th:field="*{content.content}" />
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"></input> 
+		<input type="submit" />
+	</form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="page(begin,end)">
+		<ul th:each="num : ${#numbers.sequence(begin,end)}" th:if="${end &lt; 7}">
+			<li><a th:text="${num}"></a></li>
+		</ul>
+		<ul th:each="num : ${#numbers.sequence(begin,end)}" th:if="${end &gt; 7}">
+		</ul>
+	</div>
+</body>
+</html>
