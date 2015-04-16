@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,19 +28,22 @@ public class Category {
 
 	private String name;
 
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	private Set<Category> categories;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
 	private Category parent;
-	
+
 	@Enumerated(EnumType.STRING)
 	private ActivateEnum activate;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdTime;
-	
+
 	private String createdBy;
-	
+
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+	private Set<Product> products;
+
 }
