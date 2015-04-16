@@ -3,8 +3,8 @@ create table category(
 	name varchar(40) not null,
 	parent_id int,
 	activate smallint,
-	createdTime timestamp,
-	createdBy varchar(20),
+	created_time timestamp,
+	created_by varchar(20),
 	primary key(id),
 	foreign key (parent_id) references category(id)
 );
@@ -13,7 +13,7 @@ create table product(
 	id int not null auto_increment,
 	name varchar(20) not null,
 	desc varchar(300),
-	coverImg varchar(40),
+	cover_img varchar(40),
 	private float,
 	category_id int,
 	primary key(id),
