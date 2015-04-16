@@ -1,4 +1,4 @@
-include "repository","web","model"
+include "repository","web","model","admin"
 rootProject.children.each {
 	it.buildFileName = it.name + '.gradle'
 }
