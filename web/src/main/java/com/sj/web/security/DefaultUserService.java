@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.sj.web.util.AuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,11 +35,12 @@ public class DefaultUserService implements UserDetailsService {
 			setName(user.getName());
 			setPassword(user.getPassword());
 			setEnabled(user.getEnabled());
+			setSiteAuthority(user.getSiteAuthority());
 		}
 
 		@Override
 		public Collection<? extends GrantedAuthority> getAuthorities() {
-			return null;
+			return AuthorityUtil.createAuthority(getSiteAuthority());
 		}
 
 		@Override

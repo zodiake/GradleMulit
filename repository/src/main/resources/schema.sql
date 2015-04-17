@@ -41,5 +41,19 @@ create table site_user(
 	name varchar(20),
 	password char(64),
 	enabled smallint,
+	site_authority varchar(20),
 	primary key(id)
 );
+
+create TABLE provider(
+	id int NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (id) REFERENCES site_user(id)
+);
+
+create table MANUFACTURER(
+	id int not null auto_increment,
+	primary key (id),
+	foreign key (id) references site_user(id)
+);
+

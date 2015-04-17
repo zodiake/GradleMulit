@@ -1,16 +1,12 @@
 package com.sj.model.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.sj.model.type.ActivateEnum;
 
 @Entity
 @Table(name = "site_user")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class SiteUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +15,9 @@ public class SiteUser {
 	private String name;
 
 	private String password;
+
+	@Column(name="site_Authority")
+	private String siteAuthority;
 
 	@Enumerated
 	private ActivateEnum enabled;
@@ -53,6 +52,14 @@ public class SiteUser {
 
 	public void setEnabled(ActivateEnum enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getSiteAuthority() {
+		return siteAuthority;
+	}
+
+	public void setSiteAuthority(String siteAuthority) {
+		this.siteAuthority = siteAuthority;
 	}
 
 	@Override
