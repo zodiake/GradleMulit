@@ -3,18 +3,34 @@
 <head>
 <title>Hello Spring Boot!</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="/js/jquery-1.11.2.min.js"></script>
+<script>
+$(function(){
+	$('#captchaImg').click(function(event){
+		event.preventDefault();
+		var self=$(this);
+		var clone=self.clone(true);
+		self.after(clone);
+		self.remove();
+	});
+});
+</script>
 </head>
 <body>
-	<form th:action="@{/signup/new}" th:object="${user}" method="post" action="#">
+	<form th:action="@{/signup}" th:object="${form}" method="post" action="#">
 		<label for="name">name:</label>
 		<input type="text" th:field="*{name}" />
 		<label for="password">password:</label>
 		<input type="text" th:field="*{password}" />
+
 		<label for="confirmPassword">confirmPassword:</label>
-		<input type="text" th:field="*{confirmPassword}" />
+		<input type="text" th:field="*{confirm}" />
+		<p th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">confirm error</p>
+
 		<label for="captcha">captcha:</label>
 		<input type="text" th:field="*{captcha}" />
-		<img alt="captcha" src="/captcha-image.html"/>
+		<img id='captchaImg' alt="captcha" src="/captcha/img"/>
+ 	   	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 		<input type="submit"/>
 	</form>
 </body>
