@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,12 +21,6 @@ import com.sj.web.security.SiteUserContext;
 public class LoginController {
 	@Autowired
 	private SiteUserContext userContext;
-
-	@Value("${signup.captcha}")
-	private String SIGNUP_CAPTCHA;
-
-	@Value("${signup.confirm}")
-	private String SIGNUP_CONFIRM;
 
 	private final String LOGIN = "login";
 	private final String SIGNUP = "user/signup";
@@ -63,12 +57,10 @@ public class LoginController {
 		String kaptcha = (String) session
 				.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		if (!StringUtils.equals(form.getPassword(), form.getConfirm())) {
-			result.addError(new FieldError("SignupForm", "confirm",
-					SIGNUP_CONFIRM));
+			result.addError(new FieldError("SignupForm", "confirm", "两次密码输入不一致"));
 		}
 		if (!StringUtils.equals(form.getCaptcha(), kaptcha)) {
-			result.addError(new FieldError("SignupForm", "captcha",
-					SIGNUP_CAPTCHA));
+			result.addError(new FieldError("SignupForm", "captcha", "请输入正确的验证码"));
 		}
 	}
 
