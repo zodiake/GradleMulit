@@ -1,6 +1,9 @@
 package com.sj.repository.util;
 
+import javax.validation.constraints.Size;
+
 public class SignupForm {
+	@Size(min = 4, max = 10)
 	private String name;
 	private String password;
 	private String confirm;

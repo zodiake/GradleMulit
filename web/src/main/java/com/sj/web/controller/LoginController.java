@@ -1,10 +1,10 @@
 package com.sj.web.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +39,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signupProcess(@ModelAttribute("form") SignupForm form,
+	public String signupProcess(@Valid @ModelAttribute("form") SignupForm form,
 			BindingResult result, HttpSession session, Model uiModel) {
 		validateSignupForm(form, result, session);
 		if (result.hasErrors()) {

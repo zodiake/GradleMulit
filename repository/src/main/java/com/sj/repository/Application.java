@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -29,5 +30,10 @@ public class Application {
 		Config config = new Config(properties);
 		kaptcha.setConfig(config);
 		return kaptcha;
+	}
+
+	@Bean
+	public javax.validation.Validator localValidatorFactoryBean() {
+	   return new LocalValidatorFactoryBean();
 	}
 }

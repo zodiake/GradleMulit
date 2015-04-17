@@ -16,5 +16,6 @@ dependencies {
    	compile("com.google.guava:guava:18.0")
    	runtime("com.h2database:h2")
    	compile('org.google:captcha:2.3.2')
+   	compile("org.hibernate:hibernate-validator")
    	compile project(":model")
 }

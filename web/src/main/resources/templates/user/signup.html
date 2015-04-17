@@ -20,6 +20,8 @@ $(function(){
 	<form th:action="@{/signup}" th:object="${form}" method="post" action="#">
 		<label for="name">name:</label>
 		<input type="text" th:field="*{name}" />
+		<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</p>
+
 		<label for="password">password:</label>
 		<input type="text" th:field="*{password}" />
 
