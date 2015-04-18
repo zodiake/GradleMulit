@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+@EnableConfigurationProperties
 @SpringBootApplication
 @Import(value = {com.sj.repository.Application.class,
         com.sj.model.Application.class})
