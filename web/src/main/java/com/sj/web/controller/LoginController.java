@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.code.kaptcha.Constants;
 import com.sj.model.model.SiteUser;
@@ -47,6 +48,7 @@ public class LoginController {
 	@Value("${login.oldPasswordError}")
 	private String oldPasswordError;
 
+	/*login and signup logic*/
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		return LOGIN;
@@ -86,7 +88,9 @@ public class LoginController {
 					captchaError));
 		}
 	}
+	/*end login and signup logic*/
 
+	/*user change password feature*/
 	@RequestMapping(value = {"/provider/changePw","/manufacture/changePw"}, method = RequestMethod.GET)
 	public String editPassword(Model uiModel) {
 		uiModel.addAttribute("form", new ChangePasswordForm());
@@ -127,5 +131,18 @@ public class LoginController {
 			result.addError(new FieldError("ChangePasswordForm","confirmPassword",passwordError));
 		}
 	}
+	/*end user change password feature*/
+	
+	/*forget password*/
+	@RequestMapping(value={"/provider/forgetPw","/manufacture/forgetPw"},method=RequestMethod.GET)
+	public String forgetPw(@RequestParam("captcha")String captcha){
+		//todo
+		return "index";
+	}
+	
+	private void sendCaptcha(){
+		
+	}
+	/*end forget password*/
 
 }
