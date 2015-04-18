@@ -5,4 +5,5 @@ import com.sj.model.type.ActivateEnum;
 
 public interface SiteUserService {
 	public SiteUser findByNameAndEnabled(String name,ActivateEnum activate);
+	public SiteUser updatePassword(int id,String newPassword);
 }

@@ -29,6 +29,16 @@ public class CaptchaController {
 
 		sendImg(session, response);
 	}
+	@RequestMapping(value = "/captcha/text", method = RequestMethod.GET)
+	public void captchaText(HttpSession session){
+		String captcha=captchaService.createStringCaptcha();
+		session.setAttribute("captcha", captcha);
+		sendText();
+	}
+
+	private void sendText(){
+		//todo
+	}
 
 	private void sendImg(HttpSession session, HttpServletResponse response) {
 
@@ -45,7 +55,7 @@ public class CaptchaController {
 		response.setContentType("image/jpeg");
 
 		// create the text for the image
-		TextCaptcha textCaptcha = captchaService.createCaptcha();
+		TextCaptcha textCaptcha = captchaService.createImgCaptcha();
 
 		String capText = textCaptcha.getText();
 

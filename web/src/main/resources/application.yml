@@ -13,8 +13,9 @@ server:
   tomcat.uri-encoding: UTF-8
 
 login:
-  passwordValid: 两次密码输入不一致
-  captchaValid: 请输入正确的验证码
+  passwordError: 两次密码输入不一致
+  captchaError: 请输入正确的验证码
+  oldPasswordError: 原密码错误
 
 ---
 spring:

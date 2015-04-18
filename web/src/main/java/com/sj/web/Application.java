@@ -41,7 +41,7 @@ public class Application {
                     .antMatchers("/provider/**").hasRole("PROVIDER")
                     .antMatchers("/manufacturer/**").hasRole("MANUFACTURER")
                     .anyRequest().permitAll().and().formLogin()
-                    .defaultSuccessUrl("/home")
+                    .defaultSuccessUrl("/index")
                     .usernameParameter("name").passwordParameter("password")
                     .loginPage("/login").failureUrl("/login?error")
                     .permitAll();
