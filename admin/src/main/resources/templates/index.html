@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Hello Spring Boot!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-
+	<p>Hello Spring Boot!</p>
+	<ul th:each="user : ${lists.content}">
+		<li th:text="${user.name}">1</li>
+	</ul>
 </body>
 </html>

@@ -1,6 +1,18 @@
 package com.sj.model.model;
 
-import javax.persistence.*;
+import java.util.Calendar;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.sj.model.type.ActivateEnum;
 
@@ -21,6 +33,9 @@ public class SiteUser {
 
 	@Enumerated
 	private ActivateEnum enabled;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar createdTime;
 
 	public int getId() {
 		return id;
@@ -60,6 +75,14 @@ public class SiteUser {
 
 	public void setSiteAuthority(String siteAuthority) {
 		this.siteAuthority = siteAuthority;
+	}
+	
+	public Calendar getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
 	}
 
 	@Override

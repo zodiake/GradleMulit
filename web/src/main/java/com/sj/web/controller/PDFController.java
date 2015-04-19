@@ -6,6 +6,9 @@ import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,7 +22,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class PDFController {
 
 	@RequestMapping(value = { "/provider/exportPDF", "/manufacture/exportPDF" })
-	public void exportPDF(HttpServletResponse response) {
+	public HttpEntity<byte[]> exportPDF(HttpServletResponse response) {
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		Document document = new Document(PageSize.LETTER, 0.75F, 0.75F, 0.75F,
 				0.75F);
@@ -31,8 +34,13 @@ public class PDFController {
 			response.setContentType("application/pdf");
 			OutputStream out=response.getOutputStream();
 			byteArrayOutputStream.writeTo(out);
-			out.flush();
-			out.close();
+			byte[] byte1=byteArrayOutputStream.toByteArray();
+			HttpHeaders header = new HttpHeaders();
+		    header.setContentType(new MediaType("application", "pdf"));
+		    header.set("Content-Disposition", "attachment; filename=a.pdf ");
+		    header.setContentLength(byte1.length);
+
+		    return new HttpEntity<byte[]>(byte1, header);
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,5 +48,6 @@ public class PDFController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 }
