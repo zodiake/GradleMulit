@@ -12,7 +12,6 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
 	public String view() {
 		return "";
