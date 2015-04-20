@@ -32,6 +32,7 @@ public class SiteUserServiceImpl implements SiteUserService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Page<SiteUser> findAll(Pageable pageable) {
 		Page<SiteUser> users = repository.findAll(pageable);
 		return users;

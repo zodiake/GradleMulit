@@ -6,12 +6,15 @@
 <script src="/js/jquery-1.11.2.min.js"></script>
 <script>
 	$(function() {
-		$('#captchaImg').click(function(event) {
-			event.preventDefault();
-			var self = $(this);
-			var clone = self.clone(true);
-			self.after(clone);
-			self.remove();
+		$('#approve').click(function(){
+			$.ajax({
+				type:'post',
+				url:'/checkUsers',
+				data:{id:0,state:1},
+				success:function(response){
+					console.log(response);
+				}
+			});
 		});
 	});
 </script>
@@ -20,5 +23,6 @@
 	<div th:object="${provider}">
 		<p th:text="*{name}"></p>
 	</div>	
+	<button id="approve">check</button>
 </body>
 </html>
