@@ -3,7 +3,6 @@ package com.sj.repository.service.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +32,20 @@ public class SiteUserServiceImpl implements SiteUserService {
 	}
 
 	@Override
-	public Page<SiteUser> findAll(Pageable pageable){
-		Page<SiteUser> users=repository.findAll(pageable);
+	public Page<SiteUser> findAll(Pageable pageable) {
+		Page<SiteUser> users = repository.findAll(pageable);
 		return users;
+	}
+
+	@Override
+	public void updateEnabledById(int id, int state) {
+		ActivateEnum stateEnum = ActivateEnum.values()[state];
+		repository.updateEnabled(stateEnum, id);
+	}
+
+	@Override
+	public SiteUser findOne(int id) {
+		return repository.findOne(id);
 	}
 
 }
