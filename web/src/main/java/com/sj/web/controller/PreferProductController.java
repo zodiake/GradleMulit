@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sj.model.model.SiteUser;
 import com.sj.repository.service.PreferProductService;
 import com.sj.web.security.UserContext;
 
@@ -20,7 +21,7 @@ public class PreferProductController {
 	@RequestMapping(value="/preferedProduct/{id}",method=RequestMethod.POST)
 	@ResponseBody
 	public String addPrefer(@PathVariable("id")String id){
-		
+		SiteUser user=userContext.getCurrnetUser();
 		return "success";
 	}
 
