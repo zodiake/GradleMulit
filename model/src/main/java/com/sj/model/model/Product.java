@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="product")
+@Table(name = "product")
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,6 +16,7 @@ public class Product {
 
 	private String desc;
 
+	@Column(name="cover_img")
 	private String coverImg;
 
 	private float price;
@@ -29,6 +30,9 @@ public class Product {
 	private Category category;
 
 	private String url;
+	
+	@ManyToMany(mappedBy="preferedProducts")
+	private Set<SiteUser> users;
 
 	public int getId() {
 		return id;

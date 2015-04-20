@@ -1,15 +1,20 @@
 package com.sj.model.model;
 
 import java.util.Calendar;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,14 +33,18 @@ public class SiteUser {
 
 	private String password;
 
-	@Column(name="site_Authority")
+	@Column(name = "site_Authority")
 	private String siteAuthority;
 
 	@Enumerated
 	private ActivateEnum enabled;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdTime;
+
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name = "prefered_products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private Set<Product> preferedProducts;
 
 	public int getId() {
 		return id;
@@ -60,7 +69,7 @@ public class SiteUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public ActivateEnum getEnabled() {
 		return enabled;
 	}
@@ -76,7 +85,7 @@ public class SiteUser {
 	public void setSiteAuthority(String siteAuthority) {
 		this.siteAuthority = siteAuthority;
 	}
-	
+
 	public Calendar getCreatedTime() {
 		return createdTime;
 	}
