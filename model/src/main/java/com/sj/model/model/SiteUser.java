@@ -6,15 +6,12 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,9 +39,15 @@ public class SiteUser {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdTime;
 
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name = "prefered_products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-	private Set<Product> preferedProducts;
+	@OneToMany(mappedBy="user")
+	private Set<PreferProduct> preferProducts;
+	
+	public SiteUser(){}
+
+	public SiteUser(int id) {
+		super();
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

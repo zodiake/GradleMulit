@@ -14,9 +14,9 @@ public class Product {
 
 	private String name;
 
-	private String desc;
+	private String description;
 
-	@Column(name="cover_img")
+	@Column(name = "cover_img")
 	private String coverImg;
 
 	private float price;
@@ -30,9 +30,13 @@ public class Product {
 	private Category category;
 
 	private String url;
-	
-	@ManyToMany(mappedBy="preferedProducts")
-	private Set<SiteUser> users;
+
+	@OneToMany(mappedBy = "product")
+	private Set<PreferProduct> users;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MANUFACTURER_ID")
+	private Manufacturer manufacturer;
 
 	public int getId() {
 		return id;
@@ -50,12 +54,28 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Set<PreferProduct> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<PreferProduct> users) {
+		this.users = users;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 
 	public String getCoverImg() {

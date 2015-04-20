@@ -1,6 +1,10 @@
 package com.sj.model.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 /**
@@ -8,5 +12,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
  */
 @Entity
 @PrimaryKeyJoinColumn
-public class Manufacturer extends SiteUser{
+public class Manufacturer extends SiteUser {
+
+	@OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY)
+	private Set<Product> products;
 }
