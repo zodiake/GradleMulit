@@ -5,7 +5,7 @@
     <title>Insert title here</title>
 </head>
 <body>
-<form action="/login" method="post">
+<form action="/loginProcess" method="post">
     <input type="text" name="name" value="" placeholder="Username"/>
     <input type="password" name="password" placeholder="Password"/>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>

@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.annotation.Order;
@@ -30,6 +31,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    @Configuration
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected static class SecurityConfig extends WebSecurityConfigurerAdapter {
         @Resource
@@ -41,7 +43,8 @@ public class Application {
                     .antMatchers("/provider/**").hasRole("PROVIDER")
                     .antMatchers("/manufacturer/**").hasRole("MANUFACTURER")
                     .anyRequest().permitAll().and().formLogin()
-                    .defaultSuccessUrl("/index")
+                    .defaultSuccessUrl("/index",true)
+                    .loginProcessingUrl("/loginProcess")
                     .usernameParameter("name").passwordParameter("password")
                     .loginPage("/login").failureUrl("/login?error")
                     .permitAll();

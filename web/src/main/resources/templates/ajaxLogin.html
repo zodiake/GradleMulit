@@ -1,22 +1,22 @@
 <script>
 	$('#ajaxLogin').on('submit', function(event) {
+		event.preventDefult();
 		$(this).serialize();
 		$.ajax({
-			url:'/login',
-			type:'post',
-			data:$(this).serialize()
+			url : '/login',
+			type : 'post',
+			data : $(this).serialize()
 		});
 	});
-	$('#button').click(function(){
+	$('#button').click(function() {
 		alert(22);
-	});
+	}); 
 </script>
 <form id="ajaxLogin" action="/login" method="post">
 	<input type="text" name="name" value="" placeholder="Username" />
-	<input type="password" name="password" placeholder="Password" /> 
-	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
+	<input type="password" name="password" placeholder="Password" />
+	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 	<input type="submit" />
 	<div th:if="${param.error}"
-		th:text="#{AbstractUserDetailsAuthenticationProvider.badCredentials}">
-	</div>
+	th:text="#{AbstractUserDetailsAuthenticationProvider.badCredentials}"></div>
 </form>
