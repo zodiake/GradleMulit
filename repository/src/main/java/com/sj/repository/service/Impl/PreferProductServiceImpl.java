@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.PreferProduct;
+import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.repository.PreferProductRepository;
 import com.sj.repository.service.PreferProductService;
@@ -27,4 +28,17 @@ public class PreferProductServiceImpl implements PreferProductService {
 		return preferProducts;
 	}
 
+	@Override
+	public PreferProduct save(PreferProduct product) {
+		return repository.save(product);
+	}
+
+	@Override
+	public boolean isDuplicateProduct(SiteUser user, Product product) {
+		Long l = repository.countByUserAndProduct(user, product);
+		if (l == 0l)
+			return false;
+		else
+			return true;
+	}
 }

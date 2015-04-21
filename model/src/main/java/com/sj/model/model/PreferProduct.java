@@ -82,8 +82,7 @@ public class PreferProduct {
 	public PreferProduct() {
 	}
 
-	public PreferProduct(Calendar dateAdded, SiteUser user, Product product) {
-		this.dateAdded = dateAdded;
+	public PreferProduct(SiteUser user, Product product) {
 		this.user = user;
 		this.product = product;
 		this.id.productId = product.getId();

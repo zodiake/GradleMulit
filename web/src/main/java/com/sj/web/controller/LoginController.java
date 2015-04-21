@@ -38,20 +38,26 @@ public class LoginController {
 	private final String SIGNUP = "user/signup";
 	private final String HOME = "index";
 	private final String CHANGEPASSWORD = "user/changePassword";
+	private final String AJAXLOGIN = "ajaxLogin";
 
 	@Value("${login.passwordError}")
 	private String passwordError;
 
 	@Value("${login.captchaError}")
 	private String captchaError;
-	
+
 	@Value("${login.oldPasswordError}")
 	private String oldPasswordError;
 
-	/*login and signup logic*/
+	/* login and signup logic */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		return LOGIN;
+	}
+
+	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.GET)
+	public String ajaxLogin() {
+		return AJAXLOGIN;
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -88,61 +94,68 @@ public class LoginController {
 					captchaError));
 		}
 	}
-	/*end login and signup logic*/
 
-	/*user change password feature*/
-	@RequestMapping(value = {"/provider/changePw","/manufacture/changePw"}, method = RequestMethod.GET)
+	/* end login and signup logic */
+
+	/* user change password feature */
+	@RequestMapping(value = { "/provider/changePw", "/manufacture/changePw" }, method = RequestMethod.GET)
 	public String editPassword(Model uiModel) {
 		uiModel.addAttribute("form", new ChangePasswordForm());
 		return CHANGEPASSWORD;
 	}
 
-	@RequestMapping(value = {"/provider/changePw","/manufacture/changePw"}, method = RequestMethod.POST)
+	@RequestMapping(value = { "/provider/changePw", "/manufacture/changePw" }, method = RequestMethod.POST)
 	public String processPassword(
 			@Valid @ModelAttribute("form") ChangePasswordForm form,
 			BindingResult result, Model uiModel) {
 		SiteUser user = userContext.getCurrnetUser();
 
-		form=translatePassword(form);
+		form = translatePassword(form);
 
-		validateChangePassword(user,form,result);
-		if(result.hasErrors()){
-			uiModel.addAttribute("form",new ChangePasswordForm());
+		validateChangePassword(user, form, result);
+		if (result.hasErrors()) {
+			uiModel.addAttribute("form", new ChangePasswordForm());
 			return CHANGEPASSWORD;
 		}
 		userService.updatePassword(user.getId(), form.getNewPassword());
-		//todo
+		// todo
 		return "index";
 	}
-	
-	private ChangePasswordForm translatePassword(ChangePasswordForm form){
-		ChangePasswordForm temp=new ChangePasswordForm();
+
+	private ChangePasswordForm translatePassword(ChangePasswordForm form) {
+		ChangePasswordForm temp = new ChangePasswordForm();
 		temp.setOldPassword(encoder.encodePassword(form.getOldPassword(), null));
 		temp.setNewPassword(encoder.encodePassword(form.getNewPassword(), null));
-		temp.setConfirmPassword(encoder.encodePassword(form.getConfirmPassword(), null));
+		temp.setConfirmPassword(encoder.encodePassword(
+				form.getConfirmPassword(), null));
 		return temp;
 	}
 
-	private void validateChangePassword(SiteUser user,ChangePasswordForm form,BindingResult result){
-		if(!StringUtils.equals(user.getPassword(),form.getOldPassword())){
-			result.addError(new FieldError("ChangePasswordForm","oldPassword",oldPasswordError));
+	private void validateChangePassword(SiteUser user, ChangePasswordForm form,
+			BindingResult result) {
+		if (!StringUtils.equals(user.getPassword(), form.getOldPassword())) {
+			result.addError(new FieldError("ChangePasswordForm", "oldPassword",
+					oldPasswordError));
 		}
-		if(!StringUtils.equals(form.getNewPassword(), form.getConfirmPassword())){
-			result.addError(new FieldError("ChangePasswordForm","confirmPassword",passwordError));
+		if (!StringUtils.equals(form.getNewPassword(),
+				form.getConfirmPassword())) {
+			result.addError(new FieldError("ChangePasswordForm",
+					"confirmPassword", passwordError));
 		}
 	}
-	/*end user change password feature*/
-	
-	/*forget password*/
-	@RequestMapping(value={"/provider/forgetPw","/manufacture/forgetPw"},method=RequestMethod.GET)
-	public String forgetPw(@RequestParam("captcha")String captcha){
-		//todo
+
+	/* end user change password feature */
+
+	/* forget password */
+	@RequestMapping(value = { "/provider/forgetPw", "/manufacture/forgetPw" }, method = RequestMethod.GET)
+	public String forgetPw(@RequestParam("captcha") String captcha) {
+		// todo
 		return "index";
 	}
-	
-	private void sendCaptcha(){
-		
+
+	private void sendCaptcha() {
+
 	}
-	/*end forget password*/
+	/* end forget password */
 
 }
