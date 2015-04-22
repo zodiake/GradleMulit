@@ -42,9 +42,11 @@ create table product(
 	foreign key (MANUFACTURER_ID) references site_user(id)
 );
 
-create table subject_product(
+create table product_subject(
 	product_id int,
 	subject_id int,
+	added_on timestamp,
+	sort_order int,
 	primary key(product_id,subject_id),
 	foreign key(product_id) references product(id),
 	foreign key(subject_id) references subject(id)

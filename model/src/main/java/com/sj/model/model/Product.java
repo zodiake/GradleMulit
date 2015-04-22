@@ -21,9 +21,8 @@ public class Product {
 
 	private float price;
 
-	@ManyToMany
-	@JoinTable(name = "subject_product", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
-	private Set<Subject> subjects;
+	@OneToMany(mappedBy = "product")
+	private Set<ProductSubject> productSubjects;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
@@ -94,12 +93,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public Set<Subject> getSubjects() {
-		return subjects;
+	public Set<ProductSubject> getProductSubjects() {
+		return productSubjects;
 	}
 
-	public void setSubjects(Set<Subject> subjects) {
-		this.subjects = subjects;
+	public void setProductSubjects(Set<ProductSubject> productSubjects) {
+		this.productSubjects = productSubjects;
 	}
 
 	public Category getCategory() {

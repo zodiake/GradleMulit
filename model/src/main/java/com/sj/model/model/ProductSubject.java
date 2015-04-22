@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,8 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "prefer_products")
-public class PreferProduct {
+@Table(name = "product_subject")
+public class ProductSubject {
 	@Embeddable
 	public static class Id implements Serializable {
 
@@ -74,23 +75,31 @@ public class PreferProduct {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateAdded;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-	private SiteUser user;
+	@Column(name="sort_order")
+	private int sortOrder;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "subject_id", insertable = false, updatable = false)
+	private Subject subject;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", insertable = false, updatable = false)
 	private Product product;
 
-	public PreferProduct() {
+	public ProductSubject() {
 	}
 
-	public PreferProduct(SiteUser user, Product product) {
-		this.user = user;
+	public ProductSubject(Product product, Subject subject) {
 		this.product = product;
-		this.id.productId = product.getId();
-		this.id.userId = user.getId();
+		this.subject = subject;
+	}
 
+	public Id getId() {
+		return id;
+	}
+
+	public void setId(Id id) {
+		this.id = id;
 	}
 
 	public Calendar getDateAdded() {
@@ -101,12 +110,12 @@ public class PreferProduct {
 		this.dateAdded = dateAdded;
 	}
 
-	public SiteUser getUser() {
-		return user;
+	public Subject getSubject() {
+		return subject;
 	}
 
-	public void setUser(SiteUser user) {
-		this.user = user;
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 
 	public Product getProduct() {
@@ -115,6 +124,14 @@ public class PreferProduct {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public int getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(int sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 
 	@Override
@@ -133,7 +150,7 @@ public class PreferProduct {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PreferProduct other = (PreferProduct) obj;
+		ProductSubject other = (ProductSubject) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -1,14 +1,19 @@
 package com.sj.model.model;
 
+import java.util.Calendar;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.sj.model.type.ActivateEnum;
 
@@ -27,8 +32,11 @@ public class Subject {
 	@Enumerated
 	private ActivateEnum activate;
 
-	@ManyToMany(mappedBy = "subjects")
-	private Set<Product> products;
+	@OneToMany(mappedBy="subject",fetch=FetchType.LAZY,cascade={CascadeType.PERSIST})
+	private Set<ProductSubject> productSubject;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar createdTime;
 
 	public int getId() {
 		return id;
@@ -62,12 +70,20 @@ public class Subject {
 		this.activate = activate;
 	}
 
-	public Set<Product> getProducts() {
-		return products;
+	public Set<ProductSubject> getProductSubject() {
+		return productSubject;
 	}
 
-	public void setProducts(Set<Product> products) {
-		this.products = products;
+	public void setProductSubject(Set<ProductSubject> productSubject) {
+		this.productSubject = productSubject;
+	}
+	
+	public Calendar getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
 	}
 
 	@Override
