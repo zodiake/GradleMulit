@@ -6,12 +6,10 @@ import javax.validation.Valid;
 import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,11 +72,15 @@ public class LoginController {
 	public String ajaxLogin(
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "password", required = true) String password) {
-		SiteUser details = (SiteUser) userDetailsService
-				.loadUserByUsername(name);
-		if (details == null)
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+				name, password);
+		try {
+			authenticationManager.authenticate(token);
+		} catch (BadCredentialsException exception) {
 			return "fail";
-		userContext.setCurrentUser(details);
+		}
+		SiteUser user = (SiteUser) userDetailsService.loadUserByUsername(name);
+		userContext.setCurrentUser(user);
 		return "success";
 	}
 

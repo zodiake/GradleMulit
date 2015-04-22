@@ -31,14 +31,8 @@ public class PreferProductController {
 	@RequestMapping(value = "/user/preferProduct/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public String addPrefer(@PathVariable("id") int id) {
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-		if (authentication.getPrincipal() instanceof String) {
-			String principal = (String) authentication.getPrincipal();
-			if (principal.equals("anonymousUser")) {
-				return "login";
-			}
-		}
+		if (!userContext.isLogin())
+			return "login";
 		SiteUser user = userContext.getCurrnetUser();
 		Product product = productService.findOne(id);
 		if (product == null)

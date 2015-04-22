@@ -1,17 +1,3 @@
-<script>
-	$('#ajaxLogin').on('submit', function(event) {
-		event.preventDefult();
-		$(this).serialize();
-		$.ajax({
-			url : '/login',
-			type : 'post',
-			data : $(this).serialize()
-		});
-	});
-	$('#button').click(function() {
-		alert(22);
-	}); 
-</script>
 <form id="ajaxLogin" action="/login" method="post">
 	<input type="text" name="name" value="" placeholder="Username" />
 	<input type="password" name="password" placeholder="Password" />

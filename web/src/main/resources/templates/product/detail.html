@@ -1,68 +1,71 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8"></meta>
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-<title>Insert title here</title>
-<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
-<script>
-	$(function() {
+	<head>
+		<meta charset="UTF-8">
+		</meta>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<title>Insert title here</title>
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script>
+			$(function() {
 
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		var id = $("meta[name='id']").attr("content");
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				var id = $("meta[name='id']").attr("content");
 
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader(header, token);
-		});
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
 
-		$('#addPrefer').click(function(event) {
-			var productId = $(this).attr('data-id');
-			event.preventDefault();
-			$.ajax({
-				url : '/user/preferProduct/' + productId,
-				type : 'post',
-				data : {
-					id : productId
-				},
-				success : function(text) {
-					if(text=='login')
-						$.ajax({
-							url:'/ajaxLogin',
-							success:function(text){
-								$('body').append($(text));
+				$('#addPrefer').click(function(event) {
+					var productId = $(this).attr('data-id');
+					event.preventDefault();
+					$.ajax({
+						url : '/user/preferProduct/' + productId,
+						type : 'post',
+						data : {
+							id : productId
+						},
+						success : function(text) {
+							if (text == 'login') {
+								$.ajax({
+									url : '/ajaxLogin',
+									success : function(text) {
+										$('#loginForm').append($(text));
+									}
+								});
 							}
-						});
-				},
-				error:function(){
-					alert(22);
-				}
+						},
+						error : function() {
+							alert(22);
+						}
+					});
+				});
+				$('#loginForm').on('submit', 'form', function(event) {
+					event.preventDefault();
+					$.ajax({
+						url : '/ajaxLogin',
+						type : 'post',
+						data : $(this).serialize()
+					});
+					return false;
+				});
 			});
-		});
-		$('#ajaxLogin').on('submit', function(event) {
-			alert(22);
-			$.ajax({
-				url:'/ajaxLogin',
-				type:'post',
-				data:$(this).serialize()
-			});
-			return false;
-		});
-	});
-</script>
-</head>
-<body>
-	<div th:object="${product}">
-		<p th:text="*{id}">id</p>
-		<p th:text="*{name}">id</p>
-		<button id="addPrefer" th:attr="data-id=*{id}">click</button>
-	</div>
-	<form id="ajaxLogin">
-        <input type="text" name="name" value="" placeholder="Username" />
-        <input type="password" name="password" placeholder="Password" /> 
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
-	<input type="submit" />
-	</form>
-</body>
+		</script>
+	</head>
+	<body>
+		<div th:object="${product}">
+			<p th:text="*{id}">
+				id
+			</p>
+			<p th:text="*{name}">
+				id
+			</p>
+			<button id="addPrefer" th:attr="data-id=*{id}">
+				click
+			</button>
+		</div>
+		<div id="loginForm"></div>
+	</body>
 </html>

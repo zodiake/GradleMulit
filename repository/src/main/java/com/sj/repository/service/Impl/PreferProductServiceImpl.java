@@ -30,12 +30,16 @@ public class PreferProductServiceImpl implements PreferProductService {
 
 	@Override
 	public PreferProduct save(PreferProduct product) {
+		SiteUser user=product.getUser();
+		SiteUser temp=new SiteUser(user.getId());
+		product.setUser(temp);
 		return repository.save(product);
 	}
 
 	@Override
 	public boolean isDuplicateProduct(SiteUser user, Product product) {
-		Long l = repository.countByUserAndProduct(user, product);
+		SiteUser temp=new SiteUser(user.getId());
+		Long l = repository.countByUserAndProduct(temp, product);
 		if (l == 0l)
 			return false;
 		else
