@@ -33,9 +33,11 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private Set<PreferProduct> users;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MANUFACTURER_ID")
-	private Manufacturer manufacturer;
+	private String manufacturer;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="creted_by")
+	private SiteUser createdBy;
 
 	public int getId() {
 		return id;
@@ -69,11 +71,11 @@ public class Product {
 		this.users = users;
 	}
 
-	public Manufacturer getManufacturer() {
+	public String getManufacturer() {
 		return manufacturer;
 	}
 
-	public void setManufacturer(Manufacturer manufacturer) {
+	public void setManufacturer(String manufacturer) {
 		this.manufacturer = manufacturer;
 	}
 
@@ -115,6 +117,14 @@ public class Product {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public SiteUser getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(SiteUser createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	@Override

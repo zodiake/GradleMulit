@@ -1,8 +1,6 @@
 package com.sj.web.security;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.sj.web.util.AuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;

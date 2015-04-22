@@ -36,10 +36,11 @@ create table product(
 	category_id int,
 	price float,
 	url varchar(50),
-	MANUFACTURER_ID int,
+	MANUFACTURER varchar(40),
+	created_by int ,
 	primary key(id),
 	foreign key (category_id) references category(id),
-	foreign key (MANUFACTURER_ID) references site_user(id)
+	foreign key (created_by) references site_user(id)
 );
 
 create table product_subject(

@@ -1,7 +1,5 @@
 package com.sj.web.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,7 +35,6 @@ public class SiteUserController extends BaseController {
 		SiteUser user = userContext.getCurrnetUser();
 		Page<PreferProduct> lists=preferProductService.findByUser(user, new PageRequest(page-1, size,
 				Direction.DESC, "dateAdded"));
-		List<PreferProduct> results=lists.getContent();
 		uiModel.addAttribute("lists", lists);
 		return PREFEREPRODUCTS;
 	}

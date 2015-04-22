@@ -14,10 +14,17 @@ insert into provider(id) values(1);
 insert into provider(id) values(2);
 
 --test product
-insert into product(id,name,description,cover_Img,price,url,category_id,MANUFACTURER_ID) values(1,'product1','desc1','',10.0,'/product/1',1,1);
-insert into product(id,name,description,cover_Img,price,url,category_id,MANUFACTURER_ID) values(2,'product2','desc1','',10.0,'/product/2',2,1);
-insert into product(id,name,description,cover_Img,price,url,category_id,MANUFACTURER_ID) values(3,'product3','desc1','',10.0,'/product/3',3,1);
-insert into product(id,name,description,cover_Img,price,url,category_id,MANUFACTURER_ID) values(4,'product4','desc1','',10.0,'/product/4',1,1);
+--tom product
+insert into product(id,name,description,cover_Img,price,url,category_id,created_by) values(1,'product1','desc1','',10.0,'/product/1',1,1);
+insert into product(id,name,description,cover_Img,price,url,category_id,created_by) values(2,'product2','desc1','',10.0,'/product/2',2,1);
+insert into product(id,name,description,cover_Img,price,url,category_id,created_by) values(3,'product3','desc1','',10.0,'/product/3',3,1);
+insert into product(id,name,description,cover_Img,price,url,category_id,created_by) values(4,'product4','desc1','',10.0,'/product/4',1,1);
+
+--mary2 product
+insert into product(id,name,description,cover_Img,price,url,category_id,created_by) values(5,'product5','desc1','',10.0,'/product/5',1,2);
+insert into product(id,name,description,cover_Img,price,url,category_id,created_by) values(6,'product6','desc1','',10.0,'/product/6',2,2);
+insert into product(id,name,description,cover_Img,price,url,category_id,created_by) values(7,'product7','desc1','',10.0,'/product/7',3,2);
+insert into product(id,name,description,cover_Img,price,url,category_id,created_by) values(8,'product8','desc1','',10.0,'/product/8',1,2);
 
 --test product_category
 insert into prefer_products(user_id,product_id) values(1,1);
