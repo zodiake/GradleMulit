@@ -47,6 +47,7 @@ public class Application {
                     .loginProcessingUrl("/loginProcess")
                     .usernameParameter("name").passwordParameter("password")
                     .loginPage("/login").failureUrl("/login?error")
+                    .and().logout().logoutSuccessUrl("/index").logoutUrl("/logout")
                     .permitAll();
         }
 

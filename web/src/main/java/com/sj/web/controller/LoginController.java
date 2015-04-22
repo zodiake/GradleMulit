@@ -7,7 +7,12 @@ import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
 import com.sj.model.model.SiteUser;
@@ -25,7 +31,6 @@ import com.sj.repository.util.SignupForm;
 import com.sj.web.security.SiteUserContext;
 
 @Controller
-@ConfigurationProperties(prefix = "login")
 public class LoginController {
 	@Autowired
 	private SiteUserContext userContext;
@@ -33,6 +38,10 @@ public class LoginController {
 	private ShaPasswordEncoder encoder;
 	@Autowired
 	private SiteUserService userService;
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	private final String LOGIN = "login";
 	private final String SIGNUP = "user/signup";
@@ -56,8 +65,21 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.GET)
-	public String ajaxLogin() {
+	public String ajaxLoginPage() {
 		return AJAXLOGIN;
+	}
+
+	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String ajaxLogin(
+			@RequestParam(value = "name", required = true) String name,
+			@RequestParam(value = "password", required = true) String password) {
+		SiteUser details = (SiteUser) userDetailsService
+				.loadUserByUsername(name);
+		if (details == null)
+			return "fail";
+		userContext.setCurrentUser(details);
+		return "success";
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
