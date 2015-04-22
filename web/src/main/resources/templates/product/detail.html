@@ -19,8 +19,8 @@
 				});
 
 				$('#addPrefer').click(function(event) {
-					var productId = $(this).attr('data-id');
 					event.preventDefault();
+					var productId = $(this).attr('data-id');
 					$.ajax({
 						url : '/user/preferProduct/' + productId,
 						type : 'post',
@@ -42,6 +42,7 @@
 						}
 					});
 				});
+
 				$('#loginForm').on('submit', 'form', function(event) {
 					event.preventDefault();
 					$.ajax({
