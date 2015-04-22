@@ -24,6 +24,7 @@ create table site_user(
 	enabled smallint,
 	site_authority varchar(20),
 	created_time timestamp,
+	authenticated_time timestamp,
 	primary key(id)
 );
 

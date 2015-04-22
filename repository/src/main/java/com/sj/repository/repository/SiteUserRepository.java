@@ -1,5 +1,7 @@
 package com.sj.repository.repository;
 
+import java.util.Calendar;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,6 +19,6 @@ public interface SiteUserRepository extends
 	public Page<SiteUser> findAll(Pageable pageable);
 	
 	@Modifying	
-	@Query("update SiteUser u set u.enabled=:enabled where u.id=:id")
-	public void updateEnabled(@Param("enabled")ActivateEnum state,@Param("id")int id);
+	@Query("update SiteUser u set u.enabled=:enabled,u.authenticatedTime=:time where u.id=:id")
+	public void updateEnabled(@Param("enabled")ActivateEnum state,@Param("time")Calendar time,@Param("id")int id);
 }

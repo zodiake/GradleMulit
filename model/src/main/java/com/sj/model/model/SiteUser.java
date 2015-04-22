@@ -37,7 +37,12 @@ public class SiteUser {
 	private ActivateEnum enabled;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_time")
 	private Calendar createdTime;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="authenticated_time")
+	private Calendar authenticatedTime;
 
 	@OneToMany(mappedBy="user")
 	private Set<PreferProduct> preferProducts;
@@ -95,6 +100,22 @@ public class SiteUser {
 
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
+	}
+	
+	public Calendar getAuthenticatedTime() {
+		return authenticatedTime;
+	}
+
+	public void setAuthenticatedTime(Calendar authenticatedTime) {
+		this.authenticatedTime = authenticatedTime;
+	}
+
+	public Set<PreferProduct> getPreferProducts() {
+		return preferProducts;
+	}
+
+	public void setPreferProducts(Set<PreferProduct> preferProducts) {
+		this.preferProducts = preferProducts;
 	}
 
 	@Override
