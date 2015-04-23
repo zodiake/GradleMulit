@@ -42,9 +42,6 @@ public class Category {
 
 	private String createdBy;
 
-	@OneToMany(mappedBy = "category")
-	private Set<Product> products;
-
 	public int getId() {
 		return id;
 	}
@@ -99,14 +96,6 @@ public class Category {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	public Set<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<Product> products) {
-		this.products = products;
 	}
 
 	@Override

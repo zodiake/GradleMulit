@@ -42,6 +42,31 @@
 						}
 					});
 				});
+				
+				$('#addCart').click(function(event){
+					event.preventDefault();
+					var productId=$(this).attr('data-id');
+					$.ajax({
+						url : '/user/addCart/' + productId,
+						type : 'post',
+						data : {
+							id : productId
+						},
+						success : function(text) {
+							if (text == 'login') {
+								$.ajax({
+									url : '/ajaxLogin',
+									success : function(text) {
+										$('#loginForm').append($(text));
+									}
+								});
+							}
+						},
+						error : function() {
+							alert(22);
+						}
+					});
+				});
 
 				$('#loginForm').on('submit', 'form', function(event) {
 					event.preventDefault();
@@ -64,7 +89,10 @@
 				id
 			</p>
 			<button id="addPrefer" th:attr="data-id=*{id}">
-				click
+				addToPrefer
+			</button>
+			<button id="addCart" th:attr="data-id=*{id}">
+				addToCart
 			</button>
 		</div>
 		<div id="loginForm"></div>

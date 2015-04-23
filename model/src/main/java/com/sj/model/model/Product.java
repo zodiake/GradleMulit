@@ -24,18 +24,26 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private Set<ProductSubject> productSubjects;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id")
-	private Category category;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "first_category_id")
+	private Category firstCategory;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "second_category_id")
+	private Category secondCategory;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "third_category_id")
+	private Category thirdCategory;
 
 	private String url;
 
 	@OneToOne
-	@JoinColumn(name="brand_id")
+	@JoinColumn(name = "brand_id")
 	private Brand brand;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="created_by")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "created_by")
 	private Provider createdBy;
 
 	public int getId() {
@@ -62,7 +70,6 @@ public class Product {
 		this.description = description;
 	}
 
-
 	public String getCoverImg() {
 		return coverImg;
 	}
@@ -87,12 +94,28 @@ public class Product {
 		this.productSubjects = productSubjects;
 	}
 
-	public Category getCategory() {
-		return category;
+	public Category getFirstCategory() {
+		return firstCategory;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setFirstCategory(Category firstCategory) {
+		this.firstCategory = firstCategory;
+	}
+
+	public Category getSecondCategory() {
+		return secondCategory;
+	}
+
+	public void setSecondCategory(Category secondCategory) {
+		this.secondCategory = secondCategory;
+	}
+
+	public Category getThirdCategory() {
+		return thirdCategory;
+	}
+
+	public void setThirdCategory(Category thirdCategory) {
+		this.thirdCategory = thirdCategory;
 	}
 
 	public String getUrl() {
@@ -102,7 +125,7 @@ public class Product {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	public Brand getBrand() {
 		return brand;
 	}
