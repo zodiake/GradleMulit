@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
@@ -37,7 +38,8 @@ public class PreferProductController {
 			throw new ProductNotFoundException();
 		if (preferProductService.isDuplicateProduct(user, product))
 			return "duplicate";
-		PreferProduct preferProduct = new PreferProduct(user, product);
+		CommonUser u=new CommonUser(user.getId());
+		PreferProduct preferProduct = new PreferProduct(u, product);
 		preferProductService.save(preferProduct);
 		return "success";
 	}

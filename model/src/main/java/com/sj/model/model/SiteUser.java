@@ -39,8 +39,6 @@ public class SiteUser {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdTime;
 
-	@OneToMany(mappedBy="user")
-	private Set<PreferProduct> preferProducts;
 	
 	public SiteUser(){}
 

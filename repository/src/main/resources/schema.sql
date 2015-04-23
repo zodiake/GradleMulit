@@ -58,7 +58,7 @@ create TABLE provider(
 	FOREIGN KEY (id) REFERENCES site_user(id)
 );
 
-create table MANUFACTURER(
+create table common_user(
 	id int not null auto_increment,
 	primary key (id),
 	foreign key (id) references site_user(id)
@@ -69,7 +69,7 @@ create table prefer_products(
 	product_id int not null,
 	ADDED_ON timestamp,
 	primary key(user_id,product_id),
-	foreign key(user_id) references site_user(id),
+	foreign key(user_id) references common_user(id),
 	foreign key(product_id) references product(id)
 );
 

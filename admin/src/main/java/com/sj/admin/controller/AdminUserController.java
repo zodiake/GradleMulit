@@ -1,4 +1,4 @@
-package com.sj.web.controller;
+package com.sj.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.model.model.Manufacturer;
+import com.sj.admin.exception.UserNotFoundException;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
-import com.sj.repository.service.ManufacturerService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
-import com.sj.web.exception.UserNotFoundException;
 
 @Controller
 public class AdminUserController extends BaseController {
@@ -27,9 +25,6 @@ public class AdminUserController extends BaseController {
 
 	@Autowired
 	private ProviderService providerService;
-
-	@Autowired
-	private ManufacturerService manufacturerService;
 
 	private final String PROVIDERDETAIL = "user/providerDetail";
 	private final String MANUFACTURERDETAIL = "user/manufacturerDetail";
@@ -68,10 +63,6 @@ public class AdminUserController extends BaseController {
 
 	@RequestMapping(value = "/manufacturer/{id}", method = RequestMethod.GET)
 	public String viewManufacturer(@PathVariable("id") int id, Model uiModel) {
-		Manufacturer m = manufacturerService.findOne(id);
-		if (m == null)
-			throw new UserNotFoundException();
-		uiModel.addAttribute("manufacturer", m);
 		return MANUFACTURERDETAIL;
 	}
 }

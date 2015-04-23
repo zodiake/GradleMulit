@@ -1,9 +1,9 @@
-package com.sj.web.controller;
+package com.sj.admin.controller;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.sj.web.exception.UserNotFoundException;
+import com.sj.admin.exception.UserNotFoundException;
 
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {

@@ -1,4 +1,4 @@
-package com.sj.web.controller;
+package com.sj.admin.controller;
 
 import org.springframework.data.domain.Page;
 

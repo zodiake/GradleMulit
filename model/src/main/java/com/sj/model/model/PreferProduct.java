@@ -76,7 +76,7 @@ public class PreferProduct {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-	private SiteUser user;
+	private CommonUser user;
 
 	@ManyToOne
 	@JoinColumn(name = "product_id", insertable = false, updatable = false)
@@ -85,7 +85,7 @@ public class PreferProduct {
 	public PreferProduct() {
 	}
 
-	public PreferProduct(SiteUser user, Product product) {
+	public PreferProduct(CommonUser user, Product product) {
 		this.user = user;
 		this.product = product;
 		this.id.productId = product.getId();
@@ -101,11 +101,11 @@ public class PreferProduct {
 		this.dateAdded = dateAdded;
 	}
 
-	public SiteUser getUser() {
+	public CommonUser getUser() {
 		return user;
 	}
 
-	public void setUser(SiteUser user) {
+	public void setUser(CommonUser user) {
 		this.user = user;
 	}
 

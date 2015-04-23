@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import java.util.Calendar;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
@@ -21,7 +24,7 @@ public class PreferProductServiceImpl implements PreferProductService {
 
 	@Override
 	public Page<PreferProduct> findByUser(SiteUser user, Pageable pageable) {
-		SiteUser jpaUser = new SiteUser(user.getId());
+		CommonUser jpaUser = new CommonUser(user.getId());
 		Page<PreferProduct> preferProducts = repository.findByUser(jpaUser,
 				pageable);
 		preferProducts.forEach(p -> p.getProduct());
@@ -30,15 +33,16 @@ public class PreferProductServiceImpl implements PreferProductService {
 
 	@Override
 	public PreferProduct save(PreferProduct product) {
-		SiteUser user=product.getUser();
-		SiteUser temp=new SiteUser(user.getId());
+		SiteUser user = product.getUser();
+		CommonUser temp = new CommonUser(user.getId());
 		product.setUser(temp);
+		product.setDateAdded(Calendar.getInstance());
 		return repository.save(product);
 	}
 
 	@Override
 	public boolean isDuplicateProduct(SiteUser user, Product product) {
-		SiteUser temp=new SiteUser(user.getId());
+		CommonUser temp = new CommonUser(user.getId());
 		Long l = repository.countByUserAndProduct(temp, product);
 		if (l == 0l)
 			return false;

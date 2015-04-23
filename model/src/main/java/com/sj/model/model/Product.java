@@ -33,10 +33,6 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private Set<PreferProduct> users;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MANUFACTURER_ID")
-	private Manufacturer manufacturer;
-
 	public int getId() {
 		return id;
 	}
@@ -67,14 +63,6 @@ public class Product {
 
 	public void setUsers(Set<PreferProduct> users) {
 		this.users = users;
-	}
-
-	public Manufacturer getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
 	}
 
 	public String getCoverImg() {

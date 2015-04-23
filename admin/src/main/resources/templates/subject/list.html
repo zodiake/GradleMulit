@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+<form th:object="${state}">
+	<input type="radio" th:field="*{activateEnum}" value="ACTIVATE"/>1
+	<input type="radio" th:field="*{activateEnum}" value="DEACTIVATE"/>2
+	<input type="submit"/>
+</form>
+<div th:each="s:${lists}">
+	<p th:text="${s.name}"></p>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.sj.web.controller;
+package com.sj.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
