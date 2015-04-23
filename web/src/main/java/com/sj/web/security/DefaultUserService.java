@@ -29,6 +29,7 @@ public class DefaultUserService implements UserDetailsService {
 		return new SiteUserDetails(user);
 	}
 
+
 	private class SiteUserDetails extends SiteUser implements UserDetails {
 		/**
 		 * 

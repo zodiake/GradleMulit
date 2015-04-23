@@ -40,9 +40,10 @@ public class Application {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/provider/**")
-					.hasRole("PROVIDER").antMatchers("/manufacturer/**")
-					.hasRole("MANUFACTURER").anyRequest().permitAll().and()
+			http.authorizeRequests()
+				.antMatchers("/provider/**").hasRole("PROVIDER")
+				.antMatchers("/manufacturer/**").hasRole("MANUFACTURER")
+				.anyRequest().permitAll().and()
 					.formLogin().defaultSuccessUrl("/index", true)
 					.loginProcessingUrl("/loginProcess")
 					.usernameParameter("name").passwordParameter("password")

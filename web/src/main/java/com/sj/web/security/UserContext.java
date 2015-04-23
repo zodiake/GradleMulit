@@ -6,6 +6,6 @@ public interface UserContext {
 	SiteUser getCurrnetUser();
 
 	void setCurrentUser(SiteUser user);
-	
+
 	boolean isLogin();
 }
