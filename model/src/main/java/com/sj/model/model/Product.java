@@ -35,7 +35,7 @@ public class Product {
 	private Brand brand;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="creted_by")
+	@JoinColumn(name="created_by")
 	private Provider createdBy;
 
 	public int getId() {

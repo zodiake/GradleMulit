@@ -44,6 +44,7 @@ create table brand(
 	id int not null auto_increment,
 	name varchar(50),
 	created_time timestamp,
+	acitvate smallint,
 	primary key(id),
 );
 
