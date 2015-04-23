@@ -8,5 +8,5 @@ import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
 
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
-	Page<Product> findByUsers(SiteUser user,Pageable pageable);
+	Page<Product> findByCreatedBy(SiteUser user,Pageable pageable);
 }

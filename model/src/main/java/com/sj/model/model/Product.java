@@ -36,7 +36,7 @@ public class Product {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="creted_by")
-	private SiteUser createdBy;
+	private Provider createdBy;
 
 	public int getId() {
 		return id;
@@ -103,11 +103,19 @@ public class Product {
 		this.url = url;
 	}
 	
-	public SiteUser getCreatedBy() {
+	public Brand getBrand() {
+		return brand;
+	}
+
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+
+	public Provider getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(SiteUser createdBy) {
+	public void setCreatedBy(Provider createdBy) {
 		this.createdBy = createdBy;
 	}
 

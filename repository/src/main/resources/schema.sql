@@ -28,6 +28,18 @@ create table site_user(
 	primary key(id)
 );
 
+create TABLE provider(
+	id int NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (id) REFERENCES site_user(id)
+);
+
+create table common_user(
+	id int not null auto_increment,
+	primary key (id),
+	foreign key (id) references site_user(id)
+);
+
 create table brand(
 	id int not null auto_increment,
 	name varchar(50),
@@ -44,12 +56,12 @@ create table product(
 	category_id int,
 	price float,
 	url varchar(50),
-	MANUFACTURER_ID int,
 	brand_id int,
+	created_by int,
 	primary key(id),
 	foreign key (category_id) references category(id),
-	foreign key (MANUFACTURER_ID) references site_user(id),
-	foreign key (brand_id) references brand(id)
+	foreign key (brand_id) references brand(id),
+	foreign key (created_by) references provider(id)
 );
 
 create table consumable(
@@ -74,13 +86,6 @@ create table service(
 	id int not null,
 	primary key(id),
 	foreign key(id) references product(id)
-=======
-	MANUFACTURER varchar(40),
-	created_by int ,
-	primary key(id),
-	foreign key (category_id) references category(id),
-	foreign key (created_by) references site_user(id)
->>>>>>> 114451fe293db9a9a87c88be1637b1a39a89c7f0
 );
 
 create table product_subject(
@@ -93,17 +98,6 @@ create table product_subject(
 	foreign key(subject_id) references subject(id)
 );
 
-create TABLE provider(
-	id int NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY (id),
-	FOREIGN KEY (id) REFERENCES site_user(id)
-);
-
-create table common_user(
-	id int not null auto_increment,
-	primary key (id),
-	foreign key (id) references site_user(id)
-);
 
 create table prefer_products(
 	user_id int not null,

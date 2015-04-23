@@ -3,6 +3,7 @@ package com.sj.model.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -18,7 +19,7 @@ public class CommonUser extends SiteUser {
 		super(id);
 	}
 
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
 	private Set<PreferProduct> preferProducts;
 
 	public Set<PreferProduct> getPreferProducts() {
