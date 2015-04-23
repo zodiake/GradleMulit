@@ -13,7 +13,7 @@ public interface SiteUserService {
 	public SiteUser updatePassword(int id, String newPassword);
 
 	public Page<SiteUser> findAll(Pageable pageable);
-
+	
 	public void updateEnabledById(int id,int state);
 	
 	public SiteUser findOne(int id);

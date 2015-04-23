@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sj.model.model.Manufacturer;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
+import com.sj.repository.service.ManufacturerService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.exception.UserNotFoundException;
@@ -26,12 +28,17 @@ public class AdminUserController extends BaseController {
 	@Autowired
 	private ProviderService providerService;
 
-	private final String USERDETAIL = "user/userDetail";
+	@Autowired
+	private ManufacturerService manufacturerService;
+
+	private final String PROVIDERDETAIL = "user/providerDetail";
+	private final String MANUFACTURERDETAIL = "user/manufacturerDetail";
 
 	@RequestMapping(value = "/users")
 	public String userList(Model uiModel,
 			@RequestParam(defaultValue = "1", value = "page") int page,
-			@RequestParam(defaultValue = "15", value = "size") int size) {
+			@RequestParam(defaultValue = "15", value = "size") int size,
+			@RequestParam(value = "state", defaultValue = "-1") int state) {
 		PageRequest pageRequest = new PageRequest(page - 1, size,
 				Direction.ASC, "createdTime");
 		Page<SiteUser> userList = userService.findAll(pageRequest);
@@ -56,6 +63,15 @@ public class AdminUserController extends BaseController {
 		if (p == null)
 			throw new UserNotFoundException();
 		uiModel.addAttribute("provider", p);
-		return USERDETAIL;
+		return PROVIDERDETAIL;
+	}
+
+	@RequestMapping(value = "/manufacturer/{id}", method = RequestMethod.GET)
+	public String viewManufacturer(@PathVariable("id") int id, Model uiModel) {
+		Manufacturer m = manufacturerService.findOne(id);
+		if (m == null)
+			throw new UserNotFoundException();
+		uiModel.addAttribute("manufacturer", m);
+		return MANUFACTURERDETAIL;
 	}
 }
