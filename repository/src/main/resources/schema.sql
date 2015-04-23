@@ -27,6 +27,13 @@ create table site_user(
 	primary key(id)
 );
 
+create table brand(
+	id int not null auto_increment,
+	name varchar(50),
+	created_time timestamp,
+	primary key(id),
+);
+
 create table product(
 	id int not null auto_increment,
 	name varchar(20) not null,
@@ -37,9 +44,35 @@ create table product(
 	price float,
 	url varchar(50),
 	MANUFACTURER_ID int,
+	brand_id int,
 	primary key(id),
 	foreign key (category_id) references category(id),
-	foreign key (MANUFACTURER_ID) references site_user(id)
+	foreign key (MANUFACTURER_ID) references site_user(id),
+	foreign key (brand_id) references brand(id)
+);
+
+create table consumable(
+	id int not null,
+	primary key(id),
+	foreign key(id) references product(id)
+);
+
+create table instrument(
+	id int not null,
+	primary key(id),
+	foreign key(id) references product(id)
+);
+
+create table reagents(
+	id int not null,
+	primary key(id),
+	foreign key(id) references product(id)
+);
+
+create table service(
+	id int not null,
+	primary key(id),
+	foreign key(id) references product(id)
 );
 
 create table product_subject(
@@ -72,4 +105,3 @@ create table prefer_products(
 	foreign key(user_id) references common_user(id),
 	foreign key(product_id) references product(id)
 );
-

@@ -32,6 +32,10 @@ public class Product {
 
 	@OneToMany(mappedBy = "product")
 	private Set<PreferProduct> users;
+	
+	@OneToOne
+	@JoinColumn(name="brand_id")
+	private Brand brand;
 
 	public int getId() {
 		return id;
