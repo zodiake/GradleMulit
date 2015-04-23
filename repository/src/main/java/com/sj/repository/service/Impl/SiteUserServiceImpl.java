@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +43,8 @@ public class SiteUserServiceImpl implements SiteUserService {
 	@Override
 	public void updateEnabledById(int id, int state) {
 		ActivateEnum stateEnum = ActivateEnum.values()[state];
-		repository.updateEnabled(stateEnum, id);
+		Calendar calendar = Calendar.getInstance();
+		repository.updateEnabled(stateEnum, calendar, id);
 	}
 
 	@Override

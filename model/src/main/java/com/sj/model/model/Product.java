@@ -30,12 +30,13 @@ public class Product {
 
 	private String url;
 
-	@OneToMany(mappedBy = "product")
-	private Set<PreferProduct> users;
-	
 	@OneToOne
 	@JoinColumn(name="brand_id")
 	private Brand brand;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="creted_by")
+	private SiteUser createdBy;
 
 	public int getId() {
 		return id;
@@ -61,13 +62,6 @@ public class Product {
 		this.description = description;
 	}
 
-	public Set<PreferProduct> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<PreferProduct> users) {
-		this.users = users;
-	}
 
 	public String getCoverImg() {
 		return coverImg;
@@ -107,6 +101,14 @@ public class Product {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public SiteUser getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(SiteUser createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	@Override

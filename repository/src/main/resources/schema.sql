@@ -24,6 +24,7 @@ create table site_user(
 	enabled smallint,
 	site_authority varchar(20),
 	created_time timestamp,
+	authenticated_time timestamp,
 	primary key(id)
 );
 
@@ -73,6 +74,13 @@ create table service(
 	id int not null,
 	primary key(id),
 	foreign key(id) references product(id)
+=======
+	MANUFACTURER varchar(40),
+	created_by int ,
+	primary key(id),
+	foreign key (category_id) references category(id),
+	foreign key (created_by) references site_user(id)
+>>>>>>> 114451fe293db9a9a87c88be1637b1a39a89c7f0
 );
 
 create table product_subject(
