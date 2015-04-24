@@ -32,6 +32,8 @@ public class CategoryController {
 	private final String EDIT = "category/edit";
 	private final String FORM = "category/form";
 
+	/*-----------------first category------------------------*/
+	// all first category list
 	@RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
 	public String findAllFirstCategory(Model uiModel) {
 		Page<Category> lists = categoryService.findByParent(null, null);
@@ -39,16 +41,19 @@ public class CategoryController {
 		return LIST;
 	}
 
+	// get form to add a category
 	@RequestMapping(value = "/admin/categories", params = "form", method = RequestMethod.GET)
 	public String newFirstCategory(Model uiModel) {
 		uiModel.addAttribute("category", new Category());
 		return FORM;
 	}
 
+	// new first category
 	@RequestMapping(value = "/admin/categories", params = "form", method = RequestMethod.POST)
 	public String processFirstCategory(
 			@Valid @ModelAttribute("category") Category category,
-			BindingResult bindingResult, Model uiModel,RedirectAttributes redirectAttr) {
+			BindingResult bindingResult, Model uiModel,
+			RedirectAttributes redirectAttr) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("category", category);
 			return FORM;
@@ -59,6 +64,9 @@ public class CategoryController {
 		return "redirect:/admin/categories/" + temp.getId() + "?edit";
 	}
 
+	/*---------------------end first category----------------------------------*/
+
+	// child category list
 	@RequestMapping(value = "/admin/{parent}/categories", method = RequestMethod.GET)
 	public String findByParent(@PathVariable(value = "parent") Long parent,
 			@RequestParam(value = "page", defaultValue = "1") int page,
@@ -71,6 +79,28 @@ public class CategoryController {
 		return LIST;
 	}
 
+	// get form to add a category
+	@RequestMapping(value = "/admin/{parent}/categories", params = "form", method = RequestMethod.GET)
+	public String formChildCategory(Model uiModel) {
+		uiModel.addAttribute("category", new Category());
+		return FORM;
+	}
+
+	// add category
+	@RequestMapping(value = "/admin/{parent}/categories", params = "form", method = RequestMethod.POST)
+	public String addChildCategory(@PathVariable(value = "parent") Long parent,
+			@Valid @ModelAttribute(value = "category") Category category,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		Category parentCategory = categoryService.findOne(parent);
+		if (parentCategory == null)
+			throw new CategoryNotFoundException();
+		category.setParent(parentCategory);
+		Category result = categoryService.save(category);
+		redirectAttributes.addFlashAttribute("message", "success");
+		return "redirect:/admin/categories/" + result.getId() + "?edit";
+	}
+
+	// get category to edit
 	@RequestMapping(value = "/admin/categories/{id}", params = "edit", method = RequestMethod.GET)
 	public String view(@PathVariable(value = "id") Long id, Model uiModel) {
 		Category category = categoryService.findOne(id);
@@ -80,10 +110,15 @@ public class CategoryController {
 		return EDIT;
 	}
 
+	// update category info
 	@RequestMapping(value = "/admin/categories/{id}", params = "edit", method = RequestMethod.PUT)
 	public String view(@PathVariable(value = "id") Long id, Model uiModel,
 			@Valid @ModelAttribute("category") Category category,
 			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("category", category);
+			return EDIT;
+		}
 		category.setId(id);
 		category.setUpdatedBy(userContext.getCurrnetUser().getName());
 		Category result = categoryService.save(category);

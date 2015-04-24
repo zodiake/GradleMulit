@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<div th:if="${message !=null}" th:text="${message}"></div>
-		<form th:method="post" th:object="${category}">
+		<form th:method="put" th:object="${category}">
 			name:<input type="text" th:field="*{name}"/>
 			activate:
 			<input type="radio" th:field="*{activate}" value="ACTIVATE"/>act
