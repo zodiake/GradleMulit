@@ -12,5 +12,7 @@ public interface CategoryRepository extends
 		PagingAndSortingRepository<Category, Long> {
 	Set<Category> findAll();
 
-	Page<Category> findByParent(Pageable pageable,Category category);
+	Page<Category> findByParent(Pageable pageable, Category category);
+
+	Category findByIdAndParent(Long id, Category category);
 }

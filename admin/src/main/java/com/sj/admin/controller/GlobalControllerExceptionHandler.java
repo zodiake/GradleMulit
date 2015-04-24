@@ -4,6 +4,7 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.sj.admin.exception.CategoryNotFoundException;
 import com.sj.admin.exception.UserNotFoundException;
 
 @ControllerAdvice
@@ -20,6 +21,11 @@ public class GlobalControllerExceptionHandler {
 	@ExceptionHandler(TypeMismatchException.class)
 	public String numberFormatException() {
 		return NUMBERFORMAT;
+	}
+
+	@ExceptionHandler(CategoryNotFoundException.class)
+	public String categoryNotFound(){
+		return NOTFOUND;
 	}
 
 }

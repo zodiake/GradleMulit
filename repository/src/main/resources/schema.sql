@@ -5,6 +5,8 @@ create table category(
 	activate smallint,
 	created_time timestamp,
 	created_by varchar(20),
+	updated_time timestamp,
+	updated_by varchar(20),
 	primary key(id),
 	foreign key (parent_id) references category(id)
 );

@@ -3,6 +3,7 @@ package com.sj.model.model;
 import java.util.Calendar;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.sj.model.type.ActivateEnum;
 
@@ -25,9 +28,10 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Size(min = 4, max = 20)
 	private String name;
 
-	@OneToMany(mappedBy = "parent",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	private Set<Category> categories;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -35,12 +39,31 @@ public class Category {
 	private Category parent;
 
 	@Enumerated
+	@NotNull
 	private ActivateEnum activate;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_time")
 	private Calendar createdTime;
 
+	@Column(name = "created_by")
 	private String createdBy;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_time")
+	private Calendar updatedTime;
+
+	@Column(name = "updated_by")
+	private String updatedBy;
+
+	public Category() {
+		super();
+	}
+
+	public Category(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
@@ -96,6 +119,22 @@ public class Category {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public Calendar getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Calendar updatedTime) {
+		this.updatedTime = updatedTime;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	@Override

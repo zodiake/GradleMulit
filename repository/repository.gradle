@@ -13,6 +13,7 @@ apply plugin: 'spring-boot'
 
 dependencies {
    	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+   	compile("org.springframework.boot:spring-boot-starter-redis")
    	compile("com.google.guava:guava:18.0")
    	runtime("com.h2database:h2")
    	compile('org.google:captcha:2.3.2')

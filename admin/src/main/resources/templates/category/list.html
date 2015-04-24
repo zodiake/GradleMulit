@@ -5,6 +5,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	123
+	<div th:each="c:${results}">
+		id:<div th:text="${c.id}"></div>
+		<a th:href="@{/admin/__${c.id}__/categories}" th:text="${c.name}"></a>
+	</div>
 </body>
 </html>

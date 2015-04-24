@@ -11,6 +11,12 @@ public interface CategoryService {
 	public Category findOne(Long id);
 
 	public Set<Category> findAll();
+
+	public Page<Category> findByParent(Pageable pageable, Category category);
+
+	public Category findByIdAndParent(Long id, Category category);
+
+	public Category save(Category category);
 	
-	public Page<Category> findByParent(Pageable pageable,Category category);
+	public Category update(Category category);
 }

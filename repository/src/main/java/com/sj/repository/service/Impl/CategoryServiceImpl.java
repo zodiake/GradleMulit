@@ -1,5 +1,6 @@
 package com.sj.repository.service.Impl;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,28 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Page<Category> findByParent(Pageable pageable,Category category) {
+	public Page<Category> findByParent(Pageable pageable, Category category) {
 		return repository.findByParent(pageable, category);
 	}
 
+	@Override
+	public Category save(Category category) {
+		category.setCreatedTime(Calendar.getInstance());
+		return repository.save(category);
+	}
+
+	@Override
+	public Category findByIdAndParent(Long id, Category category) {
+		return repository.findByIdAndParent(id, category);
+	}
+
+	@Override
+	public Category update(Category category) {
+		Category memory = repository.findOne(category.getId());
+		memory.setName(category.getName());
+		memory.setActivate(category.getActivate());
+		memory.setUpdatedBy(category.getUpdatedBy());
+		memory.setUpdatedTime(Calendar.getInstance());
+		return repository.save(memory);
+	}
 }
