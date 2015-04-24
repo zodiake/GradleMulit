@@ -10,11 +10,11 @@ import com.sj.model.type.ActivateEnum;
 public interface SiteUserService {
 	public SiteUser findByNameAndEnabled(String name, ActivateEnum activate);
 
-	public SiteUser updatePassword(int id, String newPassword);
+	public SiteUser updatePassword(Long id, String newPassword);
 
 	public Page<SiteUser> findAll(Pageable pageable);
 	
-	public void updateEnabledById(int id,int state);
+	public void updateEnabledById(Long id,int state);
 	
-	public SiteUser findOne(int id);
+	public SiteUser findOne(Long id);
 }

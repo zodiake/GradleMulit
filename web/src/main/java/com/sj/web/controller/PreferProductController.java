@@ -27,9 +27,9 @@ public class PreferProductController {
 	@Autowired
 	private UserContext userContext;
 
-	@RequestMapping(value = "/user/preferProduct/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/preferProduct/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public String addPrefer(@PathVariable("id") int id) {
+	public String addPrefer(@PathVariable("id") Long id) {
 		if (!userContext.isLogin())
 			return "login";
 		SiteUser user = userContext.getCurrnetUser();

@@ -7,7 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
-import com.sj.model.model.SiteUser;
 
 public interface PreferProductRepository extends PagingAndSortingRepository<PreferProduct,Integer>{
 	public Page<PreferProduct> findByUser(CommonUser u,Pageable pageable);

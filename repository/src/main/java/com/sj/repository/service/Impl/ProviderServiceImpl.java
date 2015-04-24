@@ -13,7 +13,7 @@ public class ProviderServiceImpl implements ProviderService{
 	private ProviderRepository repository;
 
 	@Override
-	public Provider findOne(int id) {
+	public Provider findOne(Long id) {
 		return repository.findOne(id);
 	}
 

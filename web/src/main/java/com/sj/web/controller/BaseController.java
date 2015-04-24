@@ -2,8 +2,8 @@ package com.sj.web.controller;
 
 import org.springframework.data.domain.Page;
 
-public class BaseController {
-	ViewPage caculatePage(Page page) {
+public class BaseController<T> {
+	ViewPage caculatePage(Page<T> page) {
 		int current = page.getNumber();
 		int pages = page.getTotalPages();
 		if (pages <= 7) {

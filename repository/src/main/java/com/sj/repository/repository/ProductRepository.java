@@ -7,6 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
 
-public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
+public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
 	Page<Product> findByCreatedBy(SiteUser user,Pageable pageable);
 }

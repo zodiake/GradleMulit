@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.sj.model.model.Provider;
 
 public interface ProviderRepository extends
-		PagingAndSortingRepository<Provider, Integer> {
+		PagingAndSortingRepository<Provider, Long> {
 
 }

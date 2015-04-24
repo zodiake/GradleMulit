@@ -19,7 +19,7 @@ public class ProductController {
 	private final String DETAIL = "product/detail";
 
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
-	public String view(Model uiModel, @PathVariable(value = "id") int id) {
+	public String view(Model uiModel, @PathVariable(value = "id") Long id) {
 		Product product = productService.findOne(id);
 		if (product == null)
 			throw new ProductNotFoundException();

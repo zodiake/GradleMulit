@@ -45,7 +45,7 @@ public class AdminUserController extends BaseController {
 	@RequestMapping(value = "/checkUsers", method = RequestMethod.POST)
 	@ResponseBody
 	public String checkUser(
-			@RequestParam(value = "id", required = true) int id,
+			@RequestParam(value = "id", required = true) Long id,
 			@RequestParam(value = "state", required = true) int state,
 			Model uiModel) {
 		userService.updateEnabledById(id, state);
@@ -53,7 +53,7 @@ public class AdminUserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/provider/{id}", method = RequestMethod.GET)
-	public String view(Model uiModel, @PathVariable("id") int id) {
+	public String view(Model uiModel, @PathVariable("id") Long id) {
 		Provider p = providerService.findOne(id);
 		if (p == null)
 			throw new UserNotFoundException();

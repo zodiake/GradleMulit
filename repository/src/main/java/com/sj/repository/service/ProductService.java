@@ -9,5 +9,5 @@ import com.sj.model.model.SiteUser;
 public interface ProductService {
 	public Page<Product> findByUsers(SiteUser user, Pageable pageable);
 
-	public Product findOne(int id);
+	public Product findOne(Long id);
 }

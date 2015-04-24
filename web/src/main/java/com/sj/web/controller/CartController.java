@@ -1,7 +1,5 @@
 package com.sj.web.controller;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class CartController {
 
 	@RequestMapping(value = "/user/addCart", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	private String addCartLine(@RequestParam(value = "id") int id,
+	private String addCartLine(@RequestParam(value = "id") Long id,
 			HttpSession session) {
 		if (!userContext.isLogin())
 			return "login";

@@ -20,15 +20,15 @@ public class PreferProduct {
 	public static class Id implements Serializable {
 
 		@Column(name = "user_id")
-		private Integer userId;
+		private Long userId;
 
 		@Column(name = "product_id")
-		private Integer productId;
+		private Long productId;
 
 		public Id() {
 		}
 
-		public Id(Integer userId, Integer productId) {
+		public Id(Long userId, Long productId) {
 			this.userId = userId;
 			this.productId = productId;
 		}

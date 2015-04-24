@@ -7,6 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
 
-public interface SubjectRepository extends PagingAndSortingRepository<Subject, Integer> {
+public interface SubjectRepository extends PagingAndSortingRepository<Subject, Long> {
 	Page<Subject> findByActivate(Pageable pageable,ActivateEnum activate);
 }

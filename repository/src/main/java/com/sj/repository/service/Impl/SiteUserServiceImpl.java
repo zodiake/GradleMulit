@@ -26,7 +26,7 @@ public class SiteUserServiceImpl implements SiteUserService {
 	}
 
 	@Override
-	public SiteUser updatePassword(int id, String newPassword) {
+	public SiteUser updatePassword(Long id, String newPassword) {
 		SiteUser u = repository.findOne(id);
 		u.setPassword(newPassword);
 		repository.save(u);
@@ -41,14 +41,14 @@ public class SiteUserServiceImpl implements SiteUserService {
 	}
 
 	@Override
-	public void updateEnabledById(int id, int state) {
+	public void updateEnabledById(Long id, int state) {
 		ActivateEnum stateEnum = ActivateEnum.values()[state];
 		Calendar calendar = Calendar.getInstance();
 		repository.updateEnabled(stateEnum, calendar, id);
 	}
 
 	@Override
-	public SiteUser findOne(int id) {
+	public SiteUser findOne(Long id) {
 		return repository.findOne(id);
 	}
 

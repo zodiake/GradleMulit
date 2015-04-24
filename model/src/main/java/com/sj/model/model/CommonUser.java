@@ -15,7 +15,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class CommonUser extends SiteUser {
 	public CommonUser(){}
 	
-	public CommonUser(int id){
+	public CommonUser(Long id){
 		super(id);
 	}
 

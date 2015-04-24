@@ -22,7 +22,7 @@
 					event.preventDefault();
 					var productId = $(this).attr('data-id');
 					$.ajax({
-						url : '/user/preferProduct/' + productId,
+						url : '/ajax/preferProduct/' + productId,
 						type : 'post',
 						data : {
 							id : productId

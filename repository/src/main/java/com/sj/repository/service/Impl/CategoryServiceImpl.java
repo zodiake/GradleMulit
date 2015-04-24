@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository repository;
 
 	@Override
-	public Category findById(Integer id) {
+	public Category findOne(Long id) {
 		return repository.findOne(id);
 	}
 
@@ -25,6 +25,12 @@ public class CategoryServiceImpl implements CategoryService {
 	@Transactional(readOnly = true)
 	public Set<Category> findAll() {
 		return repository.findAll();
+	}
+
+	@Override
+	public Set<Category> findByParent(Category category) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
