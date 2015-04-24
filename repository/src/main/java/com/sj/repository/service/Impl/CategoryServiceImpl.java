@@ -3,6 +3,8 @@ package com.sj.repository.service.Impl;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,9 +30,8 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Set<Category> findByParent(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<Category> findByParent(Pageable pageable,Category category) {
+		return repository.findByParent(pageable, category);
 	}
 
 }
