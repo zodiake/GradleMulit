@@ -42,17 +42,19 @@
 						}
 					});
 				});
-				
-				$('#addCart').click(function(event){
+
+				$('#addCart').click(function(event) {
 					event.preventDefault();
-					var productId=$(this).attr('data-id');
+					var productId = $(this).attr('data-id');
 					$.ajax({
-						url : '/user/addCart/' + productId,
+						url : '/ajax/cart',
 						type : 'post',
 						data : {
-							id : productId
+							id : productId,
+							number : 1
 						},
 						success : function(text) {
+							alert("success");
 							if (text == 'login') {
 								$.ajax({
 									url : '/ajaxLogin',
@@ -63,7 +65,7 @@
 							}
 						},
 						error : function() {
-							alert(22);
+							alert("error");
 						}
 					});
 				});

@@ -46,7 +46,14 @@ public class Product {
 	@JoinColumn(name = "created_by")
 	private Provider createdBy;
 
+	public Product() {
+		super();
+	}
 
+	public Product(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
