@@ -24,15 +24,15 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private Set<ProductSubject> productSubjects;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "first_category_id")
 	private Category firstCategory;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "second_category_id")
 	private Category secondCategory;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "third_category_id")
 	private Category thirdCategory;
 
@@ -45,6 +45,10 @@ public class Product {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "created_by")
 	private Provider createdBy;
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
+	@JoinColumn(name = "content_id")
+	private Content content;
 
 	public Product() {
 		super();
