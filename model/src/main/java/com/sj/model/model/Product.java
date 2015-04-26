@@ -154,6 +154,14 @@ public class Product {
 	public void setCreatedBy(Provider createdBy) {
 		this.createdBy = createdBy;
 	}
+	
+	public Content getContent() {
+		return content;
+	}
+
+	public void setContent(Content content) {
+		this.content = content;
+	}
 
 	@Override
 	public int hashCode() {

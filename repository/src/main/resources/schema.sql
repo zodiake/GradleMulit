@@ -50,6 +50,12 @@ create table brand(
 	primary key(id),
 );
 
+create table content(
+	id bigint not null auto_increment,
+	content varchar(4000),
+	primary key (id)
+);
+
 create table product(
 	id bigint not null auto_increment,
 	name varchar(20) not null,
@@ -63,12 +69,14 @@ create table product(
 	url varchar(50),
 	brand_id bigint,
 	created_by bigint,
+	content_id bigint,
 	primary key(id),
 	foreign key (first_category_id) references category(id),
 	foreign key (second_category_id) references category(id),
 	foreign key (third_category_id) references category(id),
 	foreign key (brand_id) references brand(id),
-	foreign key (created_by) references provider(id)
+	foreign key (created_by) references provider(id),
+	foreign key (content_id) references content(id)
 );
 
 create table consumable(

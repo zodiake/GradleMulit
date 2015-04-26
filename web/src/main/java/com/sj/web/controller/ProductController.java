@@ -27,6 +27,5 @@ public class ProductController {
 		uiModel.addAttribute("product", product);
 		return DETAIL;
 	}
-	
 
 }

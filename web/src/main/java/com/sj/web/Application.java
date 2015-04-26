@@ -21,6 +21,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter.XFrameOptionsMode;
 
 @EnableConfigurationProperties
 @SpringBootApplication
@@ -41,15 +43,30 @@ public class Application {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
-				.antMatchers("/provider/**").hasRole("PROVIDER")
-				.antMatchers("/user/**").hasRole("COMMONUSER")
-				.anyRequest().permitAll().and()
-					.formLogin().defaultSuccessUrl("/index")
+					.antMatchers("/provider/**")
+					.hasRole("PROVIDER")
+					.antMatchers("/user/**")
+					.hasRole("COMMONUSER")
+					.anyRequest()
+					.permitAll()
+					.and()
+					.formLogin()
+					.defaultSuccessUrl("/index")
 					.loginProcessingUrl("/loginProcess")
-					.usernameParameter("name").passwordParameter("password")
-					.loginPage("/login").failureUrl("/login?error").and()
-					.logout().logoutSuccessUrl("/index").logoutUrl("/logout")
-					.permitAll();
+					.usernameParameter("name")
+					.passwordParameter("password")
+					.loginPage("/login")
+					.failureUrl("/login?error")
+					.and()
+					.logout()
+					.logoutSuccessUrl("/index")
+					.logoutUrl("/logout")
+					.permitAll()
+					.and()
+					.headers()
+					.addHeaderWriter(
+							new XFrameOptionsHeaderWriter(
+									XFrameOptionsMode.SAMEORIGIN));
 		}
 
 		@Override

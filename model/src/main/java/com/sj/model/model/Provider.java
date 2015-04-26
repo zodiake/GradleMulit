@@ -9,4 +9,5 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @PrimaryKeyJoinColumn
 public class Provider extends SiteUser{
+
 }
