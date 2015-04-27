@@ -59,7 +59,6 @@ create table content(
 create table product(
 	id bigint not null auto_increment,
 	name varchar(20) not null,
-	description varchar(300),
 	cover_img varchar(40),
 	private float,
 	first_category_id bigint,
