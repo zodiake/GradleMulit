@@ -23,7 +23,7 @@ public class PreferProductServiceImpl implements PreferProductService {
 	private PreferProductRepository repository;
 
 	@Override
-	public Page<PreferProduct> findByUser(SiteUser user, Pageable pageable) {
+	public Page<PreferProduct> findByUser(CommonUser user, Pageable pageable) {
 		CommonUser jpaUser = new CommonUser(user.getId());
 		Page<PreferProduct> preferProducts = repository.findByUser(jpaUser,
 				pageable);
@@ -41,12 +41,17 @@ public class PreferProductServiceImpl implements PreferProductService {
 	}
 
 	@Override
-	public boolean isDuplicateProduct(SiteUser user, Product product) {
+	public boolean isDuplicateProduct(CommonUser user, Product product) {
 		CommonUser temp = new CommonUser(user.getId());
 		Long l = repository.countByUserAndProduct(temp, product);
 		if (l == 0l)
 			return false;
 		else
 			return true;
+	}
+
+	@Override
+	public void deleteByUserAndProduct(CommonUser user, Product product) {
+		repository.deleteByUserAndProduct(user, product);
 	}
 }

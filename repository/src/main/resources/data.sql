@@ -20,6 +20,16 @@ insert into common_user(id) values(4);
 insert into provider(id) values(1);
 insert into provider(id) values(2);
 
+--test content
+insert into content values(1,'product1-content');
+insert into content values(2,'product2-content');
+insert into content values(3,'product3-content');
+insert into content values(4,'product4-content');
+insert into content values(5,'product5-content');
+insert into content values(6,'product6-content');
+insert into content values(7,'product7-content');
+insert into content values(8,'product8-content');
+
 --test product
 --tom product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id) 
@@ -46,13 +56,3 @@ insert into prefer_products(user_id,product_id) values(3,1);
 insert into prefer_products(user_id,product_id) values(4,1);
 insert into prefer_products(user_id,product_id) values(3,2);
 insert into prefer_products(user_id,product_id) values(4,2);
-
---test content
-insert into content(1,'product1-content');
-insert into content(2,'product2-content');
-insert into content(3,'product3-content');
-insert into content(4,'product4-content');
-insert into content(5,'product5-content');
-insert into content(6,'product6-content');
-insert into content(7,'product7-content');
-insert into content(8,'product8-content');

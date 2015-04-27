@@ -25,16 +25,5 @@ public class SiteUserController extends BaseController {
 	@Autowired
 	private UserContext userContext;
 
-	private final String PREFEREPRODUCTS = "user/prefereProducts";
 
-	@RequestMapping(value = "/user/preferProducts", method = RequestMethod.GET)
-	public String showPreferedProducts(Model uiModel,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
-		SiteUser user = userContext.getCurrentUser();
-		Page<PreferProduct> lists=preferProductService.findByUser(user, new PageRequest(page-1, size,
-				Direction.DESC, "dateAdded"));
-		uiModel.addAttribute("lists", lists);
-		return PREFEREPRODUCTS;
-	}
 }

@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Hello Spring Boot!</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script src="/js/jquery-1.11.2.min.js"></script>
-<script>
-	$(function() {
-		$('#captchaImg').click(function(event) {
-			event.preventDefault();
-			var self = $(this);
-			var clone = self.clone(true);
-			self.after(clone);
-			self.remove();
-		});
-	});
-</script>
-</head>
-<body>
-	<div th:each="p:${lists.content}">
-		<p th:text="${p.product.name}">123</p>
-	</div>
-</body>
+	<head>
+		<title>Hello Spring Boot!</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<script src="/js/jquery-1.11.2.min.js"></script>
+		<script>
+			$(function() {
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				var id = $("meta[name='id']").attr("content");
+
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+				
+				$('.delete').click(function(event){
+					event.preventDefault();
+					var self=$(this);
+					$.ajax({
+						type:'delete',
+						url:'/user/preferProducts/'+self.attr('data-id'),
+					}).success(function(resonse){
+						console.log("success");
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div th:each="p:${lists.content}">
+			<p th:text="${p.product.name}">
+				123
+			</p>
+			<button th:attr="data-id=*{p.product.id}" th:class="delete">delete</button>
+		</div>
+	</body>
 </html>

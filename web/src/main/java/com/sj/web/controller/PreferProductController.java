@@ -1,10 +1,15 @@
 package com.sj.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.CommonUser;
@@ -27,6 +32,8 @@ public class PreferProductController {
 	@Autowired
 	private UserContext userContext;
 
+	private final String PREFEREPRODUCTS = "user/prefereProducts";
+
 	@RequestMapping(value = "/ajax/preferProduct/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public String addPrefer(@PathVariable("id") Long id) {
@@ -36,12 +43,34 @@ public class PreferProductController {
 		Product product = productService.findOne(id);
 		if (product == null)
 			throw new ProductNotFoundException();
-		if (preferProductService.isDuplicateProduct(user, product))
+		if (preferProductService.isDuplicateProduct(
+				new CommonUser(user.getId()), product))
 			return "duplicate";
-		CommonUser u=new CommonUser(user.getId());
+		CommonUser u = new CommonUser(user.getId());
 		PreferProduct preferProduct = new PreferProduct(u, product);
 		preferProductService.save(preferProduct);
 		return "success";
 	}
 
+	@RequestMapping(value = "/user/preferProducts", method = RequestMethod.GET)
+	public String showPreferedProducts(Model uiModel,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size) {
+		SiteUser user = userContext.getCurrentUser();
+		Page<PreferProduct> lists = preferProductService.findByUser(
+				new CommonUser(user.getId()), new PageRequest(page - 1, size,
+						Direction.DESC, "dateAdded"));
+		uiModel.addAttribute("lists", lists);
+		return PREFEREPRODUCTS;
+	}
+
+	@RequestMapping(value = "/user/preferProducts/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String removePrefer(@PathVariable("id") Long id) {
+		SiteUser user = userContext.getCurrentUser();
+		Product product = new Product(id);
+		preferProductService.deleteByUserAndProduct(
+				new CommonUser(user.getId()), product);
+		return "success";
+	}
 }
