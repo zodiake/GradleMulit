@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Hello Spring Boot!</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-	<p>Hello Spring Boot!</p>
-
-<form action="/logout" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-    <input type="submit" value='logout'/>
-</form>
-</body>
+	<head>
+		<title>Hello Spring Boot!</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<p>
+			Hello Spring Boot!
+		</p>
+		<video width="320" height="240" controls="true">
+			<source src="/audio/aud.mp4" type="video/mp4"></source>
+			Your browser does not support the video tag.
+		</video>
+		<form action="/logout" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<input type="submit" value='logout'/>
+		</form>
+	</body>
 </html>
