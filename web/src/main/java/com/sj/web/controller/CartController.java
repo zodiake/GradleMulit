@@ -34,7 +34,7 @@ public class CartController {
 	private String addCartLine(@ModelAttribute CartLine cartLine) {
 		if (!userContext.isLogin())
 			return "login";
-		SiteUser user = userContext.getCurrnetUser();
+		SiteUser user = userContext.getCurrentUser();
 		cartLineService.save(user.getId(), cartLine.getId(),
 				cartLine.getNumber());
 		return "success";
@@ -43,7 +43,7 @@ public class CartController {
 	@RequestMapping(value = "/user/cart", method = RequestMethod.DELETE)
 	@ResponseBody
 	private String removeCartLine(@RequestParam("id") Long productId) {
-		SiteUser user = userContext.getCurrnetUser();
+		SiteUser user = userContext.getCurrentUser();
 		cartLineService.remove(user.getId(), productId);
 		return "success";
 	}
@@ -53,14 +53,14 @@ public class CartController {
 	private String updateCartLineNumber(
 			@PathVariable(value = "cartLineId") Long cartLineId,
 			@RequestParam("number") int number) {
-		SiteUser user = userContext.getCurrnetUser();
+		SiteUser user = userContext.getCurrentUser();
 		cartLineService.save(user.getId(), cartLineId, number);
 		return "success";
 	}
 
 	@RequestMapping(value = "/user/cart", method = RequestMethod.GET)
 	private String list(Model uiModel) {
-		SiteUser user = userContext.getCurrnetUser();
+		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lists = cartLineService.findByUser(user.getId());
 		uiModel.addAttribute("list", lists);
 		return LIST;

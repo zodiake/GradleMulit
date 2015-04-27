@@ -17,7 +17,7 @@ public class SiteUserContext implements UserContext {
 	private UserDetailsService userDetailsService;
 
 	@Override
-	public SiteUser getCurrnetUser() {
+	public SiteUser getCurrentUser() {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		return (SiteUser) authentication.getPrincipal();

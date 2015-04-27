@@ -3,7 +3,7 @@ package com.sj.web.security;
 import com.sj.model.model.SiteUser;
 
 public interface UserContext {
-	SiteUser getCurrnetUser();
+	SiteUser getCurrentUser();
 
 	void setCurrentUser(SiteUser user);
 

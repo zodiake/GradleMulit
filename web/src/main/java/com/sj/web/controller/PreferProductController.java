@@ -32,7 +32,7 @@ public class PreferProductController {
 	public String addPrefer(@PathVariable("id") Long id) {
 		if (!userContext.isLogin())
 			return "login";
-		SiteUser user = userContext.getCurrnetUser();
+		SiteUser user = userContext.getCurrentUser();
 		Product product = productService.findOne(id);
 		if (product == null)
 			throw new ProductNotFoundException();

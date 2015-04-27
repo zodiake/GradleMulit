@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,41 +32,30 @@ public class ImageUploadController {
 			@RequestParam(value = "upload", required = false) MultipartFile file,
 			@RequestParam("CKEditorFuncNum") String num,
 			HttpServletResponse response) {
-		Path imgPath = Paths.get("")
-				.resolve("src/main/resources/static/upload")
-				.resolve(userContext.getCurrnetUser().getId().toString());
 
-		String imageFile = file.getOriginalFilename();
+		Path userDir = Paths.get(userContext.getCurrentUser().getId()
+				.toString());
+		Path imgPath = Paths.get("")
+				.resolve("src/main/resources/static/upload");
+		String fileName = file.getOriginalFilename();
 
 		try {
-			if (!Files.exists(imgPath)) {
-				Files.createDirectory(imgPath);
-			}
+			Path uploadFilePath = getUploadDir(userDir, imgPath, fileName);
 			byte[] bytes = file.getBytes();
-			imageFile = incrementFileName(imageFile);
-			Path result = Paths.get(imgPath.toString() + "/" + imageFile);
-			System.out.println(result.toString() + "--------");
-
-			Files.write(result, bytes);
-			sendScript(response, num, imageFile);
+			Files.write(uploadFilePath, bytes);
+			sendScript(response, num, fileName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private String incrementFileName(String name) {
-		String fileName = name.substring(0, name.lastIndexOf("."));
-		String suffix = name.substring(name.lastIndexOf("."));
-		int begin = fileName.lastIndexOf("_");
-		System.out.println(begin + "]]]]");
-		if (begin != -1) {
-			String inc = name.substring(begin + 1);
-			int i = Integer.valueOf(inc) + 1;
-			String source = name.substring(0, begin);
-			return source + "_" + i;
-		} else {
-			return name + "_1" + suffix;
-		}
+	private Path getUploadDir(Path baseDir, Path userDir, String fileName)
+			throws IOException {
+		Path temp = baseDir.resolve(userDir);
+		if (!Files.exists(temp))
+			Files.createDirectories(temp);
+		temp.resolve(fileName);
+		return temp;
 	}
 
 	private void sendScript(HttpServletResponse response, String num,

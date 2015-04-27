@@ -41,7 +41,7 @@ public class InstrumentController {
 			return CREATE;
 		}
 		Provider p = new Provider();
-		p.setId(userContext.getCurrnetUser().getId());
+		p.setId(userContext.getCurrentUser().getId());
 		instrument.setCreatedBy(p);
 		instrumentService.save(instrument);
 		return "redirect:/instruments/";

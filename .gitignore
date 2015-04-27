@@ -37,7 +37,7 @@ local.properties
 
 */build/
 build/
-
+web/src/main/resources/static/upload/
 .idea/
 
 *.iml

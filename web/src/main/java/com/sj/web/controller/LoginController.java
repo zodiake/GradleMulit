@@ -132,7 +132,7 @@ public class LoginController {
 	public String processPassword(
 			@Valid @ModelAttribute("form") ChangePasswordForm form,
 			BindingResult result, Model uiModel) {
-		SiteUser user = userContext.getCurrnetUser();
+		SiteUser user = userContext.getCurrentUser();
 
 		form = translatePassword(form);
 
