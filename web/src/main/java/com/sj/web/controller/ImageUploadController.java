@@ -5,12 +5,14 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,17 +35,20 @@ public class ImageUploadController {
 			@RequestParam("CKEditorFuncNum") String num,
 			HttpServletResponse response) {
 
-		Path userDir = Paths.get(userContext.getCurrentUser().getId()
-				.toString());
-		Path imgPath = Paths.get("")
-				.resolve("src/main/resources/static/upload");
-		String fileName = file.getOriginalFilename();
+		String userFold = userContext.getCurrentUser().getId().toString();
+		Path userDir = Paths.get(userFold);
+		Path basePath = Paths.get("").resolve(
+				"src/main/resources/static/upload");
+		Calendar c = Calendar.getInstance();
+		String fileName = String.valueOf(c.hashCode())
+				+ StringUtils.trimAllWhitespace(file.getOriginalFilename());
 
 		try {
-			Path uploadFilePath = getUploadDir(userDir, imgPath, fileName);
+			Path uploadFilePath = getUploadDir(basePath, userDir, fileName);
+			System.out.println(uploadFilePath.toString());
 			byte[] bytes = file.getBytes();
 			Files.write(uploadFilePath, bytes);
-			sendScript(response, num, fileName);
+			sendScript(response, num, userFold, fileName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -54,18 +59,17 @@ public class ImageUploadController {
 		Path temp = baseDir.resolve(userDir);
 		if (!Files.exists(temp))
 			Files.createDirectories(temp);
-		temp.resolve(fileName);
-		return temp;
+		return Paths.get(temp.toString() + "/" + fileName);
 	}
 
 	private void sendScript(HttpServletResponse response, String num,
-			String imageFile) throws IOException {
+			String foldName, String imageFile) throws IOException {
 		PrintWriter writer = response.getWriter();
 		writer = response.getWriter();
 		response.setContentType("text/html");
 		writer.write("<script type=\"text/javascript\">");
 		writer.write("window.parent.CKEDITOR.tools.callFunction(" + num + ",'"
-				+ "/upload/" + imageFile + "','')");
+				+ "/upload/" + foldName + "/" + imageFile + "','')");
 		writer.write("</script>");
 		writer.close();
 	}
