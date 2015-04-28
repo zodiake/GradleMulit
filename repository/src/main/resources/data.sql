@@ -33,11 +33,14 @@ insert into content values(8,'product8-content');
 --test product
 --tom product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id) 
-values(1,'product1','',10.0,'/product/1',1,2,4,1,1);
+values(1,'instrument1','',10.0,'/product/1',1,2,4,1,1);
+
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
 values(2,'product2','',10.0,'/product/2',1,3,5,1,2);
+
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
 values(3,'product3','',10.0,'/product/3',2,2,4,1,3);
+
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
 values(4,'product4','',10.0,'/product/4',2,3,5,1,4);
 
@@ -68,3 +71,11 @@ insert into product_subject(product_id,subject_id)values(1,1);
 insert into product_subject(product_id,subject_id)values(2,1);
 insert into product_subject(product_id,subject_id)values(3,1);
 insert into product_subject(product_id,subject_id)values(4,1);
+
+--test reviews
+insert into review(id,content,product_id,user_id) values(1,'haha,very good user1',1,1);
+insert into review(id,content,product_id,user_id) values(2,'haha,very good user2',1,2);
+insert into review(id,content,product_id,user_id) values(3,'haha,very good user3',1,3);
+
+--test instrument
+insert into instrument(id) values(1);

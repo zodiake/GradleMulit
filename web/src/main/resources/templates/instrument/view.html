@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
+		<script>
+			$(function() {
+				$.ajax({
+					url : '/products/1/reviews'
+				}).success(function(response) {
+					var template = $.templates("#reviewTemplate");
+					var htmlOutput = template.render(JSON.parse(response));
+					console.log(response);
+					$('#reviews').html(htmlOutput);
+				});
+			});
+		</script>
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<script id="reviewTemplate" type="text/x-jsrender">
+			<div>
+			{{:userId}}
+			{{:userName}}
+			</div>
+		</script>
+		<div id="reviews">
+
+		</div>
+	</body>
+</html>

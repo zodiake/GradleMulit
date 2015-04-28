@@ -78,6 +78,17 @@ create table product(
 	foreign key (content_id) references content(id)
 );
 
+create table review(
+	id bigint not null,
+	content varchar(400),
+	product_id bigint,
+	user_id bigint,
+	created_time timestamp,
+	primary key(id),
+	foreign key(user_id) references site_user(id),
+	foreign key(product_id) references product(id)
+);
+
 create table consumable(
 	id bigint not null,
 	primary key(id),

@@ -18,6 +18,6 @@ dependencies {
    	runtime("com.h2database:h2")
    	compile('org.google:captcha:2.3.2')
    	compile("org.hibernate:hibernate-validator")
-   	compile("com.alibaba:fastjson:1.2.5")
+    compile('org.json:json:20141113')
    	compile project(":model")
 }
