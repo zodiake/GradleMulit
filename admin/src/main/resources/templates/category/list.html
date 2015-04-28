@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8"></meta>
-<title>Insert title here</title>
-</head>
-<body>
-	<div th:each="c:${results}">
-		id:<div th:text="${c.id}"></div>
-		<a th:href="@{/admin/__${c.id}__/categories}" th:text="${c.name}"></a>
-	</div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		</meta>
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<div th:each="c:${results}">
+			id:<div th:text="${c.id}"></div>
+			activate:
+			<input type="checkbox" th:checked="${c.activate==T(com.sj.model.type.ActivateEnum).ACTIVATE}" th:value="${c.id}"/>
+			<a th:href="@{/admin/__${c.id}__/categories}" th:text="${c.name}"></a>
+		</div>
+	</body>
 </html>
