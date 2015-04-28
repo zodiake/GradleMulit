@@ -7,13 +7,14 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sj.admin.exception.SubjectNotFoundException;
 import com.sj.admin.util.ActivateState;
 import com.sj.model.model.Subject;
-import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.SubjectService;
 
 @Controller
@@ -22,6 +23,7 @@ public class SubjectController {
 	private SubjectService subjectService;
 
 	private final String LIST = "subject/list";
+	private final String DETAIL = "subject/detail";
 
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.GET)
 	public String lists(Model uiModel,
@@ -40,5 +42,14 @@ public class SubjectController {
 		uiModel.addAttribute("lists", result);
 		uiModel.addAttribute("state", state);
 		return LIST;
+	}
+
+	@RequestMapping(value = "/admin/subjects/{id}", params = "edit", method = RequestMethod.GET)
+	public String viewEdit(Model uiModel, @PathVariable("id") Long id) {
+		Subject subject = subjectService.findOne(id);
+		if (subject == null)
+			throw new SubjectNotFoundException();
+		uiModel.addAttribute("subject", subject);
+		return DETAIL;
 	}
 }

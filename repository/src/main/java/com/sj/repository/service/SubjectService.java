@@ -10,4 +10,6 @@ public interface SubjectService {
 	Page<Subject> findAll(Pageable pageable);
 
 	Page<Subject> findByActivated(Pageable pageable, ActivateEnum activate);
+
+	Subject findOne(Long id);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
+import com.sj.model.model.Subject;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.ProductService;
 
@@ -28,7 +29,4 @@ public class ProductServiceImpl implements ProductService {
 	public Product findOne(Long id) {
 		return repository.findOne(id);
 	}
-	
-	
-
 }

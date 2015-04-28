@@ -21,8 +21,14 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	public Page<Subject> findByActivated(Pageable pageable,ActivateEnum activate) {
+	public Page<Subject> findByActivated(Pageable pageable,
+			ActivateEnum activate) {
 		return repository.findByActivate(pageable, activate);
+	}
+
+	@Override
+	public Subject findOne(Long id) {
+		return repository.findOne(id);
 	}
 
 }
