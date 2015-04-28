@@ -2,10 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8"/>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
+		<script type="text/javascript" th:src="@{/js/ajaxLogin.js}"></script>
 		<script>
 			$(function() {
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				var id = $("meta[name='id']").attr("content");
+
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+
 				$.ajax({
 					url : '/products/1/reviews'
 				}).success(function(response) {
@@ -13,6 +24,15 @@
 					var htmlOutput = template.render(JSON.parse(response));
 					console.log(response);
 					$('#reviews').html(htmlOutput);
+				});
+
+				$('#reviewForm').ajaxLogin({
+					url : '/products/1/reviews',
+					div : 'reviews',
+					data : {content:$('#content').val()},
+					callback : function(res) {
+						alert(res);
+					}
 				});
 			});
 		</script>
@@ -28,5 +48,10 @@
 		<div id="reviews">
 
 		</div>
+		<form id="reviewForm">
+			<textarea name="content" id="content"></textarea>
+			<input type="submit"/>
+		</form>
+		<div id="loginForm"></div >
 	</body>
 </html>

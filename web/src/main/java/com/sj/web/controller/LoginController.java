@@ -67,7 +67,7 @@ public class LoginController {
 		return AJAXLOGIN;
 	}
 
-	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.POST)
 	@ResponseBody
 	public String ajaxLogin(
 			@RequestParam(value = "name", required = true) String name,

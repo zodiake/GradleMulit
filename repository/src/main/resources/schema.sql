@@ -79,7 +79,7 @@ create table product(
 );
 
 create table review(
-	id bigint not null,
+	id bigint not null auto_increment,
 	content varchar(400),
 	product_id bigint,
 	user_id bigint,

@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Review save(Review review) {
+		review.setCreatedTime(Calendar.getInstance());
 		return repository.save(review);
 	}
 
