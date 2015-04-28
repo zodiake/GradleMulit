@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -27,6 +28,7 @@ public class Subject {
 	private String name;
 
 	@Enumerated
+	@Column(name="show_on_index")
 	private ActivateEnum showOnIndex;
 
 	@Enumerated

@@ -20,8 +20,8 @@ public class ProductSubject {
 	@Embeddable
 	public static class Id implements Serializable {
 
-		@Column(name = "user_id")
-		private Integer userId;
+		@Column(name = "subject_id")
+		private Integer subjectId;
 
 		@Column(name = "product_id")
 		private Integer productId;
@@ -29,8 +29,8 @@ public class ProductSubject {
 		public Id() {
 		}
 
-		public Id(Integer userId, Integer productId) {
-			this.userId = userId;
+		public Id(Integer subjectId, Integer productId) {
+			this.subjectId = subjectId;
 			this.productId = productId;
 		}
 
@@ -41,7 +41,7 @@ public class ProductSubject {
 			result = prime * result
 					+ ((productId == null) ? 0 : productId.hashCode());
 			result = prime * result
-					+ ((userId == null) ? 0 : userId.hashCode());
+					+ ((subjectId == null) ? 0 : subjectId.hashCode());
 			return result;
 		}
 
@@ -59,10 +59,10 @@ public class ProductSubject {
 					return false;
 			} else if (!productId.equals(other.productId))
 				return false;
-			if (userId == null) {
-				if (other.userId != null)
+			if (subjectId == null) {
+				if (other.subjectId != null)
 					return false;
-			} else if (!userId.equals(other.userId))
+			} else if (!subjectId.equals(other.subjectId))
 				return false;
 			return true;
 		}
@@ -75,8 +75,8 @@ public class ProductSubject {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateAdded;
 
-	@Column(name="sort_order")
-	private int sortOrder;
+	@Column(name = "sort_order")
+	private Integer sortOrder;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "subject_id", insertable = false, updatable = false)
@@ -126,11 +126,11 @@ public class ProductSubject {
 		this.product = product;
 	}
 
-	public int getSortOrder() {
+	public Integer getSortOrder() {
 		return sortOrder;
 	}
 
-	public void setSortOrder(int sortOrder) {
+	public void setSortOrder(Integer sortOrder) {
 		this.sortOrder = sortOrder;
 	}
 

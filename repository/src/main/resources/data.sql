@@ -56,3 +56,15 @@ insert into prefer_products(user_id,product_id) values(3,1);
 insert into prefer_products(user_id,product_id) values(4,1);
 insert into prefer_products(user_id,product_id) values(3,2);
 insert into prefer_products(user_id,product_id) values(4,2);
+
+--test subject
+insert into subject(id,name,show_on_index,activate) values (1,'subject1',1,1);
+insert into subject(id,name,show_on_index,activate) values (2,'subject2',1,1);
+insert into subject(id,name,show_on_index,activate) values (3,'subject3',1,1);
+insert into subject(id,name,show_on_index,activate) values (4,'subject4',1,1);
+
+--test product_subject
+insert into product_subject(product_id,subject_id)values(1,1);
+insert into product_subject(product_id,subject_id)values(2,1);
+insert into product_subject(product_id,subject_id)values(3,1);
+insert into product_subject(product_id,subject_id)values(4,1);

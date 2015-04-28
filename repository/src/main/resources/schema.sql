@@ -14,7 +14,7 @@ create table category(
 create table subject(
 	id bigint not null auto_increment,
 	name varchar(40) not null,
-	showOnIndex smallint,
+	show_on_index smallint,
 	activate smallint,
 	primary key(id)
 );
