@@ -1,5 +1,7 @@
 (function($) {
 	$.fn.loginBeforeAjax = function(options) {
+		var self = $(this);
+
 		var settings = $.extend({
 			url : null,
 			data : null,
@@ -25,28 +27,27 @@
 
 		var ajaxPost = function() {
 			$.ajax({
-				data : settings.data,
+				data : settings.data(self),
 				url : settings.url,
 				type : 'post'
 			}).success(function(response) {
 				settings.success(response);
-			}).fail(function(res){
+			}).fail(function(res) {
 				settings.fail(res);
 			});
 		};
 
-		this.submit(function(event) {
+		this.click(function(event) {
 			$.ajax({
 				url : settings.url,
-				data : settings.data,
+				data : settings.data(self),
 				type : 'post'
 			}).success(function(response) {
 				if (response == 'login')
 					$('#' + settings.div).append(loginForm$);
-				else
-					ajaxPost();
 			});
 			return false;
 		});
+		return this;
 	};
-})(jQuery); 
+})(jQuery);

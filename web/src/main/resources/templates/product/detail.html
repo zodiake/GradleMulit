@@ -7,6 +7,7 @@
 		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 		<title>Insert title here</title>
 		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/loginBeforeAjax.js}"></script>
 		<script>
 			$(function() {
 
@@ -43,31 +44,21 @@
 					});
 				});
 
-				$('#addCart').click(function(event) {
-					event.preventDefault();
-					var productId = $(this).attr('data-id');
-					$.ajax({
-						url : '/ajax/cart',
-						type : 'post',
-						data : {
-							id : productId,
-							number : 1
-						},
-						success : function(text) {
-							alert("success");
-							if (text == 'login') {
-								$.ajax({
-									url : '/ajaxLogin',
-									success : function(text) {
-										$('#loginForm').append($(text));
-									}
-								});
-							}
-						},
-						error : function() {
-							alert("error");
-						}
-					});
+				$('#addCart').loginBeforeAjax({
+					url : '/ajax/cart',
+					div : 'loginForm',
+					data : function(self) {
+						return {
+							id : self.attr('data-id'),
+							name : self.attr('data-name'),
+							url : self.attr('data-url'),
+							price : self.attr('data-price'),
+							number:1
+						};
+					},
+					success : function(res) {
+
+					}
 				});
 
 				$('#loginForm').on('submit', 'form', function(event) {
@@ -93,7 +84,7 @@
 			<button id="addPrefer" th:attr="data-id=*{id}">
 				addToPrefer
 			</button>
-			<button id="addCart" th:attr="data-id=*{id}">
+			<button id="addCart" th:attr="data-id=*{id},data-name=*{name},data-url=*{url},data-price=*{price}" >
 				addToCart
 			</button>
 		</div>

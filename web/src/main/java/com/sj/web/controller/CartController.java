@@ -3,6 +3,7 @@ package com.sj.web.controller;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,7 @@ import com.sj.model.model.SiteUser;
 import com.sj.repository.service.CartLineService;
 import com.sj.repository.service.ProductService;
 import com.sj.web.security.UserContext;
+import com.sj.web.util.AuthorityUtil;
 
 @Controller
 public class CartController {
@@ -35,8 +37,15 @@ public class CartController {
 		if (!userContext.isLogin())
 			return "login";
 		SiteUser user = userContext.getCurrentUser();
-		cartLineService.save(user.getId(), cartLine.getId(),
-				cartLine.getNumber());
+		if (!userContext.hasRole(new GrantedAuthority() {
+			@Override
+			public String getAuthority() {
+				return "ROLE_USER";
+			}
+
+		}))
+			return "no authority";
+		cartLineService.save(user.getId(), cartLine);
 		return "success";
 	}
 
@@ -53,8 +62,10 @@ public class CartController {
 	private String updateCartLineNumber(
 			@PathVariable(value = "cartLineId") Long cartLineId,
 			@RequestParam("number") int number) {
+		if (!userContext.isLogin())
+			return "fail";
 		SiteUser user = userContext.getCurrentUser();
-		cartLineService.save(user.getId(), cartLineId, number);
+		cartLineService.updateNumber(user.getId(), cartLineId, number);
 		return "success";
 	}
 

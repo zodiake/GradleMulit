@@ -11,6 +11,15 @@ public class CartLine {
 		super();
 	}
 
+	public CartLine(String id, String url, String name, String price,
+			String number) {
+		this.id = Long.valueOf(id);
+		this.url = url;
+		this.name = name;
+		this.price = Double.valueOf(price);
+		this.number = Integer.valueOf(number);
+	}
+
 	public CartLine(Product p) {
 		this.id = p.getId();
 		this.name = p.getName();

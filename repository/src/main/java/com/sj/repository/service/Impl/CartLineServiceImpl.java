@@ -1,6 +1,6 @@
 package com.sj.repository.service.Impl;
 
-import static com.sj.repository.util.RedisConstant.CART;
+import static com.sj.repository.util.RedisConstant.*;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,8 +25,19 @@ public class CartLineServiceImpl implements CartLineService {
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED)
-	public void save(Long id, Long productId, int number) {
-		template.opsForZSet().add(CART + id, productId.toString(), number);
+	public void save(Long id, CartLine cartline) {
+		String cartlineId = CARTLINE + id + ":" + cartline.getId();
+		String cartId = CART + id;
+
+		// add to user cart
+		template.opsForSet().add(cartId, cartline.getId().toString());
+
+		// add to
+		template.opsForHash().put(cartlineId, "id", cartline.getId().toString());
+		template.opsForHash().put(cartlineId, "name", cartline.getName());
+		template.opsForHash().put(cartlineId, "url", cartline.getUrl());
+		template.opsForHash().put(cartlineId, "price", cartline.getPrice()+"");
+		template.opsForHash().put(cartlineId, "number", cartline.getNumber()+"");
 	}
 
 	@Override
@@ -39,14 +50,27 @@ public class CartLineServiceImpl implements CartLineService {
 	@Transactional(readOnly = true)
 	public Set<CartLine> findByUser(Long id) {
 		Set<String> ids = template.opsForZSet().range(CART + id, 0, -1);
+		String redisCartlineId = CARTLINE + id + ":";
 		return ids
 				.stream()
 				.map(i -> {
-					CartLine l = new CartLine(productRepository.findOne(Long
-							.valueOf(i)));
-					Double number = template.opsForZSet().score(CART + id, i);
-					l.setNumber(number.intValue());
-					return l;
+					String name = (String) template.opsForHash().get(
+							redisCartlineId + i, "name");
+					String url = (String) template.opsForHash().get(
+							redisCartlineId + i, "url");
+					String price = (String) template.opsForHash().get(
+							redisCartlineId + i, "price");
+					String tempId = (String) template.opsForHash().get(
+							redisCartlineId + i, "id");
+					String number = (String) template.opsForHash().get(
+							redisCartlineId + i, "number");
+					return new CartLine(tempId, url, name, price, number);
 				}).collect(Collectors.toSet());
+	}
+
+	@Override
+	public void updateNumber(Long id, Long cartlineId, int number) {
+		String redisCartlineId = CARTLINE + id + ":" + cartlineId;
+		template.opsForHash().put(redisCartlineId, "number", number);
 	}
 }
