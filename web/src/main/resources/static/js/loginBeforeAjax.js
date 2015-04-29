@@ -1,10 +1,11 @@
 (function($) {
-	$.fn.ajaxLogin = function(options) {
+	$.fn.loginBeforeAjax = function(options) {
 		var settings = $.extend({
 			url : null,
 			data : null,
 			div : null,
-			callback : null
+			success : null,
+			fail : null
 		}, options || {});
 
 		var loginTemplate = '<form><input type="text" name="name"/><input type="password" name="password"/><input type="submit"/></form>';
@@ -28,7 +29,9 @@
 				url : settings.url,
 				type : 'post'
 			}).success(function(response) {
-				settings.callback(response);
+				settings.success(response);
+			}).fail(function(res){
+				settings.fail(res);
 			});
 		};
 
@@ -46,4 +49,4 @@
 			return false;
 		});
 	};
-})(jQuery);
+})(jQuery); 

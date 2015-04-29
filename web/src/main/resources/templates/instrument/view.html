@@ -26,11 +26,11 @@
 					$('#reviews').html(htmlOutput);
 				});
 
-				$('#reviewForm').ajaxLogin({
+				$('#reviewForm').loginBeforeAjax({
 					url : '/products/1/reviews',
 					div : 'reviews',
 					data : {content:$('#content').val()},
-					callback : function(res) {
+					success : function(res) {
 						alert(res);
 					}
 				});
