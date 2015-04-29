@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8"></meta>
-<title>Insert title here</title>
-</head>
-<body>
-	<div th:each="l:${list}">
-		name:<span th:text="${l.name}"></span>
-	</div>
-</body>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<title>Insert title here</title>
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script>
+			$(function() {
+
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+
+				$('button').click(function() {
+					var self = $(this);
+					var id = self.attr('data-id');
+					$.ajax({
+						url : '/user/cart/' + id,
+						method : 'delete'
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div th:each="l:${list}">
+			name:<span th:text="${l.name}"></span>
+			<button id="delete" th:attr="data-id=*{l.id}">
+				delete
+			</button>
+		</div>
+	</body>
 </html>

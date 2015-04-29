@@ -44,9 +44,9 @@ public class CartController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/user/cart", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/user/cart/{productId}", method = RequestMethod.DELETE)
 	@ResponseBody
-	private String removeCartLine(@RequestParam("id") Long productId) {
+	private String removeCartLine(@PathVariable("productId") Long productId) {
 		SiteUser user = userContext.getCurrentUser();
 		cartLineService.remove(user.getId(), productId);
 		return "success";

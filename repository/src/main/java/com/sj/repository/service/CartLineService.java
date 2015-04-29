@@ -12,4 +12,6 @@ public interface CartLineService {
 	void updateNumber(Long id, Long cartlineId, int number);
 
 	Set<CartLine> findByUser(Long id);
+
+	void clearCartline(Long id, String... lines);
 }

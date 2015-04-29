@@ -1,9 +1,12 @@
 package com.sj.repository.service.Impl;
 
-import static com.sj.repository.util.RedisConstant.*;
+import static com.sj.repository.util.RedisConstant.CART;
+import static com.sj.repository.util.RedisConstant.CARTLINE;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -16,7 +19,7 @@ import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.CartLineService;
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
 public class CartLineServiceImpl implements CartLineService {
 	@Autowired
 	private StringRedisTemplate template;
@@ -24,7 +27,6 @@ public class CartLineServiceImpl implements CartLineService {
 	private ProductRepository productRepository;
 
 	@Override
-	@Transactional(propagation = Propagation.NOT_SUPPORTED)
 	public void save(Long id, CartLine cartline) {
 		String cartlineId = CARTLINE + id + ":" + cartline.getId();
 		String cartId = CART + id;
@@ -44,13 +46,14 @@ public class CartLineServiceImpl implements CartLineService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.NOT_SUPPORTED)
 	public void remove(Long id, Long productId) {
-		template.opsForZSet().remove(CART + id, productId);
+		String cartId = CART + id;
+		String cartlineId = CARTLINE + id + ":" + productId;
+		template.opsForSet().remove(cartId, productId.toString());
+		template.delete(cartlineId);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Set<CartLine> findByUser(Long id) {
 		Set<String> ids = template.opsForSet().members(CART + id);
 		String redisCartlineId = CARTLINE + id + ":";
@@ -75,5 +78,17 @@ public class CartLineServiceImpl implements CartLineService {
 	public void updateNumber(Long id, Long cartlineId, int number) {
 		String redisCartlineId = CARTLINE + id + ":" + cartlineId;
 		template.opsForHash().put(redisCartlineId, "number", number);
+	}
+
+	@Override
+	public void clearCartline(Long id, String... lines) {
+		Stream<String> stream;
+		if (lines == null)
+			stream = template.opsForSet().members(CART + id).stream();
+		else
+			stream = Arrays.asList(lines).stream();
+		stream.forEach(i -> {
+			template.opsForHash().delete(CARTLINE + id + ":" + i);
+		});
 	}
 }
