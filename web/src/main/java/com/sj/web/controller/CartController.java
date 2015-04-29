@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,13 +38,7 @@ public class CartController {
 		if (!userContext.isLogin())
 			return "login";
 		SiteUser user = userContext.getCurrentUser();
-		if (!userContext.hasRole(new GrantedAuthority() {
-			@Override
-			public String getAuthority() {
-				return "ROLE_USER";
-			}
-
-		}))
+		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
 			return "no authority";
 		cartLineService.save(user.getId(), cartLine);
 		return "success";

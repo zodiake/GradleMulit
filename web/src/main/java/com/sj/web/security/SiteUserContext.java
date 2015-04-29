@@ -1,5 +1,7 @@
 package com.sj.web.security;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -50,6 +52,6 @@ public class SiteUserContext implements UserContext {
 	public boolean hasRole(GrantedAuthority authority) {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
-		return authentication.getAuthorities().contains(authentication);
+		return authentication.getAuthorities().contains(authority);
 	}
 }

@@ -3,17 +3,12 @@ package com.sj.web.util;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class AuthorityUtil {
-	public static Set<GrantedAuthority> createAuthority(final String name) {
-		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		GrantedAuthority authority = new GrantedAuthority() {
-			public String getAuthority() {
-				return name;
-			}
-
-		};
+	public static Set<SimpleGrantedAuthority> createAuthority(final String name) {
+		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+		SimpleGrantedAuthority authority=new SimpleGrantedAuthority(name);
 		authorities.add(authority);
 		return authorities;
 	}

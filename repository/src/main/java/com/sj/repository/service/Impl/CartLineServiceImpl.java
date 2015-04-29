@@ -33,11 +33,14 @@ public class CartLineServiceImpl implements CartLineService {
 		template.opsForSet().add(cartId, cartline.getId().toString());
 
 		// add to
-		template.opsForHash().put(cartlineId, "id", cartline.getId().toString());
+		template.opsForHash()
+				.put(cartlineId, "id", cartline.getId().toString());
 		template.opsForHash().put(cartlineId, "name", cartline.getName());
 		template.opsForHash().put(cartlineId, "url", cartline.getUrl());
-		template.opsForHash().put(cartlineId, "price", cartline.getPrice()+"");
-		template.opsForHash().put(cartlineId, "number", cartline.getNumber()+"");
+		template.opsForHash()
+				.put(cartlineId, "price", cartline.getPrice() + "");
+		template.opsForHash().put(cartlineId, "number",
+				cartline.getNumber() + "");
 	}
 
 	@Override
@@ -49,7 +52,7 @@ public class CartLineServiceImpl implements CartLineService {
 	@Override
 	@Transactional(readOnly = true)
 	public Set<CartLine> findByUser(Long id) {
-		Set<String> ids = template.opsForZSet().range(CART + id, 0, -1);
+		Set<String> ids = template.opsForSet().members(CART + id);
 		String redisCartlineId = CARTLINE + id + ":";
 		return ids
 				.stream()

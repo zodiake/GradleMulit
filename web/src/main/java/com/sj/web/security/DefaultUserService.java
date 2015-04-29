@@ -3,8 +3,10 @@ package com.sj.web.security;
 import java.util.Collection;
 
 import com.sj.web.util.AuthorityUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,7 +29,6 @@ public class DefaultUserService implements UserDetailsService {
 		return new SiteUserDetails(user);
 	}
 
-
 	private class SiteUserDetails extends SiteUser implements UserDetails {
 		/**
 		 * 
@@ -43,7 +44,7 @@ public class DefaultUserService implements UserDetailsService {
 		}
 
 		@Override
-		public Collection<? extends GrantedAuthority> getAuthorities() {
+		public Collection<SimpleGrantedAuthority> getAuthorities() {
 			return AuthorityUtil.createAuthority(getSiteAuthority());
 		}
 
