@@ -29,6 +29,7 @@ public class CaptchaController {
 
 		sendImg(session, response);
 	}
+
 	@RequestMapping(value = "/captcha/text", method = RequestMethod.GET)
 	public void captchaText(HttpSession session){
 		String captcha=captchaService.createStringCaptcha();
@@ -76,5 +77,4 @@ public class CaptchaController {
 		}
 
 	}
-
 }

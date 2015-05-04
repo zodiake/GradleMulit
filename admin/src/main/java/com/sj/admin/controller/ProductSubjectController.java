@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductSubject;
@@ -43,4 +44,9 @@ public class ProductSubjectController {
 		return LIST;
 	}
 
+	@RequestMapping(value = "/productSubject/list", method = RequestMethod.POST)
+	@ResponseBody
+	public String list(@RequestParam(value = "param[]") Integer[] params) {
+		return params.toString();
+	}
 }
