@@ -21,6 +21,7 @@ public class ProductController {
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
 	public String view(Model uiModel, @PathVariable(value = "id") Long id) {
 		Product product = productService.findOne(id);
+		productService.addViewCount(id);
 		if (product == null)
 			throw new ProductNotFoundException();
 		uiModel.addAttribute("product", product);
@@ -31,5 +32,4 @@ public class ProductController {
 	public void addCount(@PathVariable(value = "id") Long id) {
 		productService.addViewCount(id);
 	}
-
 }
