@@ -8,6 +8,13 @@ import javax.persistence.PrimaryKeyJoinColumn;
  */
 @Entity
 @PrimaryKeyJoinColumn
-public class Provider extends SiteUser{
+public class Provider extends SiteUser {
+
+	public Provider() {
+	}
+
+	public Provider(Long id) {
+		super(id);
+	}
 
 }

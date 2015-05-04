@@ -69,6 +69,7 @@ create table product(
 	brand_id bigint,
 	created_by bigint,
 	content_id bigint,
+	created_time timestamp,
 	primary key(id),
 	foreign key (first_category_id) references category(id),
 	foreign key (second_category_id) references category(id),

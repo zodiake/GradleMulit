@@ -1,6 +1,8 @@
 package com.sj.repository.service.Impl;
 
-import static com.sj.repository.util.RedisConstant.*;
+import static com.sj.repository.util.RedisConstant.VIEWCOUNT;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,7 +11,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Product;
-import com.sj.model.model.SiteUser;
+import com.sj.model.model.Provider;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.ProductService;
 
@@ -22,8 +24,19 @@ public class ProductServiceImpl implements ProductService {
 	private StringRedisTemplate template;
 
 	@Override
-	public Page<Product> findByUsers(SiteUser user, Pageable pageable) {
-		return repository.findByCreatedBy(user, pageable);
+	public Page<Product> findByUsers(Provider user, Pageable pageable) {
+		Page<Product> pages = repository.findByCreatedBy(user, pageable);
+		List<Product> lists = pages.getContent();
+		lists.stream().forEach(
+				l -> {
+					String count = template.opsForValue().get(
+							VIEWCOUNT + l.getId().toString());
+					if (count != null)
+						l.setViewCount(Long.valueOf(count));
+					else
+						l.setViewCount(0l);
+				});
+		return pages;
 	}
 
 	@Override

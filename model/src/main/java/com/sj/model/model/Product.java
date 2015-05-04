@@ -1,8 +1,25 @@
 package com.sj.model.model;
 
+import java.util.Calendar;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -47,6 +64,13 @@ public class Product {
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "content_id")
 	private Content content;
+
+	@Transient
+	private Long viewCount;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_time")
+	private Calendar createdTime;
 
 	public Product() {
 		super();
@@ -144,13 +168,29 @@ public class Product {
 	public void setCreatedBy(Provider createdBy) {
 		this.createdBy = createdBy;
 	}
-	
+
 	public Content getContent() {
 		return content;
 	}
 
 	public void setContent(Content content) {
 		this.content = content;
+	}
+	
+	public Long getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Long viewCount) {
+		this.viewCount = viewCount;
+	}
+	
+	public Calendar getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
 	}
 
 	@Override

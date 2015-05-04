@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Insert title here</title>
+</head>
+<body>
+	<div th:each="p:${lists}">
+		id:<span th:text="${p.id}"></span>
+		viewCount:<span th:text="${p.viewCount}"></span>
+	</div>
+</body>
+</html>
