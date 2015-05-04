@@ -11,4 +11,6 @@ public interface ProductService {
 	public Page<Product> findByUsers(SiteUser user, Pageable pageable);
 
 	public Product findOne(Long id);
+	
+	public void addViewCount(Long id);
 }

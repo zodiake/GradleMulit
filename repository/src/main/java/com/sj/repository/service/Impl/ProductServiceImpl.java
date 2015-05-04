@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import static com.sj.repository.util.RedisConstant.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
-import com.sj.model.model.Subject;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.ProductService;
 
@@ -28,5 +29,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findOne(Long id) {
 		return repository.findOne(id);
+	}
+
+	@Override
+	public void addViewCount(Long id) {
+		template.opsForValue().increment(VIEWCOUNT + id, 1);
 	}
 }

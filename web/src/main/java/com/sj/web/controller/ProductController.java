@@ -1,7 +1,6 @@
 package com.sj.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +25,11 @@ public class ProductController {
 			throw new ProductNotFoundException();
 		uiModel.addAttribute("product", product);
 		return DETAIL;
+	}
+
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
+	public void addCount(@PathVariable(value = "id") Long id) {
+		productService.addViewCount(id);
 	}
 
 }
