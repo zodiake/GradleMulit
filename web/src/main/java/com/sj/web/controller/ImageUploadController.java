@@ -45,7 +45,6 @@ public class ImageUploadController {
 
 		try {
 			Path uploadFilePath = getUploadDir(basePath, userDir, fileName);
-			System.out.println(uploadFilePath.toString());
 			byte[] bytes = file.getBytes();
 			Files.write(uploadFilePath, bytes);
 			sendScript(response, num, userFold, fileName);

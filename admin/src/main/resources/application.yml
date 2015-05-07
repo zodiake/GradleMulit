@@ -12,6 +12,10 @@ security:
 server:
   tomcat.uri-encoding: UTF-8
 
+multipart:
+        maxFileSize: -1
+        maxRequestSize: -1
+
 login:
   passwordError: 两次密码输入不一致
   captchaError: 请输入正确的验证码

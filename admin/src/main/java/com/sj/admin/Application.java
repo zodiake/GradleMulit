@@ -21,6 +21,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.sj.admin.converter.StringToAcitvateEnumConverter;
 
@@ -43,10 +44,9 @@ public class Application {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests()
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				.anyRequest().permitAll().and()
-					.formLogin().defaultSuccessUrl("/index")
+			http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
+					.anyRequest().permitAll().and().formLogin()
+					.defaultSuccessUrl("/index")
 					.loginProcessingUrl("/loginProcess")
 					.usernameParameter("name").passwordParameter("password")
 					.loginPage("/login").failureUrl("/login?error").and()
@@ -84,5 +84,12 @@ public class Application {
 	@Bean
 	public StringToAcitvateEnumConverter stringToAcitvateEnumConverter() {
 		return new StringToAcitvateEnumConverter();
+	}
+
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+	    CommonsMultipartResolver resolver=new CommonsMultipartResolver();
+	    resolver.setDefaultEncoding("utf-8");
+	    return resolver;
 	}
 }
