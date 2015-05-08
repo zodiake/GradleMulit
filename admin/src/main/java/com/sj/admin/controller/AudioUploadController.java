@@ -1,21 +1,26 @@
 package com.sj.admin.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.common.io.Files;
+import com.sj.admin.async.AsyncWriteFileService;
+import com.sj.model.model.UploadResult;
+import com.sj.model.model.UploadResultDetail;
 
 @Controller
 public class AudioUploadController {
+	@Autowired
+	private AsyncWriteFileService writeFileService;
+
 	private final String UPLOAD = "audio/upload";
 
 	@RequestMapping(value = "/audioUpload", method = RequestMethod.GET)
@@ -24,20 +29,14 @@ public class AudioUploadController {
 	}
 
 	@RequestMapping(value = "/audioUpload", method = RequestMethod.POST)
-	public String upload(MultipartFile file, HttpServletRequest request) {
-		try {
-			InputStream stream = file.getInputStream();
-			byte[] bytes = new byte[10240];
-			Path basePath = Paths.get("").resolve(
-					"src/main/resources/static/upload/audio/"
-							+ file.getOriginalFilename());
-			while (stream.read(bytes) != -1) {
-				Files.write(bytes, basePath.toFile());
-			}
-			stream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return UPLOAD;
+	@ResponseBody
+	public UploadResult upload(MultipartFile file, HttpServletRequest request) {
+		writeFileService.writeToFile(file);
+		UploadResult result = new UploadResult();
+		List<UploadResultDetail> files = new ArrayList<>();
+		files.add(new UploadResultDetail(file.getOriginalFilename(), file
+				.getSize(), "asd", "asd", "delete"));
+		result.setFiles(files);
+		return result;
 	}
 }

@@ -1,15 +1,56 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html>
 	<head>
-		<meta charset="UTF-8">
-		</meta>
-		<title>Insert title here</title>
+		<meta charset="utf-8"/>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<title>jQuery File Upload Example</title>
+		<script src="/js/jquery-1.11.2.min.js"></script>
+		<script src="/js/vendor/jquery.ui.widget.js"></script>
+		<script src="/js/jquery.iframe-transport.js"></script>
+		<script src="/js/jquery.fileupload.js"></script>
+		<script>
+			$(function() {
+
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				var id = $("meta[name='id']").attr("content");
+
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+
+				var abortButton = $('<button/>').text('abort').click(function() {
+
+				});
+
+				$('#fileupload').fileupload({
+					dataType : 'json',
+					add : function(e, data) {
+						data.context = $('<p/>').text('Uploading...').appendTo(document.body);
+						data.submit();
+					},
+					done : function(e, data) {
+						data.context.text('Upload finished.');
+					},
+					progressall : function(e, data) {
+						var progress = parseInt(data.loaded / data.total * 100, 10);
+						$('#progress .bar').css('width', progress + '%').text(progress + '%');
+					}
+				});
+			});
+		</script>
+		<style>
+			.bar {
+				height: 18px;
+				background-color: green;
+			}
+		</style>
 	</head>
 	<body>
-		<form th:method="post" enctype="multipart/form-data">
-			<input type="file" name="file"/>
- 		   	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-			<input type="submit"/>
-		</form>
+		<input id="fileupload" type="file" name="file" data-url="/audioUpload" />
+		<div id="progress">
+			<div class="bar" style="width: 0%;"></div>
+		</div>
 	</body>
 </html>
