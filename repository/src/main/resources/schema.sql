@@ -133,3 +133,12 @@ create table prefer_products(
 	foreign key(user_id) references common_user(id),
 	foreign key(product_id) references product(id)
 );
+
+create table scroll_image(
+	id bigint not null AUTO_INCREMENT,
+	image_url varchar(100),
+	created_time timestamp,
+	sort_number int,
+	scroll_type varchar(10),
+	primary key(id)
+);

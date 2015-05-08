@@ -79,3 +79,10 @@ insert into review(id,content,product_id,user_id) values(3,'haha,very good user3
 
 --test instrument
 insert into instrument(id) values(1);
+
+--test scrollImage
+insert into scroll_image(id,image_url,sort_number,scroll_type) values(1,'/upload/img/scroll1.jpg',1,'INDEX');
+insert into scroll_image(id,image_url,sort_number,scroll_type) values(2,'/upload/img/scroll1.jpg',1,'INDEX');
+insert into scroll_image(id,image_url,sort_number,scroll_type) values(3,'/upload/img/scroll1.jpg',1,'INDEX');
+insert into scroll_image(id,image_url,sort_number,scroll_type) values(4,'/upload/img/scroll1.jpg',1,'INDEX');
+insert into scroll_image(id,image_url,sort_number,scroll_type) values(5,'/upload/img/scroll1.jpg',1,'INDEX');
