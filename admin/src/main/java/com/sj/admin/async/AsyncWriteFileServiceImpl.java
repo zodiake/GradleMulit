@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.io.Files;
