@@ -26,6 +26,7 @@ import com.sj.model.model.SiteUser;
 import com.sj.repository.service.SiteUserService;
 import com.sj.repository.util.ChangePasswordForm;
 import com.sj.repository.util.SignupForm;
+import com.sj.web.annotation.SecurityUser;
 import com.sj.web.security.SiteUserContext;
 
 @Controller
@@ -131,19 +132,18 @@ public class LoginController {
 	@RequestMapping(value = { "/provider/changePw", "/manufacture/changePw" }, method = RequestMethod.POST)
 	public String processPassword(
 			@Valid @ModelAttribute("form") ChangePasswordForm form,
-			BindingResult result, Model uiModel) {
-		SiteUser user = userContext.getCurrentUser();
-
+			BindingResult result, Model uiModel,@SecurityUser SiteUser user) {
+		ChangePasswordForm source=form;
 		form = translatePassword(form);
 
 		validateChangePassword(user, form, result);
 		if (result.hasErrors()) {
-			uiModel.addAttribute("form", new ChangePasswordForm());
+			uiModel.addAttribute("form", source);
 			return CHANGEPASSWORD;
 		}
 		userService.updatePassword(user.getId(), form.getNewPassword());
 		// todo
-		return "index";
+		return "redirect:/index";
 	}
 
 	private ChangePasswordForm translatePassword(ChangePasswordForm form) {
@@ -178,7 +178,7 @@ public class LoginController {
 	}
 
 	private void sendCaptcha() {
-		//todo
+		// todo
 
 	}
 	/* end forget password */
