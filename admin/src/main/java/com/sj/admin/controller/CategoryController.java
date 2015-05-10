@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sj.admin.annotation.PageRequestAnn;
 import com.sj.admin.exception.CategoryNotFoundException;
 import com.sj.admin.security.UserContext;
 import com.sj.model.model.Category;
@@ -69,12 +68,9 @@ public class CategoryController {
 	// child category list
 	@RequestMapping(value = "/admin/{parent}/categories", method = RequestMethod.GET)
 	public String findByParent(@PathVariable(value = "parent") Long parent,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size,
-			Model uiModel) {
-		Page<Category> results = categoryService.findByParent(new PageRequest(
-				page - 1, size, Direction.DESC, "createdTime"), new Category(
-				parent));
+			@PageRequestAnn PageRequest pageRequest, Model uiModel) {
+		Page<Category> results = categoryService.findByParent(pageRequest,
+				new Category(parent));
 		uiModel.addAttribute("results", results);
 		return LIST;
 	}

@@ -70,9 +70,9 @@ public class PreferProduct {
 	@EmbeddedId
 	private Id id = new Id();
 
-	@Column(name = "ADDED_ON")
+	@Column(name = "created_Time")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dateAdded;
+	private Calendar createdTime;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
@@ -93,12 +93,20 @@ public class PreferProduct {
 
 	}
 
-	public Calendar getDateAdded() {
-		return dateAdded;
+	public Id getId() {
+		return id;
 	}
 
-	public void setDateAdded(Calendar dateAdded) {
-		this.dateAdded = dateAdded;
+	public void setId(Id id) {
+		this.id = id;
+	}
+
+	public Calendar getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
 	}
 
 	public CommonUser getUser() {

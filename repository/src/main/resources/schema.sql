@@ -128,7 +128,7 @@ create table product_subject(
 create table prefer_products(
 	user_id bigint not null,
 	product_id bigint not null,
-	ADDED_ON timestamp,
+	created_time timestamp,
 	primary key(user_id,product_id),
 	foreign key(user_id) references common_user(id),
 	foreign key(product_id) references product(id)

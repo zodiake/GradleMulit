@@ -36,7 +36,7 @@ public class PreferProductServiceImpl implements PreferProductService {
 		SiteUser user = product.getUser();
 		CommonUser temp = new CommonUser(user.getId());
 		product.setUser(temp);
-		product.setDateAdded(Calendar.getInstance());
+		product.setCreatedTime(Calendar.getInstance());
 		return repository.save(product);
 	}
 

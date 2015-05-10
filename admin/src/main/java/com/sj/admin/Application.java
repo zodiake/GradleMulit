@@ -1,6 +1,7 @@
 package com.sj.admin;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -21,16 +22,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sj.admin.converter.StringToAcitvateEnumConverter;
+import com.sj.admin.resolver.PageRequestResolver;
 
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
 @Import(value = { com.sj.repository.Application.class,
 		com.sj.model.Application.class })
-public class Application {
+public class Application extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -84,5 +87,12 @@ public class Application {
 	@Bean
 	public StringToAcitvateEnumConverter stringToAcitvateEnumConverter() {
 		return new StringToAcitvateEnumConverter();
+	}
+
+	@Override
+	public void addArgumentResolvers(
+			List<HandlerMethodArgumentResolver> argumentResolvers) {
+		PageRequestResolver pageRequestResolver = new PageRequestResolver();
+		argumentResolvers.add(pageRequestResolver);
 	}
 }

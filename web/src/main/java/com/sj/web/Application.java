@@ -34,13 +34,14 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.sj.web.resolver.PageRequestResolver;
 import com.sj.web.resolver.SiteUserResolver;
 
 @EnableConfigurationProperties
 @SpringBootApplication
 @Import(value = { com.sj.repository.Application.class,
 		com.sj.model.Application.class })
-public class Application extends WebMvcConfigurerAdapter{
+public class Application extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -140,7 +141,9 @@ public class Application extends WebMvcConfigurerAdapter{
 	@Override
 	public void addArgumentResolvers(
 			List<HandlerMethodArgumentResolver> argumentResolvers) {
-		SiteUserResolver personResolver = new SiteUserResolver ();
+		SiteUserResolver personResolver = new SiteUserResolver();
+		PageRequestResolver pageRequestResolver = new PageRequestResolver();
 		argumentResolvers.add(personResolver);
+		argumentResolvers.add(pageRequestResolver);
 	}
 }

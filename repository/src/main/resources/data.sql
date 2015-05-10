@@ -55,10 +55,10 @@ insert into product(id,name,cover_Img,price,url,first_category_id,second_categor
 values(8,'product4','',10.0,'/product/4',2,3,5,2,8);
 
 --test product_category
-insert into prefer_products(user_id,product_id) values(3,1);
-insert into prefer_products(user_id,product_id) values(4,1);
-insert into prefer_products(user_id,product_id) values(3,2);
-insert into prefer_products(user_id,product_id) values(4,2);
+insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');
+insert into prefer_products(user_id,product_id,created_time) values(4,1,'2013-1-1');
+insert into prefer_products(user_id,product_id,created_time) values(3,2,'2014-1-1');
+insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-1');
 
 --test subject
 insert into subject(id,name,show_on_index,activate) values (1,'subject1',1,1);
