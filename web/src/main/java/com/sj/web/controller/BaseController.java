@@ -1,6 +1,10 @@
 package com.sj.web.controller;
 
+import java.util.Calendar;
+
 import org.springframework.data.domain.Page;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 public class BaseController<T> {
 	ViewPage caculatePage(Page<T> page) {
@@ -51,5 +55,12 @@ public class BaseController<T> {
 			this.end = end;
 		}
 
+	}
+	
+	protected String getFileName(MultipartFile file){
+		Calendar c = Calendar.getInstance();
+		String fileName = String.valueOf(c.hashCode())
+				+ StringUtils.trimAllWhitespace(file.getOriginalFilename());
+		return fileName;
 	}
 }

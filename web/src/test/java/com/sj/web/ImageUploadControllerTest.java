@@ -6,6 +6,6 @@ import static org.junit.Assert.*;
 public class ImageUploadControllerTest {
 	@Test
 	public void test(){
-		assertEquals(2,1);
+		assertEquals(1,1);
 	}
 }

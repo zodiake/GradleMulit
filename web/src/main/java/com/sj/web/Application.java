@@ -4,19 +4,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ehcache.config.CacheConfiguration;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CachingConfigurerSupport;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.cache.interceptor.SimpleKeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -45,36 +37,6 @@ public class Application extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-	}
-
-	@EnableCaching
-	@Configuration
-	public static class CacheConfig extends CachingConfigurerSupport {
-		@Bean(destroyMethod = "shutdown")
-		public net.sf.ehcache.CacheManager ehCacheManager() {
-			CacheConfiguration cacheConfiguration = new CacheConfiguration();
-			cacheConfiguration.setName("myCacheName");
-			cacheConfiguration.setMemoryStoreEvictionPolicy("LRU");
-			cacheConfiguration.setMaxEntriesLocalHeap(1000);
-
-			net.sf.ehcache.config.Configuration config = new net.sf.ehcache.config.Configuration();
-			config.addCache(cacheConfiguration);
-
-			return net.sf.ehcache.CacheManager.newInstance(config);
-		}
-
-		@Bean
-		@Override
-		public CacheManager cacheManager() {
-			return new EhCacheCacheManager(ehCacheManager());
-		}
-
-		@Bean
-		@Override
-		public KeyGenerator keyGenerator() {
-			return new SimpleKeyGenerator();
-		}
-
 	}
 
 	@Configuration

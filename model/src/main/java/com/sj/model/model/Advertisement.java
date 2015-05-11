@@ -3,7 +3,10 @@ package com.sj.model.model;
 import java.util.Calendar;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.sj.model.type.AdvertiseCategoryEnum;
+
 @Entity
 @Table(name = "advertisement")
 public class Advertisement {
@@ -23,14 +28,19 @@ public class Advertisement {
 
 	private String coverImg;
 
-	@OneToOne(fetch = FetchType.LAZY,cascade={CascadeType.MERGE,CascadeType.REMOVE})
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+			CascadeType.REMOVE })
 	@JoinColumn(name = "content_id")
 	private AdvertisementContent content;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_time")
 	private Calendar createdTime;
-	
+
 	private String description;
+
+	@Enumerated(EnumType.STRING)
+	private AdvertiseCategoryEnum category;
 
 	public Long getId() {
 		return id;
@@ -70,6 +80,14 @@ public class Advertisement {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public AdvertiseCategoryEnum getCategory() {
+		return category;
+	}
+
+	public void setCategory(AdvertiseCategoryEnum category) {
+		this.category = category;
 	}
 
 	@Override

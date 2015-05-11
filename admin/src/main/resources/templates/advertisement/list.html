@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		</meta>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<title>jQuery File Upload Example</title>
+		<script src="/js/jquery-1.11.2.min.js"></script>
+		<script src="/js/vendor/jquery.ui.widget.js"></script>
+		<script src="/js/jquery.iframe-transport.js"></script>
+		<script src="/js/jquery.fileupload.js"></script>
+		<script>
+			$(function() {
+
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				var id = $("meta[name='id']").attr("content");
+
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+
+				var abortButton = $('<button/>').text('abort').click(function() {
+
+				});
+
+				$('input[type="file"]').fileupload({
+					dataType : 'json',
+					add : function(e, data) {
+						data.context = $('<p/>').text('Uploading...').appendTo(document.body);
+						data.submit();
+					},
+					formData : {
+						id : $(this).attr('id')
+					},
+					done : function(e, data) {
+						data.context.text('Upload finished.');
+						var self = $(e.target);
+						var img = self.next('img');
+						img.attr('src', data.result.files[0].url);
+					},
+					progressall : function(e, data) {
+						var progress = parseInt(data.loaded / data.total * 100, 10);
+						$('#progress .bar').css('width', progress + '%').text(progress + '%');
+					}
+				});
+			});
+		</script>
+		<style>
+			.bar {
+				height: 18px;
+				background-color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div th:each="i:${list}">
+			<input type="file" name="file" th:attr="data-url=@{/admin/__${i.category}__/__${i.id}__},data-id=${i.id}"/>
+			<img th:src="${i.coverImg}" style="height:200px;width:100px">
+			</img>
+			<div id="progress">
+				<div class="bar" style="width: 0%;"></div>
+			</div>
+		</div>
+	</body>
+</html>

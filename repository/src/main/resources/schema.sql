@@ -142,3 +142,20 @@ create table scroll_image(
 	scroll_type varchar(10),
 	primary key(id)
 );
+
+create table advertisement_content(
+	id bigint not null AUTO_INCREMENT,
+	content varchar(5000),
+	primary key(id)
+);
+
+create table advertisement(
+	id bigint not null AUTO_INCREMENT,
+	cover_img varchar(50),
+	content_id bigint,
+	created_time timestamp,
+	description varchar(200),
+	category varchar(10),
+	primary key(id),
+	foreign key(content_id) references advertisement_content(id)
+);

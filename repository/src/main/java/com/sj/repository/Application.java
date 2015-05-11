@@ -4,9 +4,14 @@ import java.util.Properties;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
@@ -14,6 +19,7 @@ import com.google.code.kaptcha.util.Config;
 
 @Configuration
 @EnableAutoConfiguration
+@EnableCaching
 @ComponentScan("com.sj")
 public class Application {
 
@@ -34,6 +40,18 @@ public class Application {
 
 	@Bean
 	public javax.validation.Validator localValidatorFactoryBean() {
-	   return new LocalValidatorFactoryBean();
+		return new LocalValidatorFactoryBean();
+	}
+
+	@Bean
+	public CacheManager getEhCacheManager(){
+	        return  new EhCacheCacheManager(getEhCacheFactory().getObject());
+	}
+	@Bean
+	public EhCacheManagerFactoryBean getEhCacheFactory(){
+		EhCacheManagerFactoryBean factoryBean = new EhCacheManagerFactoryBean();
+		factoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
+		factoryBean.setShared(true);
+		return factoryBean;
 	}
 }
