@@ -26,6 +26,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sj.admin.converter.StringToAcitvateEnumConverter;
+import com.sj.admin.converter.StringToAdvertisementContent;
 import com.sj.admin.resolver.PageRequestResolver;
 
 @Configuration
@@ -80,6 +81,7 @@ public class Application extends WebMvcConfigurerAdapter {
 		ConversionServiceFactoryBean factoryBean = new ConversionServiceFactoryBean();
 		Set<Converter> converters = new HashSet<Converter>();
 		converters.add(stringToAcitvateEnumConverter());
+		converters.add(stringToAdvertisementContent());
 		factoryBean.setConverters(converters);
 		return factoryBean;
 	}
@@ -87,6 +89,11 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public StringToAcitvateEnumConverter stringToAcitvateEnumConverter() {
 		return new StringToAcitvateEnumConverter();
+	}
+
+	@Bean
+	public StringToAdvertisementContent stringToAdvertisementContent() {
+		return new StringToAdvertisementContent();
 	}
 
 	@Override

@@ -32,7 +32,10 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	@Override
 	@Caching(evict = @CacheEvict(value = "advertiseCache", key = "#advertisement.category"), put = @CachePut(value = "advertiseCache", key = "#advertisement.category"))
 	public Advertisement update(Advertisement advertisement) {
-		return repository.save(advertisement);
+		Advertisement result = repository.findOne(advertisement.getId());
+		result.getContent().setContent(advertisement.getContent().getContent());
+		result.setCoverImg(advertisement.getCoverImg());
+		return repository.save(result);
 	}
 
 	@Override
