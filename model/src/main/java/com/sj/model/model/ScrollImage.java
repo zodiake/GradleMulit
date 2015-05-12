@@ -34,6 +34,15 @@ public class ScrollImage {
 
 	@Column(name = "sort_number")
 	private Integer sortNumber;
+	
+	public ScrollImage() {
+		super();
+	}
+
+	public ScrollImage(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

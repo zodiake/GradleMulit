@@ -30,9 +30,6 @@
 						data.context = $('<p/>').text('Uploading...').appendTo(document.body);
 						data.submit();
 					},
-					formData : {
-						id : $(this).attr('id')
-					},
 					done : function(e, data) {
 						data.context.text('Upload finished.');
 						var self = $(e.target);
@@ -43,6 +40,18 @@
 						var progress = parseInt(data.loaded / data.total * 100, 10);
 						$('#progress .bar').css('width', progress + '%').text(progress + '%');
 					}
+				});
+				
+				$('#refresh').click(function(e){
+					var self=$(this);
+					var type=self.attr('data-type');
+					$.ajax({
+						method:'put',
+						url:'/admin/'+type+'/scrollImages',
+						succcess:function(){
+							
+						}
+					});
 				});
 			});
 		</script>
@@ -55,12 +64,15 @@
 	</head>
 	<body>
 		<div th:each="i:${lists}">
-			<input type="file" name="file" th:attr="data-url=@{/admin/scrollImages/__${i.id}__},data-id=${i.id},data-sort=${i.sortNumber}"/>
+			<input type="file" name="file" th:attr="data-url=@{/admin/scrollImages/__${i.scrollType}__/__${i.id}__},data-sort=${i.sortNumber}"/>
 			<img th:src="${i.imageUrl}" style="height:100px;width:200px">
 			</img>
 			<div id="progress">
 				<div class="bar" style="width: 0%;"></div>
 			</div>
+		</div>
+		<div>
+			<button id="refresh" th:attr="data-type=${type}">fresh</button>
 		</div>
 	</body>
 </html>

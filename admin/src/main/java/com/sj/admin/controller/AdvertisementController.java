@@ -2,6 +2,8 @@ package com.sj.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -11,14 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.admin.async.AsyncWriteFileService;
 import com.sj.model.model.Advertisement;
+import com.sj.model.model.UploadResult;
 import com.sj.model.type.AdvertiseCategoryEnum;
 import com.sj.repository.service.AdvertisementService;
 
 @Controller
-public class AdvertisementController {
+public class AdvertisementController extends ImageController{
 	@Autowired
 	private AdvertisementService service;
 	@Autowired
@@ -56,5 +61,11 @@ public class AdvertisementController {
 		service.update(adv);
 		return "redirect:/admin/" + category.toString().toLowerCase()
 				+ "/advertisements/" + id + "?edit";
+	}
+	
+	@RequestMapping(value="/admin/{catgegory}/advertisements/{id}/coverImg",method=RequestMethod.POST)
+	@ResponseBody
+	public UploadResult uploadImage(MultipartFile file,HttpServletRequest request){
+		return super.upload(file, request);
 	}
 }
