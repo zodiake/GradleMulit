@@ -64,11 +64,4 @@ public class BaseController {
 		}
 
 	}
-
-	public UploadResult upload(MultipartFile file, HttpServletRequest request) {
-		String contentType = file.getContentType();
-		String fileName = FileUtil.getFileName(contentType);
-		writeFileService.writeToFile(file, UploadFileEnum.IMAGE, fileName);
-		return writeFileService.getResult(file, UploadFileEnum.IMAGE, fileName);
-	}
 }

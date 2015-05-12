@@ -23,7 +23,7 @@ import com.sj.model.type.AdvertiseCategoryEnum;
 import com.sj.repository.service.AdvertisementService;
 
 @Controller
-public class AdvertisementController extends ImageController{
+public class AdvertisementController extends UploadController{
 	@Autowired
 	private AdvertisementService service;
 	@Autowired

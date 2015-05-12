@@ -1,6 +1,6 @@
 package com.sj.admin.controller;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import com.sj.model.type.ScrollImageType;
 import com.sj.repository.service.ScrollImageService;
 
 @Controller
-public class ScrollImageController extends ImageController {
+public class ScrollImageController extends UploadController {
 	@Autowired
 	private ScrollImageService service;
 
