@@ -1,8 +1,6 @@
 package com.sj.admin;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -13,9 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,6 +23,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sj.admin.converter.StringToAcitvateEnumConverter;
+import com.sj.admin.converter.StringToAdvertiseCategoryEnumConverter;
 import com.sj.admin.converter.StringToAdvertisementContent;
 import com.sj.admin.resolver.PageRequestResolver;
 
@@ -76,14 +74,13 @@ public class Application extends WebMvcConfigurerAdapter {
 		}
 	}
 
-	@Bean
-	public ConversionServiceFactoryBean conversionService() {
-		ConversionServiceFactoryBean factoryBean = new ConversionServiceFactoryBean();
-		Set<Converter> converters = new HashSet<Converter>();
-		converters.add(stringToAcitvateEnumConverter());
-		converters.add(stringToAdvertisementContent());
-		factoryBean.setConverters(converters);
-		return factoryBean;
+	/*---------------------------converter bean------------------------------------------*/
+	@Override
+	public void addFormatters(FormatterRegistry formatterRegistry) {
+		formatterRegistry.addConverter(stringToAcitvateEnumConverter());
+		formatterRegistry.addConverter(stringToAdvertisementContent());
+		formatterRegistry
+				.addConverter(stringToAdvertiseCategoryEnumConverter());
 	}
 
 	@Bean
@@ -95,6 +92,12 @@ public class Application extends WebMvcConfigurerAdapter {
 	public StringToAdvertisementContent stringToAdvertisementContent() {
 		return new StringToAdvertisementContent();
 	}
+
+	@Bean
+	public StringToAdvertiseCategoryEnumConverter stringToAdvertiseCategoryEnumConverter() {
+		return new StringToAdvertiseCategoryEnumConverter();
+	}
+	/*---------------------------end converter bean---------------------------------------*/
 
 	@Override
 	public void addArgumentResolvers(

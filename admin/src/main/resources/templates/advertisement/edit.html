@@ -54,7 +54,7 @@
 	<body>
 		<form th:method="put" th:object="${adv}">
 			content:
-			<input type="text" th:field="*{content}"/>
+			<input type="text" th:field="*{content.content}"/>
 			description:
 			<input type="text" th:field="*{description}"/>
 			<input type="file" name="file" th:attr="data-url=@{/admin/images}" />

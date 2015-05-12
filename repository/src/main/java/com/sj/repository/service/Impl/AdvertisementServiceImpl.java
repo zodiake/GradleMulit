@@ -33,8 +33,14 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	@Caching(evict = @CacheEvict(value = "advertiseCache", key = "#advertisement.category"), put = @CachePut(value = "advertiseCache", key = "#advertisement.category"))
 	public Advertisement update(Advertisement advertisement) {
 		Advertisement result = repository.findOne(advertisement.getId());
-		result.getContent().setContent(advertisement.getContent().getContent());
-		result.setCoverImg(advertisement.getCoverImg());
+		if (result.getContent() != null)
+			result.getContent().setContent(
+					advertisement.getContent().getContent());
+		else
+			result.setContent(advertisement.getContent());
+		if (advertisement.getCoverImg() != null)
+			result.setCoverImg(advertisement.getCoverImg());
+		result.setDescription(advertisement.getDescription());
 		return repository.save(result);
 	}
 

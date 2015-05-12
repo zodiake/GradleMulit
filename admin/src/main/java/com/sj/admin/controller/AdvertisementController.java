@@ -40,21 +40,21 @@ public class AdvertisementController {
 
 	@RequestMapping(value = "/admin/{category}/advertisements/{id}", params = "edit", method = RequestMethod.GET)
 	public String edit(Model uiModel,
-			@PathVariable(value = "category") String category,
+			@PathVariable(value = "category") AdvertiseCategoryEnum category,
 			@PathVariable(value = "id") Long id) {
-		AdvertiseCategoryEnum categoryEnum = AdvertiseCategoryEnum
-				.fromString(category);
-		Advertisement adv = service.findByIdAndCategory(id, categoryEnum);
+		Advertisement adv = service.findByIdAndCategory(id, category);
 		uiModel.addAttribute("adv", adv);
 		return EDIT;
 	}
 
-	@RequestMapping(value = "/admin/{category}/advertisements/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/{category}/advertisements/{id}", method = RequestMethod.PUT)
 	public String upload(@ModelAttribute("adv") Advertisement adv,
 			@PathVariable("id") Long id,
 			@PathVariable("category") AdvertiseCategoryEnum category) {
 		adv.setId(id);
+		adv.setCategory(category);
 		service.update(adv);
-		return "redirect:/admin/" + category + "/advertisement/" + id + "?edit";
+		return "redirect:/admin/" + category.toString().toLowerCase()
+				+ "/advertisements/" + id + "?edit";
 	}
 }

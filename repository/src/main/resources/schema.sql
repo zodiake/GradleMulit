@@ -151,7 +151,7 @@ create table advertisement_content(
 
 create table advertisement(
 	id bigint not null AUTO_INCREMENT,
-	cover_img varchar(50),
+	cover_img varchar(225),
 	content_id bigint,
 	created_time timestamp,
 	description varchar(200),
