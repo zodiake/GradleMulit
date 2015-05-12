@@ -94,6 +94,10 @@ public class ProductSubject {
 		this.subject = subject;
 	}
 
+	public ProductSubject(Product product) {
+		this.product = product;
+	}
+
 	public Id getId() {
 		return id;
 	}

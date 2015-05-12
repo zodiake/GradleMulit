@@ -49,4 +49,5 @@ public class ProductSubjectController {
 	public String list(@RequestParam(value = "param[]") Integer[] params) {
 		return params.toString();
 	}
+
 }

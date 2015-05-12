@@ -1,7 +1,5 @@
 package com.sj.admin.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,11 +10,11 @@ public class UploadController {
 	@Autowired
 	protected AsyncWriteFileService writeFileService;
 
-	public UploadResult upload(MultipartFile file, HttpServletRequest request) {
+	public UploadResult upload(MultipartFile file) {
 		return writeFileService.writeToFile(file);
 	}
 
-	public String uploadAutio(MultipartFile file, HttpServletRequest request) {
-		return "";
+	public UploadResult uploadAutio(MultipartFile file) {
+		return writeFileService.writeBigToFile(file);
 	}
 }

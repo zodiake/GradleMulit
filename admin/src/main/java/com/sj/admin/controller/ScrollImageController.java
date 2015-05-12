@@ -43,7 +43,7 @@ public class ScrollImageController extends UploadController {
 	@ResponseBody
 	public UploadResult upload(MultipartFile file, HttpServletRequest request,
 			@PathVariable(value = "id") Long id) {
-		UploadResult result = super.upload(file, request);
+		UploadResult result = super.upload(file);
 		List<String> url = result.getFiles().stream().map(f -> f.getUrl())
 				.collect(toList());
 		ScrollImage scroll = new ScrollImage(id);

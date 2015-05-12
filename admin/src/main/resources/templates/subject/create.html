@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<meta charset="UTF-8">
-		</meta>
+		<meta charset="UTF-8"/>
 		<meta name="_csrf" th:content="${_csrf.token}" />
 		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-		<title>jQuery File Upload Example</title>
+		<title>Insert title here</title>
 		<script src="/js/jquery-1.11.2.min.js"></script>
 		<script src="/js/vendor/jquery.ui.widget.js"></script>
 		<script src="/js/jquery.iframe-transport.js"></script>
@@ -31,28 +30,14 @@
 						data.context = $('<p/>').text('Uploading...').appendTo(document.body);
 						data.submit();
 					},
-					formData : {
-						id : $(this).attr('id')
-					},
 					done : function(e, data) {
 						data.context.text('Upload finished.');
 						var self = $(e.target);
-						var img = self.next('img');
-						img.attr('src', data.result.files[0].url);
 					},
 					progressall : function(e, data) {
 						var progress = parseInt(data.loaded / data.total * 100, 10);
 						$('#progress .bar').css('width', progress + '%').text(progress + '%');
 					}
-				});
-
-				$('#fresh').click(function() {
-					var self = $(this);
-					var type = self.attr('data-type');
-					$.ajax({
-						url : '/admin/' + type + '/scrollImages',
-						method : 'put'
-					});
 				});
 			});
 		</script>
@@ -64,13 +49,20 @@
 		</style>
 	</head>
 	<body>
-		<div th:each="i:${list}">
-			<input type="file" name="file" th:attr="data-url=@{/admin/scrollImages/__${#strings.toLowerCase(i.category)}__/__${i.id}__},data-id=${i.id}"/>
-			<img th:src="${i.coverImg}" style="height:200px;width:100px">
-			</img>
+		<form method="post" th:object="${subject}">
+			product1:
+			<input th:filed="*{productSubject.product}"/>
+			product2:
+			<input th:filed="*{productSubject.product}"/>
+			name:
+			<input th:filed="*{name}"/>
+			audio:
+			<input type="file" name="file" data-url="/admin/audio"/>
 			<div id="progress">
 				<div class="bar" style="width: 0%;"></div>
 			</div>
-		</div>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			<input type="submit"/>
+		</form>
 	</body>
 </html>

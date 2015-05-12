@@ -66,6 +66,6 @@ public class AdvertisementController extends UploadController{
 	@RequestMapping(value="/admin/{catgegory}/advertisements/{id}/coverImg",method=RequestMethod.POST)
 	@ResponseBody
 	public UploadResult uploadImage(MultipartFile file,HttpServletRequest request){
-		return super.upload(file, request);
+		return super.upload(file);
 	}
 }
