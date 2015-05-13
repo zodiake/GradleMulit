@@ -33,7 +33,7 @@ public class ProductCategoryController {
 
 	/*-----------------first category------------------------*/
 	// all first category list
-	@RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/productCategories", method = RequestMethod.GET)
 	public String findAllFirstCategory(Model uiModel) {
 		Page<ProductCategory> lists = categoryService.findByParent(null, null);
 		uiModel.addAttribute("results", lists);
@@ -41,14 +41,14 @@ public class ProductCategoryController {
 	}
 
 	// get form to add a category
-	@RequestMapping(value = "/admin/categories", params = "form", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/productCategories", params = "form", method = RequestMethod.GET)
 	public String newFirstCategory(Model uiModel) {
 		uiModel.addAttribute("category", new ProductCategory());
 		return FORM;
 	}
 
 	// new first category
-	@RequestMapping(value = "/admin/categories", params = "form", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/productCategories", params = "form", method = RequestMethod.POST)
 	public String processFirstCategory(
 			@Valid @ModelAttribute("category") ProductCategory category,
 			BindingResult bindingResult, Model uiModel,
@@ -66,7 +66,7 @@ public class ProductCategoryController {
 	/*---------------------end first category----------------------------------*/
 
 	// child category list
-	@RequestMapping(value = "/admin/{parent}/categories", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/{parent}/productCategories", method = RequestMethod.GET)
 	public String findByParent(@PathVariable(value = "parent") Long parent,
 			@PageRequestAnn PageRequest pageRequest, Model uiModel) {
 		Page<ProductCategory> results = categoryService.findByParent(pageRequest,
@@ -76,14 +76,14 @@ public class ProductCategoryController {
 	}
 
 	// get form to add a category
-	@RequestMapping(value = "/admin/{parent}/categories", params = "form", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/{parent}/productCategories", params = "form", method = RequestMethod.GET)
 	public String formChildCategory(Model uiModel) {
 		uiModel.addAttribute("category", new ProductCategory());
 		return FORM;
 	}
 
 	// add category
-	@RequestMapping(value = "/admin/{parent}/categories", params = "form", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/{parent}/productCategories", params = "form", method = RequestMethod.POST)
 	public String addChildCategory(@PathVariable(value = "parent") Long parent,
 			@Valid @ModelAttribute(value = "category") ProductCategory category,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -97,7 +97,7 @@ public class ProductCategoryController {
 	}
 
 	// get category to edit
-	@RequestMapping(value = "/admin/categories/{id}", params = "edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/productCategories/{id}", params = "edit", method = RequestMethod.GET)
 	public String view(@PathVariable(value = "id") Long id, Model uiModel) {
 		ProductCategory category = categoryService.findOne(id);
 		if (category == null)
@@ -107,7 +107,7 @@ public class ProductCategoryController {
 	}
 
 	// update category info
-	@RequestMapping(value = "/admin/categories/{id}", params = "edit", method = RequestMethod.PUT)
+	@RequestMapping(value = "/admin/productCategories/{id}", params = "edit", method = RequestMethod.PUT)
 	public String view(@PathVariable(value = "id") Long id, Model uiModel,
 			@Valid @ModelAttribute("category") ProductCategory category,
 			BindingResult bindingResult) {
