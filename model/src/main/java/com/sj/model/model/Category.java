@@ -1,69 +1,52 @@
 package com.sj.model.model;
 
 import java.util.Calendar;
-import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.sj.model.type.ActivateEnum;
 
 @Entity
-@Table(name = "category")
-public class Category {
+@Table(name = "common_category")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+public abstract class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	protected Long id;
 
-	@Size(min = 4, max = 20)
-	private String name;
-
-	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-	private Set<Category> categories;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "parent_id")
-	private Category parent;
+	protected String name;
 
 	@Enumerated
 	@NotNull
-	private ActivateEnum activate;
+	protected ActivateEnum activate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
-	private Calendar createdTime;
+	protected Calendar createdTime;
 
 	@Column(name = "created_by")
-	private String createdBy;
+	protected String createdBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_time")
-	private Calendar updatedTime;
+	protected Calendar updatedTime;
 
 	@Column(name = "updated_by")
-	private String updatedBy;
-
-	public Category() {
-		super();
-	}
-
-	public Category(Long id) {
-		super();
-		this.id = id;
-	}
+	protected String updatedBy;
 
 	public Long getId() {
 		return id;
@@ -80,23 +63,7 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Set<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
-	}
-
-	public Category getParent() {
-		return parent;
-	}
-
-	public void setParent(Category parent) {
-		this.parent = parent;
-	}
-
+	
 	public ActivateEnum getActivate() {
 		return activate;
 	}
