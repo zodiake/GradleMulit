@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,18 +30,23 @@ public class Subject {
 	private String name;
 
 	@Enumerated
-	@Column(name="show_on_index")
+	@Column(name = "show_on_index")
 	private ActivateEnum showOnIndex;
 
 	@Enumerated
 	private ActivateEnum activate;
 
-	@OneToMany(mappedBy="subject",fetch=FetchType.LAZY,cascade={CascadeType.PERSIST})
+	@OneToMany(mappedBy = "subject", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST })
 	private Set<ProductSubject> productSubject;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_time")
 	private Calendar createdTime;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id")
+	private SubjectCategory category;
+
 	public Subject() {
 		super();
 	}
@@ -88,13 +95,21 @@ public class Subject {
 	public void setProductSubject(Set<ProductSubject> productSubject) {
 		this.productSubject = productSubject;
 	}
-	
+
 	public Calendar getCreatedTime() {
 		return createdTime;
 	}
 
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
+	}
+	
+	public SubjectCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(SubjectCategory category) {
+		this.category = category;
 	}
 
 	@Override

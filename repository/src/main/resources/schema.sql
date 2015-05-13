@@ -17,7 +17,10 @@ create table subject(
 	name varchar(40) not null,
 	show_on_index smallint,
 	activate smallint,
-	primary key(id)
+	category_id bigint,
+	created_time timestamp,
+	primary key(id),
+	foreign key (category_id) references category(id)
 );
 
 create table site_user(

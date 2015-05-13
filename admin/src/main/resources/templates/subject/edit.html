@@ -37,9 +37,9 @@
 			<input type="file" name="file" data-url="/admin/audio"/>
 			category:
 			<select th:field="*{category}">
-				<option th:each="var : ${allVarieties}"
+				<option th:each="var : ${categories}"
 				th:value="${var.id}"
-				th:text="${var.name}">Thymus Thymi</option>
+				th:text="${var.name}">category</option>
 			</select>
 			<div id="progress">
 				<div class="bar" style="width: 0%;"></div>
