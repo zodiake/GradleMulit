@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sj.model.model.Category;
+import com.sj.model.model.ProductCategory;
 import com.sj.repository.repository.CategoryRepository;
 import com.sj.repository.service.CategoryService;
 
@@ -20,35 +20,35 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository repository;
 
 	@Override
-	public Category findOne(Long id) {
+	public ProductCategory findOne(Long id) {
 		return repository.findOne(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Set<Category> findAll() {
+	public Set<ProductCategory> findAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	public Page<Category> findByParent(Pageable pageable, Category category) {
+	public Page<ProductCategory> findByParent(Pageable pageable, ProductCategory category) {
 		return repository.findByParent(pageable, category);
 	}
 
 	@Override
-	public Category save(Category category) {
+	public ProductCategory save(ProductCategory category) {
 		category.setCreatedTime(Calendar.getInstance());
 		return repository.save(category);
 	}
 
 	@Override
-	public Category findByIdAndParent(Long id, Category category) {
+	public ProductCategory findByIdAndParent(Long id, ProductCategory category) {
 		return repository.findByIdAndParent(id, category);
 	}
 
 	@Override
-	public Category update(Category category) {
-		Category memory = repository.findOne(category.getId());
+	public ProductCategory update(ProductCategory category) {
+		ProductCategory memory = repository.findOne(category.getId());
 		memory.setName(category.getName());
 		memory.setActivate(category.getActivate());
 		memory.setUpdatedBy(category.getUpdatedBy());

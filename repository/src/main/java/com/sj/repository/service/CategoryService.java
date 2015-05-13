@@ -5,18 +5,18 @@ import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.sj.model.model.Category;
+import com.sj.model.model.ProductCategory;
 
 public interface CategoryService {
-	public Category findOne(Long id);
+	public ProductCategory findOne(Long id);
 
-	public Set<Category> findAll();
+	public Set<ProductCategory> findAll();
 
-	public Page<Category> findByParent(Pageable pageable, Category category);
+	public Page<ProductCategory> findByParent(Pageable pageable, ProductCategory category);
 
-	public Category findByIdAndParent(Long id, Category category);
+	public ProductCategory findByIdAndParent(Long id, ProductCategory category);
 
-	public Category save(Category category);
+	public ProductCategory save(ProductCategory category);
 	
-	public Category update(Category category);
+	public ProductCategory update(ProductCategory category);
 }

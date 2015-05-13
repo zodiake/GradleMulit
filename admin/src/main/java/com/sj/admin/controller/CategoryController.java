@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sj.admin.annotation.PageRequestAnn;
 import com.sj.admin.exception.CategoryNotFoundException;
 import com.sj.admin.security.UserContext;
-import com.sj.model.model.Category;
+import com.sj.model.model.ProductCategory;
 import com.sj.repository.service.CategoryService;
 
 @Controller
@@ -35,7 +35,7 @@ public class CategoryController {
 	// all first category list
 	@RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
 	public String findAllFirstCategory(Model uiModel) {
-		Page<Category> lists = categoryService.findByParent(null, null);
+		Page<ProductCategory> lists = categoryService.findByParent(null, null);
 		uiModel.addAttribute("results", lists);
 		return LIST;
 	}
@@ -43,14 +43,14 @@ public class CategoryController {
 	// get form to add a category
 	@RequestMapping(value = "/admin/categories", params = "form", method = RequestMethod.GET)
 	public String newFirstCategory(Model uiModel) {
-		uiModel.addAttribute("category", new Category());
+		uiModel.addAttribute("category", new ProductCategory());
 		return FORM;
 	}
 
 	// new first category
 	@RequestMapping(value = "/admin/categories", params = "form", method = RequestMethod.POST)
 	public String processFirstCategory(
-			@Valid @ModelAttribute("category") Category category,
+			@Valid @ModelAttribute("category") ProductCategory category,
 			BindingResult bindingResult, Model uiModel,
 			RedirectAttributes redirectAttr) {
 		if (bindingResult.hasErrors()) {
@@ -58,7 +58,7 @@ public class CategoryController {
 			return FORM;
 		}
 		category.setCreatedBy(userContext.getCurrnetUser().getName());
-		Category temp = categoryService.save(category);
+		ProductCategory temp = categoryService.save(category);
 		redirectAttr.addFlashAttribute("message", "success");
 		return "redirect:/admin/categories/" + temp.getId() + "?edit";
 	}
@@ -69,8 +69,8 @@ public class CategoryController {
 	@RequestMapping(value = "/admin/{parent}/categories", method = RequestMethod.GET)
 	public String findByParent(@PathVariable(value = "parent") Long parent,
 			@PageRequestAnn PageRequest pageRequest, Model uiModel) {
-		Page<Category> results = categoryService.findByParent(pageRequest,
-				new Category(parent));
+		Page<ProductCategory> results = categoryService.findByParent(pageRequest,
+				new ProductCategory(parent));
 		uiModel.addAttribute("results", results);
 		return LIST;
 	}
@@ -78,20 +78,20 @@ public class CategoryController {
 	// get form to add a category
 	@RequestMapping(value = "/admin/{parent}/categories", params = "form", method = RequestMethod.GET)
 	public String formChildCategory(Model uiModel) {
-		uiModel.addAttribute("category", new Category());
+		uiModel.addAttribute("category", new ProductCategory());
 		return FORM;
 	}
 
 	// add category
 	@RequestMapping(value = "/admin/{parent}/categories", params = "form", method = RequestMethod.POST)
 	public String addChildCategory(@PathVariable(value = "parent") Long parent,
-			@Valid @ModelAttribute(value = "category") Category category,
+			@Valid @ModelAttribute(value = "category") ProductCategory category,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-		Category parentCategory = categoryService.findOne(parent);
+		ProductCategory parentCategory = categoryService.findOne(parent);
 		if (parentCategory == null)
 			throw new CategoryNotFoundException();
 		category.setParent(parentCategory);
-		Category result = categoryService.save(category);
+		ProductCategory result = categoryService.save(category);
 		redirectAttributes.addFlashAttribute("message", "success");
 		return "redirect:/admin/categories/" + result.getId() + "?edit";
 	}
@@ -99,7 +99,7 @@ public class CategoryController {
 	// get category to edit
 	@RequestMapping(value = "/admin/categories/{id}", params = "edit", method = RequestMethod.GET)
 	public String view(@PathVariable(value = "id") Long id, Model uiModel) {
-		Category category = categoryService.findOne(id);
+		ProductCategory category = categoryService.findOne(id);
 		if (category == null)
 			throw new CategoryNotFoundException();
 		uiModel.addAttribute("category", category);
@@ -109,7 +109,7 @@ public class CategoryController {
 	// update category info
 	@RequestMapping(value = "/admin/categories/{id}", params = "edit", method = RequestMethod.PUT)
 	public String view(@PathVariable(value = "id") Long id, Model uiModel,
-			@Valid @ModelAttribute("category") Category category,
+			@Valid @ModelAttribute("category") ProductCategory category,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("category", category);
@@ -117,7 +117,7 @@ public class CategoryController {
 		}
 		category.setId(id);
 		category.setUpdatedBy(userContext.getCurrnetUser().getName());
-		Category result = categoryService.save(category);
+		ProductCategory result = categoryService.save(category);
 		uiModel.addAttribute("category", result);
 		return "redirect:/admin/categories/" + id + "?edit";
 	}

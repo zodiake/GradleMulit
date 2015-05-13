@@ -23,7 +23,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sj.admin.converter.StringToAcitvateEnumConverter;
-import com.sj.admin.converter.StringToAdvertiseCategoryEnumConverter;
+import com.sj.admin.converter.StringToAdvertiseCategoryConverter;
 import com.sj.admin.converter.StringToAdvertisementContent;
 import com.sj.admin.converter.StringToScrollImageTypeConverter;
 import com.sj.admin.resolver.PageRequestResolver;
@@ -82,7 +82,7 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToAdvertisementContent());
 		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
 		formatterRegistry
-				.addConverter(stringToAdvertiseCategoryEnumConverter());
+				.addConverter(stringToAdvertiseCategoryConverter());
 	}
 
 	@Bean
@@ -96,8 +96,8 @@ public class Application extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public StringToAdvertiseCategoryEnumConverter stringToAdvertiseCategoryEnumConverter() {
-		return new StringToAdvertiseCategoryEnumConverter();
+	public StringToAdvertiseCategoryConverter stringToAdvertiseCategoryConverter() {
+		return new StringToAdvertiseCategoryConverter();
 	}
 
 	@Bean

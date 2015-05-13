@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.admin.async.AsyncWriteFileService;
 import com.sj.model.model.Advertisement;
+import com.sj.model.model.AdvertisementCategory;
 import com.sj.model.model.UploadResult;
 import com.sj.model.type.AdvertiseCategoryEnum;
 import com.sj.repository.service.AdvertisementService;
@@ -55,7 +56,7 @@ public class AdvertisementController extends UploadController{
 	@RequestMapping(value = "/admin/{category}/advertisements/{id}", method = RequestMethod.PUT)
 	public String upload(@ModelAttribute("adv") Advertisement adv,
 			@PathVariable("id") Long id,
-			@PathVariable("category") AdvertiseCategoryEnum category) {
+			@PathVariable("category") AdvertisementCategory category) {
 		adv.setId(id);
 		adv.setCategory(category);
 		service.update(adv);

@@ -149,13 +149,20 @@ create table advertisement_content(
 	primary key(id)
 );
 
+create table advertisement_category(
+	id bigint not null AUTO_INCREMENT,
+	name varchar(30),
+	primary key(id)
+);
+
 create table advertisement(
 	id bigint not null AUTO_INCREMENT,
 	cover_img varchar(225),
 	content_id bigint,
 	created_time timestamp,
 	description varchar(200),
-	category varchar(10),
+	category_id bigint,
 	primary key(id),
-	foreign key(content_id) references advertisement_content(id)
+	foreign key(content_id) references advertisement_content(id),
+	foreign key(category_id) references advertisement_category(id)
 );

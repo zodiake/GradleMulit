@@ -41,15 +41,15 @@ public class Product {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "first_category_id")
-	private Category firstCategory;
+	private ProductCategory firstCategory;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "second_category_id")
-	private Category secondCategory;
+	private ProductCategory secondCategory;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "third_category_id")
-	private Category thirdCategory;
+	private ProductCategory thirdCategory;
 
 	private String url;
 
@@ -121,27 +121,27 @@ public class Product {
 		this.productSubjects = productSubjects;
 	}
 
-	public Category getFirstCategory() {
+	public ProductCategory getFirstCategory() {
 		return firstCategory;
 	}
 
-	public void setFirstCategory(Category firstCategory) {
+	public void setFirstCategory(ProductCategory firstCategory) {
 		this.firstCategory = firstCategory;
 	}
 
-	public Category getSecondCategory() {
+	public ProductCategory getSecondCategory() {
 		return secondCategory;
 	}
 
-	public void setSecondCategory(Category secondCategory) {
+	public void setSecondCategory(ProductCategory secondCategory) {
 		this.secondCategory = secondCategory;
 	}
 
-	public Category getThirdCategory() {
+	public ProductCategory getThirdCategory() {
 		return thirdCategory;
 	}
 
-	public void setThirdCategory(Category thirdCategory) {
+	public void setThirdCategory(ProductCategory thirdCategory) {
 		this.thirdCategory = thirdCategory;
 	}
 

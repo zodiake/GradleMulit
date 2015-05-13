@@ -6,13 +6,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.sj.model.model.Category;
+import com.sj.model.model.ProductCategory;
 
 public interface CategoryRepository extends
-		PagingAndSortingRepository<Category, Long> {
-	Set<Category> findAll();
+		PagingAndSortingRepository<ProductCategory, Long> {
+	Set<ProductCategory> findAll();
 
-	Page<Category> findByParent(Pageable pageable, Category category);
+	Page<ProductCategory> findByParent(Pageable pageable, ProductCategory category);
 
-	Category findByIdAndParent(Long id, Category category);
+	ProductCategory findByIdAndParent(Long id, ProductCategory category);
 }

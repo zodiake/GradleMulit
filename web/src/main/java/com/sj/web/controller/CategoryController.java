@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sj.model.model.Category;
+import com.sj.model.model.ProductCategory;
 import com.sj.repository.service.CategoryService;
 
 @Controller
@@ -17,7 +17,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String findAll() {
-		Set<Category> categories = service.findAll();
+		Set<ProductCategory> categories = service.findAll();
 		return "home";
 	}
 }

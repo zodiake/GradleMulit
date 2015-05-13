@@ -87,9 +87,16 @@ insert into scroll_image(id,image_url,sort_number,scroll_type) values(3,'/upload
 insert into scroll_image(id,image_url,sort_number,scroll_type) values(4,'/upload/img/scroll1.jpg',1,'INDEX');
 insert into scroll_image(id,image_url,sort_number,scroll_type) values(5,'/upload/img/scroll1.jpg',1,'INDEX');
 
+--test advertisementCategory
+insert into advertisement_category(id,name) values(1,'行业要闻');
+insert into advertisement_category(id,name) values(2,'商机');
+insert into advertisement_category(id,name) values(3,'成果');
+insert into advertisement_category(id,name) values(4,'动态');
+insert into advertisement_category(id,name) values(5,'专访');
+
 --test advertisement
-insert into advertisement(id,cover_img,created_time,category,description) values (1,'/upload/img/scroll1.jpg','2012-1-1','INDEX','first');
-insert into advertisement(id,cover_img,created_time,category,description) values (2,'/upload/img/scroll1.jpg','2012-1-2','INDEX','second');
-insert into advertisement(id,cover_img,created_time,category,description) values (3,'/upload/img/scroll1.jpg','2012-1-3','INDEX','third');
-insert into advertisement(id,cover_img,created_time,category,description) values (4,'/upload/img/scroll1.jpg','2012-1-4','INDEX','fourth');
-insert into advertisement(id,cover_img,created_time,category,description) values (5,'/upload/img/scroll1.jpg','2012-1-5','INDEX','fifth');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (1,'/upload/img/scroll1.jpg','2012-1-1',1,'first');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (2,'/upload/img/scroll1.jpg','2012-1-2',2,'second');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (3,'/upload/img/scroll1.jpg','2012-1-3',1,'third');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (4,'/upload/img/scroll1.jpg','2012-1-4',2,'fourth');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (5,'/upload/img/scroll1.jpg','2012-1-5',1,'fifth');
