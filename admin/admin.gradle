@@ -12,6 +12,7 @@ buildscript {
 }
 
 apply plugin: 'spring-boot'
+apply plugin: 'com.moowork.grunt'
         
 dependencies{
     compile("org.springframework.boot:spring-boot-starter-web")
