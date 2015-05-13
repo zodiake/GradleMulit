@@ -7,6 +7,7 @@ create table category(
 	created_by varchar(20),
 	updated_time timestamp,
 	updated_by varchar(20),
+	category_type char(2),
 	primary key(id),
 	foreign key (parent_id) references category(id)
 );
@@ -149,12 +150,6 @@ create table advertisement_content(
 	primary key(id)
 );
 
-create table advertisement_category(
-	id bigint not null AUTO_INCREMENT,
-	name varchar(30),
-	primary key(id)
-);
-
 create table advertisement(
 	id bigint not null AUTO_INCREMENT,
 	cover_img varchar(225),
@@ -164,5 +159,5 @@ create table advertisement(
 	category_id bigint,
 	primary key(id),
 	foreign key(content_id) references advertisement_content(id),
-	foreign key(category_id) references advertisement_category(id)
+	foreign key(category_id) references category(id)
 );

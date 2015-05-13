@@ -2,6 +2,7 @@ package com.sj.model.model;
 
 import java.util.Set;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
+@DiscriminatorValue("pc")
 public class ProductCategory extends Category {
 
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)

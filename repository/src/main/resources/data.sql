@@ -1,9 +1,21 @@
 --test category
-insert into category(id,name,parent_id,activate,created_Time,created_By) values(1,'firstCategory1',null,1,'2012-1-1','tom');
-insert into category(id,name,parent_id,activate,created_Time,created_By) values(2,'secondCategory1-2',1,1,'2012-1-1','tom');
-insert into category(id,name,parent_id,activate,created_Time,created_By) values(3,'secondCategory1-3',1,1,'2012-1-1','tom');
-insert into category(id,name,parent_id,activate,created_Time,created_By) values(4,'thirdCategory2-4',2,1,'2012-1-1','tom');
-insert into category(id,name,parent_id,activate,created_Time,created_By) values(5,'thirdCategory2-5',2,1,'2012-1-1','tom');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1,'firstCategory1',null,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type) 
+values(2,'secondCategory1-2',1,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(3,'secondCategory1-3',1,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(4,'thirdCategory2-4',2,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(5,'thirdCategory2-5',2,1,'2012-1-1','tom','pc');
+
+--test subject category
+insert into category(id,name,category_type) values(6,'行业要闻','sc');
+insert into category(id,name,category_type) values(7,'商机','sc');
+insert into category(id,name,category_type) values(8,'成果','sc');
+insert into category(id,name,category_type) values(9,'动态','sc');
+insert into category(id,name,category_type) values(10,'专访','sc');
 
 --test user
 insert into site_user(id,name,password,enabled,site_authority) values(1,'tom','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_PROVIDER');
@@ -88,15 +100,10 @@ insert into scroll_image(id,image_url,sort_number,scroll_type) values(4,'/upload
 insert into scroll_image(id,image_url,sort_number,scroll_type) values(5,'/upload/img/scroll1.jpg',1,'INDEX');
 
 --test advertisementCategory
-insert into advertisement_category(id,name) values(1,'行业要闻');
-insert into advertisement_category(id,name) values(2,'商机');
-insert into advertisement_category(id,name) values(3,'成果');
-insert into advertisement_category(id,name) values(4,'动态');
-insert into advertisement_category(id,name) values(5,'专访');
 
 --test advertisement
-insert into advertisement(id,cover_img,created_time,category_id,description) values (1,'/upload/img/scroll1.jpg','2012-1-1',1,'first');
-insert into advertisement(id,cover_img,created_time,category_id,description) values (2,'/upload/img/scroll1.jpg','2012-1-2',2,'second');
-insert into advertisement(id,cover_img,created_time,category_id,description) values (3,'/upload/img/scroll1.jpg','2012-1-3',1,'third');
-insert into advertisement(id,cover_img,created_time,category_id,description) values (4,'/upload/img/scroll1.jpg','2012-1-4',2,'fourth');
-insert into advertisement(id,cover_img,created_time,category_id,description) values (5,'/upload/img/scroll1.jpg','2012-1-5',1,'fifth');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (1,'/upload/img/scroll1.jpg','2012-1-1',9,'first');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (2,'/upload/img/scroll1.jpg','2012-1-2',8,'second');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (3,'/upload/img/scroll1.jpg','2012-1-3',8,'third');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (4,'/upload/img/scroll1.jpg','2012-1-4',9,'fourth');
+insert into advertisement(id,cover_img,created_time,category_id,description) values (5,'/upload/img/scroll1.jpg','2012-1-5',9,'fifth');

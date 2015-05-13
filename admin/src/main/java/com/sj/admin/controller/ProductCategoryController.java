@@ -21,7 +21,7 @@ import com.sj.model.model.ProductCategory;
 import com.sj.repository.service.CategoryService;
 
 @Controller
-public class CategoryController {
+public class ProductCategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired

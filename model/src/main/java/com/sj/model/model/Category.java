@@ -15,14 +15,13 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 import com.sj.model.type.ActivateEnum;
 
 @Entity
-@Table(name = "common_category")
+@Table(name = "category")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "category_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +30,6 @@ public abstract class Category {
 	protected String name;
 
 	@Enumerated
-	@NotNull
 	protected ActivateEnum activate;
 
 	@Temporal(TemporalType.TIMESTAMP)
