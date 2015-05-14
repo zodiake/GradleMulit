@@ -10,50 +10,53 @@
 		<script src="/js/jquery.iframe-transport.js"></script>
 		<script src="/js/jquery.fileupload.js"></script>
 		<script>
-			$(function() {
+            $(function() {
 
-				var token = $("meta[name='_csrf']").attr("content");
-				var header = $("meta[name='_csrf_header']").attr("content");
-				var id = $("meta[name='id']").attr("content");
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var id = $("meta[name='id']").attr("content");
 
-				$(document).ajaxSend(function(e, xhr, options) {
-					xhr.setRequestHeader(header, token);
-				});
+                $(document).ajaxSend(function(e, xhr, options) {
+                    xhr.setRequestHeader(header, token);
+                });
 
-				var abortButton = $('<button/>').text('abort').click(function() {
+                $('input[type="file"]').bind('fileuploadsubmit', function(e, data) {
+                    var self = $(this);
+                    data.formData = {
+                        url : self.prev('input').val()
+                    };
+                });
 
-				});
+                $('input[type="file"]').fileupload({
+                    dataType : 'json',
+                    add : function(e, data) {
+                        data.context = $('<p/>').text('Uploading...').appendTo(document.body);
+                        data.submit();
+                    },
+                    done : function(e, data) {
+                        data.context.text('Upload finished.');
+                        var self = $(e.target);
+                        var img = self.next('img');
+                        img.attr('src', data.result.files[0].url);
+                    },
+                    progressall : function(e, data) {
+                        var progress = parseInt(data.loaded / data.total * 100, 10);
+                        $('#progress .bar').css('width', progress + '%').text(progress + '%');
+                    }
+                });
 
-				$('input[type="file"]').fileupload({
-					dataType : 'json',
-					add : function(e, data) {
-						data.context = $('<p/>').text('Uploading...').appendTo(document.body);
-						data.submit();
-					},
-					done : function(e, data) {
-						data.context.text('Upload finished.');
-						var self = $(e.target);
-						var img = self.next('img');
-						img.attr('src', data.result.files[0].url);
-					},
-					progressall : function(e, data) {
-						var progress = parseInt(data.loaded / data.total * 100, 10);
-						$('#progress .bar').css('width', progress + '%').text(progress + '%');
-					}
-				});
-				
-				$('#refresh').click(function(e){
-					var self=$(this);
-					var type=self.attr('data-type');
-					$.ajax({
-						method:'put',
-						url:'/admin/'+type+'/scrollImages',
-						succcess:function(){
-							
-						}
-					});
-				});
-			});
+                $('#refresh').click(function(e) {
+                    var self = $(this);
+                    var type = self.attr('data-type');
+                    $.ajax({
+                        method : 'put',
+                        url : '/admin/' + type + '/scrollImages',
+                        succcess : function() {
+
+                        }
+                    });
+                });
+            });
 		</script>
 		<style>
 			.bar {
@@ -64,7 +67,8 @@
 	</head>
 	<body>
 		<div th:each="i:${lists}">
-			<input type="file" name="file" th:attr="data-url=@{/admin/scrollImages/__${i.scrollType}__/__${i.id}__},data-sort=${i.sortNumber}"/>
+			<input type="text" id="url" th:value="${i.href}"/>
+			<input type="file" name="file" th:attr="data-url=@{/admin/scrollImages/__${#strings.toLowerCase(i.scrollType)}__/__${i.id}__},data-sort=${i.sortNumber}"/>
 			<img th:src="${i.imageUrl}" style="height:100px;width:200px">
 			</img>
 			<div id="progress">
@@ -72,7 +76,9 @@
 			</div>
 		</div>
 		<div>
-			<button id="refresh" th:attr="data-type=${type}">fresh</button>
+			<button id="refresh" th:attr="data-type=${type}">
+				fresh
+			</button>
 		</div>
 	</body>
 </html>

@@ -142,6 +142,7 @@ create table scroll_image(
 	created_time timestamp,
 	sort_number int,
 	scroll_type varchar(10),
+	href varchar(225),
 	primary key(id)
 );
 

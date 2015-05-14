@@ -35,6 +35,9 @@ public class ScrollImage {
 	@Column(name = "sort_number")
 	private Integer sortNumber;
 	
+	@Column
+	private String href;
+	
 	public ScrollImage() {
 		super();
 	}
@@ -82,6 +85,14 @@ public class ScrollImage {
 
 	public void setSortNumber(Integer sortNumber) {
 		this.sortNumber = sortNumber;
+	}
+	
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
 	}
 
 	@Override

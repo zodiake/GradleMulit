@@ -28,6 +28,13 @@ public class ScrollImageController extends UploadController {
 	private ScrollImageService service;
 
 	private final String LISTS = "scroll/list";
+	private final String TYPES = "scroll/types";
+
+	@RequestMapping(value = "/admin/scrollImages/types", method = RequestMethod.GET)
+	public String types(Model uiModel) {
+		uiModel.addAttribute("types", ScrollImageType.values());
+		return TYPES;
+	}
 
 	@RequestMapping(value = "/admin/{type}/scrollImages", method = RequestMethod.GET)
 	public String lists(Model uiModel,
@@ -39,6 +46,7 @@ public class ScrollImageController extends UploadController {
 		return LISTS;
 	}
 
+	/*-----------------------------------upload image-----------------------------------*/
 	@RequestMapping(value = "/admin/scrollImages/{type}/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public UploadResult upload(MultipartFile file, HttpServletRequest request,
@@ -46,8 +54,10 @@ public class ScrollImageController extends UploadController {
 		UploadResult result = super.upload(file);
 		List<String> url = result.getFiles().stream().map(f -> f.getUrl())
 				.collect(toList());
+		String href = (String) request.getParameter("url");
 		ScrollImage scroll = new ScrollImage(id);
 		scroll.setImageUrl(url.get(0));
+		scroll.setHref(href);
 		service.update(scroll);
 		return result;
 	}
