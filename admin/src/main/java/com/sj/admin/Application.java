@@ -25,6 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.sj.admin.converter.StringToAcitvateEnumConverter;
 import com.sj.admin.converter.StringToAdvertiseCategoryConverter;
 import com.sj.admin.converter.StringToAdvertisementContent;
+import com.sj.admin.converter.StringToProductConverter;
 import com.sj.admin.converter.StringToScrollImageTypeConverter;
 import com.sj.admin.converter.StringToSubjectCategoryConverter;
 import com.sj.admin.resolver.PageRequestResolver;
@@ -84,6 +85,7 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
 		formatterRegistry.addConverter(stringToSubjectCategoryConverter());
 		formatterRegistry.addConverter(stringToAdvertiseCategoryConverter());
+		formatterRegistry.addConverter(stringToProductConverter());
 	}
 
 	@Bean
@@ -106,8 +108,14 @@ public class Application extends WebMvcConfigurerAdapter {
 		return new StringToScrollImageTypeConverter();
 	}
 
+	@Bean
 	public StringToSubjectCategoryConverter stringToSubjectCategoryConverter() {
 		return new StringToSubjectCategoryConverter();
+	}
+
+	@Bean
+	public StringToProductConverter stringToProductConverter() {
+		return new StringToProductConverter();
 	}
 
 	/*---------------------------end converter bean---------------------------------------*/

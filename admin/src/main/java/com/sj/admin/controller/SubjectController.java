@@ -1,6 +1,5 @@
 package com.sj.admin.controller;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sj.admin.annotation.PageRequestAnn;
 import com.sj.admin.exception.SubjectNotFoundException;
 import com.sj.admin.util.ActivateState;
-import com.sj.model.model.ProductSubject;
 import com.sj.model.model.Subject;
 import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
@@ -65,7 +63,6 @@ public class SubjectController {
 	public String create(Model uiModel) {
 		List<SubjectCategory> categories = categoryService
 				.findByActivate(ActivateEnum.ACTIVATE);
-		Subject s=new Subject();
 		uiModel.addAttribute("subject", new Subject());
 		uiModel.addAttribute("categories", categories);
 		return CREATE;

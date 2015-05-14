@@ -27,12 +27,11 @@
 	</head>
 	<body>
 		<form method="post" th:object="${subject}">
-			product1:
-			<input th:filed="*{productSubject.product}"/>
-			product2:
-			<input th:filed="*{productSubject.product}"/>
+			<div th:each="s:*{products}">
+				<input th:field="*{products}" th:value="${s.id}" />
+			</div>
 			name:
-			<input th:filed="*{name}"/>
+			<input th:field="*{name}"/>
 			audio:
 			<input type="file" name="file" data-url="/admin/audio"/>
 			category:

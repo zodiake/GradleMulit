@@ -118,11 +118,9 @@ create table service(
 	foreign key(id) references product(id)
 );
 
-create table product_subject(
+create table subject_product(
 	product_id bigint,
 	subject_id bigint,
-	added_on timestamp,
-	sort_order int,
 	primary key(product_id,subject_id),
 	foreign key(product_id) references product(id),
 	foreign key(subject_id) references subject(id)

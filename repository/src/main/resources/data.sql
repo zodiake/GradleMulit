@@ -78,11 +78,10 @@ insert into subject(id,name,show_on_index,activate,category_id) values (2,'subje
 insert into subject(id,name,show_on_index,activate,category_id) values (3,'subject3',1,1,6);
 insert into subject(id,name,show_on_index,activate,category_id) values (4,'subject4',1,1,6);
 
---test product_subject
-insert into product_subject(product_id,subject_id)values(1,1);
-insert into product_subject(product_id,subject_id)values(2,1);
-insert into product_subject(product_id,subject_id)values(3,1);
-insert into product_subject(product_id,subject_id)values(4,1);
+--test subject_product
+insert into subject_product(subject_id,product_id)values(1,1);
+insert into subject_product(subject_id,product_id)values(1,2);
+insert into subject_product(subject_id,product_id)values(1,3);
 
 --test reviews
 insert into review(id,content,product_id,user_id) values(1,'haha,very good user1',1,1);
