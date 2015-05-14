@@ -3,7 +3,6 @@ package com.sj.model.model;
 import java.util.Calendar;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -12,8 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,11 +36,12 @@ public class Subject {
 	@Enumerated
 	private ActivateEnum activate;
 
-	@OneToMany(mappedBy = "subject", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST })
-	private Set<ProductSubject> productSubject;
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name = "subject_product", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private Set<Product> products;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_time")
+	@Column(name = "created_time")
 	private Calendar createdTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -88,14 +89,6 @@ public class Subject {
 		this.activate = activate;
 	}
 
-	public Set<ProductSubject> getProductSubject() {
-		return productSubject;
-	}
-
-	public void setProductSubject(Set<ProductSubject> productSubject) {
-		this.productSubject = productSubject;
-	}
-
 	public Calendar getCreatedTime() {
 		return createdTime;
 	}
@@ -103,13 +96,21 @@ public class Subject {
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
 	}
-	
+
 	public SubjectCategory getCategory() {
 		return category;
 	}
 
 	public void setCategory(SubjectCategory category) {
 		this.category = category;
+	}
+	
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
 	@Override

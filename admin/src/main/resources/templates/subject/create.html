@@ -28,18 +28,19 @@
 	<body>
 		<form method="post" th:object="${subject}">
 			product1:
-			<input th:filed="*{productSubject.product}"/>
+			<input type="text" th:field="*{productSubject}"/>
 			product2:
-			<input th:filed="*{productSubject.product}"/>
+			<input type="text" th:field="*{productSubject}"/>
 			name:
-			<input th:filed="*{name}"/>
+			<input th:field="*{name}"/>
 			audio:
 			<input type="file" name="file" data-url="/admin/audio"/>
 			category:
 			<select th:field="*{category}">
-				<option th:each="var : ${allVarieties}"
+				<option value="" >--请选择--</option>
+				<option th:each="var : ${categories}"
 				th:value="${var.id}"
-				th:text="${var.name}">Thymus Thymi</option>
+				th:text="${var.name}">category</option>
 			</select>
 			<div id="progress">
 				<div class="bar" style="width: 0%;"></div>

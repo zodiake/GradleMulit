@@ -13,8 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,8 +36,8 @@ public class Product {
 
 	private float price;
 
-	@OneToMany(mappedBy = "product")
-	private Set<ProductSubject> productSubjects;
+	@ManyToMany(mappedBy="products")
+	private Set<Subject> subjects;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "first_category_id")
@@ -113,12 +113,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public Set<ProductSubject> getProductSubjects() {
-		return productSubjects;
+	public Set<Subject> getSubjects() {
+		return subjects;
 	}
 
-	public void setProductSubjects(Set<ProductSubject> productSubjects) {
-		this.productSubjects = productSubjects;
+	public void setSubjects(Set<Subject> subjects) {
+		this.subjects = subjects;
 	}
 
 	public ProductCategory getFirstCategory() {

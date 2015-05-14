@@ -1,5 +1,6 @@
 package com.sj.admin.controller;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ public class SubjectController {
 	private SubjectCategoryService categoryService;
 
 	private final String LIST = "subject/list";
-	private final String DETAIL = "subject/detail";
 	private final String CREATE = "subject/create";
 	private final String EDIT = "subject/edit";
 
@@ -63,13 +63,17 @@ public class SubjectController {
 
 	@RequestMapping(value = "/admin/subjects", params = "form", method = RequestMethod.GET)
 	public String create(Model uiModel) {
+		List<SubjectCategory> categories = categoryService
+				.findByActivate(ActivateEnum.ACTIVATE);
+		Subject s=new Subject();
 		uiModel.addAttribute("subject", new Subject());
+		uiModel.addAttribute("categories", categories);
 		return CREATE;
 	}
 
 	@RequestMapping(value = "/admin/subjects", params = "form", method = RequestMethod.POST)
-	public String process(
-			@ModelAttribute("productSubject") ProductSubject productSubject) {
-		return "";
+	public String process(@ModelAttribute("subject") Subject subject) {
+		Subject result = subjectService.save(subject);
+		return "redirect:/admin/subjects/" + result.getId() + "?edit";
 	}
 }

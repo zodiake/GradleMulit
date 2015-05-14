@@ -37,6 +37,7 @@
 			<input type="file" name="file" data-url="/admin/audio"/>
 			category:
 			<select th:field="*{category}">
+				<option value="">--请选择--</option>
 				<option th:each="var : ${categories}"
 				th:value="${var.id}"
 				th:text="${var.name}">category</option>

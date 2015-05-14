@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,7 @@ import com.sj.repository.repository.SubjectRepository;
 import com.sj.repository.service.SubjectService;
 
 @Service
+@Transactional
 public class SubjectServiceImpl implements SubjectService {
 	@Autowired
 	private SubjectRepository repository;
@@ -29,6 +32,11 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Subject findOne(Long id) {
 		return repository.findOne(id);
+	}
+
+	@Override
+	public Subject save(Subject s) {
+		return repository.save(s);
 	}
 
 }
