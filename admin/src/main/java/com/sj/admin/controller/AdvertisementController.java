@@ -32,7 +32,7 @@ public class AdvertisementController extends UploadController{
 
 	private final String LIST = "advertisement/list";
 	private final String EDIT = "advertisement/edit";
-
+	
 	@RequestMapping(value = "/admin/{category}/advertisements", method = RequestMethod.GET)
 	public String list(Model uiModel,
 			@PathVariable(value = "category") String category) {

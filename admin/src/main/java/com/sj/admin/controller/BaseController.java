@@ -1,15 +1,9 @@
 package com.sj.admin.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.admin.async.AsyncWriteFileService;
-import com.sj.admin.util.UploadFileEnum;
-import com.sj.model.model.UploadResult;
-import com.sj.repository.util.FileUtil;
 
 public class BaseController {
 	@Autowired

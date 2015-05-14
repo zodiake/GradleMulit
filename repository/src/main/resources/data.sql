@@ -17,6 +17,13 @@ insert into category(id,name,category_type,activate) values(8,'成果','sc',1);
 insert into category(id,name,category_type,activate) values(9,'动态','sc',1);
 insert into category(id,name,category_type,activate) values(10,'专访','sc',1);
 
+--test advertise category
+insert into category(id,name,category_type,activate) values(11,'行业1','ac',1);
+insert into category(id,name,category_type,activate) values(12,'行业2','ac',1);
+insert into category(id,name,category_type,activate) values(13,'行业3','ac',1);
+insert into category(id,name,category_type,activate) values(14,'行业4','ac',1);
+insert into category(id,name,category_type,activate) values(15,'行业5','ac',1);
+
 --test user
 insert into site_user(id,name,password,enabled,site_authority) values(1,'tom','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_PROVIDER');
 insert into site_user(id,name,password,enabled,site_authority) values(2,'mary2','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_PROVIDER');

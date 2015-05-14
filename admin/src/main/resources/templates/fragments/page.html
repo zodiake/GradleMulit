@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<div th:fragment="page(current,pages)">
+			<div th:if="${pages &lt; 7}" th:each="i:${#numbers.sequence(1,pages)}">
+				<li th:text="${i}"></li>
+			</div>
+			<div th:if="${pages > 7 and current &lt; 4}" th:each="i:${#numbers.sequence(1,current+4>7?7:current+4)}">
+				<li th:text="${i}"></li>
+			</div>
+			<div th:if="${pages > 7 and current &gt; pages-3 and current &lt; pages}" th:each="i:${#numbers.sequence(pages-7,pages)}">
+				<li th:text="${i}"></li>
+			</div>
+		</div>
+	</body>
+</html>

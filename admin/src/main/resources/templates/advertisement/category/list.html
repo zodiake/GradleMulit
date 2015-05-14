@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="/layout/layout">
+	<head>
+		<title>jQuery File Upload Example</title>
+		<meta charset="UTF-8"/>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<script src="/js/jquery-1.11.2.min.js"></script>
+		<script src="/js/vendor/jquery.ui.widget.js"></script>
+		<script src="/js/jquery.iframe-transport.js"></script>
+		<script src="/js/jquery.fileupload.js"></script>
+		<script src="/js/ajaxSecurity.js"></script>
+		<script src="/js/fileUpload.js"></script>
+		<script>
+            $(function() {
+                var abortButton = $('<button/>').text('abort').click(function() {
+
+                });
+
+            });
+		</script>
+		<style>
+			.bar {
+				height: 18px;
+				background-color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div th:each="i:${lists}" layout:fragment="content">
+			<a th:href="@{/aa}"></a>
+		</div>
+		<object th:include="fragments/page::page(current=1,pages=10)"></object>
+	</body>
+</html>
