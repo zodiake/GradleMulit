@@ -19,7 +19,7 @@ import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
 
 @Controller
-public class AdminUserController extends BaseController {
+public class AdminUserController {
 	@Autowired
 	private SiteUserService userService;
 
@@ -38,7 +38,6 @@ public class AdminUserController extends BaseController {
 				Direction.ASC, "createdTime");
 		Page<SiteUser> userList = userService.findAll(pageRequest);
 		uiModel.addAttribute("lists", userList);
-		uiModel.addAttribute("page", caculatePage(userList));
 		return "index";
 	}
 
