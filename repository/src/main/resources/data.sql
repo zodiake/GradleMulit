@@ -73,6 +73,12 @@ values(7,'product3','',10.0,'/product/3',2,2,4,2,7);
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
 values(8,'product4','',10.0,'/product/4',2,3,5,2,8);
 
+--tom instrument
+insert into instrument(id) values(1);
+insert into instrument(id) values(2);
+insert into instrument(id) values(3);
+insert into instrument(id) values(4);
+
 --test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');
 insert into prefer_products(user_id,product_id,created_time) values(4,1,'2013-1-1');
@@ -94,9 +100,6 @@ insert into subject_product(subject_id,product_id)values(1,3);
 insert into review(id,content,product_id,user_id) values(1,'haha,very good user1',1,1);
 insert into review(id,content,product_id,user_id) values(2,'haha,very good user2',1,2);
 insert into review(id,content,product_id,user_id) values(3,'haha,very good user3',1,3);
-
---test instrument
-insert into instrument(id) values(1);
 
 --test scrollImage
 insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(1,'/upload/img/scroll1.jpg',1,'INDEX','www.baiduc.com');

@@ -5,9 +5,11 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<div th:fragment="page(current,begin,end)">
-			<ul th:each="i:${#numbers.sequence(begin,end)}">
-				<li th:class="${i}==current?activate" th:text="${i}">1</li>
+		<div th:fragment="page(viewpage)">
+			<ul th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}">
+				<li th:class="${i}==viewpage.current?activate" th:text="${i}">
+					<a th:href="@{viewpage.href(page=1,size=15,__{viewpage.option}__)}"></a>
+				</li>
 			</ul>
 		</div>
 	</body>

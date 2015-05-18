@@ -1,9 +1,13 @@
 package com.sj.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
@@ -19,7 +23,10 @@ import com.sj.model.model.Provider;
 import com.sj.model.model.Review;
 import com.sj.repository.service.InstrumentService;
 import com.sj.repository.service.ReviewService;
+import com.sj.repository.util.ViewPage;
+import com.sj.web.annotation.PageRequestAnn;
 import com.sj.web.security.UserContext;
+import com.sj.web.util.InstrumentSearch;
 
 @Controller
 public class InstrumentController {
@@ -33,6 +40,7 @@ public class InstrumentController {
 	private final String CREATE = "instrument/create";
 	private final String EDIT = "instrument/edit";
 	private final String VIEW = "instrument/view";
+	private final String LIST = "instrument/list";
 
 	@RequestMapping(value = "/provider/instruments", params = "form", method = RequestMethod.GET)
 	public String craete(Model uiModel) {
@@ -69,5 +77,20 @@ public class InstrumentController {
 		uiModel.addAttribute("instrument", instrument);
 		uiModel.addAttribute("reviews", reviews);
 		return VIEW;
+	}
+
+	@RequestMapping(value = "/instruments", method = RequestMethod.GET)
+	public String list(Model uiModel, @PageRequestAnn PageRequest page,
+			@ModelAttribute("search") InstrumentSearch search) {
+		List<Instrument> lists = new ArrayList<>();
+		for (int i = 1; i < 100; i++) {
+			Instrument ins = new Instrument();
+			ins.setName(i + "");
+			lists.add(ins);
+		}
+		ViewPage view = new ViewPage(new PageImpl<Instrument>(lists),
+				"/instruments", search);
+		uiModel.addAttribute("viewpage", view);
+		return LIST;
 	}
 }

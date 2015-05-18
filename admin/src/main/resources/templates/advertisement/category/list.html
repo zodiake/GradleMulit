@@ -31,7 +31,7 @@ layout:decorator="/layout/layout">
 	<body>
 		<div th:each="i:${lists}" layout:fragment="content">
 			<a th:href="@{/aa}"></a>
-			<div th:with="page=${param.page}==null?1:param.page[0]" th:include="fragments/page::page(current=page,begin=1,end=2)"></div>
+			<div th:include="fragments/page::page(${viewpage})"></div>
 		</div>
 	</body>
 </html>
