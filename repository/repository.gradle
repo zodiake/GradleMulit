@@ -20,6 +20,6 @@ dependencies {
    	compile("org.hibernate:hibernate-validator")
     compile('org.json:json:20141113')
     compile('net.sf.ehcache:ehcache:2.10.0')
-    
+   	compile('commons-beanutils:commons-beanutils:1.9.2')
    	compile project(":model")
 }

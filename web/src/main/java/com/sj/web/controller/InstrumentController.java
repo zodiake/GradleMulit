@@ -83,13 +83,13 @@ public class InstrumentController {
 	public String list(Model uiModel, @PageRequestAnn PageRequest page,
 			@ModelAttribute("search") InstrumentSearch search) {
 		List<Instrument> lists = new ArrayList<>();
-		for (int i = 1; i < 100; i++) {
+		for (int i = 1; i <= 100; i++) {
 			Instrument ins = new Instrument();
 			ins.setName(i + "");
 			lists.add(ins);
 		}
-		ViewPage view = new ViewPage(new PageImpl<Instrument>(lists),
-				"/instruments", search);
+		ViewPage<Instrument> view = new ViewPage<>(new PageImpl<Instrument>(
+				lists, new PageRequest(1, 15), 100), "/instruments", search);
 		uiModel.addAttribute("viewpage", view);
 		return LIST;
 	}

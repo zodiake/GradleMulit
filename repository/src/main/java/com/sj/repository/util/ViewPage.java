@@ -1,9 +1,8 @@
 package com.sj.repository.util;
 
-import java.util.Map.Entry;
-import java.util.Set;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
-import org.springframework.cglib.beans.BeanMap;
 import org.springframework.data.domain.Page;
 
 public class ViewPage<T> {
@@ -19,7 +18,11 @@ public class ViewPage<T> {
 
 	public ViewPage(Page<T> page, String href, Object option) {
 		init(page, href);
-		this.options = initOption(option);
+		try {
+			this.options = initOption(option);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public ViewPage(Page<T> page, String href, String key, String value) {
@@ -29,6 +32,7 @@ public class ViewPage<T> {
 
 	private void init(Page<T> page, String href) {
 		int pages = page.getTotalPages();
+		this.current = page.getNumber();
 		int begin, end;
 		if (pages <= 7) {
 			begin = 1;
@@ -47,19 +51,29 @@ public class ViewPage<T> {
 		}
 		this.begin = begin;
 		this.end = end;
-		this.current = page.getNumber();
 		this.href = href;
 	}
 
-	private String initOption(Object object) {
-		BeanMap map = BeanMap.create(object);
-		Set<Entry<Object, Object>> t = map.entrySet();
-		StringBuilder builder = new StringBuilder();
-		for (Entry<Object, Object> e : t) {
-			builder.append(e.getKey()).append("=").append(e.getValue())
-					.append(",");
+	private String initOption(Object object) throws IllegalArgumentException,
+			IllegalAccessException {
+		StringBuilder build = new StringBuilder();
+		Class cls = object.getClass();
+		if (cls != null) {
+			Field[] fields = cls.getDeclaredFields();
+			for (Field f : fields) {
+				if (!Modifier.isPublic(f.getModifiers())) {
+					f.setAccessible(true);
+				}
+				Object val = f.get(object);
+				if (val != null)
+					build.append(f.getName()).append("=").append(val)
+							.append(",");
+			}
 		}
-		return builder.substring(0, builder.length() - 1);
+		if (build.length() == 0)
+			return build.toString();
+		else
+			return build.substring(0, build.length() - 1);
 	}
 
 	public int getBegin() {

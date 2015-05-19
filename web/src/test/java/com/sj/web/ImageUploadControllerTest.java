@@ -29,9 +29,25 @@ public class ImageUploadControllerTest {
 		lists.add("a");
 		Page<String> page = new PageImpl<String>(lists);
 		InstrumentSearch i = new InstrumentSearch();
-		i.setBrand("brand");
 		i.setName("name");
+		i.setBrand("brand");
 		ViewPage viewpage = new ViewPage(page, "/admin", i);
 		assertEquals("brand=brand,name=name", viewpage.getOptions());
+	}
+
+	@Test
+	public void testReflection() {
+		List<String> lists = new ArrayList<>();
+		lists.add("a");
+		lists.add("b");
+		lists.add("a");
+		lists.add("a");
+		lists.add("a");
+		lists.add("a");
+		Page<String> page = new PageImpl<String>(lists);
+		InstrumentSearch i = new InstrumentSearch();
+		i.setName("name");
+		ViewPage viewpage = new ViewPage(page, "/admin", i);
+		assertEquals("name=name", viewpage.getOptions());
 	}
 }
