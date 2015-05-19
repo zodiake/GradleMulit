@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
@@ -44,11 +45,12 @@ public class Application {
 	}
 
 	@Bean
-	public CacheManager getEhCacheManager(){
-	        return  new EhCacheCacheManager(getEhCacheFactory().getObject());
+	public CacheManager getEhCacheManager() {
+		return new EhCacheCacheManager(getEhCacheFactory().getObject());
 	}
+
 	@Bean
-	public EhCacheManagerFactoryBean getEhCacheFactory(){
+	public EhCacheManagerFactoryBean getEhCacheFactory() {
 		EhCacheManagerFactoryBean factoryBean = new EhCacheManagerFactoryBean();
 		factoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
 		factoryBean.setShared(true);

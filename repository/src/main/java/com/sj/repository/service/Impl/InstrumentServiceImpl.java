@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Instrument;
+import com.sj.repository.publisher.InstrumentSavedEventPublisher;
 import com.sj.repository.repository.InstrumentRepository;
 import com.sj.repository.service.InstrumentService;
 
@@ -13,6 +14,8 @@ import com.sj.repository.service.InstrumentService;
 public class InstrumentServiceImpl implements InstrumentService {
 	@Autowired
 	private InstrumentRepository repository;
+	@Autowired
+	private InstrumentSavedEventPublisher publisher;
 
 	@Override
 	public Instrument findOne(Long id) {
@@ -21,8 +24,8 @@ public class InstrumentServiceImpl implements InstrumentService {
 
 	@Override
 	public Instrument save(Instrument instrument) {
-		// TODO Auto-generated method stub
-		return null;
+		publisher.publish(instrument);
+		return repository.save(instrument);
 	}
 
 	@Override

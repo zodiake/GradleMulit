@@ -9,22 +9,23 @@
 		<script src="/js/ckeditor/ckeditor.js"></script>
 		<script src="/js/ckeditor/adapters/jquery.js"></script>
 		<script>
-			$(function() {
-				var token = $("meta[name='_csrf']").attr("content");
-				var header = $("meta[name='_csrf_parameterName']").attr("content");
-				$('#content').ckeditor({
-					filebrowserBrowseUrl : '/upload',
-					filebrowserUploadUrl : '/img/upload?' + header + "=" + token,
-					width : 895,
-					height : 300
-				});
-			});
+            $(function() {
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_parameterName']").attr("content");
+                $('#content').ckeditor({
+                    filebrowserBrowseUrl : '/upload',
+                    filebrowserUploadUrl : '/img/upload?' + header + "=" + token,
+                    width : 895,
+                    height : 300
+                });
+            });
 		</script>
 	</head>
 	<body>
-		<form th:action="@{/provider/instruments}" th:method="post" th:object="${instrument}">
+		<form th:method="post" th:object="${instrument}">
 			<input type="text" th:field="*{name}"/>
 			<textarea th:id="content" th:field="*{content.content}"></textarea>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 			<input type="submit"/>
 		</form>
 	</body>

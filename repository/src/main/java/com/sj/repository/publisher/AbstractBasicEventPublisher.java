@@ -3,15 +3,12 @@ package com.sj.repository.publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.stereotype.Component;
 
-import com.sj.model.model.Product;
-import com.sj.repository.event.JpaSavedEvent;
-
-public class ProductUpdatedEventPublisher implements
+public abstract class AbstractBasicEventPublisher<T> implements
 		ApplicationEventPublisherAware {
-
 	@Autowired
-	private ApplicationEventPublisher publisher;
+	protected ApplicationEventPublisher publisher;
 
 	@Override
 	public void setApplicationEventPublisher(
@@ -19,7 +16,5 @@ public class ProductUpdatedEventPublisher implements
 		this.publisher = applicationEventPublisher;
 	}
 
-	public void publish(Product p) {
-		this.publisher.publishEvent(new JpaSavedEvent(p));
-	}
+	public abstract void publish(T p);
 }
