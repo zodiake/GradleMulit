@@ -22,6 +22,7 @@ spring:
   profiles: dev
   redis.host: 192.168.1.137
   redis.port: 6379
+  data.elasticsearch.cluster-nodes: 192.168.1.137:9300
 
 logging:
   level.org.springframework.web: INFO
