@@ -10,4 +10,6 @@ public interface InstrumentSearchRepository extends
 		ElasticsearchCrudRepository<InstrumentSearch, Long> {
 	public Page<InstrumentSearch> findByBrandAndPriceBetween(String brand,
 			double min, double max, Pageable pageable);
+
+	public Page<InstrumentSearch> findByTitle(String name, Pageable pageable);
 }

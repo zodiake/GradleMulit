@@ -1,15 +1,13 @@
 package com.sj.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,12 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sj.model.model.Instrument;
 import com.sj.model.model.Provider;
 import com.sj.model.model.Review;
+import com.sj.repository.search.model.InstrumentSearchOption;
+import com.sj.repository.search.service.InstrumentSearchService;
 import com.sj.repository.service.InstrumentService;
 import com.sj.repository.service.ReviewService;
-import com.sj.repository.util.ViewPage;
-import com.sj.web.annotation.PageRequestAnn;
 import com.sj.web.security.UserContext;
-import com.sj.web.util.InstrumentSearch;
 
 @Controller
 public class InstrumentController {
@@ -36,6 +33,8 @@ public class InstrumentController {
 	private ReviewService reviewService;
 	@Autowired
 	private UserContext userContext;
+	@Autowired
+	private InstrumentSearchService searchService;
 
 	private final String CREATE = "instrument/create";
 	private final String EDIT = "instrument/edit";
@@ -80,17 +79,10 @@ public class InstrumentController {
 	}
 
 	@RequestMapping(value = "/instruments", method = RequestMethod.GET)
-	public String list(Model uiModel, @PageRequestAnn PageRequest page,
-			@ModelAttribute("search") InstrumentSearch search) {
-		List<Instrument> lists = new ArrayList<>();
-		for (int i = 1; i <= 100; i++) {
-			Instrument ins = new Instrument();
-			ins.setName(i + "");
-			lists.add(ins);
-		}
-		ViewPage<Instrument> view = new ViewPage<>(new PageImpl<Instrument>(
-				lists, new PageRequest(1, 15), 100), "/instruments", search);
-		uiModel.addAttribute("viewpage", view);
+	public String list(Model uiModel,
+			@PageableDefault(size = 15) Pageable pageable,
+			@ModelAttribute("option") InstrumentSearchOption option) {
+		searchService.findByOption(option, pageable);
 		return LIST;
 	}
 }
