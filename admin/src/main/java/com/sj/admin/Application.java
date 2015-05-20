@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
@@ -123,7 +124,6 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Override
 	public void addArgumentResolvers(
 			List<HandlerMethodArgumentResolver> argumentResolvers) {
-		PageRequestResolver pageRequestResolver = new PageRequestResolver();
-		argumentResolvers.add(pageRequestResolver);
+		argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
 	}
 }

@@ -4,7 +4,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sj.admin.annotation.PageRequestAnn;
 import com.sj.admin.exception.CategoryNotFoundException;
 import com.sj.admin.security.UserContext;
 import com.sj.model.model.ProductCategory;
@@ -68,8 +68,8 @@ public class ProductCategoryController {
 	// child category list
 	@RequestMapping(value = "/admin/{parent}/productCategories", method = RequestMethod.GET)
 	public String findByParent(@PathVariable(value = "parent") Long parent,
-			@PageRequestAnn PageRequest pageRequest, Model uiModel) {
-		Page<ProductCategory> results = categoryService.findByParent(pageRequest,
+			@PageableDefault(size = 15) Pageable pageable, Model uiModel) {
+		Page<ProductCategory> results = categoryService.findByParent(pageable,
 				new ProductCategory(parent));
 		uiModel.addAttribute("results", results);
 		return LIST;
@@ -84,7 +84,8 @@ public class ProductCategoryController {
 
 	// add category
 	@RequestMapping(value = "/admin/{parent}/productCategories", params = "form", method = RequestMethod.POST)
-	public String addChildCategory(@PathVariable(value = "parent") Long parent,
+	public String addChildCategory(
+			@PathVariable(value = "parent") Long parent,
 			@Valid @ModelAttribute(value = "category") ProductCategory category,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		ProductCategory parentCategory = categoryService.findOne(parent);

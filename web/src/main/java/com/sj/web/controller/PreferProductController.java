@@ -2,7 +2,8 @@ package com.sj.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,6 @@ import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductService;
-import com.sj.web.annotation.PageRequestAnn;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.UserContext;
 
@@ -53,10 +53,10 @@ public class PreferProductController {
 
 	@RequestMapping(value = "/user/preferProducts", method = RequestMethod.GET)
 	public String showPreferedProducts(Model uiModel,
-			@PageRequestAnn PageRequest pageRequest) {
+			@PageableDefault(size = 15) Pageable pageable) {
 		SiteUser user = userContext.getCurrentUser();
 		Page<PreferProduct> lists = preferProductService.findByUser(
-				new CommonUser(user.getId()), pageRequest);
+				new CommonUser(user.getId()), pageable);
 		uiModel.addAttribute("lists", lists);
 		return PREFEREPRODUCTS;
 	}

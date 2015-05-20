@@ -106,7 +106,7 @@ public class Application extends WebMvcConfigurerAdapter {
 			List<HandlerMethodArgumentResolver> argumentResolvers) {
 		SiteUserResolver personResolver = new SiteUserResolver();
 		PageRequestResolver pageRequestResolver = new PageRequestResolver();
+		argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
 		argumentResolvers.add(personResolver);
-		argumentResolvers.add(pageRequestResolver);
 	}
 }
