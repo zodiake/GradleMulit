@@ -60,8 +60,8 @@ public class InstrumentController {
 		Provider p = new Provider();
 		p.setId(userContext.getCurrentUser().getId());
 		instrument.setCreatedBy(p);
-		instrumentService.save(instrument);
-		return "redirect:/instruments/";
+		Instrument result = instrumentService.save(instrument);
+		return "redirect:/provider/instruments/" + result.getId() + "?edit";
 	}
 
 	@RequestMapping(value = "/provider/instruments/{id}", params = "edit", method = RequestMethod.GET)

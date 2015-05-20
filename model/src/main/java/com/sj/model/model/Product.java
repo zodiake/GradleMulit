@@ -36,7 +36,7 @@ public class Product {
 
 	private float price;
 
-	@ManyToMany(mappedBy="products")
+	@ManyToMany(mappedBy = "products")
 	private Set<Subject> subjects;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -61,15 +61,16 @@ public class Product {
 	@JoinColumn(name = "created_by")
 	private Provider createdBy;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+			CascadeType.PERSIST })
 	@JoinColumn(name = "content_id")
 	private Content content;
 
 	@Transient
 	private Long viewCount;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_time")
+	@Column(name = "created_time")
 	private Calendar createdTime;
 
 	public Product() {
@@ -176,7 +177,7 @@ public class Product {
 	public void setContent(Content content) {
 		this.content = content;
 	}
-	
+
 	public Long getViewCount() {
 		return viewCount;
 	}
@@ -184,7 +185,7 @@ public class Product {
 	public void setViewCount(Long viewCount) {
 		this.viewCount = viewCount;
 	}
-	
+
 	public Calendar getCreatedTime() {
 		return createdTime;
 	}

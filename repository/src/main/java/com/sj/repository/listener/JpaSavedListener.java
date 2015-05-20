@@ -27,8 +27,8 @@ public class JpaSavedListener implements ApplicationListener<JpaSavedEvent> {
 	}
 
 	private void saveInstrument(Instrument i) {
-		InstrumentSearch search = new InstrumentSearch(i);
-		System.out.println(search);
+		InstrumentSearch search = new InstrumentSearch(1l,"second","third",10.0f,"brand","www.baidu.com","testtitle");
+		instrumentSearchService.save(search);
 	}
 
 	private void saveConsumable(Consumable c) {

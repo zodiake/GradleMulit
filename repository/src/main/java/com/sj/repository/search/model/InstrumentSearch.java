@@ -34,8 +34,25 @@ public class InstrumentSearch {
 	private String imgurl;
 
 	// 标题
-	@Field(type = FieldType.String, store = true)
+	@Field(type = FieldType.String, store = true,indexAnalyzer="standardAnalyzer")
 	private String title;
+
+	public InstrumentSearch(){
+		
+	}
+	
+	public InstrumentSearch(Long id, String secondCategory,
+			String thirdCategory, Float price, String brand, String imgurl,
+			String title) {
+		super();
+		this.id = id;
+		this.secondCategory = secondCategory;
+		this.thirdCategory = thirdCategory;
+		this.price = price;
+		this.brand = brand;
+		this.imgurl = imgurl;
+		this.title = title;
+	}
 
 	public InstrumentSearch(Instrument i) {
 		this.id = i.getId();

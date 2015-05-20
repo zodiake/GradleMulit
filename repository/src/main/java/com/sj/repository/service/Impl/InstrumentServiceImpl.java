@@ -24,8 +24,9 @@ public class InstrumentServiceImpl implements InstrumentService {
 
 	@Override
 	public Instrument save(Instrument instrument) {
-		publisher.publish(instrument);
-		return repository.save(instrument);
+		Instrument result = repository.save(instrument);
+		publisher.publish(result);
+		return result;
 	}
 
 	@Override
