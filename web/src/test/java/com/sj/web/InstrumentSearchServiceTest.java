@@ -3,7 +3,6 @@ package com.sj.web;
 import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -33,11 +32,51 @@ public class InstrumentSearchServiceTest {
 		InstrumentSearchOption option = new InstrumentSearchOption();
 		option.setBrand("brand");
 		option.setFrom(2f);
+		option.setTitle("title");
 		List<Field> array = impl.filterNullValue(option, option.getClass()
 				.getDeclaredFields());
-		array.stream().forEach(System.out::println);
-		assertEquals(2,array.size());
+		assertEquals(3, array.size());
 		SearchQuery query = impl.buidSearchQuery(option, array, pageable);
 		assertEquals("1", query.getQuery().toString());
+	}
+
+	@Test
+	public void testsearchWithOutTitle() throws IllegalArgumentException,
+			IllegalAccessException, SecurityException {
+		InstrumentSearchServiceImpl impl = new InstrumentSearchServiceImpl();
+		InstrumentSearchOption option = new InstrumentSearchOption();
+		option.setBrand("brand");
+		option.setFrom(2f);
+		List<Field> array = impl.filterNullValue(option, option.getClass()
+				.getDeclaredFields());
+		assertEquals(2, array.size());
+		SearchQuery query = impl.buidSearchQuery(option, array, pageable);
+		assertEquals("1", query.getQuery().toString());
+	}
+
+	@Test
+	public void testsearchOnlyWithTitle() throws IllegalArgumentException,
+			IllegalAccessException, SecurityException {
+		InstrumentSearchServiceImpl impl = new InstrumentSearchServiceImpl();
+		InstrumentSearchOption option = new InstrumentSearchOption();
+		option.setTitle("title");
+		List<Field> array = impl.filterNullValue(option, option.getClass()
+				.getDeclaredFields());
+		assertEquals(1, array.size());
+		SearchQuery query = impl.buidSearchQuery(option, array, pageable);
+		assertEquals("1", query.getQuery().toString());
+	}
+
+	@Test
+	public void testsearchMatchAll() throws IllegalArgumentException,
+			IllegalAccessException, SecurityException {
+		InstrumentSearchServiceImpl impl = new InstrumentSearchServiceImpl();
+		InstrumentSearchOption option = new InstrumentSearchOption();
+		List<Field> array = impl.filterNullValue(option, option.getClass()
+				.getDeclaredFields());
+		assertEquals(0, array.size());
+		SearchQuery query = impl.buidSearchQuery(option, array, pageable);
+		String assertString = "{\"match_all\":{}}";
+		assertEquals(assertString, query.getQuery().toString());
 	}
 }

@@ -6,11 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.FilteredQueryBuilder;
+import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
-import org.elasticsearch.index.query.RangeQueryBuilder;
-import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.index.query.RangeFilterBuilder;
+import org.elasticsearch.index.query.TermFilterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -90,39 +92,62 @@ public class InstrumentSearchServiceImpl implements InstrumentSearchService {
 	public SearchQuery buidSearchQuery(InstrumentSearchOption option,
 			List<Field> fields, Pageable pageable)
 			throws IllegalArgumentException, IllegalAccessException {
-		BoolQueryBuilder builder = new BoolQueryBuilder();
-		SearchQuery query = new NativeSearchQuery(builder);
-		query.setPageable(pageable);
+		MatchQueryBuilder queryBuilder = null;
+		SearchQuery query = null;
+		BoolFilterBuilder boolFilterBuilder = new BoolFilterBuilder();
+		String title = null;
 		for (Field f : fields) {
 			if (!Modifier.isPublic(f.getModifiers())) {
 				f.setAccessible(true);
 			}
 			switch (f.getName()) {
 			case "to":
-				RangeQueryBuilder toRange = new RangeQueryBuilder("price");
-				toRange.to((Float) f.get(option));
-				builder.must(toRange);
+				RangeFilterBuilder toRange = new RangeFilterBuilder("price");
+				toRange.lte((Float) f.get(option));
+				boolFilterBuilder.must(toRange);
 				break;
 			case "from":
-				RangeQueryBuilder fromRange = new RangeQueryBuilder("price");
-				fromRange.from((Float) f.get(option));
-				builder.must(fromRange);
+				RangeFilterBuilder fromRange = new RangeFilterBuilder("price");
+				fromRange.gte((Float) f.get(option));
+				boolFilterBuilder.must(fromRange);
 				break;
 			case "brand":
 			case "secondCategory":
 			case "thirdCategory":
-				TermQueryBuilder brandTerm = new TermQueryBuilder(f.getName(),
-						(String) f.get(option));
-				builder.must(brandTerm);
+				TermFilterBuilder brandTerm = new TermFilterBuilder(
+						f.getName(), (String) f.get(option));
+				boolFilterBuilder.must(brandTerm);
 				break;
 			case "title":
-				MatchQueryBuilder match = new MatchQueryBuilder("title",
-						(String) f.get(option));
-				match.operator(Operator.AND);
-				builder.must(match);
+				title = (String) f.get(option);
+				queryBuilder = new MatchQueryBuilder("title", title);
+				queryBuilder.operator(Operator.AND);
 				break;
 			}
 		}
+		if (queryBuilder == null && !boolFilterBuilder.hasClauses()) {
+			MatchAllQueryBuilder builder = new MatchAllQueryBuilder();
+			query = new NativeSearchQuery(builder);
+			query.setPageable(pageable);
+			return query;
+		} else if (queryBuilder == null) {
+			MatchAllQueryBuilder match = new MatchAllQueryBuilder();
+			FilteredQueryBuilder builder = new FilteredQueryBuilder(match,
+					boolFilterBuilder);
+			query = new NativeSearchQuery(builder);
+			query.setPageable(pageable);
+			return query;
+		} else if (queryBuilder != null && !boolFilterBuilder.hasClauses()) {
+			MatchQueryBuilder builder = new MatchQueryBuilder("title", title);
+			builder.operator(Operator.AND);
+			query = new NativeSearchQuery(builder);
+			query.setPageable(pageable);
+			return query;
+		}
+		FilteredQueryBuilder builder = new FilteredQueryBuilder(queryBuilder,
+				boolFilterBuilder);
+		query = new NativeSearchQuery(builder);
+		query.setPageable(pageable);
 		return query;
 	}
 }
