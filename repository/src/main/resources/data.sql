@@ -116,3 +116,9 @@ insert into advertisement(id,cover_img,created_time,category_id,description) val
 insert into advertisement(id,cover_img,created_time,category_id,description) values (3,'/upload/img/scroll1.jpg','2012-1-3',8,'third');
 insert into advertisement(id,cover_img,created_time,category_id,description) values (4,'/upload/img/scroll1.jpg','2012-1-4',9,'fourth');
 insert into advertisement(id,cover_img,created_time,category_id,description) values (5,'/upload/img/scroll1.jpg','2012-1-5',9,'fifth');
+
+--test brand
+insert into brand(id,name,activate) values(1,'brand1',1);
+insert into brand(id,name,activate) values(2,'brand2',1);
+insert into brand(id,name,activate) values(3,'brand3',1);
+insert into brand(id,name,activate) values(4,'brand4',1);

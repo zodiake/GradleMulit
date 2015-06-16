@@ -1,4 +1,4 @@
-package com.sj.admin.converter;
+package com.sj.repository.converter;
 
 import org.springframework.core.convert.converter.Converter;
 

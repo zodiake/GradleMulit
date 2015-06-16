@@ -50,7 +50,8 @@ create table brand(
 	id bigint not null auto_increment,
 	name varchar(50),
 	created_time timestamp,
-	acitvate smallint,
+	activate smallint,
+	coverImg varchar(40),
 	primary key(id),
 );
 

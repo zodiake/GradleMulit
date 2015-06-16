@@ -16,6 +16,7 @@ import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,6 +28,12 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.sj.repository.converter.StringToAcitvateEnumConverter;
+import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
+import com.sj.repository.converter.StringToAdvertisementContent;
+import com.sj.repository.converter.StringToProductConverter;
+import com.sj.repository.converter.StringToScrollImageTypeConverter;
+import com.sj.repository.converter.StringToSubjectCategoryConverter;
 import com.sj.web.resolver.PageRequestResolver;
 import com.sj.web.resolver.SiteUserResolver;
 
@@ -81,6 +88,7 @@ public class Application extends WebMvcConfigurerAdapter {
 			auth.userDetailsService(service).passwordEncoder(passwordEncoder());
 		}
 
+		@Override
 		@Bean
 		public AuthenticationManager authenticationManagerBean()
 				throws Exception {
@@ -109,4 +117,46 @@ public class Application extends WebMvcConfigurerAdapter {
 		argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
 		argumentResolvers.add(personResolver);
 	}
+
+	/*---------------------------converter bean------------------------------------------*/
+	@Override
+	public void addFormatters(FormatterRegistry formatterRegistry) {
+		formatterRegistry.addConverter(stringToAcitvateEnumConverter());
+		formatterRegistry.addConverter(stringToAdvertisementContent());
+		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
+		formatterRegistry.addConverter(stringToSubjectCategoryConverter());
+		formatterRegistry.addConverter(stringToAdvertiseCategoryConverter());
+		formatterRegistry.addConverter(stringToProductConverter());
+	}
+
+	@Bean
+	public StringToAcitvateEnumConverter stringToAcitvateEnumConverter() {
+		return new StringToAcitvateEnumConverter();
+	}
+
+	@Bean
+	public StringToAdvertisementContent stringToAdvertisementContent() {
+		return new StringToAdvertisementContent();
+	}
+
+	@Bean
+	public StringToAdvertiseCategoryConverter stringToAdvertiseCategoryConverter() {
+		return new StringToAdvertiseCategoryConverter();
+	}
+
+	@Bean
+	public StringToScrollImageTypeConverter stringToScrollImageTypeConverter() {
+		return new StringToScrollImageTypeConverter();
+	}
+
+	@Bean
+	public StringToSubjectCategoryConverter stringToSubjectCategoryConverter() {
+		return new StringToSubjectCategoryConverter();
+	}
+
+	@Bean
+	public StringToProductConverter stringToProductConverter() {
+		return new StringToProductConverter();
+	}
+	/*---------------------------end converter bean---------------------------------------*/
 }

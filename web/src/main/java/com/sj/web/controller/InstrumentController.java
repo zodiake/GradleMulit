@@ -1,5 +1,7 @@
 package com.sj.web.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sj.model.model.Brand;
 import com.sj.model.model.Instrument;
+import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.model.Review;
 import com.sj.model.model.SiteUser;
+import com.sj.model.type.ActivateEnum;
+import com.sj.repository.service.BrandService;
+import com.sj.repository.service.CategoryService;
 import com.sj.repository.service.InstrumentService;
 import com.sj.repository.service.ReviewService;
 import com.sj.web.exception.NoAuthorityException;
@@ -31,6 +38,10 @@ public class InstrumentController {
 	private ReviewService reviewService;
 	@Autowired
 	private UserContext userContext;
+	@Autowired
+	private BrandService brandService;
+	@Autowired
+	private CategoryService categoryService;
 
 	private final String CREATE = "instrument/create";
 	private final String EDIT = "instrument/edit";
@@ -40,7 +51,12 @@ public class InstrumentController {
 	@RequestMapping(value = "/provider/instruments", params = "form", method = RequestMethod.GET)
 	public String craete(Model uiModel) {
 		Instrument instrument = new Instrument();
+		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE);
+		List<ProductCategory> categories = categoryService
+				.findAllSecondCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("instrument", instrument);
+		uiModel.addAttribute("brands", brands);
+		uiModel.addAttribute("categories", categories);
 		return CREATE;
 	}
 
