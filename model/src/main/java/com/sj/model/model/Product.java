@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +22,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import com.sj.model.type.OriginalEnum;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -72,6 +76,11 @@ public class Product {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
 	private Calendar createdTime;
+
+	private String serialNO;
+
+	@Enumerated(EnumType.STRING)
+	private OriginalEnum original;
 
 	public Product() {
 		super();
@@ -192,6 +201,22 @@ public class Product {
 
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	public String getSerialNO() {
+		return serialNO;
+	}
+
+	public void setSerialNO(String serialNO) {
+		this.serialNO = serialNO;
+	}
+
+	public OriginalEnum getOriginal() {
+		return original;
+	}
+
+	public void setOriginal(OriginalEnum original) {
+		this.original = original;
 	}
 
 	@Override

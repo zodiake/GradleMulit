@@ -4,35 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import com.sj.model.model.Consumable;
-import com.sj.model.model.Instrument;
 import com.sj.repository.event.JpaSavedEvent;
-import com.sj.repository.search.model.InstrumentSearch;
-import com.sj.repository.search.service.InstrumentSearchService;
+import com.sj.repository.search.model.ProductSearch;
+import com.sj.repository.search.service.ProductSearchService;
 
 @Component
 public class JpaSavedListener implements ApplicationListener<JpaSavedEvent> {
 	@Autowired
-	private InstrumentSearchService instrumentSearchService;
+	private ProductSearchService productSearchService;
 
 	@Override
 	public void onApplicationEvent(JpaSavedEvent event) {
-		Object o = event.getSource();
-		Class cls = event.getCls();
-		if (cls.equals(Instrument.class)) {
-			saveInstrument((Instrument) o);
-		} else if (cls.equals(Consumable.class)) {
-			saveConsumable((Consumable) o);
-		}
+		ProductSearch o = (ProductSearch) event.getSource();
+		save(o);
 	}
 
-	private void saveInstrument(Instrument i) {
-		InstrumentSearch search = new InstrumentSearch(1l,"second","third",10.0f,"brand","www.baidu.com","testtitle");
-		instrumentSearchService.save(search);
-	}
-
-	private void saveConsumable(Consumable c) {
-
+	private void save(ProductSearch p) {
+		productSearchService.save(p);
 	}
 
 }

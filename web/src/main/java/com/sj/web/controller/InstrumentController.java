@@ -5,9 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sj.model.model.Instrument;
 import com.sj.model.model.Provider;
 import com.sj.model.model.Review;
-import com.sj.repository.search.model.InstrumentSearchOption;
-import com.sj.repository.search.service.InstrumentSearchService;
+import com.sj.model.model.SiteUser;
 import com.sj.repository.service.InstrumentService;
 import com.sj.repository.service.ReviewService;
+import com.sj.web.exception.NoAuthorityException;
 import com.sj.web.security.UserContext;
 
 @Controller
@@ -33,8 +31,6 @@ public class InstrumentController {
 	private ReviewService reviewService;
 	@Autowired
 	private UserContext userContext;
-	@Autowired
-	private InstrumentSearchService searchService;
 
 	private final String CREATE = "instrument/create";
 	private final String EDIT = "instrument/edit";
@@ -64,7 +60,13 @@ public class InstrumentController {
 	}
 
 	@RequestMapping(value = "/provider/instruments/{id}", params = "edit", method = RequestMethod.GET)
-	public String edit() {
+	public String edit(@PathVariable("id") Long id, Model uiModel) {
+		Instrument instrument = instrumentService.findOne(id);
+		SiteUser user = userContext.getCurrentUser();
+		if (instrument.getCreatedBy().getId() != user.getId()) {
+			throw new NoAuthorityException();
+		}
+		uiModel.addAttribute("instrument", instrument);
 		return EDIT;
 	}
 
@@ -76,13 +78,5 @@ public class InstrumentController {
 		uiModel.addAttribute("instrument", instrument);
 		uiModel.addAttribute("reviews", reviews);
 		return VIEW;
-	}
-
-	@RequestMapping(value = "/instruments", method = RequestMethod.GET)
-	public String list(Model uiModel,
-			@PageableDefault(size = 15) Pageable pageable,
-			@ModelAttribute("option") InstrumentSearchOption option) {
-		searchService.findByOption(option, pageable);
-		return LIST;
 	}
 }

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import com.sj.model.type.OriginalEnum;
 import com.sj.repository.util.ViewPage;
 import com.sj.web.util.InstrumentSearch;
 
@@ -49,5 +50,11 @@ public class ImageUploadControllerTest {
 		i.setName("name");
 		ViewPage viewpage = new ViewPage(page, "/admin", i);
 		assertEquals("name=name", viewpage.getOptions());
+	}
+
+	@Test
+	public void testEnum() {
+		OriginalEnum en = OriginalEnum.IN;
+		assertEquals("", en.toString(), "in");
 	}
 }

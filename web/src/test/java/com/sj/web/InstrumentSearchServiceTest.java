@@ -12,8 +12,8 @@ import org.mockito.Mockito;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
-import com.sj.repository.search.model.InstrumentSearchOption;
-import com.sj.repository.search.service.impl.InstrumentSearchServiceImpl;
+import com.sj.repository.search.model.ProductSearchOption;
+import com.sj.repository.search.service.impl.ProductSearchServiceImpl;
 
 public class InstrumentSearchServiceTest {
 	@Mock
@@ -28,8 +28,8 @@ public class InstrumentSearchServiceTest {
 	@Test
 	public void testsearchByOption() throws IllegalArgumentException,
 			IllegalAccessException, SecurityException {
-		InstrumentSearchServiceImpl impl = new InstrumentSearchServiceImpl();
-		InstrumentSearchOption option = new InstrumentSearchOption();
+		ProductSearchServiceImpl impl = new ProductSearchServiceImpl();
+		ProductSearchOption option = new ProductSearchOption();
 		option.setBrand("brand");
 		option.setFrom(2f);
 		option.setTitle("title");
@@ -43,8 +43,8 @@ public class InstrumentSearchServiceTest {
 	@Test
 	public void testsearchWithOutTitle() throws IllegalArgumentException,
 			IllegalAccessException, SecurityException {
-		InstrumentSearchServiceImpl impl = new InstrumentSearchServiceImpl();
-		InstrumentSearchOption option = new InstrumentSearchOption();
+		ProductSearchServiceImpl impl = new ProductSearchServiceImpl();
+		ProductSearchOption option = new ProductSearchOption();
 		option.setBrand("brand");
 		option.setFrom(2f);
 		List<Field> array = impl.filterNullValue(option, option.getClass()
@@ -57,8 +57,8 @@ public class InstrumentSearchServiceTest {
 	@Test
 	public void testsearchOnlyWithTitle() throws IllegalArgumentException,
 			IllegalAccessException, SecurityException {
-		InstrumentSearchServiceImpl impl = new InstrumentSearchServiceImpl();
-		InstrumentSearchOption option = new InstrumentSearchOption();
+		ProductSearchServiceImpl impl = new ProductSearchServiceImpl();
+		ProductSearchOption option = new ProductSearchOption();
 		option.setTitle("title");
 		List<Field> array = impl.filterNullValue(option, option.getClass()
 				.getDeclaredFields());
@@ -70,8 +70,8 @@ public class InstrumentSearchServiceTest {
 	@Test
 	public void testsearchMatchAll() throws IllegalArgumentException,
 			IllegalAccessException, SecurityException {
-		InstrumentSearchServiceImpl impl = new InstrumentSearchServiceImpl();
-		InstrumentSearchOption option = new InstrumentSearchOption();
+		ProductSearchServiceImpl impl = new ProductSearchServiceImpl();
+		ProductSearchOption option = new ProductSearchOption();
 		List<Field> array = impl.filterNullValue(option, option.getClass()
 				.getDeclaredFields());
 		assertEquals(0, array.size());

@@ -21,75 +21,38 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import com.sj.repository.repository.InstrumentSearchRepository;
-import com.sj.repository.search.model.InstrumentSearch;
-import com.sj.repository.search.model.InstrumentSearchOption;
-import com.sj.repository.search.service.InstrumentSearchService;
+import com.sj.repository.repository.ProductSearchRepository;
+import com.sj.repository.search.model.ProductSearch;
+import com.sj.repository.search.model.ProductSearchOption;
+import com.sj.repository.search.service.ProductSearchService;
 
 @Service
-public class InstrumentSearchServiceImpl implements InstrumentSearchService {
+public class ProductSearchServiceImpl implements ProductSearchService {
 	@Autowired
-	private InstrumentSearchRepository repository;
+	protected ElasticsearchTemplate searchTemplate;
+
 	@Autowired
-	private ElasticsearchTemplate searchTemplate;
+	protected ProductSearchRepository repository;
 
 	@Override
-	public Page<InstrumentSearch> findByBrandAndPriceBetween(String brand,
-			double min, double max, Pageable pageable) {
-		return repository.findByBrandAndPriceBetween(brand, min, max, pageable);
-	}
-
-	@Override
-	public void save(InstrumentSearch search) {
-		repository.save(search);
-	}
-
-	@Override
-	public Page<InstrumentSearch> findByOption(InstrumentSearchOption option,
+	public Page<ProductSearch> findByOption(ProductSearchOption option,
 			Pageable pageable) {
 		Field[] fields = option.getClass().getDeclaredFields();
 		List<Field> options = filterNullValue(option, fields);
+
 		if (options.size() > 0) {
 			SearchQuery query;
 			try {
 				query = buidSearchQuery(option, options, pageable);
-				return searchTemplate.queryForPage(query,
-						InstrumentSearch.class);
+				return searchTemplate.queryForPage(query, ProductSearch.class);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
-			}
-		} else if (options.size() == 1) {
-			for (Field f : options) {
-				if (f.getName().equals("title")) {
-					String title;
-					try {
-						title = (String) f.get(option);
-						return repository.findByTitle(title, pageable);
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						e.printStackTrace();
-					}
-				}
 			}
 		}
 		return repository.findAll(pageable);
 	}
 
-	public List<Field> filterNullValue(InstrumentSearchOption option,
-			Field[] fields) {
-		return Arrays.stream(fields).filter(f -> {
-			if (!Modifier.isPublic(f.getModifiers())) {
-				f.setAccessible(true);
-			}
-			try {
-				return f.get(option) != null;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return false;
-		}).collect(Collectors.toList());
-	}
-
-	public SearchQuery buidSearchQuery(InstrumentSearchOption option,
+	public SearchQuery buidSearchQuery(ProductSearchOption option,
 			List<Field> fields, Pageable pageable)
 			throws IllegalArgumentException, IllegalAccessException {
 		MatchQueryBuilder queryBuilder = null;
@@ -103,12 +66,12 @@ public class InstrumentSearchServiceImpl implements InstrumentSearchService {
 			switch (f.getName()) {
 			case "to":
 				RangeFilterBuilder toRange = new RangeFilterBuilder("price");
-				toRange.lte((Float) f.get(option));
+				toRange.lte(f.get(option));
 				boolFilterBuilder.must(toRange);
 				break;
 			case "from":
 				RangeFilterBuilder fromRange = new RangeFilterBuilder("price");
-				fromRange.gte((Float) f.get(option));
+				fromRange.gte(f.get(option));
 				boolFilterBuilder.must(fromRange);
 				break;
 			case "brand":
@@ -149,5 +112,25 @@ public class InstrumentSearchServiceImpl implements InstrumentSearchService {
 		query = new NativeSearchQuery(builder);
 		query.setPageable(pageable);
 		return query;
+	}
+
+	public List<Field> filterNullValue(ProductSearchOption option,
+			Field[] fields) {
+		return Arrays.stream(fields).filter(f -> {
+			if (!Modifier.isPublic(f.getModifiers())) {
+				f.setAccessible(true);
+			}
+			try {
+				return f.get(option) != null;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public void save(ProductSearch product) {
+		repository.save(product);
 	}
 }
