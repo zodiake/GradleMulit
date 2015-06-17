@@ -9,6 +9,10 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(4,'thirdCategory2-4',2,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(5,'thirdCategory2-5',2,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(16,'thirdCategory3-6',3,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(17,'thirdCategory3-7',3,1,'2012-1-1','tom','pc');
 
 --test subject category
 insert into category(id,name,category_type,activate) values(6,'行业要闻','sc',1);

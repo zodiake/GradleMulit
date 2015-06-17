@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
 
-public interface CategoryService {
+public interface ProductCategoryService {
 	public ProductCategory findOne(Long id);
 
 	public Set<ProductCategory> findAll();

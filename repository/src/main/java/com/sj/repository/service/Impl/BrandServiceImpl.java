@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@Cacheable(value = "brandCache")
 	public List<Brand> findByAcitvate(ActivateEnum activate) {
 		return repository.findByActivate(activate);
 	}

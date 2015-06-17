@@ -24,8 +24,8 @@ import com.sj.model.model.Review;
 import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.BrandService;
-import com.sj.repository.service.CategoryService;
 import com.sj.repository.service.InstrumentService;
+import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ReviewService;
 import com.sj.web.exception.NoAuthorityException;
 import com.sj.web.security.UserContext;
@@ -41,7 +41,7 @@ public class InstrumentController {
 	@Autowired
 	private BrandService brandService;
 	@Autowired
-	private CategoryService categoryService;
+	private ProductCategoryService categoryService;
 
 	private final String CREATE = "instrument/create";
 	private final String EDIT = "instrument/edit";
@@ -65,6 +65,7 @@ public class InstrumentController {
 			@Valid @ModelAttribute("instrument") Instrument instrument,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
+			System.out.println(bindingResult.toString());
 			uiModel.addAttribute("instrument", instrument);
 			return CREATE;
 		}

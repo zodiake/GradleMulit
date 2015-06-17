@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
-import com.sj.repository.service.CategoryService;
+import com.sj.repository.service.ProductCategoryService;
 
 @Controller
 public class CategoryController {
 	@Autowired
-	private CategoryService service;
+	private ProductCategoryService service;
 
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String findAll() {

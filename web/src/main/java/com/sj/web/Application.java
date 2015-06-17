@@ -28,9 +28,12 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.sj.repository.converter.LongToProductCategoryConverter;
 import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementContent;
+import com.sj.repository.converter.StringToBrandConverter;
+import com.sj.repository.converter.StringToOriginalEnumConverter;
 import com.sj.repository.converter.StringToProductConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
 import com.sj.repository.converter.StringToSubjectCategoryConverter;
@@ -127,6 +130,9 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToSubjectCategoryConverter());
 		formatterRegistry.addConverter(stringToAdvertiseCategoryConverter());
 		formatterRegistry.addConverter(stringToProductConverter());
+		formatterRegistry.addConverter(stringToProductCategoryConverter());
+		formatterRegistry.addConverter(stringToOriginalEnumConverter());
+		formatterRegistry.addConverter(stringToBrandConverter());
 	}
 
 	@Bean
@@ -157,6 +163,21 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public StringToProductConverter stringToProductConverter() {
 		return new StringToProductConverter();
+	}
+
+	@Bean
+	public LongToProductCategoryConverter stringToProductCategoryConverter() {
+		return new LongToProductCategoryConverter();
+	}
+
+	@Bean
+	public StringToOriginalEnumConverter stringToOriginalEnumConverter() {
+		return new StringToOriginalEnumConverter();
+	}
+
+	@Bean
+	public StringToBrandConverter stringToBrandConverter() {
+		return new StringToBrandConverter();
 	}
 	/*---------------------------end converter bean---------------------------------------*/
 }
