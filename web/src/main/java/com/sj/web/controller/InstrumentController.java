@@ -79,12 +79,44 @@ public class InstrumentController {
 	@RequestMapping(value = "/provider/instruments/{id}", params = "edit", method = RequestMethod.GET)
 	public String edit(@PathVariable("id") Long id, Model uiModel) {
 		Instrument instrument = instrumentService.findOne(id);
+		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE);
+		List<ProductCategory> categories = categoryService
+				.findAllSecondCategory(ActivateEnum.ACTIVATE);
+		List<ProductCategory> thirdCategories = categoryService
+				.findByParentAndActivate(instrument.getSecondCategory(),
+						ActivateEnum.ACTIVATE);
 		SiteUser user = userContext.getCurrentUser();
 		if (instrument.getCreatedBy().getId() != user.getId()) {
 			throw new NoAuthorityException();
 		}
 		uiModel.addAttribute("instrument", instrument);
+		uiModel.addAttribute("brands", brands);
+		uiModel.addAttribute("categories", categories);
+		uiModel.addAttribute("thirdCategories", thirdCategories);
 		return EDIT;
+	}
+
+	@RequestMapping(value = "/provider/instruments/{id}", params = "edit", method = RequestMethod.POST)
+	public String update(Model uiModel, @PathVariable("id") Long id,
+			@Valid @ModelAttribute("instrument") Instrument instrument,
+			BindingResult bindingResult) {
+		instrument.setId(id);
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("instrument", instrument);
+			return EDIT;
+		}
+		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE);
+		List<ProductCategory> categories = categoryService
+				.findAllSecondCategory(ActivateEnum.ACTIVATE);
+		List<ProductCategory> thirdCategories = categoryService
+				.findByParentAndActivate(instrument.getSecondCategory(),
+						ActivateEnum.ACTIVATE);
+		Instrument result = instrumentService.update(instrument);
+		uiModel.addAttribute("instrument", result);
+		uiModel.addAttribute("brands", brands);
+		uiModel.addAttribute("categories", categories);
+		uiModel.addAttribute("thirdCategories", thirdCategories);
+		return "redirect:/provider/instruments/" + result.getId() + "?edit";
 	}
 
 	@RequestMapping(value = "/instruments/{id}", method = RequestMethod.GET)

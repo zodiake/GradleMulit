@@ -24,7 +24,23 @@
 	<body>
 		<form th:method="post" th:object="${instrument}">
 			<input type="text" th:field="*{name}"/>
+			brand:<select th:field="*{brand}">
+				<option value="">--请选择--</option>
+				<option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}">brand</option>
+			</select>
 			<textarea th:id="content" th:field="*{content.content}"></textarea>
+			secondCategory:<select th:field="*{secondCategory}">
+				<option value="">--请选择--</option>
+				<option th:each="c:${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+			</select>
+			thirdCategory:<select th:field="*{thirdCategory}">
+				<option value="">--请选择--</option>
+				<option th:each="c:${thirdCategories}" th:value="${c.id}" th:text="${c.name}"></option>
+			</select>
+			original:<select th:field="*{original}">
+				<option th:value="IN">in</option>
+				<option th:value="OUT">out</option>
+			</select>
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 			<input type="submit"/>
 		</form>

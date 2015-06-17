@@ -65,7 +65,7 @@ insert into product(id,name,cover_Img,price,url,first_category_id,second_categor
 values(3,'product3','',10.0,'/product/3',2,2,4,1,3);
 
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
-values(4,'product4','',10.0,'/product/4',2,3,5,1,4);
+values(4,'product4','',10.0,'/product/4',2,3,17,1,4);
 
 --mary2 product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
