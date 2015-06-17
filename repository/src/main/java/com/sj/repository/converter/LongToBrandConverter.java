@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import com.sj.model.model.Brand;
 import com.sj.repository.service.BrandService;
 
-public class StringToBrandConverter implements Converter<Long, Brand> {
+public class LongToBrandConverter implements Converter<Long, Brand> {
 	@Autowired
 	private BrandService service;
 
