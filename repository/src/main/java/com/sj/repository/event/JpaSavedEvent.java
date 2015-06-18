@@ -2,21 +2,10 @@ package com.sj.repository.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.sj.model.model.Product;
+import com.sj.repository.search.model.ProductSearch;
 
 public class JpaSavedEvent extends ApplicationEvent {
-	private Class<? extends Product> cls;
-
-	public JpaSavedEvent(Product source, Class<? extends Product> cls) {
+	public JpaSavedEvent(ProductSearch source) {
 		super(source);
-		this.cls = source.getClass();
-	}
-
-	public Class<? extends Product> getCls() {
-		return cls;
-	}
-
-	public void setCls(Class<? extends Product> cls) {
-		this.cls = cls;
 	}
 }

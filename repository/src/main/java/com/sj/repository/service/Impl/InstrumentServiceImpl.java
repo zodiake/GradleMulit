@@ -6,8 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Instrument;
-import com.sj.repository.publisher.InstrumentSavedEventPublisher;
+import com.sj.repository.publisher.ProductSavedEventPublisher;
 import com.sj.repository.repository.InstrumentRepository;
+import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.service.InstrumentService;
 
 @Service
@@ -15,7 +16,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 	@Autowired
 	private InstrumentRepository repository;
 	@Autowired
-	private InstrumentSavedEventPublisher publisher;
+	private ProductSavedEventPublisher publisher;
 
 	@Override
 	public Instrument findOne(Long id) {
@@ -25,7 +26,8 @@ public class InstrumentServiceImpl implements InstrumentService {
 	@Override
 	public Instrument save(Instrument instrument) {
 		Instrument result = repository.save(instrument);
-		publisher.publish(result);
+		ProductSearch p = new ProductSearch(result);
+		publisher.publish(p);
 		return result;
 	}
 

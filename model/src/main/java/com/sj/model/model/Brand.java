@@ -25,7 +25,7 @@ public class Brand {
 	private String name;
 
 	@Enumerated
-	private ActivateEnum acitvate;
+	private ActivateEnum activate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
@@ -50,12 +50,12 @@ public class Brand {
 		this.name = name;
 	}
 
-	public ActivateEnum getAcitvate() {
-		return acitvate;
+	public ActivateEnum getActivate() {
+		return activate;
 	}
 
-	public void setAcitvate(ActivateEnum acitvate) {
-		this.acitvate = acitvate;
+	public void setActivate(ActivateEnum activate) {
+		this.activate = activate;
 	}
 
 	public Calendar getCraetedTime() {

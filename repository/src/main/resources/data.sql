@@ -9,6 +9,10 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(4,'thirdCategory2-4',2,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(5,'thirdCategory2-5',2,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(16,'thirdCategory3-6',3,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(17,'thirdCategory3-7',3,1,'2012-1-1','tom','pc');
 
 --test subject category
 insert into category(id,name,category_type,activate) values(6,'行业要闻','sc',1);
@@ -52,7 +56,7 @@ insert into content values(8,'product8-content');
 --test product
 --tom product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id) 
-values(1,'instrument1','',10.0,'/product/1',1,2,4,1,1);
+values(1,'instrument1','',10.0,'/product/1',1,2,4,2,1);
 
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
 values(2,'product2','',10.0,'/product/2',1,3,5,1,2);
@@ -116,3 +120,9 @@ insert into advertisement(id,cover_img,created_time,category_id,description) val
 insert into advertisement(id,cover_img,created_time,category_id,description) values (3,'/upload/img/scroll1.jpg','2012-1-3',8,'third');
 insert into advertisement(id,cover_img,created_time,category_id,description) values (4,'/upload/img/scroll1.jpg','2012-1-4',9,'fourth');
 insert into advertisement(id,cover_img,created_time,category_id,description) values (5,'/upload/img/scroll1.jpg','2012-1-5',9,'fifth');
+
+--test brand
+insert into brand(id,name,activate) values(1,'brand1',1);
+insert into brand(id,name,activate) values(2,'brand2',1);
+insert into brand(id,name,activate) values(3,'brand3',1);
+insert into brand(id,name,activate) values(4,'brand4',1);

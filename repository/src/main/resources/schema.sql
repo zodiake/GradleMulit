@@ -50,7 +50,8 @@ create table brand(
 	id bigint not null auto_increment,
 	name varchar(50),
 	created_time timestamp,
-	acitvate smallint,
+	activate smallint,
+	coverImg varchar(40),
 	primary key(id),
 );
 
@@ -74,6 +75,8 @@ create table product(
 	created_by bigint,
 	content_id bigint,
 	created_time timestamp,
+	serialno varchar(20),
+	original char(2),
 	primary key(id),
 	foreign key (first_category_id) references category(id),
 	foreign key (second_category_id) references category(id),

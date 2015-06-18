@@ -6,44 +6,54 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import com.sj.model.model.Instrument;
+import com.sj.model.model.Product;
 
-@Document(indexName = "sj", type = "instrument")
-public class InstrumentSearch {
+@Document(indexName = "sj", type = "product")
+public class ProductSearch {
 	@Id
 	private Long id;
 
 	// 二级分类
-	@Field(type = FieldType.String, store = true, index = FieldIndex.not_analyzed)
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 	private String secondCategory;
 
 	// 三级分类
-	@Field(type = FieldType.String, store = true, index = FieldIndex.not_analyzed)
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 	private String thirdCategory;
 
 	// 价格
-	@Field(type = FieldType.Double, store = true)
+	@Field(type = FieldType.Double)
 	private Float price;
 
 	// 品牌
-	@Field(type = FieldType.String, store = true, index = FieldIndex.not_analyzed)
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 	private String brand;
 
 	// 封面图片
-	@Field(type = FieldType.String, store = true, index = FieldIndex.not_analyzed)
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 	private String imgurl;
 
 	// 标题
-	@Field(type = FieldType.String, store = true,indexAnalyzer="standardAnalyzer")
+	@Field(type = FieldType.String, indexAnalyzer = "standardAnalyzer")
 	private String title;
 
-	public InstrumentSearch(){
-		
+	// 类型 搜索通过类型区分
+	private String type;
+
+	// 产品编号
+	private String serialNo;
+
+	// 商品url
+	private String url;
+
+	private String original;
+
+	public ProductSearch() {
+
 	}
-	
-	public InstrumentSearch(Long id, String secondCategory,
-			String thirdCategory, Float price, String brand, String imgurl,
-			String title) {
+
+	public ProductSearch(Long id, String secondCategory, String thirdCategory,
+			Float price, String brand, String imgurl, String title) {
 		super();
 		this.id = id;
 		this.secondCategory = secondCategory;
@@ -54,7 +64,7 @@ public class InstrumentSearch {
 		this.title = title;
 	}
 
-	public InstrumentSearch(Instrument i) {
+	public ProductSearch(Product i) {
 		this.id = i.getId();
 		this.brand = i.getBrand().getName();
 		this.title = i.getName();
@@ -62,6 +72,9 @@ public class InstrumentSearch {
 		this.thirdCategory = i.getThirdCategory().getName();
 		this.price = i.getPrice();
 		this.imgurl = i.getCoverImg();
+		this.serialNo = i.getSerialNO();
+		this.url = i.getUrl();
+		this.original = i.getOriginal().toString();
 	}
 
 	public Long getId() {
@@ -120,6 +133,38 @@ public class InstrumentSearch {
 		this.title = title;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getSerialNo() {
+		return serialNo;
+	}
+
+	public void setSerialNo(String serialNo) {
+		this.serialNo = serialNo;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getOriginal() {
+		return original;
+	}
+
+	public void setOriginal(String original) {
+		this.original = original;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -136,7 +181,7 @@ public class InstrumentSearch {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		InstrumentSearch other = (InstrumentSearch) obj;
+		ProductSearch other = (ProductSearch) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

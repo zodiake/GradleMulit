@@ -23,13 +23,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.sj.admin.converter.StringToAcitvateEnumConverter;
-import com.sj.admin.converter.StringToAdvertiseCategoryConverter;
-import com.sj.admin.converter.StringToAdvertisementContent;
-import com.sj.admin.converter.StringToProductConverter;
-import com.sj.admin.converter.StringToScrollImageTypeConverter;
-import com.sj.admin.converter.StringToSubjectCategoryConverter;
-import com.sj.admin.resolver.PageRequestResolver;
+import com.sj.repository.converter.StringToAcitvateEnumConverter;
+import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
+import com.sj.repository.converter.StringToAdvertisementContent;
+import com.sj.repository.converter.StringToProductConverter;
+import com.sj.repository.converter.StringToScrollImageTypeConverter;
+import com.sj.repository.converter.StringToSubjectCategoryConverter;
 
 @Configuration
 @EnableAutoConfiguration
@@ -66,6 +65,7 @@ public class Application extends WebMvcConfigurerAdapter {
 			auth.userDetailsService(service).passwordEncoder(passwordEncoder());
 		}
 
+		@Override
 		@Bean
 		public AuthenticationManager authenticationManagerBean()
 				throws Exception {

@@ -18,12 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sj.admin.exception.CategoryNotFoundException;
 import com.sj.admin.security.UserContext;
 import com.sj.model.model.ProductCategory;
-import com.sj.repository.service.CategoryService;
+import com.sj.repository.service.ProductCategoryService;
 
 @Controller
 public class ProductCategoryController {
 	@Autowired
-	private CategoryService categoryService;
+	private ProductCategoryService categoryService;
 	@Autowired
 	private UserContext userContext;
 

@@ -1,6 +1,6 @@
 package com.sj.repository.search.model;
 
-public class InstrumentSearchOption {
+public class ProductSearchOption {
 	private String title;
 	private String brand;
 	private String secondCategory;
