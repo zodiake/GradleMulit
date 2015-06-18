@@ -12,7 +12,6 @@ public class AuthorityUtil {
 			public String getAuthority() {
 				return name;
 			}
-
 		};
 		authorities.add(authority);
 		return authorities;

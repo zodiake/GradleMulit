@@ -22,6 +22,7 @@ import com.google.code.kaptcha.util.Config;
 @EnableAutoConfiguration
 @EnableCaching
 @ComponentScan("com.sj")
+
 public class Application {
 
 	public static void main(String[] args) {

@@ -40,6 +40,7 @@ public class Application extends WebMvcConfigurerAdapter {
 		SpringApplication.run(Application.class, args);
 	}
 
+
 	@Configuration
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 	protected static class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -48,6 +49,10 @@ public class Application extends WebMvcConfigurerAdapter {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
+			//设置最大连接数量
+//			http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true);
+			//防止session攻击
+//			http.sessionManagement().sessionFixation().newSession();
 			http.authorizeRequests()
 					.antMatchers("/provider/**")
 					.hasRole("PROVIDER")
