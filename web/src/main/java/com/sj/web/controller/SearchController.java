@@ -1,6 +1,7 @@
 package com.sj.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,7 @@ import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.ProductCategoryService;
 
 @Controller
-public class SearchController {
+public class SearchController extends BaseController<ProductSearch> {
 	@Autowired
 	private ProductSearchService service;
 	@Autowired
@@ -38,6 +39,10 @@ public class SearchController {
 			@PageableDefault(page = 0, size = 15) Pageable pageable,
 			Model uiModel) {
 		Page<ProductSearch> results = service.findByOption(option, pageable);
+		Map<String, String> map = service.buildMap(option);
+		ViewPage viewpage = caculatePage(results);
+		viewpage.setOption(map);
+		viewpage.setHref("/products/_search");
 		if (option.getFirstCategory() != null) {
 			List<ProductCategory> categories = categoryService
 					.findAllSecondCategory(ActivateEnum.ACTIVATE);
@@ -45,6 +50,7 @@ public class SearchController {
 		}
 		uiModel.addAttribute("lists", results);
 		uiModel.addAttribute("option", option);
+		uiModel.addAttribute("viewpage", viewpage);
 		return SEARCHLIST;
 	}
 }

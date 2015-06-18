@@ -1,6 +1,8 @@
 package com.sj.web.controller;
 
 import java.util.Calendar;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.data.domain.Page;
 import org.springframework.util.StringUtils;
@@ -30,9 +32,11 @@ public class BaseController<T> {
 		}
 	}
 
-	private class ViewPage {
+	protected class ViewPage {
 		private int begin;
 		private int end;
+		private String option = "";
+		private String href;
 
 		public ViewPage(int begin, int end) {
 			this.begin = begin;
@@ -55,9 +59,31 @@ public class BaseController<T> {
 			this.end = end;
 		}
 
+		public void setOption(Map<String, String> map) {
+			if (map.size() > 0) {
+				for (Entry e : map.entrySet()) {
+					option += e.getKey() + "=" + e.getValue() + ",";
+					option.substring(0, option.lastIndexOf(","));
+				}
+			} else {
+				option = "";
+			}
+		}
+
+		public String getOption() {
+			return option;
+		}
+
+		public String getHref() {
+			return href;
+		}
+
+		public void setHref(String href) {
+			this.href = href;
+		}
 	}
-	
-	protected String getFileName(MultipartFile file){
+
+	protected String getFileName(MultipartFile file) {
 		Calendar c = Calendar.getInstance();
 		String fileName = String.valueOf(c.hashCode())
 				+ StringUtils.trimAllWhitespace(file.getOriginalFilename());

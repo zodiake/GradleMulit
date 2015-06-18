@@ -8,10 +8,9 @@
 		<div th:fragment="page(viewpage)">
 			<ul th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}">
 				<li th:class="${i}==viewpage.current?activate" >
-					<a th:href="@{${viewpage.href}(pages=${i},size=15,__${viewpage.options}__)}" th:text="${i}"></a>
+					<a th:href="@{${viewpage.href}(pages=${i},size=15,__${viewpage.option}__)}" th:text="${i}"></a>
 				</li>
 			</ul>
-			<div th:text="${options}"></div>
 		</div>
 	</body>
 </html>
