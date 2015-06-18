@@ -1,6 +1,10 @@
 --test category
+--first category
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(1,'firstCategory1',null,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(18,'firstCategory18',null,1,'2012-1-1','tom','pc');
+
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type) 
 values(2,'secondCategory1-2',1,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)

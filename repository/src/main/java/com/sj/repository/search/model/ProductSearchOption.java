@@ -3,6 +3,7 @@ package com.sj.repository.search.model;
 public class ProductSearchOption {
 	private String title;
 	private String brand;
+	private String firstCategory;
 	private String secondCategory;
 	private String thirdCategory;
 	private Float from;
@@ -54,5 +55,13 @@ public class ProductSearchOption {
 
 	public void setTo(Float to) {
 		this.to = to;
+	}
+
+	public String getFirstCategory() {
+		return firstCategory;
+	}
+
+	public void setFirstCategory(String firstCategory) {
+		this.firstCategory = firstCategory;
 	}
 }
