@@ -33,10 +33,19 @@ import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementContent;
 import com.sj.repository.converter.StringToBrandConverter;
+import com.sj.repository.converter.StringToBusinessTypeEnumConverter;
+import com.sj.repository.converter.StringToComponyTypeEnumConverter;
+import com.sj.repository.converter.StringToIndustryInformationEnumConverter;
 import com.sj.repository.converter.StringToOriginalEnumConverter;
+import com.sj.repository.converter.StringToOutputEnumConverter;
+import com.sj.repository.converter.StringToPositionEnumConverter;
+import com.sj.repository.converter.StringToPositionInformationEnumConverter;
 import com.sj.repository.converter.StringToProductConverter;
+import com.sj.repository.converter.StringToScaleEnumConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
+import com.sj.repository.converter.StringToSexEnumConverter;
 import com.sj.repository.converter.StringToSubjectCategoryConverter;
+import com.sj.repository.converter.StringToTitleEnumConverter;
 import com.sj.web.resolver.PageRequestResolver;
 import com.sj.web.resolver.SiteUserResolver;
 
@@ -59,10 +68,6 @@ public class Application extends WebMvcConfigurerAdapter {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			//设置最大连接数量
-//			http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true);
-			//防止session攻击
-//			http.sessionManagement().sessionFixation().newSession();
 			http.authorizeRequests()
 					.antMatchers("/provider/**")
 					.hasRole("PROVIDER")
@@ -138,6 +143,16 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToProductCategoryConverter());
 		formatterRegistry.addConverter(stringToOriginalEnumConverter());
 		formatterRegistry.addConverter(stringToBrandConverter());
+		//new
+		formatterRegistry.addConverter(stringToBusinessTypeEnumConverter());
+		formatterRegistry.addConverter(stringToComponyTypeEnumConverter());
+		formatterRegistry.addConverter(stringToIndustryInformationEnumConverter());
+		formatterRegistry.addConverter(stringToOutputEnumConverter());
+		formatterRegistry.addConverter(stringToPositionEnumConverter());
+		formatterRegistry.addConverter(stringToPositionInformationEnumConverter());
+		formatterRegistry.addConverter(stringToScaleEnumConverter());
+		formatterRegistry.addConverter(stringToSexEnumConverter());
+		formatterRegistry.addConverter(stringToTitleEnumConverter());
 	}
 
 	@Bean
@@ -183,6 +198,43 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public StringToBrandConverter stringToBrandConverter() {
 		return new StringToBrandConverter();
+	}
+	//new
+	@Bean
+	public StringToBusinessTypeEnumConverter stringToBusinessTypeEnumConverter(){
+		return new StringToBusinessTypeEnumConverter();
+	}
+	@Bean
+	public StringToComponyTypeEnumConverter stringToComponyTypeEnumConverter(){
+		return new StringToComponyTypeEnumConverter();
+	}
+	@Bean
+	public StringToIndustryInformationEnumConverter stringToIndustryInformationEnumConverter(){
+		return new StringToIndustryInformationEnumConverter();
+	}
+	@Bean
+	public StringToOutputEnumConverter stringToOutputEnumConverter(){
+		return new StringToOutputEnumConverter();
+	}
+	@Bean
+	public StringToPositionEnumConverter stringToPositionEnumConverter(){
+		return new StringToPositionEnumConverter();
+	}
+	@Bean
+	public StringToPositionInformationEnumConverter stringToPositionInformationEnumConverter(){
+		return new StringToPositionInformationEnumConverter();
+	}
+	@Bean
+	public StringToScaleEnumConverter stringToScaleEnumConverter(){
+		return new StringToScaleEnumConverter();
+	}
+	@Bean
+	public StringToSexEnumConverter stringToSexEnumConverter(){
+		return new StringToSexEnumConverter();
+	}
+	@Bean
+	public StringToTitleEnumConverter stringToTitleEnumConverter(){
+		return new StringToTitleEnumConverter();
 	}
 	/*---------------------------end converter bean---------------------------------------*/
 }
