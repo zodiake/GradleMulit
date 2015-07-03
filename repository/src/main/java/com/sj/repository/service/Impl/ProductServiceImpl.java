@@ -48,4 +48,28 @@ public class ProductServiceImpl implements ProductService {
 	public void addViewCount(Long id) {
 		template.opsForValue().increment(VIEWCOUNT + id, 1);
 	}
+
+	@Override
+	public Product addOneProduct(Product product) {
+		
+		return repository.save(product);
+	}
+
+	@Override
+	public Product findOneByUser(Provider user, Long id) {
+		
+//		return repository.findByIdAndCreatedBy(id, user);
+		return null;
+	}
+
+	@Override
+	public Product updateProduct(Product newProduct, Product oldProduct) {
+		//修改oldProduct的信息
+		return repository.save(oldProduct);
+	}
+
+	@Override
+	public void offProduct(Product product) {
+		 repository.save(product);
+	}
 }

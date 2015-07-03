@@ -21,4 +21,6 @@ public interface SiteUserRepository extends
 	@Modifying	
 	@Query("update SiteUser u set u.enabled=:enabled,u.authenticatedTime=:time where u.id=:id")
 	public void updateEnabled(@Param("enabled")ActivateEnum state,@Param("time")Calendar time,@Param("id")Long id);
+	
+	
 }

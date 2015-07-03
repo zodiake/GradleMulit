@@ -1,6 +1,10 @@
 --test category
+--first category
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(1,'firstCategory1',null,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(18,'firstCategory18',null,1,'2012-1-1','tom','pc');
+
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type) 
 values(2,'secondCategory1-2',1,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -71,8 +75,13 @@ values(2,'product2','',10.0,'/product/2',1,3,5,1,2,'product2English','HD302',1,'
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications)
 values(3,'product3','',10.0,'/product/3',2,2,4,1,3,'product3English','HD303',1,'10支');
 
+<<<<<<< HEAD
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications)
 values(4,'product4','',10.0,'/product/4',2,3,5,1,4,'product3English','HD303',1,'10支');
+=======
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
+values(4,'product4','',10.0,'/product/4',2,3,17,1,4);
+>>>>>>> branch 'master' of https://github.com/zodiake/GradleMulit
 
 --mary2 product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications)

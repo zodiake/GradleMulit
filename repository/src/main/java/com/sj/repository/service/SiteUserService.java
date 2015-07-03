@@ -17,4 +17,7 @@ public interface SiteUserService {
 	public void updateEnabledById(Long id,int state);
 	
 	public SiteUser findOne(Long id);
+	
+	public SiteUser registered(SiteUser siteUser);
+	
 }

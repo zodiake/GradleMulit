@@ -2,11 +2,11 @@ package com.sj.repository.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.sj.model.model.Product;
+import com.sj.repository.search.model.ProductSearch;
 
 public class JpaUpdatedEvent extends ApplicationEvent {
 
-	public JpaUpdatedEvent(Product product) {
+	public JpaUpdatedEvent(ProductSearch product) {
 		super(product);
 	}
 

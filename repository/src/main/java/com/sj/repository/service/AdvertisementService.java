@@ -15,4 +15,6 @@ public interface AdvertisementService {
 
 	public Advertisement findByIdAndCategory(Long id,
 			AdvertiseCategoryEnum category);
+	
+	public Advertisement save(Advertisement advertisement);
 }

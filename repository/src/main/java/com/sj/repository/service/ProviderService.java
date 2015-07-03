@@ -4,4 +4,6 @@ import com.sj.model.model.Provider;
 
 public interface ProviderService {
 	public Provider findOne(Long id);
+	
+	public Provider regirectedProvider(Provider provider);
 }

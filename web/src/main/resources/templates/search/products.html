@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_parameterName" th:content="${_csrf.parameterName}" />
+		<title>Insert title here</title>
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script>
+			$(function(){
+				var form=$('form');
+
+				$('#price a').click(function(event) {
+					event.preventDefault();
+					var self=$(event.target);
+					var fromPrice=self.attr('data-minPrice');
+					var toPrice=self.attr('data-maxPrice');
+					var fromHidden=$('<input name="from" type="hidden" value="'+fromPrice+'"/>');
+					var toHidden=$('<input name="to" type="hidden" value="'+toPrice+'"/>');
+					form.append(fromHidden).append(toHidden);
+					form.submit();
+				});
+				
+				$(':radio,:checkbox').change(function () {
+        			$('form').submit();
+    			});
+			});
+		</script>
+	</head>
+	</head>
+	<body>
+		<form th:object="${option}">
+			<ul id="firstCategory">
+				<li th:each="c:${firstCategory}">
+					<input type="radio" th:field="*{firstCategory}" th:value="${c.name}" th:text="${c.name}"/>
+				</li>
+			</ul>
+			<ul id="price">
+				<li>
+					<a data-minPrice="1" data-maxPrice="10" th:class="*{from==1 and to==10}?active:''" href="#">1~10</a>
+				</li>
+				<li>
+					<a data-minPrice="11" data-maxPrice="20" href="#">11~20</a>
+				</li>
+			</ul>
+		</form>
+		<div>
+			<ul>
+				<li th:each="l:${lists}">
+					<div th:text="${l.title}"></div>
+				</li>
+			</ul>
+		</div>
+		<div th:replace="fragments/page::page(viewpage=${viewpage})"></div>
+	</body>
+</html>

@@ -12,4 +12,12 @@ public interface ProductService {
 	public Product findOne(Long id);
 	
 	public void addViewCount(Long id);
+	
+	public Product addOneProduct(Product product);
+	
+	public Product findOneByUser(Provider user,Long id);
+	
+	public Product updateProduct(Product newProduct,Product oldProduct);
+	
+	public void offProduct(Product product);
 }

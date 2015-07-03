@@ -32,8 +32,12 @@ public class AdvertisementCategoryServiceImpl implements
 
 	@Override
 	public AdvertisementCategory update(AdvertisementCategory category) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(category);
+	}
+
+	@Override
+	public void delete(Long id) {
+		repository.delete(id);
 	}
 
 }

@@ -19,6 +19,7 @@ import com.sj.repository.service.AdvertisementService;
 public class AdvertisementServiceImpl implements AdvertisementService {
 	@Autowired
 	private AdvertisementRepository repository;
+	
 
 	@Override
 	@Cacheable(value = "advertiseCache", key = "#category")
@@ -48,6 +49,12 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	public Advertisement findByIdAndCategory(Long id,
 			AdvertiseCategoryEnum category) {
 		return repository.findByIdAndCategory(id, category);
+	}
+
+	@Override
+	public Advertisement save(Advertisement advertisement) {
+		
+		return null;
 	}
 
 }

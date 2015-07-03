@@ -3,12 +3,14 @@ package com.sj.admin.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,7 @@ import com.sj.model.type.AdvertiseCategoryEnum;
 import com.sj.repository.service.AdvertisementService;
 
 @Controller
-public class AdvertisementController extends UploadController{
+public class AdvertisementController extends UploadController {
 	@Autowired
 	private AdvertisementService service;
 	@Autowired
@@ -32,7 +34,9 @@ public class AdvertisementController extends UploadController{
 
 	private final String LIST = "advertisement/list";
 	private final String EDIT = "advertisement/edit";
-	
+	private final String CREATE = "advertisement/create";
+	private final String CTEATEOK = "";
+
 	@RequestMapping(value = "/admin/{category}/advertisements", method = RequestMethod.GET)
 	public String list(Model uiModel,
 			@PathVariable(value = "category") String category) {
@@ -42,6 +46,27 @@ public class AdvertisementController extends UploadController{
 				new PageRequest(0, 5, Direction.DESC, "createdTime"));
 		uiModel.addAttribute("list", lists);
 		return LIST;
+	}
+
+	@RequestMapping(value = "/admin/{category}/advertisements", method = RequestMethod.GET, params = "form")
+	public String createAdvertisement(Model uiModel) {
+		uiModel.addAttribute("advertisement", new Advertisement());
+		return CREATE;
+	}
+
+	@RequestMapping(value = "/admin/{category}/advertisements", method = RequestMethod.POST, params = "form")
+	public String createAdvertisementProcess(
+			Model uiModel,
+			@PathVariable("category") AdvertisementCategory category,
+			@Valid @ModelAttribute("advertisement") Advertisement advertisement,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("advertisement", advertisement);
+			return CREATE;
+		}
+		advertisement.setCategory(category);
+		service.save(advertisement);
+		return CTEATEOK;
 	}
 
 	@RequestMapping(value = "/admin/{category}/advertisements/{id}", params = "edit", method = RequestMethod.GET)
@@ -63,10 +88,11 @@ public class AdvertisementController extends UploadController{
 		return "redirect:/admin/" + category.toString().toLowerCase()
 				+ "/advertisements/" + id + "?edit";
 	}
-	
-	@RequestMapping(value="/admin/{catgegory}/advertisements/{id}/coverImg",method=RequestMethod.POST)
+
+	@RequestMapping(value = "/admin/{catgegory}/advertisements/{id}/coverImg", method = RequestMethod.POST)
 	@ResponseBody
-	public UploadResult uploadImage(MultipartFile file,HttpServletRequest request){
+	public UploadResult uploadImage(MultipartFile file,
+			HttpServletRequest request) {
 		return super.upload(file);
 	}
 }

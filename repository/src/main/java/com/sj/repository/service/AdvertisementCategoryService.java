@@ -14,4 +14,6 @@ public interface AdvertisementCategoryService {
 	public AdvertisementCategory save(AdvertisementCategory category);
 
 	public AdvertisementCategory update(AdvertisementCategory category);
+	
+	public void delete(Long id);
 }

@@ -28,14 +28,18 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.sj.repository.converter.LongToBrandConverter;
 import com.sj.repository.converter.LongToProductCategoryConverter;
 import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementContent;
+<<<<<<< HEAD
 import com.sj.repository.converter.StringToBrandConverter;
 import com.sj.repository.converter.StringToBusinessTypeEnumConverter;
 import com.sj.repository.converter.StringToComponyTypeEnumConverter;
 import com.sj.repository.converter.StringToIndustryInformationEnumConverter;
+=======
+>>>>>>> branch 'master' of https://github.com/zodiake/GradleMulit
 import com.sj.repository.converter.StringToOriginalEnumConverter;
 import com.sj.repository.converter.StringToOutputEnumConverter;
 import com.sj.repository.converter.StringToPositionEnumConverter;
@@ -142,6 +146,7 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToProductConverter());
 		formatterRegistry.addConverter(stringToProductCategoryConverter());
 		formatterRegistry.addConverter(stringToOriginalEnumConverter());
+<<<<<<< HEAD
 		formatterRegistry.addConverter(stringToBrandConverter());
 		//new
 		formatterRegistry.addConverter(stringToBusinessTypeEnumConverter());
@@ -153,6 +158,9 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToScaleEnumConverter());
 		formatterRegistry.addConverter(stringToSexEnumConverter());
 		formatterRegistry.addConverter(stringToTitleEnumConverter());
+=======
+		formatterRegistry.addConverter(longToBrandConverter());
+>>>>>>> branch 'master' of https://github.com/zodiake/GradleMulit
 	}
 
 	@Bean
@@ -196,8 +204,8 @@ public class Application extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public StringToBrandConverter stringToBrandConverter() {
-		return new StringToBrandConverter();
+	public LongToBrandConverter longToBrandConverter() {
+		return new LongToBrandConverter();
 	}
 	//new
 	@Bean

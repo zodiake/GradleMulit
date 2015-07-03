@@ -3,7 +3,9 @@ package com.sj.repository.search.service.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.elasticsearch.index.query.BoolFilterBuilder;
@@ -52,6 +54,23 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 		return repository.findAll(pageable);
 	}
 
+	@Override
+	public Map<String, String> buildMap(ProductSearchOption option) {
+		Field[] fields = option.getClass().getDeclaredFields();
+		List<Field> options = filterNullValue(option, fields);
+		Map<String, String> map = new HashMap<>();
+		for (Field f : options) {
+			Object value;
+			try {
+				value = f.get(option);
+				map.put(f.getName(), String.valueOf(value));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return map;
+	}
+
 	public SearchQuery buidSearchQuery(ProductSearchOption option,
 			List<Field> fields, Pageable pageable)
 			throws IllegalArgumentException, IllegalAccessException {
@@ -60,29 +79,30 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 		BoolFilterBuilder boolFilterBuilder = new BoolFilterBuilder();
 		String title = null;
 		for (Field f : fields) {
+			Object value = f.get(option);
 			if (!Modifier.isPublic(f.getModifiers())) {
 				f.setAccessible(true);
 			}
 			switch (f.getName()) {
 			case "to":
 				RangeFilterBuilder toRange = new RangeFilterBuilder("price");
-				toRange.lte(f.get(option));
+				toRange.lte(value);
 				boolFilterBuilder.must(toRange);
 				break;
 			case "from":
 				RangeFilterBuilder fromRange = new RangeFilterBuilder("price");
-				fromRange.gte(f.get(option));
+				fromRange.gte(value);
 				boolFilterBuilder.must(fromRange);
 				break;
 			case "brand":
 			case "secondCategory":
 			case "thirdCategory":
 				TermFilterBuilder brandTerm = new TermFilterBuilder(
-						f.getName(), (String) f.get(option));
+						f.getName(), (String) value);
 				boolFilterBuilder.must(brandTerm);
 				break;
 			case "title":
-				title = (String) f.get(option);
+				title = (String) value;
 				queryBuilder = new MatchQueryBuilder("title", title);
 				queryBuilder.operator(Operator.AND);
 				break;
@@ -132,5 +152,10 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 	@Override
 	public void save(ProductSearch product) {
 		repository.save(product);
+	}
+
+	@Override
+	public Long count(SearchQuery query) {
+		return searchTemplate.count(query);
 	}
 }
