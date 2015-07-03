@@ -1,7 +1,6 @@
 package com.sj.model.model;
 
 import java.util.Calendar;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,24 +24,30 @@ public class SiteUser {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String name;
+	private String name;				//用户名
 
-	private String password;
+	private String password;			//密码
 
 	@Column(name = "site_Authority")
-	private String siteAuthority;
+	private String siteAuthority;		//网站权限
 
 	@Enumerated
-	private ActivateEnum enabled;
+	private ActivateEnum enabled;		//是否激活
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_time")
-	private Calendar createdTime;
+	private Calendar createdTime;		//创建时间
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="authenticated_time")
-	private Calendar authenticatedTime;
-
+	private Calendar authenticatedTime;	//鉴定时间
+	
+	//new 
+	private String email;				//邮箱
+	
+	private String phone;				//手机号码
+	
+	
 	public SiteUser(){}
 
 	public SiteUser(Long id) {
@@ -130,5 +134,21 @@ public class SiteUser {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

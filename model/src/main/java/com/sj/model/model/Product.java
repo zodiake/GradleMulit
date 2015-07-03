@@ -34,6 +34,13 @@ public class Product {
 	private Long id;
 
 	private String name;
+	//new
+	private String nameEnglish;			//产品英文名
+	
+	private String model;				//型号
+	
+	private String placeOfProduction;	//产地
+	//end
 
 	@Column(name = "cover_img")
 	private String coverImg;
@@ -242,5 +249,29 @@ public class Product {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getNameEnglish() {
+		return nameEnglish;
+	}
+
+	public void setNameEnglish(String nameEnglish) {
+		this.nameEnglish = nameEnglish;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getPlaceOfProduction() {
+		return placeOfProduction;
+	}
+
+	public void setPlaceOfProduction(String placeOfProduction) {
+		this.placeOfProduction = placeOfProduction;
 	}
 }

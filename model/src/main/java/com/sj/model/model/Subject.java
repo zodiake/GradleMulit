@@ -36,7 +36,7 @@ public class Subject {
 	@Enumerated
 	private ActivateEnum activate;
 
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "subject_product", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private Set<Product> products;
 
@@ -104,7 +104,7 @@ public class Subject {
 	public void setCategory(SubjectCategory category) {
 		this.category = category;
 	}
-	
+
 	public Set<Product> getProducts() {
 		return products;
 	}
