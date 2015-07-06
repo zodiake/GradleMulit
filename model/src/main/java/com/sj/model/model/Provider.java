@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -33,72 +34,76 @@ public class Provider extends SiteUser {
 	// 企业信息
 	@Column(name = "company_name_china")
 	private String companyNameChina; // 企业中文名*
-	
+
 	@Column(name = "company_name_english")
 	private String companyNameEnglish; // 企业英文名
-	
+
 	@Column(name = "legal_person")
 	private String legalPerson; // 法人
-	
+
 	@Column(name = "registered_capital")
 	private String registeredCapital; // 注册资本
-	
+
 	@Column(name = "compony_type")
-	private ComponyTypeEnum componyType;	//企业性质
-	
+	private ComponyTypeEnum componyType; // 企业性质
+
 	@Column(name = "main_product")
 	private String mainProduct; // 主要产品*
-	
+
 	@Column(name = "business_type")
-	private BusinessTypeEnum businessType;//业务类型*
-	
+	private BusinessTypeEnum businessType;// 业务类型*
+
 	@Column(name = "scale")
-	private ScaleEnum scale;		//企业规模
-	
+	private ScaleEnum scale; // 企业规模
+
 	@Column(name = "output")
-	private OutputEnum output;		//年产值
-	
+	private OutputEnum output; // 年产值
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
 			CascadeType.PERSIST })
 	@JoinColumn(name = "content_id")
 	private Content content; // 企业介绍*
-	
+
 	@Column(name = "business_license_url")
 	private String businessLicenseUrl; // 营业执照图片地址*
-	
+
 	@Column(name = "tax_registration_url")
 	private String taxRegistration; // 税务登记图片地址*
-	
+
 	@Column(name = "structure_code_url")
 	private String structureCode; // 组织结构图片地址*
-	
+
 	// 企业联系人信息
 	@Column(name = "provider_name")
 	private String providerName; // 供应商联系人名称*
-	
+
 	@Column(name = "provider_sex")
 	private SexEnum providerSex; // 供应商联系人性别*
-	
+
 	private String position; // 联系人职位*
-	
+
 	@Column(name = "provider_phone")
 	private String providerPhone; // 联系人电话*
-	
+
 	private String fax; // 联系人传真*
 	
-	// private String province; //省份*
-	// private String city; //城市*
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "province_id")
+	private Provider province; // 省份*
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "city_id")
+	private City city; // 城市*
+
 	private String address; // 详细地址*
-	
+
 	private String code; // 邮编*
-	
+
 	private String website; // 公司网址
-	
 
 	// 行业信息
 	@Column(name = "industry_information")
-	private IndustryInformationEnum industryInformation;//行业信息*
+	private IndustryInformationEnum industryInformation;// 行业信息*
 
 	public String getCompanyNameChina() {
 		return companyNameChina;
@@ -272,7 +277,8 @@ public class Provider extends SiteUser {
 		return industryInformation;
 	}
 
-	public void setIndustryInformation(IndustryInformationEnum industryInformation) {
+	public void setIndustryInformation(
+			IndustryInformationEnum industryInformation) {
 		this.industryInformation = industryInformation;
 	}
 

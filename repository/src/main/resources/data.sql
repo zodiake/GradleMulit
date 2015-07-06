@@ -1,3 +1,17 @@
+-- new
+-- test province
+insert into province(id,name) values(1,'浙江省');
+insert into province(id,name) values(2,'福建省');
+
+-- test city
+insert into city(id,name,province_id) values(1,'杭州市','1');
+insert into city(id,name,province_id) values(2,'绍兴市','1');
+insert into city(id,name,province_id) values(3,'台州市','1');
+insert into city(id,name,province_id) values(4,'福州市','2');
+insert into city(id,name,province_id) values(5,'泉州市','2');
+
+-- end new
+
 --test category
 --first category
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -50,16 +64,16 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone) value
 insert into site_user(id,name,password,enabled,site_authority,email,phone) values(5,'admin','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com',13700000000);
 
 -- test common user
-insert into common_user(id,realName,sex,company,department,company_phone,fax,address,code,title,industryInformation,position) 
-values(3,'张三',1,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,0,0);
-insert into common_user(id,realName,sex,company,department,company_phone,fax,address,code,title,industryInformation,position) 
-values(4,'李四',0,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,0,0);
+insert into common_user(id,realName,sex,company,department,company_phone,fax,address,code,title,industryInformation,position,province_id,city_id) 
+values(3,'张三',1,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,0,0,1,3);
+insert into common_user(id,realName,sex,company,department,company_phone,fax,address,code,title,industryInformation,position,province_id,city_id) 
+values(4,'李四',0,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,0,0,2,5);
 
 --test provider
-insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,content_id,business_license_url,tax_registration_url,structure_code_url,provider_name,position,provider_phone,fax,address,code,website,provider_sex,business_type,scale,output,industry_information) 
-values(1,'上海恒企信息技术有限公司','hengqixinxi','dwg','两百万','人体强化药剂',1,'/provider/1','/provider/1','/provider/1','dwg','boss','12345678901','010-12345678','外航渡路1234号','123456','www.qq.com',1,0,0,0,0);
-insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,content_id,business_license_url,tax_registration_url,structure_code_url,provider_name,position,provider_phone,fax,address,code,website,provider_sex,business_type,scale,output,industry_information) 
-values(2,'上海申捷','shenjie','dwg','两亿','人体强化药剂',2,'/provider/2','/provider/2','/provider/2','dwg','boss','12345678901','010-12345678','外航渡路123发的4号','123456','www.qq.com',0,0,0,0,0);
+insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,content_id,business_license_url,tax_registration_url,structure_code_url,provider_name,position,provider_phone,fax,address,code,website,provider_sex,business_type,scale,output,industry_information,province_id,city_id) 
+values(1,'上海恒企信息技术有限公司','hengqixinxi','dwg','两百万','人体强化药剂',1,'/provider/1','/provider/1','/provider/1','dwg','boss','12345678901','010-12345678','外航渡路1234号','123456','www.qq.com',1,0,0,0,0,1,1);
+insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,content_id,business_license_url,tax_registration_url,structure_code_url,provider_name,position,provider_phone,fax,address,code,website,provider_sex,business_type,scale,output,industry_information,province_id,city_id) 
+values(2,'上海申捷','shenjie','dwg','两亿','人体强化药剂',2,'/provider/2','/provider/2','/provider/2','dwg','boss','12345678901','010-12345678','外航渡路123发的4号','123456','www.qq.com',0,0,0,0,0,2,4);
 
 
 
@@ -75,13 +89,8 @@ values(2,'product2','',10.0,'/product/2',1,3,5,1,2,'product2English','HD302',1,'
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications)
 values(3,'product3','',10.0,'/product/3',2,2,4,1,3,'product3English','HD303',1,'10支');
 
-<<<<<<< HEAD
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications)
 values(4,'product4','',10.0,'/product/4',2,3,5,1,4,'product3English','HD303',1,'10支');
-=======
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id)
-values(4,'product4','',10.0,'/product/4',2,3,17,1,4);
->>>>>>> branch 'master' of https://github.com/zodiake/GradleMulit
 
 --mary2 product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications)

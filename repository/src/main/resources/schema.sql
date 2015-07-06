@@ -11,7 +11,21 @@ create table category(
 	primary key(id),
 	foreign key (parent_id) references category(id)
 );
+-- newtable
+create table province(
+	id bigint not null AUTO_INCREMENT,
+	name varchar(40) not null,
+	primary key(id)
+);
 
+create table city(
+	id bigint not null AUTO_INCREMENT,
+	name varchar(40) not null,
+	province_id bigint,
+	primary key(id),
+	foreign key (province_id) references province(id)
+);
+-- end new table
 
 create table content(
 	id bigint not null auto_increment,
@@ -61,6 +75,8 @@ create TABLE provider(
 	address varchar(100),
 	code varchar(10),
 	website varchar(50),
+	province_id bigint,
+	city_id bigint,
 	provider_sex smallint,
 	compony_type smallint,
 	business_type smallint,
@@ -69,7 +85,9 @@ create TABLE provider(
 	industry_information smallint,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id) REFERENCES site_user(id),
-	foreign key (content_id) references content(id)
+	foreign key (content_id) references content(id),
+	foreign key (province_id) references province(id),
+	foreign key (city_id) references city(id)
 );
 
 create table common_user(
@@ -83,10 +101,14 @@ create table common_user(
 	fax varchar(15),
 	address varchar(100),
 	code varchar(10),
+	province_id bigint,
+	city_id bigint,
 	industryInformation smallint,
 	position smallint,
 	primary key (id),
-	foreign key (id) references site_user(id)
+	foreign key (id) references site_user(id),
+	foreign key (province_id) references province(id),
+	foreign key (city_id) references city(id)
 );
 
 create table brand(

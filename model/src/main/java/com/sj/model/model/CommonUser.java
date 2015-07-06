@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -36,8 +38,16 @@ public class CommonUser extends SiteUser {
 	@Column(name="company_phone")
 	private String companyPhone;		//公司电话*
 	private String fax;					//传真
-//	private String province;			//省份*
-//	private String city;				//城市*
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "province_id")
+	private Provider province; // 省份*
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "city_id")
+	private City city; // 城市*
+	
+	
 	private String address;				//详细地址*
 	private String code;				//邮编*
 	
