@@ -1,7 +1,5 @@
 package com.sj.web.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
-import com.sj.model.model.City;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
@@ -33,7 +30,7 @@ import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.repository.util.ChangePasswordForm;
-import com.sj.repository.util.UserSignupForm;
+import com.sj.repository.util.SignupForm;
 import com.sj.web.annotation.SecurityUser;
 import com.sj.web.security.SiteUserContext;
 
@@ -79,8 +76,21 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute("user") SiteUser user, Model uiModel) {
-
+	public String login(@ModelAttribute("user") SiteUser user,
+			BindingResult bindingResult, Model uiModel) {
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+				user.getName(), user.getPassword());
+		try {
+			authenticationManager.authenticate(token);
+		} catch (BadCredentialsException exception) {
+			// 在此处添加错误信息
+			user.setPassword(null);
+			uiModel.addAttribute("user", user);
+			bindingResult.addError(new FieldError("user", "name", "用户名或密码错误"));
+			return LOGIN;
+		}
+		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
+		userContext.setCurrentUser(user);
 		return HOME;
 	}
 
@@ -105,17 +115,26 @@ public class LoginController {
 		userContext.setCurrentUser(user);
 		return "success";
 	}
-	/*user registered page*/
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test() {
+		SiteUser user = userService.findByName("123456");
+		System.out.println(user.getName());
+		System.out.println(user.getPassword());
+		return HOME;
+	}
+
+	/* user registered page */
 	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
 	public String signupForm(Model uiModel) {
 		uiModel.addAttribute("user", new CommonUser());
 		return SIGNUP;
 	}
-	/*user registered*/
+
+	/* user registered */
 	@RequestMapping(value = "/user/signup", method = RequestMethod.POST)
 	public String signupProcess(@Valid @ModelAttribute("user") CommonUser user,
-			BindingResult userResult,  HttpSession session,
-			Model uiModel) {
+			BindingResult userResult, HttpSession session, Model uiModel) {
 		validateSignupForm(user.getCaptcha(), userResult, session);
 		if (userResult.hasErrors()) {
 			// form.setConfirm(null);
@@ -123,34 +142,37 @@ public class LoginController {
 			uiModel.addAttribute("user", user);
 			return SIGNUP;
 		}
+		user.setPassword(encoder.encodePassword(user.getPassword(), null));
 		SiteUser siteUser = commonUserService.create(user);
 		userContext.setCurrentUser(siteUser);
 		return HOME;
 	}
-	/*provider registered page*/
+
+	/* provider registered page */
 	@RequestMapping(value = "/provider/signup", method = RequestMethod.GET)
 	public String providerSignupForm(Model uiModel) {
 		uiModel.addAttribute("user", new Provider());
 		return PSIGNUP;
 	}
-	/*provider registered*/ 
+
+	/* provider registered */
 	@RequestMapping(value = "/provider/signup", method = RequestMethod.POST)
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
-			BindingResult providerResult, HttpSession session,
-			Model uiModel) {
-		System.out.println("providerSignupProcess.....");
+			BindingResult providerResult, HttpSession session, Model uiModel) {
 		validateSignupForm(provider.getCaptcha(), providerResult, session);
 
 		if (providerResult.hasErrors()) {
 			// form.setConfirm(null);
 			provider.setPassword(null);
-			uiModel.addAttribute("from", new UserSignupForm());
+			uiModel.addAttribute("from", new SignupForm());
 			uiModel.addAttribute("user", provider);
 			return PSIGNUP;
 		}
-		provider = providerService.create(provider);
-		userContext.setCurrentUser(provider);
+		provider.setPassword(encoder.encodePassword(provider.getPassword(),
+				null));
+		SiteUser user = providerService.create(provider);
+		userContext.setCurrentUser(user);
 		return HOME;
 	}
 
@@ -172,16 +194,16 @@ public class LoginController {
 		String kaptcha = (String) session
 				.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		if (!StringUtils.equals(captcha, kaptcha)) {
-			result.addError(new FieldError("user", "captcha",
-					captchaError));
+			result.addError(new FieldError("user", "captcha", captchaError));
 		}
 	}
-	/*Verify that the user name exists*/
-	@RequestMapping(value="/user/isExiste/{name}",method=RequestMethod.GET)
+
+	/* Verify that the user name exists */
+	@RequestMapping(value = "/user/isExiste/{name}", method = RequestMethod.GET)
 	@ResponseBody
-	public boolean validateUserNameIsExiste(@PathVariable("name")String name){
+	public boolean validateUserNameIsExiste(@PathVariable("name") String name) {
 		SiteUser user = userService.findByName(name);
-		if(user==null){
+		if (user == null) {
 			return true;
 		}
 		return false;
