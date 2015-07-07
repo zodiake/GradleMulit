@@ -24,4 +24,6 @@ public interface SiteUserRepository extends
 	
 	public SiteUser findByName(String name);
 	
+	public SiteUser findByPhone(String phone);
+	
 }

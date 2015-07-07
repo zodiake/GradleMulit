@@ -57,4 +57,16 @@ public class SiteUserServiceImpl implements SiteUserService {
 		return repository.findByName(name);
 	}
 
+	@Override
+	public SiteUser findByPhone(String phone) {
+		return repository.findByPhone(phone);
+	}
+
+	@Override
+	public SiteUser retrievePassword(String phone, String newPassword) {
+		SiteUser user = repository.findByPhone(phone);
+		user.setPassword(newPassword);
+		return repository.save(user);
+	}
+
 }

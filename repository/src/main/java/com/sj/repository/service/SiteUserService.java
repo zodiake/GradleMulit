@@ -20,4 +20,8 @@ public interface SiteUserService {
 	
 	public SiteUser findOne(Long id);
 	
+	public SiteUser findByPhone(String phone);
+	
+	public SiteUser retrievePassword(String phone,String newPassword);
+	
 }
