@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Transient;
 
 import com.sj.model.type.BusinessTypeEnum;
 import com.sj.model.type.ComponyTypeEnum;
@@ -68,10 +69,10 @@ public class Provider extends SiteUser {
 	private String businessLicenseUrl; // 营业执照图片地址*
 
 	@Column(name = "tax_registration_url")
-	private String taxRegistration; // 税务登记图片地址*
+	private String taxRegistrationUrl; // 税务登记图片地址*
 
 	@Column(name = "structure_code_url")
-	private String structureCode; // 组织结构图片地址*
+	private String structureCodeUrl; // 组织结构图片地址*
 
 	// 企业联系人信息
 	@Column(name = "provider_name")
@@ -100,6 +101,9 @@ public class Provider extends SiteUser {
 	private String code; // 邮编*
 
 	private String website; // 公司网址
+	
+	@Transient
+	private String captcha;
 
 	// 行业信息
 	@Column(name = "industry_information")
@@ -185,22 +189,6 @@ public class Provider extends SiteUser {
 		this.businessLicenseUrl = businessLicenseUrl;
 	}
 
-	public String getTaxRegistration() {
-		return taxRegistration;
-	}
-
-	public void setTaxRegistration(String taxRegistration) {
-		this.taxRegistration = taxRegistration;
-	}
-
-	public String getStructureCode() {
-		return structureCode;
-	}
-
-	public void setStructureCode(String structureCode) {
-		this.structureCode = structureCode;
-	}
-
 	public String getProviderName() {
 		return providerName;
 	}
@@ -280,6 +268,46 @@ public class Provider extends SiteUser {
 	public void setIndustryInformation(
 			IndustryInformationEnum industryInformation) {
 		this.industryInformation = industryInformation;
+	}
+
+	public String getTaxRegistrationUrl() {
+		return taxRegistrationUrl;
+	}
+
+	public void setTaxRegistrationUrl(String taxRegistrationUrl) {
+		this.taxRegistrationUrl = taxRegistrationUrl;
+	}
+
+	public String getStructureCodeUrl() {
+		return structureCodeUrl;
+	}
+
+	public void setStructureCodeUrl(String structureCodeUrl) {
+		this.structureCodeUrl = structureCodeUrl;
+	}
+
+	public Provider getProvince() {
+		return province;
+	}
+
+	public void setProvince(Provider province) {
+		this.province = province;
+	}
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+	public String getCaptcha() {
+		return captcha;
+	}
+
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
 	}
 
 }

@@ -33,13 +33,10 @@ import com.sj.repository.converter.LongToProductCategoryConverter;
 import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementContent;
-<<<<<<< HEAD
-import com.sj.repository.converter.StringToBrandConverter;
+import com.sj.repository.converter.LongToBrandConverter;
 import com.sj.repository.converter.StringToBusinessTypeEnumConverter;
 import com.sj.repository.converter.StringToComponyTypeEnumConverter;
 import com.sj.repository.converter.StringToIndustryInformationEnumConverter;
-=======
->>>>>>> branch 'master' of https://github.com/zodiake/GradleMulit
 import com.sj.repository.converter.StringToOriginalEnumConverter;
 import com.sj.repository.converter.StringToOutputEnumConverter;
 import com.sj.repository.converter.StringToPositionEnumConverter;
@@ -63,7 +60,6 @@ public class Application extends WebMvcConfigurerAdapter {
 		SpringApplication.run(Application.class, args);
 	}
 
-
 	@Configuration
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 	protected static class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -73,6 +69,10 @@ public class Application extends WebMvcConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
+					.antMatchers("/*/signup")
+					.permitAll()
+					.antMatchers("/user/isExiste/*")
+					.permitAll()
 					.antMatchers("/provider/**")
 					.hasRole("PROVIDER")
 					.antMatchers("/user/**")
@@ -146,21 +146,20 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToProductConverter());
 		formatterRegistry.addConverter(stringToProductCategoryConverter());
 		formatterRegistry.addConverter(stringToOriginalEnumConverter());
-<<<<<<< HEAD
-		formatterRegistry.addConverter(stringToBrandConverter());
-		//new
+		formatterRegistry.addConverter(longToBrandConverter());
+		// new
 		formatterRegistry.addConverter(stringToBusinessTypeEnumConverter());
 		formatterRegistry.addConverter(stringToComponyTypeEnumConverter());
-		formatterRegistry.addConverter(stringToIndustryInformationEnumConverter());
+		formatterRegistry
+				.addConverter(stringToIndustryInformationEnumConverter());
 		formatterRegistry.addConverter(stringToOutputEnumConverter());
 		formatterRegistry.addConverter(stringToPositionEnumConverter());
-		formatterRegistry.addConverter(stringToPositionInformationEnumConverter());
+		formatterRegistry
+				.addConverter(stringToPositionInformationEnumConverter());
 		formatterRegistry.addConverter(stringToScaleEnumConverter());
 		formatterRegistry.addConverter(stringToSexEnumConverter());
 		formatterRegistry.addConverter(stringToTitleEnumConverter());
-=======
 		formatterRegistry.addConverter(longToBrandConverter());
->>>>>>> branch 'master' of https://github.com/zodiake/GradleMulit
 	}
 
 	@Bean
@@ -207,41 +206,50 @@ public class Application extends WebMvcConfigurerAdapter {
 	public LongToBrandConverter longToBrandConverter() {
 		return new LongToBrandConverter();
 	}
-	//new
+
+	// new
 	@Bean
-	public StringToBusinessTypeEnumConverter stringToBusinessTypeEnumConverter(){
+	public StringToBusinessTypeEnumConverter stringToBusinessTypeEnumConverter() {
 		return new StringToBusinessTypeEnumConverter();
 	}
+
 	@Bean
-	public StringToComponyTypeEnumConverter stringToComponyTypeEnumConverter(){
+	public StringToComponyTypeEnumConverter stringToComponyTypeEnumConverter() {
 		return new StringToComponyTypeEnumConverter();
 	}
+
 	@Bean
-	public StringToIndustryInformationEnumConverter stringToIndustryInformationEnumConverter(){
+	public StringToIndustryInformationEnumConverter stringToIndustryInformationEnumConverter() {
 		return new StringToIndustryInformationEnumConverter();
 	}
+
 	@Bean
-	public StringToOutputEnumConverter stringToOutputEnumConverter(){
+	public StringToOutputEnumConverter stringToOutputEnumConverter() {
 		return new StringToOutputEnumConverter();
 	}
+
 	@Bean
-	public StringToPositionEnumConverter stringToPositionEnumConverter(){
+	public StringToPositionEnumConverter stringToPositionEnumConverter() {
 		return new StringToPositionEnumConverter();
 	}
+
 	@Bean
-	public StringToPositionInformationEnumConverter stringToPositionInformationEnumConverter(){
+	public StringToPositionInformationEnumConverter stringToPositionInformationEnumConverter() {
 		return new StringToPositionInformationEnumConverter();
 	}
+
 	@Bean
-	public StringToScaleEnumConverter stringToScaleEnumConverter(){
+	public StringToScaleEnumConverter stringToScaleEnumConverter() {
 		return new StringToScaleEnumConverter();
 	}
+
 	@Bean
-	public StringToSexEnumConverter stringToSexEnumConverter(){
+	public StringToSexEnumConverter stringToSexEnumConverter() {
 		return new StringToSexEnumConverter();
 	}
+
 	@Bean
-	public StringToTitleEnumConverter stringToTitleEnumConverter(){
+	public StringToTitleEnumConverter stringToTitleEnumConverter() {
 		return new StringToTitleEnumConverter();
 	}
 	/*---------------------------end converter bean---------------------------------------*/

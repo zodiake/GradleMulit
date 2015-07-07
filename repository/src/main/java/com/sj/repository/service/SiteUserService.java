@@ -8,6 +8,8 @@ import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
 
 public interface SiteUserService {
+	public SiteUser findByName(String name);
+	
 	public SiteUser findByNameAndEnabled(String name, ActivateEnum activate);
 
 	public SiteUser updatePassword(Long id, String newPassword);
@@ -17,7 +19,5 @@ public interface SiteUserService {
 	public void updateEnabledById(Long id,int state);
 	
 	public SiteUser findOne(Long id);
-	
-	public SiteUser registered(SiteUser siteUser);
 	
 }

@@ -64,9 +64,9 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone) value
 insert into site_user(id,name,password,enabled,site_authority,email,phone) values(5,'admin','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com',13700000000);
 
 -- test common user
-insert into common_user(id,realName,sex,company,department,company_phone,fax,address,code,title,industryInformation,position,province_id,city_id) 
+insert into common_user(id,real_name,sex,company,department,company_phone,fax,address,code,title,industry_information,position,province_id,city_id) 
 values(3,'张三',1,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,0,0,1,3);
-insert into common_user(id,realName,sex,company,department,company_phone,fax,address,code,title,industryInformation,position,province_id,city_id) 
+insert into common_user(id,real_name,sex,company,department,company_phone,fax,address,code,title,industry_information,position,province_id,city_id) 
 values(4,'李四',0,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,0,0,2,5);
 
 --test provider

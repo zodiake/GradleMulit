@@ -13,6 +13,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 import com.sj.model.type.ActivateEnum;
 
@@ -24,31 +28,38 @@ public class SiteUser {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String name;				//用户名
-
-	private String password;			//密码
-
+	@Size(min=6,max = 20, message = "用户名长度最长为20位")
+	@NotNull(message = "用户名不能为空")
+	private String name; // 用户名
+	
+	@NotNull(message = "密码不能为空")
+	private String password; // 密码
+	
 	@Column(name = "site_Authority")
-	private String siteAuthority;		//网站权限
+	private String siteAuthority; // 网站权限
 
 	@Enumerated
-	private ActivateEnum enabled;		//是否激活
+	private ActivateEnum enabled; // 是否激活
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_time")
-	private Calendar createdTime;		//创建时间
+	@Column(name = "created_time")
+	private Calendar createdTime; // 创建时间
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="authenticated_time")
-	private Calendar authenticatedTime;	//鉴定时间
+	@Column(name = "authenticated_time")
+	private Calendar authenticatedTime; // 鉴定时间
+
+	// new
+//	@NotNull(message="邮箱不能为空")
+	@Email(message="请输入正确的邮箱地址")
+	private String email; // 邮箱
 	
-	//new 
-	private String email;				//邮箱
-	
-	private String phone;				//手机号码
-	
-	
-	public SiteUser(){}
+//	@NotNull(message = "手机号码不能为空")
+//	@Size(min=11,max=11,message = "手机号码只能为11位")
+	private String phone; // 手机号码
+
+	public SiteUser() {
+	}
 
 	public SiteUser(Long id) {
 		super();
@@ -102,7 +113,7 @@ public class SiteUser {
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
 	}
-	
+
 	public Calendar getAuthenticatedTime() {
 		return authenticatedTime;
 	}

@@ -6,5 +6,5 @@ import com.sj.model.model.Provider;
 
 public interface ProviderRepository extends
 		PagingAndSortingRepository<Provider, Long> {
-
+	Provider findByName(String name);
 }

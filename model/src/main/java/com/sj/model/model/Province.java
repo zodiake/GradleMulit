@@ -16,15 +16,22 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "province")
 public class Province {
+	public Province() {
+
+	}
+
+	public Province(Long id) {
+		this.id = id;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String name;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "province")
 	private Set<City> cities;
-	
 
 	public Long getId() {
 		return id;
@@ -49,5 +56,5 @@ public class Province {
 	public void setCities(Set<City> cities) {
 		this.cities = cities;
 	}
-	
+
 }

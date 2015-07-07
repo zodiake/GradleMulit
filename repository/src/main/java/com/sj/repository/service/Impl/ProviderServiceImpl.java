@@ -21,13 +21,18 @@ public class ProviderServiceImpl implements ProviderService{
 	}
 
 	@Override
-	public Provider regirectedProvider(Provider provider) {
+	public Provider create(Provider provider) {
 		//添加非用户输入的内容
-		provider.setEnabled(ActivateEnum.DEACTIVATE);
+		provider.setEnabled(ActivateEnum.ACTIVATE);			//测试需要将用户激活
 		//添加权限
-		provider.setSiteAuthority("");
+		provider.setSiteAuthority("ROLE_PROVIDER");
 		provider.setCreatedTime(Calendar.getInstance());
 		return repository.save(provider);
+	}
+
+	@Override
+	public Provider findByName(String name) {
+		return repository.findByName(name);
 	}
 
 }

@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.sj.model.type.IndustryInformationEnum;
 import com.sj.model.type.PositionEnum;
@@ -21,45 +24,72 @@ import com.sj.model.type.TitleEnum;
 @Entity
 @PrimaryKeyJoinColumn
 public class CommonUser extends SiteUser {
-	public CommonUser(){}
-	
-	public CommonUser(Long id){
+	public CommonUser() {
+		
+	}
+
+	public CommonUser(Long id) {
 		super(id);
 	}
-	
-	//new
-	private String realName;			//真实姓名*
-	private SexEnum sex;				//性别*
-	//详细信息
-	private String company;				//单位*
-	private String department;			//部门
-	@Column(name="title")
-	private TitleEnum title;				//职位*
-	@Column(name="company_phone")
-	private String companyPhone;		//公司电话*
-	private String fax;					//传真
-	
+
+
+	// new
+//	@NotNull(message = "真实姓名不能为空")
+	@Column(name="real_name")
+	private String realName; // 真实姓名*
+
+//	@NotNull(message = "性别不能为空")
+	private SexEnum sex; // 性别*
+
+	// 详细信息
+//	@NotNull(message = "单位不能为空")
+	private String company; // 单位*
+
+//	@NotNull(message = "部门不能为空")
+	private String department; // 部门
+
+//	@NotNull(message = "职位不能为空")
+	@Column(name = "title")
+	private TitleEnum title; // 职位*
+
+//	@NotNull(message = "公司电话不能为空")
+	@Column(name = "company_phone")
+	private String companyPhone; // 公司电话*
+
+	private String fax; // 传真
+
+//	@NotNull(message = "请选择所在省份")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "province_id")
 	private Provider province; // 省份*
 
+//	@NotNull(message = "请选择所在城市")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id")
 	private City city; // 城市*
-	
-	
-	private String address;				//详细地址*
-	private String code;				//邮编*
-	
-	//行业信息
-	@Column(name = "industry_information")
-	private IndustryInformationEnum industryInformation;		//行业信息*
-	@Column(name = "position_information")
-	private PositionEnum position;					//职位信息*
-	//end
 
-	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+//	@NotNull(message = "详细地址不能为空")
+	private String address; // 详细地址*
+
+//	@NotNull(message = "邮编不能为空")
+//	@Size(min = 6, max = 6, message = "邮编长度为6位")
+	private String code; // 邮编*
+
+	// 行业信息
+//	@NotNull(message = "行业信息不能为空")
+	@Column(name = "industry_information")
+	private IndustryInformationEnum industryInformation; // 行业信息*
+
+//	@NotNull(message = "职位信息不能为空")
+	@Column(name = "position")
+	private PositionEnum position; // 职位信息*
+	// end
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<PreferProduct> preferProducts;
+	
+	@Transient
+	private String captcha;
 
 	public Set<PreferProduct> getPreferProducts() {
 		return preferProducts;
@@ -137,7 +167,8 @@ public class CommonUser extends SiteUser {
 		return industryInformation;
 	}
 
-	public void setIndustryInformation(IndustryInformationEnum industryInformation) {
+	public void setIndustryInformation(
+			IndustryInformationEnum industryInformation) {
 		this.industryInformation = industryInformation;
 	}
 
@@ -155,6 +186,30 @@ public class CommonUser extends SiteUser {
 
 	public void setPosition(PositionEnum position) {
 		this.position = position;
+	}
+
+	public Provider getProvince() {
+		return province;
+	}
+
+	public void setProvince(Provider province) {
+		this.province = province;
+	}
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+	public String getCaptcha() {
+		return captcha;
+	}
+
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
 	}
 
 }

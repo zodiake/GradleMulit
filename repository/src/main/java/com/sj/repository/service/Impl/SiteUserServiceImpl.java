@@ -53,9 +53,8 @@ public class SiteUserServiceImpl implements SiteUserService {
 	}
 
 	@Override
-	public SiteUser registered(SiteUser siteUser) {
-		//添加一些非用户输入的用户信息
-		return repository.save(siteUser);
+	public SiteUser findByName(String name) {
+		return repository.findByName(name);
 	}
 
 }

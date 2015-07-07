@@ -92,7 +92,7 @@ create TABLE provider(
 
 create table common_user(
 	id bigint not NULL auto_increment,
-	realName varchar(20),
+	real_name varchar(20),
 	sex smallint,
 	company varchar(64),
 	department varchar(64),
@@ -103,7 +103,7 @@ create table common_user(
 	code varchar(10),
 	province_id bigint,
 	city_id bigint,
-	industryInformation smallint,
+	industry_information smallint,
 	position smallint,
 	primary key (id),
 	foreign key (id) references site_user(id),
