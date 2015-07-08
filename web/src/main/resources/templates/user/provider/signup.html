@@ -29,31 +29,35 @@
 </script>
 </head>
 <body>
-		<form th:action="@{/provider/signup}" th:object="${user}" method="post" action="#">
-			<label for="name">name:</label>
-			<input type="text" th:field="*{name}" />
-			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
-				name error
-			</p>
+	<form th:action="@{/provider/signup}" enctype="multipart/form-data"
+		th:object="${user}" method="post" action="#">
+		<label for="name">name:</label> <input type="text" th:field="*{name}" />
+		<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name
+			error</p>
 
-			<label for="password">password:</label>
-			<input type="text" th:field="*{password}" />
+		<label for="password">password:</label> <input type="text"
+			th:field="*{password}" />
 
-			<!-- <label for="confirmPassword">confirmPassword:</label>
+		<!-- <label for="confirmPassword">confirmPassword:</label>
 			<input type="text" th:field="*{confirm}" />
 			<p th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">
 				confirm error
 			</p> -->
+		<label>businessLicenseUrl:</label> <input type="file" th:field="*{businessLicenseImager}" />
+		<label>taxReqistrationUrl:</label> <input type="file" th:field="*{taxReqistrationImager}" />
+		<label>structureCodeUrl:</label> <input type="file" th:field="*{structureCodeImager}" />
+		<!--<p th:if="${#fields.hasErrors('businessLicenseImage')}" th:errors="*{businessLicenseImage}">
+				businessLicenseImage error
+			</p>-->
 
-			<label for="captcha">captcha:</label>
-			<input type="text" th:field="*{captcha}" />
-			<p th:if="${#fields.hasErrors('captcha')}" th:errors="*{captcha}">
-				captcha error
-			</p>
+		<label for="captcha">captcha:</label> <input type="text"
+			th:field="*{captcha}" />
+		<p th:if="${#fields.hasErrors('captcha')}" th:errors="*{captcha}">
+			captcha error</p>
 
-			<img id='captchaImg' alt="captcha" src="/captcha/img"/>
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-			<input type="submit"/>
-		</form>
-	</body>
+		<img id='captchaImg' alt="captcha" src="/captcha/img" /> <input
+			type="hidden" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}" /> <input type="submit" />
+	</form>
+</body>
 </html>

@@ -1,5 +1,16 @@
 package com.sj.web.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Calendar;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -21,6 +32,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.support.MultipartFilter;
 
 import com.google.code.kaptcha.Constants;
 import com.sj.model.model.CommonUser;
@@ -30,7 +45,6 @@ import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.repository.util.ChangePasswordForm;
-import com.sj.repository.util.SignupForm;
 import com.sj.web.annotation.SecurityUser;
 import com.sj.web.security.SiteUserContext;
 
@@ -116,14 +130,6 @@ public class LoginController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test() {
-		SiteUser user = userService.findByName("123456");
-		System.out.println(user.getName());
-		System.out.println(user.getPassword());
-		return HOME;
-	}
-
 	/* user registered page */
 	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
 	public String signupForm(Model uiModel) {
@@ -161,11 +167,9 @@ public class LoginController {
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult providerResult, HttpSession session, Model uiModel) {
 		validateSignupForm(provider.getCaptcha(), providerResult, session);
-
 		if (providerResult.hasErrors()) {
 			// form.setConfirm(null);
 			provider.setPassword(null);
-			uiModel.addAttribute("from", new SignupForm());
 			uiModel.addAttribute("user", provider);
 			return PSIGNUP;
 		}
@@ -198,11 +202,21 @@ public class LoginController {
 		}
 	}
 
-	/* Verify that the user name exists */
-	@RequestMapping(value = "/user/isExiste/{name}", method = RequestMethod.GET)
+	/* Verify that the name exists */
+	@RequestMapping(value = "/user/name/isExiste/{name}", method = RequestMethod.GET)
 	@ResponseBody
 	public boolean validateUserNameIsExiste(@PathVariable("name") String name) {
 		SiteUser user = userService.findByName(name);
+		if (user == null) {
+			return true;
+		}
+		return false;
+	}
+
+	/* Verify that the phone exists */
+	@RequestMapping(value = "/user/phone/isExiste/{phone}", method = RequestMethod.GET)
+	public boolean validateUserPhoneIsExiste(@PathVariable("phone") String phone) {
+		SiteUser user = userService.findByPhone(phone);
 		if (user == null) {
 			return true;
 		}

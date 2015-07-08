@@ -8,4 +8,5 @@ public interface ProviderService {
 	public Provider create(Provider provider);
 	
 	public Provider findByName(String name);
+	
 }

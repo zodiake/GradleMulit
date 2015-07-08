@@ -1,5 +1,7 @@
 package com.sj.model.model;
 
+import java.io.File;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.MultipartFilter;
 
 import com.sj.model.type.BusinessTypeEnum;
 import com.sj.model.type.ComponyTypeEnum;
@@ -67,12 +72,21 @@ public class Provider extends SiteUser {
 
 	@Column(name = "business_license_url")
 	private String businessLicenseUrl; // 营业执照图片地址*
+	
+	@Transient
+	private MultipartFile businessLicenseImager;	//营业执照图片
 
 	@Column(name = "tax_registration_url")
 	private String taxRegistrationUrl; // 税务登记图片地址*
+	
+	@Transient
+	private MultipartFile taxReqistrationImager;		//税务登记图片
 
 	@Column(name = "structure_code_url")
 	private String structureCodeUrl; // 组织结构图片地址*
+	
+	@Transient
+	private MultipartFile structureCodeImager;	// 组织结构图片
 
 	// 企业联系人信息
 	@Column(name = "provider_name")
@@ -310,4 +324,27 @@ public class Provider extends SiteUser {
 		this.captcha = captcha;
 	}
 
+	public MultipartFile getBusinessLicenseImager() {
+		return businessLicenseImager;
+	}
+
+	public void setBusinessLicenseImager(MultipartFile businessLicenseImager) {
+		this.businessLicenseImager = businessLicenseImager;
+	}
+
+	public MultipartFile getTaxReqistrationImager() {
+		return taxReqistrationImager;
+	}
+
+	public void setTaxReqistrationImager(MultipartFile taxReqistrationImager) {
+		this.taxReqistrationImager = taxReqistrationImager;
+	}
+
+	public MultipartFile getStructureCodeImager() {
+		return structureCodeImager;
+	}
+
+	public void setStructureCodeImager(MultipartFile structureCodeImager) {
+		this.structureCodeImager = structureCodeImager;
+	}
 }
