@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_parameterName" th:content="${_csrf.parameterName}" />
+<title>Insert title here</title>
+<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script>
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_parameterName']").attr("content");
+	});
+</script>
+</head>
+<body>
+<div th:object="${subject}">
+	<embed
+		th:src="@{'http://static.youku.com/v/swf/qplayer.swf?VideoIDS='+*{uId}+' &amp;isAutoPlay=false&amp;isShowRelatedVideo=false&amp;embedid=-&amp;showAd=0'}"
+		quality="high" width="600" height="400" align="middle" allowScriptAccess="sameDomain" allowFullscreen="true" type="application/x-shockwave-flash"></embed>
+	</div>
+		</body>
+</html>

@@ -18,18 +18,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.model.model.Brand;
 import com.sj.model.model.Product;
+import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
-import com.sj.model.model.Subject;
-import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
-import com.sj.model.type.OriginalEnum;
+import com.sj.repository.service.BrandService;
+import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
-import com.sj.repository.service.SubjectCategoryService;
+import com.sj.web.annotation.SecurityUser;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.exception.UserNotFoundException;
 import com.sj.web.security.UserContext;
@@ -45,89 +44,72 @@ public class ProviderController extends BaseController<Provider> {
 	@Autowired
 	private UserContext userContext;
 	@Autowired
-	private SubjectCategoryService categoryService;
+	private BrandService brandService;
+	@Autowired
+	private ProductCategoryService productCategoryService;
 
 	private final String USERPRODUCTS = "user/products";
 	private final String USERPRODUCTSCREATE = "user/products/create";
 	private final String USERPRODUCTSCTEATEOK = "";
 	private final String USERPRODUCTSEDIT = "user/products/edit";
 	private final String USERPRODUCTSEDITOK = "";
-	private final String PROVIDERCREATE = "user/provider/create";
-	private final String PROVIDERCREATEOK = ""; 
+	private final String PROVIDERCREATEOK = "";
 	private final String PROVIDER = "user/providers";
 
-	@RequestMapping(value = "/providers", method = RequestMethod.GET, params = "form")
-	public String createProvider(Model uiModel) {
-		uiModel.addAttribute("provider", new Provider());
-		return PROVIDERCREATE;
-	}
-
-	@RequestMapping(value = "/providers", method = RequestMethod.POST, params = "form")
-	public String createProviderProcess(
-			@Valid @ModelAttribute("provider") Provider provider,
-			BindingResult bindingResult, Model uiModel) {
-		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute("provider", provider);
-			return PROVIDERCREATE;
-		}
-		provider = providerService.regirectedProvider(provider);
-		uiModel.addAttribute("provider", provider);
-		return PROVIDERCREATE;
-	}
-	
-	@RequestMapping(value="/providers",method = RequestMethod.GET)
-	public String findAllProvider(Model uiModel){
-		Provider provider = providerService.findOne(3l);
+	@RequestMapping(value = "/providers", method = RequestMethod.GET)
+	public String findAllProvider(Model uiModel) {
+		Provider provider = providerService.findOne(6l);
+		System.out.println(provider.getBusinessLicenseUrl());
 		uiModel.addAttribute("provider", provider);
 		return PROVIDERCREATEOK;
 	}
-	
-	@RequestMapping(value = "/currentProviders",method = RequestMethod.GET)
-	public String findCurrentProvider(Model uiModel){
-		SiteUser user =  userContext.getCurrentUser();
+
+	@RequestMapping(value = "/currentProviders", method = RequestMethod.GET)
+	public String findCurrentProvider(Model uiModel) {
+		SiteUser user = userContext.getCurrentUser();
 		Provider provider = providerService.findOne(user.getId());
-		if(provider == null){
+		if (provider == null) {
 			throw new UserNotFoundException();
 		}
 		uiModel.addAttribute("provider", provider);
 		return PROVIDER;
 	}
 
-	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)
+	@RequestMapping(value = "/provider/products/{status}", method = RequestMethod.GET)
 	public String productLists(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
-		SiteUser user = userContext.getCurrentUser();
+			@RequestParam(value = "size", defaultValue = "15") int size,
+			@SecurityUser SiteUser user, @PathVariable("status") String status) {
 		Page<Product> products = productService.findByUsers(
 				new Provider(user.getId()), new PageRequest(page - 1, size,
-						Direction.DESC, "createdTime"));
+						Direction.DESC, "createdTime"), status);
 		uiModel.addAttribute("lists", products);
 		return USERPRODUCTS;
 	}
 
+	/* 商品发布 */
 	@RequestMapping(value = "/proivder/products", params = "form", method = RequestMethod.GET)
 	public String create(Model uiModel) {
 		uiModel.addAttribute("product", new Product());
-		// 以下值均要进行初始化，需要修改
-		uiModel.addAttribute("subject", new Subject());
-		List<SubjectCategory> categories = categoryService
-				.findByActivate(ActivateEnum.ACTIVATE);
-		uiModel.addAttribute("firstCategory", categories);
-		uiModel.addAttribute("brand", new Brand());
+		uiModel.addAttribute("brand", brandService.findAll());
+		List<ProductCategory> pcs = productCategoryService
+				.findAllFirstCategory(ActivateEnum.ACTIVATE);
+		uiModel.addAttribute("pcs", pcs);
 		return USERPRODUCTSCREATE;
 	}
 
-	@RequestMapping(value = "/provider/products", method = RequestMethod.POST, params = "form")
+	@RequestMapping(value = "/provider/products", method = RequestMethod.POST,params = "form")
 	public String createProcess(
-			@Valid @ModelAttribute("product") Product product, Model uiModel) {
-		Provider user = (Provider) userContext.getCurrentUser();
-		product.setCreatedBy(user);
-		product.setOriginal(OriginalEnum.IN);
-		// 添加其他信息
-		Product newProduct = productService.addOneProduct(product);
-		uiModel.addAttribute("product", newProduct);
+			@Valid @ModelAttribute("product") Product product,
+			BindingResult bindingResult, Model uiModel,
+			@SecurityUser SiteUser user) {
+		product.setCreatedBy(new Provider(user.getId()));
+		product = productService.addOneProduct(product);
+		uiModel.addAttribute("product", product);
 		return USERPRODUCTSCTEATEOK;
 	}
+
+	/* 商品发布 end */
 
 	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.GET, params = "edit")
 	public String edit(Model uiModel, @PathVariable("id") Long id) {
@@ -151,14 +133,15 @@ public class ProviderController extends BaseController<Provider> {
 	}
 
 	// 商品下架
-	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public String delete(@PathVariable("id") Long id) {
-		Product product = productService.findOne(id);
+	public String offProduct(@PathVariable("id") Long id,
+			@SecurityUser SiteUser user) {
+		Product product = productService.findOneByUser(new Provider(id), id);
 		if (product == null)
 			throw new ProductNotFoundException();
-		product.setOriginal(OriginalEnum.OUT);
 		productService.offProduct(product);
-		return "";
+		return "success";
 	}
+
 }

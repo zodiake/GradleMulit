@@ -15,11 +15,16 @@ public interface ProductCategoryRepository extends
 	@Override
 	Set<ProductCategory> findAll();
 
-	Page<ProductCategory> findByParent(Pageable pageable,
-			ProductCategory category);
+	Page<ProductCategory> findByParent(Pageable pageable,ProductCategory category);
+
+	List<ProductCategory> findByParentIsNullAndActivate(ActivateEnum activate);
 
 	ProductCategory findByIdAndParent(Long id, ProductCategory category);
 
 	List<ProductCategory> findByParentAndActivate(ProductCategory category,
 			ActivateEnum activate);
+
+	ProductCategory findByName(String name);
+	
+	ProductCategory findByNameAndParentAndActivate(String name,ProductCategory category,ActivateEnum activate);
 }

@@ -1,20 +1,24 @@
 package com.sj.repository.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.sj.model.model.Advertisement;
-import com.sj.model.type.AdvertiseCategoryEnum;
+import com.sj.model.model.AdvertismentCategory;
+import com.sj.model.type.ActivateEnum;
 
 public interface AdvertisementService {
-	public List<Advertisement> findByCategory(AdvertiseCategoryEnum cateogry,
-			Pageable pageable);
-
-	public Advertisement update(Advertisement advertisement);
-
-	public Advertisement findByIdAndCategory(Long id,
-			AdvertiseCategoryEnum category);
+	public Page<Advertisement> findAll(Pageable pageable);
+	
+	public Page<Advertisement> findByActivate(Pageable pageable,ActivateEnum activate);
+	
+	public Advertisement findOne(Long id);
+	
+	public Advertisement update(Advertisement advertisement,Advertisement adv);
+	
+	public Advertisement updateStatus(Advertisement adv);
 	
 	public Advertisement save(Advertisement advertisement);
+	
+	public boolean findByActivate(AdvertismentCategory category);
 }

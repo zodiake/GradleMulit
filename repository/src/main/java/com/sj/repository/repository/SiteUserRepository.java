@@ -16,6 +16,8 @@ public interface SiteUserRepository extends
 		PagingAndSortingRepository<SiteUser, Long> {
 	public SiteUser findByNameAndEnabled(String name, ActivateEnum activate);
 
+	public SiteUser findByNameOrPhoneOrEmailAndEnabled(String name,String phone,String email,ActivateEnum activate);
+	
 	public Page<SiteUser> findAll(Pageable pageable);
 	
 	@Modifying	
@@ -25,5 +27,7 @@ public interface SiteUserRepository extends
 	public SiteUser findByName(String name);
 	
 	public SiteUser findByPhone(String phone);
+	
+	public SiteUser findByNameAndEnabledAndSiteAuthority(String name,ActivateEnum activate,String siteAuthority);
 	
 }

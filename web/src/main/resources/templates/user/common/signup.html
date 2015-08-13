@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<meta name="description" content=""></meta>
+	<title>个人注册</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+	<meta charset="UTF-8"></meta>
+	<meta name="_csrf" th:content="${_csrf.token}" ></meta>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" ></meta>
+	<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+	<script type="text/javascript">
+		$(function() {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader(header, token);
+			});
+			var check = true;
+			$("#xy").click(function(){
+				if(check==true)
+					check=false;
+				else
+					check=true;
+				if(check){
+				$("#regirect").removeAttr("disabled");
+				}else{
+					$("#regirect").attr("disabled","disabled");
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="resg-header">		
+		<div class="head-nav">
+			<div class="nav-box">
+				<a href="#">仪器</a>
+				<i>|</i>
+				<a href="#">试剂</a>
+				<i>|</i>
+				<a href="#">耗材</a>
+				<i>|</i>
+				<a href="#">服务</a>
+				<i>|</i>
+				<a href="#">专题</a>
+				<i>|</i>
+				<a href="#">资讯</a>
+			</div>
+		</div>
+		<div class="head-box clearfix">
+			<a href="#" class="logo"><img src="img/topic1.jpg" alt="logo" width="165" height="80"/></a>
+			<div class="head-menu-btn">
+				<a class="self-btn"></a>
+				<a class="company-btn" href="/provider/signup"></a>
+			</div>
+			<div class="head-menu">
+				<a href="/login">已有账号？马上登录</a>
+			</div>
+		</div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<form class="resg-form" enctype="multipart/form-data" th:object="${user}" th:method="post">
+			<div class="hd resg-hd">
+				<span>注册信息</span>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>邮箱</label>
+				<input type="text" th:field="*{email}"/>
+				<i class="error">必填</i>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>用户名</label>
+				<input type="text" th:field="*{name}"/>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>密码</label>
+				<input type="password" th:field="*{password}"/>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>手机号</label>
+				<input type="text" th:field="*{phone}"/>
+				<button class="tel-code">获取验证码</button>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>验证码</label>
+				<input type="text" th:field="*{captcha}"/>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>真实姓名</label>
+				<input type="text" th:field="*{realName}"/>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>性别</label>
+				<input type="radio" th:field="*{sex}" value="MALE"/>男
+				<input type="radio" th:field="*{sex}" value="FEMALE"/>女
+			</div>
+			<div class="hd resg-hd">
+				<span>详细信息</span>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>单位</label>
+				<input type="text" th:field="*{company}"/>
+			</div>
+			<div class="form-group">
+				<label>部门</label>
+				<input type="text" th:field="*{department}"/>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>电话</label>
+				<input type="text" th:field="*{companyPhone}"/>
+			</div>
+			<div class="form-group">
+				<label>传真</label>
+				<input type="text" th:field="*{fax}"/>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>省/市</label>
+				<select th:field="*{province}">
+					<option value="">选择省份/市</option>
+					<option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.name}"></option>
+				</select>
+				<select th:filed="*{city}">
+					<option>选择城市</option>
+					<option>上海市</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>详细地址</label>
+				<input type="text" th:field="*{address}"/>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>邮政编码</label>
+				<input type="text" th:field="*{code}"/>
+			</div>
+			<div class="hd resg-hd">
+				<span>行业信息</span>
+			</div>
+			<div class="form-group">
+				<ul>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="one"/>科研院校/所
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="two"/>工业检测机构
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="three"/>委托合同研究机构
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="four"/>政府机构
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="five"/>商业检测/研发实验室
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="six"/>医疗保健机构
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="seven"/>医院及大学医疗中心
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="eight"/>医疗及诊断设备公司
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="nine"/>制药/生物技术
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="ten"/>设备材料供应商
+					</li>
+					<li>
+						<input type="radio" th:field="*{industryInformation}" value="eleven"/>其他
+					</li>
+				</ul>
+			</div>
+			<div class="hd resg-hd">
+				<span>职位信息</span>
+			</div>
+			<div class="form-group">
+				<ul>
+					<li>
+						<input type="radio" th:field="*{position}" value="one"/>企业管理人员
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="two"/>生物工程师
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="three"/>院系领导
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="four"/>研究生
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="five"/>实验室主任
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="six"/>实验室技术人员
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="seven"/>企业市场人员
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="eight"/>采购人员
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="nine"/>企业生产人员
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="eleven"/>课题组长PI
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="twelve"/>博士后
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="thirteen"/>科研人员
+					</li>
+					<li>
+						<input type="radio" th:field="*{position}" value="fourteen"/>其他
+					</li>
+				</ul>
+			</div>
+			<div class="accept-btn">
+				<input type="checkbox" id="xy" checked="checked"/>我已阅读并接受《服务协议》
+			</div>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			<div class="resg-btn">
+				<button id="regirect" style="cursor:pointer">注册</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

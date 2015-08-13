@@ -28,6 +28,15 @@ public class CategoryController {
 		Set<ProductCategory> categories = service.findAll();
 		return "home";
 	}
+	
+	@RequestMapping(value="/category/{pc}",method=RequestMethod.GET)
+	public String findByPC(@PathVariable("pc")String category,Model uiModel){
+		List<ProductCategory> categories = service.findByYQ();
+		for (ProductCategory productCategory : categories) {
+			
+		}
+		return "index";
+	}
 
 	// child category list
 	@RequestMapping(value = "/category/{parent}/categories", method = RequestMethod.GET)

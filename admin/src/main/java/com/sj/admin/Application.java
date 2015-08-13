@@ -28,7 +28,6 @@ import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementContent;
 import com.sj.repository.converter.StringToProductConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
-import com.sj.repository.converter.StringToSubjectCategoryConverter;
 
 @Configuration
 @EnableAutoConfiguration
@@ -84,7 +83,6 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToAcitvateEnumConverter());
 		formatterRegistry.addConverter(stringToAdvertisementContent());
 		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
-		formatterRegistry.addConverter(stringToSubjectCategoryConverter());
 		formatterRegistry.addConverter(stringToAdvertiseCategoryConverter());
 		formatterRegistry.addConverter(stringToProductConverter());
 	}
@@ -107,11 +105,6 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public StringToScrollImageTypeConverter stringToScrollImageTypeConverter() {
 		return new StringToScrollImageTypeConverter();
-	}
-
-	@Bean
-	public StringToSubjectCategoryConverter stringToSubjectCategoryConverter() {
-		return new StringToSubjectCategoryConverter();
 	}
 
 	@Bean

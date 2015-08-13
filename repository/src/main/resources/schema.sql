@@ -42,6 +42,7 @@ create table subject(
 	created_time timestamp,
 	created_by varchar(64),
 	content_id bigint,
+	u_id varchar(64),
 	primary key(id),
 	foreign key (content_id) references content(id)
 );
@@ -128,10 +129,11 @@ create table brand(
 
 create table product(
 	id bigint not null auto_increment,
-	name varchar(20) not null,
+	name varchar(40) not null,
 	name_english varchar(64),
 	model varchar(20),
 	place_of_production smallint,
+	status smallint,
 	specifications varchar(20),
 	cover_img varchar(40),
 	private float,
@@ -139,6 +141,7 @@ create table product(
 	second_category_id bigint,
 	third_category_id bigint,
 	price float,
+	label varchar(50),
 	url varchar(50),
 	brand_id bigint,
 	created_by bigint,
@@ -227,6 +230,8 @@ create table information_content(
 create table information(
 	id bigint not null AUTO_INCREMENT,
 	title varchar(100),
+	activate smallint,
+	show_on_index tinyint(1),
 	content_id bigint,
 	created_time timestamp,
 	category_id bigint,
@@ -237,7 +242,9 @@ create table information(
 --广告
 create table advertisement(
 	id bigint not null AUTO_INCREMENT,
-	category smallint,
+	category_id bigint,
 	cover_img varchar(50),
-	url varchar(100)
+	url varchar(100),
+	activate smallint,
+	foreign key(category_id) references category(id)
 );

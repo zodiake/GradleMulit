@@ -1,6 +1,7 @@
 package com.sj.repository.service.Impl;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -23,7 +24,7 @@ public class PreferProductServiceImpl implements PreferProductService {
 	private PreferProductRepository repository;
 
 	@Override
-	public Page<PreferProduct> findByUser(CommonUser user, Pageable pageable) {
+	public Page<PreferProduct> findByUser(SiteUser user, Pageable pageable) {
 		CommonUser jpaUser = new CommonUser(user.getId());
 		Page<PreferProduct> preferProducts = repository.findByUser(jpaUser,
 				pageable);
@@ -53,5 +54,10 @@ public class PreferProductServiceImpl implements PreferProductService {
 	@Override
 	public void deleteByUserAndProduct(CommonUser user, Product product) {
 		repository.deleteByUserAndProduct(user, product);
+	}
+
+	@Override
+	public List<PreferProduct> findByUser(SiteUser user) {
+		return repository.findByUser(user);
 	}
 }

@@ -22,4 +22,9 @@ public interface BrandService {
 	public Brand save(Brand brand);
 
 	public Brand update(Brand brand);
+	
+	public Brand findByName(String name);
+	
+	public void deleteOne(Long id);
+	
 }

@@ -3,6 +3,7 @@ package com.sj.model.model;
 import java.util.Calendar;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,10 +44,18 @@ public class Subject {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
 	private Calendar createdTime;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id")
-	private SubjectCategory category;
+	
+	@Column(name = "created_by")
+	private String createdBy;
+	
+	@JoinColumn(name = "content_id")
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+			CascadeType.PERSIST })
+	private Content content;
+	
+	@Column(name="u_id")
+	private String uId;
+	
 
 	public Subject() {
 		super();
@@ -97,14 +106,6 @@ public class Subject {
 		this.createdTime = createdTime;
 	}
 
-	public SubjectCategory getCategory() {
-		return category;
-	}
-
-	public void setCategory(SubjectCategory category) {
-		this.category = category;
-	}
-
 	public Set<Product> getProducts() {
 		return products;
 	}
@@ -136,5 +137,29 @@ public class Subject {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Content getContent() {
+		return content;
+	}
+
+	public void setContent(Content content) {
+		this.content = content;
+	}
+
+	public String getuId() {
+		return uId;
+	}
+
+	public void setuId(String uId) {
+		this.uId = uId;
 	}
 }

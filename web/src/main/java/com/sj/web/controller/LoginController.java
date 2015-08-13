@@ -1,16 +1,7 @@
 package com.sj.web.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Calendar;
+import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -32,19 +23,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.multipart.support.MultipartFilter;
 
 import com.google.code.kaptcha.Constants;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.Provider;
+import com.sj.model.model.Province;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.ProviderService;
+import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.repository.util.ChangePasswordForm;
+import com.sj.repository.util.RetrievePasswordForm;
 import com.sj.web.annotation.SecurityUser;
 import com.sj.web.security.SiteUserContext;
 
@@ -64,9 +54,11 @@ public class LoginController {
 	private CommonUserService commonUserService;
 	@Autowired
 	private ProviderService providerService;
+	@Autowired
+	private ProvinceService provinceService;
 
-	private final String LOGIN = "login";
-	private final String SIGNUP = "user/signup";
+	private final String LOGIN = "user/login";
+	private final String COMMONSIGNUP = "user/common/signup";
 	private final String PSIGNUP = "user/provider/signup";
 	private final String HOME = "index";
 	private final String CHANGEPASSWORD = "user/changePassword";
@@ -90,7 +82,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute("user") SiteUser user,
+	public String login(@Valid @ModelAttribute("user") SiteUser user,
 			BindingResult bindingResult, Model uiModel) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				user.getName(), user.getPassword());
@@ -99,8 +91,8 @@ public class LoginController {
 		} catch (BadCredentialsException exception) {
 			// 在此处添加错误信息
 			user.setPassword(null);
+			bindingResult.addError(new FieldError("user", "error", "用户名或密码错误"));
 			uiModel.addAttribute("user", user);
-			bindingResult.addError(new FieldError("user", "name", "用户名或密码错误"));
 			return LOGIN;
 		}
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
@@ -134,19 +126,20 @@ public class LoginController {
 	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
 	public String signupForm(Model uiModel) {
 		uiModel.addAttribute("user", new CommonUser());
-		return SIGNUP;
+		uiModel.addAttribute("provinces", provinceService.findAll());
+		return COMMONSIGNUP;
 	}
 
 	/* user registered */
 	@RequestMapping(value = "/user/signup", method = RequestMethod.POST)
 	public String signupProcess(@Valid @ModelAttribute("user") CommonUser user,
 			BindingResult userResult, HttpSession session, Model uiModel) {
-		validateSignupForm(user.getCaptcha(), userResult, session);
+//		validateSignupForm(user.getCaptcha(), userResult, session);
 		if (userResult.hasErrors()) {
 			// form.setConfirm(null);
 			user.setPassword(null);
 			uiModel.addAttribute("user", user);
-			return SIGNUP;
+			return COMMONSIGNUP;
 		}
 		user.setPassword(encoder.encodePassword(user.getPassword(), null));
 		SiteUser siteUser = commonUserService.create(user);
@@ -166,13 +159,13 @@ public class LoginController {
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult providerResult, HttpSession session, Model uiModel) {
-		validateSignupForm(provider.getCaptcha(), providerResult, session);
-		if (providerResult.hasErrors()) {
-			// form.setConfirm(null);
-			provider.setPassword(null);
-			uiModel.addAttribute("user", provider);
-			return PSIGNUP;
-		}
+//		validateSignupForm(provider.getCaptcha(), providerResult, session);
+//		if (providerResult.hasErrors()) {
+//			// form.setConfirm(null);
+//			provider.setPassword(null);
+//			uiModel.addAttribute("user", provider);
+//			return PSIGNUP;
+//		}
 		provider.setPassword(encoder.encodePassword(provider.getPassword(),
 				null));
 		SiteUser user = providerService.create(provider);
@@ -203,7 +196,7 @@ public class LoginController {
 	}
 
 	/* Verify that the name exists */
-	@RequestMapping(value = "/user/name/isExiste/{name}", method = RequestMethod.GET)
+	@RequestMapping(value = "/name/isExiste/{name}", method = RequestMethod.GET)
 	@ResponseBody
 	public boolean validateUserNameIsExiste(@PathVariable("name") String name) {
 		SiteUser user = userService.findByName(name);
@@ -214,8 +207,10 @@ public class LoginController {
 	}
 
 	/* Verify that the phone exists */
-	@RequestMapping(value = "/user/phone/isExiste/{phone}", method = RequestMethod.GET)
+	@ResponseBody
+	@RequestMapping(value = "/phone/isExiste/{phone}", method = RequestMethod.GET)
 	public boolean validateUserPhoneIsExiste(@PathVariable("phone") String phone) {
+		System.out.println(phone);
 		SiteUser user = userService.findByPhone(phone);
 		if (user == null) {
 			return true;
@@ -224,7 +219,7 @@ public class LoginController {
 	}
 
 	/* end modify */
-	/* end login and signup logic */
+	/* end login and signup login */
 
 	/* user change password feature */
 	@RequestMapping(value = { "/provider/changePw", "/manufacture/changePw" }, method = RequestMethod.GET)
@@ -275,10 +270,36 @@ public class LoginController {
 	/* end user change password feature */
 
 	/* forget password */
-	@RequestMapping(value = { "/provider/forgetPw", "/manufacture/forgetPw" }, method = RequestMethod.GET)
-	public String forgetPw(@RequestParam("captcha") String captcha) {
-		// todo
+	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.GET)
+	public String forgetPw(Model uiModel) {
+
 		return "index";
+	}
+
+	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.POST)
+	public String forgetPwVaildata(
+			@ModelAttribute("retrieve") RetrievePasswordForm form, Model uiModel) {
+		// 验证验证码
+		uiModel.addAttribute("form", new RetrievePasswordForm("13700000001"));// 测试代码
+		return "user/changePassword";
+	}
+
+	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.PUT)
+	public String forgetPwProcess(
+			@ModelAttribute("retrieve") RetrievePasswordForm form,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+
+		}
+		SiteUser user = userService.findByPhone(form.getPhone());
+		System.out.println(user.getPassword());
+		userService.updatePassword(user.getId(),
+				encoder.encodePassword(form.getPassword(), null));
+		// 测试代码
+
+		SiteUser usert = userService.findByPhone(form.getPhone());
+		System.out.println(usert.getPassword());
+		return "redirect:/login";
 	}
 
 	private void sendCaptcha() {

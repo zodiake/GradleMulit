@@ -24,4 +24,8 @@ public interface SiteUserService {
 	
 	public SiteUser retrievePassword(String phone,String newPassword);
 	
+	public SiteUser findByNameAndSiteAuthority(SiteUser user);
+	
+	public SiteUser login(String name,ActivateEnum activate);
+	
 }

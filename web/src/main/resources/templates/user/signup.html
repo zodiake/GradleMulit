@@ -17,7 +17,7 @@
 		</script>
 	</head>
 	<body>
-		<form th:action="@{/user/signup}" th:object="${user}" method="post" action="#">
+		<form th:object="${user}" method="post" action="#" enctype="multipart/form-data" >
 			<label for="name">name:</label>
 			<input type="text" th:field="*{name}" />
 			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
@@ -32,6 +32,7 @@
 			<p th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">
 				confirm error
 			</p> -->
+
 
 			<label for="captcha">captcha:</label>
 			<input type="text" th:name="captcha" />

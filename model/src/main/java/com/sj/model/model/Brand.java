@@ -1,17 +1,22 @@
 package com.sj.model.model;
 
 import java.util.Calendar;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.model.type.ActivateEnum;
 
@@ -30,9 +35,23 @@ public class Brand {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
 	private Calendar craetedTime;
+	
+	@Column(name = "cover_img")
+	private String coverImg;
+	
+	@Transient
+	private MultipartFile image;
 
-	@OneToOne(mappedBy = "brand")
-	private Product product;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
+	private Set<Product> products;
+
+	public Brand() {
+
+	}
+
+	public Brand(Long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
@@ -66,13 +85,6 @@ public class Brand {
 		this.craetedTime = craetedTime;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
 
 	@Override
 	public int hashCode() {
@@ -97,5 +109,29 @@ public class Brand {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+
+	public String getCoverImg() {
+		return coverImg;
+	}
+
+	public void setCoverImg(String coverImg) {
+		this.coverImg = coverImg;
+	}
+
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
 	}
 }

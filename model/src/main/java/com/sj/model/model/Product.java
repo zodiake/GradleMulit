@@ -22,8 +22,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.model.type.OriginalEnum;
+import com.sj.model.type.PlaceEnum;
+import com.sj.model.type.ProductStatusEnum;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -32,19 +38,31 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	@Size(max = 1)
 	private String name;
-	//new
-	private String nameEnglish;			//产品英文名
+	// new
+	private String nameEnglish; // 产品英文名
+
+	private String model; // 型号
+
+	private PlaceEnum placeOfProduction; // 产地
+
+	private String specifications; // 规格
+
+	private ProductStatusEnum status;
 	
-	private String model;				//型号
-	
-	private String placeOfProduction;	//产地
-	//end
+	@Transient
+	private boolean isCollection = false;// 是否被收藏
+
+	private String label;
+	// end
 
 	@Column(name = "cover_img")
 	private String coverImg;
 
+	@Transient
+	private MultipartFile image;
+	@Min(1)
 	private float price;
 
 	@ManyToMany(mappedBy = "products")
@@ -64,7 +82,7 @@ public class Product {
 
 	private String url;
 
-	@OneToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "brand_id")
 	private Brand brand;
 
@@ -79,6 +97,9 @@ public class Product {
 
 	@Transient
 	private Long viewCount;
+	
+	@Transient
+	private Long reviewCount=0l;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
@@ -267,11 +288,60 @@ public class Product {
 		this.model = model;
 	}
 
-	public String getPlaceOfProduction() {
+	public PlaceEnum getPlaceOfProduction() {
 		return placeOfProduction;
 	}
 
-	public void setPlaceOfProduction(String placeOfProduction) {
+	public void setPlaceOfProduction(PlaceEnum placeOfProduction) {
 		this.placeOfProduction = placeOfProduction;
 	}
+
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public ProductStatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(ProductStatusEnum status) {
+		this.status = status;
+	}
+
+	public String getSpecifications() {
+		return specifications;
+	}
+
+	public void setSpecifications(String specifications) {
+		this.specifications = specifications;
+	}
+
+	public boolean isCollection() {
+		return isCollection;
+	}
+
+	public void setCollection(boolean isCollection) {
+		this.isCollection = isCollection;
+	}
+
+	public Long getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(Long reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
 }

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,8 @@ public class SiteUserController {
 	private SiteUserService siteUserService;
 	@Autowired
 	private SiteUserContext userContext;
+	@Autowired
+	private ShaPasswordEncoder encoder;
 
 	private final String SITEUSER = "";
 
@@ -70,7 +73,7 @@ public class SiteUserController {
 			uiModel.addAttribute("form", form);
 			return null;
 		}
-		siteUserService.retrievePassword(form.getPhone(), form.getPassword());
+		siteUserService.retrievePassword(form.getPhone(), encoder.encodePassword(form.getPassword(), null));
 		return null;
 	}
 

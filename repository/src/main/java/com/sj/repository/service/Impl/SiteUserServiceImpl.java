@@ -69,4 +69,16 @@ public class SiteUserServiceImpl implements SiteUserService {
 		return repository.save(user);
 	}
 
+	@Override
+	public SiteUser findByNameAndSiteAuthority(SiteUser user) {
+
+		return repository.findByNameAndEnabledAndSiteAuthority(user.getName(),
+				user.getEnabled(), user.getSiteAuthority());
+	}
+
+	@Override
+	public SiteUser login(String name, ActivateEnum activate) {
+		return repository.findByNameOrPhoneOrEmailAndEnabled(name, name, name, activate);
+	}
+
 }

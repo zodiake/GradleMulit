@@ -1,5 +1,6 @@
 package com.sj.repository.service.Impl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.elasticsearch.common.collect.Lists;
@@ -13,6 +14,7 @@ import com.sj.model.model.Brand;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.repository.BrandRepository;
 import com.sj.repository.service.BrandService;
+import com.sj.repository.util.UpImageUtil;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -41,6 +43,10 @@ public class BrandServiceImpl implements BrandService {
 
 	@Override
 	public Brand save(Brand brand) {
+		Calendar c = Calendar.getInstance();
+		brand.setCraetedTime(c);
+		brand.setCoverImg(UpImageUtil.saveImage(brand.getImage(), brand.getName(),
+				brand.getName(), UpImageUtil.BRANDBASE));
 		return repository.save(brand);
 	}
 
@@ -53,5 +59,15 @@ public class BrandServiceImpl implements BrandService {
 	@Cacheable(value = "brandCache")
 	public List<Brand> findByAcitvate(ActivateEnum activate) {
 		return repository.findByActivate(activate);
+	}
+
+	@Override
+	public Brand findByName(String name) {
+		return repository.findByName(name);
+	}
+
+	@Override
+	public void deleteOne(Long id) {
+		repository.delete(id);
 	}
 }

@@ -2,16 +2,17 @@ package com.sj.repository.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.sj.model.model.Advertisement;
-import com.sj.model.type.AdvertiseCategoryEnum;
+import com.sj.model.model.AdvertismentCategory;
+import com.sj.model.type.ActivateEnum;
 
 public interface AdvertisementRepository extends
 		PagingAndSortingRepository<Advertisement, Long> {
-	List<Advertisement> findByCategory(AdvertiseCategoryEnum category,
-			Pageable pageable);
+	Page<Advertisement> findByActivate(Pageable pageable,ActivateEnum activate);
 	
-	Advertisement findByIdAndCategory(Long id,AdvertiseCategoryEnum category);
+	List<Advertisement> findByActivateAndCategory(ActivateEnum activate,AdvertismentCategory category);
 }

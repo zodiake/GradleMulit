@@ -45,7 +45,6 @@ import com.sj.repository.converter.StringToProductConverter;
 import com.sj.repository.converter.StringToScaleEnumConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
 import com.sj.repository.converter.StringToSexEnumConverter;
-import com.sj.repository.converter.StringToSubjectCategoryConverter;
 import com.sj.repository.converter.StringToTitleEnumConverter;
 import com.sj.web.resolver.PageRequestResolver;
 import com.sj.web.resolver.SiteUserResolver;
@@ -70,6 +69,8 @@ public class Application extends WebMvcConfigurerAdapter {
 		protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
 					.antMatchers("/*/signup")
+					.permitAll()
+					.antMatchers("*/signup")
 					.permitAll()
 					.antMatchers("/user/isExiste/*")
 					.permitAll()
@@ -141,7 +142,6 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToAcitvateEnumConverter());
 		formatterRegistry.addConverter(stringToAdvertisementContent());
 		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
-		formatterRegistry.addConverter(stringToSubjectCategoryConverter());
 		formatterRegistry.addConverter(stringToAdvertiseCategoryConverter());
 		formatterRegistry.addConverter(stringToProductConverter());
 		formatterRegistry.addConverter(stringToProductCategoryConverter());
@@ -180,11 +180,6 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public StringToScrollImageTypeConverter stringToScrollImageTypeConverter() {
 		return new StringToScrollImageTypeConverter();
-	}
-
-	@Bean
-	public StringToSubjectCategoryConverter stringToSubjectCategoryConverter() {
-		return new StringToSubjectCategoryConverter();
 	}
 
 	@Bean

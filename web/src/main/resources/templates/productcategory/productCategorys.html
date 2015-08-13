@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>仪器分类</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</head>
+<body>
+	<div class="header">
+		<div class="head-box clearfix">
+			<a href="#" class="logo"><img th:src="@{/img/topic1.jpg}" alt="logo" width="165" height="80"/></a>
+			<div class="head-search">
+				<span class="searched">商品</span>
+				<input type="text"/>
+				<i class="icon-search"></i>
+				<div class="search-sort">
+					<a>商品</a>
+					<a>型号</a>
+					<a>品牌</a>
+					<a>专题</a>
+					<a>资讯</a>
+				</div>
+			</div>
+			<div class="head-dorpdown">
+				<div class="head-cart">
+					<div class="ct-cart">购物车</div>
+					<div class="ct-cart-wrap bodr hide">
+						<h3><b class="gray-deeply">最近加入的商品</b></h3>
+						<div class="ct-cart-list">
+							<ul>
+								<li>
+									<div class="fl ct-img">
+										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
+									</div>
+									<div class="fl ct-name">										
+										<a>友臣 肉松饼898克 热销装</a>
+									</div>
+									<div class="fr ct-detail">
+										<span class="ct-price">
+											<b>150.00</b>×1
+
+										</span>
+										<br/>
+										<a class="fr">删除</a>
+									</div>
+								</li>
+								<li>
+									<div class="fl ct-img">
+										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
+									</div>
+									<div class="fl ct-name">										
+										<a>友臣网络热销装网络热销装</a>
+									</div>
+									<div class="fr ct-detail">
+										<span class="ct-price">
+											<b>150.00</b>×1
+										</span>
+										<br/>
+										<a class="fr">删除</a>
+									</div>
+								</li>
+								<li>
+									<div class="fl ct-img">
+										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
+									</div>
+									<div class="fl ct-name">										
+										<a>友臣 肉松饼898克 网络热销装</a>
+									</div>
+									<div class="fr ct-detail">
+										<span class="ct-price">
+											<b>150.00</b>×1
+										</span>
+										<br/>
+										<a class="fr">删除</a>
+									</div>
+								</li>
+								<li>
+									<div class="fl ct-img">
+										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
+									</div>
+									<div class="fl ct-name">										
+										<a>肉松饼898克 网络热销装网络热销装网络热销装网络热销装</a>
+									</div>
+									<div class="fr ct-detail">
+										<span class="ct-price">
+											<b>150.00</b>×1
+										</span>
+										<br/>
+										<a class="fr">删除</a>
+									</div>
+								</li>
+								<li>
+									<div class="fl ct-img">
+										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
+									</div>
+									<div class="fl ct-name">										
+										<a>友臣 肉松饼898克 </a>
+									</div>
+									<div class="fr ct-detail">
+										<span class="ct-price">
+											<b>150.00</b>×1
+										</span>
+										<br/>
+										<a class="fr">删除</a>
+									</div>
+								</li>
+								<li>
+									<div class="fl ct-img">
+										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
+									</div>
+									<div class="fl ct-name">										
+										<a>友臣 肉松饼898克装网络热销装</a>
+									</div>
+									<div class="fr ct-detail">
+										<span class="ct-price">
+											<b>150.00</b>×1
+										</span>
+										<br/>
+										<a class="fr">删除</a>
+									</div>
+								</li>
+
+							</ul>
+						</div>
+						<div class="ct-total">
+							共<b>21</b>件商品&#12288;共计<strong>￥ 1961.95</strong>
+							<a class="go-cart">去购物车</a>
+						</div>
+					</div>
+				</div>
+				<div class="head-user">
+					<div class="user-name">admin</div>
+					<div class="user-menu bodr">
+						<ul>
+							<li>
+								<a>个人资料（全部）</a>
+							</li>
+							<li>
+								<a>收藏夹（个人）</a>
+							</li>
+							<li>
+								<a>我的购物车（个人）</a>
+							</li>
+							<li>
+								<a>我的采购申请（个人）</a>
+							</li>
+							<li>
+								<a>商品发布（企业）</a>
+							</li>
+							<li>
+								<a>商品维护（企业）</a>
+							</li>
+							<li>
+								<a>商品信息统计（企业）</a>
+							</li>
+							<li>
+								<a>退出登录</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="head-nav">
+			<div class="nav-box">
+				<ul>
+					<li th:if="${pc.name =='仪器'}" class="active nobor"><a href="/productCategory/仪器">仪器</a></li>
+					<li th:if="${pc.name !='仪器'}" ><a href="/productCategory/仪器">仪器</a></li>
+					<li th:if="${pc.name =='试剂'}" class="active nobor"><a href="/productCategory/试剂">试剂</a></li>
+					<li th:if="${pc.name !='试剂'}" ><a href="/productCategory/试剂">试剂</a></li>
+					<li th:if="${pc.name =='耗材'}" class="active nobor"><a href="/productCategory/耗材">耗材</a></li>
+					<li th:if="${pc.name !='耗材'}" ><a href="/productCategory/耗材">耗材</a></li>
+					<li th:if="${pc.name =='服务'}" class="active nobor"><a href="/productCategory/服务">仪器</a></li>
+					<li th:if="${pc.name !='服务'}" ><a href="/productCategory/服务">仪器</a></li>
+					<li><a href="#">专题</a></li>
+					<li><a href="#">资讯</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="products">
+			<div class="sort-wrap clearfix">
+				<div class="sort-box fl">	
+					<div class="sort-list" th:each="category:${categories}">
+						<div class="sort-hd gray-hd"><b th:text="${category.name}"></b></div>
+						<div class="sort-detail bodr">
+							<i th:each="child:${category.categories}"><a th:text="${child.name}" th:href="@{'/products/category/'+${pc.name}+'/'+${category.name}+'/'+${child.name}}"></a><i>|</i></i>
+						</div>
+					</div>
+					<div class="sort-list">					
+						<div class="sort-hd gray-hd"><b>生物芯片</b></div>
+						<div class="sort-detail bodr">
+							<a>芯片扫描仪</a>
+							<i>|</i>
+							<a>芯片点仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>芯片点样仪仪 </a>
+							<i>|</i>
+							<a>片系统</a>
+							<i>|</i>
+							<a>芯片点样仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>芯片点仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>芯片点样仪仪 </a>
+							<i>|</i>
+							<a>片系统</a>
+							<i>|</i>
+							<a>芯片点样仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>其他</a>
+						</div>
+					</div>	
+					<div class="sort-list">					
+						<div class="gray-hd"><b>生物芯片</b></div>
+						<div class="sort-detail bodr">
+							<a>芯片扫描仪</a>
+							<i>|</i>
+							<a>芯片点仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>芯片点样仪仪 </a>
+							<i>|</i>
+							<a>片系统</a>
+							<i>|</i>
+							<a>芯片点样仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>其他</a>
+						</div>
+					</div>
+					<div class="sort-list">					
+						<div class="gray-hd"><b>生物芯片</b></div>
+						<div class="sort-detail bodr">
+							<a>芯片扫描仪</a>
+							<i>|</i>
+							<a>芯片点仪 </a>
+							<a>其他</a>
+						</div>
+					</div>	
+				</div>
+				<div class="sort-box fl">						
+					<div class="sort-list">					
+						<div class="gray-hd"><b>生物芯片</b></div>
+						<div class="sort-detail bodr">
+							<a>芯片扫描仪</a>
+							<i>|</i>
+							<a>芯片点仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>芯片点样仪仪 </a>
+							<i>|</i>
+							<a>片系统</a>
+							<i>|</i>
+							<a>芯片点样仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>其他</a>
+						</div>
+					</div>
+					<div class="sort-list">					
+						<div class="gray-hd"><b>生物芯片</b></div>
+						<div class="sort-detail bodr">
+							<a>芯片扫描仪</a>
+							<i>|</i>
+							<a>芯片点仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>芯片点样仪仪 </a>
+							<i>|</i>
+							<a>片系统</a>
+							<i>|</i>
+							<a>芯片点样仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>芯片点仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>芯片点样仪仪 </a>
+							<i>|</i>
+							<a>片系统</a>
+							<i>|</i>
+							<a>芯片点样仪 </a>
+							<i>|</i>
+							<a>生物芯片系统</a>
+							<i>|</i>
+							<a>其他</a>
+						</div>
+					</div>	
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+</body>
+</html>

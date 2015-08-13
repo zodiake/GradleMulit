@@ -13,12 +13,14 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
 import com.sj.model.type.ActivateEnum;
+import com.sj.model.type.SexEnum;
 
 @Entity
 @Table(name = "site_user")
@@ -28,9 +30,15 @@ public class SiteUser {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Size(min=6,max = 20, message = "用户名长度最长为20位")
+//	@Size(min=6,max = 20, message = "用户名长度最长为20位")
 	@NotNull(message = "用户名不能为空")
 	private String name; // 用户名
+	
+	@Column(name="real_name")
+	private String realName;
+	
+	@Column(name="sex")
+	private SexEnum sex;
 	
 	@NotNull(message = "密码不能为空")
 	private String password; // 密码
@@ -51,12 +59,15 @@ public class SiteUser {
 
 	// new
 //	@NotNull(message="邮箱不能为空")
-	@Email(message="请输入正确的邮箱地址")
+//	@Email(message="请输入正确的邮箱地址")
 	private String email; // 邮箱
 	
 //	@NotNull(message = "手机号码不能为空")
 //	@Size(min=11,max=11,message = "手机号码只能为11位")
 	private String phone; // 手机号码
+	
+	@Transient
+	private String error;
 
 	public SiteUser() {
 	}
@@ -161,5 +172,29 @@ public class SiteUser {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public SexEnum getSex() {
+		return sex;
+	}
+
+	public void setSex(SexEnum sex) {
+		this.sex = sex;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
 	}
 }

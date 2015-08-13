@@ -9,19 +9,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.sj.model.type.IndustryInformationEnum;
 import com.sj.model.type.PositionEnum;
-import com.sj.model.type.SexEnum;
 import com.sj.model.type.TitleEnum;
 
 /**
  * Created by yagamai on 15-4-17.
  */
 @Entity
+@Table(name = "common_user")
 @PrimaryKeyJoinColumn
 public class CommonUser extends SiteUser {
 	public CommonUser() {
@@ -34,12 +33,6 @@ public class CommonUser extends SiteUser {
 
 
 	// new
-//	@NotNull(message = "真实姓名不能为空")
-	@Column(name="real_name")
-	private String realName; // 真实姓名*
-
-//	@NotNull(message = "性别不能为空")
-	private SexEnum sex; // 性别*
 
 	// 详细信息
 //	@NotNull(message = "单位不能为空")
@@ -61,7 +54,7 @@ public class CommonUser extends SiteUser {
 //	@NotNull(message = "请选择所在省份")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "province_id")
-	private Provider province; // 省份*
+	private Province province; // 省份*
 
 //	@NotNull(message = "请选择所在城市")
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -97,14 +90,6 @@ public class CommonUser extends SiteUser {
 
 	public void setPreferProducts(Set<PreferProduct> preferProducts) {
 		this.preferProducts = preferProducts;
-	}
-
-	public String getRealName() {
-		return realName;
-	}
-
-	public void setRealName(String realName) {
-		this.realName = realName;
 	}
 
 	public String getCompany() {
@@ -155,14 +140,6 @@ public class CommonUser extends SiteUser {
 		this.code = code;
 	}
 
-	public SexEnum getSex() {
-		return sex;
-	}
-
-	public void setSex(SexEnum sex) {
-		this.sex = sex;
-	}
-
 	public IndustryInformationEnum getIndustryInformation() {
 		return industryInformation;
 	}
@@ -188,14 +165,6 @@ public class CommonUser extends SiteUser {
 		this.position = position;
 	}
 
-	public Provider getProvince() {
-		return province;
-	}
-
-	public void setProvince(Provider province) {
-		this.province = province;
-	}
-
 	public City getCity() {
 		return city;
 	}
@@ -210,6 +179,14 @@ public class CommonUser extends SiteUser {
 
 	public void setCaptcha(String captcha) {
 		this.captcha = captcha;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
+	public Province getProvince() {
+		return province;
 	}
 
 }

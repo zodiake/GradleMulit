@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,7 @@ import com.sj.model.type.SexEnum;
  * Created by yagamai on 15-4-17.
  */
 @Entity
+@Table(name = "provider")
 @PrimaryKeyJoinColumn
 public class Provider extends SiteUser {
 
@@ -87,13 +89,6 @@ public class Provider extends SiteUser {
 	
 	@Transient
 	private MultipartFile structureCodeImager;	// 组织结构图片
-
-	// 企业联系人信息
-	@Column(name = "provider_name")
-	private String providerName; // 供应商联系人名称*
-
-	@Column(name = "provider_sex")
-	private SexEnum providerSex; // 供应商联系人性别*
 
 	private String position; // 联系人职位*
 
@@ -201,22 +196,6 @@ public class Provider extends SiteUser {
 
 	public void setBusinessLicenseUrl(String businessLicenseUrl) {
 		this.businessLicenseUrl = businessLicenseUrl;
-	}
-
-	public String getProviderName() {
-		return providerName;
-	}
-
-	public void setProviderName(String providerName) {
-		this.providerName = providerName;
-	}
-
-	public SexEnum getProviderSex() {
-		return providerSex;
-	}
-
-	public void setProviderSex(SexEnum providerSex) {
-		this.providerSex = providerSex;
 	}
 
 	public String getPosition() {

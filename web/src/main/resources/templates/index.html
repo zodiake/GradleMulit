@@ -1,20 +1,603 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Hello Spring Boot!</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	</head>
-	<body>
-		<p>
-			Hello Spring Boot!
-		</p>
-		<video width="320" height="240" controls="true">
-			<source src="/audio/aud.mp4" type="video/mp4"></source>
-			Your browser does not support the video tag.
-		</video>
-		<form action="/logout" method="post">
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-			<input type="submit" value='logout'/>
-		</form>
-	</body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>首页</title>
+  <link rel="stylesheet" type="text/css" th:href="@{css/global.css}"/>
+  <script th:src="@{js/jquery-1.11.2.min.js}"></script>
+  <script type="text/javascript" th:src="@{js/bootstrap.min.js}"></script>
+  <script th:src="@{js/script.js}"></script>
+</head>
+<body>
+	<div class="header">
+		<div class="head-box clearfix">
+			<a href="#" class="logo"><img src="img/topic1.jpg" alt="logo" width="165" height="80"/></a>
+			<div class="head-search">
+				<span class="searched">商品</span>
+				<input type="text"/>
+				<i class="icon-search"></i>
+				<div class="search-sort">
+					<a>商品</a>
+					<a>型号</a>
+					<a>品牌</a>
+					<a>专题</a>
+					<a>资讯</a>
+				</div>
+			</div>
+			<div class="head-menu">
+				<a href="/login">登录</a>
+				<span>|</span>
+				<a href="/user/signup">注册</a>
+			</div>
+		</div>
+		<div class="head-nav">
+			<div class="nav-box">
+				<ul>
+					<li class="active nobor"><a href="/productCategory/仪器">仪器</a></li>
+					<li><a href="#">试剂</a></li>
+					<li><a href="#">耗材</a></li>
+					<li><a href="#">服务</a></li>
+					<li><a href="#">专题</a></li>
+					<li><a href="#">资讯</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="screen-one clearfix">
+			<div class="J-banner fl">
+				<div id="J-banner-carousel" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#J-banner-carousel" data-slide-to="0" class="active"></li>
+						<li data-target="#J-banner-carousel" data-slide-to="1" ></li>
+					</ol>
+					<div class="carousel-inner" role="listbox">
+						<div class="item active" style="background-image:url(img/banner1.jpg)">
+						</div>
+						<div class="item" style="background-image:url(img/banner2.jpg)">
+						</div>
+					</div>
+				</div>
+			</div><!-- j-banner -->			
+			<div class="news fr">
+				<div class="tabs-nav news-nav">
+					<a class="active">行业要闻</a>
+					<a>新品成果</a>
+					<a class="nobor">厂商动态</a>
+				</div>
+				<div class="tab-conts news-box">
+					<div class="tab-panel news-list">
+						<ul>
+							<li>
+								<h4 class="gray-deeply">中国首个治疗尿急尿频的透皮贴剂即将面世</h4>
+								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							</li>
+							<li class="spe">
+								<span><img src="img/list1.jpg"/></span>
+								<div class="fulid">
+									<h4 class="blue">抗生素的种类与用药原则</h4>
+									<p>首次服用两倍剂量,严格掌握适应症凡 可用可不用者尽量不用;避免长期用药 联合用药时注意配伍禁忌.</p>
+								</div>
+							</li>
+							<li>
+								<h4 class="gray-deeply">中国首个治疗尿急尿频的透皮贴剂即将面世</h4>
+								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							</li>
+						</ul>
+					</div>
+					<div class="tab-panel news-list hide">
+						<ul>
+							<li>
+								<h4>22222222222222222</h4>
+								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							</li>
+							<li class="spe">
+								<span><img src="img/list1.jpg"/></span>
+								<div class="fulid">
+									<h4 class="blue">抗生素的种类与用药原则</h4>
+									<p>首次服用两倍剂量,严格掌握适应症凡 可用可不用者尽量不用;避免长期用药 联合用药时注意配伍禁忌.</p>
+								</div>
+							</li>
+							<li>
+								<h4>中国首个治疗尿急尿频的透皮贴剂即将面世</h4>
+								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							</li>
+						</ul>
+					</div>
+					<div class="tab-panel news-list hide">
+						<ul>
+							<li>
+								<h4>233333333</h4>
+								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							</li>
+							<li class="spe">
+								<span><img src="img/list1.jpg"/></span>
+								<div class="fulid">
+									<h4 class="blue">抗生素的种类与用药原则</h4>
+									<p>首次服用两倍剂量,严格掌握适应症凡 可用可不用者尽量不用;避免长期用药 联合用药时注意配伍禁忌.</p>
+								</div>
+							</li>
+							<li>
+								<h4>中国首个治疗尿急尿频的透皮贴剂即将面世</h4>
+								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							</li>
+						</ul>
+					</div>
+				</div>				
+			</div><!--news-->	
+		</div>
+		<div class="products">
+			<div class="hd">
+				<span>产品库</span>
+			</div>
+			<div class="product-list">
+				<div class="product-wrap clearfix">
+					<div class="product-box fl clearfix">						
+						<div class="tabs-nav product-nav">
+							<a class="active">仪器</a>
+							<a>试剂</a>
+							<a>耗材</a>
+							<a class="nobor">服务</a>
+						</div>
+						<div class="tab-conts products-con">
+							<div class="tab-panel products-detail">
+								<div class="fl list-mode">
+									<ul>
+										<li th:each="productCategory:${yqs}">
+											<label th:text="${productCategory.name}"></label>
+											<div>
+												<i th:each="child:${productCategory.categories}"><a  th:text="${child.name}"></a><i>|</i></i>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="fr list-mode">
+									<ul>
+										<li>
+											<label>生物芯片</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>生物芯片</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>影像系统</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>测读系统</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>光谱系统</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>细胞培养仪</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>细胞培养仪</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="tab-panel products-detail hide">
+								<div class="fl list-mode">
+									<ul>
+										<li th:each="productCategory:${sjs}">
+											<label th:text="${productCategory.name}"></label>
+											<div>
+												<i th:each="child:${productCategory.categories}"><a  th:text="${child.name}"></a><i>|</i></i>
+											</div>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											<label>试剂</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+											</div>
+										</li>
+										<li>
+											<label>细胞培养仪</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>储存保存设备</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="fr list-mode">
+									<ul>
+										<li>
+											<label>生物芯片</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="tab-panel products-detail hide">
+								<div class="fl list-mode">
+									<ul>
+										<li th:each="productCategory:${hcs}">
+											<label th:text="${productCategory.name}"></label>
+											<div>
+												<i th:each="child:${productCategory.categories}"><a  th:text="${child.name}"></a><i>|</i></i>
+											</div>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											<label>耗材</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+											</div>
+										</li>
+										<li>
+											<label>细胞培养仪</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>储存保存设备</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="fr list-mode">
+									<ul>
+										<li>
+											<label>生物芯片</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="tab-panel products-detail hide">
+								<div class="fl list-mode">
+									<ul>
+										<li th:each="productCategory:${fws}">
+											<label th:text="${productCategory.name}"></label>
+											<div>
+												<i th:each="child:${productCategory.categories}"><a  th:text="${child.name}"></a><i>|</i></i>
+											</div>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											<label>服务</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+											</div>
+										</li>
+										<li>
+											<label>细胞培养仪</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+										<li>
+											<label>储存保存设备</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>芯片点样仪 </a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="fr list-mode">
+									<ul>
+										<li>
+											<label>生物芯片</label>
+											<div>
+												<a>芯片扫描仪</a>
+												<i>|</i>
+												<a>生物芯片系统</a>
+												<i>|</i>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="brand fr">
+						<h3>品牌</h3>
+						<div class="brand-box">
+							<img src="img/brand1.jpg"/>
+							<img src="img/brand1.jpg"/>
+							<img src="img/brand1.jpg"/>
+							<img src="img/brand1.jpg"/>
+							<img src="img/brand1.jpg"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="topic">
+			<div class="hd">
+				<span>专题</span>
+			</div>
+			<div class="global-box topic-box">
+			    <ul>
+			        <li>
+						<a>
+							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="spe-pic">
+								<img src="img/topic1.jpg" width="240" height="140"/>
+							</div>
+							<div class="topic-detail">
+							sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+							</div>
+						</a>
+					</li>
+			        <li>
+						<a>
+							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="spe-pic">
+								<img src="img/list1.jpg" width="240" height="140"/>
+							</div>
+							<div class="topic-detail">
+							sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+							</div>
+						</a>
+					</li>
+					<li>
+						<a>
+							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="spe-pic">
+								<img src="img/topic1.jpg" width="240" height="140"/>
+							</div>
+							<div class="topic-detail">
+							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描
+							</div>
+						</a>
+					</li>
+					<li>
+						<a>
+							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="spe-pic">
+								<img src="img/topic1.jpg" width="240" height="140"/>
+							</div>
+							<div class="topic-detail">
+							sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+							</div>
+						</a>
+					</li>
+					<li>
+						<a>
+							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="spe-pic">
+								<img src="img/topic1.jpg" width="240" height="140"/>
+							</div>
+							<div class="topic-detail">
+							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+							</div>
+						</a>
+					</li>
+					<li>
+						<a>
+							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="spe-pic">
+								<img src="img/topic1.jpg" width="240" height="140"/>
+							</div>
+							<div class="topic-detail">
+							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+							</div>
+						</a>
+					</li>
+					<li>
+						<a>
+							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="spe-pic">
+								<img src="img/topic1.jpg" width="240" height="140"/>
+							</div>
+							<div class="topic-detail">
+							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+							</div>
+						</a>
+					</li>
+					<li>
+						<a>
+							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="spe-pic">
+								<img src="img/topic1.jpg" width="240" height="140"/>
+							</div>
+							<div class="topic-detail">
+							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+							</div>
+						</a>
+					</li>
+			    </ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+</body>
 </html>

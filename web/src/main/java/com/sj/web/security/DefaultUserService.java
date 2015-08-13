@@ -5,7 +5,6 @@ import java.util.Collection;
 import com.sj.web.util.AuthorityUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +21,7 @@ public class DefaultUserService implements UserDetailsService {
 	private SiteUserService userService;
 
 	public UserDetails loadUserByUsername(String name) {
-		SiteUser user = userService.findByNameAndEnabled(name,
+		SiteUser user = userService.login(name,
 				ActivateEnum.ACTIVATE);
 		if (user == null)
 			throw new UsernameNotFoundException("user not exist");

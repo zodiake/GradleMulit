@@ -3,6 +3,8 @@ package com.sj.repository.service.Impl;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.CommonUser;
@@ -27,5 +29,16 @@ public class CommonUserServiceImpl implements CommonUserService{
 	@Override
 	public CommonUser findByName(String name) {
 		return commonUserRepository.findByName(name);
+	}
+
+	@Override
+	public Page<CommonUser> findAll(Pageable pageable) {
+		
+		return commonUserRepository.findAll(pageable);
+	}
+
+	@Override
+	public CommonUser findOne(Long id) {
+		return commonUserRepository.findOne(id);
 	}
 }
