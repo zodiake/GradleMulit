@@ -97,7 +97,7 @@ public class LoginController {
 		}
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
 		userContext.setCurrentUser(user);
-		return HOME;
+		return "redirect:/index";
 	}
 
 	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.GET)

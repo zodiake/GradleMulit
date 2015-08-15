@@ -88,7 +88,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	public ProductCategory findByName(String name) {
-		return repository.findByName(name);
+		return repository.findByName(name,ActivateEnum.ACTIVATE);
 	}
 
 	@Override
@@ -137,6 +137,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	public ProductCategory findByNameAndParentAndState(String child,
 			ProductCategory parent, ActivateEnum status) {
 		return repository.findByNameAndParentAndActivate(child, parent, status);
+	}
+
+	@Override
+	public ProductCategory findOneActivate(Long id) {
+		return repository.findByIdAndActivate(id, ActivateEnum.ACTIVATE);
 	}
 
 }

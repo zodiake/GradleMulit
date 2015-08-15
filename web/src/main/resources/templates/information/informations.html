@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>行业要闻</title>
+  <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
+</head>
+<body>
+	<div>
+		<div th:include="@{/base/head}"></div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="crumb news-crumb">
+			<a>首页</a>
+			<i>></i>
+			<a>资讯</a>
+			<i>></i>
+			<a th:if="${category.url == 'HYYW'}">行业要闻</a>
+			<a th:if="${category.url == 'XPCG'}">新品成果</a>
+			<a th:if="${category.url == 'CSDT'}">厂商动态</a>
+		</div>	
+		<div class="mainwrapper clearfix">
+			<div class="aside fl">
+				<a th:if="${category.url =='HYYW'}" class="active">行业要闻</a>
+				<a th:unless="${category.url =='HYYW'}" href="/informationCategory/HYYW">行业要闻</a>
+				<a th:if="${category.url =='XPCG'}" class="active">新品成果</a>
+				<a th:unless="${category.url =='XPCG'}" href="/informationCategory/XPCG">新品成果</a>
+				<a th:if="${category.url =='CSDT'}" class="active">厂商动态</a>
+				<a th:unless="${category.url =='CSDT'}" href="/informationCategory/CSDT">厂商动态</a>
+			</div>
+			<div class="mainpanel fr">
+				<div class="news-wrap">
+					<ul >
+						<li th:each="info:${informations}">
+							<h3><a class="ft16 gray-deeply" th:text="${info.title}" th:href="'/informations/'+${info.id}"></a></h3>
+							<div class="news-dtl" th:with="content=${info.content.content}">
+								<p th:text="${#strings.abbreviate(content,100)}">
+								</p>
+							</div>
+							<div class="news-global clearfix">
+								<div class="news-time fl">
+									<i th:text="${#dates.format(info.createdTime, 'yyyy-MM-dd HH-mm-ss')}"></i>发布
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="pagination">
+			<div class="l-pagination">
+				<ul>
+					<li>
+						<a href="">首页</a>
+					</li>
+					<li>
+						<a href="">1</a>
+					</li>
+					<li class="active">
+						<a href="">2</a>
+					</li>
+					<li>
+						<a href="">3</a>
+					</li>
+					<li>
+						<a href="">4</a>
+					</li>
+					<li>……</li>
+					<li>
+						<a href="">40</a>
+					</li>
+					<li>
+						<a href="">尾页</a>
+					</li>
+				</ul>
+				<div class="page-total">
+					共40页
+				</div>
+				<div class="page-from">
+					<span>到第</span>
+					<input type="text" class="page-input" />
+					<span>页</span>
+					<button>确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+</body>
+</html>	

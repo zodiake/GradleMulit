@@ -10,185 +10,17 @@
   <script type="text/javascript" th:src="@{/js/script.js}"></script>
 </head>
 <body>
-	<div class="header">
-		<div class="head-box clearfix">
-			<a href="#" class="logo"><img th:src="@{/img/topic1.jpg}" alt="logo" width="165" height="80"/></a>
-			<div class="head-search">
-				<span class="searched">商品</span>
-				<input type="text"/>
-				<i class="icon-search"></i>
-				<div class="search-sort">
-					<a>商品</a>
-					<a>型号</a>
-					<a>品牌</a>
-					<a>专题</a>
-					<a>资讯</a>
-				</div>
-			</div>
-			<div class="head-dorpdown">
-				<div class="head-cart">
-					<div class="ct-cart">购物车</div>
-					<div class="ct-cart-wrap bodr hide">
-						<h3><b class="gray-deeply">最近加入的商品</b></h3>
-						<div class="ct-cart-list">
-							<ul>
-								<li>
-									<div class="fl ct-img">
-										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
-									</div>
-									<div class="fl ct-name">										
-										<a>友臣 肉松饼898克 热销装</a>
-									</div>
-									<div class="fr ct-detail">
-										<span class="ct-price">
-											<b>150.00</b>×1
-										</span>
-										<br/>
-										<a class="fr">删除</a>
-									</div>
-								</li>
-								<li>
-									<div class="fl ct-img">
-										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
-									</div>
-									<div class="fl ct-name">										
-										<a>友臣网络热销装网络热销装</a>
-									</div>
-									<div class="fr ct-detail">
-										<span class="ct-price">
-											<b>150.00</b>×1
-										</span>
-										<br/>
-										<a class="fr">删除</a>
-									</div>
-								</li>
-								<li>
-									<div class="fl ct-img">
-										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
-									</div>
-									<div class="fl ct-name">										
-										<a>友臣 肉松饼898克 网络热销装</a>
-									</div>
-									<div class="fr ct-detail">
-										<span class="ct-price">
-											<b>150.00</b>×1
-										</span>
-										<br/>
-										<a class="fr">删除</a>
-									</div>
-								</li>
-								<li>
-									<div class="fl ct-img">
-										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
-									</div>
-									<div class="fl ct-name">										
-										<a>肉松饼898克 网络热销装网络热销装网络热销装网络热销装</a>
-									</div>
-									<div class="fr ct-detail">
-										<span class="ct-price">
-											<b>150.00</b>×1
-										</span>
-										<br/>
-										<a class="fr">删除</a>
-									</div>
-								</li>
-								<li>
-									<div class="fl ct-img">
-										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
-									</div>
-									<div class="fl ct-name">										
-										<a>友臣 肉松饼898克 </a>
-									</div>
-									<div class="fr ct-detail">
-										<span class="ct-price">
-											<b>150.00</b>×1
-										</span>
-										<br/>
-										<a class="fr">删除</a>
-									</div>
-								</li>
-								<li>
-									<div class="fl ct-img">
-										<a><img th:src="@{/img/list1.jpg}" width="50" height="50"/></a>
-									</div>
-									<div class="fl ct-name">										
-										<a>友臣 肉松饼898克装网络热销装</a>
-									</div>
-									<div class="fr ct-detail">
-										<span class="ct-price">
-											<b>150.00</b>×1
-										</span>
-										<br/>
-										<a class="fr">删除</a>
-									</div>
-								</li>
-
-							</ul>
-						</div>
-						<div class="ct-total">
-							共<b>21</b>件商品&#12288;共计<strong>￥ 1961.95</strong>
-							<a class="go-cart">去购物车</a>
-						</div>
-					</div>
-				</div>
-				<div class="head-user">
-					<div class="user-name">admin</div>
-					<div class="user-menu bodr">
-						<ul>
-							<li>
-								<a>个人资料（全部）</a>
-							</li>
-							<li>
-								<a>收藏夹（个人）</a>
-							</li>
-							<li>
-								<a>我的购物车（个人）</a>
-							</li>
-							<li>
-								<a>我的采购申请（个人）</a>
-							</li>
-							<li>
-								<a>商品发布（企业）</a>
-							</li>
-							<li>
-								<a>商品维护（企业）</a>
-							</li>
-							<li>
-								<a>商品信息统计（企业）</a>
-							</li>
-							<li>
-								<a>退出登录</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="head-nav">
-			<div class="nav-box">
-				<ul>
-					<li th:if="${pc.name =='仪器'}" class="active nobor"><a href="/productCategory/仪器">仪器</a></li>
-					<li th:if="${pc.name !='仪器'}" ><a href="/productCategory/仪器">仪器</a></li>
-					<li th:if="${pc.name =='试剂'}" class="active nobor"><a href="/productCategory/试剂">试剂</a></li>
-					<li th:if="${pc.name !='试剂'}" ><a href="/productCategory/试剂">试剂</a></li>
-					<li th:if="${pc.name =='耗材'}" class="active nobor"><a href="/productCategory/耗材">耗材</a></li>
-					<li th:if="${pc.name !='耗材'}" ><a href="/productCategory/耗材">耗材</a></li>
-					<li th:if="${pc.name =='服务'}" class="active nobor"><a href="/productCategory/服务">仪器</a></li>
-					<li th:if="${pc.name !='服务'}" ><a href="/productCategory/服务">仪器</a></li>
-					<li><a href="#">专题</a></li>
-					<li><a href="#">资讯</a></li>
-				</ul>
-			</div>
-		</div>
+	<div>
+		<div th:include="@{/base/head}"></div>
 	</div>
 	<!-- header -->
 	<div class="wrapper">
 		<div class="crumb">
-			<a>首页</a>
+			<a href="/index">首页</a>
 			<i>></i>
-			<a th:text="${pc.name}"></a>
+			<a th:text="${pc.name}" th:href="@{'/productCategory/'+${pc.name}}"></a>
 			<i>></i>
-			<a th:text="${category.name}"></a>
+			<a th:text="${child.name}"></a>
 		</div>
 		<div class="gray-hd">
 			<a class="blue ft14">生物芯片</a>			
@@ -273,38 +105,40 @@
 		<div class="items-list">
 			<ul>
 				<li class="bodr" th:each="product:${products}">
-					<a><img th:src="@{${product.coverImg}}" width="220" height="160"/></a>
-					<div class="pic-box">
-						<div class="pic-row refer">
-							<label>参考报价</label>
-							<span>
-								<b class="red ft14">￥<i th:text="${product.price}"></i></b>
-							</span>
+					<a th:href="@{'/products/'+${product.id}}">
+						<img th:src="@{${product.coverImg}}" width="220" height="160"/>
+						<div class="pic-box">
+							<div class="pic-row refer">
+								<label>参考报价</label>
+								<span>
+									<b class="red ft14">￥<i th:text="${product.price}"></i></b>
+								</span>
+							</div>
+							<div class="pic-row tit" th:text="${product.name}"></div>
+							<div class="pic-row">
+								<label>品牌：</label>
+								<span th:text="${product.brand.name}"></span>
+							</div>
+							<div class="pic-row">
+								<label >产地：</label>
+								<label th:if="${product.placeOfProduction.toString() == 'DOMESTIC'}">国内</label>
+								<label th:if="${product.placeOfProduction.toString() == 'EUROPEANDUS'}">欧美</label>
+								<label th:if="${product.placeOfProduction.toString() == 'OTHER'}">其他</label>
+							</div>
+							<div class="pic-row">
+								<label>型号：</label>
+								<span th:text="${product.model}"></span>
+							</div>
+							<div class="pic-row comment">
+								已有<i class="blue" th:text="${product.reviewCount}">1213</i>人评论
+							</div>
+							<div class="pic-row bodr">
+								<a class="btn-cancel" th:if="${product.isCollection()==true}">取消收藏</a>
+								<a class="btn-cancel" th:else="${product.isCollection()==true}">加入收藏</a>
+								<a class="btn-cart">加入购物车</a>
+							</div>
 						</div>
-						<div class="pic-row tit" th:text="${product.name}"></div>
-						<div class="pic-row">
-							<label>品牌：</label>
-							<span th:text="${product.brand.name}"></span>
-						</div>
-						<div class="pic-row">
-							<label >产地：</label>
-							<label th:if="${product.placeOfProduction.toString() == 'DOMESTIC'}">国内</label>
-							<label th:if="${product.placeOfProduction.toString() == 'EUROPEANDUS'}">欧美</label>
-							<label th:if="${product.placeOfProduction.toString() == 'OTHER'}">其他</label>
-						</div>
-						<div class="pic-row">
-							<label>型号：</label>
-							<span th:text="${product.model}"></span>
-						</div>
-						<div class="pic-row comment">
-							已有<i class="blue" th:text="${product.reviewCount}">1213</i>人评论
-						</div>
-						<div class="pic-row bodr">
-							<a class="btn-cancel" th:if="${product.isCollection()==true}">取消收藏</a>
-							<a class="btn-cancel" th:else="${product.isCollection()==true}">加入收藏</a>
-							<a class="btn-cart">加入购物车</a>
-						</div>
-					</div>
+					</a>
 				</li>
 			</ul>
 		</div>	

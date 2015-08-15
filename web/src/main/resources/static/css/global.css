@@ -62,6 +62,9 @@ input{
 .btn.green{
 	background: #43b628;
 }
+.center{
+	text-align: center;
+}
 button{		
 	font-size: 14px;
 	border:none;
@@ -76,6 +79,9 @@ button{
 }
 .bodr{
 	border:1px solid #dcdcdc;
+}
+.mt5{
+	margin-top: 5px;
 }
 .mr20{
 	margin-right: 20px;
@@ -228,6 +234,7 @@ table{
 .head-nav .nav-box li{
 	display: inline-block;
 	padding: 10px 0;
+	margin-right:-4px;
 }
 .head-nav .nav-box a.nobor,
 .product-nav a.nobor{
@@ -360,6 +367,7 @@ table{
 	text-align: center;
 	padding:11px 0;
 	width: 120px;
+	border-right:1px solid #a0a0a0;
 }
 .news .news-nav a.active{
 	background: #43b628;
@@ -420,6 +428,7 @@ table{
 	font-size: 14px;
 	color: #686f83;
 	text-align: center;
+	border-right: 1px solid #e3e5ea;
 }
 .product-nav a.active{
 	color: #fff;
@@ -1261,16 +1270,19 @@ span.mu-amount{
 	cursor: pointer;
 }
 a.add-cart{
-	display: inline-block;
+	display: block;
 	width: 120px;
 	padding-left: 25px;
-	margin-left: 150px;
 	line-height: 35px;
 	color: #fff;
 	text-align: center;
 	background: url('../img/icon-cart1.png') no-repeat 18px 9px;
 	background-color: #ffbe26;
 	border-radius: 3px;
+}
+.pro-info a.add-cart{	
+	margin-left: 150px;	
+	display: inline-block;
 }
 .layout{
 	margin-top: 20px;
@@ -1302,11 +1314,52 @@ a.add-cart{
 	display: block;
 	width: 700px;
 }
+
+.dtl-txt embed{
+	display:block;
+	width:700px;
+	margin:0 auto 20px;
+}
 .about-special li{	
 	width: 240px;
 	height: 360px;
 	margin: 0 45px 40px;
 	margin-right: 20px;
+}
+.plans{
+	padding-left: 20px;
+	margin: 10px 0;
+	border-bottom: 1px dashed #dcdcdc;
+}
+.plans-list{
+	padding:10px 20px;
+}
+.plans-list ul{
+	overflow: hidden;
+}
+.plans-list li{
+	position: relative;
+	cursor: pointer;
+	float: left;
+	width:222px;
+	padding: 5px;
+	margin: 0 20px 10px;
+	overflow: hidden;
+	background: #eee;
+	border:1px solid #dcdcdc;
+}
+.plans-list li .plans-dtl{
+	padding-left: 10px;
+}
+.plans-list li input[type=checkbox]{
+	position: absolute;
+	right: 3px;
+	top: 5px;
+}
+.checkAll{
+	padding-left: 20px;
+	vertical-align: top;
+	line-height: 18px;
 }
 li div.title{
 	line-height: 35px;
@@ -1386,6 +1439,10 @@ li div.topic-detail{
 	padding-bottom: 5px;
 	border-bottom: 1px solid #dcdcdc;
 }
+.news-crumb.nobodr{
+	border-bottom: none;
+}
+
 .news-wrap li{
 	padding-bottom: 10px;
 	margin-bottom: 10px;
@@ -1513,6 +1570,18 @@ li div.topic-detail{
 	top:15px;
 	cursor: pointer;
 }
+.cart-con a.add-cart{
+	width: 130px;
+	padding-left: 0;
+	line-height: 30px;
+	display: inline-block;
+	background: none #ffbe26;
+}
+.cart-hd{
+	color: #43b628;
+	padding-left: 30px;
+	background: url('../img/icon-success.png') no-repeat 0 4px;
+}
 .foot-btn .btn.green,
 .foot-btn .btn.default{
 	width: 80px;
@@ -1524,6 +1593,18 @@ button.default{
 	line-height: 25px;
 }
 
+.validate{
+	display: inline-block;
+	padding-left: 20px;
+	background: url('../img/icon-validate.png') no-repeat;
+}
+.validate.error{
+	background-position: 0 2px;
+}
+.validate.pass{
+	color: #868fa7;
+	background-position: 2px -17px;
+}
 
 
 

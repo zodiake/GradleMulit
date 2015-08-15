@@ -15,6 +15,12 @@ import javax.persistence.Table;
 @Table(name = "category")
 @DiscriminatorValue("pc")
 public class ProductCategory extends Category implements Serializable{
+	
+	public static final String HQ="仪器";
+	public static final String SJ="试剂";
+	public static final String HC="耗材";
+	public static final String FW="服务";
+	public static final String ZT="专题";
 
 	@OneToMany(mappedBy = "parent")
 	private Set<ProductCategory> categories;
@@ -31,24 +37,28 @@ public class ProductCategory extends Category implements Serializable{
 		super();
 		this.id = id;
 	}
+	public ProductCategory(String name){
+		super();
+		this.name=name;
+	}
 
 	public static ProductCategory getFirst(String name) {
 		ProductCategory pc = new ProductCategory();
-		if(name.equals("仪器")){
+		if(name.equals(HQ)){
 			pc.setId(1l);
-			pc.setName("仪器");
+			pc.setName(HQ);
 		}
-		else if(name.equals("试剂")){
+		else if(name.equals(SJ)){
 			pc.setId(2l);
-			pc.setName("试剂");
+			pc.setName(SJ);
 		}
-		else if(name.equals("耗材")){
+		else if(name.equals(HC)){
 			pc.setId(3l);
-			pc.setName("耗材");
+			pc.setName(HC);
 		}
-		else if(name.equals("服务")){
+		else if(name.equals(FW)){
 			pc.setId(4l);
-			pc.setName("服务");
+			pc.setName(FW);
 		}
 		return  pc;
 	}

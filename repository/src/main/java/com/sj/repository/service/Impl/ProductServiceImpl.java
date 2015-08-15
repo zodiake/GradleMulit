@@ -114,6 +114,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findByCategory(ProductCategory category,
 			Pageable pageable) {
+		
 		return repository.findByThirdCategoryAndStatus(category, pageable, ProductStatusEnum.UP);
 	}
 
@@ -151,6 +152,11 @@ public class ProductServiceImpl implements ProductService {
 			repository.save(products);
 		}
 		return strs;
+	}
+
+	@Override
+	public Product saveOne(Product product) {
+		return repository.save(product);
 	}
 
 }

@@ -38,7 +38,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Size(max = 1)
+	
 	private String name;
 	// new
 	private String nameEnglish; // 产品英文名
@@ -62,7 +62,7 @@ public class Product {
 
 	@Transient
 	private MultipartFile image;
-	@Min(1)
+	
 	private float price;
 
 	@ManyToMany(mappedBy = "products")

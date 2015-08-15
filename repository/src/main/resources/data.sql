@@ -29,7 +29,11 @@ values(3,'耗材',null,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(4,'服务',null,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(5,'广告位1',null,1,'2012-1-1','tom','ac');
+values(5,'资讯',null,1,'2012-1-1','tom','ic');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(6,'专题',null,1,'2012-1-1','tom','ic');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(20,'广告位1',null,1,'2012-1-1','tom','ac');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type) 
 values(10,'secondCategory1-2',1,1,'2012-1-1','tom','pc');
@@ -52,9 +56,10 @@ values(15,'thirdCategory3-7',10,1,'2012-1-1','tom','pc');
 --insert into category(id,name,category_type,activate) values(10,'专访','sc',1);
 
 --test advertise category
-insert into category(id,name,category_type,activate,url) values(6,'行业要闻','ic',1,'HYYW');
-insert into category(id,name,category_type,activate,url) values(7,'新品成果','ic',1,'XPCG');
-insert into category(id,name,category_type,activate,url) values(8,'厂商动态','ic',1,'CSDT');
+
+insert into category(id,name,category_type,activate,url) values(7,'行业要闻','ic',1,'HYYW');
+insert into category(id,name,category_type,activate,url) values(8,'新品成果','ic',1,'XPCG');
+insert into category(id,name,category_type,activate,url) values(9,'厂商动态','ic',1,'CSDT');
 --insert into category(id,name,category_type,activate) values(9,'行业4','ac',1);
 --insert into category(id,name,category_type,activate) values(10,'行业5','ac',1);
 
@@ -92,27 +97,27 @@ values(2,'上海申捷','shenjie','dwg','两亿','人体强化药剂',2,'/provid
 
 --test product
 --tom product
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status) 
-values(1,'instrument1','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,1,'instrument1English','HD300',1,'10支',1,1);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time) 
+values(1,'instrument1','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,1,'instrument1English','HD300',1,'10支',1,1,systimestamp);
 
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status)
-values(2,'product2','/img/banner1.jpg',10.0,'/product/2',1,10,13,1,2,'product2English','HD302',1,'10支',1,1);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time)
+values(2,'product2','/img/banner1.jpg',10.0,'/product/2',1,10,13,1,2,'product2English','HD302',1,'10支',1,1,systimestamp);
 
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status)
-values(3,'product3','/img/banner1.jpg',10.0,'/product/3',1,10,13,1,3,'product3English','HD303',1,'10支',1,1);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time)
+values(3,'product3','/img/banner1.jpg',10.0,'/product/3',1,10,13,1,3,'product3English','HD303',1,'10支',1,1,systimestamp);
 
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status)
-values(4,'product4','/img/banner1.jpg',10.0,'/product/4',1,10,13,1,4,'product3English','HD303',1,'10支',1,1);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time)
+values(4,'product4','/img/banner1.jpg',10.0,'/product/4',1,10,13,1,4,'product3English','HD303',1,'10支',1,1,systimestamp);
 
 --mary2 product
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status)
-values(5,'product1','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,5,'product3English','HD303',1,'10支',1,1);
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status)
-values(6,'product2','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3English','HD303',1,'10支',1,1);
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status)
-values(7,'product3','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,1);
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status)
-values(8,'product4','/img/banner1.jpg',10.0,'/product/4',1,10,13,2,8,'product3English','HD303',1,'10支',1,1);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time)
+values(5,'product1','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,5,'product3English','HD303',1,'10支',1,1,systimestamp);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time)
+values(6,'product2','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3English','HD303',1,'10支',1,1,systimestamp);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time)
+values(7,'product3','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,1,systimestamp);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time)
+values(8,'product4','/img/banner1.jpg',10.0,'/product/4',1,10,13,2,8,'product3English','HD303',1,'10支',1,1,systimestamp);
 
 --tom instrument
 insert into instrument(id) values(1);
@@ -127,10 +132,10 @@ insert into prefer_products(user_id,product_id,created_time) values(3,2,'2014-1-
 insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-1');
 
 --test subject 专题
-insert into subject(id,name,show_on_index,activate,created_by,created_time) values (1,'subject1',1,1,'上海申捷卫生科技','2013-1-1');
-insert into subject(id,name,show_on_index,activate,created_by,created_time) values (2,'subject2',1,1,'上海申捷卫生科技','2013-1-2');
-insert into subject(id,name,show_on_index,activate,created_by,created_time) values (3,'subject3',1,1,'上海申捷卫生科技','2013-1-3');
-insert into subject(id,name,show_on_index,activate,created_by,created_time) values (4,'subject4',1,1,'上海申捷卫生科技','2013-1-4');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (1,'subject1',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (2,'subject2',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (3,'subject3',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (4,'subject4',1,1,'上海申捷卫生科技',systimestamp,1);
 
 --test subject_product
 insert into subject_product(subject_id,product_id)values(1,1);
@@ -138,9 +143,9 @@ insert into subject_product(subject_id,product_id)values(1,2);
 insert into subject_product(subject_id,product_id)values(1,3);
 
 --test reviews
-insert into review(id,content,product_id,user_id) values(1,'haha,very good user1',1,1);
-insert into review(id,content,product_id,user_id) values(2,'haha,very good user2',1,2);
-insert into review(id,content,product_id,user_id) values(3,'haha,very good user3',1,3);
+insert into review(id,content,product_id,user_id,created_time) values(1,'haha,very good user1',1,1,systimestamp);
+insert into review(id,content,product_id,user_id,created_time) values(2,'haha,very good user2',1,2,systimestamp);
+insert into review(id,content,product_id,user_id,created_time) values(3,'haha,very good user3',1,3,systimestamp);
 
 --test scrollImage
 insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(1,'/upload/img/scroll1.jpg',1,'INDEX','www.baiduc.com');
@@ -150,7 +155,7 @@ insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(4,'/u
 insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(5,'/upload/img/scroll1.jpg',1,'INDEX','www.baiduc.com');
 
 --test information_content
-insert into information_content(id,content) values (1,'123456787890');
+insert into information_content(id,content) values (1,'我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京');
 insert into information_content(id,content) values (2,'1213141fdfdf');
 
 --test Information 资讯
@@ -159,11 +164,11 @@ insert into information_content(id,content) values (2,'1213141fdfdf');
 --insert into advertisement(id,cover_img,created_time,category_id,description) values (3,'/upload/img/scroll1.jpg','2012-1-3',6,'third');
 --insert into advertisement(id,cover_img,created_time,category_id,description) values (4,'/upload/img/scroll1.jpg','2012-1-4',6,'fourth');
 --insert into advertisement(id,cover_img,created_time,category_id,description) values (5,'/upload/img/scroll1.jpg','2012-1-5',6,'fifth');
-insert into Information(id,created_time,category_id,title,content_id,show_on_index) values (1,'2012-1-1',6,'first',1,1);
-insert into Information(id,created_time,category_id,title,content_id,show_on_index) values (2,'2012-1-12',6,'tre',2,1);
+insert into Information(id,created_time,category_id,title,content_id,show_on_index,create_by) values (1,'2012-1-1',7,'first',1,1,'shenjie');
+insert into Information(id,created_time,category_id,title,content_id,show_on_index,create_by) values (2,'2012-1-12',7,'tre',2,1,'shenjie');
 -- test guanggao
-insert into advertisement(id,cover_img,url,activate,category_id)values(1,'/upload/img/scroll1.jpg','baidu.com',1,5);
-insert into advertisement(id,cover_img,url,activate,category_id)values(2,'/upload/img/scroll2.jpg','baidu.com',1,5);
-insert into advertisement(id,cover_img,url,activate,category_id)values(3,'/upload/img/scroll3.jpg','baidu.com',0,5);
+insert into advertisement(id,cover_img,url,activate,category_id)values(1,'/upload/img/scroll1.jpg','baidu.com',1,20);
+insert into advertisement(id,cover_img,url,activate,category_id)values(2,'/upload/img/scroll2.jpg','baidu.com',1,20);
+insert into advertisement(id,cover_img,url,activate,category_id)values(3,'/upload/img/scroll3.jpg','baidu.com',0,20);
 
 

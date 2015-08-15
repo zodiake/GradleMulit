@@ -42,4 +42,6 @@ public interface ProductService {
 	public Product updateStatus(Product product, ProductStatusEnum status);
 
 	public List<String> saveProducts(List<Product> products);
+	
+	public Product saveOne(Product product);
 }

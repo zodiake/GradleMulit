@@ -15,6 +15,8 @@ public interface ProductCategoryService {
 			ProductCategory parent, ActivateEnum activate);
 
 	public ProductCategory findOne(Long id);
+	
+	public ProductCategory findOneActivate(Long id);
 
 	public Set<ProductCategory> findAll();
 

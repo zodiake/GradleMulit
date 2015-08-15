@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>检测应用</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+  <script th:src="@{/js/jquery-min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+  <script th:src="@{/js/silderBox.js}"></script>
+  <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+	<div>
+		<div th:include="@{/base/head}"></div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">		
+		<div class="global-box topic-box">
+		    <ul>
+		    	 <li th:each="subject:${subjects}">
+					<a th:href="@{'/subjects/'+${subject.id}}">
+						<div class="title ft16" th:text="${subject.name}">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img th:src="@{/img/topic1.jpg}" width="240" height="140"/>
+						</div>
+						<div class="topic-detail" th:text="${subject.content.content}">
+						</div>
+					</a>
+				</li>
+		    
+		        <li>
+					<a>
+						<div class="title ft16">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img src="img/topic1.jpg" width="240" height="140"/>
+						</div>
+						<div class="topic-detail">
+						sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+						</div>
+					</a>
+				</li>
+		        <li>
+					<a>
+						<div class="title ft16">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img src="img/list1.jpg" width="240" height="140"/>
+						</div>
+						<div class="topic-detail">
+						sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+						</div>
+					</a>
+				</li>
+				<li>
+					<a>
+						<div class="title ft16">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img src="img/topic1.jpg" width="240" height="140"/>
+						</div>
+						<div class="topic-detail">
+						生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描
+						</div>
+					</a>
+				</li>
+				<li>
+					<a>
+						<div class="title ft16">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img src="img/topic1.jpg" width="240" height="140"/>
+						</div>
+						<div class="topic-detail">
+						sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+						</div>
+					</a>
+				</li>
+				<li>
+					<a>
+						<div class="title ft16">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img src="img/topic1.jpg" width="240" height="140"/>
+						</div>
+						<div class="topic-detail">
+						生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+						</div>
+					</a>
+				</li>
+				<li>
+					<a>
+						<div class="title ft16">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img src="img/topic1.jpg" width="240" height="140"/>
+						</div>
+						<div class="topic-detail">
+						生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+						</div>
+					</a>
+				</li>
+				<li>
+					<a>
+						<div class="title ft16">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img src="img/topic1.jpg" width="240" height="140"/>
+						</div>
+						<div class="topic-detail">
+						生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+						</div>
+					</a>
+				</li>
+				<li>
+					<a>
+						<div class="title ft16">生物芯片扫描仪</div>
+						<div class="spe-pic">
+							<img src="img/topic1.jpg" width="240" height="140"/>
+						</div>
+						<div class="topic-detail">
+						生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+						</div>
+					</a>
+				</li>
+		    </ul>
+		</div>
+		<div class="pagination">
+			<div class="l-pagination">
+				<ul>
+					<li>
+						<a href="">首页</a>
+					</li>
+					<li>
+						<a href="">1</a>
+					</li>
+					<li class="active">
+						<a href="">2</a>
+					</li>
+					<li>
+						<a href="">3</a>
+					</li>
+					<li>
+						<a href="">4</a>
+					</li>
+					<li>……</li>
+					<li>
+						<a href="">40</a>
+					</li>
+					<li>
+						<a href="">尾页</a>
+					</li>
+				</ul>
+				<div class="page-total">
+					共40页
+				</div>
+				<div class="page-from">
+					<span>到第</span>
+					<input type="text" class="page-input" />
+					<span>页</span>
+					<button>确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+</body>
+</html>

@@ -234,6 +234,7 @@ create table information(
 	show_on_index tinyint(1),
 	content_id bigint,
 	created_time timestamp,
+	create_by varchar(50),
 	category_id bigint,
 	primary key(id),
 	foreign key(content_id) references information_content(id),

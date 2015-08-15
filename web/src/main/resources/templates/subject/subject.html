@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>检测应用详情</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+  <script th:src="@{/js/jquery-min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+  <script th:src="@{/js/silderBox.js}"></script>
+  <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+	<div>
+		<div th:include="@{/base/head}"></div>
+	</div>
+	<!-- header -->
+	<div class="wrapper" th:object="${subject}">
+		<div class="crumb news-crumb nobodr">
+			<a>首页</a>
+			<i>></i>
+			<a>专题</a>
+			<i>></i>
+			<a th:text="${subject.name}">Lorem ipsum dolor sit amet</a>
+		</div>	
+		<div class="mainwrapper clearfix">
+			<div class="news-dtl-wrap bodr">
+				<h3 class="ft16 gray-deeply center" th:text="${subject.name}"></h3>
+				<div class="dtl-tag gray-hd">
+					<span>发布于 <i th:text="${#dates.format(subject.createdTime, 'yyyy-MM-dd HH:mm:ss')}">2015年05月01日 12:20</i> </span>
+					<span>浏览<i th:text="${subject.viewCount}">1212</i>次</span>	
+					<span> 来源 : <i th:text="${subject.createdBy}">上海申捷卫生科1技</i></span>
+				</div>
+				<div class="dtl-txt" >
+					<embed
+		th:src="@{'http://static.youku.com/v/swf/qplayer.swf?VideoIDS=XMTMwNTc4ODUzNg== &amp;isAutoPlay=false&amp;isShowRelatedVideo=false&amp;embedid=-&amp;showAd=0'}"
+		quality="high" width="600" height="400" align="middle" allowScriptAccess="sameDomain" allowFullscreen="true" type="application/x-shockwave-flash"></embed>
+				</div>			
+				<div class="gray-hd ft14">设备方案</div>
+				<div class="plans" th:if="${yqs.size()!=0}">
+					<h3>仪器（<i th:text="${yqs.size()}"></i>）</h3>
+					<div class="plans-list">
+						<ul>
+							<li th:each="yq:${yqs}">	
+								<input type="checkbox" />
+								<div class="fl">
+									<img th:src="@{${yq.coverImg}}" width="90" height="45"/>
+								</div> 
+								<div class="fl plans-dtl">
+									<p>
+										<label>参考报价：</label>
+										<b class="red ft14" th:text="${yq.price}">￥1500</b>
+									</p>
+									<p class="mt5" th:text="${yq.name}">GenePix A生物芯片扫描仪</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="plans" th:if="${sjs.size()!=0}">
+					<h3>试剂（<i th:text="${sjs.size()}"></i>）</h3>
+					<div class="plans-list">
+						<ul>
+							<li th:each="sj:${sjs}">	
+								<input type="checkbox" />
+								<div class="fl">
+									<img th:src="@{${sj.coverImg}}" width="90" height="45"/>
+								</div> 
+								<div class="fl plans-dtl">
+									<p>
+										<label>参考报价：</label>
+										<b class="red ft14" th:text="${sj.price}">￥1500</b>
+									</p>
+									<p class="mt5" th:text="${sj.name}">GenePix A生物芯片扫描仪</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="plans" th:if="${hcs.size()!=0}">
+					<h3>耗材（<i th:text="${hcs.size()}"></i>）</h3>
+					<div class="plans-list">
+						<ul>
+							<li th:each="hc:${hcs}">	
+								<input type="checkbox" />
+								<div class="fl">
+									<img th:src="@{${hc.coverImg}}" width="90" height="45"/>
+								</div> 
+								<div class="fl plans-dtl">
+									<p>
+										<label>参考报价：</label>
+										<b class="red ft14" th:text="${hc.price}">￥1500</b>
+									</p>
+									<p class="mt5" th:text="${hc.name}">GenePix A生物芯片扫描仪</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="plans" th:if="${fws.size()!=0}">
+					<h3>服务（<i th:text="${fws.size()}"></i>）</h3>
+					<div class="plans-list">
+						<ul>
+							<li th:each="fw:${fws}">	
+								<input type="checkbox" />
+								<div class="fl">
+									<img th:src="@{${fw.coverImg}}" width="90" height="45"/>
+								</div> 
+								<div class="fl plans-dtl">
+									<p>
+										<label>参考报价：</label>
+										<b class="red ft14" th:text="${fw.price}">￥1500</b>
+									</p>
+									<p class="mt5" th:text="${fw.name}">GenePix A生物芯片扫描仪</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="checkAll" onclick="selectAll()">						
+					<input type="checkbox" />全选
+				</div>	
+				<a class="add-cart ft16 mauto show-wrap">加入购物车</a>
+			</div>
+			
+		</div>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+	<div class="fixed"></div>
+	<div class="hide-wrap bodr">
+		<div class="hide-con cart-con">
+			<h2 class="cart-hd">商品已成功加入购物车!</h2>
+			<div class="foot-btn">
+				<a class="add-cart ft14">去购物车生成订单</a>
+				<a class="blue cancel">继续购物</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

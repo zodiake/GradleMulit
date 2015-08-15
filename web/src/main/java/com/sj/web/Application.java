@@ -70,6 +70,7 @@ public class Application extends WebMvcConfigurerAdapter {
 			http.authorizeRequests()
 					.antMatchers("/*/signup")
 					.permitAll()
+					.antMatchers("/base/*").permitAll()
 					.antMatchers("*/signup")
 					.permitAll()
 					.antMatchers("/user/isExiste/*")

@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.sj.model.type.ActivateEnum;
 
@@ -55,6 +56,9 @@ public class Subject {
 	
 	@Column(name="u_id")
 	private String uId;
+	
+	@Transient
+	private Long viewCount=0l;
 	
 
 	public Subject() {
@@ -161,5 +165,13 @@ public class Subject {
 
 	public void setuId(String uId) {
 		this.uId = uId;
+	}
+
+	public Long getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Long viewCount) {
+		this.viewCount = viewCount;
 	}
 }

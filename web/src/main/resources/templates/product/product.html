@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>仪器商品详情</title>
+  <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
+  <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</head>
+<body>
+	<div>
+		<div th:include="@{/base/head}"></div>
+	</div>
+	<!-- header -->
+	<div class="wrapper" th:object="${product}">
+		<div class="crumb">
+			<a href="/">首页</a>
+			<i>></i>
+			<a th:text="${product.firstCategory.name}" th:href="@{'/productCategory/'+${product.firstCategory.name}}"></a>
+			<i>></i>
+			<a th:text="${product.thirdCategory.name}"></a>
+			<i>></i>
+			<a th:text="${product.name}"></a>
+		</div>	
+		<div class="goods-property bodr clearfix">
+			<div class="fl pro-big">
+				<img th:src="@{/img/banner1.jpg}" width="400" height="400"/>
+			</div>
+			<div class="fl pro-info">
+				<div class="panel global-panel clearfix">					
+					<h3 class="ft16 tit" th:text="${product.name}">GenePix 4100 A生物芯片扫描仪</h3>
+					<div class="collect-num">收藏</div>
+					<div class="number">121</div>
+				</div>
+				<div class="panel panel-price">
+					<label>价格：</label>
+					<span><b class="ft22 red" th:text="${product.price}">￥1500</b></span>
+				</div>
+				<div class="panel">
+					<label>类型</label>
+					<span th:text="${product.thirdCategory.name}">芯片扫描仪</span>
+				</div>
+				<div class="panel">
+					<label>型号：</label>
+					<span th:text="${product.model}">GenePix 4100 A</span>
+				</div>
+				<div class="panel">
+					<label>品牌：</label>
+					<span th:text="${product.brand.name}">GenePix 4100 A</span>
+				</div>
+				<div class="panel">
+					<label>产地：</label>
+					<span th:if="${product.placeOfProduction.toString() == 'DOMESTIC'}">国内</span>
+					<span th:if="${product.placeOfProduction.toString() == 'EUROPEANDUS'}">欧美</span>
+					<span th:if="${product.placeOfProduction.toString() == 'OTHER'}">其他</span>
+				</div>
+				<div class="panel">
+					<label>产品规格：</label>
+					<span th:text="${product.specifications}">中国</span>
+				</div>
+				<div class="panel panel-tag">
+					<label>标签：</label>
+					<span th:text="${product.label}">生物芯片</span>
+				</div>
+				<div class="panel">
+					<label>上架时间：</label>
+					 <span th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015-05-18 17:25</span>
+				</div>
+				<div class="panel">
+					<label>数量：</label>
+					<span class="mu-amount">
+						<input type="text" class="amount-input" th:value="0"/>
+						<span class="amount-btn">
+			                <span class="amount-increase">+</span>
+			                <span class="amount-decrease">-</span>
+						</span>
+					</span>
+					<a class="add-cart ft16">加入购物车</a>
+				</div>
+			</div>
+		</div>
+		<div class="layout">
+			<div class="tabs-nav detail-nav bodr">
+				<a class="active">商品详情</a>
+				<a>相关专题(<i th:text="${product.getSubjects().size()}"></i>)</a>
+				<a>评论(<i th:text="${reviewPage.getContent().size()}"></i>)</a>
+			</div>
+			<div class="tab-conts detail-con bodr">
+				<div class="tab-panel global-box goods-detail" th:text="${product.content.content}">
+				</div>
+				<div class="tab-panel global-box about-special hide">
+					<ul>
+						<li th:each="subject:${product.getSubjects()}">
+							<a>
+								<div class="title"><b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b></div>
+								<div class="spe-pic">
+									<img th:src="@{/img/list1.jpg}" width="240" height="140"/>
+								</div>
+								<div class="topic-detail" th:text="${subject.content.content}">
+								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+								</div>
+							</a>
+						</li>
+						<li>
+							<a>
+								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
+								<div class="spe-pic">
+									<img src="img/list1.jpg" width="240" height="140"/>
+								</div>
+								<div class="topic-detail">
+								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+								</div>
+							</a>
+						</li>
+						<li>
+							<a>
+								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
+								<div class="spe-pic">
+									<img src="img/list1.jpg" width="240" height="140"/>
+								</div>
+								<div class="topic-detail">
+								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+								</div>
+							</a>
+						</li>
+						<li>
+							<a>
+								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
+								<div class="spe-pic">
+									<img src="img/list1.jpg" width="240" height="140"/>
+								</div>
+								<div class="topic-detail">
+								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+								</div>
+							</a>
+						</li>
+						<li>
+							<a>
+								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
+								<div class="spe-pic">
+									<img src="img/list1.jpg" width="240" height="140"/>
+								</div>
+								<div class="topic-detail">
+								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+								</div>
+							</a>
+						</li>
+						<li>
+							<a>
+								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
+								<div class="spe-pic">
+									<img src="img/list1.jpg" width="240" height="140"/>
+								</div>
+								<div class="topic-detail">
+								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+								</div>
+							</a>
+						</li>
+						<li>
+							<a>
+								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
+								<div class="spe-pic">
+									<img src="img/list1.jpg" width="240" height="140"/>
+								</div>
+								<div class="topic-detail">
+								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="tab-panel global-box comments hide">
+					<div class="area-box">
+						<div class="info-area bodr clearfix">
+							<div class="info fl">
+								<img src="img/member.png" width="60" height="60"/>
+							</div>
+							<div class="text-area fl">
+								<textarea class="bodr"></textarea>
+							</div>
+							<button class="btn green fr">评论</button>
+						</div>
+					</div>					
+					<div class="comment-list">
+						<ul>
+							<li th:each="review:${reviewPage.getContent()}">
+								<div class="member-info fl">
+									<img th:src="@{/img/member.png}" width="60" height="60"/>
+								</div>
+								<div class="member-global fr">
+									<div class="member-msg clearfix" th:with="date=${nowTime-review.createdTime.getTime().getTime()}">
+										<span class="me-name fl" th:text="${review.createdBy.name}">暖心向阳</span>
+										<span class="evt-time fr"><i th:if="${date/(1000*3600) lt 1 }" th:text="${date/(1000*60)}+'分钟前'"></i></span>
+										<span class="evt-time fr"><i th:if="${1 lt (date/(1000*3600)) and (date/(1000*3600)) lt 24}" th:text="${(date/(1000*3600))}+'小时前'"></i></span>
+										<span class="evt-time fr"><i th:if="${24 lt (date/(1000*3600)) and (date/(1000*3600*24))==1}" th:text="昨天"></i></span>
+										<span class="evt-time fr"><i th:if="${1 lt (date/(1000*3600*24)) and (date/(1000*3600*24)) lt 10}" th:text="${(date/(1000*3600*24)}+'天前'"></i></span>
+										<span class="evt-time fr"><i th:if="${10 lt (date/(1000*3600*24))}" th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}"></i></span>
+									</div>
+									<div class="msg">
+										<p th:text="${review.content}"></p>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div class="member-info fl">
+									<img src="img/member.png" width="60" height="60"/>
+								</div>
+								<div class="member-global fr">
+									<div class="member-msg clearfix">
+										<span class="me-name fl">暖心向阳</span>
+										<span class="evt-time fr"><i>1</i>小时前</span>
+									</div>
+									<div class="msg">
+										<p>以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="member-info fl">
+									<img src="img/member.png" width="60" height="60"/>
+								</div>
+								<div class="member-global fr">
+									<div class="member-msg clearfix">
+										<span class="me-name fl">暖心向阳</span>
+										<span class="evt-time fr"><i>1</i>小时前</span>
+									</div>
+									<div class="msg">
+										<p>以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="pagination">
+						<div class="l-pagination">
+							<ul>
+								<li>
+									<a href="">首页</a>
+								</li>
+								<li>
+									<a href="">1</a>
+								</li>
+								<li class="active">
+									<a href="">2</a>
+								</li>
+								<li>
+									<a href="">3</a>
+								</li>
+								<li>
+									<a href="">4</a>
+								</li>
+								<li>……</li>
+								<li>
+									<a href="">40</a>
+								</li>
+								<li>
+									<a href="">尾页</a>
+								</li>
+							</ul>
+							<div class="page-total">
+								共40页
+							</div>
+							<div class="page-from">
+								<span>到第</span>
+								<input type="text" class="page-input"/>
+								<span>页</span>
+								<button>确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+	<script></script>
+</body>
+</html>	

@@ -3,7 +3,7 @@ package com.sj.model.type;
 import java.util.Locale;
 
 public enum AdvertiseCategoryEnum {
-	INDEX;
+	ADVERTISEMENT1,ADVERTISEMENT2;
 
 	public static AdvertiseCategoryEnum fromString(String value) {
 

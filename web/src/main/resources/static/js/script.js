@@ -6,7 +6,7 @@ $(function(){
 		$('.tab-conts .tab-panel').eq(index).show().siblings().hide();
 	})
 	$('.change-color tr:even').css('background','#eee');
-	$('.show-wrap a,button.show-wrap,.temped').click(function(){
+	$('.show-wrap a,button.show-wrap,.temped,.show-wrap').click(function(){
 		$('.hide-wrap').fadeIn();
 		$('.fixed').fadeIn();
 	})
@@ -44,5 +44,20 @@ $(function(){
 			li_par.find('.items').removeClass('pack').addClass('expand');
 		}
 	})
-	
+	$('.plans-list li').click(function(){
+		if($(this).find('input').is(':checked')){
+			$(this).find('input').prop('checked', false);
+		}else{
+			$(this).find('input').prop('checked', true);
+		}
+	})
 })
+
+function selectAll(){
+ if ($(".checkAll input").is(':checked')) {  
+       $('.plans-list li').find("input").prop('checked', true)
+    } else {  
+       $('.plans-list li').find("input").prop('checked', false)
+    }  
+
+}

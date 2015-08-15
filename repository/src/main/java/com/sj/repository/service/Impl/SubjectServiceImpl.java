@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Page<Subject> findByActivated(Pageable pageable,
 			ActivateEnum activate) {
-		return repository.findByActivate(pageable, activate);
+		return repository.findByActivateOrderByCreatedTimeDesc(pageable, activate);
 	}
 
 	@Override
@@ -37,6 +39,21 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Subject save(Subject s) {
 		return repository.save(s);
+	}
+
+	@Override
+	public Subject update(Subject s,Subject old) {
+		old.setContent(s.getContent());
+		old.setCreatedBy(s.getCreatedBy());
+		old.setName(s.getName());
+		old.setShowOnIndex(s.getShowOnIndex());
+		old.setActivate(s.getActivate());
+		return repository.save(old);
+	}
+
+	@Override
+	public List<Subject> findByShowOnIndex() {
+		return repository.findByShowOnIndex(ActivateEnum.ACTIVATE);
 	}
 
 }

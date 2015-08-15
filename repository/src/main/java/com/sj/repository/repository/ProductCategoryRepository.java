@@ -14,6 +14,8 @@ public interface ProductCategoryRepository extends
 		PagingAndSortingRepository<ProductCategory, Long> {
 	@Override
 	Set<ProductCategory> findAll();
+	
+	ProductCategory findByIdAndActivate(Long id,ActivateEnum activate);
 
 	Page<ProductCategory> findByParent(Pageable pageable,ProductCategory category);
 
@@ -24,7 +26,7 @@ public interface ProductCategoryRepository extends
 	List<ProductCategory> findByParentAndActivate(ProductCategory category,
 			ActivateEnum activate);
 
-	ProductCategory findByName(String name);
+	ProductCategory findByName(String name,ActivateEnum activate);
 	
 	ProductCategory findByNameAndParentAndActivate(String name,ProductCategory category,ActivateEnum activate);
 }
