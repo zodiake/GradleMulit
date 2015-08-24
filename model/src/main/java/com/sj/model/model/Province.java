@@ -1,5 +1,6 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -15,15 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "province")
-public class Province {
-	public Province() {
-
-	}
-
-	public Province(Long id) {
-		this.id = id;
-	}
-
+public class Province implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -32,6 +25,15 @@ public class Province {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "province")
 	private Set<City> cities;
+	
+	public Province() {
+
+	}
+
+	public Province(Long id) {
+		this.id = id;
+	}
+
 
 	public Long getId() {
 		return id;

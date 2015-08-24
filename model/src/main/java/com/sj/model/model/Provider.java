@@ -1,5 +1,7 @@
 package com.sj.model.model;
 
+import java.util.Calendar;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import com.sj.model.type.BusinessTypeEnum;
 import com.sj.model.type.ComponyTypeEnum;
@@ -30,9 +35,14 @@ public class Provider extends SiteUser {
 		super(id);
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "authenticated_time")
+	private Calendar authenticatedTime; // 鉴定时间
+
 	// new
 	// 企业信息
 	@Column(name = "company_name_china")
+	@NotNull(message = "企业中文名不能为空")
 	private String companyNameChina; // 企业中文名*
 
 	@Column(name = "company_name_english")
@@ -249,14 +259,6 @@ public class Provider extends SiteUser {
 		this.structureCodeUrl = structureCodeUrl;
 	}
 
-	public Province getProvince() {
-		return province;
-	}
-
-	public void setProvince(Province province) {
-		this.province = province;
-	}
-
 	public ProviderIndustryInfo getIndustryInfo() {
 		return industryInfo;
 	}
@@ -271,6 +273,24 @@ public class Provider extends SiteUser {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	@Override
+	public Calendar getAuthenticatedTime() {
+		return authenticatedTime;
+	}
+
+	@Override
+	public void setAuthenticatedTime(Calendar authenticatedTime) {
+		this.authenticatedTime = authenticatedTime;
+	}
+
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
 	}
 
 }
