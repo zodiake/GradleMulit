@@ -432,11 +432,7 @@
 					<div class="brand fr">
 						<h3>品牌</h3>
 						<div class="brand-box">
-							<img src="img/brand1.jpg"/>
-							<img src="img/brand1.jpg"/>
-							<img src="img/brand1.jpg"/>
-							<img src="img/brand1.jpg"/>
-							<img src="img/brand1.jpg"/>
+							<img  th:each = "brand:${brands}" th:src="@{${brand.coverImg}}" th:href="'/brand/'+${brand.id}"/>
 						</div>
 					</div>
 				</div>

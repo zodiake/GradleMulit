@@ -17,14 +17,11 @@ import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.SiteUser;
-import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 import com.sj.web.exception.CategoryNotFoundException;
-import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.SiteUserContext;
-import com.sj.web.util.ShowPage;
 
 @Controller
 public class ProductCategoryController {
@@ -64,7 +61,7 @@ public class ProductCategoryController {
 				for (Product product : products) {
 					Long productId = product.getId();
 					for (int i = 0; i < prefer.size(); i++) {
-						if (product.getId().equals(prefer.get(i).getProduct().getId())) {
+						if (productId.equals(prefer.get(i).getProduct().getId())) {
 							product.setCollection(true);
 							break;
 						}

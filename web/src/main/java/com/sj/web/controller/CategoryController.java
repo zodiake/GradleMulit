@@ -1,21 +1,8 @@
 package com.sj.web.controller;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.sj.model.model.ProductCategory;
-import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.ProductCategoryService;
 
 @Controller
@@ -23,34 +10,6 @@ public class CategoryController {
 	@Autowired
 	private ProductCategoryService service;
 
-	@RequestMapping(value = "/category", method = RequestMethod.GET)
-	public String findAll() {
-		Set<ProductCategory> categories = service.findAll();
-		return "home";
-	}
-	
-	@RequestMapping(value="/category/{pc}",method=RequestMethod.GET)
-	public String findByPC(@PathVariable("pc")String category,Model uiModel){
-		List<ProductCategory> categories = service.findByYQ();
-		for (ProductCategory productCategory : categories) {
-			
-		}
-		return "index";
-	}
-
-	// child category list
-	@RequestMapping(value = "/category/{parent}/categories", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Category> findByParent(
-			@PathVariable(value = "parent") Long parent,
-			@PageableDefault(size = 15) Pageable pageable, Model uiModel) {
-		List<ProductCategory> results = service.findByParentAndActivate(
-				new ProductCategory(parent), ActivateEnum.ACTIVATE);
-		List<Category> categories = results.stream()
-				.map((r) -> new Category(r.getId(), r.getName()))
-				.collect(Collectors.toList());
-		return categories;
-	}
 
 	private class Category {
 		private Long id;

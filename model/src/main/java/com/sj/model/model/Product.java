@@ -53,9 +53,6 @@ public class Product {
 	@Column(name = "cover_img")
 	private String coverImg;
 
-	@Transient
-	private MultipartFile image;
-	
 	private float price;
 
 	@ManyToMany(mappedBy = "products")
@@ -294,14 +291,6 @@ public class Product {
 
 	public void setPlaceOfProduction(PlaceEnum placeOfProduction) {
 		this.placeOfProduction = placeOfProduction;
-	}
-
-	public MultipartFile getImage() {
-		return image;
-	}
-
-	public void setImage(MultipartFile image) {
-		this.image = image;
 	}
 
 	public String getLabel() {

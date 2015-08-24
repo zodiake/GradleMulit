@@ -21,7 +21,6 @@ import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.SubjectService;
 import com.sj.web.exception.SubjectNotFoundException;
-import com.sj.web.util.ShowPage;
 
 @Controller
 public class SubjectController {
@@ -36,7 +35,6 @@ public class SubjectController {
 		Page<Subject> subjects = subjectService.findByActivated(
 				new PageRequest(page - 1, size, Direction.DESC, "createdTime"),
 				ActivateEnum.ACTIVATE);
-		ShowPage.showSubject(subjects);
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("pc", new ProductCategory(ProductCategory.ZT));
 		return "subject/subjects";

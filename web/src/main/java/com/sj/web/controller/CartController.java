@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.CartLine;
@@ -47,11 +46,18 @@ public class CartController {
 		SiteUser user = userContext.getCurrentUser();
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
 			return "no authority";
+		Set<CartLine> lines = (Set<CartLine>) httpSession.getAttribute("cartLines");
+		Long cartId = cartLine.getId();
+		for (CartLine cart : lines) {
+			if(cart.getId().equals(cartId)){
+				return "exists";
+			}
+		}
 		Product p = productService.findOne(cartLine.getProductId());
 		cartLine.setId(Calendar.getInstance().getTime().getTime());
 		CartLine c = new CartLine(p, cartLine.getNumber());
 		cartLineService.save(user.getId(), c);
-		Set<CartLine> lines = (Set<CartLine>) httpSession.getAttribute("cartLines");
+		
 		lines.add(c);
 		httpSession.setAttribute("cartLines", lines);
 		return "success";

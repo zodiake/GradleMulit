@@ -30,8 +30,6 @@ public class SiteUser {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-//	@Size(min=6,max = 20, message = "用户名长度最长为20位")
-	@NotNull(message = "用户名不能为空")
 	private String name; // 用户名
 	
 	@Column(name="real_name")
@@ -58,17 +56,10 @@ public class SiteUser {
 	private Calendar authenticatedTime; // 鉴定时间
 
 	// new
-//	@NotNull(message="邮箱不能为空")
-//	@Email(message="请输入正确的邮箱地址")
 	private String email; // 邮箱
 	
-//	@NotNull(message = "手机号码不能为空")
-//	@Size(min=11,max=11,message = "手机号码只能为11位")
 	private String phone; // 手机号码
 	
-	@Transient
-	private String error;
-
 	public SiteUser() {
 	}
 
@@ -190,11 +181,4 @@ public class SiteUser {
 		this.sex = sex;
 	}
 
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
-	}
 }

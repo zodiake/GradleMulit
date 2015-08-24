@@ -1,11 +1,9 @@
 package com.sj.admin.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
@@ -15,84 +13,96 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.sj.admin.async.AsyncWriteFileService;
+import com.sj.admin.exception.AdvertisementNotFoundException;
 import com.sj.model.model.Advertisement;
-import com.sj.model.model.AdvertisementCategory;
-import com.sj.model.model.UploadResult;
-import com.sj.model.type.AdvertiseCategoryEnum;
+import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.AdvertisementService;
 
 @Controller
-public class AdvertisementController extends UploadController {
+public class AdvertisementController {
 	@Autowired
-	private AdvertisementService service;
-	@Autowired
-	private AsyncWriteFileService writeFileService;
+	private AdvertisementService advertisementService;
 
-	private final String LIST = "advertisement/list";
-	private final String EDIT = "advertisement/edit";
-	private final String CREATE = "advertisement/create";
-	private final String CTEATEOK = "";
-
-	@RequestMapping(value = "/admin/{category}/advertisements", method = RequestMethod.GET)
-	public String list(Model uiModel,
-			@PathVariable(value = "category") String category) {
-		AdvertiseCategoryEnum categoryEnum = AdvertiseCategoryEnum
-				.fromString(category);
-		List<Advertisement> lists = service.findByCategory(categoryEnum,
-				new PageRequest(0, 5, Direction.DESC, "createdTime"));
-		uiModel.addAttribute("list", lists);
-		return LIST;
-	}
-
-	@RequestMapping(value = "/admin/{category}/advertisements", method = RequestMethod.GET, params = "form")
-	public String createAdvertisement(Model uiModel) {
+	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.GET, params = "create")
+	public String create(Model uiModel) {
 		uiModel.addAttribute("advertisement", new Advertisement());
-		return CREATE;
+		return null;
 	}
 
-	@RequestMapping(value = "/admin/{category}/advertisements", method = RequestMethod.POST, params = "form")
-	public String createAdvertisementProcess(
-			Model uiModel,
-			@PathVariable("category") AdvertisementCategory category,
+	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.POST, params = "create")
+	public String createProcess(
 			@Valid @ModelAttribute("advertisement") Advertisement advertisement,
-			BindingResult bindingResult) {
+			BindingResult bindingResult,Model uiModel) {
+		if(bindingResult.hasErrors()){
+			uiModel.addAttribute("advertisement", advertisement);
+			return null;
+		}
+		Advertisement adv = advertisementService.save(advertisement);
+		uiModel.addAttribute("advertisement", adv);
+		return null;
+	}
+
+	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.GET)
+	public String findAll(Model uiModel,
+			@RequestParam(defaultValue = "1", value = "page") int page,
+			@RequestParam(defaultValue = "15", value = "size") int size) {
+		Page<Advertisement> advs = advertisementService
+				.findAll(new PageRequest(page - 1, size, Direction.DESC,
+						"activate"));
+		uiModel.addAttribute("advertisements", advs);
+		return "index";
+	}
+
+	@RequestMapping(value = "/admin/advertisements/{status}", method = RequestMethod.GET, params = "status")
+	public String Search(Model uiModel,
+			@RequestParam(defaultValue = "1", value = "page") int page,
+			@RequestParam(defaultValue = "15", value = "size") int size,
+			@PathVariable("status") String status) {
+		Page<Advertisement> advs = advertisementService.findByActivate(
+				new PageRequest(page - 1, size), ActivateEnum.valueOf(status));
+		uiModel.addAttribute("advertisements", advs);
+		return null;
+	}
+
+	@RequestMapping(value = "/admin/advertisements/{id}", method = RequestMethod.GET)
+	public String update(@PathVariable("id") Long id, Model uiModel) {
+		Advertisement adv = advertisementService.findOne(id);
+		if (adv == null)
+			throw new AdvertisementNotFoundException();
+		uiModel.addAttribute("advertisement", adv);
+		return null;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/admin/advertisements/{id}", method = RequestMethod.PUT, params = "status")
+	public String updateStatus(@PathVariable("id") Long id,
+			@RequestParam("status") int status) {
+		Advertisement adv = advertisementService.findOne(id);
+		if (adv == null)
+			return "error";
+		adv.setActivate(ActivateEnum.values()[status]);
+		advertisementService.updateStatus(adv);
+		return "success";
+	}
+
+	@RequestMapping(value = "/admins/advertisements/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public String updateProess(
+			@PathVariable("id") Long id,
+			@Valid @ModelAttribute("advertisement") Advertisement advertisement,
+			BindingResult bindingResult, Model uiModel) {
+		Advertisement adv = advertisementService.findOne(id);
+		if (adv == null)
+			// throw new AdvertisementNotFoundException();
+			return "error";
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("advertisement", advertisement);
-			return CREATE;
+			return "fail";
 		}
-		advertisement.setCategory(category);
-		service.save(advertisement);
-		return CTEATEOK;
-	}
-
-	@RequestMapping(value = "/admin/{category}/advertisements/{id}", params = "edit", method = RequestMethod.GET)
-	public String edit(Model uiModel,
-			@PathVariable(value = "category") AdvertiseCategoryEnum category,
-			@PathVariable(value = "id") Long id) {
-		Advertisement adv = service.findByIdAndCategory(id, category);
-		uiModel.addAttribute("adv", adv);
-		return EDIT;
-	}
-
-	@RequestMapping(value = "/admin/{category}/advertisements/{id}", method = RequestMethod.PUT)
-	public String upload(@ModelAttribute("adv") Advertisement adv,
-			@PathVariable("id") Long id,
-			@PathVariable("category") AdvertisementCategory category) {
-		adv.setId(id);
-		adv.setCategory(category);
-		service.update(adv);
-		return "redirect:/admin/" + category.toString().toLowerCase()
-				+ "/advertisements/" + id + "?edit";
-	}
-
-	@RequestMapping(value = "/admin/{catgegory}/advertisements/{id}/coverImg", method = RequestMethod.POST)
-	@ResponseBody
-	public UploadResult uploadImage(MultipartFile file,
-			HttpServletRequest request) {
-		return super.upload(file);
+		advertisementService.update(advertisement, adv);
+		return "success";
 	}
 }

@@ -13,10 +13,10 @@ insert into city(id,name,province_id) values(5,'泉州市','2');
 -- end new
 
 --test brand
-insert into brand(id,name,activate) values(1,'brand1',1);
-insert into brand(id,name,activate) values(2,'brand2',1);
-insert into brand(id,name,activate) values(3,'brand3',1);
-insert into brand(id,name,activate) values(4,'brand4',1);
+insert into brand(id,name,activate,cover_img,created_time) values(1,'brand1',1,'/img/brand1.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(2,'brand2',1,'/img/brand1.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(3,'brand3',1,'/img/brand1.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(4,'brand4',1,'/img/brand1.jpg','2012-1-1');
 
 --test category
 --first category

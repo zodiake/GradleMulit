@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sj.model.model.Product;
-import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Review;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.PreferProductService;

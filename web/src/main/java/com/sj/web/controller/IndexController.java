@@ -4,14 +4,18 @@ package com.sj.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sj.model.model.Brand;
 import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Subject;
+import com.sj.model.type.ActivateEnum;
+import com.sj.repository.service.BrandService;
 import com.sj.repository.service.InformationService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.SubjectService;
@@ -25,6 +29,8 @@ public class IndexController {
 	private InformationService informationService;
 	@Autowired
 	private SubjectService subjectService;
+	@Autowired
+	private BrandService brandService;
 	
 	@RequestMapping(value = { "/", "/index" })
 	public String index(Model uiModel) {
@@ -48,6 +54,9 @@ public class IndexController {
 		uiModel.addAttribute("isH", isH);
 		uiModel.addAttribute("isX", isX);
 		uiModel.addAttribute("isC", isC);
+		
+		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 5));
+		uiModel.addAttribute("brands", brands);
 		return "index";
 	}
 }

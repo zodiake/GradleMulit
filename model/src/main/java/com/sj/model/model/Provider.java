@@ -75,21 +75,12 @@ public class Provider extends SiteUser {
 	@Column(name = "business_license_url")
 	private String businessLicenseUrl; // 营业执照图片地址*
 	
-	@Transient
-	private MultipartFile businessLicenseImager;	//营业执照图片
-
 	@Column(name = "tax_registration_url")
 	private String taxRegistrationUrl; // 税务登记图片地址*
 	
-	@Transient
-	private MultipartFile taxReqistrationImager;		//税务登记图片
-
 	@Column(name = "structure_code_url")
 	private String structureCodeUrl; // 组织结构图片地址*
 	
-	@Transient
-	private MultipartFile structureCodeImager;	// 组织结构图片
-
 	private String position; // 联系人职位*
 
 	@Column(name = "provider_phone")
@@ -111,9 +102,6 @@ public class Provider extends SiteUser {
 
 	private String website; // 公司网址
 	
-	@Transient
-	private String captcha;
-
 	// 行业信息
 	@Column(name = "industry_information")
 	private IndustryInformationEnum industryInformation;// 行业信息*
@@ -293,37 +281,5 @@ public class Provider extends SiteUser {
 
 	public void setCity(City city) {
 		this.city = city;
-	}
-
-	public String getCaptcha() {
-		return captcha;
-	}
-
-	public void setCaptcha(String captcha) {
-		this.captcha = captcha;
-	}
-
-	public MultipartFile getBusinessLicenseImager() {
-		return businessLicenseImager;
-	}
-
-	public void setBusinessLicenseImager(MultipartFile businessLicenseImager) {
-		this.businessLicenseImager = businessLicenseImager;
-	}
-
-	public MultipartFile getTaxReqistrationImager() {
-		return taxReqistrationImager;
-	}
-
-	public void setTaxReqistrationImager(MultipartFile taxReqistrationImager) {
-		this.taxReqistrationImager = taxReqistrationImager;
-	}
-
-	public MultipartFile getStructureCodeImager() {
-		return structureCodeImager;
-	}
-
-	public void setStructureCodeImager(MultipartFile structureCodeImager) {
-		this.structureCodeImager = structureCodeImager;
 	}
 }

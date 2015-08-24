@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
@@ -49,9 +48,6 @@ public class ProviderController extends BaseController<Provider> {
 	@Autowired
 	private ProductCategoryService productCategoryService;
 
-	private final String USERPRODUCTS = "user/products";
-	private final String USERPRODUCTSCREATE = "user/products/create";
-	private final String USERPRODUCTSCTEATEOK = "";
 	private final String USERPRODUCTSEDIT = "user/products/edit";
 	private final String USERPRODUCTSEDITOK = "";
 	private final String PROVIDERCREATEOK = "";

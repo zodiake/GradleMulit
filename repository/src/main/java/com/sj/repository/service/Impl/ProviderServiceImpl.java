@@ -36,42 +36,10 @@ public class ProviderServiceImpl implements ProviderService {
 		provider.setSiteAuthority("ROLE_PROVIDER");
 		Calendar c = Calendar.getInstance();
 		provider.setCreatedTime(c);
-		provider.setBusinessLicenseUrl(UpImageUtil.saveImage(
-				provider.getBusinessLicenseImager(),
-				provider.getName(),
-				BUSINESSLICENSE
-						+ StringUtils.trimAllWhitespace(provider
-								.getBusinessLicenseImager()
-								.getOriginalFilename()
-								.substring(
-										provider.getBusinessLicenseImager()
-												.getOriginalFilename()
-												.lastIndexOf("."))),
-				UpImageUtil.PROVIDERBASE));
-		provider.setTaxRegistrationUrl(UpImageUtil.saveImage(
-				provider.getTaxReqistrationImager(),
-				provider.getName(),
-				TAXREQISTRATION
-						+ StringUtils.trimAllWhitespace(provider
-								.getTaxReqistrationImager()
-								.getOriginalFilename()
-								.substring(
-										provider.getTaxReqistrationImager()
-												.getOriginalFilename()
-												.lastIndexOf("."))),
-				UpImageUtil.PROVIDERBASE));
-		provider.setStructureCodeUrl(UpImageUtil.saveImage(
-				provider.getStructureCodeImager(),
-				provider.getName(),
-				STRUCTURECODE
-						+ StringUtils.trimAllWhitespace(provider
-								.getStructureCodeImager()
-								.getOriginalFilename()
-								.substring(
-										provider.getStructureCodeImager()
-												.getOriginalFilename()
-												.lastIndexOf("."))),
-				UpImageUtil.PROVIDERBASE));
+		
+		//未添加图片地址
+		
+		
 		return repository.save(provider);
 	}
 

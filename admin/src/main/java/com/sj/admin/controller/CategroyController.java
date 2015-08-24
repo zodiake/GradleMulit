@@ -1,13 +1,11 @@
 package com.sj.admin.controller;
 
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,86 +13,79 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.admin.exception.CategoryNotFoundException;
+import com.sj.admin.security.SiteUserContext;
 import com.sj.model.model.ProductCategory;
-import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.ProductCategoryService;
 
 @Controller
 public class CategroyController {
-	private final String LIST = "category/list";
 	@Autowired
 	private ProductCategoryService productCategoryService;
+	@Autowired
+	private SiteUserContext userContext;
 
-	@RequestMapping(value = "/admins/categories", method = RequestMethod.GET)
-	public String findFirstCategroy(Model uiModel) {
-		List<ProductCategory> categories = productCategoryService
-				.findAllFirstCategory(ActivateEnum.ACTIVATE);
-		uiModel.addAttribute("results", categories);
-		return LIST;
-	}
-
-	@RequestMapping(value = "/admin/categories/{parent}/categories", method = RequestMethod.GET)
-	public String findCategoryByParent(@PathVariable("id") Long id,
-			Model uiModel,
-			@RequestParam(defaultValue = "1", value = "page") int page,
-			@RequestParam(defaultValue = "15", value = "size") int size) {
-		Page<ProductCategory> categories = productCategoryService.findByParent(
-				new PageRequest(page, size), new ProductCategory(id));
-		uiModel.addAttribute("categories", categories);
-		return LIST;
-	}
-
-	@RequestMapping(value = "/admin/categories/{id}", method = RequestMethod.GET)
-	public String findCategory(@PathVariable("id") Long id, Model uiModel) {
-		ProductCategory productCategory = productCategoryService.findOne(id);
-		uiModel.addAttribute("categroy", productCategory);
+	@RequestMapping(value = "/admin/category/{category}", method = RequestMethod.GET)
+	public String findBigCategory(Model uiModel,
+			@PathVariable("category") String category) {
+		ProductCategory pc = productCategoryService.findByName(category);
+		List<ProductCategory> pcs = productCategoryService.findByParent(pc);
+		uiModel.addAttribute("productCategories", pcs);
 		return null;
 	}
 
-	@RequestMapping(value = "/admin/categories", params = "form", method = RequestMethod.POST)
-	// need
-	public String addCategoryProcess(
-			@Valid @ModelAttribute("category") ProductCategory productCategory,
-			BindingResult bindingResult, Model uiModel) {
-		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute("category", productCategory);
-			return null;
+	@RequestMapping(value = "/admin/category/{category}", method = RequestMethod.GET, params = "children")
+	@ResponseBody
+	public List<Category> findCategroyByParent(@PathVariable("category") Long id) {
+		List<ProductCategory> pcs = productCategoryService
+				.findByParent(new ProductCategory(id));
+		List<Category> categories = pcs.stream()
+				.map((r) -> new Category(r.getId(), r.getName()))
+				.collect(Collectors.toList());
+		return categories;
+	}
+
+	@RequestMapping(value = "/admin/category/{category}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public boolean deleteCategory(@PathVariable("id") Long id) {
+		productCategoryService.delete(id);
+		return true;
+	}
+
+	@RequestMapping(value = "/admin/category", method = RequestMethod.POST)
+	@ResponseBody
+	public Category addCategory(
+			@Valid @ModelAttribute("category") ProductCategory pc,
+			BindingResult result) {
+		pc.setCreatedBy(userContext.getCurrnetUser().getName());
+		pc = productCategoryService.save(pc);
+		return new Category(pc.getId(), pc.getName());
+	}
+
+	private class Category {
+		private Long id;
+		private String name;
+
+		public Category(Long id, String name) {
+			this.id = id;
+			this.name = name;
 		}
-		productCategory = productCategoryService.save(productCategory);
-		uiModel.addAttribute("category", productCategory);
-		return null;
-	}
 
-	@RequestMapping(value = "/admin/categories", params = "form", method = RequestMethod.GET)
-	public String addCategory(Model uiModel) {
-		uiModel.addAttribute("category", new ProductCategory());
-		return null;
-	}
-
-	@RequestMapping(value = "/admin/categories/{id}", params = "edit", method = RequestMethod.GET)
-	public String editCategroy(Model uiModel, @PathVariable("id") Long id) {
-		ProductCategory productCategory = productCategoryService.findOne(id);
-		if(productCategory==null)
-			throw new CategoryNotFoundException();
-		uiModel.addAttribute("category", productCategory);
-		return null;
-	}
-
-	@RequestMapping(value = "/admin/categories/{id}", params = "edit", method = RequestMethod.PUT)
-	public String editCategoryProcess(
-			@Valid @ModelAttribute("category") ProductCategory productCategory,
-			BindingResult bindingResult, @PathVariable("id") Long id,
-			Model uiModel) {
-		if(bindingResult.hasErrors()){
-			uiModel.addAttribute("category", productCategory);
-			return null;
+		public Long getId() {
+			return id;
 		}
-		productCategory.setId(id);
-		productCategory = productCategoryService.update(productCategory);
-		uiModel.addAttribute("category", productCategory);
-		return null;
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
 	}
 }

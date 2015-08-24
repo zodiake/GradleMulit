@@ -23,7 +23,6 @@ import com.sj.model.model.Product;
 import com.sj.model.model.Subject;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.util.UpImageUtil;
-import com.sj.web.util.ShowPage;
 
 @Controller
 public class BrandController {
@@ -36,11 +35,10 @@ public class BrandController {
 			@RequestParam(value = "size", defaultValue = "15") int size) {
 		Page<Product> products = productService.findByBrand(new PageRequest(
 				page - 1, size), new Brand(id));
-		ShowPage.showProduct(products);
 		uiModel.addAttribute("products", products);
 		return null;
 	}
-
+	
 	@RequestMapping(value = "/cheditor", method = RequestMethod.GET)
 	public String test(Model uiModel) {
 		uiModel.addAttribute("product", new Product());

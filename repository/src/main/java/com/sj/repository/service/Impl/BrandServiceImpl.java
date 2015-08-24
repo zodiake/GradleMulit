@@ -45,8 +45,8 @@ public class BrandServiceImpl implements BrandService {
 	public Brand save(Brand brand) {
 		Calendar c = Calendar.getInstance();
 		brand.setCraetedTime(c);
-		brand.setCoverImg(UpImageUtil.saveImage(brand.getImage(), brand.getName(),
-				brand.getName(), UpImageUtil.BRANDBASE));
+		//未图片地址
+		
 		return repository.save(brand);
 	}
 

@@ -34,41 +34,31 @@ public class CommonUser extends SiteUser {
 	// new
 
 	// 详细信息
-//	@NotNull(message = "单位不能为空")
 	private String company; // 单位*
 
-//	@NotNull(message = "部门不能为空")
 	private String department; // 部门
 
-//	@NotNull(message = "职位不能为空")
 	@Column(name = "title")
 	private TitleEnum title; // 职位*
 
-//	@NotNull(message = "公司电话不能为空")
 	@Column(name = "company_phone")
 	private String companyPhone; // 公司电话*
 
 	private String fax; // 传真
 
-//	@NotNull(message = "请选择所在省份")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "province_id")
 	private Province province; // 省份*
 
-//	@NotNull(message = "请选择所在城市")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id")
 	private City city; // 城市*
 
-//	@NotNull(message = "详细地址不能为空")
 	private String address; // 详细地址*
 
-//	@NotNull(message = "邮编不能为空")
-//	@Size(min = 6, max = 6, message = "邮编长度为6位")
 	private String code; // 邮编*
 
 	// 行业信息
-//	@NotNull(message = "行业信息不能为空")
 	@Column(name = "industry_information")
 	private IndustryInformationEnum industryInformation; // 行业信息*
 

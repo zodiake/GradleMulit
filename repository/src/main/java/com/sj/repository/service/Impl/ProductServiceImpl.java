@@ -82,7 +82,6 @@ public class ProductServiceImpl implements ProductService {
 		Product p = repository.findOne(id);
 		String count = (String) template.opsForHash().get(
 				"prefer:" + id, "count");
-		System.out.println(count==null);
 		if(count==null)
 			p.setCollectionCount(0l);
 		else
@@ -100,19 +99,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setCreatedTime(Calendar.getInstance());
 		product.setViewCount(0L);
 		product.setOriginal(OriginalEnum.VERIFY);
-		product.setCoverImg(UpImageUtil.saveImage(
-				product.getImage(),
-				product.getCreatedBy().getId().toString(),
-				Calendar.getInstance()
-						+ StringUtils.trimAllWhitespace(product
-								.getImage()
-								.getOriginalFilename()
-								.substring(
-										product.getImage()
-												.getOriginalFilename()
-												.lastIndexOf("."))),
-				UpImageUtil.PRODUCTBASE));
-
+		//未添加图片地址
 		return repository.save(product);
 	}
 

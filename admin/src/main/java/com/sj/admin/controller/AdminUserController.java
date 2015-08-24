@@ -51,15 +51,6 @@ public class AdminUserController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/provider/{id}", method = RequestMethod.GET)
-	public String view(Model uiModel, @PathVariable("id") Long id) {
-		Provider p = providerService.findOne(id);
-		if (p == null)
-			throw new UserNotFoundException();
-		uiModel.addAttribute("provider", p);
-		return PROVIDERDETAIL;
-	}
-
 	@RequestMapping(value = "/manufacturer/{id}", method = RequestMethod.GET)
 	public String viewManufacturer(@PathVariable("id") int id, Model uiModel) {
 		return MANUFACTURERDETAIL;

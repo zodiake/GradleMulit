@@ -39,8 +39,6 @@ public class Brand {
 	@Column(name = "cover_img")
 	private String coverImg;
 	
-	@Transient
-	private MultipartFile image;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
 	private Set<Product> products;
@@ -125,13 +123,5 @@ public class Brand {
 
 	public void setCoverImg(String coverImg) {
 		this.coverImg = coverImg;
-	}
-
-	public MultipartFile getImage() {
-		return image;
-	}
-
-	public void setImage(MultipartFile image) {
-		this.image = image;
 	}
 }
