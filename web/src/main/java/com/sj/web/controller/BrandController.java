@@ -22,7 +22,6 @@ import com.sj.model.model.Brand;
 import com.sj.model.model.Product;
 import com.sj.model.model.Subject;
 import com.sj.repository.service.ProductService;
-import com.sj.repository.util.UpImageUtil;
 
 @Controller
 public class BrandController {
@@ -68,8 +67,6 @@ public class BrandController {
 		String fileName = name
 				+ mf.getOriginalFilename().substring(
 						mf.getOriginalFilename().indexOf("."));
-		UpImageUtil.saveImage(mf, fileName, UpImageUtil.CONTENTBASE);
-
 		String str = "<script type=\"text/javascript\">";
 		str = str + "window.parent.CKEDITOR.tools.callFunction(" + callback
 				+ ",'" + "/upload/content/" + fileName + "','')";

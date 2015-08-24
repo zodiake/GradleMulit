@@ -30,7 +30,6 @@ import com.sj.model.type.OriginalEnum;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.ProductService;
-import com.sj.repository.util.UpImageUtil;
 
 @Service
 public class ProductServiceImpl implements ProductService {
