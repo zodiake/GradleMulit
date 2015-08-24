@@ -69,15 +69,21 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone,real_n
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex) values(11,'pjf123','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234567@qq.com','13700000004','mary3',0);
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex) values(5,'admin','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000005','admin',1);
 
+--test industry_info
+insert into  industry_info(id,name,industry_type) values(1,'a','p');
+insert into  industry_info(id,name,industry_type) values(2,'a','p');
+insert into  industry_info(id,name,industry_type) values(3,'a','c');
+insert into  industry_info(id,name,industry_type) values(4,'a','c');
+
 -- test common user
-insert into common_user(id,company,department,company_phone,fax,address,code,industry_information,province_id,city_id) 
-values(3,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,1,3);
-insert into common_user(id,company,department,company_phone,fax,address,code,industry_information,province_id,city_id) 
-values(4,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,2,5);
-insert into common_user(id,company,department,company_phone,fax,address,code,industry_information,province_id,city_id) 
-values(6,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',0,2,5);
-insert into common_user(id,company,department,company_phone,fax,address,code,industry_information,province_id,city_id) 
-values(11,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',4,2,5);
+insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
+values(3,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',1,3,3);
+insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
+values(4,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,4);
+insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
+values(6,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,3);
+insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
+values(11,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,4);
 
 --test provider
 insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,content_id,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id) 

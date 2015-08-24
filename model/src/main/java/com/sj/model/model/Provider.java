@@ -292,5 +292,4 @@ public class Provider extends SiteUser {
 	public void setProvince(Province province) {
 		this.province = province;
 	}
-
 }
