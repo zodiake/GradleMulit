@@ -23,7 +23,6 @@ import com.sj.model.model.Product;
 import com.sj.model.model.Subject;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.util.UpImageUtil;
-import com.sj.web.util.ShowPage;
 
 @Controller
 public class BrandController {
@@ -36,7 +35,6 @@ public class BrandController {
 			@RequestParam(value = "size", defaultValue = "15") int size) {
 		Page<Product> products = productService.findByBrand(new PageRequest(
 				page - 1, size), new Brand(id));
-		ShowPage.showProduct(products);
 		uiModel.addAttribute("products", products);
 		return null;
 	}
@@ -57,7 +55,7 @@ public class BrandController {
 	public String testMp4(Model uiModel) {
 		Subject s = new Subject();
 		uiModel.addAttribute("subject", s);
-		return "mtest";	
+		return "mtest";
 	}
 
 	@RequestMapping(value = "/aaa/upload", method = RequestMethod.POST)
@@ -74,7 +72,7 @@ public class BrandController {
 
 		String str = "<script type=\"text/javascript\">";
 		str = str + "window.parent.CKEDITOR.tools.callFunction(" + callback
-				+ ",'" +"/upload/content/" + fileName + "','')";
+				+ ",'" + "/upload/content/" + fileName + "','')";
 		str = str + "</script>";
 		return str;
 	}
