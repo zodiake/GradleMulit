@@ -94,6 +94,7 @@ create TABLE provider(
 	output smallint,
 	industry_information smallint,
 	info_id int,
+	is_authenticated int,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id) REFERENCES site_user(id),
 	foreign key (content_id) references content(id),

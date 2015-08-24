@@ -88,12 +88,12 @@
                             <tr th:each="provider : ${providers}">
                                 <td >1</td>
                                 <td th:text="${provider.name}">张三</td>
-                                <td th:text="${provider.sex}">男</td>
+                                <td th:text="${provider.sex=='female'}?男:女">男</td>
                                 <td th:text="${provider.phone}">1215456315</td>
                                 <td th:text="${provider.email}">18988056@qq.com</td>
                                 <td th:text="${provider.city.name}">上海</td>
                                 <td th:text="${provider.companyNameChina}">上海</td>
-                                <td>未审核</td>
+                                <td th:text="${provider.isAuthenticated==1}?已审核:未审核">未审核</td>
                                 <td th:text="${provider.createTime}">2015-02-06</td>
                    			</tr>
                    		</tbody>
