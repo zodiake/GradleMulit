@@ -93,6 +93,12 @@ create TABLE provider(
 	foreign key (city_id) references city(id)
 );
 
+create table industry_info(
+	id int not null auto_increment,
+	name varchar(50),
+	industry_type char(1),
+	primary key (id)
+);
 create table common_user(
 	id bigint not NULL auto_increment,
 	company varchar(64),
@@ -107,16 +113,10 @@ create table common_user(
 	primary key (id),
 	foreign key (id) references site_user(id),
 	foreign key (province_id) references province(id),
-	foreign key (city_id) references city(id)
+	foreign key (city_id) references city(id),
 	foreign key (info_id) references industry_info(id)
 );
 
-create table industry_info(
-	id int not null auto_increment,
-	name varchar(50),
-	industry_type char(1),
-	primary key (id)
-);
 
 create table brand(
 	id bigint not null auto_increment,
@@ -124,7 +124,7 @@ create table brand(
 	created_time timestamp,
 	activate smallint,
 	cover_img varchar(40),
-	primary key(id),
+	primary key(id)
 );
 
 create table product(
