@@ -23,7 +23,7 @@ public class CommonUserServiceImpl implements CommonUserService {
 
 	@Override
 	public CommonUser create(CommonUser user) {
-		user.setCreatedTime(Calendar.getInstance());
+		user.setCreateTime(Calendar.getInstance());
 		user.setEnabled(ActivateEnum.ACTIVATE);
 		user.setSiteAuthority("ROLE_COMMONUSER");
 		return commonUserRepository.save(user);

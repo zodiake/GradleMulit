@@ -55,10 +55,17 @@ create table site_user(
 	email varchar(40),
 	phone varchar(11),
 	site_authority varchar(20),
-	created_time timestamp,
+	create_time timestamp,
 	real_name varchar(20),			
 	sex smallint,
 	primary key(id)
+);
+
+create table industry_info(
+	id int not null auto_increment,
+	name varchar(50),
+	industry_type char(1),
+	primary key (id)
 );
 
 create TABLE provider(
@@ -86,18 +93,13 @@ create TABLE provider(
 	scale smallint,
 	output smallint,
 	industry_information smallint,
+	info_id int,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id) REFERENCES site_user(id),
 	foreign key (content_id) references content(id),
 	foreign key (province_id) references province(id),
-	foreign key (city_id) references city(id)
-);
-
-create table industry_info(
-	id int not null auto_increment,
-	name varchar(50),
-	industry_type char(1),
-	primary key (id)
+	foreign key (city_id) references city(id),
+	foreign key (info_id) references industry_info(id)
 );
 
 create table common_user(

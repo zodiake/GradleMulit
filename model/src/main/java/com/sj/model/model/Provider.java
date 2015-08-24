@@ -27,12 +27,10 @@ import com.sj.model.type.ScaleEnum;
 @Table(name = "provider")
 @PrimaryKeyJoinColumn
 public class Provider extends SiteUser {
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "authenticated_time")
 	private Calendar authenticatedTime; // 鉴定时间
 
-	// new
 	// 企业信息
 	@Column(name = "company_name_china")
 	@NotNull(message = "企业中文名不能为空")

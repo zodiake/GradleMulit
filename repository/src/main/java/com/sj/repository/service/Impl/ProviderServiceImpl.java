@@ -32,7 +32,7 @@ public class ProviderServiceImpl implements ProviderService {
 		// 添加权限
 		provider.setSiteAuthority("ROLE_PROVIDER");
 		Calendar c = Calendar.getInstance();
-		provider.setCreatedTime(c);
+		provider.setCreateTime(c);
 
 		// 未添加图片地址
 
