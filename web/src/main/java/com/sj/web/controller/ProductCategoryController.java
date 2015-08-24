@@ -34,9 +34,10 @@ public class ProductCategoryController {
 	@Autowired
 	private SiteUserContext userContext;
 
-	@RequestMapping(value = "/productCategory/{parent}/{id}", method = RequestMethod.GET)
-	public String findOne(@PathVariable("id") Long id, Model uiModel,
+	@RequestMapping(value = "/productCategory/{parent}/{second}/{third}", method = RequestMethod.GET)
+	public String findByThird(@PathVariable("third") String third, Model uiModel,
 			@PathVariable("parent") String parent,
+			@PathVariable("second") String second,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
 		ProductCategory pc = ProductCategory.getFirst(parent);
@@ -44,8 +45,8 @@ public class ProductCategoryController {
 			throw new CategoryNotFoundException();
 		uiModel.addAttribute("pc", pc);
 
-		ProductCategory child = pcService.findOneActivate(id);
-		if (child == null)
+		ProductCategory child = pcService.findByName(third);
+		if (child == null || !child.getParent().getName().equals(second))
 			throw new CategoryNotFoundException();
 		uiModel.addAttribute("child", child);
 
@@ -55,24 +56,48 @@ public class ProductCategoryController {
 		List<Product> products = pages.getContent();
 		boolean bool = userContext.isLogin();
 		if (bool) {
-			SiteUser user = userContext.getCurrentUser();
-			List<PreferProduct> prefer = preferProductService
-					.findByUser(new CommonUser(user.getId()));
-			if (prefer != null && prefer.size() != 0) {
-				for (Product product : products) {
-					Long productId = product.getId();
-					for (int i = 0; i < prefer.size(); i++) {
-						if (productId
-								.equals(prefer.get(i).getProduct().getId())) {
-							product.setCollection(true);
-							break;
-						}
+			products = setColl(products);
+		}
+		uiModel.addAttribute("products", products);
+		return "product/products";
+	}
+
+	@RequestMapping(value = "/productCategory/{parent}/{second}", method = RequestMethod.GET)
+	public String findBySecond(@PathVariable("second") String second, Model uiModel,
+			@PathVariable("parent") String parent,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size) {
+		ProductCategory pc = ProductCategory.getFirst(parent);
+		if (pc == null)
+			throw new CategoryNotFoundException();
+		uiModel.addAttribute("pc", pc);
+		
+		ProductCategory seCategory = pcService.findByName(second);
+		if (seCategory == null || !seCategory.getParent().getName().equals(parent))
+			throw new CategoryNotFoundException();
+		uiModel.addAttribute("second", seCategory);
+		
+		Page<Product> pages = productService.findBySecondCategory(seCategory, new PageRequest(page-1, size));
+		uiModel.addAttribute("page", pages);
+		return "product/products";
+	}
+
+	private List<Product> setColl(List<Product> products) {
+		SiteUser user = userContext.getCurrentUser();
+		List<PreferProduct> prefer = preferProductService
+				.findByUser(new CommonUser(user.getId()));
+		if (prefer != null && prefer.size() != 0) {
+			for (Product product : products) {
+				Long productId = product.getId();
+				for (int i = 0; i < prefer.size(); i++) {
+					if (productId.equals(prefer.get(i).getProduct().getId())) {
+						product.setCollection(true);
+						break;
 					}
 				}
 			}
 		}
-		uiModel.addAttribute("products", products);
-		return "product/products";
+		return products;
 	}
 
 	@RequestMapping(value = "/productCategory/{name}", method = RequestMethod.GET)

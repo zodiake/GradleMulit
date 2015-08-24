@@ -2,6 +2,8 @@ package com.sj.repository.service.Impl;
 
 import java.util.Calendar;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,7 @@ import com.sj.repository.repository.ReviewRepository;
 import com.sj.repository.service.ReviewService;
 
 @Service
+@Transactional
 public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private ReviewRepository repository;

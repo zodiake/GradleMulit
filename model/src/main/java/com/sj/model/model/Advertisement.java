@@ -30,6 +30,13 @@ public class Advertisement {
 
 	@Column(name = "url")
 	private String url;
+	
+	public Advertisement(){
+		
+	}
+	public Advertisement(Long id){
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

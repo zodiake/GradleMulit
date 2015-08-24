@@ -13,11 +13,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.SexEnum;
@@ -29,16 +30,19 @@ public class SiteUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
+	@NotBlank(message="用户名不能为空")
 	private String name; // 用户名
 	
+	@NotBlank(message= "真实姓名不能为空")
 	@Column(name="real_name")
 	private String realName;
 	
+	@NotNull(message="请选择性别")
 	@Column(name="sex")
 	private SexEnum sex;
 	
-	@NotNull(message = "密码不能为空")
+	@Size(min=6,max=18,message="密码长度为6-18位")
 	private String password; // 密码
 	
 	@Column(name = "site_Authority")
@@ -51,13 +55,11 @@ public class SiteUser {
 	@Column(name = "created_time")
 	private Calendar createdTime; // 创建时间
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "authenticated_time")
-	private Calendar authenticatedTime; // 鉴定时间
-
-	// new
+	@NotBlank(message="邮箱不能为空")
+	@Email(message="请输入正确的邮箱")
 	private String email; // 邮箱
 	
+	@Pattern(regexp="[0-9]{11}" ,message="手机号码为11位数组")
 	private String phone; // 手机号码
 	
 	public SiteUser() {
@@ -114,14 +116,6 @@ public class SiteUser {
 
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
-	}
-
-	public Calendar getAuthenticatedTime() {
-		return authenticatedTime;
-	}
-
-	public void setAuthenticatedTime(Calendar authenticatedTime) {
-		this.authenticatedTime = authenticatedTime;
 	}
 
 	@Override

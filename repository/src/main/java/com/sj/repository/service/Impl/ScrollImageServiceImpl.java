@@ -2,6 +2,8 @@ package com.sj.repository.service.Impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -16,6 +18,7 @@ import com.sj.repository.repository.ScrollImageRepository;
 import com.sj.repository.service.ScrollImageService;
 
 @Service
+@Transactional
 public class ScrollImageServiceImpl implements ScrollImageService {
 	@Autowired
 	private ScrollImageRepository repository;

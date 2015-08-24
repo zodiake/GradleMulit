@@ -88,7 +88,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@Valid @ModelAttribute("user") SiteUser user,
-			BindingResult bindingResult, Model uiModel,HttpSession httpSession) {
+			BindingResult bindingResult, Model uiModel, HttpSession httpSession) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				user.getName(), user.getPassword());
 		try {
@@ -102,7 +102,6 @@ public class LoginController {
 		}
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
 		userContext.setCurrentUser(user);
-		System.out.println(user.getId());
 		Set<CartLine> lines = cartLineService.findByUser(user.getId());
 		httpSession.setAttribute("cartLines", lines);
 		return "redirect:/index";
@@ -131,7 +130,7 @@ public class LoginController {
 	}
 
 	/* user registered page */
-	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
+	@RequestMapping(value = "/signup", method = RequestMethod.GET, params = "user")
 	public String signupForm(Model uiModel) {
 		uiModel.addAttribute("user", new CommonUser());
 		uiModel.addAttribute("provinces", provinceService.findAll());
@@ -139,41 +138,40 @@ public class LoginController {
 	}
 
 	/* user registered */
-	@RequestMapping(value = "/user/signup", method = RequestMethod.POST)
+	@RequestMapping(value = "/signup", method = RequestMethod.POST, params = "user")
 	public String signupProcess(@Valid @ModelAttribute("user") CommonUser user,
 			BindingResult userResult, HttpSession session, Model uiModel) {
-//		validateSignupForm(user.getCaptcha(), userResult, session);
 		if (userResult.hasErrors()) {
-			// form.setConfirm(null);
 			user.setPassword(null);
+			uiModel.addAttribute("provinces", provinceService.findAll());
 			uiModel.addAttribute("user", user);
 			return COMMONSIGNUP;
 		}
 		user.setPassword(encoder.encodePassword(user.getPassword(), null));
 		SiteUser siteUser = commonUserService.create(user);
 		userContext.setCurrentUser(siteUser);
-		return HOME;
+		return "redirect:/";
 	}
 
 	/* provider registered page */
-	@RequestMapping(value = "/provider/signup", method = RequestMethod.GET)
+	@RequestMapping(value = "/signup", method = RequestMethod.GET,params = "provider")
 	public String providerSignupForm(Model uiModel) {
 		uiModel.addAttribute("user", new Provider());
 		return PSIGNUP;
 	}
 
 	/* provider registered */
-	@RequestMapping(value = "/provider/signup", method = RequestMethod.POST)
+	@RequestMapping(value = "/signup", method = RequestMethod.POST,params = "provider")
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult providerResult, HttpSession session, Model uiModel) {
-//		validateSignupForm(provider.getCaptcha(), providerResult, session);
-//		if (providerResult.hasErrors()) {
-//			// form.setConfirm(null);
-//			provider.setPassword(null);
-//			uiModel.addAttribute("user", provider);
-//			return PSIGNUP;
-//		}
+		// validateSignupForm(provider.getCaptcha(), providerResult, session);
+		// if (providerResult.hasErrors()) {
+		// // form.setConfirm(null);
+		// provider.setPassword(null);
+		// uiModel.addAttribute("user", provider);
+		// return PSIGNUP;
+		// }
 		provider.setPassword(encoder.encodePassword(provider.getPassword(),
 				null));
 		SiteUser user = providerService.create(provider);

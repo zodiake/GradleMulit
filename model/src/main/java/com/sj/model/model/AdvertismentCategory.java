@@ -17,11 +17,9 @@ public class AdvertismentCategory extends Category {
 	private Set<Advertisement> advs;
 
 	public AdvertismentCategory() {
-		super();
 	}
 
 	public AdvertismentCategory(Long id) {
-		super();
 		this.id = id;
 	}
 

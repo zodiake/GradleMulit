@@ -26,7 +26,7 @@ public interface ProductCategoryRepository extends
 	List<ProductCategory> findByParentAndActivate(ProductCategory category,
 			ActivateEnum activate);
 
-	ProductCategory findByName(String name,ActivateEnum activate);
+	ProductCategory findByNameAndActivate(String name,ActivateEnum activate);
 	
 	ProductCategory findByNameAndParentAndActivate(String name,ProductCategory category,ActivateEnum activate);
 }

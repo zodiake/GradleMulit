@@ -28,13 +28,6 @@ import com.sj.model.type.ScaleEnum;
 @PrimaryKeyJoinColumn
 public class Provider extends SiteUser {
 
-	public Provider() {
-	}
-
-	public Provider(Long id) {
-		super(id);
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "authenticated_time")
 	private Calendar authenticatedTime; // 鉴定时间
@@ -102,10 +95,16 @@ public class Provider extends SiteUser {
 
 	private String website; // 公司网址
 
-	// 行业信息
 	@OneToOne
 	@JoinColumn(name = "info_id")
 	private ProviderIndustryInfo industryInfo;// 行业信息*
+
+	public Provider() {
+	}
+
+	public Provider(Long id) {
+		super(id);
+	}
 
 	public String getCompanyNameChina() {
 		return companyNameChina;
@@ -273,16 +272,6 @@ public class Provider extends SiteUser {
 
 	public void setCity(City city) {
 		this.city = city;
-	}
-
-	@Override
-	public Calendar getAuthenticatedTime() {
-		return authenticatedTime;
-	}
-
-	@Override
-	public void setAuthenticatedTime(Calendar authenticatedTime) {
-		this.authenticatedTime = authenticatedTime;
 	}
 
 	public Province getProvince() {

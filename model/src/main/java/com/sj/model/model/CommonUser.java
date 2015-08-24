@@ -12,6 +12,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.sj.model.type.TitleEnum;
 
@@ -22,16 +26,15 @@ import com.sj.model.type.TitleEnum;
 @Table(name = "common_user")
 @PrimaryKeyJoinColumn
 public class CommonUser extends SiteUser {
+	@NotBlank(message="单位不能为空")
 	private String company; // 单位*
 
 	private String department; // 部门
 
-	@Column(name = "title")
-	private TitleEnum title; // 职位*
-
 	@Column(name = "company_phone")
+	@Pattern(regexp="[0-9]{3,4}-[0-9]{8}",message = "请输入正确的公司电话，如：010-12345678")
 	private String companyPhone; // 公司电话*
-
+	
 	private String fax; // 传真
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -40,10 +43,13 @@ public class CommonUser extends SiteUser {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id")
+	@NotNull(message="请选择省份/城市")
 	private City city; // 城市*
 
+	@NotBlank(message="详细地址不能为空")
 	private String address; // 详细地址*
-
+	
+	@Pattern(regexp="[0-9]{6}",message="邮编为6位数组")
 	private String code; // 邮编*
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -55,7 +61,7 @@ public class CommonUser extends SiteUser {
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<PreferProduct> preferProducts;
-
+	
 	public CommonUser() {
 	}
 
@@ -119,13 +125,6 @@ public class CommonUser extends SiteUser {
 		this.code = code;
 	}
 
-	public TitleEnum getTitle() {
-		return title;
-	}
-
-	public void setTitle(TitleEnum title) {
-		this.title = title;
-	}
 
 	public City getCity() {
 		return city;

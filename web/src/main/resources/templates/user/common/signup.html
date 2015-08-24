@@ -16,6 +16,7 @@
 			$(document).ajaxSend(function(e, xhr, options) {
 				xhr.setRequestHeader(header, token);
 			});
+			var citys = new Array();
 			var check = true;
 			$("#xy").click(function(){
 				if(check==true)
@@ -27,6 +28,19 @@
 				}else{
 					$("#regirect").attr("disabled","disabled");
 				}
+			});
+			$('#province').change(function(){
+				var obj = $(this);
+				var id = obj.val();
+				$.ajax({
+					type : 'get',
+					url : '/province/'+id,
+					success : function(data){
+						alert(data);
+					},error : function(data){
+						alert("error");
+					}
+				});
 			});
 		});
 	</script>
@@ -52,7 +66,7 @@
 			<a href="#" class="logo"><img src="img/topic1.jpg" alt="logo" width="165" height="80"/></a>
 			<div class="head-menu-btn">
 				<a class="self-btn"></a>
-				<a class="company-btn" href="/provider/signup"></a>
+				<a class="company-btn" href="/signup?provider"></a>
 			</div>
 			<div class="head-menu">
 				<a href="/login">已有账号？马上登录</a>
@@ -68,11 +82,12 @@
 			<div class="form-group">
 				<label><i>*</i>邮箱</label>
 				<input type="text" th:field="*{email}"/>
-				<i class="error">必填</i>
+				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>用户名</label>
 				<input type="text" th:field="*{name}"/>
+				<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>密码</label>
@@ -82,6 +97,7 @@
 				<label><i>*</i>手机号</label>
 				<input type="text" th:field="*{phone}"/>
 				<button class="tel-code">获取验证码</button>
+				<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>验证码</label>
@@ -90,11 +106,14 @@
 			<div class="form-group">
 				<label><i>*</i>真实姓名</label>
 				<input type="text" th:field="*{realName}"/>
+				<i class="error" th:if="${#fields.hasErrors('realName')}" th:errors="*{realName}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>性别</label>
 				<input type="radio" th:field="*{sex}" value="MALE"/>男
 				<input type="radio" th:field="*{sex}" value="FEMALE"/>女
+				<i class="error" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">必填</i>
+				
 			</div>
 			<div class="hd resg-hd">
 				<span>详细信息</span>
@@ -102,6 +121,7 @@
 			<div class="form-group">
 				<label><i>*</i>单位</label>
 				<input type="text" th:field="*{company}"/>
+				<i class="error" th:if="${#fields.hasErrors('company')}" th:errors="*{company}">必填</i>
 			</div>
 			<div class="form-group">
 				<label>部门</label>
@@ -110,6 +130,7 @@
 			<div class="form-group">
 				<label><i>*</i>电话</label>
 				<input type="text" th:field="*{companyPhone}"/>
+				<i class="error" th:if="${#fields.hasErrors('companyPhone')}" th:errors="*{companyPhone}">必填</i>
 			</div>
 			<div class="form-group">
 				<label>传真</label>
@@ -119,58 +140,63 @@
 				<label><i>*</i>省/市</label>
 				<select th:field="*{province}">
 					<option value="">选择省份/市</option>
-					<option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.name}"></option>
+					<option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
 				</select>
-				<select th:filed="*{city}">
-					<option>选择城市</option>
-					<option>上海市</option>
+				<select th:field="*{city}">
+					<option value="">选择城市</option>
+					<option value="">上海市</option>
 				</select>
+				<i class="error" th:if="${#fields.hasErrors('province')}" th:errors="*{province}">必填</i>
+				<i class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>详细地址</label>
 				<input type="text" th:field="*{address}"/>
+				<i class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>邮政编码</label>
 				<input type="text" th:field="*{code}"/>
+				<i class="error" th:if="${#fields.hasErrors('code')}" th:errors="*{code}">必填</i>
 			</div>
 			<div class="hd resg-hd">
 				<span>行业信息</span>
+				<i class="error" th:if="${#fields.hasErrors('industryInformation')}" th:errors="*{industryInformation}" style="color: red;">必填</i>
 			</div>
 			<div class="form-group">
 				<ul>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="one"/>科研院校/所
+						<input type="radio" th:field="*{industryInformation}" value="ONE"/>科研院校/所
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="two"/>工业检测机构
+						<input type="radio" th:field="*{industryInformation}" value="TWO"/>工业检测机构
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="three"/>委托合同研究机构
+						<input type="radio" th:field="*{industryInformation}" value="THREE"/>委托合同研究机构
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="four"/>政府机构
+						<input type="radio" th:field="*{industryInformation}" value="FOUR"/>政府机构
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="five"/>商业检测/研发实验室
+						<input type="radio" th:field="*{industryInformation}" value="FIVE"/>商业检测/研发实验室
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="six"/>医疗保健机构
+						<input type="radio" th:field="*{industryInformation}" value="SIX"/>医疗保健机构
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="seven"/>医院及大学医疗中心
+						<input type="radio" th:field="*{industryInformation}" value="SEVEN"/>医院及大学医疗中心
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="eight"/>医疗及诊断设备公司
+						<input type="radio" th:field="*{industryInformation}" value="EIGHT"/>医疗及诊断设备公司
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="nine"/>制药/生物技术
+						<input type="radio" th:field="*{industryInformation}" value="NINE"/>制药/生物技术
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="ten"/>设备材料供应商
+						<input type="radio" th:field="*{industryInformation}" value="TEN"/>设备材料供应商
 					</li>
 					<li>
-						<input type="radio" th:field="*{industryInformation}" value="eleven"/>其他
+						<input type="radio" th:field="*{industryInformation}" value="ELEVEN"/>其他
 					</li>
 				</ul>
 			</div>

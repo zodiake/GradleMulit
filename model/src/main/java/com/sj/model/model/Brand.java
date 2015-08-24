@@ -40,7 +40,6 @@ public class Brand {
 	private Set<Product> products;
 
 	public Brand() {
-
 	}
 
 	public Brand(Long id) {
