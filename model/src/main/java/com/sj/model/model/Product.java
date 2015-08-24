@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,8 +27,9 @@ import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "product")
+@DiscriminatorColumn(name = "product_type")
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

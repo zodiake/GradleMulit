@@ -1,10 +1,11 @@
 package com.sj.model.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 
+//设备
 @Entity
-@PrimaryKeyJoinColumn
+@DiscriminatorValue("i")
 public class Instrument extends Product {
 
 }

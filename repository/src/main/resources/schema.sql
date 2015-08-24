@@ -75,7 +75,6 @@ create TABLE provider(
 	business_license_url varchar(40),
 	tax_registration_url varchar(40),
 	structure_code_url varchar(40),
---	provider_name varchar(20),
 	position varchar(20),
 	provider_phone varchar(20),
 	fax varchar(20),
@@ -84,7 +83,6 @@ create TABLE provider(
 	website varchar(50),
 	province_id bigint,
 	city_id bigint,
---	provider_sex smallint,
 	compony_type smallint,
 	business_type smallint,
 	scale smallint,
@@ -99,8 +97,6 @@ create TABLE provider(
 
 create table common_user(
 	id bigint not NULL auto_increment,
---	real_name varchar(20),
---	sex smallint,
 	company varchar(64),
 	department varchar(64),
 	title smallint,
@@ -111,7 +107,6 @@ create table common_user(
 	province_id bigint,
 	city_id bigint,
 	industry_information smallint,
---	position smallint,
 	primary key (id),
 	foreign key (id) references site_user(id),
 	foreign key (province_id) references province(id),
@@ -127,7 +122,6 @@ create table brand(
 	primary key(id),
 );
 
-
 create table product(
 	id bigint not null auto_increment,
 	name varchar(40) not null,
@@ -137,7 +131,6 @@ create table product(
 	status smallint,
 	specifications varchar(20),
 	cover_img varchar(40),
-	private float,
 	first_category_id bigint,
 	second_category_id bigint,
 	third_category_id bigint,
@@ -150,6 +143,7 @@ create table product(
 	created_time timestamp,
 	serialno varchar(20),
 	original smallint,
+	product_type char(1),
 	primary key(id),
 	foreign key (first_category_id) references category(id),
 	foreign key (second_category_id) references category(id),
@@ -168,30 +162,6 @@ create table review(
 	primary key(id),
 	foreign key(user_id) references site_user(id),
 	foreign key(product_id) references product(id)
-);
-
-create table consumable(
-	id bigint not null,
-	primary key(id),
-	foreign key(id) references product(id)
-);
-
-create table instrument(
-	id bigint not null,
-	primary key(id),
-	foreign key(id) references product(id)
-);
-
-create table reagents(
-	id bigint not null,
-	primary key(id),
-	foreign key(id) references product(id)
-);
-
-create table service(
-	id bigint not null,
-	primary key(id),
-	foreign key(id) references product(id)
 );
 
 create table subject_product(

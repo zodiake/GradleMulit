@@ -1,0 +1,802 @@
+
+
+@import url('bootstrap.min.css');
+@import url('bootstrap-override.css');
+
+
+
+/********** 2. RESET STYLES **********/
+/*************************************/
+
+body {
+    font-size: 13px;
+    color: #636E7B;
+    background-color: #fff;
+    font-family:'Microsoft Yahei',Helvetica, Arial, sans-serif;
+	font-weight:100
+}
+
+a {
+    outline: none !important;
+}
+
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none;
+}
+a{
+    color:#fff;
+}
+
+
+
+/********** 3. HEADER STYLES **********/
+/**************************************/
+
+html{
+	position:relative;
+	min-height:100%
+	}
+
+
+.headerwrapper {
+    background-color: #31445e;
+    height: 60px;
+    padding: 15px 50px;
+    width: 100%;
+}
+
+.headerwrapper:after {
+    clear: both;
+    display: block;
+    content: '';
+}
+
+
+/***** 3.1 HEADER LEFT *****/
+
+.headerwrapper .header-left {
+    width: 300px;
+    color: #fff;
+    font-size: 18px;
+    float: left;
+}
+.headerwrapper .header-right{
+    float: right;
+} 
+/********* 4. MAIN WRAPPER STYLES *********/
+/******************************************/
+
+.img-online {
+    border: 2px solid #5cb85c;
+    padding: 2px;
+    background-color: #fff;
+}
+
+.img-offline {
+    border: 2px solid #ccc;
+    padding: 2px;
+    background-color: #fff;
+}
+
+
+
+/***** 4.1 LEFT PANEL STYLES *****/
+
+.leftpanel {
+    width: 190px;
+    float: left;
+	background-color:#fff;    
+    border-right: 1px solid #e0e4e7;
+}
+#child_nav{
+	margin-top:0!important
+	}
+/***** 4.1.1 LEFT PANEL NAVIGATION *****/
+
+.leftpanel .nav {
+    position: relative;
+}
+
+.leftpanel .nav > li {
+    margin: 0 0 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+}
+
+.leftpanel .nav > li.active {
+    border-top: 0;
+    margin-right: 0;
+}
+
+.leftpanel .nav > li.active + li {
+    border-top: 0;
+}
+.leftpanel .nav > li.active a{
+    background: #1caf9a;
+    color: #fff;
+}
+.leftpanel .nav > li > a {
+    color: #43505d;
+	font-size:15px;
+    padding:0 40px;
+	height:45px;
+	line-height:45px;
+	background-color:#f7fafc;
+	border-bottom: 1px solid #ebeff0;
+}
+
+.leftpanel .nav > li > a i {
+    width: 16px;
+    margin-right: 5px;
+    color: #6e7d8c;
+    font-size: 15px;
+    top: 1px;
+    position: relative;
+    text-align: center;
+}
+
+
+.leftpanel .nav > li.parent-focus > a {
+    background-color: #f7fafc;
+}
+
+.leftpanel .nav .badge {
+    font-weight: normal;
+    line-height: normal;
+    font-size: 11px;
+    background-color: #2f363d;
+}
+.leftpanel .nav .children{
+    list-style: none;
+    padding:10px 0;
+    margin: 0;
+}
+
+.leftpanel .nav .children li a{
+	position:relative;
+    font-weight: normal;
+    font-size: 14px;
+    display: block;
+    color: #444;
+    padding:4px 10px 4px 40px;
+    -moz-transition: all 0.2s ease-out 0s;
+    -webkit-transition: all 0.2s ease-out 0s;
+    transition: all 0.2s ease-out 0s;
+}
+.leftpanel .nav .children li a:hover {
+    text-decoration: none;
+    background-color: #f7f7f7;
+}
+
+.leftpanel .nav .children li.active a {
+	padding-left:42px;
+    font-size:18px;
+	color:#1caf9a;
+}
+.leftpanel .nav .children li.active a:before{
+	content:'';
+	position:absolute;
+	left:26px;
+	top:10px;
+	height:16px;
+	width:4px;
+	border-radius:0;
+	background-color:#1caf9a;
+}
+.leftpanel .nav .active .children {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.leftpanel .nav .active .children {
+    margin-right: 1px;
+}
+
+
+
+/***** 4.2 MAIN PANEL STYLES *****/
+
+.mainpanel {
+    margin-left: 190px;
+}
+
+.pageheader {
+
+    border-bottom: 1px solid #eee;
+    -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+}
+
+.pageheader .media {
+	display:none;
+    padding: 0;
+    clear: both;
+}
+
+.pageheader .pageicon {
+    width: 50px;
+    height: 50px;
+    background-color: #4e5154;
+    display:none;
+    color: #fff;
+    font-size: 32px;
+    border-radius: 3px;
+    padding-top: 1px;
+    padding-left: 10px;
+}
+
+.pageheader .pageicon .fa-envelope-o {
+    font-size: 31px;
+}
+
+.pageheader .pageicon .fa-bar-chart-o {
+    font-size: 28px;
+}
+
+.pageheader .pageicon .fa-flag {
+    font-size: 30px;
+}
+
+.pageheader .pageicon .fa-laptop {
+    font-size: 28px;
+}
+
+.pageheader .pageicon .fa-navicon {
+    font-size: 28px;
+    margin-left: 3px;
+}
+
+.pageheader .pageicon .fa-code {
+    font-size: 28px;
+}
+
+.pageheader .pageicon .fa-pencil {
+    margin-left: 3px;
+}
+
+.pageheader .pageicon .fa-th-list {
+    font-size: 28px;
+    margin-left: 1px;
+}
+
+.pageheader .pageicon .fa-map-marker {
+    margin-left: 5px;
+}
+
+.pageheader .pageicon .fa-calendar {
+    font-size: 32px;
+}
+
+.pageheader .pageicon .fa-user {
+    font-size: 28px;
+    margin-left: 4px;
+}
+
+.pageheader .breadcrumb {
+    margin: 0;
+    padding: 0;
+    background: none;
+    font-size: 12px;
+    color: #999;
+    line-height: 18px;
+}
+
+.pageheader .breadcrumb li a {
+    color: #333;
+}
+
+.pageheader .breadcrumb li a:hover,
+.pageheader .breadcrumb li a:active,
+.pagehaeder .breadcrumb li a:focus {
+    color: #428bca;
+}
+
+.pageheader .breadcrumb li a i {
+    color: #999;
+    font-size: 10px;
+}
+
+.pageheader h4 {
+	padding-left:25px;
+	height:40px;
+	line-height:40px;
+    font-size: 20px;
+    color: #303942;
+	font-weight:100;
+}
+
+/***** 4.2.1 CONTENT PANEL STYLES *****/
+
+.contentpanel {
+    position: relative;
+    padding:16px 32px 0;
+}
+/***** 6.1 BUTTONS PAGE STYLES *****/
+
+.btn-dark {
+    background-color: #4e5154;
+    color: #fff;
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+    background-color: #414446;
+    color: #fff;
+}
+
+.btn-list .btn {
+    margin: 0 3px 7px 0;
+}
+
+.btn-rounded {
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn.btn-bordered {
+    padding: 6px 13px;
+}
+
+.btn-sm.btn-bordered {
+    padding: 4px 10px; 
+}
+
+.btn-xs.btn-bordered {
+    padding: 2px 8px;
+}
+
+.btn.btn-bordered,
+.btn.btn-bordered:hover,
+.btn.btn-bordered:focus,
+.btn.btn-bordered:active {
+    background: none !important;
+    border-width: 0;
+}
+
+.btn-primary.btn-bordered,
+.btn-primary.btn-bordered:hover,
+.btn-primary.btn-bordered:active,
+.btn-primary.btn-bordered:focus {
+    color: #428bca;
+}
+
+.btn-success.btn-bordered,
+.btn-success.btn-bordered:hover,
+.btn-success.btn-bordered:active,
+.btn-success.btn-bordered:focus {
+    color: #2bc16e;
+}
+
+.btn-warning.btn-bordered,
+.btn-warning.btn-bordered:hover,
+.btn-warning.btn-bordered:active,
+.btn-warning.btn-bordered:focus {
+    color: #eea236;
+}
+
+.btn-danger.btn-bordered,
+.btn-danger.btn-bordered:focus,
+.btn-danger.btn-bordered:active,
+.btn-danger.btn-bordered:hover {
+    color: #d9534f;
+}
+
+.btn-info.btn-bordered,
+.btn-info.btn-bordered:focus,
+.btn-info.btn-bordered:active,
+.btn-info.btn-bordered:hover {
+    color: #46b8da;
+}
+
+.btn.btn-metro {
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+.btn-group .btn.btn-bordered + .btn.btn-bordered,
+.btn-group .btn.btn-bordered + .btn-group,
+.btn-group .btn-group + .btn.btn-bordered,
+.btn-group .btn-group + .btn-group {
+    margin-left: -2px;
+}
+
+.btn-group .btn.btn-bordered {
+    padding-left: 14px;
+    padding-right: 15px;
+}
+
+.pagination-metro > li:first-child > a,
+.pagination-metro > li:first-child > span {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.pagination-metro > li:last-child > a,
+.pagination-metro > li:last-child > span {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.pagination-split.pagination-metro > li > a,
+.pagination-split.pagination-metro > li > span {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+.pagination-primary > li > a,
+.pagination-primary > li > a:hover {
+    border-color: #428bca;
+    color: #428bca;
+}
+
+.pagination-primary > .disabled > span,
+.pagination-primary > .disabled > span:hover,
+.pagination-primary > .disabled > span:focus,
+.pagination-primary > .disabled > a,
+.pagination-primary > .disabled > a:hover,
+.pagination-primary > .disabled > a:focus {
+    border-color: #428bca;
+    color: #428bca;
+    opacity: 0.5;
+}
+
+.pagination-success > li > a,
+.pagination-success > li > a:hover {
+    border-color: #5cb85c;
+    color: #5cb85c;
+}
+
+.pagination-success > .disabled > span,
+.pagination-success > .disabled > span:hover,
+.pagination-success > .disabled > span:focus,
+.pagination-success > .disabled > a,
+.pagination-success > .disabled > a:hover,
+.pagination-success > .disabled > a:focus {
+    border-color: #5cb85c;
+    color: #5cb85c;
+    opacity: 0.5;
+}
+
+.pagination-success > .active > a,
+.pagination-success > .active > span,
+.pagination-success > .active > a:hover,
+.pagination-success > .active > span:hover,
+.pagination-success > .active > a:focus,
+.pagination-success > .active > span:focus {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+
+.pagination-circled > li > a {
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.pagination-circled > li:first-child > a,
+.pagination-circled > li:first-child > span {
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+}
+
+.pagination-circled > li:last-child > a,
+.pagination-circled > li:last-child > span {
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.pagination-circled > li:first-child > a,
+.pagination-circled > li:last-child > a {
+    padding: 6px 13px;
+}
+
+.pagination-active-success > .active > a,
+.pagination-active-success > .active > span,
+.pagination-active-success > .active > a:hover,
+.pagination-active-success > .active > span:hover,
+.pagination-active-success > .active > a:focus,
+.pagination-active-success > .active > span:focus {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+
+.pagination-active-success > li > a:hover,
+.pagination-active-success > li > span:hover,
+.pagination-active-success > li > a:focus,
+.pagination-active-success > li > span:focus {
+    color: #5cb85c;
+}
+
+.pagination-active-warning > .active > a,
+.pagination-active-warning > .active > span,
+.pagination-active-warning > .active > a:hover,
+.pagination-active-warning > .active > span:hover,
+.pagination-active-warning > .active > a:focus,
+.pagination-active-warning > .active > span:focus {
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+}
+
+.pagination-active-warning > li > a:hover,
+.pagination-active-warning > li > span:hover,
+.pagination-active-warning > li > a:focus,
+.pagination-active-warning > li > span:focus {
+    color: #f0ad4e;
+}
+
+.pagination-active-danger > .active > a,
+.pagination-active-danger > .active > span,
+.pagination-active-danger > .active > a:hover,
+.pagination-active-danger > .active > span:hover,
+.pagination-active-danger > .active > a:focus,
+.pagination-active-danger > .active > span:focus {
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+
+.pagination-active-danger > li > a:hover,
+.pagination-active-danger > li > span:hover,
+.pagination-active-danger > li > a:focus,
+.pagination-active-danger > li > span:focus {
+    color: #d9534f;
+}
+
+.pagination-active-info > .active > a,
+.pagination-active-info > .active > span,
+.pagination-active-info > .active > a:hover,
+.pagination-active-info > .active > span:hover,
+.pagination-active-info > .active > a:focus,
+.pagination-active-info > .active > span:focus {
+    background-color: #5bc0de;
+    border-color: #5bc0de;
+}
+
+.pagination-active-info > li > a:hover,
+.pagination-active-info > li > span:hover,
+.pagination-active-info > li > a:focus,
+.pagination-active-info > li > span:focus {
+    color: #5bc0de;
+}
+
+.pagination-active-dark > .active > a,
+.pagination-active-dark > .active > span,
+.pagination-active-dark > .active > a:hover,
+.pagination-active-dark > .active > span:hover,
+.pagination-active-dark > .active > a:focus,
+.pagination-active-dark > .active > span:focus {
+    background-color: #4e5154;
+    border-color: #4e5154;
+}
+
+.pagination-active-dark > li > a:hover,
+.pagination-active-dark > li > span:hover,
+.pagination-active-dark > li > a:focus,
+.pagination-active-dark > li > span:focus {
+    color: #4e5154;
+}
+
+.progress-metro {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+
+
+.table-bordered tbody > tr > th,
+.table-bordered tbody > tr > td {
+    padding: 15px;
+    border: 1px solid #ccc;
+    text-align: center!important;
+}
+
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	padding:3px;
+	}
+
+	
+.footerwrapper{
+	position:absolute;
+	bottom:0;
+	width:100%;
+	z-index:9999;
+	height:48px;
+	line-height:48px;
+	color:#fff;
+	text-align:center;
+	background-color:#31445e;
+	}
+.pagenumQu {
+    padding: 0;
+    margin-top: 30px;
+    text-align: right;
+}
+.pagenumQu .paup {
+    padding: 0 8px 0 0;
+}
+.pagenumQu .padown {
+    padding: 0 0 0 8px;
+}
+.pagenumQu .pashu {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #d6d6d6;
+    margin: 0 9px 0 8px;
+    padding: 4px 8px 3px;
+}
+.pagenumQu .page, .pagenumQu .first, .pagenumQu .previous, .pagenumQu .next, .pagenumQu .last {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #92a0ad;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 0;
+    padding: 5px 0;
+    position: relative;
+}
+.pagenumQu .selected {
+    background: #3e8acc none repeat scroll 0 0;
+    border: 1px solid #428bca;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 0;
+    position: relative;
+}
+.pagenumQu .selected a {
+    color: #fff;
+}
+.pagenumQu .hidden {
+    display: none;
+}
+.pagenumQu a {
+    color: #636e7b;
+    padding: 0 12px;
+    text-decoration: none;
+}
+.pagenumQu > span {
+    float: left;
+}
+.panel-footer .pagenumQu {
+    overflow: hidden;
+}
+.panel-footer .Tables_info b {
+    color: #2b84d1;
+    font-size: 18px;
+    font-weight: 500;
+}
+.w300{
+    width: 300px;
+}
+.w400{
+    width: 400px;
+}
+.w700{
+    width: 700px;
+}
+.pl100{
+    padding-left: 100px;
+}
+.mt20{
+    margin-top: 20px;
+}
+select{
+    height: 30px;
+    border-radius: 3px;
+    border:1px solid #ccc;
+}
+.company-select select{
+    width: 150px;
+    padding-left: 10px;
+}
+.modal-content{
+    max-height: 700px;
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+.mauto{
+    margin-top: -20px;
+    margin-left: 120px;
+}
+.manage-dl dl {
+    margin-right: 20px;
+    padding: 0;
+    border: 1px solid #ddd;
+}
+
+.manage-dl dt {
+    line-height: 30px;
+    background: #ddd;
+    border-bottom: 1px solid #ccc;
+}
+
+.manage-dl dt,
+.manage-dl dd {
+    text-align: center;
+    line-height: 35px;
+}
+.manage-dl .nav-tabs{
+    height: 30px;
+}
+.manage-dl .nav-tabs > li > a{
+    font-size: 16px;
+}
+.sort-list ul{
+    width: 700px; 
+    padding: 0; 
+    border-top:1px solid #e0e4e7;  
+}
+.sort-list li{
+    position: relative;
+    padding-left: 30px;
+    line-height: 35px;
+    list-style: none;
+    overflow: hidden;
+    border:1px solid #e0e4e7;
+    border-top: none;
+}
+.sort-list li>div>button{
+    margin: 2px;
+}
+.sort-list li>div>i{
+    display: block;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent transparent transparent #31445e;
+    border-image: none;
+    border-style: solid;
+    border-width: 10px;
+    position: absolute;;
+    left: 10px;
+    top:8px;
+    transition: all 0.5s ease 0s;
+}
+.sort-list li>div>i.active{
+    top:13px;
+    transition: all 0.5s ease 0s;
+      -webkit-transform: rotate(90deg);
+}
+.sort-list li>div.floor-two{
+    padding-left: 30px;
+    position: relative;
+    overflow: hidden;
+    display: none;
+}
+.sort-list li:hover>div.floor-two{
+    transition: all 0.5s ease 0s;
+    z-index: 111;
+}
+.sort-list li>div.floor-two>div.line{
+    width: 20px;
+    height: 15px;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    border-left: 1px dotted #ccc;
+    border-bottom: 1px dotted #ccc;
+}
+.sort-list li>button.add{
+    margin-bottom: 10px;
+    display: none;
+}
+.sort-list li>div.save-group{
+    display: none;
+}
+.sort-list li>div.save-group input{
+    height: 30px;
+    width: 620px;
+    padding-left: 10px;
+    line-height: 30px;
+    margin-top: 3px;
+    outline: medium;
+}

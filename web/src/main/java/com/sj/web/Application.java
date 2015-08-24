@@ -66,13 +66,6 @@ public class Application extends WebMvcConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
-					.antMatchers("/*/signup")
-					.permitAll()
-					.antMatchers("/base/*").permitAll()
-					.antMatchers("*/signup")
-					.permitAll()
-					.antMatchers("/user/isExiste/*")
-					.permitAll()
 					.antMatchers("/provider/**")
 					.hasRole("PROVIDER")
 					.antMatchers("/user/**")
