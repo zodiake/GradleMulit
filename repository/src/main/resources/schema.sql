@@ -12,7 +12,7 @@ create table category(
 	primary key(id),
 	foreign key (parent_id) references category(id)
 );
--- newtable
+
 create table province(
 	id bigint not null AUTO_INCREMENT,
 	name varchar(40) not null,
@@ -26,7 +26,6 @@ create table city(
 	primary key(id),
 	foreign key (province_id) references province(id)
 );
--- end new table
 
 create table content(
 	id bigint not null auto_increment,
@@ -57,7 +56,6 @@ create table site_user(
 	phone varchar(11),
 	site_authority varchar(20),
 	created_time timestamp,
---	普通用户的真实姓名，企业用户的联系人
 	real_name varchar(20),			
 	sex smallint,
 	primary key(id)
@@ -74,7 +72,6 @@ create TABLE provider(
 	business_license_url varchar(40),
 	tax_registration_url varchar(40),
 	structure_code_url varchar(40),
---	provider_name varchar(20),
 	position varchar(20),
 	provider_phone varchar(20),
 	fax varchar(20),
@@ -84,7 +81,6 @@ create TABLE provider(
 	website varchar(50),
 	province_id bigint,
 	city_id bigint,
---	provider_sex smallint,
 	compony_type smallint,
 	business_type smallint,
 	scale smallint,
@@ -99,8 +95,6 @@ create TABLE provider(
 
 create table common_user(
 	id bigint not NULL auto_increment,
---	real_name varchar(20),
---	sex smallint,
 	company varchar(64),
 	department varchar(64),
 	company_phone varchar(15),
@@ -109,12 +103,19 @@ create table common_user(
 	code varchar(10),
 	province_id bigint,
 	city_id bigint,
-	industry_information smallint,
---	position smallint,
+	info_id int,
 	primary key (id),
 	foreign key (id) references site_user(id),
 	foreign key (province_id) references province(id),
 	foreign key (city_id) references city(id)
+	foreign key (info_id) references industry_info(id)
+);
+
+create table industry_info(
+	id int not null auto_increment,
+	name varchar(50),
+	industry_type char(1),
+	primary key (id)
 );
 
 create table brand(
@@ -125,7 +126,6 @@ create table brand(
 	cover_img varchar(40),
 	primary key(id),
 );
-
 
 create table product(
 	id bigint not null auto_increment,
@@ -148,6 +148,7 @@ create table product(
 	created_time timestamp,
 	serialno varchar(20),
 	original smallint,
+	product_type char(1),
 	primary key(id),
 	foreign key (first_category_id) references category(id),
 	foreign key (second_category_id) references category(id),
@@ -166,30 +167,6 @@ create table review(
 	primary key(id),
 	foreign key(user_id) references site_user(id),
 	foreign key(product_id) references product(id)
-);
-
-create table consumable(
-	id bigint not null,
-	primary key(id),
-	foreign key(id) references product(id)
-);
-
-create table instrument(
-	id bigint not null,
-	primary key(id),
-	foreign key(id) references product(id)
-);
-
-create table reagents(
-	id bigint not null,
-	primary key(id),
-	foreign key(id) references product(id)
-);
-
-create table service(
-	id bigint not null,
-	primary key(id),
-	foreign key(id) references product(id)
 );
 
 create table subject_product(

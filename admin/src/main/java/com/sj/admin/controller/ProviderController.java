@@ -17,6 +17,7 @@ import com.sj.repository.service.ProviderService;
 
 @Controller
 public class ProviderController {
+	private final String PROVIDER = "provider";
 	@Autowired
 	private ProviderService providerService;
 
@@ -24,10 +25,11 @@ public class ProviderController {
 	public String findAllDesc(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		Page<Provider> providers = providerService.findAllDescAndStatus(new PageRequest(
-				page - 1, size, Direction.DESC, "createTime"),null);
+		Page<Provider> providers = providerService.findAllDescAndStatus(
+				new PageRequest(page - 1, size, Direction.DESC, "createTime"),
+				null);
 		uiModel.addAttribute("providers", providers);
-		return null;
+		return PROVIDER;
 	}
 
 	@RequestMapping(value = "/admin/providers/{status}", method = RequestMethod.GET)
@@ -35,8 +37,9 @@ public class ProviderController {
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size,
 			@PathVariable("status") int status) {
-		Page<Provider> providers = providerService.findAllDescAndStatus(new PageRequest(
-				page - 1, size, Direction.DESC, "createTime"),ActivateEnum.values()[status]);					
+		Page<Provider> providers = providerService.findAllDescAndStatus(
+				new PageRequest(page - 1, size, Direction.DESC, "createTime"),
+				ActivateEnum.values()[status]);
 		uiModel.addAttribute("providers", providers);
 		return null;
 	}

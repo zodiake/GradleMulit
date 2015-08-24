@@ -21,7 +21,6 @@ import com.sj.repository.service.SiteUserService;
 
 @Controller
 public class LoginController {
-
 	@Autowired
 	private SiteUserService userService;
 	@Autowired
@@ -51,15 +50,15 @@ public class LoginController {
 			// 在此处添加错误信息
 			user.setPassword(null);
 			uiModel.addAttribute("user", user);
-			System.out.println(user.getName());
 			bindingResult.addError(new FieldError("user", "error", "用户名或密码错误"));
 			return LOGIN;
 		}
-		SiteUser siteUser = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
-		if("ROLE_ADMIN".equals(siteUser.getSiteAuthority())){
+		SiteUser siteUser = (SiteUser) userDetailsService
+				.loadUserByUsername(user.getName());
+		if ("ROLE_ADMIN".equals(siteUser.getSiteAuthority())) {
 			userContext.setCurrentUser(siteUser);
 			return INDEX;
-		}else{
+		} else {
 			user.setPassword(null);
 			uiModel.addAttribute("user", user);
 			bindingResult.addError(new FieldError("user", "error", "对不起您没有权限"));

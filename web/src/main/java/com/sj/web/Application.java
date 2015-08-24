@@ -35,15 +35,16 @@ import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementContent;
 import com.sj.repository.converter.StringToBusinessTypeEnumConverter;
 import com.sj.repository.converter.StringToComponyTypeEnumConverter;
-import com.sj.repository.converter.StringToIndustryInformationEnumConverter;
 import com.sj.repository.converter.StringToOriginalEnumConverter;
 import com.sj.repository.converter.StringToOutputEnumConverter;
 import com.sj.repository.converter.StringToPositionInformationEnumConverter;
 import com.sj.repository.converter.StringToProductConverter;
+import com.sj.repository.converter.StringToProviderIndustryInfo;
 import com.sj.repository.converter.StringToScaleEnumConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
 import com.sj.repository.converter.StringToSexEnumConverter;
 import com.sj.repository.converter.StringToTitleEnumConverter;
+import com.sj.repository.converter.StringToUserIndustryInfo;
 import com.sj.web.resolver.PageRequestResolver;
 import com.sj.web.resolver.SiteUserResolver;
 
@@ -142,8 +143,8 @@ public class Application extends WebMvcConfigurerAdapter {
 		// new
 		formatterRegistry.addConverter(stringToBusinessTypeEnumConverter());
 		formatterRegistry.addConverter(stringToComponyTypeEnumConverter());
-		formatterRegistry
-				.addConverter(stringToIndustryInformationEnumConverter());
+		formatterRegistry.addConverter(stringToUserIndustryInfo());
+		formatterRegistry.addConverter(stringToProviderIndustryInfo());
 		formatterRegistry.addConverter(stringToOutputEnumConverter());
 		formatterRegistry
 				.addConverter(stringToPositionInformationEnumConverter());
@@ -205,8 +206,13 @@ public class Application extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public StringToIndustryInformationEnumConverter stringToIndustryInformationEnumConverter() {
-		return new StringToIndustryInformationEnumConverter();
+	public StringToProviderIndustryInfo stringToProviderIndustryInfo() {
+		return new StringToProviderIndustryInfo();
+	}
+
+	@Bean
+	public StringToUserIndustryInfo stringToUserIndustryInfo() {
+		return new StringToUserIndustryInfo();
 	}
 
 	@Bean

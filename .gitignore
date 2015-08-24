@@ -43,3 +43,4 @@ web/src/main/resources/static/upload/
 *.iml
 
 admin/src/main/resources/static/upload/
+admin/data/*

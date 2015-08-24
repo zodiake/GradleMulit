@@ -1,10 +1,11 @@
 package com.sj.model.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 
+//服务
 @Entity
-@PrimaryKeyJoinColumn
-public class Service extends Product{
+@DiscriminatorValue("s")
+public class Service extends Product {
 
 }

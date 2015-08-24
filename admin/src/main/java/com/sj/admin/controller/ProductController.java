@@ -17,6 +17,11 @@ import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,7 +61,7 @@ public class ProductController {
 
 	@RequestMapping(value = "/admins/product", method = RequestMethod.GET, params = "batch")
 	public String createBatch() {
-		
+
 		return "create";
 	}
 
@@ -147,7 +152,8 @@ public class ProductController {
 
 	@RequestMapping(value = "/admins/product", method = RequestMethod.POST, params = "batch")
 	@ResponseBody
-	public String createBatchProcess(@RequestParam("file") MultipartFile mf) throws IOException, InvalidFormatException {
+	public String createBatchProcess(@RequestParam("file") MultipartFile mf)
+			throws IOException, InvalidFormatException {
 		InputStream is = mf.getInputStream();
 		List<Product> products = getData(is);
 		List<String> strs = productService.saveProducts(products);
@@ -212,7 +218,7 @@ public class ProductController {
 				// products[i - 3] = product;
 				products.add(product);
 			} catch (Exception e) {
-				System.out.println(i+1);
+				System.out.println(i + 1);
 			}
 		}
 		wb.close();
@@ -247,7 +253,7 @@ public class ProductController {
 		}
 		XSSFSheet sheet = wb.createSheet("品牌");
 		for (int i = 0; i < 20; i++) {
-			XSSFRow row = sheet.createRow((int) i);
+			XSSFRow row = sheet.createRow(i);
 			XSSFCell cell = row.createCell(0);
 			cell.setCellValue("哈哈3");
 		}

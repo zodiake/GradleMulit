@@ -21,22 +21,22 @@
 		$('.addCart').click(function() {
 			var id = $(this);
 			var product = id.attr("data-id");
-				$.ajax({
-					type : 'POST',
-					url : "/ajax/cart",
-					data:{'productId':product,'number':1},
-					success : function(data){
-						if(data=="login")
-							window.location.href="/login";
-						else if(data=="success")
-							alert(data);
-						else
-							alert(data);
-					},
-					error : function(data){ 
+			$.ajax({
+				type : 'POST',
+				url : "/ajax/cart",
+				data:{'productId':product,'number':1},
+				success : function(data){
+					if(data=="login")
+						window.location.href="/login";
+					else if(data=="success")
 						alert(data);
-					}
-				});
+					else
+						alert(data);
+				},
+				error : function(data){ 
+					alert(data);
+				}
+			});
 		});
 		function coll(productId){
 			$.ajax({

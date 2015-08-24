@@ -1,10 +1,11 @@
 package com.sj.model.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 
+//试剂
 @Entity
-@PrimaryKeyJoinColumn
-public class Reagents extends Product{
+@DiscriminatorValue("r")
+public class Reagents extends Product {
 
 }

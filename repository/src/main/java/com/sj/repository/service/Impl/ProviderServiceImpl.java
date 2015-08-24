@@ -33,10 +33,9 @@ public class ProviderServiceImpl implements ProviderService {
 		provider.setSiteAuthority("ROLE_PROVIDER");
 		Calendar c = Calendar.getInstance();
 		provider.setCreatedTime(c);
-		
-		//未添加图片地址
-		
-		
+
+		// 未添加图片地址
+
 		return repository.save(provider);
 	}
 
@@ -67,7 +66,7 @@ public class ProviderServiceImpl implements ProviderService {
 		p.setLegalPerson(provider.getLegalPerson());
 		p.setComponyType(provider.getComponyType());
 		p.setRegisteredCapital(provider.getRegisteredCapital());
-		p.setIndustryInformation(provider.getIndustryInformation());
+		p.setIndustryInfo(provider.getIndustryInfo());
 		p.setMainProduct(provider.getMainProduct());
 		p.setBusinessType(provider.getBusinessType());
 		p.setOutput(provider.getOutput());

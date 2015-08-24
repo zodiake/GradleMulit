@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 
 import com.sj.model.type.BusinessTypeEnum;
 import com.sj.model.type.ComponyTypeEnum;
-import com.sj.model.type.IndustryInformationEnum;
 import com.sj.model.type.OutputEnum;
 import com.sj.model.type.ScaleEnum;
 
@@ -96,10 +95,9 @@ public class Provider extends SiteUser {
 
 	private String website; // 公司网址
 
-	// 行业信息
-	@Column(name = "industry_information")
-	private IndustryInformationEnum industryInformation;// 行业信息*
-	
+	@OneToOne
+	@JoinColumn(name = "info_id")
+	private ProviderIndustryInfo industryInfo;// 行业信息*
 
 	public Provider() {
 	}
@@ -245,15 +243,6 @@ public class Provider extends SiteUser {
 		this.componyType = componyType;
 	}
 
-	public IndustryInformationEnum getIndustryInformation() {
-		return industryInformation;
-	}
-
-	public void setIndustryInformation(
-			IndustryInformationEnum industryInformation) {
-		this.industryInformation = industryInformation;
-	}
-
 	public String getTaxRegistrationUrl() {
 		return taxRegistrationUrl;
 	}
@@ -270,6 +259,14 @@ public class Provider extends SiteUser {
 		this.structureCodeUrl = structureCodeUrl;
 	}
 
+	public ProviderIndustryInfo getIndustryInfo() {
+		return industryInfo;
+	}
+
+	public void setIndustryInfo(ProviderIndustryInfo industryInfo) {
+		this.industryInfo = industryInfo;
+	}
+
 	public City getCity() {
 		return city;
 	}
@@ -278,20 +275,20 @@ public class Provider extends SiteUser {
 		this.city = city;
 	}
 
-	public Calendar getAuthenticatedTime() {
-		return authenticatedTime;
-	}
-
-	public void setAuthenticatedTime(Calendar authenticatedTime) {
-		this.authenticatedTime = authenticatedTime;
-	}
-
 	public Province getProvince() {
 		return province;
 	}
 
 	public void setProvince(Province province) {
 		this.province = province;
+	}
+
+	public Calendar getAuthenticatedTime() {
+		return authenticatedTime;
+	}
+
+	public void setAuthenticatedTime(Calendar authenticatedTime) {
+		this.authenticatedTime = authenticatedTime;
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -16,7 +17,6 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.sj.model.type.IndustryInformationEnum;
 import com.sj.model.type.TitleEnum;
 
 /**
@@ -26,7 +26,6 @@ import com.sj.model.type.TitleEnum;
 @Table(name = "common_user")
 @PrimaryKeyJoinColumn
 public class CommonUser extends SiteUser {
-	// 详细信息
 	@NotBlank(message="单位不能为空")
 	private String company; // 单位*
 
@@ -53,15 +52,15 @@ public class CommonUser extends SiteUser {
 	@Pattern(regexp="[0-9]{6}",message="邮编为6位数组")
 	private String code; // 邮编*
 
-	@Column(name = "industry_information")
-	@NotNull(message = "请选择行业信息")
-	private IndustryInformationEnum industryInformation; // 行业信息*
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "info_id")
+	private UserIndustryInfo industryInfo; // 行业信息
+
+	@Transient
+	private String captcha;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<PreferProduct> preferProducts;
-	
-	@Transient
-	private String captcha;
 	
 	public CommonUser() {
 	}
@@ -126,14 +125,6 @@ public class CommonUser extends SiteUser {
 		this.code = code;
 	}
 
-	public IndustryInformationEnum getIndustryInformation() {
-		return industryInformation;
-	}
-
-	public void setIndustryInformation(
-			IndustryInformationEnum industryInformation) {
-		this.industryInformation = industryInformation;
-	}
 
 	public City getCity() {
 		return city;
@@ -159,4 +150,11 @@ public class CommonUser extends SiteUser {
 		return province;
 	}
 
+	public UserIndustryInfo getIndustryInfo() {
+		return industryInfo;
+	}
+
+	public void setIndustryInfo(UserIndustryInfo industryInfo) {
+		this.industryInfo = industryInfo;
+	}
 }
