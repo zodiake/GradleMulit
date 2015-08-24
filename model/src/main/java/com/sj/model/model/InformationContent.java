@@ -16,7 +16,19 @@ public class InformationContent implements Serializable {
 	private Long id;
 
 	private String content;
-	
+
+	public InformationContent() {
+
+	}
+
+	public InformationContent(Long id) {
+		this.id = id;
+	}
+
+	public InformationContent(Long id, String content) {
+		this.id = id;
+		this.content = content;
+	}
 
 	public Long getId() {
 		return id;

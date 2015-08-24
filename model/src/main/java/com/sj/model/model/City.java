@@ -26,7 +26,6 @@ public class City {
 	private Province province;
 	
 	public City() {
-
 	}
 
 	public City(Long id) {

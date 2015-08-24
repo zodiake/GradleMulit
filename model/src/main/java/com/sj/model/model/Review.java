@@ -32,6 +32,19 @@ public class Review {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdTime;
+	
+	public Review(){
+		super();
+	}
+	public Review(Long id){
+		super();
+		this.id = id;
+	}
+	public Review(Long id,String content){
+		super();
+		this.id = id;
+		this.content=content;
+	}
 
 	public Long getId() {
 		return id;

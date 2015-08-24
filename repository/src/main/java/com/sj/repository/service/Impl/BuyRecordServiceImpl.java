@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,7 @@ import com.sj.repository.repository.BuyRecordRepository;
 import com.sj.repository.service.BuyRecordService;
 
 @Service
+@Transactional
 public class BuyRecordServiceImpl implements BuyRecordService{
 	@Autowired
 	private BuyRecordRepository buyRecordRepository;

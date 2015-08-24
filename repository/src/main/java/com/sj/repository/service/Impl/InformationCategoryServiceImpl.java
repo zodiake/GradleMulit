@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,7 @@ import com.sj.repository.repository.InformationCategoryRepository;
 import com.sj.repository.service.InformationCategoryService;
 
 @Service
+@Transactional
 public class InformationCategoryServiceImpl implements
 	InformationCategoryService {
 	@Autowired

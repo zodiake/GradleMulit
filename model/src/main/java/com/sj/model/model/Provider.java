@@ -29,13 +29,6 @@ import com.sj.model.type.ScaleEnum;
 @PrimaryKeyJoinColumn
 public class Provider extends SiteUser {
 
-	public Provider() {
-	}
-
-	public Provider(Long id) {
-		super(id);
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "authenticated_time")
 	private Calendar authenticatedTime; // 鉴定时间
@@ -106,6 +99,15 @@ public class Provider extends SiteUser {
 	// 行业信息
 	@Column(name = "industry_information")
 	private IndustryInformationEnum industryInformation;// 行业信息*
+	
+
+	public Provider() {
+	}
+
+	public Provider(Long id) {
+		super(id);
+	}
+
 
 	public String getCompanyNameChina() {
 		return companyNameChina;

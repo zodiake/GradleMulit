@@ -3,6 +3,8 @@ package com.sj.repository.service.Impl;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,6 +18,7 @@ import com.sj.repository.repository.BrandRepository;
 import com.sj.repository.service.BrandService;
 
 @Service
+@Transactional
 public class BrandServiceImpl implements BrandService {
 	@Autowired
 	private BrandRepository repository;

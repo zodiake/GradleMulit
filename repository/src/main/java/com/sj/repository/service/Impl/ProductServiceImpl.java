@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
@@ -32,6 +33,7 @@ import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.ProductService;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductRepository repository;
@@ -204,6 +206,13 @@ public class ProductServiceImpl implements ProductService {
 						l.setCollectionCount(0l);
 				});
 		return pages;
+	}
+
+	@Override
+	public Page<Product> findBySecondCategory(ProductCategory second,
+			Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

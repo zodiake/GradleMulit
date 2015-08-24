@@ -14,7 +14,19 @@
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-<cache name="subjectsCache" maxEntriesLocalHeap="5000"
+	<cache name="provinceCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="cityCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="subjectsCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
@@ -28,27 +40,21 @@
 		<persistence strategy="localTempSwap" />
 	</cache>
 	<cache name="informationCache" maxEntriesLocalHeap="5000"
-	maxEntriesLocalDisk="1000"
-	eternal="false" diskSpoolBufferSizeMB="20"
-	timeToIdleSeconds="200" timeToLiveSeconds="500"
-	memoryStoreEvictionPolicy="LFU"
-	transactionalMode="off">
-		<persistence strategy="localTempSwap"/>
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
 	</cache>
 	<cache name="productCategoryCache" maxEntriesLocalHeap="5000"
-	maxEntriesLocalDisk="1000"
-	eternal="false" diskSpoolBufferSizeMB="20"
-	timeToIdleSeconds="200" timeToLiveSeconds="500"
-	memoryStoreEvictionPolicy="LFU"
-	transactionalMode="off">
-		<persistence strategy="localTempSwap"/>
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
 	</cache>
 	<cache name="brandCache" maxEntriesLocalHeap="5000"
-	maxEntriesLocalDisk="1000"
-	eternal="false" diskSpoolBufferSizeMB="20"
-	timeToIdleSeconds="200" timeToLiveSeconds="500"
-	memoryStoreEvictionPolicy="LFU"
-	transactionalMode="off">
-		<persistence strategy="localTempSwap"/>
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
 	</cache>
 </ehcache> 

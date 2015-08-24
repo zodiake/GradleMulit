@@ -2,6 +2,8 @@ package com.sj.repository.service.Impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import com.sj.repository.repository.AdvertisementRepository;
 import com.sj.repository.service.AdvertisementService;
 
 @Service
+@Transactional
 public class AdvertisementServiceImpl implements AdvertisementService {
 
 	@Autowired

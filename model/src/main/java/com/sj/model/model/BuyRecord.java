@@ -52,7 +52,6 @@ public class BuyRecord {
 	private Set<BuyProduct> products;
 	
 	public BuyRecord(){
-		
 	}
 	
 	public BuyRecord(Long id){

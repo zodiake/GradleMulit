@@ -87,8 +87,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
+	@Cacheable(value = "productCategoryCache", key = "#name")
 	public ProductCategory findByName(String name) {
-		return repository.findByName(name,ActivateEnum.ACTIVATE);
+		return repository.findByNameAndActivate(name,ActivateEnum.ACTIVATE);
 	}
 
 	@Override

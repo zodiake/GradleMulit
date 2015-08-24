@@ -2,6 +2,8 @@ package com.sj.repository.service.Impl;
 
 import java.util.Calendar;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,7 @@ import com.sj.repository.repository.CommonUserRepository;
 import com.sj.repository.service.CommonUserService;
 
 @Service
+@Transactional
 public class CommonUserServiceImpl implements CommonUserService{
 	
 	@Autowired
@@ -48,7 +51,6 @@ public class CommonUserServiceImpl implements CommonUserService{
 		u.setIndustryInformation(user.getIndustryInformation());
 		u.setCompany(user.getCompany());
 		u.setDepartment(user.getDepartment());
-		u.setTitle(user.getTitle());
 		u.setCompanyPhone(user.getCompanyPhone());
 		u.setFax(user.getFax());
 		u.setCode(user.getCode());

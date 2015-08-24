@@ -23,6 +23,7 @@ public class CartLine {
 
 	public CartLine(String id, String url, String name, String price,
 			String number,String image,String brandName,String model,String place,String productId,String check) {
+		super();
 		this.id = Long.valueOf(id);
 		this.url = url;
 		this.name = name;

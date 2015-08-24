@@ -19,15 +19,15 @@ public class BuyProduct {
 	public static class Id implements Serializable {
 
 		@Column(name = "buy_id")
-		private Integer buyId;
+		private Long buyId;
 
 		@Column(name = "product_id")
-		private Integer productId;
+		private Long productId;
 
 		public Id() {
 		}
 
-		public Id(Integer buyId, Integer productId) {
+		public Id(Long buyId, Long productId) {
 			this.buyId = buyId;
 			this.productId = productId;
 		}
@@ -45,6 +45,14 @@ public class BuyProduct {
 	private Product product;
 	
 	private Integer number;
+	
+	public BuyProduct(){
+	}
+	public BuyProduct(BuyRecord buy,Product product){
+		this.id.buyId=buy.getId();
+		this.id.productId=product.getId();
+		this.product = product;
+	}
 
 	public BuyRecord getBuy() {
 		return buy;

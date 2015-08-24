@@ -43,4 +43,6 @@ public interface ProductService {
 	public Product saveOne(Product product);
 	
 	public Page<Product> findCount(Provider user, Pageable pageable);
+	
+	public Page<Product> findBySecondCategory(ProductCategory second,Pageable pageable);
 }
