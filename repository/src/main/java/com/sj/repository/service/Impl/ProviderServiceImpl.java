@@ -19,10 +19,6 @@ public class ProviderServiceImpl implements ProviderService {
 	@Autowired
 	private ProviderRepository repository;
 
-	private static final String BUSINESSLICENSE = "businesslicense";
-	private static final String TAXREQISTRATION = "taxreqistration";
-	private static final String STRUCTURECODE = "structurecode";
-
 	@Override
 	public Provider findOne(Long id) {
 		return repository.findOne(id);

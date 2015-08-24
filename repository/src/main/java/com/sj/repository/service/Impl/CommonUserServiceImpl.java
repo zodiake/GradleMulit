@@ -21,7 +21,7 @@ public class CommonUserServiceImpl implements CommonUserService{
 	@Override
 	public CommonUser create(CommonUser user) {
 		user.setCreatedTime(Calendar.getInstance());
-		user.setEnabled(ActivateEnum.ACTIVATE); 		//由于测试方便将用户激活，实际中为未激活状态
+		user.setEnabled(ActivateEnum.ACTIVATE);
 		user.setSiteAuthority("ROLE_COMMONUSER");
 		return commonUserRepository.save(user);
 	}

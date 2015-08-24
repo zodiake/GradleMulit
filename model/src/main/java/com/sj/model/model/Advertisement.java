@@ -9,9 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.model.type.ActivateEnum;
 
@@ -23,8 +20,6 @@ public class Advertisement {
 	private Long id;
 
 	private ActivateEnum activate;
-	@Transient
-	private MultipartFile mf;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
@@ -66,14 +61,6 @@ public class Advertisement {
 
 	public void setActivate(ActivateEnum activate) {
 		this.activate = activate;
-	}
-
-	public MultipartFile getMf() {
-		return mf;
-	}
-
-	public void setMf(MultipartFile mf) {
-		this.mf = mf;
 	}
 
 	public AdvertismentCategory getCategory() {

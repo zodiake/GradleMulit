@@ -21,8 +21,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.sj.model.type.OriginalEnum;
 import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
@@ -34,7 +32,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String name;
 	// new
 	private String nameEnglish; // 产品英文名
@@ -46,7 +44,7 @@ public class Product {
 	private String specifications; // 规格
 
 	private ProductStatusEnum status;
-	
+
 	private String label;
 	// end
 
@@ -87,15 +85,15 @@ public class Product {
 
 	@Transient
 	private Long viewCount;
-	
+
 	@Transient
-	private Long reviewCount=0l;
+	private Long reviewCount = 0l;
 	@Transient
 	private Long collectionCount;
-	
+
 	@Transient
 	private Long buyCount;
-	
+
 	@Transient
 	private boolean isCollection;// 是否被收藏
 

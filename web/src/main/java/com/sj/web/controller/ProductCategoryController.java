@@ -54,14 +54,16 @@ public class ProductCategoryController {
 		uiModel.addAttribute("page", pages);
 		List<Product> products = pages.getContent();
 		boolean bool = userContext.isLogin();
-		if(bool){
-			SiteUser user =  userContext.getCurrentUser();
-			List<PreferProduct> prefer = preferProductService.findByUser(new CommonUser(user.getId()));
-			if(prefer!=null && prefer.size()!=0){
+		if (bool) {
+			SiteUser user = userContext.getCurrentUser();
+			List<PreferProduct> prefer = preferProductService
+					.findByUser(new CommonUser(user.getId()));
+			if (prefer != null && prefer.size() != 0) {
 				for (Product product : products) {
 					Long productId = product.getId();
 					for (int i = 0; i < prefer.size(); i++) {
-						if (productId.equals(prefer.get(i).getProduct().getId())) {
+						if (productId
+								.equals(prefer.get(i).getProduct().getId())) {
 							product.setCollection(true);
 							break;
 						}
@@ -70,7 +72,6 @@ public class ProductCategoryController {
 			}
 		}
 		uiModel.addAttribute("products", products);
-
 		return "product/products";
 	}
 

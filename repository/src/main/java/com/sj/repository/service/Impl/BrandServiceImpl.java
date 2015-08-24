@@ -14,7 +14,6 @@ import com.sj.model.model.Brand;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.repository.BrandRepository;
 import com.sj.repository.service.BrandService;
-import com.sj.repository.util.UpImageUtil;
 
 @Service
 public class BrandServiceImpl implements BrandService {

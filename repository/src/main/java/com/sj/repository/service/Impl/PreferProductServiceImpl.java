@@ -1,9 +1,5 @@
 package com.sj.repository.service.Impl;
 
-import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
-import static com.sj.repository.util.RedisConstant.COLLECTION;
-import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
-
 import java.util.Calendar;
 import java.util.List;
 

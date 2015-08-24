@@ -55,7 +55,7 @@ public class BrandController {
 	public String testMp4(Model uiModel) {
 		Subject s = new Subject();
 		uiModel.addAttribute("subject", s);
-		return "mtest";	
+		return "mtest";
 	}
 
 	@RequestMapping(value = "/aaa/upload", method = RequestMethod.POST)
@@ -72,7 +72,7 @@ public class BrandController {
 
 		String str = "<script type=\"text/javascript\">";
 		str = str + "window.parent.CKEDITOR.tools.callFunction(" + callback
-				+ ",'" +"/upload/content/" + fileName + "','')";
+				+ ",'" + "/upload/content/" + fileName + "','')";
 		str = str + "</script>";
 		return str;
 	}
