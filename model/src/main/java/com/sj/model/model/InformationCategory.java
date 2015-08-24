@@ -15,6 +15,20 @@ import javax.persistence.Table;
 public class InformationCategory extends Category {
 	
 	public static final String ZX="资讯";
+	public static final String HYYW="HYYW";
+	public static final String XPCG="XPCG";
+	public static final String CSDT="CSDT";
+	 
+	public static final InformationCategory getFirst(String url){
+		System.out.println("url="+url);
+		if(url == HYYW)
+			return new InformationCategory(7l);
+		if(url == XPCG)
+			return new InformationCategory(8l);
+		if(url == CSDT)
+			return new InformationCategory(9l);
+		return null;
+	}
 	
 	@Column(name="url")
 	private String url;

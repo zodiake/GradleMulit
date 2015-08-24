@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.sj.model.type.IndustryInformationEnum;
-import com.sj.model.type.PositionEnum;
 import com.sj.model.type.TitleEnum;
 
 /**
@@ -73,9 +72,6 @@ public class CommonUser extends SiteUser {
 	@Column(name = "industry_information")
 	private IndustryInformationEnum industryInformation; // 行业信息*
 
-//	@NotNull(message = "职位信息不能为空")
-	@Column(name = "position")
-	private PositionEnum position; // 职位信息*
 	// end
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -155,14 +151,6 @@ public class CommonUser extends SiteUser {
 
 	public void setTitle(TitleEnum title) {
 		this.title = title;
-	}
-
-	public PositionEnum getPosition() {
-		return position;
-	}
-
-	public void setPosition(PositionEnum position) {
-		this.position = position;
 	}
 
 	public City getCity() {

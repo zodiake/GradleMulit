@@ -13,4 +13,6 @@ public interface CommonUserService {
 	public Page<CommonUser> findAll(Pageable pageable);
 	
 	public CommonUser findOne(Long id);
+	
+	public CommonUser update(CommonUser user);
 }

@@ -1,5 +1,6 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.CascadeType;
@@ -24,14 +25,14 @@ import com.sj.model.type.ActivateEnum;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "information")
-public class Information {
+public class Information implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String title;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE,
 			CascadeType.REMOVE })
 	@JoinColumn(name = "content_id")
 	private InformationContent content;
@@ -41,9 +42,6 @@ public class Information {
 	
 	private ActivateEnum activate;
 	
-	@Column(name="show_on_index")
-	private boolean showOnIndex;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
 	private Calendar createdTime;
@@ -121,12 +119,6 @@ public class Information {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public boolean isShowOnIndex() {
-		return showOnIndex;
-	}
-	public void setShowOnIndex(boolean showOnIndex) {
-		this.showOnIndex = showOnIndex;
 	}
 	public ActivateEnum getActivate() {
 		return activate;

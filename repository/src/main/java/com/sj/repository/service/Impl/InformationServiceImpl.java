@@ -8,10 +8,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Information;
@@ -30,7 +32,8 @@ public class InformationServiceImpl implements InformationService {
 	private InformationCategoryRepository informationCategoryRrepository;
 
 	@Override
-	public Page<Information> findByCategory(InformationCategory category, Pageable pageable) {
+	public Page<Information> findByCategory(InformationCategory category,
+			Pageable pageable) {
 
 		return repository.findByCategory(category, pageable);
 	}
@@ -55,7 +58,6 @@ public class InformationServiceImpl implements InformationService {
 
 	@Override
 	public Information create(Information info) {
-		info.setShowOnIndex(false);
 		info.setCreatedTime(Calendar.getInstance());
 		return repository.save(info);
 	}
@@ -66,12 +68,11 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	public List<Information> findByCategoryAndShowOnIndex(
-			InformationCategory category) {
-		Page<Information> aPage = repository.findByCategory(category,
-				new PageRequest(0, 9));
-
-		return aPage.getContent();
+	@Cacheable(value = "informationCache", key = "#category.id")
+	public List<Information> findByCategoryAndShowOnIndex(InformationCategory category) {
+		Page<Information> infoPage = repository.findByCategory(category,
+				new PageRequest(0, 3, Direction.DESC, "createdTime"));
+		return infoPage.getContent();
 	}
 
 	@Override

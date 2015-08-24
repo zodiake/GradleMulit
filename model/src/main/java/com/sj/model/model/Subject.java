@@ -57,6 +57,8 @@ public class Subject {
 	@Column(name="u_id")
 	private String uId;
 	
+	private String image;
+	
 	@Transient
 	private Long viewCount=0l;
 	
@@ -173,5 +175,13 @@ public class Subject {
 
 	public void setViewCount(Long viewCount) {
 		this.viewCount = viewCount;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

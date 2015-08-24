@@ -14,4 +14,6 @@ public interface CartLineService {
 	Set<CartLine> findByUser(Long id);
 
 	void clearCartline(Long id, String... lines);
+	
+	void updateCheck(Long id, Long cartlineId, String check);
 }

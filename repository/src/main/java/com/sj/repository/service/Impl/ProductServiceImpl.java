@@ -1,6 +1,9 @@
 package com.sj.repository.service.Impl;
 
 import static com.sj.repository.util.RedisConstant.VIEWCOUNT;
+import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
+import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
+import static com.sj.repository.util.RedisConstant.BUYCOUNT;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,9 +43,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<Product> findByUsers(Provider user, Pageable pageable,
-			String original) {
+			OriginalEnum original) {
 		Page<Product> pages = repository.findByCreatedByAndOriginal(user,
-				pageable, OriginalEnum.valueOf(original));
+				pageable, original);
 		List<Product> lists = pages.getContent();
 		lists.stream().forEach(
 				l -> {
@@ -52,13 +55,39 @@ public class ProductServiceImpl implements ProductService {
 						l.setViewCount(Long.valueOf(count));
 					else
 						l.setViewCount(0l);
+					
+					String review = template.opsForValue().get(REVIEWCOUNT +l.getId().toString());
+					if (review != null)
+						l.setReviewCount(Long.valueOf(review));
+					else
+						l.setReviewCount(0l);
+					
+					String buy = template.opsForValue().get(BUYCOUNT +l.getId().toString());
+					if (buy != null)
+						l.setBuyCount(Long.valueOf(buy));
+					else
+						l.setBuyCount(0l);
+					
+					String collection = template.opsForValue().get(COLLECTIONCOUNT +l.getId().toString());
+					if (collection != null)
+						l.setCollectionCount(Long.valueOf(collection));
+					else
+						l.setCollectionCount(0l);
 				});
 		return pages;
 	}
 
 	@Override
 	public Product findOne(Long id) {
-		return repository.findOne(id);
+		Product p = repository.findOne(id);
+		String count = (String) template.opsForHash().get(
+				"prefer:" + id, "count");
+		System.out.println(count==null);
+		if(count==null)
+			p.setCollectionCount(0l);
+		else
+			p.setCollectionCount(Long.valueOf(count));
+		return p;
 	}
 
 	@Override
@@ -70,7 +99,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product addOneProduct(Product product) {
 		product.setCreatedTime(Calendar.getInstance());
 		product.setViewCount(0L);
-		product.setOriginal(OriginalEnum.IN);
+		product.setOriginal(OriginalEnum.VERIFY);
 		product.setCoverImg(UpImageUtil.saveImage(
 				product.getImage(),
 				product.getCreatedBy().getId().toString(),
@@ -89,21 +118,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product findOneByUser(Provider user, Long id) {
-
-		// return repository.findByIdAndCreatedBy(id, user);
-		return null;
+		return repository.findByIdAndCreatedBy(id, user);
 	}
 
 	@Override
 	public Product updateProduct(Product newProduct, Product oldProduct) {
 		// 修改oldProduct的信息
 		return repository.save(oldProduct);
-	}
-
-	@Override
-	public void offProduct(Product product) {
-		product.setOriginal(OriginalEnum.OUT);
-		repository.save(product);
 	}
 
 	@Override
@@ -114,8 +135,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findByCategory(ProductCategory category,
 			Pageable pageable) {
-		
-		return repository.findByThirdCategoryAndStatus(category, pageable, ProductStatusEnum.UP);
+
+		return repository.findByThirdCategoryAndStatus(category, pageable,
+				ProductStatusEnum.UP);
 	}
 
 	@Override
@@ -138,7 +160,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < products.size(); i++) {
 			vs = validator.validate(products.get(i));
 			if (!vs.isEmpty()) {
-				String str = "第" + (i+1) + "个商品出错，出错原因：";
+				String str = "第" + (i + 1) + "个商品出错，出错原因：";
 				for (int j = 0; j < vs.size(); j++) {
 					ConstraintViolationImpl<Product> p = (ConstraintViolationImpl<Product>) vs
 							.toArray()[j];
@@ -148,7 +170,7 @@ public class ProductServiceImpl implements ProductService {
 			}
 			vs.clear();
 		}
-		if(strs.size()==0){
+		if (strs.size() == 0) {
 			repository.save(products);
 		}
 		return strs;
@@ -157,6 +179,46 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product saveOne(Product product) {
 		return repository.save(product);
+	}
+
+	@Override
+	public Page<Product> findByUsers(Provider user, Pageable pageable) {
+		return repository.findByCreatedBy(user, pageable);
+	}
+
+	@Override
+	public Page<Product> findCount(Provider user, Pageable pageable) {
+		Page<Product> pages = repository.findByCreatedBy(user,
+				pageable);
+		List<Product> lists = pages.getContent();
+		lists.stream().forEach(
+				l -> {
+					String count = template.opsForValue().get(
+							VIEWCOUNT + l.getId().toString());
+					if (count != null)
+						l.setViewCount(Long.valueOf(count));
+					else
+						l.setViewCount(0l);
+					
+					String review = template.opsForValue().get(REVIEWCOUNT +l.getId().toString());
+					if (review != null)
+						l.setReviewCount(Long.valueOf(review));
+					else
+						l.setReviewCount(0l);
+					
+					String buy = template.opsForValue().get(BUYCOUNT +l.getId().toString());
+					if (buy != null)
+						l.setBuyCount(Long.valueOf(buy));
+					else
+						l.setBuyCount(0l);
+					
+					String collection = template.opsForValue().get(COLLECTIONCOUNT +l.getId().toString());
+					if (collection != null)
+						l.setCollectionCount(Long.valueOf(collection));
+					else
+						l.setCollectionCount(0l);
+				});
+		return pages;
 	}
 
 }

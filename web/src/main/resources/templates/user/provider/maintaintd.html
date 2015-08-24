@@ -1,0 +1,25 @@
+<td th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015年01月11日</td>
+<script type="text/javascript" th:src="@{/js/maintain.js}"></script>
+										<td><a th:text="${product.name}">名称名称</a></td>
+										<td>
+											<span class="one-sort" th:text="${#strings.abbreviate(product.firstCategory.name,15)}">仪器</span>
+											<span th:text="${#strings.abbreviate(product.secondCategory.name,15)}">生物芯片</span>
+											<span th:text="${#strings.abbreviate(product.thirdCategory.name,15)}">芯片扫描仪</span>
+										</td>
+										<td>￥<i th:text="${product.price}"></i></td>
+										<td><i th:switch="${product.original.toString()}">
+											<a th:case="${'VERIFY'}">审核中</a>
+											<a th:case="${'PASS'}">已上架</a>
+											<a th:case="${'NOPASS'}">未通过</a>
+											<a th:case="${'OUT'}">已下架</a>
+											</i></td>
+										<td class="show-wrap">
+											<i th:switch="${product.original.toString()}">
+												<i class="blue" th:case="${'VERIFY'}"><a th:attr="data-id=${product.id}" class="off">撤销</a></i>
+												<i class="blue" th:case="${'PASS'}">
+													<a class="blue nopass" th:attr="data-id=${product.id}">下架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue">修改</a></i>
+												<i class="blue" th:case="${'NOPASS'}"><a class="blue">修改</a></i>
+												<i class="blue" th:case="${'OUT'}">
+													<a class="blue pass" th:attr="data-id=${product.id}">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue">修改</a></i>
+											</i>
+										</td>

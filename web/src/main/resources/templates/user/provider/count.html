@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>商品信息统计</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+  <script th:src="@{/js/jquery-min.js}"></script>
+  <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+	<div class="header">
+		<div th:include="@{/head/head}"></div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="self-wrap">
+			<div class="gray-hd"><a class="blue">个人中心</a></div>
+			<div class="mainwrapper clearfix">
+				<div class="aside fl">
+					<a href="/provider/detail">个人资料</a>
+					<a href="/provider/products?form">发布商品</a>
+					<a href="/provider/products/ALL">商品维护</a>
+					<a class="active">商品信息统计</a>
+				</div>
+				<div class="mainpanel fr">					
+					<table class="save-table change-color">
+						<thead>
+							<tr>
+								<th>上架日期</th>
+								<th>产品名称</th>
+								<th>收藏次数</th>
+								<th>评论次数</th>
+								<th>申购次数</th>
+							</tr>
+						</thead>
+						<tbody class="bodr">
+							<tr th:each="product:${products}">
+								<td th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd HH-mm-ss')}">2015年01月11日 10:39</td>
+								<td><a th:text="${product.name}" th:href="'/products/'+${product.id}">名称名称</a></td>
+								<td th:text="${product.collectionCount}">11111</td>
+								<td th:text="${product.reviewCount}">2222</td>
+								<td th:text="${product.buyCount}">3333</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+</body>
+</html>	

@@ -5,13 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="description" content=""/>
   <title>仪器商品列表</title>
+  	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
   <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
   <script type="text/javascript" th:src="@{/js/script.js}"></script>
+  <script type="text/javascript">
+  $(function() {
+	 	var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		
+		$('.addCart').click(function() {
+			var id = $(this);
+			var product = id.attr("data-id");
+				$.ajax({
+					type : 'POST',
+					url : "/ajax/cart",
+					data:{'productId':product,'number':1},
+					success : function(data){
+						if(data=="login")
+							window.location.href="/login";
+						else if(data=="success")
+							alert(data);
+						else
+							alert(data);
+					},
+					error : function(data){ 
+						alert(data);
+					}
+				});
+		});
+		function coll(productId){
+			$.ajax({
+				type : 'post',
+				url : '/ajax/preferProduct/'+productId,
+				success: function(data){
+					if(data=="success"){
+						var coll = $("#coll"+productId);
+						coll.empty();
+						var str = '<a class="btn-cancel nocoll" data-id="'+productId+'">取消收藏</a><a class="btn-cart addCart" data-id="'+productId+'">加入购物车</a>';
+						coll.append(str);
+					}else{
+						alert(data);
+					}
+				},error : function(data){
+					alert("error")
+				}
+			});
+		}
+		function nocoll(productId){
+			$.ajax({
+				type : 'delete',
+				url : '/ajax/preferProduct/'+productId,
+				success : function(data){
+					if(data=="success"){
+						var coll = $("#coll"+productId);
+						coll.empty();
+						var str = '<a class="btn-cancel coll" data-id="'+productId+'">加入收藏</a><a class="btn-cart addCart" data-id="'+productId+'">加入购物车</a>';
+						coll.append(str);
+					}else{
+						alert(data);
+					}
+				},error : function(data){
+					alert("error");
+				}
+			});
+		}
+		$(".product").on("click",".coll",function(){
+			var obj = $(this);
+			var productId = obj.attr("data-id");
+			coll(productId);
+		});
+		$(".product").on("click",".nocoll",function(){
+			var obj = $(this);
+			var productId = obj.attr("data-id");
+			nocoll(productId);
+		});
+	});
+  </script>
 </head>
 <body>
+
 	<div>
-		<div th:include="@{/base/head}"></div>
+		<div th:include="@{/head/head}"></div>
 	</div>
 	<!-- header -->
 	<div class="wrapper">
@@ -104,7 +183,8 @@
 		</div>	
 		<div class="items-list">
 			<ul>
-				<li class="bodr" th:each="product:${products}">
+				<li class="bodr product" th:each="product:${products}" >
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					<a th:href="@{'/products/'+${product.id}}">
 						<img th:src="@{${product.coverImg}}" width="220" height="160"/>
 						<div class="pic-box">
@@ -132,10 +212,10 @@
 							<div class="pic-row comment">
 								已有<i class="blue" th:text="${product.reviewCount}">1213</i>人评论
 							</div>
-							<div class="pic-row bodr">
-								<a class="btn-cancel" th:if="${product.isCollection()==true}">取消收藏</a>
-								<a class="btn-cancel" th:else="${product.isCollection()==true}">加入收藏</a>
-								<a class="btn-cart">加入购物车</a>
+							<div class="pic-row bodr" th:id="'coll'+${product.id}">
+								<a class="btn-cancel nocoll" th:if="${product.isCollection()==true}" th:attr="data-id=${product.id}">取消收藏</a>
+								<a class="btn-cancel coll" th:unless="${product.isCollection()==true}" th:attr="data-id=${product.id}">加入收藏</a>
+								<a class="btn-cart addCart" th:attr="data-id=${product.id}">加入购物车</a>
 							</div>
 						</div>
 					</a>

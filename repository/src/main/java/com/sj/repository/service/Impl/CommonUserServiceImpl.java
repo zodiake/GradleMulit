@@ -41,4 +41,18 @@ public class CommonUserServiceImpl implements CommonUserService{
 	public CommonUser findOne(Long id) {
 		return commonUserRepository.findOne(id);
 	}
+
+	@Override
+	public CommonUser update(CommonUser user) {
+		CommonUser u = commonUserRepository.findOne(user.getId());
+		u.setIndustryInformation(user.getIndustryInformation());
+		u.setCompany(user.getCompany());
+		u.setDepartment(user.getDepartment());
+		u.setTitle(user.getTitle());
+		u.setCompanyPhone(user.getCompanyPhone());
+		u.setFax(user.getFax());
+		u.setCode(user.getCode());
+		u.setAddress(user.getAddress());
+		return commonUserRepository.save(u);
+	}
 }

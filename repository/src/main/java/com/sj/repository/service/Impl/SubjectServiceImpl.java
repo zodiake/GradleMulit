@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
+	@Cacheable(value = "subjectsCache")
 	public List<Subject> findByShowOnIndex() {
 		return repository.findByShowOnIndex(ActivateEnum.ACTIVATE);
 	}

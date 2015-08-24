@@ -17,6 +17,10 @@
 			$(document).ajaxSend(function(e, xhr, options) {
 				xhr.setRequestHeader(header, token);
 			});
+			$('#text').click(function(){
+				alert(token);
+				alert(header);
+			});
 		});
 	</script>
 </head>

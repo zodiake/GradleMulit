@@ -4,6 +4,8 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
+	config.width = 630; //宽度
+    config.height = 300; //高度  
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
@@ -40,4 +42,5 @@ CKEDITOR.editorConfig = function( config ) {
 //	config.filebrowserBrowseUrl='/products/upload/image';
 	config.filebrowserUploadUrl='/upload/image';
 	config.image_previewText=' '; //预览区域显示内容
+
 };

@@ -10,6 +10,7 @@ import com.sj.model.type.AdvertiseCategoryEnum;
 
 public interface InformationRepository extends
 		PagingAndSortingRepository<Information, Long> {
+	
 	Page<Information> findByCategory(InformationCategory category,
 			Pageable pageable);
 	

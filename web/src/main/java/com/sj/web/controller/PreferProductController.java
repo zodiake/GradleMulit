@@ -61,7 +61,7 @@ public class PreferProductController {
 		return PREFEREPRODUCTS;
 	}
 
-	@RequestMapping(value = "/user/preferProducts/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/ajax/preferProduct/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String removePrefer(@PathVariable("id") Long id) {
 		SiteUser user = userContext.getCurrentUser();

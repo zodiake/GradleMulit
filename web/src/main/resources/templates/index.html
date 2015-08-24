@@ -9,9 +9,19 @@
   <script th:src="@{/js/jquery-1.11.2.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
   <script th:src="@{/js/script.js}"></script>
+  <script type="text/javascript">
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+	});
+</script>
 </head>
 <body>
-	<div th:include="@{/base/head}"></div>
+	<div th:include="@{/head/head}"></div>
 	<!-- header -->
 	<div class="wrapper">
 		<div class="screen-one clearfix">
@@ -38,58 +48,25 @@
 				<div class="tab-conts news-box">
 					<div class="tab-panel news-list">
 						<ul>
-							<li>
-								<h4 class="gray-deeply">中国首个治疗尿急尿频的透皮贴剂即将面世</h4>
-								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
-							</li>
-							<li class="spe">
-								<span><img src="img/list1.jpg"/></span>
-								<div class="fulid">
-									<h4 class="blue">抗生素的种类与用药原则</h4>
-									<p>首次服用两倍剂量,严格掌握适应症凡 可用可不用者尽量不用;避免长期用药 联合用药时注意配伍禁忌.</p>
-								</div>
-							</li>
-							<li>
-								<h4 class="gray-deeply">中国首个治疗尿急尿频的透皮贴剂即将面世</h4>
-								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							<li th:each="inforH:${isH}">
+								<h4 class="gray-deeply" th:text="${inforH.title}"></h4>
+								<p th:text="${#strings.abbreviate(inforH.content.content,59)}"></p>
 							</li>
 						</ul>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
-							<li>
-								<h4>22222222222222222</h4>
-								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
-							</li>
-							<li class="spe">
-								<span><img src="img/list1.jpg"/></span>
-								<div class="fulid">
-									<h4 class="blue">抗生素的种类与用药原则</h4>
-									<p>首次服用两倍剂量,严格掌握适应症凡 可用可不用者尽量不用;避免长期用药 联合用药时注意配伍禁忌.</p>
-								</div>
-							</li>
-							<li>
-								<h4>中国首个治疗尿急尿频的透皮贴剂即将面世</h4>
-								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							<li th:each="inforX:${isX}">
+								<h4 th:text="${inforX.title}"></h4>
+								<p th:text="${#strings.abbreviate(inforX.content.content,59)}"></p>
 							</li>
 						</ul>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
-							<li>
-								<h4>233333333</h4>
-								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
-							</li>
-							<li class="spe">
-								<span><img src="img/list1.jpg"/></span>
-								<div class="fulid">
-									<h4 class="blue">抗生素的种类与用药原则</h4>
-									<p>首次服用两倍剂量,严格掌握适应症凡 可用可不用者尽量不用;避免长期用药 联合用药时注意配伍禁忌.</p>
-								</div>
-							</li>
-							<li>
-								<h4>中国首个治疗尿急尿频的透皮贴剂即将面世</h4>
-								<p>我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。</p>
+							<li th:each="inforC:${isC}">
+								<h4 th:text="${inforC.title}"></h4>
+								<p th:text="${#strings.abbreviate(inforC.content.content,59)}"></p>
 							</li>
 						</ul>
 					</div>
@@ -471,91 +448,13 @@
 			</div>
 			<div class="global-box topic-box">
 			    <ul>
-			        <li>
+			        <li th:each="subject:${subjects}">
 						<a>
-							<div class="title ft16">生物芯片扫描仪</div>
+							<div class="title ft16" th:text="name">生物芯片扫描仪</div>
 							<div class="spe-pic">
-								<img src="img/topic1.jpg" width="240" height="140"/>
+								<img alt="" th:src="@{/img/list1.jpg}" width="230" height="130"/>
 							</div>
-							<div class="topic-detail">
-							sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-							</div>
-						</a>
-					</li>
-			        <li>
-						<a>
-							<div class="title ft16">生物芯片扫描仪</div>
-							<div class="spe-pic">
-								<img src="img/list1.jpg" width="240" height="140"/>
-							</div>
-							<div class="topic-detail">
-							sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-							</div>
-						</a>
-					</li>
-					<li>
-						<a>
-							<div class="title ft16">生物芯片扫描仪</div>
-							<div class="spe-pic">
-								<img src="img/topic1.jpg" width="240" height="140"/>
-							</div>
-							<div class="topic-detail">
-							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描
-							</div>
-						</a>
-					</li>
-					<li>
-						<a>
-							<div class="title ft16">生物芯片扫描仪</div>
-							<div class="spe-pic">
-								<img src="img/topic1.jpg" width="240" height="140"/>
-							</div>
-							<div class="topic-detail">
-							sodales tempus, ante. Praesent io a arcu auris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-							</div>
-						</a>
-					</li>
-					<li>
-						<a>
-							<div class="title ft16">生物芯片扫描仪</div>
-							<div class="spe-pic">
-								<img src="img/topic1.jpg" width="240" height="140"/>
-							</div>
-							<div class="topic-detail">
-							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
-							</div>
-						</a>
-					</li>
-					<li>
-						<a>
-							<div class="title ft16">生物芯片扫描仪</div>
-							<div class="spe-pic">
-								<img src="img/topic1.jpg" width="240" height="140"/>
-							</div>
-							<div class="topic-detail">
-							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
-							</div>
-						</a>
-					</li>
-					<li>
-						<a>
-							<div class="title ft16">生物芯片扫描仪</div>
-							<div class="spe-pic">
-								<img src="img/topic1.jpg" width="240" height="140"/>
-							</div>
-							<div class="topic-detail">
-							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
-							</div>
-						</a>
-					</li>
-					<li>
-						<a>
-							<div class="title ft16">生物芯片扫描仪</div>
-							<div class="spe-pic">
-								<img src="img/topic1.jpg" width="240" height="140"/>
-							</div>
-							<div class="topic-detail">
-							生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪生物芯片扫描仪
+							<div class="topic-detail" th:text="${subject.content.content}">
 							</div>
 						</a>
 					</li>

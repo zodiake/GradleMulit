@@ -43,6 +43,15 @@ public class CartLineServiceImpl implements CartLineService {
 				.put(cartlineId, "price", cartline.getPrice() + "");
 		template.opsForHash().put(cartlineId, "number",
 				cartline.getNumber() + "");
+		template.opsForHash().put(cartlineId, "image", cartline.getImage());
+		template.opsForHash().put(cartlineId, "place",
+				cartline.getPlace().toString());
+		template.opsForHash().put(cartlineId, "brandName",
+				cartline.getBrandName());
+		template.opsForHash().put(cartlineId, "model", cartline.getModel());
+		template.opsForHash().put(cartlineId, "productId",
+				cartline.getProductId() + "");
+		template.opsForHash().put(cartlineId, "check", String.valueOf(cartline.getCheck()));
 	}
 
 	@Override
@@ -70,14 +79,27 @@ public class CartLineServiceImpl implements CartLineService {
 							redisCartlineId + i, "id");
 					String number = (String) template.opsForHash().get(
 							redisCartlineId + i, "number");
-					return new CartLine(tempId, url, name, price, number);
+					String image = (String) template.opsForHash().get(
+							redisCartlineId + i, "image");
+					String place = (String) template.opsForHash().get(
+							redisCartlineId + i, "place");
+					String brandName = (String) template.opsForHash().get(
+							redisCartlineId + i, "brandName");
+					String model = (String) template.opsForHash().get(
+							redisCartlineId + i, "model");
+					String productId = (String) template.opsForHash().get(
+							redisCartlineId + i, "productId");
+					String check = (String) template.opsForHash().get(
+							redisCartlineId + i, "check");
+					return new CartLine(tempId, url, name, price, number,
+							image, brandName, model, place, productId, check);
 				}).collect(Collectors.toSet());
 	}
 
 	@Override
 	public void updateNumber(Long id, Long cartlineId, int number) {
 		String redisCartlineId = CARTLINE + id + ":" + cartlineId;
-		template.opsForHash().put(redisCartlineId, "number", number);
+		template.opsForHash().put(redisCartlineId, "number", number + "");
 	}
 
 	@Override
@@ -90,5 +112,11 @@ public class CartLineServiceImpl implements CartLineService {
 		stream.forEach(i -> {
 			template.opsForHash().delete(CARTLINE + id + ":" + i);
 		});
+	}
+
+	@Override
+	public void updateCheck(Long id, Long cartlineId, String check) {
+		String redisCartlineId = CARTLINE + id + ":" + cartlineId;
+		template.opsForHash().put(redisCartlineId, "check", check);
 	}
 }

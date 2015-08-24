@@ -6,10 +6,10 @@ $(function(){
 		$('.tab-conts .tab-panel').eq(index).show().siblings().hide();
 	})
 	$('.change-color tr:even').css('background','#eee');
-	$('.show-wrap a,button.show-wrap,.temped,.show-wrap').click(function(){
-		$('.hide-wrap').fadeIn();
-		$('.fixed').fadeIn();
-	})
+//	$('.show-wrap a,button.show-wrap,.temped,.show-wrap').click(function(){
+//		$('.hide-wrap').fadeIn();
+//		$('.fixed').fadeIn();
+//	})
 	$('a.download').click(function(){
 		$('.hide-wrap-small').fadeIn();
 		$('.fixed').fadeIn();
@@ -24,12 +24,16 @@ $(function(){
 		$('.fixed').fadeIn();
 	})
 	/**头部购物车**/
-	$('.head-cart,.head-user,.searched').mouseenter(function(){
+	$('.head-cart,.head-user,.searched,.news-down').mouseenter(function(){
 		$(this).find('.ct-cart-wrap,.user-menu').slideDown();
 		$(this).parent().find('.search-sort').slideDown();
+		$(this).find('.news-sort').slideDown();
 	})
 	$('.head-cart,.head-user').mouseleave(function(){
 		$(this).find('.ct-cart-wrap,.user-menu').slideUp();
+	})
+	$('.news-sort').mouseleave(function(){
+		$(this).slideUp();
 	})
 	$('.head-search').mouseleave(function(){
 		$(this).find('.search-sort').slideUp();

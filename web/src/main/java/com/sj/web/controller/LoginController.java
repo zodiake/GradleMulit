@@ -1,6 +1,6 @@
 package com.sj.web.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
+import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.Provider;
 import com.sj.model.model.Province;
 import com.sj.model.model.SiteUser;
+import com.sj.repository.service.CartLineService;
+import com.sj.repository.service.CartService;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
@@ -56,6 +59,8 @@ public class LoginController {
 	private ProviderService providerService;
 	@Autowired
 	private ProvinceService provinceService;
+	@Autowired
+	private CartLineService cartLineService;
 
 	private final String LOGIN = "user/login";
 	private final String COMMONSIGNUP = "user/common/signup";
@@ -83,7 +88,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@Valid @ModelAttribute("user") SiteUser user,
-			BindingResult bindingResult, Model uiModel) {
+			BindingResult bindingResult, Model uiModel,HttpSession httpSession) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				user.getName(), user.getPassword());
 		try {
@@ -97,6 +102,9 @@ public class LoginController {
 		}
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
 		userContext.setCurrentUser(user);
+		System.out.println(user.getId());
+		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		httpSession.setAttribute("cartLines", lines);
 		return "redirect:/index";
 	}
 

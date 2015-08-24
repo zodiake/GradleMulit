@@ -16,17 +16,23 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.async.DeferredResult;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.sj.model.model.Product;
 import com.sj.repository.service.PDFService;
 
 @Controller
 public class ITextPdfController {
+
+	private final static String TEXT = "上海申捷卫生科技";
 	@Autowired
 	private PDFService pDFService;
 
@@ -52,10 +58,8 @@ public class ITextPdfController {
 	//
 	// return new HttpEntity<byte[]>(byte1, header);
 	// } catch (DocumentException e) {
-	// // TODO Auto-generated catch block
 	// e.printStackTrace();
 	// } catch (IOException e) {
-	// // TODO Auto-generated catch block
 	// e.printStackTrace();
 	// }
 	// return null;
@@ -68,15 +72,67 @@ public class ITextPdfController {
 				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 				Document document = new Document(PageSize.A4, 0, 0, 50, 40);
 				try {
-					PdfWriter.getInstance(document, byteArrayOutputStream);
+					PdfWriter write = PdfWriter.getInstance(document,
+							byteArrayOutputStream);
 					document.open();
 					document.add(pDFService.getPdfPTable(getProducts(), "110",
 							"111", "112", "113", "114", "115", "116"));
+					/* 新建一页 */
+					// document.newPage();
+					// document.add(pDFService.getPdfPTable(getProducts(),
+					// "110",
+					// "111", "112", "113", "114", "115", "116"));
 					document.close();
-					response.setContentType("application/pdf");
+
 					OutputStream out = response.getOutputStream();
 					byteArrayOutputStream.writeTo(out);
 					byte[] byte1 = byteArrayOutputStream.toByteArray();
+
+					/* 添加图片型水印 */
+					// Image image = Image.getInstance("D:/3.jpg");
+					// image.setAbsolutePosition(220, 350);
+					// PdfReader reader = new PdfReader(byte1);
+					// PdfStamper stamper = new PdfStamper(reader, out);
+					// PdfContentByte under = null;
+					// for (int i = 1; i < write.getPageNumber(); i++) {
+					// under = stamper.getUnderContent(i);
+					// under.addImage(image);
+					// }
+					// stamper.close();
+
+					/* 添加文字型水印 */
+					PdfReader reader = new PdfReader(byte1);
+					PdfStamper stamper = new PdfStamper(reader, out);
+					PdfContentByte under = null;
+					BaseFont baseFontChinese = null;
+
+					try {
+						baseFontChinese = BaseFont.createFont(
+								"c:\\Windows\\Fonts\\SIMSUN.TTC,1",
+								BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+					} catch (DocumentException | IOException e) {
+						e.printStackTrace();
+					}
+					for (int i = 1; i < write.getPageNumber(); i++) {
+						under = stamper.getUnderContent(i);
+						under.beginText();
+						under.setColorFill(BaseColor.LIGHT_GRAY);
+						under.setFontAndSize(baseFontChinese, 40);
+						under.setTextMatrix(70, 0);
+						int rise = 250;
+						for (int k = 0; k < TEXT.length(); k++) {
+							under.setTextRise(rise);
+							char c = TEXT.charAt(k);
+							under.showText(c + " ");
+							rise += 50;
+						}
+					}
+					stamper.close();
+
+					response.setContentType("application/pdf");
+					out = response.getOutputStream();
+					byteArrayOutputStream.writeTo(out);
+					byte1 = byteArrayOutputStream.toByteArray();
 					HttpHeaders header = new HttpHeaders();
 					header.setContentType(new MediaType("application", "pdf"));
 					header.set("Content-Disposition",
@@ -85,10 +141,8 @@ public class ITextPdfController {
 
 					return new HttpEntity<byte[]>(byte1, header);
 				} catch (DocumentException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				return null;
@@ -98,13 +152,12 @@ public class ITextPdfController {
 
 	public List<Product> getProducts() {
 		List<Product> products = new ArrayList<Product>();
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < 18; i++) {
 			Product product = new Product();
-			product.setName("f e f a e f a e a d s f e a s d e f  e g e");
+			product.setName("张三李四王五");
 			product.setPrice(74000.0f);
 			products.add(product);
 		}
 		return products;
 	}
-
 }

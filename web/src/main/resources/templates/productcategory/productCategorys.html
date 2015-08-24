@@ -8,10 +8,22 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
   <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/script.js}"></script>
+  <meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <script type="text/javascript">
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+	});
+</script>
 </head>
 <body>
 	<div>
-		<div th:include="@{/base/head}"></div>
+		<div th:include="@{/head/head}"></div>
 	</div>
 	<!-- header -->
 	<div class="wrapper">

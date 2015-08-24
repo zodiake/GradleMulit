@@ -1,5 +1,9 @@
 package com.sj.repository.service.Impl;
 
+import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
+import static com.sj.repository.util.RedisConstant.COLLECTION;
+import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -8,6 +12,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.CommonUser;
@@ -22,6 +27,8 @@ import com.sj.repository.service.PreferProductService;
 public class PreferProductServiceImpl implements PreferProductService {
 	@Autowired
 	private PreferProductRepository repository;
+	@Autowired
+	private StringRedisTemplate template;
 
 	@Override
 	public Page<PreferProduct> findByUser(SiteUser user, Pageable pageable) {
@@ -34,10 +41,21 @@ public class PreferProductServiceImpl implements PreferProductService {
 
 	@Override
 	public PreferProduct save(PreferProduct product) {
-		SiteUser user = product.getUser();
-		CommonUser temp = new CommonUser(user.getId());
-		product.setUser(temp);
 		product.setCreatedTime(Calendar.getInstance());
+
+		// 获取数量
+		String count = (String) template.opsForHash().get(
+				"prefer:" + product.getProduct().getId(), "count");
+		template.opsForSet().add("prefer:",
+				product.getProduct().getId().toString());
+		// 保存
+		if (count == null) {
+			template.opsForHash().put(
+					"prefer:" + product.getProduct().getId().toString(),"count", "0");
+		}else{
+			template.opsForHash().put(
+					"prefer:" + product.getProduct().getId().toString(),"count", (Long.valueOf(count) + 1)+"");
+		}
 		return repository.save(product);
 	}
 
@@ -53,6 +71,19 @@ public class PreferProductServiceImpl implements PreferProductService {
 
 	@Override
 	public void deleteByUserAndProduct(CommonUser user, Product product) {
+		// 获取数量
+		String count = (String) template.opsForHash().get(
+				"prefer:" + product.getId(), "count");
+		template.opsForSet().add("prefer:",
+				product.getId().toString());
+		// 保存
+		if (count == null) {
+			template.opsForHash().put(
+					"prefer:" + product.getId().toString(),"count", "0");
+		}else{
+			template.opsForHash().put(
+					"prefer:" + product.getId().toString(),"count", (Long.valueOf(count) - 1)+"");
+		}
 		repository.deleteByUserAndProduct(user, product);
 	}
 

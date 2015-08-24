@@ -8,10 +8,67 @@
   <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
   <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
   <script type="text/javascript" th:src="@{/js/script.js}"></script>
+  <meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <script type="text/javascript">
+  $(function() {
+	  var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		$('#addCart').click(function() {
+			var id = $(this);
+			var product = id.attr("data-id");
+			var number = $("#number").val();
+			if(number==0){
+				alert("数量不能为空");
+			}else{
+				$.ajax({
+					type : 'POST',
+					url : "/ajax/cart",
+					data:{'productId':product,'number':number},
+					success : function(data){
+						if(data=="success"){
+							alert("success");
+						}else if(data=="login"){
+							window.location.href="/login";
+						}else{
+							alert("没有权限");
+						}
+					},
+					error : function(data){ 
+						alert(data);
+					}
+				});
+		}
+		});
+		$("#collection").click(function(){
+			var coll = $(this);
+			var productId = coll.attr("data-id");
+			$.ajax({
+				type : 'post',
+				url : '/ajax/preferProduct/'+productId,
+				success: function(data){
+					if(data=="success"){
+						var num = $("#number");
+						var number = num.text()*1+1;
+						num.text(number);
+					}else{
+						alert(data);
+					}
+				},error : function(data){
+					alert("error")
+				}
+			});
+		});
+	});
+  </script>
 </head>
 <body>
-	<div>
-		<div th:include="@{/base/head}"></div>
+	<div id="includeHeader">
+		<div th:include="@{/head/head}"></div>
 	</div>
 	<!-- header -->
 	<div class="wrapper" th:object="${product}">
@@ -31,8 +88,10 @@
 			<div class="fl pro-info">
 				<div class="panel global-panel clearfix">					
 					<h3 class="ft16 tit" th:text="${product.name}">GenePix 4100 A生物芯片扫描仪</h3>
-					<div class="collect-num">收藏</div>
-					<div class="number">121</div>
+					<div th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">
+					<div class="collect-num" id="collection" th:attr="data-id=${product.id}">收藏</div>
+					<div class="number" id="number" th:text="${product.collectionCount}">121</div>
+					</div>
 				</div>
 				<div class="panel panel-price">
 					<label>价格：</label>
@@ -68,16 +127,16 @@
 					<label>上架时间：</label>
 					 <span th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015-05-18 17:25</span>
 				</div>
-				<div class="panel">
+				<div class="panel" th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">
 					<label>数量：</label>
 					<span class="mu-amount">
-						<input type="text" class="amount-input" th:value="0"/>
+						<input type="text" class="amount-input" th:value="0" id="number"/>
 						<span class="amount-btn">
 			                <span class="amount-increase">+</span>
 			                <span class="amount-decrease">-</span>
 						</span>
 					</span>
-					<a class="add-cart ft16">加入购物车</a>
+					<a class="add-cart ft16" id="addCart" th:attr="data-id=${product.id}" th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">加入购物车</a>
 				</div>
 			</div>
 		</div>
@@ -103,79 +162,13 @@
 								</div>
 							</a>
 						</li>
-						<li>
-							<a>
-								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
-								<div class="spe-pic">
-									<img src="img/list1.jpg" width="240" height="140"/>
-								</div>
-								<div class="topic-detail">
-								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-								</div>
-							</a>
-						</li>
-						<li>
-							<a>
-								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
-								<div class="spe-pic">
-									<img src="img/list1.jpg" width="240" height="140"/>
-								</div>
-								<div class="topic-detail">
-								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-								</div>
-							</a>
-						</li>
-						<li>
-							<a>
-								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
-								<div class="spe-pic">
-									<img src="img/list1.jpg" width="240" height="140"/>
-								</div>
-								<div class="topic-detail">
-								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-								</div>
-							</a>
-						</li>
-						<li>
-							<a>
-								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
-								<div class="spe-pic">
-									<img src="img/list1.jpg" width="240" height="140"/>
-								</div>
-								<div class="topic-detail">
-								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-								</div>
-							</a>
-						</li>
-						<li>
-							<a>
-								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
-								<div class="spe-pic">
-									<img src="img/list1.jpg" width="240" height="140"/>
-								</div>
-								<div class="topic-detail">
-								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-								</div>
-							</a>
-						</li>
-						<li>
-							<a>
-								<div class="title"><b class="ft16">生物芯片扫描仪</b></div>
-								<div class="spe-pic">
-									<img src="img/list1.jpg" width="240" height="140"/>
-								</div>
-								<div class="topic-detail">
-								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
-								</div>
-							</a>
-						</li>
 					</ul>
 				</div>
 				<div class="tab-panel global-box comments hide">
 					<div class="area-box">
 						<div class="info-area bodr clearfix">
 							<div class="info fl">
-								<img src="img/member.png" width="60" height="60"/>
+								<img th:src="@{/img/member.png}" width="60" height="60"/>
 							</div>
 							<div class="text-area fl">
 								<textarea class="bodr"></textarea>
@@ -195,8 +188,8 @@
 										<span class="evt-time fr"><i th:if="${date/(1000*3600) lt 1 }" th:text="${date/(1000*60)}+'分钟前'"></i></span>
 										<span class="evt-time fr"><i th:if="${1 lt (date/(1000*3600)) and (date/(1000*3600)) lt 24}" th:text="${(date/(1000*3600))}+'小时前'"></i></span>
 										<span class="evt-time fr"><i th:if="${24 lt (date/(1000*3600)) and (date/(1000*3600*24))==1}" th:text="昨天"></i></span>
-										<span class="evt-time fr"><i th:if="${1 lt (date/(1000*3600*24)) and (date/(1000*3600*24)) lt 10}" th:text="${(date/(1000*3600*24)}+'天前'"></i></span>
-										<span class="evt-time fr"><i th:if="${10 lt (date/(1000*3600*24))}" th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}"></i></span>
+										<span class="evt-time fr"><i th:if="${1 lt (date/(1000*3600*24)) and (date/(1000*3600*24)) lt 10}" th:text="${(date/(1000*3600*24))}+'天前'"></i></span>
+										<span class="evt-time fr"><i th:if="${10 lt (date/(1000*3600*24))}" th:text="${#dates.format(review.createdTime, 'yyyy-MM-dd')}"></i></span>
 									</div>
 									<div class="msg">
 										<p th:text="${review.content}"></p>
@@ -204,34 +197,6 @@
 								</div>
 							</li>
 						
-							<li>
-								<div class="member-info fl">
-									<img src="img/member.png" width="60" height="60"/>
-								</div>
-								<div class="member-global fr">
-									<div class="member-msg clearfix">
-										<span class="me-name fl">暖心向阳</span>
-										<span class="evt-time fr"><i>1</i>小时前</span>
-									</div>
-									<div class="msg">
-										<p>以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="member-info fl">
-									<img src="img/member.png" width="60" height="60"/>
-								</div>
-								<div class="member-global fr">
-									<div class="member-msg clearfix">
-										<span class="me-name fl">暖心向阳</span>
-										<span class="evt-time fr"><i>1</i>小时前</span>
-									</div>
-									<div class="msg">
-										<p>以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢以后要经常合作，非常感谢</p>
-									</div>
-								</div>
-							</li>
 						</ul>
 					</div>
 					<div class="pagination">

@@ -16,7 +16,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public boolean contains(Long id, Product product) {
-		Long rank = template.opsForZSet().rank(CART + id, product.getId());
+		Long rank = template.opsForZSet().rank(CART + id, product.getId()+"");
 		if (rank != null)
 			return true;
 		return false;

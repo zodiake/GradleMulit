@@ -54,7 +54,7 @@ public class ImageUploadControllerTest {
 
 	@Test
 	public void testEnum() {
-		OriginalEnum en = OriginalEnum.IN;
+		OriginalEnum en = OriginalEnum.PASS;
 		assertEquals("", en.toString(), "in");
 	}
 }

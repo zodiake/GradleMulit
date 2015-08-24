@@ -6,8 +6,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,8 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,9 +47,6 @@ public class Product {
 
 	private ProductStatusEnum status;
 	
-	@Transient
-	private boolean isCollection = false;// 是否被收藏
-
 	private String label;
 	// end
 
@@ -100,6 +93,14 @@ public class Product {
 	
 	@Transient
 	private Long reviewCount=0l;
+	@Transient
+	private Long collectionCount;
+	
+	@Transient
+	private Long buyCount;
+	
+	@Transient
+	private boolean isCollection;// 是否被收藏
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
@@ -107,7 +108,6 @@ public class Product {
 
 	private String serialNO;
 
-	@Enumerated(EnumType.STRING)
 	private OriginalEnum original;
 
 	public Product() {
@@ -342,6 +342,22 @@ public class Product {
 
 	public void setReviewCount(Long reviewCount) {
 		this.reviewCount = reviewCount;
+	}
+
+	public Long getCollectionCount() {
+		return collectionCount;
+	}
+
+	public void setCollectionCount(Long collectionCount) {
+		this.collectionCount = collectionCount;
+	}
+
+	public Long getBuyCount() {
+		return buyCount;
+	}
+
+	public void setBuyCount(Long buyCount) {
+		this.buyCount = buyCount;
 	}
 
 }

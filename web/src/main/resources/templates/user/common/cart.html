@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>购物车</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <script th:src="@{/js/jquery-min.js}"></script>
+  <script th:src="@{/js/script.js}"></script>
+  	<script type="text/javascript" th:src="@{/js/cart.js}"></script>
+</head>
+<body>
+	<div class="header">
+		<div th:include="@{/head/head}"></div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="self-wrap">
+			<div class="gray-hd"><a class="blue">个人中心</a></div>
+			<div class="mainwrapper clearfix">
+				<div class="aside fl">
+					<a href="/user/detail">个人资料</a>
+					<a href="/user/collection">收藏夹</a>
+					<a class="active">购物车</a>
+					<a href="/user/buyRecords">采购申请</a>
+				</div>
+				<div class="mainpanel fr">
+					<div class="all ft14">全部商品<span th:text="${list.size()}"></span></div>
+					<div class="cart-table change-color">
+						<table cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<th width="30"><input type="checkbox"/></th>
+									<th width="100">全选</th>
+									<th width="370">商品</th>
+									<th width="90">单价（元）</th>
+									<th width="100">数量</th>
+									<th width="80">小计（元）</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${list!=null}" th:each="cart:${list}" th:id="${cart.productId}" th:attr="data-id=${cart.id}">
+									<td><input type="checkbox"  class="check" th:if="${cart.check==false}" th:attr="data-id=${cart.id}"/>
+									<input type="checkbox" checked="checked"  class="check" th:if="${cart.check==true}" th:attr="data-id=${cart.id}"/></td>
+									<td>
+										<img th:src="@{${cart.image}}" width="80" height="80"/>
+									</td>
+									<td>
+									<a th:href="@{'/products/'+${cart.productId}}">
+										<div class="fl" th:text="${cart.name}" >
+											金磨坊猪脆骨盒装30包 烧烤味 麻辣味 特产 猪软骨休闲零食 包邮
+										</div></a>
+										<div class="fr">
+											<div>
+												<label>品牌：</label>
+												<span th:text="${cart.brandName}"></span>
+											</div>
+											<div>
+												<label>产地：</label>
+												<span th:if="${cart.place.toString() == 'DOMESTIC'}">国内</span>
+												<span th:if="${cart.place.toString() == 'EUROPEANDUS'}">欧美</span>
+												<span th:if="${cart.place.toString() == 'OTHER'}">其他</span>
+											</div>
+											<div>
+												<label>型号：</label>
+												<span th:text="${cart.model}"></span>
+											</div>
+										</div>
+									</td>
+									<td th:text="${cart.price}"></td>
+									<td>
+										<div class="amount">
+											<a class="minus" th:attr="data-id=${cart.productId},cart-id=${cart.id}">-</a>
+											<input type="text" class="text-amount" th:value="${cart.number}" th:id="'num'+${cart.productId}" th:attr="cart-id=${cart.id},price=${cart.price},product-id=${cart.productId}"/>
+											<a class="plus" th:attr="data-id=${cart.productId},cart-id=${cart.id},price=${cart.price}">+</a>
+										</div>
+									</td>
+									<td><b class="red" th:id="'small'+${cart.id}" th:text="${cart.price*cart.number}" th:attr="price=${cart.price}">1235.0</b></td>
+									<td>
+										<a class="delete" th:attr="data-id=${cart.productId}">删除</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cart-foot">
+							<div class="clearfix">
+								<span class="choose"><input type="checkbox"/>全选</span>								
+								<span class="del"><a>删除</a></span>
+								<span class="num">已选好<b class="red" id="num"></b>件商品</span>
+								<span>合计：<b  class="red">￥</b><b class="red" id="count"></b></span>
+								<button class="btn green fr make-orders">生成采购订单</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+	<div class="fixed"></div>
+	<div class="hide-wrap temp-wrap bodr">
+		<span class="cancel">关闭</span>
+		<h3 class="temp-h">请选择生成的采购模板</h3>
+		<div class="temp">
+			<span><input type="radio" name="radio" />模板1</span>
+			<span><input type="radio" name="radio" />模板2</span>
+			<span><input type="radio" name="radio" />模板3</span>
+			<span><input type="radio" name="radio" />模板4</span>		
+		</div>
+		<button class="btn green temped">确认</button>
+	</div>
+	<div class="hide-wrap orders bodr">
+		<div class="hide-con">
+			<span class="cancel ft14">关闭</span>
+			<h2>XXXXX采购方单位-物资(外包服务)申购单</h2>
+			<div>编号 : 20150501001</div>
+			<div class="orders-form">				
+				<form>
+					<div class="form-group">
+						<label>申请单位</label>
+						<input type="text" />
+						<label>行业</label>
+						<input type="text" />
+						<label>申请部门</label>
+						<input type="text" />
+					</div>
+					<div class="form-group">
+						<label>申请人</label>
+						<input type="text" />
+						<label>职称</label>
+						<input type="text" />
+						<label>职位</label>
+						<input type="text" />
+					</div>
+					<div class="form-group">
+						<label>经费类别</label>
+						<input type="text" class="w635" />						
+					</div>
+					<div class="form-group">
+						<label>项目名称</label>
+						<input type="text" class="w635" />						
+					</div>
+					<table width="100%">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>名称</th>
+								<th>型号</th>
+								<th>单位</th>
+								<th>数量</th>
+								<th>估价（元）</th>
+								<th>产地</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Lorem ipsum dolor sit amet</td>
+								<td>LoremLorem</td>
+								<td>Lorem</td>
+								<td>1</td>
+								<td>1222.00</td>
+								<td>上海</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Lorem ipsum dolor sit amet</td>
+								<td>LoremLorem</td>
+								<td>Lorem</td>
+								<td>1</td>
+								<td>1222.00</td>
+								<td>上海</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Lorem ipsum dolor sit amet</td>
+								<td>LoremLorem</td>
+								<td>Lorem</td>
+								<td>1</td>
+								<td>1222.00</td>
+								<td>上海</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="gray-hd clearfix">
+						<div class="fr mr20">
+							<i class="ft14">共计：</i><i>18255.00</i>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>申请理由</label>
+						<textarea class="w635" rows="5"></textarea>						
+					</div>
+					<div class="form-group">
+						<label>期望到货日期</label>
+						<input type="text" />				
+					</div>
+					<button class="btn green mauto">提交</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>	

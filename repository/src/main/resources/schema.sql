@@ -43,6 +43,7 @@ create table subject(
 	created_by varchar(64),
 	content_id bigint,
 	u_id varchar(64),
+	image varchar(64),
 	primary key(id),
 	foreign key (content_id) references content(id)
 );
@@ -110,7 +111,7 @@ create table common_user(
 	province_id bigint,
 	city_id bigint,
 	industry_information smallint,
-	position smallint,
+--	position smallint,
 	primary key (id),
 	foreign key (id) references site_user(id),
 	foreign key (province_id) references province(id),
@@ -148,7 +149,7 @@ create table product(
 	content_id bigint,
 	created_time timestamp,
 	serialno varchar(20),
-	original char(2),
+	original smallint,
 	primary key(id),
 	foreign key (first_category_id) references category(id),
 	foreign key (second_category_id) references category(id),
@@ -231,7 +232,6 @@ create table information(
 	id bigint not null AUTO_INCREMENT,
 	title varchar(100),
 	activate smallint,
-	show_on_index tinyint(1),
 	content_id bigint,
 	created_time timestamp,
 	create_by varchar(50),
@@ -248,4 +248,26 @@ create table advertisement(
 	url varchar(100),
 	activate smallint,
 	foreign key(category_id) references category(id)
+);
+--采购申请
+create table buy_record(
+	id bigint not null AUTO_INCREMENT,
+	name varchar(100),
+	user_id bigint,
+	fund_category varchar(100),
+	reason varchar(200),
+	create_time timestamp,
+	arrival_time timestamp,
+	price float,
+	no_id varchar(20),
+	primary key(id),
+	foreign key(user_id) references common_user(id)
+);
+create table buy_product(
+	buy_id bigint not null,
+	product_id bigint not null,
+	number int,
+	primary key(buy_id,product_id),
+	foreign key(buy_id) references buy_record(id),
+	foreign key(product_id) references product(id)
 );

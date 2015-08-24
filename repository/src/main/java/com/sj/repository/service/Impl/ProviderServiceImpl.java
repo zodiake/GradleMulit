@@ -95,4 +95,28 @@ public class ProviderServiceImpl implements ProviderService {
 		provider.setAuthenticatedTime(Calendar.getInstance());
 		return repository.save(provider);
 	}
+
+	@Override
+	public Provider updateProvider(Provider provider) {
+		Provider p = repository.findOne(provider.getId());
+		p.setLegalPerson(provider.getLegalPerson());
+		p.setComponyType(provider.getComponyType());
+		p.setRegisteredCapital(provider.getRegisteredCapital());
+		p.setIndustryInformation(provider.getIndustryInformation());
+		p.setMainProduct(provider.getMainProduct());
+		p.setBusinessType(provider.getBusinessType());
+		p.setOutput(provider.getOutput());
+		p.setWebsite(provider.getWebsite());
+		p.setProvince(provider.getProvince());
+		p.setCity(provider.getCity());
+		p.setAddress(provider.getAddress());
+		p.setCode(provider.getCode());
+		p.setRealName(p.getRealName());
+		p.setPosition(provider.getPosition());
+		p.setSex(provider.getSex());
+		p.setContent(provider.getContent());
+		p.setProviderPhone(provider.getProviderPhone());
+		p.setFax(provider.getFax());
+		return repository.save(p);
+	}
 }

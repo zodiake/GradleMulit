@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
@@ -51,24 +52,25 @@ public class ProductCategoryController {
 			throw new CategoryNotFoundException();
 		uiModel.addAttribute("child", child);
 
-		Page<Product> pages = productService.findByCategory(child,new PageRequest(page - 1, size));
+		Page<Product> pages = productService.findByCategory(child,
+				new PageRequest(page - 1, size));
 		uiModel.addAttribute("page", pages);
-		ShowPage.showProduct(pages);// 测试代码
 		List<Product> products = pages.getContent();
-		try {
-			SiteUser user = userContext.getCurrentUser();
-			List<PreferProduct> prefer = preferProductService.findByUser(user);
-			for (Product product : products) {
-				Long productId = product.getId();
-				for (int i = 0; i < prefer.size(); i++) {
-					if (product.getId().equals(productId)) {
-						product.setCollection(true);
-						break;
+		boolean bool = userContext.isLogin();
+		if(bool){
+			SiteUser user =  userContext.getCurrentUser();
+			List<PreferProduct> prefer = preferProductService.findByUser(new CommonUser(user.getId()));
+			if(prefer!=null && prefer.size()!=0){
+				for (Product product : products) {
+					Long productId = product.getId();
+					for (int i = 0; i < prefer.size(); i++) {
+						if (product.getId().equals(prefer.get(i).getProduct().getId())) {
+							product.setCollection(true);
+							break;
+						}
 					}
 				}
 			}
-		} catch (Exception e) {
-
 		}
 		uiModel.addAttribute("products", products);
 

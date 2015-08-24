@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>收藏夹</title>
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+  <script th:src="@{/js/jquery-min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+     <script type="text/javascript">
+  $(function() {
+	  var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		$('.btn-cart').click(function() {
+			var id = $(this);
+			var product = id.attr("data-id");	
+			$.ajax({
+				type : 'POST',
+				url : "/ajax/cart",
+				data:{'productId':product,'number':1},
+				success : function(data){
+					alert("success");
+				},
+				error : function(data){ 
+					alert(data);
+				}
+			});
+		});
+		$('.btn-cancel').click(function(){
+			var id = $(this);
+			var product = id.attr("data-id");
+			$.ajax({
+				type : 'delete',
+				url : '/user/collection/'+product,
+				success : function(data){
+					if(data=="success"){
+						$("#li"+product).remove();
+					}
+				},
+				error : function(data){
+					alert(data);
+				}
+				
+			});
+		});
+	});
+  </script>
+</head>
+<body>
+	<div class="header">
+		<div th:include="@{/head/head}"></div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="self-wrap">
+			<div class="gray-hd"><a class="blue">个人中心</a></div>
+			<div class="mainwrapper clearfix">
+				<div class="aside fl">
+					<a href="/user/detail">个人资料</a>
+					<a class="active">收藏夹</a>
+					<a href="/user/cart">购物车</a>
+					<a href="/user/buyRecords">采购申请</a>
+				</div>
+				<div class="mainpanel collect fr">
+					<div class="items-list">
+						<ul>
+							<li class="bodr" th:each="prefer:${pages.getContent()}" th:id="'li'+${prefer.product.id}">
+								<a th:href="@{'/products/'+${prefer.product.id}}"><img th:src="@{${prefer.product.coverImg}}" width="220" height="160"/>
+									<div class="pic-box">
+										<div class="pic-row refer">
+											<label>参考报价</label>
+											<span>
+												<b class="red ft14">￥<i th:text="${prefer.product.price}"></i></b>
+											</span>
+										</div>
+										<div class="pic-row tit" th:text="${prefer.product.name}">GenePix 4100 A生物芯片扫描仪</div>
+										<div class="pic-row">
+											<label>品牌：</label>
+											<span th:text="${prefer.product.brand.name}">  Lorem ipsum</span>
+										</div>
+										<div class="pic-row">
+											<label>产地：</label>
+											<span th:if="${prefer.product.placeOfProduction.toString() == 'DOMESTIC'}">国内</span>
+											<span th:if="${prefer.product.placeOfProduction.toString() == 'EUROPEANDUS'}">欧美</span>
+											<span th:if="${prefer.product.placeOfProduction.toString() == 'OTHER'}">其他</span>
+										</div>
+										<div class="pic-row">
+											<label>型号：</label>
+											<span th:text="${prefer.product.model}">  Lorem ipsum</span>
+										</div>
+										<div class="pic-row comment">
+											已有<i class="blue" th:text="${prefer.product.reviewCount}">123</i>人评论
+										</div>
+										<div class="pic-row bodr">
+											<a class="btn-cancel" th:attr="data-id=${prefer.product.id}">取消收藏</a>
+											<a class="btn-cart" th:attr="data-id=${prefer.product.id}">加入购物车</a>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+</body>
+</html>	

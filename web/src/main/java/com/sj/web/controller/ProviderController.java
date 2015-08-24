@@ -23,6 +23,7 @@ import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
+import com.sj.model.type.OriginalEnum;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
@@ -54,7 +55,6 @@ public class ProviderController extends BaseController<Provider> {
 	private final String USERPRODUCTSEDIT = "user/products/edit";
 	private final String USERPRODUCTSEDITOK = "";
 	private final String PROVIDERCREATEOK = "";
-	private final String PROVIDER = "user/providers";
 
 	@RequestMapping(value = "/providers", method = RequestMethod.GET)
 	public String findAllProvider(Model uiModel) {
@@ -64,15 +64,30 @@ public class ProviderController extends BaseController<Provider> {
 		return PROVIDERCREATEOK;
 	}
 
-	@RequestMapping(value = "/currentProviders", method = RequestMethod.GET)
+	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Provider provider = providerService.findOne(user.getId());
 		if (provider == null) {
 			throw new UserNotFoundException();
 		}
-		uiModel.addAttribute("provider", provider);
-		return PROVIDER;
+		uiModel.addAttribute("user", provider);
+		return "user/provider/detail";
+	}
+
+	@RequestMapping(value = "/provider/detail", method = RequestMethod.PUT)
+	public String updateCurrentProvider(Model uiModel,
+			@ModelAttribute("user") Provider provider,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("user", provider);
+			return "user/provider/detail";
+		}
+		SiteUser user = userContext.getCurrentUser();
+		provider.setId(user.getId());
+		provider = providerService.updateProvider(provider);
+		uiModel.addAttribute("user", provider);
+		return "user/provider/detail";
 	}
 
 	@RequestMapping(value = "/provider/products/{status}", method = RequestMethod.GET)
@@ -80,33 +95,52 @@ public class ProviderController extends BaseController<Provider> {
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size,
 			@SecurityUser SiteUser user, @PathVariable("status") String status) {
-		Page<Product> products = productService.findByUsers(
-				new Provider(user.getId()), new PageRequest(page - 1, size,
-						Direction.DESC, "createdTime"), status);
+		System.out.println("user" + user.getId());
+		Page<Product> products = null;
+		if (status.equals(OriginalEnum.ALL.toString().toUpperCase())) {
+
+			System.out.println("1");
+			products = productService.findByUsers(new Provider(user.getId()),
+					new PageRequest(page - 1, size, Direction.DESC,
+							"createdTime"));
+		} else {
+			System.out.println("2");
+			products = productService.findByUsers(new Provider(user.getId()),
+					new PageRequest(page - 1, size, Direction.DESC,
+							"createdTime"), OriginalEnum.fromString(status));
+		}
 		uiModel.addAttribute("lists", products);
-		return USERPRODUCTS;
+		uiModel.addAttribute("status", OriginalEnum.fromString(status));
+		return "user/provider/maintain";
 	}
 
 	/* 商品发布 */
-	@RequestMapping(value = "/proivder/products", params = "form", method = RequestMethod.GET)
+	@RequestMapping(value = "/provider/products", params = "form", method = RequestMethod.GET)
 	public String create(Model uiModel) {
+		Product p = new Product();
+		p.setName("123456");
 		uiModel.addAttribute("product", new Product());
 		uiModel.addAttribute("brand", brandService.findAll());
 		List<ProductCategory> pcs = productCategoryService
 				.findAllFirstCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pcs", pcs);
-		return USERPRODUCTSCREATE;
+		return "user/provider/release";
 	}
 
-	@RequestMapping(value = "/provider/products", method = RequestMethod.POST,params = "form")
+	@RequestMapping(value = "/provider/products", method = RequestMethod.POST, params = "form")
 	public String createProcess(
 			@Valid @ModelAttribute("product") Product product,
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("product", product);
+			System.out.println("hasErrors");
+			return "user/provider/release";
+		}
 		product.setCreatedBy(new Provider(user.getId()));
-		product = productService.addOneProduct(product);
+		// product = productService.addOneProduct(product);
 		uiModel.addAttribute("product", product);
-		return USERPRODUCTSCTEATEOK;
+		return "user/provider/release";
 	}
 
 	/* 商品发布 end */
@@ -133,15 +167,28 @@ public class ProviderController extends BaseController<Provider> {
 	}
 
 	// 商品下架
-	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.PUT)
-	@ResponseBody
+	@RequestMapping(value = "/provider/products/{id}/{status}", method = RequestMethod.PUT)
 	public String offProduct(@PathVariable("id") Long id,
-			@SecurityUser SiteUser user) {
-		Product product = productService.findOneByUser(new Provider(id), id);
+			@PathVariable("status") String status, @SecurityUser SiteUser user,
+			Model uiModel) {
+		Product product = productService.findOneByUser(
+				new Provider(user.getId()), id);
 		if (product == null)
 			throw new ProductNotFoundException();
-		productService.offProduct(product);
-		return "success";
+		product.setOriginal(OriginalEnum.valueOf(status));
+		product = productService.saveOne(product);
+		uiModel.addAttribute("product", product);
+		return "user/provider/maintaintd";
 	}
 
+	@RequestMapping(value = "/provider/count", method = RequestMethod.GET)
+	public String findCount(Model uiModel, @SecurityUser SiteUser user,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size) {
+		Page<Product> products = productService.findByUsers(
+				new Provider(user.getId()), new PageRequest(page - 1, size,
+						Direction.DESC, "createdTime"));
+		uiModel.addAttribute("products", products);
+		return "user/provider/count";
+	}
 }

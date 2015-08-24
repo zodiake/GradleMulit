@@ -15,7 +15,7 @@
                 var header = $("meta[name='_csrf_parameterName']").attr("content");
                 $('#content').ckeditor({
                     filebrowserBrowseUrl : '/upload',
-                    filebrowserUploadUrl : '/img/upload?' + header + "=" + token,
+                    filebrowserUploadUrl : '/aaa/upload?' + header + "=" + token,
                     width : 895,
                     height : 300
                 });

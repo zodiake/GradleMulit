@@ -56,7 +56,6 @@ public class BrandController {
 	@RequestMapping(value = "/mtest")
 	public String testMp4(Model uiModel) {
 		Subject s = new Subject();
-		s.setuId("XMTMwNTc4ODUzNg==");
 		uiModel.addAttribute("subject", s);
 		return "mtest";	
 	}

@@ -3,7 +3,7 @@ package com.sj.model.type;
 import java.util.Locale;
 
 public enum OriginalEnum {
-	OUT, IN;
+	VERIFY, PASS, OUT,NOPASS,ALL;
 
 	public static OriginalEnum fromString(String value) {
 		try {

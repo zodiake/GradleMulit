@@ -8,9 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sj.model.model.Information;
+import com.sj.model.model.InformationCategory;
 import com.sj.model.model.ProductCategory;
+import com.sj.model.model.Subject;
+import com.sj.repository.service.InformationService;
 import com.sj.repository.service.ProductCategoryService;
-import com.sj.repository.service.ProvinceService;
+import com.sj.repository.service.SubjectService;
 
 
 @Controller
@@ -18,7 +22,9 @@ public class IndexController {
 	@Autowired
 	private ProductCategoryService productCategoryService;
 	@Autowired
-	private ProvinceService provinceService;
+	private InformationService informationService;
+	@Autowired
+	private SubjectService subjectService;
 	
 	@RequestMapping(value = { "/", "/index" })
 	public String index(Model uiModel) {
@@ -32,6 +38,16 @@ public class IndexController {
 		List<ProductCategory> fws = productCategoryService.findByParent(new ProductCategory(4l));
 		uiModel.addAttribute("fws", fws);
 		uiModel.addAttribute("pc", new ProductCategory());
+		
+		List<Subject> subjects = subjectService.findByShowOnIndex();
+		uiModel.addAttribute("subjects", subjects);
+		
+		List<Information> isH = informationService.findByCategoryAndShowOnIndex(InformationCategory.getFirst(InformationCategory.HYYW));
+		List<Information> isX = informationService.findByCategoryAndShowOnIndex(InformationCategory.getFirst(InformationCategory.XPCG));
+		List<Information> isC = informationService.findByCategoryAndShowOnIndex(InformationCategory.getFirst(InformationCategory.CSDT));
+		uiModel.addAttribute("isH", isH);
+		uiModel.addAttribute("isX", isX);
+		uiModel.addAttribute("isC", isC);
 		return "index";
 	}
 }
