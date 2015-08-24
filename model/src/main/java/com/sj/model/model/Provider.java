@@ -12,7 +12,6 @@ import javax.persistence.Table;
 
 import com.sj.model.type.BusinessTypeEnum;
 import com.sj.model.type.ComponyTypeEnum;
-import com.sj.model.type.IndustryInformationEnum;
 import com.sj.model.type.OutputEnum;
 import com.sj.model.type.ScaleEnum;
 
@@ -81,7 +80,7 @@ public class Provider extends SiteUser {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "province_id")
-	private Provider province; // 省份*
+	private Province province; // 省份*
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id")
@@ -94,8 +93,9 @@ public class Provider extends SiteUser {
 	private String website; // 公司网址
 
 	// 行业信息
-	@Column(name = "industry_information")
-	private IndustryInformationEnum industryInformation;// 行业信息*
+	@OneToOne
+	@JoinColumn(name = "info_id")
+	private ProviderIndustryInfo industryInfo;// 行业信息*
 
 	public String getCompanyNameChina() {
 		return companyNameChina;
@@ -233,15 +233,6 @@ public class Provider extends SiteUser {
 		this.componyType = componyType;
 	}
 
-	public IndustryInformationEnum getIndustryInformation() {
-		return industryInformation;
-	}
-
-	public void setIndustryInformation(
-			IndustryInformationEnum industryInformation) {
-		this.industryInformation = industryInformation;
-	}
-
 	public String getTaxRegistrationUrl() {
 		return taxRegistrationUrl;
 	}
@@ -258,12 +249,20 @@ public class Provider extends SiteUser {
 		this.structureCodeUrl = structureCodeUrl;
 	}
 
-	public Provider getProvince() {
+	public Province getProvince() {
 		return province;
 	}
 
-	public void setProvince(Provider province) {
+	public void setProvince(Province province) {
 		this.province = province;
+	}
+
+	public ProviderIndustryInfo getIndustryInfo() {
+		return industryInfo;
+	}
+
+	public void setIndustryInfo(ProviderIndustryInfo industryInfo) {
+		this.industryInfo = industryInfo;
 	}
 
 	public City getCity() {

@@ -12,7 +12,7 @@ create table category(
 	primary key(id),
 	foreign key (parent_id) references category(id)
 );
--- newtable
+
 create table province(
 	id bigint not null AUTO_INCREMENT,
 	name varchar(40) not null,
@@ -26,7 +26,6 @@ create table city(
 	primary key(id),
 	foreign key (province_id) references province(id)
 );
--- end new table
 
 create table content(
 	id bigint not null auto_increment,
@@ -57,7 +56,6 @@ create table site_user(
 	phone varchar(11),
 	site_authority varchar(20),
 	created_time timestamp,
---	普通用户的真实姓名，企业用户的联系人
 	real_name varchar(20),			
 	sex smallint,
 	primary key(id)
@@ -105,11 +103,19 @@ create table common_user(
 	code varchar(10),
 	province_id bigint,
 	city_id bigint,
-	industry_information smallint,
+	info_id int,
 	primary key (id),
 	foreign key (id) references site_user(id),
 	foreign key (province_id) references province(id),
 	foreign key (city_id) references city(id)
+	foreign key (info_id) references industry_info(id)
+);
+
+create table industry_info(
+	id int not null auto_increment,
+	name varchar(50),
+	industry_type char(1),
+	primary key (id)
 );
 
 create table brand(

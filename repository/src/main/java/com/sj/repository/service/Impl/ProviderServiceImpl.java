@@ -2,6 +2,8 @@ package com.sj.repository.service.Impl;
 
 import java.util.Calendar;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,7 @@ import com.sj.repository.repository.ProviderRepository;
 import com.sj.repository.service.ProviderService;
 
 @Service
+@Transactional
 public class ProviderServiceImpl implements ProviderService {
 	@Autowired
 	private ProviderRepository repository;
@@ -30,10 +33,9 @@ public class ProviderServiceImpl implements ProviderService {
 		provider.setSiteAuthority("ROLE_PROVIDER");
 		Calendar c = Calendar.getInstance();
 		provider.setCreatedTime(c);
-		
-		//未添加图片地址
-		
-		
+
+		// 未添加图片地址
+
 		return repository.save(provider);
 	}
 
@@ -64,7 +66,7 @@ public class ProviderServiceImpl implements ProviderService {
 		p.setLegalPerson(provider.getLegalPerson());
 		p.setComponyType(provider.getComponyType());
 		p.setRegisteredCapital(provider.getRegisteredCapital());
-		p.setIndustryInformation(provider.getIndustryInformation());
+		p.setIndustryInfo(provider.getIndustryInfo());
 		p.setMainProduct(provider.getMainProduct());
 		p.setBusinessType(provider.getBusinessType());
 		p.setOutput(provider.getOutput());

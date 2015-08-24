@@ -13,11 +13,11 @@ import com.sj.repository.repository.CommonUserRepository;
 import com.sj.repository.service.CommonUserService;
 
 @Service
-public class CommonUserServiceImpl implements CommonUserService{
-	
+public class CommonUserServiceImpl implements CommonUserService {
+
 	@Autowired
 	private CommonUserRepository commonUserRepository;
-	
+
 	@Override
 	public CommonUser create(CommonUser user) {
 		user.setCreatedTime(Calendar.getInstance());
@@ -33,7 +33,7 @@ public class CommonUserServiceImpl implements CommonUserService{
 
 	@Override
 	public Page<CommonUser> findAll(Pageable pageable) {
-		
+
 		return commonUserRepository.findAll(pageable);
 	}
 
@@ -45,7 +45,7 @@ public class CommonUserServiceImpl implements CommonUserService{
 	@Override
 	public CommonUser update(CommonUser user) {
 		CommonUser u = commonUserRepository.findOne(user.getId());
-		u.setIndustryInformation(user.getIndustryInformation());
+		u.setIndustryInfo(user.getIndustryInfo());
 		u.setCompany(user.getCompany());
 		u.setDepartment(user.getDepartment());
 		u.setTitle(user.getTitle());
