@@ -57,7 +57,6 @@ create table site_user(
 	phone varchar(11),
 	site_authority varchar(20),
 	created_time timestamp,
-	authenticated_time timestamp,
 --	普通用户的真实姓名，企业用户的联系人
 	real_name varchar(20),			
 	sex smallint,
@@ -80,6 +79,7 @@ create TABLE provider(
 	fax varchar(20),
 	address varchar(100),
 	code varchar(10),
+	authenticated_time timestamp,
 	website varchar(50),
 	province_id bigint,
 	city_id bigint,
@@ -99,7 +99,6 @@ create table common_user(
 	id bigint not NULL auto_increment,
 	company varchar(64),
 	department varchar(64),
-	title smallint,
 	company_phone varchar(15),
 	fax varchar(15),
 	address varchar(100),
