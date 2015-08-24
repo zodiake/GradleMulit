@@ -281,4 +281,12 @@ public class Provider extends SiteUser {
 	public void setProvince(Province province) {
 		this.province = province;
 	}
+
+	public Calendar getAuthenticatedTime() {
+		return authenticatedTime;
+	}
+
+	public void setAuthenticatedTime(Calendar authenticatedTime) {
+		this.authenticatedTime = authenticatedTime;
+	}
 }
