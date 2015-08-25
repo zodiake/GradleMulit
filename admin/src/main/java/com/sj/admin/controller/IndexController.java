@@ -21,6 +21,11 @@ public class IndexController {
 		return "user/provider";
 	}
 
+	@RequestMapping(value = "/providerDetail")
+	public String providerDetail() {
+		return "user/providerDetail";
+	}
+
 	@RequestMapping(value = "/products")
 	public String productList() {
 		return "product/product";

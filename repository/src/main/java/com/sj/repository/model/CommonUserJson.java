@@ -6,6 +6,7 @@ import com.sj.model.model.CommonUser;
 import com.sj.model.type.SexEnum;
 
 public class CommonUserJson {
+	private Long id;
 	private String name;
 	private String gender;
 	private String mobile;
@@ -17,6 +18,7 @@ public class CommonUserJson {
 	private int score;
 
 	public CommonUserJson(CommonUser user) {
+		this.id = user.getId();
 		this.name = user.getName();
 		this.gender = user.getSex().equals(SexEnum.MALE) ? "男" : "女";
 		this.mobile = user.getPhone();
@@ -28,6 +30,14 @@ public class CommonUserJson {
 		if (user.getCreateTime() != null)
 			this.createTime = format.format(user.getCreateTime().getTime());
 		this.score = user.getScore();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

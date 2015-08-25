@@ -21,7 +21,7 @@ userModule.service('ProviderService', ['$http',
             });
         };
         this.findOne = function (id) {
-            return $http.get('/admin/CommonUsers/' + id);
+            return $http.get('/admin/providers/' + id);
         };
     }
 ]);
@@ -62,7 +62,9 @@ userModule.controller('CommonUserController', ['$scope', 'CommonUserService',
     }
 ]);
 
-userModule.controller('ProviderController', ['$scope', 'ProviderService', '$modal',
+userModule.controller('ProviderController', ['$scope',
+    'ProviderService',
+    '$modal',
     function ($scope, ProviderService, $modal) {
         $scope.page = 1;
         $scope.size = 15;
@@ -89,13 +91,18 @@ userModule.controller('ProviderController', ['$scope', 'ProviderService', '$moda
         };
 
         $scope.showDetail = function (item) {
-            ProviderService.findOne(item.id).success(function (data) {
-                $modal.open({
-                    templateUrl: '/admin/user/providerDetail'
-                });
-            }).error(function (err) {
+            ProviderService
+                .findOne(item.id)
+                .success(function (data) {
+                    $scope.item = data;
+                    $modal.open({
+                        templateUrl: '/admin/providerDetail',
+                        size: 'lg'
+                    });
+                })
+                .error(function (err) {
 
-            });
+                });
         };
     }
 ]);

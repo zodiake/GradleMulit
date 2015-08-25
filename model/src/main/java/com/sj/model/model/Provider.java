@@ -1,8 +1,8 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +26,7 @@ import com.sj.model.type.ScaleEnum;
 @Entity
 @Table(name = "provider")
 @PrimaryKeyJoinColumn
-public class Provider extends SiteUser {
+public class Provider extends SiteUser implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "authenticated_time")
 	private Calendar authenticatedTime; // 鉴定时间
@@ -63,10 +63,7 @@ public class Provider extends SiteUser {
 	@Column(name = "output")
 	private OutputEnum output; // 年产值
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
-			CascadeType.PERSIST })
-	@JoinColumn(name = "content_id")
-	private Content content; // 企业介绍*
+	private String content; // 企业介绍*
 
 	@Column(name = "business_license_url")
 	private String businessLicenseUrl; // 营业执照图片地址*
@@ -171,11 +168,11 @@ public class Provider extends SiteUser {
 		this.output = output;
 	}
 
-	public Content getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(Content content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 

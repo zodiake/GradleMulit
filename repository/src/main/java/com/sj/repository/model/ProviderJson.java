@@ -6,6 +6,7 @@ import com.sj.model.model.Provider;
 import com.sj.model.type.SexEnum;
 
 public class ProviderJson {
+	private Long id;
 	private String name;
 	private String gender;
 	private String mobile;
@@ -16,6 +17,7 @@ public class ProviderJson {
 	private int state;
 
 	public ProviderJson(Provider user) {
+		this.id = user.getId();
 		this.name = user.getName();
 		this.gender = user.getSex().equals(SexEnum.MALE) ? "男" : "女";
 		this.mobile = user.getPhone();
@@ -26,6 +28,14 @@ public class ProviderJson {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		if (user.getCreateTime() != null)
 			this.createTime = format.format(user.getCreateTime().getTime());
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
