@@ -45,14 +45,18 @@ public class ReviewController {
 
 	@RequestMapping(value = "/products/{productId}/reviews", method = RequestMethod.POST)
 	@ResponseBody
-	private String add(@Valid @ModelAttribute("review") Review review,
-			BindingResult bindingResult,
+	private String add(@RequestParam("content") String content,
 			@PathVariable("productId") Long productId) {
+		System.out.println("add......");
 		if (!userContext.isLogin())
 			return "login";
+		if("".equals(content))
+			return "content is null";
 		Product p = new Product(productId);
+		Review review = new Review();
 		review.setProduct(p);
 		review.setCreatedBy(new SiteUser(userContext.getCurrentUser().getId()));
+		review.setContent(content);
 		reviewService.save(review);
 		return "success";
 	}

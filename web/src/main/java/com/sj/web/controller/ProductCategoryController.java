@@ -43,22 +43,17 @@ public class ProductCategoryController {
 		ProductCategory pc = ProductCategory.getFirst(parent);
 		if (pc == null)
 			throw new CategoryNotFoundException();
-		uiModel.addAttribute("pc", pc);
 
 		ProductCategory child = pcService.findByName(third);
 		if (child == null || !child.getParent().getName().equals(second))
 			throw new CategoryNotFoundException();
+		
+		Page<Product> pages = productService.findByCategory(child,new PageRequest(page - 1, size));
+		uiModel.addAttribute("pc", pc);
+		uiModel.addAttribute("second", child.getParent());
 		uiModel.addAttribute("child", child);
 
-		Page<Product> pages = productService.findByCategory(child,
-				new PageRequest(page - 1, size));
 		uiModel.addAttribute("page", pages);
-		List<Product> products = pages.getContent();
-		boolean bool = userContext.isLogin();
-		if (bool) {
-			products = setColl(products);
-		}
-		uiModel.addAttribute("products", products);
 		return "product/products";
 	}
 
@@ -70,14 +65,16 @@ public class ProductCategoryController {
 		ProductCategory pc = ProductCategory.getFirst(parent);
 		if (pc == null)
 			throw new CategoryNotFoundException();
-		uiModel.addAttribute("pc", pc);
+		
 		
 		ProductCategory seCategory = pcService.findByName(second);
 		if (seCategory == null || !seCategory.getParent().getName().equals(parent))
 			throw new CategoryNotFoundException();
-		uiModel.addAttribute("second", seCategory);
 		
 		Page<Product> pages = productService.findBySecondCategory(seCategory, new PageRequest(page-1, size));
+		
+		uiModel.addAttribute("second", seCategory);
+		uiModel.addAttribute("pc", pc);
 		uiModel.addAttribute("page", pages);
 		return "product/products";
 	}

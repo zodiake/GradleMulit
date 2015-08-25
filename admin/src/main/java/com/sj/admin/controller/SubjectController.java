@@ -24,9 +24,6 @@ public class SubjectController {
 
 	private final String LIST = "subject/list";
 
-	// private final String CREATE = "subject/create";
-	// private final String EDIT = "subject/edit";
-
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.GET)
 	public String lists(Model uiModel,
 			@PageableDefault(page = 0, size = 15) Pageable pageable,

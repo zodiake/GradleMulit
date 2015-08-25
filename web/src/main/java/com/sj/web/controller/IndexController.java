@@ -34,7 +34,6 @@ public class IndexController {
 	
 	@RequestMapping(value = { "/", "/index" })
 	public String index(Model uiModel) {
-		//商品分类
 		List<ProductCategory> yqs = productCategoryService.findByParent(new ProductCategory(1l));
 		uiModel.addAttribute("yqs", yqs);
 		List<ProductCategory> sjs = productCategoryService.findByParent(new ProductCategory(2l));

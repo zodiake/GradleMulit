@@ -165,16 +165,8 @@ public class ProductController {
 		XSSFWorkbook wb = new XSSFWorkbook(is);
 
 		XSSFSheet sheet = wb.getSheetAt(0);
-		// 总行数
 		int irLength = sheet.getLastRowNum();
-		// Product[] products = new Product[irLength - 2];
 		List<Product> products = new ArrayList<Product>();
-		// 得到行
-		// XSSFRow row = sheet.getRow(0);
-		// 总列数
-		// int idLength = row.getLastCellNum();
-
-		// Provider p = (Provider) context.getCurrnetUser();
 		Provider p = new Provider(1l);
 
 		for (int i = 3; i <= irLength; i++) {
@@ -189,8 +181,6 @@ public class ProductController {
 				product.setModel(hssfRow.getCell(3).getStringCellValue());
 				product.setSpecifications(hssfRow.getCell(4)
 						.getStringCellValue());
-				// Brand brand = new Brand();
-				// brand.setName(hssfRow.getCell(5).getStringCellValue());
 				product.setBrand(new Brand(1l));
 				product.setPlaceOfProduction(PlaceEnum.stringToEnum(hssfRow
 						.getCell(6).getStringCellValue()));
@@ -198,10 +188,8 @@ public class ProductController {
 						.getNumericCellValue());
 				product.setFirstCategory(ProductCategory.getFirst(hssfRow
 						.getCell(8).getStringCellValue()));
-				// 9
 				product.setSecondCategory(ProductCategory.getFirst(hssfRow
 						.getCell(9).getStringCellValue()));
-				// 10
 				product.setThirdCategory(ProductCategory.getFirst(hssfRow
 						.getCell(10).getStringCellValue()));
 				product.setLabel(hssfRow.getCell(11).getStringCellValue());
@@ -215,7 +203,6 @@ public class ProductController {
 				product.setCreatedTime(Calendar.getInstance());
 				product.setOriginal(OriginalEnum.PASS);
 
-				// products[i - 3] = product;
 				products.add(product);
 			} catch (Exception e) {
 				System.out.println(i + 1);

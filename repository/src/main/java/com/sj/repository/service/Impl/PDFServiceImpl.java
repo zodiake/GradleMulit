@@ -47,7 +47,6 @@ public class PDFServiceImpl implements PDFService {
 		table.addCell(getCell(projectName, 3, fontChinese));
 		table.addCell(getCell("请购物资(外包服务)明细", 4, fontChinese));
 
-		// 添加表格
 		PdfPCell c = new PdfPCell(getTable(products, fontChinese));
 		c.setColspan(4);
 		c.setPaddingLeft(5);

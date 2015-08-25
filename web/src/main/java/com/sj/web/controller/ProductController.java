@@ -1,6 +1,5 @@
 package com.sj.web.controller;
 
-
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +45,13 @@ public class ProductController {
 		if (product == null)
 			throw new ProductNotFoundException();
 		productService.addViewCount(id);
+		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(0, 10, Direction.DESC, "createdTime"));
+
 		uiModel.addAttribute("product", product);
-		Page<Review> reviewPage = reviewService.findByProduct(product, new PageRequest(0, 10,Direction.DESC,"createdTime"));
 		uiModel.addAttribute("reviewPage", reviewPage);
 		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());
 		uiModel.addAttribute("pc", product.getFirstCategory());
+		
 		return DETAIL;
 	}
 

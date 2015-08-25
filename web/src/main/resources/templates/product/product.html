@@ -8,6 +8,7 @@
   <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
   <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
   <script type="text/javascript" th:src="@{/js/script.js}"></script>
+  <script type="text/javascript" th:src="@{/js/loginBeforeAjax.js}"></script>
   <meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <script type="text/javascript">
@@ -44,6 +45,36 @@
 				});
 		}
 		});
+		$('#reviewButton').click(function(){
+			var idObj = $(this);
+			var id = idObj.attr('data-id');
+			var ReviewT = $("#addReview")
+			var content =ReviewT.val();
+			$.loginBeforeAjax({
+				url : '/products/'+id+'/reviews',
+				data : {'content':content},
+				success : function(data){
+					if(data=="login"){
+					}else if(data=="success"){
+						var username = $('#username').text();
+						var str = '<li><div class="member-info fl"><img th:src="@{/img/member.png}" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">'+username+'</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>'+content+'</p></div></div></li>';
+						var ul = $('#reviewUl');
+						var num = $('#reviewNum').text();
+						if(num>=10){
+							var li = $('#reviewUl li');
+							li[9].remove();
+						}
+						ul.prepend(str);
+						$('#reviewNum').text(parseInt(num)+1);
+						ReviewT.val("");
+					}else if(data=="content is null"){
+						alert(data);
+					}
+				},error : function(data){
+					alert("error");
+				}
+			});
+		});
 		$("#collection").click(function(){
 			var coll = $(this);
 			var productId = coll.attr("data-id");
@@ -51,17 +82,24 @@
 				type : 'post',
 				url : '/ajax/preferProduct/'+productId,
 				success: function(data){
+					alert(data);
 					if(data=="success"){
 						var num = $("#number");
 						var number = num.text()*1+1;
 						num.text(number);
-					}else{
-						alert(data);
 					}
 				},error : function(data){
-					alert("error")
+					alert("error");
 				}
 			});
+		});
+		$('#reviewForm').loginBeforeAjax({
+			url : '/products/1/reviews',
+			div : 'reviews',
+			data : {content:$('#addReview').val()},
+			success : function(res) {
+				alert(res);
+			}
 		});
 	});
   </script>
@@ -71,6 +109,9 @@
 		<div th:include="@{/head/head}"></div>
 	</div>
 	<!-- header -->
+	<div id="reviews">
+
+	</div>
 	<div class="wrapper" th:object="${product}">
 		<div class="crumb">
 			<a href="/">首页</a>
@@ -144,13 +185,13 @@
 			<div class="tabs-nav detail-nav bodr">
 				<a class="active">商品详情</a>
 				<a>相关专题(<i th:text="${product.getSubjects().size()}"></i>)</a>
-				<a>评论(<i th:text="${reviewPage.getContent().size()}"></i>)</a>
+				<a>评论(<i th:text="${reviewPage.getTotalElements()}" id="reviewNum"></i>)</a>
 			</div>
 			<div class="tab-conts detail-con bodr">
 				<div class="tab-panel global-box goods-detail" th:text="${product.content.content}">
 				</div>
 				<div class="tab-panel global-box about-special hide">
-					<ul>
+					<ul >
 						<li th:each="subject:${product.getSubjects()}">
 							<a>
 								<div class="title"><b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b></div>
@@ -158,26 +199,27 @@
 									<img th:src="@{/img/list1.jpg}" width="240" height="140"/>
 								</div>
 								<div class="topic-detail" th:text="${subject.content.content}">
-								sodales tempus, ante. Praesent eros. Aenean feugiat fringilla odio. Donec porttitor volutpat elit. Proin metus justo, accumsan vitae, egestas nec, porttitor nec, felis. Nam vel odio a arcu consectetuer fringilla. Vivamus eget arcu eget nisi adipiscing egestas. Donec venenatis pretium sem. Etiam nec sapien. Cras mauris. Maecenas vitae dui quis nisl tincidunt faucibus. Curabitur ut elit. Pellentesque vel lacus vulputate mauris sodales imperdiet. Donec vitae ipsu
 								</div>
 							</a>
 						</li>
 					</ul>
 				</div>
 				<div class="tab-panel global-box comments hide">
-					<div class="area-box">
-						<div class="info-area bodr clearfix">
-							<div class="info fl">
+					<div class="area-box" >
+						<form id="reivewForm" >
+						<div class="info-area bodr clearfix" >
+							<div class="info fl" >
 								<img th:src="@{/img/member.png}" width="60" height="60"/>
 							</div>
 							<div class="text-area fl">
-								<textarea class="bodr"></textarea>
+								<textarea class="bodr" id="addReview"></textarea>
 							</div>
-							<button class="btn green fr">评论</button>
+							<input class="btn green fr" id="reviewButton" type="submit" value="评论"/>
 						</div>
-					</div>					
+						</form>
+					</div>
 					<div class="comment-list">
-						<ul>
+						<ul id = "reviewUl">
 							<li th:each="review:${reviewPage.getContent()}">
 								<div class="member-info fl">
 									<img th:src="@{/img/member.png}" width="60" height="60"/>

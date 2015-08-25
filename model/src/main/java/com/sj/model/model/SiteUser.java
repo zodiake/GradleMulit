@@ -13,11 +13,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.sj.model.type.ActivateEnum;
@@ -41,8 +45,8 @@ public class SiteUser {
 	@NotNull(message="请选择性别")
 	@Column(name="sex")
 	private SexEnum sex;
-	
-	@Size(min=6,max=18,message="密码长度为6-18位")
+
+	@Size(min=6,max=64)
 	private String password; // 密码
 	
 	@Column(name = "site_Authority")

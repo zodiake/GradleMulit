@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,9 +16,6 @@ public class IndustryInfo {
 	protected int id;
 
 	private String name;
-
-	@OneToOne(mappedBy = "industryInfo")
-	private CommonUser commonUser;
 
 	public IndustryInfo() {
 		super();
@@ -40,14 +36,6 @@ public class IndustryInfo {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public CommonUser getCommonUser() {
-		return commonUser;
-	}
-
-	public void setCommonUser(CommonUser commonUser) {
-		this.commonUser = commonUser;
 	}
 
 	@Override

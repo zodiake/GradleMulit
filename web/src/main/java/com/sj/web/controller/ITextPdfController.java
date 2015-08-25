@@ -36,34 +36,6 @@ public class ITextPdfController {
 	@Autowired
 	private PDFService pDFService;
 
-	// @RequestMapping(value = "/getAPdf", method = RequestMethod.GET)
-	// public HttpEntity<byte[]> exportPDF(HttpServletResponse response) {
-	// ByteArrayOutputStream byteArrayOutputStream = new
-	// ByteArrayOutputStream();
-	// Document document = new Document(PageSize.A4, 0.75F, 0.75F, 50, 40);
-	// try {
-	// PdfWriter.getInstance(document, byteArrayOutputStream);
-	// document.open();
-	// document.add(pDFService.getPdfPTable(getProducts(), "", "", "", "",
-	// "", "", ""));
-	// document.close();
-	// response.setContentType("application/pdf");
-	// OutputStream out = response.getOutputStream();
-	// byteArrayOutputStream.writeTo(out);
-	// byte[] byte1 = byteArrayOutputStream.toByteArray();
-	// HttpHeaders header = new HttpHeaders();
-	// header.setContentType(new MediaType("application", "pdf"));
-	// header.set("Content-Disposition", "attachment; filename=a.pdf");
-	// header.setContentLength(byte1.length);
-	//
-	// return new HttpEntity<byte[]>(byte1, header);
-	// } catch (DocumentException e) {
-	// e.printStackTrace();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// return null;
-	// }
 	@RequestMapping(value = "/getAPdf", method = RequestMethod.GET)
 	public Callable<HttpEntity<byte[]>> exportPDF(HttpServletResponse response) {
 		return new Callable<HttpEntity<byte[]>>() {
@@ -78,10 +50,6 @@ public class ITextPdfController {
 					document.add(pDFService.getPdfPTable(getProducts(), "110",
 							"111", "112", "113", "114", "115", "116"));
 					/* 新建一页 */
-					// document.newPage();
-					// document.add(pDFService.getPdfPTable(getProducts(),
-					// "110",
-					// "111", "112", "113", "114", "115", "116"));
 					document.close();
 
 					OutputStream out = response.getOutputStream();
@@ -89,16 +57,6 @@ public class ITextPdfController {
 					byte[] byte1 = byteArrayOutputStream.toByteArray();
 
 					/* 添加图片型水印 */
-					// Image image = Image.getInstance("D:/3.jpg");
-					// image.setAbsolutePosition(220, 350);
-					// PdfReader reader = new PdfReader(byte1);
-					// PdfStamper stamper = new PdfStamper(reader, out);
-					// PdfContentByte under = null;
-					// for (int i = 1; i < write.getPageNumber(); i++) {
-					// under = stamper.getUnderContent(i);
-					// under.addImage(image);
-					// }
-					// stamper.close();
 
 					/* 添加文字型水印 */
 					PdfReader reader = new PdfReader(byte1);

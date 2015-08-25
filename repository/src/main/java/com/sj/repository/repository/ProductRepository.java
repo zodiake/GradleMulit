@@ -27,5 +27,7 @@ public interface ProductRepository extends
 	Page<Product> findAll(Specification<Product> sp, Pageable pageable);
 	
 	Product findByIdAndCreatedBy(Long id,Provider user);
+	
+	Page<Product> findBySecondCategory(ProductCategory category,Pageable pageable);
 }
 

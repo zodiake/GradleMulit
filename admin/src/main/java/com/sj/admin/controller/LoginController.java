@@ -47,7 +47,6 @@ public class LoginController {
 		try {
 			authenticationManager.authenticate(token);
 		} catch (BadCredentialsException exception) {
-			// 在此处添加错误信息
 			user.setPassword(null);
 			uiModel.addAttribute("user", user);
 			bindingResult.addError(new FieldError("user", "error", "用户名或密码错误"));

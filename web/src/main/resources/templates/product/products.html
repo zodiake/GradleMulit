@@ -99,7 +99,10 @@
 			<i>></i>
 			<a th:text="${pc.name}" th:href="@{'/productCategory/'+${pc.name}}"></a>
 			<i>></i>
+			<a th:text="${second.name}"></a>
+			<i th:if="${child!=null}"><i>></i>
 			<a th:text="${child.name}"></a>
+			</i>
 		</div>
 		<div class="gray-hd">
 			<a class="blue ft14">生物芯片</a>			
@@ -194,8 +197,7 @@
 		</div>	
 		<div class="items-list">
 			<ul>
-				<li class="bodr product" th:each="product:${products}" >
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				<li class="bodr product" th:each="product:${page.getContent()}" >
 					<a th:href="@{'/products/'+${product.id}}">
 						<img th:src="@{${product.coverImg}}" width="220" height="160"/>
 						<div class="pic-box">

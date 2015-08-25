@@ -32,7 +32,6 @@ public class Provider extends SiteUser {
 	@Column(name = "authenticated_time")
 	private Calendar authenticatedTime; // 鉴定时间
 
-	// new
 	// 企业信息
 	@Column(name = "company_name_china")
 	@NotNull(message = "企业中文名不能为空")
@@ -105,7 +104,6 @@ public class Provider extends SiteUser {
 	public Provider(Long id) {
 		super(id);
 	}
-
 
 	public String getCompanyNameChina() {
 		return companyNameChina;
@@ -290,5 +288,4 @@ public class Provider extends SiteUser {
 	public void setAuthenticatedTime(Calendar authenticatedTime) {
 		this.authenticatedTime = authenticatedTime;
 	}
-
 }

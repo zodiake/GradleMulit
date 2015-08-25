@@ -99,7 +99,6 @@ public class ProductServiceImpl implements ProductService {
 		product.setCreatedTime(Calendar.getInstance());
 		product.setViewCount(0L);
 		product.setOriginal(OriginalEnum.VERIFY);
-		//未添加图片地址
 		return repository.save(product);
 	}
 
@@ -110,7 +109,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product updateProduct(Product newProduct, Product oldProduct) {
-		// 修改oldProduct的信息
 		return repository.save(oldProduct);
 	}
 
@@ -211,8 +209,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findBySecondCategory(ProductCategory second,
 			Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findBySecondCategory(second, pageable);
 	}
 
 }
