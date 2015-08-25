@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.admin.exception.UserNotFoundException;
 import com.sj.model.model.CommonUser;
+import com.sj.repository.model.CommonUserJson;
 import com.sj.repository.service.CommonUserService;
 
 @Controller
@@ -22,13 +23,13 @@ public class CommonUserController {
 	private CommonUserService userService;
 
 	@RequestMapping(value = "/admin/CommonUsers", method = RequestMethod.GET)
-	public String findAllDesc(Model uiModel,
+	@ResponseBody
+	public Page<CommonUserJson> findAllDesc(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		Page<CommonUser> users = userService.findAll(new PageRequest(page - 1,
-				size, Direction.DESC, "createdTime"));
-		uiModel.addAttribute("users", users);
-		return "provider";
+		Page<CommonUserJson> users = userService.toJson(new PageRequest(
+				page - 1, size, Direction.DESC, "createTime"));
+		return users;
 	}
 
 	@RequestMapping(value = "/admin/CommonUsers/{id}", method = RequestMethod.GET)

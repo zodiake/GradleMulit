@@ -62,6 +62,8 @@ public class SiteUser {
 	@Pattern(regexp = "[0-9]{11}", message = "手机号码为11位数组")
 	private String phone; // 手机号码
 
+	private int score;
+
 	public SiteUser() {
 	}
 
@@ -148,6 +150,14 @@ public class SiteUser {
 
 	public void setSex(SexEnum sex) {
 		this.sex = sex;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	@Override

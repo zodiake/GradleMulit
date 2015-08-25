@@ -1,5 +1,7 @@
 package com.sj.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.ProviderJson;
 import com.sj.repository.service.ProviderService;
 
 @Controller
@@ -22,14 +26,16 @@ public class ProviderController {
 	private ProviderService providerService;
 
 	@RequestMapping(value = "/admin/providers", method = RequestMethod.GET)
-	public String findAllDesc(Model uiModel,
+	@ResponseBody
+	public Page<ProviderJson> findAllDesc(HttpServletRequest request,
+			Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		Page<Provider> providers = providerService.findAllDescAndStatus(
-				new PageRequest(page - 1, size, Direction.DESC, "createTime"),
-				null);
-		uiModel.addAttribute("providers", providers);
-		return PROVIDER;
+		String state = request.getParameter("state");
+		ActivateEnum stateEnum = ActivateEnum.fromString(state);
+		Page<ProviderJson> providers = providerService.toJson(new PageRequest(
+				page - 1, size, Direction.DESC, "createTime"), stateEnum);
+		return providers;
 	}
 
 	@RequestMapping(value = "/admin/providers/{status}", method = RequestMethod.GET)

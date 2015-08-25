@@ -1,16 +1,20 @@
 package com.sj.repository.service.Impl;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.ProviderJson;
 import com.sj.repository.repository.ProviderRepository;
 import com.sj.repository.service.ProviderService;
 
@@ -82,5 +86,14 @@ public class ProviderServiceImpl implements ProviderService {
 		p.setProviderPhone(provider.getProviderPhone());
 		p.setFax(provider.getFax());
 		return repository.save(p);
+	}
+
+	@Override
+	public Page<ProviderJson> toJson(Pageable pageable, ActivateEnum activate) {
+		Page<Provider> pages = findAllDescAndStatus(pageable, activate);
+		List<ProviderJson> lists = pages.getContent().stream()
+				.map(c -> new ProviderJson(c)).collect(Collectors.toList());
+		return new PageImpl<ProviderJson>(lists, pageable,
+				pages.getTotalElements());
 	}
 }
