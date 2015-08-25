@@ -17,5 +17,7 @@ public interface CommonUserService {
 
 	public CommonUser update(CommonUser user);
 
+	public void updateScore(Long id, int score);
+
 	public Page<CommonUserJson> toJson(Pageable pageable);
 }

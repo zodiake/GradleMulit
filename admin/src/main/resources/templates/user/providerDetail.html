@@ -10,68 +10,66 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>联系人姓名： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.name" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>性别： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.gender" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>邮箱： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.email" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>手机号： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.mobile" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>职位： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.position" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>电话： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.phone" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>传真： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.fax" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>省/市： </label>
                             <div class="col-sm-8">
                                 <select disabled="true">
-                                    <option selected="selected">请选择省份/市</option>
-                                    <option>上海市</option>
+                                    <option>{{item.province}}</option>
                                 </select>
                                 <select disabled="true">
-                                    <option selected="selected">请选择市</option>
-                                    <option>上海市</option>
+                                    <option>{{item.city}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>详细地址： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.address" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>邮政编码： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.code" />
                             </div>
                         </div>
                     </div>
@@ -79,66 +77,64 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4"> 公司网址： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.companyUrl" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>企业名称(中文)： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.chineseCompanyName" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> 企业名称(英文)： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.englishCompanyName" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> 法人代表： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.legalPerson" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> 注册资本： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.registerCapital" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>企业性质： </label>
                             <div class="col-sm-8">
                                 <select disabled="true">
-                                    <option selected="selected">请选择</option>
-                                    <option>aaaa</option>
+                                    <option>{{item.type}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>主营产品/服务： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.focus" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>业务类型： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.bussinessType" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>行业信息： </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" />
+                                <input class="form-control" disabled="true" ng-value="item.industryInfo" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>企业规模： </label>
                             <div class="col-sm-8">
                                 <select disabled="true">
-                                    <option>1-50人</option>
-                                    <option>50-100人</option>
+                                    <option>{{item.scale}}</option>
                                 </select>
                             </div>
                         </div>
@@ -146,8 +142,7 @@
                             <label class="control-label col-sm-4"> <span class="text-danger">*</span>年产值： </label>
                             <div class="col-sm-8">
                                 <select disabled="true">
-                                    <option>1-50亿</option>
-                                    <option>50-100亿</option>
+                                    <option>{{item.output}}</option>
                                 </select>
                             </div>
                         </div>
@@ -157,36 +152,33 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2"> <span class="text-danger">*</span>企业简介： </label>
                         <div class="col-sm-8">
-                            <textarea rows="4" class="w400" disabled="true"></textarea>
+                            <textarea rows="4" class="w400" disabled="true" ng-value="item.content"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2"> <span class="text-danger">*</span>企业营业执照上传： </label>
                         <div class="col-sm-8">
-                            <img src="img/user3.png" width="400" height="100"/>
+                            <img src="{{businessLicenseUrl}}" width="400" height="100" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2"> <span class="text-danger">*</span>税务登记证上传： </label>
                         <div class="col-sm-8">
-                            <img src="img/user5.png" width="400" height="100"/>
+                            <img src="{{taxRegistrationUrl}}" width="400" height="100" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2"> <span class="text-danger">*</span>组织结构代码证上传: </label>
                         <div class="col-sm-8">
-                            <img src="img/user2.png" width="400" height="100"/>
+                            <img src="{{structureCodeUrl}}" width="400" height="100" />
                         </div>
                     </div>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" ng-click="authenticate(item)">
                 通过审核
-            </button>
-            <button type="button" class="btn btn-default">
-                取消
             </button>
         </div>
     </div>

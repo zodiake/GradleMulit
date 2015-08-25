@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import com.sj.repository.service.ProviderService;
 public class ProviderServiceImpl implements ProviderService {
 	@Autowired
 	private ProviderRepository repository;
+	@Autowired
+	private EntityManager em;
 
 	@Override
 	public Provider findOne(Long id) {
@@ -90,5 +93,14 @@ public class ProviderServiceImpl implements ProviderService {
 				.map(c -> new ProviderJson(c)).collect(Collectors.toList());
 		return new PageImpl<ProviderJson>(lists, pageable,
 				pages.getTotalElements());
+	}
+
+	@Override
+	public void authentic(Long id) {
+		// TODO Auto-generated method stub
+		em.createQuery(
+				"update Provider p set p.isAuthenticated=:state where id=:id")
+				.setParameter("state", 1).setParameter("id", id)
+				.executeUpdate();
 	}
 }

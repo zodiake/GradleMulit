@@ -1,0 +1,101 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-body pl100">
+            <form class="form-horizontal w400">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>邮箱 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>手机号 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.mobile" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>姓名 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>性别 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.gender" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>单位 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.company" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>部门 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.department" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>电话 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.phone" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>传真 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.fax" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>省/市 </label>
+                        <div class="col-sm-6">
+                            <select disabled="true">
+                                <option>{{item.province}}</option>
+                            </select>
+                            <select disabled="true">
+                                <option>{{item.city}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>详细地址 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.address" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>邮政编码 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.code" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>行业信息 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" disabled="true" ng-value="item.industryInfo" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> <span class="text-danger">*</span>积分 </label>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text" ng-model="item.score" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="authenticate(item)">
+                提交
+            </button>
+        </div>
+    </div>
+</div>

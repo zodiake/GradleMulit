@@ -7,9 +7,14 @@ userModule.service('CommonUserService', ['$http',
                 params: opt
             });
         };
-        this.findOne = function (id) {
-            return $http.get('/admin/CommonUsers/' + id);
+        this.findOne = function (item) {
+            return $http.get('/admin/CommonUsers/' + item.id);
         };
+        this.updateScore = function (item) {
+            return $http.put('/admin/CommonUsers/' + item.id + '/score', {
+                score: item.score
+            });
+        }
     }
 ]);
 
@@ -23,11 +28,16 @@ userModule.service('ProviderService', ['$http',
         this.findOne = function (id) {
             return $http.get('/admin/providers/' + id);
         };
+        this.authenticate = function (item) {
+            return $http.put('/admin/providers/' + item.id + '/isAuthenticated');
+        }
     }
 ]);
 
-userModule.controller('CommonUserController', ['$scope', 'CommonUserService',
-    function ($scope, CommonUserService) {
+userModule.controller('CommonUserController', ['$scope',
+    'CommonUserService',
+    '$modal',
+    function ($scope, CommonUserService, $modal) {
         $scope.page = 1;
         $scope.size = 15;
 
@@ -53,11 +63,22 @@ userModule.controller('CommonUserController', ['$scope', 'CommonUserService',
         };
 
         $scope.showDetail = function (item) {
-            CommonUserService.findOne().success(function (data) {
+            CommonUserService
+                .findOne(item)
+                .success(function (data) {
+                    $modal.open({
+                        templateUrl: '/admin/commonUserDetail',
+                        size: 'lg',
+                        controller: 'CommonUserDetailController',
+                        resolve: {
+                            item: function () {
+                                return data;
+                            }
+                        }
+                    })
+                }).error(function (err) {
 
-            }).error(function (err) {
-
-            });
+                });
         };
     }
 ]);
@@ -94,15 +115,52 @@ userModule.controller('ProviderController', ['$scope',
             ProviderService
                 .findOne(item.id)
                 .success(function (data) {
-                    $scope.item = data;
                     $modal.open({
                         templateUrl: '/admin/providerDetail',
-                        size: 'lg'
+                        controller: 'ProviderDetailController',
+                        size: 'lg',
+                        resolve: {
+                            item: function () {
+                                return data;
+                            }
+                        }
                     });
                 })
                 .error(function (err) {
 
                 });
         };
+    }
+]);
+
+userModule.controller('CommonUserDetailController', ['$scope',
+    'item',
+    'CommonUserService',
+    function ($scope, item, CommonUserService) {
+        $scope.item = item;
+
+        $scope.updateScoe = function (item) {
+
+        }
+    }
+]);
+
+userModule.controller('ProviderDetailController', ['$scope',
+    'item',
+    'ProviderService',
+    function ($scope, item, ProviderService) {
+        $scope.item = item;
+
+        $scope.authenticate = function (item) {
+            ProviderService
+                .authenticate(item)
+                .success(function (data) {
+                    if (data == 'success')
+                        alert('success');
+                })
+                .error(function (err) {
+
+                });
+        }
     }
 ]);

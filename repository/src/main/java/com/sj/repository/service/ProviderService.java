@@ -14,6 +14,8 @@ public interface ProviderService {
 
 	public Provider findByName(String name);
 
+	public void authentic(Long id);
+
 	public Page<Provider> findAllDescAndStatus(Pageable pageable,
 			ActivateEnum activate);
 

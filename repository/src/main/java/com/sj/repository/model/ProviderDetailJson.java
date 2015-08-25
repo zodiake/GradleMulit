@@ -4,6 +4,7 @@ import com.sj.model.model.Provider;
 import com.sj.model.type.SexEnum;
 
 public class ProviderDetailJson {
+	private Long id;
 	private String name;
 	private String gender;
 	private String email;
@@ -31,6 +32,7 @@ public class ProviderDetailJson {
 	private String industryInfo;
 
 	public ProviderDetailJson(Provider p) {
+		this.id = p.getId();
 		this.name = p.getName();
 		this.gender = p.getSex().equals(SexEnum.FEMALE) ? "女" : "男";
 		this.email = p.getEmail();
@@ -58,6 +60,14 @@ public class ProviderDetailJson {
 		this.structureCodeUrl = p.getStructureCodeUrl();
 		if (p.getIndustryInfo() != null)
 			this.industryInfo = p.getIndustryInfo().getName();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

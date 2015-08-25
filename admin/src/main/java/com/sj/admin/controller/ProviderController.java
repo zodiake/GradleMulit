@@ -51,4 +51,12 @@ public class ProviderController {
 		provider = providerService.checkUser(provider, ActivateEnum.ACTIVATE);
 		return null;
 	}
+
+	@RequestMapping(value = "/admin/providers/{id}/isAuthenticated", method = RequestMethod.PUT)
+	@ResponseBody
+	public String authentic(@PathVariable("id") Long id) {
+		providerService.authentic(id);
+		return "success";
+	}
+
 }
