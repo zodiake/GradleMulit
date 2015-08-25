@@ -1,7 +1,6 @@
 package com.sj.model.type;
 
 public enum OutputEnum {
-	//年产值
 	FOLLOWINGFIVEMILLION,			//五百万以下
 	FIVEMILLIONTOTWENTYMILLION,		//五百万至2000万
 	TWENTYMILLIONTOFIFTYMILLION,	//2000万至5000万

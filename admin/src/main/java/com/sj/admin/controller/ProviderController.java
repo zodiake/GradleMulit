@@ -48,7 +48,7 @@ public class ProviderController {
 	@RequestMapping(value = "/admin/providers/{id}", method = RequestMethod.PUT)
 	public String checkUser(@PathVariable("id") Long id) {
 		Provider provider = providerService.findOne(id);
-		provider = providerService.checkUser(provider, ActivateEnum.ACTIVATE);// 修改
+		provider = providerService.checkUser(provider, ActivateEnum.ACTIVATE);
 		return null;
 	}
 }

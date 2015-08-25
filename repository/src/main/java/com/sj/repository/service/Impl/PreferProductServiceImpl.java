@@ -39,12 +39,10 @@ public class PreferProductServiceImpl implements PreferProductService {
 	public PreferProduct save(PreferProduct product) {
 		product.setCreatedTime(Calendar.getInstance());
 
-		// 获取数量
 		String count = (String) template.opsForHash().get(
 				"prefer:" + product.getProduct().getId(), "count");
 		template.opsForSet().add("prefer:",
 				product.getProduct().getId().toString());
-		// 保存
 		if (count == null) {
 			template.opsForHash().put(
 					"prefer:" + product.getProduct().getId().toString(),"count", "0");
@@ -67,12 +65,10 @@ public class PreferProductServiceImpl implements PreferProductService {
 
 	@Override
 	public void deleteByUserAndProduct(CommonUser user, Product product) {
-		// 获取数量
 		String count = (String) template.opsForHash().get(
 				"prefer:" + product.getId(), "count");
 		template.opsForSet().add("prefer:",
 				product.getId().toString());
-		// 保存
 		if (count == null) {
 			template.opsForHash().put(
 					"prefer:" + product.getId().toString(),"count", "0");

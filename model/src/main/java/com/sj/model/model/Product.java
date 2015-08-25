@@ -36,7 +36,6 @@ public class Product {
 	private Long id;
 
 	private String name;
-	// new
 	private String nameEnglish; // 产品英文名
 
 	private String model; // 型号
@@ -48,7 +47,6 @@ public class Product {
 	private ProductStatusEnum status;
 
 	private String label;
-	// end
 
 	@Column(name = "cover_img")
 	private String coverImg;

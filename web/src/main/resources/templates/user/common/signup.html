@@ -9,6 +9,7 @@
 	<meta name="_csrf" th:content="${_csrf.token}" ></meta>
 	<meta name="_csrf_header" th:content="${_csrf.headerName}" ></meta>
 	<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/province.js}"></script>
 	<script type="text/javascript">
 		$(function() {
 			var token = $("meta[name='_csrf']").attr("content");
@@ -16,7 +17,6 @@
 			$(document).ajaxSend(function(e, xhr, options) {
 				xhr.setRequestHeader(header, token);
 			});
-			var citys = new Array();
 			var check = true;
 			$("#xy").click(function(){
 				if(check==true)
@@ -29,19 +29,7 @@
 					$("#regirect").attr("disabled","disabled");
 				}
 			});
-			$('#province').change(function(){
-				var obj = $(this);
-				var id = obj.val();
-				$.ajax({
-					type : 'get',
-					url : '/province/'+id,
-					success : function(data){
-						alert(data);
-					},error : function(data){
-						alert("error");
-					}
-				});
-			});
+			
 		});
 	</script>
 </head>
@@ -161,42 +149,12 @@
 			</div>
 			<div class="hd resg-hd">
 				<span>行业信息</span>
-				<i class="error" th:if="${#fields.hasErrors('industryInformation')}" th:errors="*{industryInformation}" style="color: red;">必填</i>
+				<i class="error" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}" style="color: red;">必填</i>
 			</div>
 			<div class="form-group">
 				<ul>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="ONE"/>科研院校/所
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="TWO"/>工业检测机构
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="THREE"/>委托合同研究机构
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="FOUR"/>政府机构
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="FIVE"/>商业检测/研发实验室
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="SIX"/>医疗保健机构
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="SEVEN"/>医院及大学医疗中心
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="EIGHT"/>医疗及诊断设备公司
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="NINE"/>制药/生物技术
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="TEN"/>设备材料供应商
-					</li>
-					<li>
-						<input type="radio" th:field="*{industryInformation}" value="ELEVEN"/>其他
+					<li th:each="info:${infos}" >
+						<input type="radio" th:field="*{industryInfo}" th:value="${info.id}"/><i th:text="${info.name}"></i>
 					</li>
 				</ul>
 			</div>

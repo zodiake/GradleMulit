@@ -134,7 +134,6 @@ public class ProviderController extends BaseController<Provider> {
 			return "user/provider/release";
 		}
 		product.setCreatedBy(new Provider(user.getId()));
-		// product = productService.addOneProduct(product);
 		uiModel.addAttribute("product", product);
 		return "user/provider/release";
 	}
@@ -162,7 +161,6 @@ public class ProviderController extends BaseController<Provider> {
 		return USERPRODUCTSEDITOK;
 	}
 
-	// 商品下架
 	@RequestMapping(value = "/provider/products/{id}/{status}", method = RequestMethod.PUT)
 	public String offProduct(@PathVariable("id") Long id,
 			@PathVariable("status") String status, @SecurityUser SiteUser user,

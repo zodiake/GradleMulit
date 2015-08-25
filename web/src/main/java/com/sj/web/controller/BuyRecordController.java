@@ -28,7 +28,6 @@ public class BuyRecordController {
 
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.POST)
 	public String save(@ModelAttribute("buy") BuyRecord buyRecord, Model uiModel) {
-		//
 		BuyRecord buy = buyRecordService.save(buyRecord);
 		uiModel.addAttribute("buy", buy);
 		return null;

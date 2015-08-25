@@ -1,10 +1,12 @@
 package com.sj.repository.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.sj.model.model.UserIndustryInfo;
 
 public interface UserIndustryInfoRepository extends
-		CrudRepository<UserIndustryInfo, Integer> {
-
+		PagingAndSortingRepository<UserIndustryInfo, Integer> {
+	List<UserIndustryInfo> findAll();
 }

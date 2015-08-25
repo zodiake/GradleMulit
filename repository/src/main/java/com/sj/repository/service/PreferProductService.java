@@ -17,7 +17,6 @@ public interface PreferProductService {
 
 	public PreferProduct save(PreferProduct product);
 
-	// 判断该商品是否已经被该用户收藏过
 	public boolean isDuplicateProduct(CommonUser user, Product product);
 
 	public void deleteByUserAndProduct(CommonUser user, Product product);

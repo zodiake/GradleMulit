@@ -50,7 +50,7 @@ public class CommonUser extends SiteUser {
 	@Pattern(regexp = "[0-9]{6}", message = "邮编为6位数组")
 	private String code; // 邮编*
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne()
 	@JoinColumn(name = "info_id")
 	private UserIndustryInfo industryInfo; // 行业信息
 

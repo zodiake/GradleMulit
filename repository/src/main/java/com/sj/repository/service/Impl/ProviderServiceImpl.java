@@ -31,15 +31,10 @@ public class ProviderServiceImpl implements ProviderService {
 
 	@Override
 	public Provider create(Provider provider) {
-		// 添加非用户输入的内容
-		provider.setEnabled(ActivateEnum.ACTIVATE); // 测试需要将用户激活
-		// 添加权限
+		provider.setEnabled(ActivateEnum.ACTIVATE);
 		provider.setSiteAuthority("ROLE_PROVIDER");
 		Calendar c = Calendar.getInstance();
 		provider.setCreateTime(c);
-
-		// 未添加图片地址
-
 		return repository.save(provider);
 	}
 

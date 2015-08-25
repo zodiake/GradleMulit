@@ -96,7 +96,6 @@ public class AdvertisementController {
 			BindingResult bindingResult, Model uiModel) {
 		Advertisement adv = advertisementService.findOne(id);
 		if (adv == null)
-			// throw new AdvertisementNotFoundException();
 			return "error";
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("advertisement", advertisement);

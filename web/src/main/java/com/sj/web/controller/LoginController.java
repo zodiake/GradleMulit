@@ -1,5 +1,6 @@
 package com.sj.web.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -29,11 +30,13 @@ import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
+import com.sj.model.model.UserIndustryInfo;
 import com.sj.repository.service.CartLineService;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.SiteUserService;
+import com.sj.repository.service.UserIndustryInfoService;
 import com.sj.repository.util.ChangePasswordForm;
 import com.sj.repository.util.RetrievePasswordForm;
 import com.sj.web.annotation.SecurityUser;
@@ -59,6 +62,8 @@ public class LoginController {
 	private ProvinceService provinceService;
 	@Autowired
 	private CartLineService cartLineService;
+	@Autowired
+	private UserIndustryInfoService userIndustryInfoService;
 
 	private final String LOGIN = "user/login";
 	private final String COMMONSIGNUP = "user/common/signup";
@@ -92,7 +97,6 @@ public class LoginController {
 		try {
 			authenticationManager.authenticate(token);
 		} catch (BadCredentialsException exception) {
-			// 在此处添加错误信息
 			user.setPassword(null);
 			bindingResult.addError(new FieldError("user", "error", "用户名或密码错误"));
 			uiModel.addAttribute("user", user);
@@ -132,6 +136,8 @@ public class LoginController {
 	public String signupForm(Model uiModel) {
 		uiModel.addAttribute("user", new CommonUser());
 		uiModel.addAttribute("provinces", provinceService.findAll());
+		List<UserIndustryInfo> infos = userIndustryInfoService.findAll();
+		uiModel.addAttribute("infos", infos);
 		return COMMONSIGNUP;
 	}
 
@@ -141,6 +147,14 @@ public class LoginController {
 			BindingResult userResult, HttpSession session, Model uiModel) {
 		if (userResult.hasErrors()) {
 			user.setPassword(null);
+			uiModel.addAttribute("provinces", provinceService.findAll());
+			uiModel.addAttribute("user", user);
+			return COMMONSIGNUP;
+		}
+		int passwordLength = user.getPassword().length();
+		if (passwordLength > 18 || passwordLength < 6) {
+			user.setPassword(null);
+			userResult.addError(new FieldError("user", "password","密码长度为6-18位"));
 			uiModel.addAttribute("provinces", provinceService.findAll());
 			uiModel.addAttribute("user", user);
 			return COMMONSIGNUP;
@@ -222,7 +236,6 @@ public class LoginController {
 			return CHANGEPASSWORD;
 		}
 		userService.updatePassword(user.getId(), form.getNewPassword());
-		// todo
 		return "redirect:/index";
 	}
 
@@ -258,8 +271,7 @@ public class LoginController {
 	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.POST)
 	public String forgetPwVaildata(
 			@ModelAttribute("retrieve") RetrievePasswordForm form, Model uiModel) {
-		// 验证验证码
-		uiModel.addAttribute("form", new RetrievePasswordForm("13700000001"));// 测试代码
+		uiModel.addAttribute("form", new RetrievePasswordForm("13700000001"));
 		return "user/changePassword";
 	}
 
@@ -271,7 +283,6 @@ public class LoginController {
 
 		}
 		SiteUser user = userService.findByPhone(form.getPhone());
-		System.out.println(user.getPassword());
 		userService.updatePassword(user.getId(),
 				encoder.encodePassword(form.getPassword(), null));
 		SiteUser usert = userService.findByPhone(form.getPhone());
@@ -279,7 +290,6 @@ public class LoginController {
 	}
 
 	private void sendCaptcha() {
-		// todo
 
 	}
 

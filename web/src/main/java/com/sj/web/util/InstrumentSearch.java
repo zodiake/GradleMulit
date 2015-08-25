@@ -5,7 +5,6 @@ public class InstrumentSearch {
 	private String name;
 	private String place;
 	private float price;
-//	private 
 
 	public String getBrand() {
 		return brand;
