@@ -27,7 +27,7 @@
 
 		var ajaxPost = function() {
 			$.ajax({
-				data : settings.data(self),
+				data : settings.data,
 				url : settings.url,
 				type : 'post'
 			}).success(function(response) {
@@ -37,10 +37,10 @@
 			});
 		};
 
-		this.click(function(event) {
+		this.submit(function(event) {
 			$.ajax({
 				url : settings.url,
-				data : settings.data(self),
+				data : settings.data,
 				type : 'post'
 			}).success(function(response) {
 				if (response == 'login')

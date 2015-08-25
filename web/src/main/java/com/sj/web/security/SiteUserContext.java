@@ -39,6 +39,7 @@ public class SiteUserContext implements UserContext {
 				.getAuthentication();
 		if (authentication.getPrincipal() instanceof String) {
 			String principal = (String) authentication.getPrincipal();
+			System.out.println("------------------------" + principal);
 			if (principal.equals("anonymousUser")) {
 				return false;
 			}

@@ -28,10 +28,8 @@ import com.google.code.kaptcha.Constants;
 import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.Provider;
-import com.sj.model.model.Province;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.CartLineService;
-import com.sj.repository.service.CartService;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
@@ -154,24 +152,17 @@ public class LoginController {
 	}
 
 	/* provider registered page */
-	@RequestMapping(value = "/signup", method = RequestMethod.GET,params = "provider")
+	@RequestMapping(value = "/signup", method = RequestMethod.GET, params = "provider")
 	public String providerSignupForm(Model uiModel) {
 		uiModel.addAttribute("user", new Provider());
 		return PSIGNUP;
 	}
 
 	/* provider registered */
-	@RequestMapping(value = "/signup", method = RequestMethod.POST,params = "provider")
+	@RequestMapping(value = "/signup", method = RequestMethod.POST, params = "provider")
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult providerResult, HttpSession session, Model uiModel) {
-		// validateSignupForm(provider.getCaptcha(), providerResult, session);
-		// if (providerResult.hasErrors()) {
-		// // form.setConfirm(null);
-		// provider.setPassword(null);
-		// uiModel.addAttribute("user", provider);
-		// return PSIGNUP;
-		// }
 		provider.setPassword(encoder.encodePassword(provider.getPassword(),
 				null));
 		SiteUser user = providerService.create(provider);
@@ -179,19 +170,6 @@ public class LoginController {
 		return HOME;
 	}
 
-	// private void validateSignupForm(SignupForm form, BindingResult result,
-	// HttpSession session) {
-	// String kaptcha = (String) session
-	// .getAttribute(Constants.KAPTCHA_SESSION_KEY);
-	// if (!StringUtils.equals(form.getPassword(), form.getConfirm())) {
-	// result.addError(new FieldError("SignupForm", "confirm",
-	// passwordError));
-	// }
-	// if (!StringUtils.equals(form.getCaptcha(), kaptcha)) {
-	// result.addError(new FieldError("SignupForm", "captcha",
-	// captchaError));
-	// }
-	// }
 	private void validateSignupForm(String captcha, BindingResult result,
 			HttpSession session) {
 		String kaptcha = (String) session
@@ -223,9 +201,6 @@ public class LoginController {
 		}
 		return false;
 	}
-
-	/* end modify */
-	/* end login and signup login */
 
 	/* user change password feature */
 	@RequestMapping(value = { "/provider/changePw", "/manufacture/changePw" }, method = RequestMethod.GET)
@@ -273,8 +248,6 @@ public class LoginController {
 		}
 	}
 
-	/* end user change password feature */
-
 	/* forget password */
 	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.GET)
 	public String forgetPw(Model uiModel) {
@@ -301,10 +274,7 @@ public class LoginController {
 		System.out.println(user.getPassword());
 		userService.updatePassword(user.getId(),
 				encoder.encodePassword(form.getPassword(), null));
-		// 测试代码
-
 		SiteUser usert = userService.findByPhone(form.getPhone());
-		System.out.println(usert.getPassword());
 		return "redirect:/login";
 	}
 
@@ -312,6 +282,5 @@ public class LoginController {
 		// todo
 
 	}
-	/* end forget password */
 
 }

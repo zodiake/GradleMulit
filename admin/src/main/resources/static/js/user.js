@@ -1,37 +1,43 @@
 var userModule = angular.module('User', []);
 
-userModule.service('CommonUserService', ['$http', function ($http) {
-    this.findAll = function (opt) {
-        return $http.get('/admin/CommonUsers', {
-            params: opt
-        });
-    };
-}]);
+userModule.service('CommonUserService', ['$http',
+    function ($http) {
+        this.findAll = function (opt) {
+            return $http.get('/admin/CommonUsers', {
+                params: opt
+            });
+        };
+        this.findOne = function (id) {
+            return $http.get('/admin/CommonUsers/' + id);
+        };
+    }
+]);
 
-userModule.service('ProviderService', ['$http', function ($http) {
-    this.findAll = function (opt) {
-        return $http.get('/admin/providers', {
-            params: opt
-        });
-    };
-}]);
+userModule.service('ProviderService', ['$http',
+    function ($http) {
+        this.findAll = function (opt) {
+            return $http.get('/admin/providers', {
+                params: opt
+            });
+        };
+        this.findOne = function (id) {
+            return $http.get('/admin/CommonUsers/' + id);
+        };
+    }
+]);
 
-userModule.controller('CommonUserController', ['$scope',
-    'CommonUserService',
+userModule.controller('CommonUserController', ['$scope', 'CommonUserService',
     function ($scope, CommonUserService) {
         $scope.page = 1;
         $scope.size = 15;
 
         function init(opt) {
-            CommonUserService
-                .findAll(opt)
-                .success(function (data) {
-                    $scope.items = data.content;
-                    $scope.total = data.totalElements;
-                })
-                .error(function (err) {
+            CommonUserService.findAll(opt).success(function (data) {
+                $scope.items = data.content;
+                $scope.total = data.totalElements;
+            }).error(function (err) {
 
-                });
+            });
         }
 
         init({
@@ -45,25 +51,29 @@ userModule.controller('CommonUserController', ['$scope',
                 size: $scope.size
             });
         };
+
+        $scope.showDetail = function (item) {
+            CommonUserService.findOne().success(function (data) {
+
+            }).error(function (err) {
+
+            });
+        };
     }
 ]);
 
-userModule.controller('ProviderController', ['$scope',
-    'ProviderService',
-    function ($scope, ProviderService) {
+userModule.controller('ProviderController', ['$scope', 'ProviderService', '$modal',
+    function ($scope, ProviderService, $modal) {
         $scope.page = 1;
         $scope.size = 15;
 
         function init(opt) {
-            ProviderService
-                .findAll(opt)
-                .success(function (data) {
-                    $scope.items=data.content;
-                    $scope.total=data.totalElements;
-                })
-                .error(function (err) {
+            ProviderService.findAll(opt).success(function (data) {
+                $scope.items = data.content;
+                $scope.total = data.totalElements;
+            }).error(function (err) {
 
-                });
+            });
         }
 
         init({
@@ -75,6 +85,16 @@ userModule.controller('ProviderController', ['$scope',
             init({
                 page: $scope.page,
                 size: $scope.size
+            });
+        };
+
+        $scope.showDetail = function (item) {
+            ProviderService.findOne(item.id).success(function (data) {
+                $modal.open({
+                    templateUrl: '/admin/user/providerDetail'
+                });
+            }).error(function (err) {
+
             });
         };
     }
