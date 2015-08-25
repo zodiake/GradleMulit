@@ -34,21 +34,21 @@ public class SiteUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@NotBlank(message="用户名不能为空")
+
+	@NotBlank(message = "用户名不能为空")
 	private String name; // 用户名
-	
-	@NotBlank(message= "真实姓名不能为空")
-	@Column(name="real_name")
+
+	@NotBlank(message = "真实姓名不能为空")
+	@Column(name = "real_name")
 	private String realName;
 	
 	@NotNull(message="请选择性别")
 	@Column(name="sex")
 	private SexEnum sex;
 
-	@Size(min=6,max=64)
+	@Size(min = 6, max = 64, message = "密码最少为6位")
 	private String password; // 密码
-	
+
 	@Column(name = "site_Authority")
 	private String siteAuthority; // 网站权限
 
@@ -56,16 +56,18 @@ public class SiteUser {
 	private ActivateEnum enabled; // 是否激活
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_time")
-	private Calendar createdTime; // 创建时间
+	@Column(name = "create_time")
+	protected Calendar createTime; // 创建时间
 
-	@NotBlank(message="邮箱不能为空")
-	@Email(message="请输入正确的邮箱")
+	@NotBlank(message = "邮箱不能为空")
+	@Email(message = "请输入正确的邮箱")
 	private String email; // 邮箱
-	
-	@Pattern(regexp="[0-9]{11}" ,message="手机号码为11位数组")
+
+	@Pattern(regexp = "[0-9]{11}", message = "手机号码为11位数组")
 	private String phone; // 手机号码
-	
+
+	private int score;
+
 	public SiteUser() {
 	}
 
@@ -114,37 +116,12 @@ public class SiteUser {
 		this.siteAuthority = siteAuthority;
 	}
 
-	public Calendar getCreatedTime() {
-		return createdTime;
+	public Calendar getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatedTime(Calendar createdTime) {
-		this.createdTime = createdTime;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SiteUser other = (SiteUser) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public void setCreateTime(Calendar createTime) {
+		this.createTime = createTime;
 	}
 
 	public String getEmail() {
@@ -179,4 +156,36 @@ public class SiteUser {
 		this.sex = sex;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SiteUser other = (SiteUser) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

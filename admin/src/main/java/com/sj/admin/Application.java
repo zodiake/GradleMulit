@@ -48,9 +48,9 @@ public class Application extends WebMvcConfigurerAdapter {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
-					.anyRequest().permitAll().and().formLogin()
-					.defaultSuccessUrl("/index")
+			http.csrf().disable().authorizeRequests().antMatchers("/admin/**")
+					.hasRole("ADMIN").anyRequest().permitAll().and()
+					.formLogin().defaultSuccessUrl("/index")
 					.loginProcessingUrl("/loginProcess")
 					.usernameParameter("name").passwordParameter("password")
 					.loginPage("/login").failureUrl("/login?error").and()

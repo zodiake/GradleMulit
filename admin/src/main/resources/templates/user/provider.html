@@ -1,0 +1,44 @@
+<div class="contentpanel">
+	<form class="form-inline">
+		<div class="form-group company-select">
+			<select>
+				<option>全部状态</option>
+				<option>已审核</option>
+				<option>未审核</option>
+			</select>
+		</div>
+	</form>
+	<table class="table table-bordered mb30">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>手机号</th>
+				<th>邮箱</th>
+				<th>城市</th>
+				<th>单位</th>
+				<th>状态</th>
+				<th>注册日期</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in items" ng-click="showDetail(item)">
+				<td>{{$index+1}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.gender}}</td>
+				<td>{{item.mobile}}</td>
+				<td>{{item.email}}</td>
+				<td>{{item.city}}</td>
+				<td>{{item.company}}</td>
+				<td>{{item.state}}</td>
+				<td>{{item.createTime}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="pagenumQu">
+        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
+	</div>
+	<script type="text/ng-template" id="modal.html">
+	</script>
+</div>

@@ -55,9 +55,10 @@ create table site_user(
 	email varchar(40),
 	phone varchar(11),
 	site_authority varchar(20),
-	created_time timestamp,
+	create_time timestamp,
 	real_name varchar(20),			
 	sex smallint,
+	score int default 0,
 	primary key(id)
 );
 
@@ -94,7 +95,7 @@ create TABLE provider(
 	output smallint,
 	industry_information smallint,
 	info_id int,
-	is_authenticated int,
+	is_authenticated int default 0,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id) REFERENCES site_user(id),
 	foreign key (content_id) references content(id),

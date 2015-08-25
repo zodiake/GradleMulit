@@ -216,9 +216,6 @@ public class LoginController {
 		return false;
 	}
 
-	/* end modify */
-	/* end login and signup login */
-
 	/* user change password feature */
 	@RequestMapping(value = { "/provider/changePw", "/manufacture/changePw" }, method = RequestMethod.GET)
 	public String editPassword(Model uiModel) {
@@ -264,8 +261,6 @@ public class LoginController {
 		}
 	}
 
-	/* end user change password feature */
-
 	/* forget password */
 	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.GET)
 	public String forgetPw(Model uiModel) {
@@ -290,15 +285,12 @@ public class LoginController {
 		SiteUser user = userService.findByPhone(form.getPhone());
 		userService.updatePassword(user.getId(),
 				encoder.encodePassword(form.getPassword(), null));
-
 		SiteUser usert = userService.findByPhone(form.getPhone());
-		System.out.println(usert.getPassword());
 		return "redirect:/login";
 	}
 
 	private void sendCaptcha() {
 
 	}
-	/* end forget password */
 
 }

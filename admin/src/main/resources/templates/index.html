@@ -1,10 +1,81 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Hello Spring Boot!</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+    <title>企业用户</title>
+    <link href="/css/style.default.css" rel="stylesheet"></link>
+    <script src="/js/jquery-1.11.2.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular/angular.js"></script>
+    <script src="/js/angular/angular-ui-router.js"></script>
+    <script src="/js/angular/ui-router-tabs.js"></script>
+    <script src="/js/angular/ui-bootstrap-tpls-0.13.0.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/user.js"></script>
 </head>
-<body>
-	<p>Hello Spring Boot!</p>
+
+<body ng-app="app">
+    <header>
+        <div class="headerwrapper">
+            <div class="header-left">
+                海申捷卫生科技管理系统
+            </div>
+            <div class="header-right">
+                <a>admin</a>
+                <button class="btn btn-default btn-xs">退出</button>
+            </div>
+        </div>
+        <!-- headerwrapper -->
+    </header>
+    <section>
+        <div class="mainwrapper">
+            <div class="leftpanel">
+                <ul class="nav nav-pills nav-stacked" id="child_nav" style="margin-top:10px">
+                    <li class="parent">
+                        <a href="">用户管理</a>
+                        <ul class="children">
+                            <li class=""><a ui-sref="commonUser">个人用户</a></li>
+                            <li class="active"><a ui-sref="provider">企业用户</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a ui-sref="provider">品牌管理</a>
+                    </li>
+                    <li>
+                        <a href="goodsSort.html">商品分类管理</a>
+                    </li>
+                    <li>
+                        <a href="goods.html">商品管理</a>
+                    </li>
+                    <li>
+                        <a href="advertRelease.html">广告发布</a>
+                    </li>
+                    <li>
+                        <a href="messageRelease.html">信息发布</a>
+                    </li>
+                    <li>
+                        <a href="customer.html">客户行为统计</a>
+                    </li>
+                    <li>
+                        <a href="manage.html">经营信息统计</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- leftpanel -->
+            <div class="mainpanel">
+                <ui-view></ui-view>
+            </div>
+            <!-- mainpanel -->
+        </div>
+        <!-- mainwrapper -->
+    </section>
+    <footer>
+        <div class="footerwrapper">© 2014-2015 shsj.com 版权所有 ICP证： 沪ICP备111111号-2</div>
+    </footer>
 </body>
+
 </html>

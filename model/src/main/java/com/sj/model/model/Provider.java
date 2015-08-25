@@ -27,10 +27,12 @@ import com.sj.model.type.ScaleEnum;
 @Table(name = "provider")
 @PrimaryKeyJoinColumn
 public class Provider extends SiteUser {
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "authenticated_time")
 	private Calendar authenticatedTime; // 鉴定时间
+
+	@Column(name = "is_authenticated")
+	private int isAuthenticated;
 
 	// 企业信息
 	@Column(name = "company_name_china")
@@ -287,5 +289,13 @@ public class Provider extends SiteUser {
 
 	public void setAuthenticatedTime(Calendar authenticatedTime) {
 		this.authenticatedTime = authenticatedTime;
+	}
+
+	public int getIsAuthenticated() {
+		return isAuthenticated;
+	}
+
+	public void setIsAuthenticated(int isAuthenticated) {
+		this.isAuthenticated = isAuthenticated;
 	}
 }

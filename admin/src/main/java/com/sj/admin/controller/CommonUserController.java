@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.admin.exception.UserNotFoundException;
 import com.sj.model.model.CommonUser;
+import com.sj.repository.model.CommonUserJson;
 import com.sj.repository.service.CommonUserService;
 
 @Controller
@@ -21,18 +22,21 @@ public class CommonUserController {
 	@Autowired
 	private CommonUserService userService;
 
-	@RequestMapping(value = "/admin/CommonUsers",method = RequestMethod.GET)
-	public String findAllDesc(Model uiModel,@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size){
-		Page<CommonUser> users = userService.findAll(new PageRequest(page-1, size, Direction.DESC,"createdTime"));
-		uiModel.addAttribute("users", users);
-		return null;
-	}
-	@RequestMapping(value="/admin/CommonUsers/{id}",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/CommonUsers", method = RequestMethod.GET)
 	@ResponseBody
-	public String findOne(Model uiModel,@PathVariable("id")Long id){
+	public Page<CommonUserJson> findAllDesc(Model uiModel,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size) {
+		Page<CommonUserJson> users = userService.toJson(new PageRequest(
+				page - 1, size, Direction.DESC, "createTime"));
+		return users;
+	}
+
+	@RequestMapping(value = "/admin/CommonUsers/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String findOne(Model uiModel, @PathVariable("id") Long id) {
 		CommonUser user = userService.findOne(id);
-		if(user==null)
+		if (user == null)
 			throw new UserNotFoundException();
 		uiModel.addAttribute("user", user);
 		return null;
