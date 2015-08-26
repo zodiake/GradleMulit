@@ -28,6 +28,8 @@ public interface SiteUserRepository extends
 	
 	public SiteUser findByPhone(String phone);
 	
+	public SiteUser findByEmail(String email);
+	
 	public SiteUser findByNameAndEnabledAndSiteAuthority(String name,ActivateEnum activate,String siteAuthority);
 	
 }
