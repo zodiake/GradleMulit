@@ -194,26 +194,14 @@ public class LoginController {
 	}
 
 	/* Verify that the name exists */
-	@RequestMapping(value = "/name/isExiste/{name}", method = RequestMethod.GET)
+	@RequestMapping(value = "/name", method = RequestMethod.POST,params="valid")
 	@ResponseBody
-	public boolean validateUserNameIsExiste(@PathVariable("name") String name) {
+	public String validateUserNameIsExiste(@RequestParam("name") String name) {
 		SiteUser user = userService.findByName(name);
 		if (user == null) {
-			return true;
+			return "true";
 		}
-		return false;
-	}
-
-	/* Verify that the phone exists */
-	@ResponseBody
-	@RequestMapping(value = "/phone/isExiste/{phone}", method = RequestMethod.GET)
-	public boolean validateUserPhoneIsExiste(@PathVariable("phone") String phone) {
-		System.out.println(phone);
-		SiteUser user = userService.findByPhone(phone);
-		if (user == null) {
-			return true;
-		}
-		return false;
+		return "false";
 	}
 
 	/* user change password feature */

@@ -77,8 +77,8 @@ public class SiteUserServiceImpl implements SiteUserService {
 	}
 
 	@Override
-	public SiteUser login(String name, ActivateEnum activate) {
-		return repository.findByNameOrPhoneOrEmailAndEnabled(name, name, name, activate);
+	public SiteUser findByEmail(String email) {
+		return repository.findByEmail(email);
 	}
 
 }

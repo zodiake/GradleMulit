@@ -22,10 +22,10 @@ public interface SiteUserService {
 	
 	public SiteUser findByPhone(String phone);
 	
+	public SiteUser findByEmail(String email);
+	
 	public SiteUser retrievePassword(String phone,String newPassword);
 	
 	public SiteUser findByNameAndSiteAuthority(SiteUser user);
-	
-	public SiteUser login(String name,ActivateEnum activate);
 	
 }
