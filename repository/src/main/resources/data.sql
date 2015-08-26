@@ -105,14 +105,14 @@ insert into product(id,name,cover_Img,price,url,first_category_id,second_categor
 values(4,'product4','/img/banner1.jpg',10.0,'/product/4',1,10,13,1,4,'product3English','HD303',1,'10支',1,1,systimestamp,3,'s');
 
 --mary2 product
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,original)
-values(5,'product5','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,5,'product3English','HD303',1,'10支',1,1,systimestamp,0);
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,original)
-values(6,'product6','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3English','HD303',1,'10支',1,1,systimestamp,1);
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,original)
-values(7,'product7','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,1,systimestamp,2);
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,original)
-values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,10,13,2,8,'product3English','HD303',1,'10支',1,1,systimestamp,3);
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,original,product_type)
+values(5,'product5','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,5,'product3English','HD303',1,'10支',1,1,systimestamp,0,'c');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,original,product_type)
+values(6,'product6','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3English','HD303',1,'10支',1,1,systimestamp,1,'c');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,original,product_type)
+values(7,'product7','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,1,systimestamp,2,'c');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,original,product_type)
+values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,10,13,2,8,'product3English','HD303',1,'10支',1,1,systimestamp,3,'c');
 
 --test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');

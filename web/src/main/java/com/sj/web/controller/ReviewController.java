@@ -45,20 +45,19 @@ public class ReviewController {
 
 	@RequestMapping(value = "/products/{productId}/reviews", method = RequestMethod.POST)
 	@ResponseBody
-	private String add(@RequestParam("content") String content,
+	private String add(@ModelAttribute("review") Review review,
 			@PathVariable("productId") Long productId) {
-		System.out.println("add......");
+		System.out.println("review----------------"+review.getContent());
 		if (!userContext.isLogin())
 			return "login";
-		if("".equals(content))
+		if("".equals(review.getContent().trim()))
 			return "content is null";
 		Product p = new Product(productId);
-		Review review = new Review();
 		review.setProduct(p);
-		review.setCreatedBy(new SiteUser(userContext.getCurrentUser().getId()));
-		review.setContent(content);
+		SiteUser user = userContext.getCurrentUser();
+		review.setCreatedBy(new SiteUser(user.getId()));
 		reviewService.save(review);
-		return "success";
+		return user.getName();
 	}
 
 	private String convertJSONString(Stream<Review> reviews) {
