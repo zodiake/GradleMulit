@@ -13,7 +13,8 @@ body {
     color: #636E7B;
     background-color: #fff;
     font-family:'Microsoft Yahei',Helvetica, Arial, sans-serif;
-	font-weight:100
+	font-weight:100;
+    overflow: hidden;
 }
 html, body{
     width: 100%;
@@ -611,10 +612,7 @@ section{
 
 	
 .footerwrapper{
-	position:absolute;
-	bottom:0;
 	width:100%;
-	z-index:9999;
 	height:48px;
 	line-height:48px;
 	color:#fff;
