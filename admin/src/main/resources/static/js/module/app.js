@@ -32,11 +32,6 @@ app.config([
                 templateUrl: '/admin/brand',
                 controller: 'BrandController'
             })
-            .state('brandDetail', {
-                url: '/brandDetail',
-                templateUrl: '/admin/brandDetail',
-                controller: 'BrandDetailController'
-            })
             .state('products', {
                 url: '/products',
                 templateUrl: '/admin/products',

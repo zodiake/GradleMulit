@@ -1,9 +1,12 @@
 package com.sj.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Brand;
+import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.BrandJson;
 import com.sj.repository.service.BrandService;
 
 @Controller
@@ -23,11 +28,14 @@ public class BrandController {
 	private BrandService brandService;
 
 	@RequestMapping(value = "/admin/brands", method = RequestMethod.GET)
-	public String findAll(Model uiModel,
+	@ResponseBody
+	public Page<BrandJson> findAll(Model uiModel, HttpServletRequest request,
 			@RequestParam(defaultValue = "1", value = "page") int page,
 			@RequestParam(defaultValue = "15", value = "size") int size) {
-		brandService.findAll(new PageRequest(page - 1, size));
-		return null;
+		String state = request.getParameter("state");
+		ActivateEnum activate = ActivateEnum.fromString(state);
+		return brandService.findByActivateToJson(activate, new PageRequest(
+				page - 1, size, Direction.DESC, "createdTime"));
 	}
 
 	@RequestMapping(value = "/admin/brands/{id}", method = RequestMethod.DELETE)

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.sj.model.model.Brand;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.BrandJson;
 
 public interface BrandService {
 	public Page<Brand> findAll(Pageable pageable);
@@ -19,12 +20,15 @@ public interface BrandService {
 
 	public List<Brand> findByAcitvate(ActivateEnum activate);
 
+	public Page<BrandJson> findByActivateToJson(ActivateEnum activate,
+			Pageable pageable);
+
 	public Brand save(Brand brand);
 
 	public Brand update(Brand brand);
-	
+
 	public Brand findByName(String name);
-	
+
 	public void deleteOne(Long id);
-	
+
 }
