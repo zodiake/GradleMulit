@@ -19,6 +19,7 @@ import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.SubjectService;
 import com.sj.web.exception.SubjectNotFoundException;
 
@@ -26,6 +27,8 @@ import com.sj.web.exception.SubjectNotFoundException;
 public class SubjectController {
 	@Autowired
 	private SubjectService subjectService;
+	@Autowired
+	private ProductCategoryService productCategoryService;
 
 	@RequestMapping(value = "/subjects", method = RequestMethod.GET)
 	public String findSubjects(
@@ -36,7 +39,7 @@ public class SubjectController {
 				new PageRequest(page - 1, size, Direction.DESC, "createdTime"),
 				ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("subjects", subjects);
-		uiModel.addAttribute("pc", new ProductCategory(ProductCategory.ZT));
+		uiModel.addAttribute("pc", productCategoryService.findOne(5l));
 		return "subject/subjects";
 	}
 
@@ -73,7 +76,7 @@ public class SubjectController {
 		uiModel.addAttribute("sjs", sjs);
 		uiModel.addAttribute("hcs", hcs);
 		uiModel.addAttribute("fws", fws);
-		uiModel.addAttribute("pc", new ProductCategory(ProductCategory.ZT));
+		uiModel.addAttribute("pc", productCategoryService.findOne(5l));
 		return "subject/subject";
 	}
 }

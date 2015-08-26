@@ -1,9 +1,12 @@
 package com.sj.model.type;
 
 public enum BusinessTypeEnum {
-	PRODUCTION,					//生产型
-	TRADE,						//贸易型
-	SERVICE,					//服务型
-	FOVERNMENT,					//政府机关
-	OTHER						//其他
+	生产型, 贸易型, 服务型, 政府机关, 其它;
+	public static BusinessTypeEnum stringToEnum(String source) {
+		try {
+			return BusinessTypeEnum.valueOf(source);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

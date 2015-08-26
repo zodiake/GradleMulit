@@ -1,5 +1,6 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,12 +13,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "category")
 @DiscriminatorValue("ic")
-public class InformationCategory extends Category {
+public class InformationCategory extends Category implements Serializable {
 
-	public static final String ZX = "资讯";
-	public static final String HYYW = "HYYW";
-	public static final String XPCG = "XPCG";
-	public static final String CSDT = "CSDT";
 
 	@Column(name = "url")
 	private String url;
@@ -54,14 +51,4 @@ public class InformationCategory extends Category {
 		this.url = url;
 	}
 
-	public static final InformationCategory getFirst(String url) {
-		System.out.println("url=" + url);
-		if (url == HYYW)
-			return new InformationCategory(7l);
-		if (url == XPCG)
-			return new InformationCategory(8l);
-		if (url == CSDT)
-			return new InformationCategory(9l);
-		return null;
-	}
 }

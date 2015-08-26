@@ -29,4 +29,6 @@ public interface ProductCategoryRepository extends
 	ProductCategory findByNameAndActivate(String name,ActivateEnum activate);
 	
 	ProductCategory findByNameAndParentAndActivate(String name,ProductCategory category,ActivateEnum activate);
+
+	
 }

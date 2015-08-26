@@ -47,7 +47,6 @@ public class ReviewController {
 	@ResponseBody
 	private String add(@ModelAttribute("review") Review review,
 			@PathVariable("productId") Long productId) {
-		System.out.println("review----------------"+review.getContent());
 		if (!userContext.isLogin())
 			return "login";
 		if("".equals(review.getContent().trim()))

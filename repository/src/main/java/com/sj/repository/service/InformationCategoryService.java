@@ -17,5 +17,5 @@ public interface InformationCategoryService {
 	
 	public void delete(Long id);
 	
-	public InformationCategory findByUrl(String category);
+	public InformationCategory findByName(String name);
 }

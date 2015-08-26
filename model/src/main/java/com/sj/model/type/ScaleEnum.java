@@ -1,8 +1,12 @@
 package com.sj.model.type;
 
 public enum ScaleEnum {
-	FOLLOWINGFIFTY,				//50人以下
-	FIFTYTOHUNDRED,				//50人到100
-	HUNDREDTOFIVEHUBDRED,		//100到500
-	MORETHANFIVEHUBDRED			//超过500
+	五十人以下,五十到一百人,一百到五百,超过五百;
+	public static ScaleEnum stringToEnum(String scale){
+		try{
+			return ScaleEnum.valueOf(scale);
+		}catch(Exception e){
+			return null;
+		}
+	}
 }

@@ -30,8 +30,8 @@ public class CommonUser extends SiteUser {
 	private String department; // 部门
 
 	@Column(name = "company_phone")
-	@Pattern(regexp = "[0-9]{3,4}-[0-9]{8}", message = "请输入正确的公司电话，如：010-12345678")
-	private String companyPhone; // 公司电话*
+	@NotBlank(message = "企业电话不能为空")
+	private String companyPhone; // 企业电话*
 
 	private String fax; // 传真
 

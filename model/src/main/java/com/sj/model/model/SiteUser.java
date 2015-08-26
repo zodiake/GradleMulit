@@ -75,6 +75,12 @@ public class SiteUser {
 		super();
 		this.id = id;
 	}
+	public SiteUser(Long id,String name,String passwrod){
+		super();
+		this.id = id;
+		this.name = name;
+		this.password = passwrod;
+	}
 
 	public Long getId() {
 		return id;

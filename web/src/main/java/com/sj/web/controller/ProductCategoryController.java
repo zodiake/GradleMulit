@@ -17,6 +17,7 @@ import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.SiteUser;
+import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
@@ -35,46 +36,45 @@ public class ProductCategoryController {
 	private SiteUserContext userContext;
 
 	@RequestMapping(value = "/productCategory/{parent}/{second}/{third}", method = RequestMethod.GET)
-	public String findByThird(@PathVariable("third") String third, Model uiModel,
-			@PathVariable("parent") String parent,
+	public String findByThird(@PathVariable("third") String third,
+			Model uiModel, @PathVariable("parent") String parent,
 			@PathVariable("second") String second,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		ProductCategory pc = ProductCategory.getFirst(parent);
-		if (pc == null)
+		ProductCategory thirdCategory = pcService.findByName(third,
+				ActivateEnum.ACTIVATE);
+		if (thirdCategory == null
+				|| thirdCategory.getParent() == null
+				|| !thirdCategory.getParent().getName().equals(second)
+				|| thirdCategory.getParent().getParent() == null
+				|| !thirdCategory.getParent().getParent().getName()
+						.equals(parent)) {
 			throw new CategoryNotFoundException();
-
-		ProductCategory child = pcService.findByName(third);
-		if (child == null || !child.getParent().getName().equals(second))
-			throw new CategoryNotFoundException();
-		
-		Page<Product> pages = productService.findByCategory(child,new PageRequest(page - 1, size));
-		uiModel.addAttribute("pc", pc);
-		uiModel.addAttribute("second", child.getParent());
-		uiModel.addAttribute("child", child);
-
+		}
+		Page<Product> pages = productService.findByCategory(thirdCategory,
+				new PageRequest(page - 1, size));
+		uiModel.addAttribute("pc", thirdCategory.getParent().getParent());
+		uiModel.addAttribute("second", thirdCategory.getParent());
+		uiModel.addAttribute("child", thirdCategory);
 		uiModel.addAttribute("page", pages);
 		return "product/products";
 	}
 
 	@RequestMapping(value = "/productCategory/{parent}/{second}", method = RequestMethod.GET)
-	public String findBySecond(@PathVariable("second") String second, Model uiModel,
-			@PathVariable("parent") String parent,
+	public String findBySecond(@PathVariable("second") String second,
+			Model uiModel, @PathVariable("parent") String parent,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		ProductCategory pc = ProductCategory.getFirst(parent);
-		if (pc == null)
+		ProductCategory secondCategory = pcService.findByName(second,
+				ActivateEnum.ACTIVATE);
+		if (secondCategory == null || secondCategory == null
+				|| !secondCategory.getParent().getName().equals(parent))
 			throw new CategoryNotFoundException();
-		
-		
-		ProductCategory seCategory = pcService.findByName(second);
-		if (seCategory == null || !seCategory.getParent().getName().equals(parent))
-			throw new CategoryNotFoundException();
-		
-		Page<Product> pages = productService.findBySecondCategory(seCategory, new PageRequest(page-1, size));
-		
-		uiModel.addAttribute("second", seCategory);
-		uiModel.addAttribute("pc", pc);
+		Page<Product> pages = productService.findBySecondCategory(
+				secondCategory, new PageRequest(page - 1, size));
+
+		uiModel.addAttribute("second", secondCategory);
+		uiModel.addAttribute("pc", secondCategory.getParent());
 		uiModel.addAttribute("page", pages);
 		return "product/products";
 	}
@@ -99,7 +99,7 @@ public class ProductCategoryController {
 
 	@RequestMapping(value = "/productCategory/{name}", method = RequestMethod.GET)
 	public String findByParent(@PathVariable("name") String name, Model uiModel) {
-		ProductCategory pc = ProductCategory.getFirst(name);
+		ProductCategory pc = pcService.findByName(name, ActivateEnum.ACTIVATE);
 		if (pc == null)
 			throw new CategoryNotFoundException();
 		List<ProductCategory> categories = pcService.findByParent(pc);

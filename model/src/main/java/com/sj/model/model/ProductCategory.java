@@ -16,13 +16,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("pc")
 public class ProductCategory extends Category implements Serializable{
 	
-	public static final String HQ="仪器";
-	public static final String SJ="试剂";
-	public static final String HC="耗材";
-	public static final String FW="服务";
-	public static final String ZT="专题";
-
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(mappedBy = "parent",fetch = FetchType.LAZY)
 	private Set<ProductCategory> categories;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -40,27 +34,6 @@ public class ProductCategory extends Category implements Serializable{
 	public ProductCategory(String name){
 		super();
 		this.name=name;
-	}
-
-	public static ProductCategory getFirst(String name) {
-		ProductCategory pc = new ProductCategory();
-		if(name.equals(HQ)){
-			pc.setId(1l);
-			pc.setName(HQ);
-		}
-		else if(name.equals(SJ)){
-			pc.setId(2l);
-			pc.setName(SJ);
-		}
-		else if(name.equals(HC)){
-			pc.setId(3l);
-			pc.setName(HC);
-		}
-		else if(name.equals(FW)){
-			pc.setId(4l);
-			pc.setName(FW);
-		}
-		return  pc;
 	}
 
 	public Set<ProductCategory> getCategories() {

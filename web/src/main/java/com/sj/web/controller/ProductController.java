@@ -51,7 +51,6 @@ public class ProductController {
 		uiModel.addAttribute("reviewPage", reviewPage);
 		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());
 		uiModel.addAttribute("pc", product.getFirstCategory());
-		
 		return DETAIL;
 	}
 

@@ -11,9 +11,6 @@ import com.sj.model.type.ActivateEnum;
 
 public interface ProductCategoryService {
 
-	public ProductCategory findByNameAndParentAndState(String child,
-			ProductCategory parent, ActivateEnum activate);
-
 	public ProductCategory findOne(Long id);
 	
 	public ProductCategory findOneActivate(Long id);
@@ -28,15 +25,11 @@ public interface ProductCategoryService {
 
 	public List<ProductCategory> findAllSecondCategory(ActivateEnum activate);
 
-	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate);
-
 	public ProductCategory findByIdAndParent(Long id, ProductCategory category);
 
 	public ProductCategory save(ProductCategory category);
 
 	public ProductCategory update(ProductCategory category);
-
-	public ProductCategory findByName(String name);
 
 	public List<ProductCategory> findByParent(ProductCategory category);
 
@@ -45,5 +38,12 @@ public interface ProductCategoryService {
 	public void delete(Long id);
 
 	public List<List<ProductCategory>> findByShowOnIndex();
+	
+	public ProductCategory findByName(String name,ActivateEnum activate);
+	
+	
+	public ProductCategory findActivateFirstCategoryById(Long id);
+	
+	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate);
 
 }

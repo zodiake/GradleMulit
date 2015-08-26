@@ -41,7 +41,7 @@ public class InstrumentController {
 				new PageRequest(0, 15, Direction.DESC, "createdTime"));
 		uiModel.addAttribute("instrument", instrument);
 		uiModel.addAttribute("reviews", reviews);
-		return VIEW;
+		return "product/test";
 	}
 	@RequestMapping(value = "/instruments",method = RequestMethod.GET,params="form")
 	public String create(Model uiModel){

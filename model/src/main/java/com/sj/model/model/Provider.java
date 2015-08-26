@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.sj.model.type.BusinessTypeEnum;
 import com.sj.model.type.ComponyTypeEnum;
 import com.sj.model.type.OutputEnum;
@@ -36,7 +38,7 @@ public class Provider extends SiteUser implements Serializable {
 
 	// 企业信息
 	@Column(name = "company_name_china")
-	@NotNull(message = "企业中文名不能为空")
+	@NotBlank(message = "企业中文名不能为空")
 	private String companyNameChina; // 企业中文名*
 
 	@Column(name = "company_name_english")
@@ -49,32 +51,42 @@ public class Provider extends SiteUser implements Serializable {
 	private String registeredCapital; // 注册资本
 
 	@Column(name = "compony_type")
+	@NotNull(message = "请选择企业性质")
 	private ComponyTypeEnum componyType; // 企业性质
 
 	@Column(name = "main_product")
+	@NotBlank(message = "主要产品不能为空")
 	private String mainProduct; // 主要产品*
 
 	@Column(name = "business_type")
+	@NotNull(message = "请选择业务类型")
 	private BusinessTypeEnum businessType;// 业务类型*
 
 	@Column(name = "scale")
+	@NotNull(message = "请选择企业规模")
 	private ScaleEnum scale; // 企业规模
 
 	@Column(name = "output")
+	@NotNull(message = "请选择年产值")
 	private OutputEnum output; // 年产值
-
+	
+	@NotBlank(message = "企业介绍不能为空")
 	private String content; // 企业介绍*
 
 	@Column(name = "business_license_url")
 	private String businessLicenseUrl; // 营业执照图片地址*
+	
 	@Column(name = "tax_registration_url")
 	private String taxRegistrationUrl; // 税务登记图片地址*
+	
 	@Column(name = "structure_code_url")
 	private String structureCodeUrl; // 组织结构图片地址*
-
+	
+	@NotBlank(message = "联系人职位不能为空")
 	private String position; // 联系人职位*
 
 	@Column(name = "provider_phone")
+	@NotBlank(message = "联系人电话不能为空")
 	private String providerPhone; // 联系人电话*
 
 	private String fax; // 联系人传真*
@@ -85,16 +97,19 @@ public class Provider extends SiteUser implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id")
+	@NotNull(message = "请选择省份/城市")
 	private City city; // 城市*
 
+	@NotBlank(message = "详细地址不能为空")
 	private String address; // 详细地址*
-
+	@NotBlank(message = "邮编不能为空")
 	private String code; // 邮编*
 
 	private String website; // 公司网址
 
 	@OneToOne
 	@JoinColumn(name = "info_id")
+	@NotNull(message="请选择行业信息")
 	private ProviderIndustryInfo industryInfo;// 行业信息*
 
 	public Provider() {

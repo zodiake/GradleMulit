@@ -1,10 +1,12 @@
 package com.sj.model.type;
 
 public enum OutputEnum {
-	FOLLOWINGFIVEMILLION,			//五百万以下
-	FIVEMILLIONTOTWENTYMILLION,		//五百万至2000万
-	TWENTYMILLIONTOFIFTYMILLION,	//2000万至5000万
-	FIFTYMILLIONTOONEHUBDREDMILLION,//5000万至一亿
-	ONEHUBDREDMILLIONTOFIVE,		//一亿至五亿
-	MORETHANFIVEHUBDREDMILLION		//五亿以上
+	五百万以下,五百万两千万,两千万至五千万,五千万至一亿,一亿至五亿,五亿以上;
+	public static OutputEnum stringToEnum(String output){
+		try{
+		return OutputEnum.valueOf(output);
+		}catch (Exception e){
+			return null;
+		}
+	}
 }

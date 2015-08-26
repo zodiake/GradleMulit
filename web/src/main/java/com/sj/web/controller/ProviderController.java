@@ -55,7 +55,6 @@ public class ProviderController extends BaseController<Provider> {
 	@RequestMapping(value = "/providers", method = RequestMethod.GET)
 	public String findAllProvider(Model uiModel) {
 		Provider provider = providerService.findOne(6l);
-		System.out.println(provider.getBusinessLicenseUrl());
 		uiModel.addAttribute("provider", provider);
 		return PROVIDERCREATEOK;
 	}
@@ -63,6 +62,7 @@ public class ProviderController extends BaseController<Provider> {
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
+		System.out.println(user.getId());
 		Provider provider = providerService.findOne(user.getId());
 		if (provider == null) {
 			throw new UserNotFoundException();
@@ -95,12 +95,10 @@ public class ProviderController extends BaseController<Provider> {
 		Page<Product> products = null;
 		if (status.equals(OriginalEnum.ALL.toString().toUpperCase())) {
 
-			System.out.println("1");
 			products = productService.findByUsers(new Provider(user.getId()),
 					new PageRequest(page - 1, size, Direction.DESC,
 							"createdTime"));
 		} else {
-			System.out.println("2");
 			products = productService.findByUsers(new Provider(user.getId()),
 					new PageRequest(page - 1, size, Direction.DESC,
 							"createdTime"), OriginalEnum.fromString(status));
@@ -114,11 +112,9 @@ public class ProviderController extends BaseController<Provider> {
 	@RequestMapping(value = "/provider/products", params = "form", method = RequestMethod.GET)
 	public String create(Model uiModel) {
 		Product p = new Product();
-		p.setName("123456");
 		uiModel.addAttribute("product", new Product());
 		uiModel.addAttribute("brand", brandService.findAll());
-		List<ProductCategory> pcs = productCategoryService
-				.findAllFirstCategory(ActivateEnum.ACTIVATE);
+		List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pcs", pcs);
 		return "user/provider/release";
 	}

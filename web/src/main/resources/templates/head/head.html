@@ -19,7 +19,7 @@
 				<a href="/signup?user">注册</a>
 			</div>
 			<div class="head-dorpdown" th:unless="${session.SPRING_SECURITY_CONTEXT==null}">
-				<div class="head-cart">
+				<div class="head-cart" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
 					<div class="ct-cart">购物车</div>
 					<div class="ct-cart-wrap bodr hide" >
 						<h3><b class="gray-deeply" >最近加入的商品</b></h3>
@@ -100,17 +100,17 @@
 					<li class="news-down active nobor" th:if="${pc.name=='资讯'}">
 						<a >资讯</a>
 						<div class="news-sort hide">
-							<a href="/informationCategory/HYYW">行业要闻</a>
-							<a href="/informationCategory/XPCG">新品成果</a>
-							<a href="/informationCategory/CSDT">厂商动态</a>
+							<a href="/informationCategorys/行业要闻">行业要闻</a>
+							<a href="/informationCategorys/新品成果">新品成果</a>
+							<a href="/informationCategorys/厂商动态">厂商动态</a>
 						</div>
 					</li>
 					<li class="news-down" th:unless="${pc.name=='资讯'}">
 						<a >资讯</a>
 						<div class="news-sort hide">
-							<a href="/informationCategory/HYYW">行业要闻</a>
-							<a href="/informationCategory/XPCG">新品成果</a>
-							<a href="/informationCategory/CSDT">厂商动态</a>
+							<a href="/informationCategorys/行业要闻">行业要闻</a>
+							<a href="/informationCategorys/新品成果">新品成果</a>
+							<a href="/informationCategorys/厂商动态">厂商动态</a>
 						</div>
 					</li>
 				</ul>
@@ -123,9 +123,9 @@
 					<li class="news-down">
 						<a >资讯</a>
 						<div class="news-sort hide">
-							<a href="/informationCategory/HYYW">行业要闻</a>
-							<a href="/informationCategory/XPCG">新品成果</a>
-							<a href="/informationCategory/CSDT">厂商动态</a>
+							<a href="/informationCategorys/行业要闻">行业要闻</a>
+							<a href="/informationCategorys/新品成果">新品成果</a>
+							<a href="/informationCategorys/厂商动态">厂商动态</a>
 						</div>
 					</li>
 				</ul>

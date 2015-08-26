@@ -29,8 +29,9 @@
 				$('#reviewForm').loginBeforeAjax({
 					url : '/products/1/reviews',
 					div : 'reviews',
-					data : {content:$('#content').val()},
+					data : {'content' : '12345522'},
 					success : function(res) {
+						alert(res);
 						console.log(res);
 					}
 				});

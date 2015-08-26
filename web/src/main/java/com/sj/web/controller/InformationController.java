@@ -14,6 +14,7 @@ import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.InformationService;
+import com.sj.web.exception.CategoryNotFoundException;
 
 @Controller
 public class InformationController {
@@ -24,17 +25,20 @@ public class InformationController {
 	private InformationCategoryService informationCategoryService;
 
 
-	@RequestMapping(value = "/informationCategory/{category}", method = RequestMethod.GET)
+	@RequestMapping(value = "/informationCategorys/{category}", method = RequestMethod.GET)
 	public String findByCategory(
 			@PathVariable(value = "category") String category, Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		InformationCategory ic = informationCategoryService.findByUrl(category);
+		System.out.println(category);
+		InformationCategory ic = informationCategoryService.findByName(category.trim());
+		if(ic == null)
+			throw new CategoryNotFoundException();
 		Page<Information> informations = informationService.findByCategory(
 				ic, new PageRequest(page - 1, size));
 		uiModel.addAttribute("informations", informations);
 		uiModel.addAttribute("category", ic);
-		uiModel.addAttribute("pc", new InformationCategory(InformationCategory.ZX));
+		uiModel.addAttribute("pc", informationCategoryService.findOne(6l));
 		return "information/informations";
 	}
 
@@ -42,7 +46,7 @@ public class InformationController {
 	public String findOne(@PathVariable(value = "id") Long id, Model uiModel) {
 		Information information = informationService.findOne(id);
 		uiModel.addAttribute("information", information);
-		uiModel.addAttribute("pc", new InformationCategory(InformationCategory.ZX));
+		uiModel.addAttribute("pc", informationCategoryService.findOne(6l));
 		return "information/information";
 	}
 }

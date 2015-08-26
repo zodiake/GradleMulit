@@ -111,8 +111,10 @@ public class LoginController {
 		}
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
 		userContext.setCurrentUser(user);
-		Set<CartLine> lines = cartLineService.findByUser(user.getId());
-		httpSession.setAttribute("cartLines", lines);
+		if("ROLE_COMMONUSER".equals(user.getSiteAuthority())){
+			Set<CartLine> lines = cartLineService.findByUser(user.getId());
+			httpSession.setAttribute("cartLines", lines);
+		}
 		return "redirect:/index";
 	}
 
@@ -312,7 +314,6 @@ public class LoginController {
 		SiteUser user = userService.findByPhone(form.getPhone());
 		userService.updatePassword(user.getId(),
 				encoder.encodePassword(form.getPassword(), null));
-		// SiteUser user = userService.findByPhone(form.getPhone());
 		return "redirect:/login";
 	}
 

@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.ProviderJson;
@@ -29,12 +30,14 @@ public class ProviderServiceImpl implements ProviderService {
 
 	@Override
 	public Provider findOne(Long id) {
-		return repository.findOne(id);
+		Provider p = repository.findOne(id);
+				System.out.println(p.getId());
+		return p;
 	}
 
 	@Override
 	public Provider create(Provider provider) {
-		provider.setEnabled(ActivateEnum.ACTIVATE);
+		provider.setEnabled(ActivateEnum.AUDIT);
 		provider.setSiteAuthority("ROLE_PROVIDER");
 		Calendar c = Calendar.getInstance();
 		provider.setCreateTime(c);

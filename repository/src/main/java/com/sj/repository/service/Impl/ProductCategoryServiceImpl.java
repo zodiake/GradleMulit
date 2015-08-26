@@ -70,7 +70,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	@Cacheable(value = "productCategoryCache")
 	public List<ProductCategory> findAllSecondCategory(ActivateEnum activate) {
 		List<ProductCategory> categories = repository.findByParentAndActivate(
 				null, activate);
@@ -81,19 +80,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	@Cacheable(value = "productCategoryCache")
-	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate) {
-		return repository.findByParentIsNullAndActivate(activate);
-	}
-
-	@Override
-	@Cacheable(value = "productCategoryCache", key = "#name")
-	public ProductCategory findByName(String name) {
-		return repository.findByNameAndActivate(name,ActivateEnum.ACTIVATE);
-	}
-
-	@Override
-	@Cacheable(value = "productCategoryCache", key = "#category.id")
 	public List<ProductCategory> findByParent(ProductCategory category) {
 		return repository.findByParentAndActivate(category,
 				ActivateEnum.ACTIVATE);
@@ -135,14 +121,26 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public ProductCategory findByNameAndParentAndState(String child,
-			ProductCategory parent, ActivateEnum status) {
-		return repository.findByNameAndParentAndActivate(child, parent, status);
+	public ProductCategory findOneActivate(Long id) {
+		return repository.findByIdAndActivate(id, ActivateEnum.ACTIVATE);
 	}
 
 	@Override
-	public ProductCategory findOneActivate(Long id) {
+	@Cacheable(value = "productCategoryCache",key="#id")
+	public ProductCategory findActivateFirstCategoryById(Long id) {
 		return repository.findByIdAndActivate(id, ActivateEnum.ACTIVATE);
+	}
+
+	@Override
+	@Cacheable(value = "productCategoryCache")
+	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate) {
+		return repository.findByParentIsNullAndActivate(activate);
+	}
+
+	@Override
+	@Cacheable(value = "productCategoryCache",key="#name")
+	public ProductCategory findByName(String name, ActivateEnum activate) {
+		return repository.findByNameAndActivate(name, activate);
 	}
 
 }

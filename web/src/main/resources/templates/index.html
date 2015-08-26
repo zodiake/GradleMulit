@@ -27,6 +27,8 @@
 		<div class="screen-one clearfix">
 			<div class="J-banner fl">
 				<div id="J-banner-carousel" class="carousel slide" data-ride="carousel">
+					<i th:each="image,imageStat:${images}">
+					<div data-target="#J-banner-carousel" data-slide-to="1" th:text="${imageStat.index}"></div></i>
 					<ol class="carousel-indicators">
 						<li data-target="#J-banner-carousel" data-slide-to="0" class="active"></li>
 						<li data-target="#J-banner-carousel" data-slide-to="1" ></li>
@@ -34,7 +36,7 @@
 					<div class="carousel-inner" role="listbox">
 						<div class="item active" style="background-image:url(img/banner1.jpg)">
 						</div>
-						<div class="item" style="background-image:url(img/banner2.jpg)">
+						<div class="item " style="background-image:url(img/banner2.jpg)">
 						</div>
 					</div>
 				</div>
@@ -48,25 +50,25 @@
 				<div class="tab-conts news-box">
 					<div class="tab-panel news-list">
 						<ul>
-							<li th:each="inforH:${isH}">
-								<h4 class="gray-deeply" th:text="${inforH.title}"></h4>
-								<p th:text="${#strings.abbreviate(inforH.content.content,59)}"></p>
+							<li th:each="infor:${industryNews}">
+								<h4 class="gray-deeply" th:text="${infor.title}"></h4>
+								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
 							</li>
 						</ul>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
-							<li th:each="inforX:${isX}">
-								<h4 th:text="${inforX.title}"></h4>
-								<p th:text="${#strings.abbreviate(inforX.content.content,59)}"></p>
+							<li th:each="infor:${newResults}">
+								<h4 th:text="${infor.title}"></h4>
+								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
 							</li>
 						</ul>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
-							<li th:each="inforC:${isC}">
-								<h4 th:text="${inforC.title}"></h4>
-								<p th:text="${#strings.abbreviate(inforC.content.content,59)}"></p>
+							<li th:each="infor:${vendorDynamics}">
+								<h4 th:text="${infor.title}"></h4>
+								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
 							</li>
 						</ul>
 					</div>
