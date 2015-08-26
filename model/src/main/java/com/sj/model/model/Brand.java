@@ -31,11 +31,11 @@ public class Brand {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
-	private Calendar craetedTime;
+	private Calendar createdTime;
 
 	@Column(name = "cover_img")
 	private String coverImg;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
 	private Set<Product> products;
 
@@ -70,12 +70,28 @@ public class Brand {
 		this.activate = activate;
 	}
 
-	public Calendar getCraetedTime() {
-		return craetedTime;
+	public Calendar getCreatedTime() {
+		return createdTime;
 	}
 
-	public void setCraetedTime(Calendar craetedTime) {
-		this.craetedTime = craetedTime;
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+
+	public String getCoverImg() {
+		return coverImg;
+	}
+
+	public void setCoverImg(String coverImg) {
+		this.coverImg = coverImg;
 	}
 
 	@Override
@@ -103,19 +119,4 @@ public class Brand {
 		return true;
 	}
 
-	public Set<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<Product> products) {
-		this.products = products;
-	}
-
-	public String getCoverImg() {
-		return coverImg;
-	}
-
-	public void setCoverImg(String coverImg) {
-		this.coverImg = coverImg;
-	}
 }

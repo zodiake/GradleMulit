@@ -2,6 +2,7 @@ package com.sj.repository.service.Impl;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -9,11 +10,13 @@ import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Brand;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.BrandJson;
 import com.sj.repository.repository.BrandRepository;
 import com.sj.repository.service.BrandService;
 
@@ -46,8 +49,7 @@ public class BrandServiceImpl implements BrandService {
 	@Override
 	public Brand save(Brand brand) {
 		Calendar c = Calendar.getInstance();
-		brand.setCraetedTime(c);
-		
+		brand.setCreatedTime(c);
 		return repository.save(brand);
 	}
 
@@ -70,5 +72,19 @@ public class BrandServiceImpl implements BrandService {
 	@Override
 	public void deleteOne(Long id) {
 		repository.delete(id);
+	}
+
+	@Override
+	public Page<BrandJson> findByActivateToJson(ActivateEnum activate,
+			Pageable pageable) {
+		Page<Brand> pages;
+		if (activate == null)
+			pages = repository.findAll(pageable);
+		else
+			pages = repository.findByActivate(pageable, activate);
+		List<BrandJson> lists = pages.getContent().stream()
+				.map(c -> new BrandJson(c)).collect(Collectors.toList());
+		return new PageImpl<BrandJson>(lists, pageable,
+				pages.getTotalElements());
 	}
 }

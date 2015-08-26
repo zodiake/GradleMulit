@@ -31,6 +31,16 @@ public class IndexController {
 		return "user/providerDetail";
 	}
 
+	@RequestMapping(value = "/brand")
+	public String brand() {
+		return "brand/brand";
+	}
+
+	@RequestMapping(value = "/brandDetail")
+	public String brandDetail() {
+		return "brand/brandDetail";
+	}
+
 	@RequestMapping(value = "/products")
 	public String productList() {
 		return "product/product";
