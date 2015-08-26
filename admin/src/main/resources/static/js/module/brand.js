@@ -11,9 +11,9 @@ brandModule.service('BrandService', ['$http', function ($http) {
         return $http({
             method: 'POST',
             url: '/admin/brands/' + item.id + '/activate',
-            data: $.param({
+            data: {
                 state: state
-            }),
+            },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }

@@ -34,16 +34,16 @@ public class AdvertisementController {
 	}
 
 	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.POST, params = "create")
+	@ResponseBody
 	public String createProcess(
 			@Valid @ModelAttribute("advertisement") Advertisement advertisement,
 			BindingResult bindingResult, Model uiModel) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("advertisement", advertisement);
-			return null;
+			return "\"fail\"";
 		}
 		Advertisement adv = advertisementService.save(advertisement);
-		uiModel.addAttribute("advertisement", adv);
-		return null;
+		return "\"success\"";
 	}
 
 	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.GET)
