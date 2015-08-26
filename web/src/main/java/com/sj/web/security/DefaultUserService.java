@@ -21,8 +21,8 @@ public class DefaultUserService implements UserDetailsService {
 	private SiteUserService userService;
 
 	public UserDetails loadUserByUsername(String name) {
-		SiteUser user = userService.findByNameAndEnabled(name, ActivateEnum.ACTIVATE);
-		if (user == null)
+		SiteUser user = userService.findByName(name);
+		if (user == null || user.getEnabled()==ActivateEnum.DEACTIVATE)
 			throw new UsernameNotFoundException("user not exist");
 		return new SiteUserDetails(user);
 	}

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.code.kaptcha.Constants;
 import com.sj.model.model.CartLine;
@@ -34,6 +35,7 @@ import com.sj.model.model.UserIndustryInfo;
 import com.sj.repository.service.CartLineService;
 import com.sj.repository.service.CityService;
 import com.sj.repository.service.CommonUserService;
+import com.sj.repository.service.ProviderIndustryInfoService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.SiteUserService;
@@ -65,6 +67,8 @@ public class LoginController {
 	private CartLineService cartLineService;
 	@Autowired
 	private UserIndustryInfoService userIndustryInfoService;
+	@Autowired
+	private ProviderIndustryInfoService providerIndustryInfoService;
 	@Autowired
 	private CityService cityService;
 
@@ -151,8 +155,10 @@ public class LoginController {
 		if (userResult.hasErrors()) {
 			user.setPassword(null);
 			uiModel.addAttribute("provinces", provinceService.findAll());
-			if(user.getProvince()!=null){
-				uiModel.addAttribute("citys", cityService.findByProvince(user.getProvince()));
+			uiModel.addAttribute("infos", userIndustryInfoService.findAll());
+			if (user.getProvince() != null) {
+				uiModel.addAttribute("citys",
+						cityService.findByProvince(user.getProvince()));
 			}
 			uiModel.addAttribute("user", user);
 			return COMMONSIGNUP;
@@ -167,6 +173,8 @@ public class LoginController {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET, params = "provider")
 	public String providerSignupForm(Model uiModel) {
 		uiModel.addAttribute("user", new Provider());
+		uiModel.addAttribute("provinces", provinceService.findAll());
+		uiModel.addAttribute("infos", providerIndustryInfoService.findAll());
 		return PSIGNUP;
 	}
 
@@ -174,12 +182,45 @@ public class LoginController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, params = "provider")
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
-			BindingResult providerResult, HttpSession session, Model uiModel) {
+			BindingResult providerResult,
+			Model uiModel,
+			@RequestParam(value = "businessLicense", required = false) MultipartFile businessLicense,
+			@RequestParam(value = "taxRegistration", required = false) MultipartFile taxRegistration,
+			@RequestParam(value = "structureCode", required = false) MultipartFile structureCode) {
+		validateImage(businessLicense, providerResult, "businessLicenseUrl");
+		validateImage(taxRegistration, providerResult, "taxRegistrationUrl");
+		validateImage(structureCode, providerResult,"structureCodestructureCodeUrl");
+		if (providerResult.hasErrors()) {
+			provider.setPassword(null);
+			uiModel.addAttribute("provinces", provinceService.findAll());
+			uiModel.addAttribute("infos", providerIndustryInfoService.findAll());
+			if (provider.getProvince() != null) {
+				uiModel.addAttribute("citys",
+						cityService.findByProvince(provider.getProvince()));
+			}
+			uiModel.addAttribute("user", provider);
+			return PSIGNUP;
+		}
 		provider.setPassword(encoder.encodePassword(provider.getPassword(),
 				null));
-		SiteUser user = providerService.create(provider);
-		userContext.setCurrentUser(user);
-		return HOME;
+		provider = providerService.create(provider);
+		userContext.setCurrentUser(new SiteUser(provider.getId(), provider
+				.getName(), provider.getPassword()));
+		return "redirect:/";
+	}
+
+	private void validateImage(MultipartFile image,
+			BindingResult providerResult, String field) {
+		if (image.isEmpty())
+			providerResult.addError(new FieldError("user", field, "请上传图片"));
+		if (!image.getContentType().equals("image/bmp")
+				&& !image.getContentType().equals("image/jpeg")
+				&& !image.getContentType().equals("image/png"))
+			providerResult.addError(new FieldError("user", field,
+					"请上传jpg、jpeg、bmp和png格式图片"));
+		if(image.getSize()>=1024)
+			providerResult.addError(new FieldError("user", field,
+					"只可上传2M大小以下的图片"));
 	}
 
 	private void validateSignupForm(String captcha, BindingResult result,
@@ -192,7 +233,7 @@ public class LoginController {
 	}
 
 	/* Verify that the name exists */
-	@RequestMapping(value = "/name", method = RequestMethod.POST,params="valid")
+	@RequestMapping(value = "/name", method = RequestMethod.POST, params = "valid")
 	@ResponseBody
 	public String validateUserNameIsExiste(@RequestParam("name") String name) {
 		SiteUser user = userService.findByName(name);
@@ -271,7 +312,7 @@ public class LoginController {
 		SiteUser user = userService.findByPhone(form.getPhone());
 		userService.updatePassword(user.getId(),
 				encoder.encodePassword(form.getPassword(), null));
-		SiteUser usert = userService.findByPhone(form.getPhone());
+		// SiteUser user = userService.findByPhone(form.getPhone());
 		return "redirect:/login";
 	}
 
