@@ -6,7 +6,8 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ui.router.tabs',
     'User',
-    'Brand'
+    'Brand',
+    'Advertise'
 ]);
 
 app.config([

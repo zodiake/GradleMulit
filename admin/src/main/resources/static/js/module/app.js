@@ -6,7 +6,8 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ui.router.tabs',
     'User',
-    'Brand'
+    'Brand',
+    'Advertise'
 ]);
 
 app.config([
@@ -31,6 +32,26 @@ app.config([
                 url: '/brands',
                 templateUrl: '/admin/brand',
                 controller: 'BrandController'
+            })
+            .state('brandDetail', {
+                url: '/brandDetail',
+                templateUrl: '/admin/brandDetail',
+                controller: 'BrandDetailController'
+            })
+            .state('advertise',{
+                url:'/advertisement',
+                templateUrl:'/admin/advertisement',
+                controller:'AdvertiseController'
+            })
+            .state('advertiseDetail',{
+                url:'/advertisement/:id',
+                templateUrl:'/admin/createAdvertise',
+                controller:'AdvertiseDetailController'
+            })
+            .state('createAdvertise',{
+                url:'/createAdvertise',
+                templateurl:'/admin/createAdvertise',
+                controller:'CreateAdvertiseController'
             })
             .state('products', {
                 url: '/products',

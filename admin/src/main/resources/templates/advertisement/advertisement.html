@@ -1,0 +1,48 @@
+<!-- leftpanel -->
+<div class="contentpanel">
+	<form class="form-inline">
+		<div class="form-group">
+			<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#brandModal">添加</a>
+		</div>
+		<div class="form-group company-select">
+			<select>
+				<option>全部状态</option>
+				<option>已发布</option>
+				<option>下架</option>
+			</select>
+		</div>
+	</form>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>分类</th>
+				<th>链接</th>
+				<th>状态</th>
+				<th>最后修改日期</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>number one</td>
+				<td>asdafdssssssssssfdsaf</td>
+				<td>下架</td>
+				<td>2015-07-28</td>
+				<td><a class="btn btn-primary btn-sm">发布</a><a class="btn btn-primary btn-sm">修改</a></td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>number one</td>
+				<td>asdafdssssssssssfdsaf</td>
+				<td>下架</td>
+				<td>2015-07-28</td>
+				<td><a class="btn btn-primary btn-sm">下架</a><a class="btn btn-primary btn-sm">修改</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="pagenumQu">
+        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
+	</div>
+</div>
