@@ -8,6 +8,12 @@ advertiseModule.service('AdvertiseService', ['$http', function ($http) {
     };
 }]);
 
+advertiseModule.service('AdvertiseCategoryService', ['$http', function ($http) {
+    this.findAll = function () {
+        return $http.get('/admin')
+    };
+}]);
+
 advertiseModule.controller('AdvertiseController', ['$scope',
     'AdvertiseService',
     function ($scope, AdvertiseService) {
@@ -42,10 +48,11 @@ advertiseModule.controller('AdvertiseController', ['$scope',
     }
 ]);
 
-advertiseModule.controller('CreateAdvertiseController', ['$scope', function ($scope) {
-
+advertiseModule.controller('CreateAdvertiseController', ['$scope', 'category', function ($scope, category) {
+    $scope.categories=category.data;
+    console.log($scope.categories);
 }]);
 
-advertiseModule.controller('AdvertiseDetailController', ['$scope', function ($scope) {
-
+advertiseModule.controller('AdvertiseDetailController', ['$scope','category',function ($scope,category) {
+    $scope.category=category;
 }]);

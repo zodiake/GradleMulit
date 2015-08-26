@@ -38,20 +38,30 @@ app.config([
                 templateUrl: '/admin/brandDetail',
                 controller: 'BrandDetailController'
             })
-            .state('advertise',{
-                url:'/advertisement',
-                templateUrl:'/admin/advertisement',
-                controller:'AdvertiseController'
+            .state('advertise', {
+                url: '/advertisement',
+                templateUrl: '/admin/advertisement',
+                controller: 'AdvertiseController'
             })
-            .state('advertiseDetail',{
-                url:'/advertisement/:id',
-                templateUrl:'/admin/createAdvertise',
-                controller:'AdvertiseDetailController'
+            .state('advertiseDetail', {
+                url: '/advertisement/:id',
+                templateUrl: '/admin/createAdvertise',
+                controller: 'AdvertiseDetailController',
+                resolve: {
+                    category: function ($http) {
+                        return $http.get('/admin/advertise/category');
+                    }
+                }
             })
-            .state('createAdvertise',{
-                url:'/createAdvertise',
-                templateUrl:'/admin/createAdvertise',
-                controller:'CreateAdvertiseController'
+            .state('createAdvertise', {
+                url: '/createAdvertise',
+                templateUrl: '/admin/createAdvertise',
+                controller: 'CreateAdvertiseController',
+                resolve: {
+                    category: function ($http) {
+                        return $http.get('/admin/advertise/category');
+                    }
+                }
             })
             .state('products', {
                 url: '/products',
