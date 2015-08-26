@@ -50,7 +50,7 @@ app.config([
             })
             .state('createAdvertise',{
                 url:'/createAdvertise',
-                templateurl:'/admin/createAdvertise',
+                templateUrl:'/admin/createAdvertise',
                 controller:'CreateAdvertiseController'
             })
             .state('products', {

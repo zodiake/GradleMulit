@@ -1,5 +1,7 @@
 package com.sj.model.model;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.sj.model.type.ActivateEnum;
 
@@ -30,6 +34,14 @@ public class Advertisement {
 
 	@Column(name = "url")
 	private String url;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_time")
+	private Calendar updatedTime;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_time")
+	private Calendar createdTime;
 
 	public Advertisement() {
 
@@ -77,6 +89,22 @@ public class Advertisement {
 
 	public void setCategory(AdvertismentCategory category) {
 		this.category = category;
+	}
+
+	public Calendar getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Calendar updatedTime) {
+		this.updatedTime = updatedTime;
+	}
+
+	public Calendar getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
 	}
 
 	@Override
