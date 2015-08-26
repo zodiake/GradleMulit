@@ -46,7 +46,7 @@ public class SiteUser {
 	@Column(name="sex")
 	private SexEnum sex;
 
-	@Size(min = 6, max = 64, message = "密码最少为6位")
+	@Size(min = 6, message = "密码最少为6位")
 	private String password; // 密码
 
 	@Column(name = "site_Authority")
