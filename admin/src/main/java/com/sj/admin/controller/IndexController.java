@@ -41,6 +41,16 @@ public class IndexController {
 		return "brand/brandDetail";
 	}
 
+	@RequestMapping(value = "/advertisement")
+	public String advertise() {
+		return "advertisement/advertisement";
+	}
+
+	@RequestMapping(value = "/createAdvertise")
+	public String createAdvertise() {
+		return "advertisement/createAdvertise";
+	}
+
 	@RequestMapping(value = "/products")
 	public String productList() {
 		return "product/product";

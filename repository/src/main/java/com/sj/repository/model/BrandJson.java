@@ -6,11 +6,13 @@ public class BrandJson {
 	private Long id;
 	private String title;
 	private String cover;
+	private String state;
 
 	public BrandJson(Brand b) {
 		this.id = b.getId();
 		this.title = b.getName();
 		this.cover = b.getCoverImg();
+		this.state = b.getActivate().toString();
 	}
 
 	public Long getId() {
@@ -35,5 +37,13 @@ public class BrandJson {
 
 	public void setCover(String cover) {
 		this.cover = cover;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 }

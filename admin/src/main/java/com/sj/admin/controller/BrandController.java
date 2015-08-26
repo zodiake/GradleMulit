@@ -38,6 +38,16 @@ public class BrandController {
 				page - 1, size, Direction.DESC, "createdTime"));
 	}
 
+	@RequestMapping(value = "/admin/brands/{id}/activate", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateActivate(@PathVariable("id") Long id,
+			HttpServletRequest request) {
+		String state = request.getParameter("state");
+		ActivateEnum activate = ActivateEnum.fromString(state);
+		brandService.activate(id, activate);
+		return "{\"data\":\"success\"}";
+	}
+
 	@RequestMapping(value = "/admin/brands/{id}", method = RequestMethod.DELETE)
 	public String deleteOne(@PathVariable("id") Long id) {
 		brandService.deleteOne(id);

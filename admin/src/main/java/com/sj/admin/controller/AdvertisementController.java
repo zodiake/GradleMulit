@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sj.admin.exception.AdvertisementNotFoundException;
 import com.sj.model.model.Advertisement;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.AdvertisementJson;
 import com.sj.repository.service.AdvertisementService;
 
 @Controller
@@ -35,8 +36,8 @@ public class AdvertisementController {
 	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.POST, params = "create")
 	public String createProcess(
 			@Valid @ModelAttribute("advertisement") Advertisement advertisement,
-			BindingResult bindingResult,Model uiModel) {
-		if(bindingResult.hasErrors()){
+			BindingResult bindingResult, Model uiModel) {
+		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("advertisement", advertisement);
 			return null;
 		}
@@ -46,14 +47,14 @@ public class AdvertisementController {
 	}
 
 	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.GET)
-	public String findAll(Model uiModel,
+	@ResponseBody
+	public Page<AdvertisementJson> findAll(Model uiModel,
 			@RequestParam(defaultValue = "1", value = "page") int page,
-			@RequestParam(defaultValue = "15", value = "size") int size) {
-		Page<Advertisement> advs = advertisementService
-				.findAll(new PageRequest(page - 1, size, Direction.DESC,
-						"activate"));
-		uiModel.addAttribute("advertisements", advs);
-		return "index";
+			@RequestParam(defaultValue = "15", value = "size") int size,
+			@RequestParam(defaultValue = "all", value = "state") String state) {
+		ActivateEnum activate = ActivateEnum.fromString(state);
+		return advertisementService.findAllJson(new PageRequest(page - 1, size,
+				Direction.DESC, "activate"), activate);
 	}
 
 	@RequestMapping(value = "/admin/advertisements/{status}", method = RequestMethod.GET, params = "status")

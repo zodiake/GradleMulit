@@ -125,7 +125,7 @@ create table brand(
 	id bigint not null auto_increment,
 	name varchar(50),
 	created_time timestamp,
-	activate smallint,
+	activate smallint default 1,
 	cover_img varchar(40),
 	primary key(id),
 );
@@ -225,6 +225,8 @@ create table advertisement(
 	cover_img varchar(50),
 	url varchar(100),
 	activate smallint,
+	created_time timestamp,
+	updated_time timestamp,
 	foreign key(category_id) references category(id)
 );
 --采购申请
