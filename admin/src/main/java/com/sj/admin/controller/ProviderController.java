@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.ProviderDetailJson;
 import com.sj.repository.model.ProviderJson;
 import com.sj.repository.service.ProviderService;
 
 @Controller
 public class ProviderController {
-	private final String PROVIDER = "provider";
 	@Autowired
 	private ProviderService providerService;
 
@@ -38,23 +38,11 @@ public class ProviderController {
 		return providers;
 	}
 
-	@RequestMapping(value = "/admin/providers/{status}", method = RequestMethod.GET)
-	public String findByStatus(Model uiModel,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size,
-			@PathVariable("status") int status) {
-		Page<Provider> providers = providerService.findAllDescAndStatus(
-				new PageRequest(page - 1, size, Direction.DESC, "createTime"),
-				ActivateEnum.values()[status]);
-		uiModel.addAttribute("providers", providers);
-		return null;
-	}
-
 	@RequestMapping(value = "/admin/providers/{id}", method = RequestMethod.GET)
-	public String findOne(Model uiModel, @PathVariable("id") Long id) {
+	@ResponseBody
+	public ProviderDetailJson findOne(Model uiModel, @PathVariable("id") Long id) {
 		Provider provider = providerService.findOne(id);
-		uiModel.addAttribute("provider", provider);
-		return null;
+		return new ProviderDetailJson(provider);
 	}
 
 	@RequestMapping(value = "/admin/providers/{id}", method = RequestMethod.PUT)
@@ -63,4 +51,12 @@ public class ProviderController {
 		provider = providerService.checkUser(provider, ActivateEnum.ACTIVATE);
 		return null;
 	}
+
+	@RequestMapping(value = "/admin/providers/{id}/isAuthenticated", method = RequestMethod.PUT)
+	@ResponseBody
+	public String authentic(@PathVariable("id") Long id) {
+		providerService.authentic(id);
+		return "success";
+	}
+
 }

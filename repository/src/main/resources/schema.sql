@@ -76,7 +76,6 @@ create TABLE provider(
 	legal_person varchar(20),
 	registered_capital varchar(20),
 	main_product varchar(64),
-	content_id bigint,
 	business_license_url varchar(40),
 	tax_registration_url varchar(40),
 	structure_code_url varchar(40),
@@ -96,9 +95,9 @@ create TABLE provider(
 	industry_information smallint,
 	info_id int,
 	is_authenticated int default 0,
+	content varchar(1500),
 	PRIMARY KEY (id),
 	FOREIGN KEY (id) REFERENCES site_user(id),
-	foreign key (content_id) references content(id),
 	foreign key (province_id) references province(id),
 	foreign key (city_id) references city(id),
 	foreign key (info_id) references industry_info(id)

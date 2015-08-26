@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,10 @@ import com.sj.repository.service.CommonUserService;
 @Service
 @Transactional
 public class CommonUserServiceImpl implements CommonUserService {
-
 	@Autowired
 	private CommonUserRepository commonUserRepository;
+	@Autowired
+	private EntityManager em;
 
 	@Override
 	public CommonUser create(CommonUser user) {
@@ -69,5 +71,12 @@ public class CommonUserServiceImpl implements CommonUserService {
 		PageImpl<CommonUserJson> impl = new PageImpl<CommonUserJson>(lists,
 				pageable, page.getTotalElements());
 		return impl;
+	}
+
+	@Override
+	public void updateScore(Long id, int score) {
+		em.createQuery("update CommonUser c set c.score=:score where c.id=:id")
+				.setParameter("score", score).setParameter("id", id)
+				.executeUpdate();
 	}
 }

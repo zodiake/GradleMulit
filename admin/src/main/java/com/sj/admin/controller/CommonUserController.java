@@ -1,5 +1,7 @@
 package com.sj.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.admin.exception.UserNotFoundException;
 import com.sj.model.model.CommonUser;
+import com.sj.repository.model.CommonUserDetailJson;
 import com.sj.repository.model.CommonUserJson;
 import com.sj.repository.service.CommonUserService;
 
@@ -34,11 +37,20 @@ public class CommonUserController {
 
 	@RequestMapping(value = "/admin/CommonUsers/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public String findOne(Model uiModel, @PathVariable("id") Long id) {
+	public CommonUserDetailJson findOne(Model uiModel,
+			@PathVariable("id") Long id) {
 		CommonUser user = userService.findOne(id);
 		if (user == null)
 			throw new UserNotFoundException();
-		uiModel.addAttribute("user", user);
-		return null;
+		return new CommonUserDetailJson(user);
+	}
+
+	@RequestMapping(value = "/admin/CommonUsers/{id}/score", method = RequestMethod.PUT)
+	@ResponseBody
+	public String updateScore(HttpServletRequest request,
+			@PathVariable(value = "id") Long id) {
+		int score = Integer.parseInt(request.getParameter("score"));
+		userService.updateScore(id, score);
+		return "success";
 	}
 }

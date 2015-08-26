@@ -16,9 +16,19 @@ public class IndexController {
 		return "user/user";
 	}
 
+	@RequestMapping(value = "/commonUserDetail")
+	public String commonUserDetail() {
+		return "user/userDetail";
+	}
+
 	@RequestMapping(value = "/provider")
 	public String provider() {
 		return "user/provider";
+	}
+
+	@RequestMapping(value = "/providerDetail")
+	public String providerDetail() {
+		return "user/providerDetail";
 	}
 
 	@RequestMapping(value = "/products")

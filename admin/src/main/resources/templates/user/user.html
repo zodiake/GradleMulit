@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in items">
+            <tr ng-repeat="item in items" ng-click="showDetail(item)">
                 <td>{{$index+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.gender}}</td>

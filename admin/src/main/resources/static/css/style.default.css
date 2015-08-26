@@ -698,9 +698,6 @@ select{
     padding-left: 10px;
 }
 .modal-content{
-    max-height: 700px;
-    overflow-y: auto; 
-    overflow-x: hidden;
 }
 .mauto{
     margin-top: -20px;
