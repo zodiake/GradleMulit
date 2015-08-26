@@ -32,6 +32,7 @@ import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
 import com.sj.model.model.UserIndustryInfo;
 import com.sj.repository.service.CartLineService;
+import com.sj.repository.service.CityService;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
@@ -64,6 +65,8 @@ public class LoginController {
 	private CartLineService cartLineService;
 	@Autowired
 	private UserIndustryInfoService userIndustryInfoService;
+	@Autowired
+	private CityService cityService;
 
 	private final String LOGIN = "user/login";
 	private final String COMMONSIGNUP = "user/common/signup";
@@ -148,14 +151,9 @@ public class LoginController {
 		if (userResult.hasErrors()) {
 			user.setPassword(null);
 			uiModel.addAttribute("provinces", provinceService.findAll());
-			uiModel.addAttribute("user", user);
-			return COMMONSIGNUP;
-		}
-		int passwordLength = user.getPassword().length();
-		if (passwordLength > 18 || passwordLength < 6) {
-			user.setPassword(null);
-			userResult.addError(new FieldError("user", "password","密码长度为6-18位"));
-			uiModel.addAttribute("provinces", provinceService.findAll());
+			if(user.getProvince()!=null){
+				uiModel.addAttribute("citys", cityService.findByProvince(user.getProvince()));
+			}
 			uiModel.addAttribute("user", user);
 			return COMMONSIGNUP;
 		}

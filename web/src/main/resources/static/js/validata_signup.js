@@ -22,7 +22,10 @@ $(function() {
 				if(data=="true"){
 					$("#nameerror").remove();
 				}else{
+					if($("#nameerror").text()){
+					}else{
 						obj.after('<i class="error" id="nameerror">用户名已存在</i>');
+					}
 				}
 			},error : function(data){
 			}

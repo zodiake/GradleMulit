@@ -58,7 +58,7 @@
 			<div class="form-group">
 				<label><i>*</i>邮箱</label>
 				<input type="text" th:field="*{email}"/>
-				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">必填</i>
+				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>用户名</label>
@@ -120,7 +120,7 @@
 				</select>
 				<select th:field="*{city}">
 					<option value="">选择城市</option>
-					<option value="">上海市</option>
+					<option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
 				</select>
 				<i class="error" th:if="${#fields.hasErrors('province')}" th:errors="*{province}">必填</i>
 				<i class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">必填</i>
