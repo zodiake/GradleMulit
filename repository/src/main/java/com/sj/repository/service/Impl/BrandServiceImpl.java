@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.elasticsearch.common.collect.Lists;
@@ -25,6 +26,8 @@ import com.sj.repository.service.BrandService;
 public class BrandServiceImpl implements BrandService {
 	@Autowired
 	private BrandRepository repository;
+	@Autowired
+	private EntityManager em;
 
 	@Override
 	public Page<Brand> findAll(Pageable pageable) {
@@ -86,5 +89,12 @@ public class BrandServiceImpl implements BrandService {
 				.map(c -> new BrandJson(c)).collect(Collectors.toList());
 		return new PageImpl<BrandJson>(lists, pageable,
 				pages.getTotalElements());
+	}
+
+	@Override
+	public void activate(Long id, ActivateEnum activate) {
+		em.createQuery("update Brand b set b.activate=:activate where b.id=:id")
+				.setParameter("activate", activate).setParameter("id", id)
+				.executeUpdate();
 	}
 }

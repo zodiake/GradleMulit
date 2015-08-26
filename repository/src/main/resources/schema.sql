@@ -125,7 +125,7 @@ create table brand(
 	id bigint not null auto_increment,
 	name varchar(50),
 	created_time timestamp,
-	activate smallint,
+	activate smallint default 1,
 	cover_img varchar(40),
 	primary key(id),
 );

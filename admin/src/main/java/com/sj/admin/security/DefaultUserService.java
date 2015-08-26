@@ -18,14 +18,13 @@ public class DefaultUserService implements UserDetailsService {
 	@Autowired
 	private SiteUserService userService;
 
+	@Override
 	public UserDetails loadUserByUsername(String name) {
-		SiteUser user = userService.login(name,
-				ActivateEnum.ACTIVATE);
+		SiteUser user = userService.findByName(name);
 		if (user == null)
 			throw new UsernameNotFoundException("user not exist");
 		return new SiteUserDetails(user);
 	}
-
 
 	private class SiteUserDetails extends SiteUser implements UserDetails {
 		/**

@@ -10,16 +10,18 @@
                 <th>序号</th>
                 <th>品牌名称</th>
                 <th>logo</th>
+                <th>状态</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Lorem ipsum dolor sit amet</td>
-                <td><img src="img/user1.png" width="120" height="120" /></td>
+            <tr ng-repeat="item in items">
+                <td>{{$index+1}}</td>
+                <td>{{item.title}}</td>
+                <td><img ng-src="{{item.cover}}" width="120" height="120" /></td>
+                <td>{{item.state}}</td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm">
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
                         删除
                     </button>
                 </td>

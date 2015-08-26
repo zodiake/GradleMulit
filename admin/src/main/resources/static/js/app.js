@@ -37,6 +37,11 @@ app.config([
                 templateUrl: '/admin/brandDetail',
                 controller: 'BrandDetailController'
             })
+            .state('advertise',{
+                url:'/advertisement',
+                templateUrl:'/admin/advertisement',
+                controller:'AdvertiseController'
+            })
             .state('products', {
                 url: '/products',
                 templateUrl: '/admin/products',
