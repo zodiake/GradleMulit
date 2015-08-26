@@ -612,10 +612,7 @@ section{
 
 	
 .footerwrapper{
-	position:absolute;
-	bottom:0;
 	width:100%;
-	z-index:9999;
 	height:48px;
 	line-height:48px;
 	color:#fff;
