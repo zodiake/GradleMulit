@@ -3156,14 +3156,14 @@ textarea.input-lg,select[multiple].input-lg {
 
 .btn-success {
 	color: #fff;
-	background-color:#2cc16f;
-	border-color: #2cc16f
+	background-color:#1caf9a;
+	border-color: #1caf9a
 }
 
 .btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active,.open>.dropdown-toggle.btn-success {
 	color: #fff;
-	background-color: #449d44;
-	border-color: #398439
+	background-color: #1caf9a;
+	border-color: #1caf9a
 }
 
 .btn-success:active,.btn-success.active,.open>.dropdown-toggle.btn-success {
