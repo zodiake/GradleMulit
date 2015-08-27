@@ -73,13 +73,15 @@ public class ProviderController extends BaseController<Provider> {
 
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.PUT)
 	public String updateCurrentProvider(Model uiModel,
-			@ModelAttribute("user") Provider provider,
+			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", provider);
+			uiModel.addAttribute("provinces", provinceService.findAll());
+			uiModel.addAttribute("industryInfos", providerIndustryInfoService.findAll());
+			uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
 			return "user/provider/detail";
 		}
-		System.out.println(provider.getCity().getName());
 		SiteUser user = userContext.getCurrentUser();
 		provider.setId(user.getId());
 		provider = providerService.updateProvider(provider);

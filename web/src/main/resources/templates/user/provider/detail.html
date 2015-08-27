@@ -42,26 +42,31 @@
 						<a class="active">基本资料</a>
 						<a href="/provider/changePw">修改密码</a>
 					</div>
-					<div class="tab-conts tab-con">
+					<div class="tab-conts tab-con basic-info">
 						<div class="tab-panel form-control company-group">
 							<form th:object="${user}" th:method="put">
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 								<div class="clearfix">
 									<div class="fl">
-										
 										<div class="form-group">
 											<label>企业名称（中文）</label>
-											<input type="text" th:field="*{companyNameChina}" readonly="readonly"/>									
+											<input type="text" th:field="*{companyNameChina}" readonly="readonly"/>	
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label>企业名称（英文）</label>
 											<input type="text" th:field="*{companyNameEnglish}" readonly="readonly"/>									
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label>法人代表</label>
-											<input type="text" th:field="*{legalPerson}" />									
+											<input type="text" th:field="*{legalPerson}" />		
+											<i class="error" th:if="${#fields.hasErrors('legalPerson')}" th:errors="*{legalPerson}"></i>							
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label>企业性质</label>
 											<select class="w228" th:field="*{componyType}">
 												<option value="外商独资">外商独资</option>
@@ -71,22 +76,34 @@
 												<option value="高等院校">高等院校</option>
 												<option value="刑侦机关">刑侦机关</option>
 											</select>
+											<i class="error" th:if="${#fields.hasErrors('componyType')}" th:errors="*{componyType}"></i>
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label>注册资本</label>
-											<input type="text" th:field="*{registeredCapital}"/>									
+											<input type="text" th:field="*{registeredCapital}"/>	
+											<i class="error" th:if="${#fields.hasErrors('registeredCapital')}" th:errors="*{registeredCapital}"></i>								
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>行业</label>
 											<select class="w228" th:field="*{industryInfo}">
 											<option th:each="info : ${industryInfos}" th:value="${info.id}" th:text="${info.name}">brand</option>
 											</select>
+											<i class="error" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}"></i>
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>主营产品/服务</label>
-											<input type="text" th:field="*{mainProduct}"/>									
+											<input type="text" th:field="*{mainProduct}"/>	
+											<i class="error" th:if="${#fields.hasErrors('mainProduct')}" th:errors="*{mainProduct}"></i>								
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>业务类型</label>
 											<select class="w228" th:field="*{businessType}">
 												<option value="生产型">生产型</option>
@@ -95,8 +112,11 @@
 												<option value="政府机关">政府机关</option>
 												<option value="其他">其他</option>
 											</select>
+											<i class="error" th:if="${#fields.hasErrors('businessType')}" th:errors="*{businessType}"></i>
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>年产值</label>
 											<select class="w228" th:field="*{output}">
 												<option value="五百万以下">五百万以下</option>
@@ -106,13 +126,18 @@
 												<option value="一亿至五亿">一亿至五亿</option>
 												<option value="五亿以上">五亿以上</option>
 											</select>
+											<i class="error" th:if="${#fields.hasErrors('output')}" th:errors="*{output}"></i>
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label>公司网址</label>
-											<input type="text" th:field="*{website}"/>									
+											<input type="text" th:field="*{website}"/>		
+											</div>
 										</div>
 										
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>省/市</label>
 											<select class="w115" th:field="*{province}">
 											<option value="">选择省份/市</option>
@@ -122,49 +147,70 @@
 											<option value="">选择城市</option>
 											<option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
 											</select>
+											</div>
 										</div>	
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>详细地址</label>
 											<input type="text" th:field="*{address}"/>	
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>邮政编码</label>
 											<input type="text" th:field="*{code}"/>	
+											</div>
 										</div>
 									</div>
 									<div class="fr">
 										<div class="form-group">
+											<div class="fl">
 											<label>注册邮箱</label>
 											<input type="text" th:value="*{email}" readonly="readonly"/>
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label>注册用户名</label>
 											<input type="text" th:field="*{name}" readonly="readonly"/>
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>联系人姓名</label>
 											<input type="text" th:field="*{realName}"/>									
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>职位</label>
 											<input type="text" th:field="*{position}"/>									
+											</div>
 										</div>
 										<div class="form-group" >
+											<div class="fl">
 											<label>性别</label>
 											<input type="radio" th:field="*{sex}" value="MALE"/>男
 											<input type="radio" th:field="*{sex}" value="FEMALE"/>女
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label class="top"><i>*</i>企业简介</label>
 											<textarea rows="8" th:field="*{content}"></textarea>
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label><i>*</i>企业电话</label>
 											<input type="text" th:field="*{providerPhone}"/>	
+											</div>
 										</div>
 										<div class="form-group">
+											<div class="fl">
 											<label>传真</label>
 											<input type="text" th:field="*{fax}"/>
+											</div>
 										</div>
 									</div>
 								</div>								

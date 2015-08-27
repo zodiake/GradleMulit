@@ -1632,7 +1632,16 @@ button.default{
 .orders-form .form-group label{
 	vertical-align: middle;
 }
-
+.basic-info .form-group{
+	overflow: hidden;
+}
+.basic-info .form-group i.error{
+	display: block;
+	margin-left: 125px;
+	position: absolute;
+	z-index: 2;
+	margin-bottom: -20px;
+}
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	li div.topic-detail{

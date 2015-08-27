@@ -1,5 +1,7 @@
 package com.sj.web.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -58,10 +60,13 @@ public class CommonUserController {
 
 	@RequestMapping(value = "/user/detail", method = RequestMethod.PUT)
 	public String updateOne(Model uiModel,
-			@ModelAttribute("user") CommonUser commonUser,
+			@Valid @ModelAttribute("user") CommonUser commonUser,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", commonUser);
+			uiModel.addAttribute("provinces", provinceService.findAll());
+			uiModel.addAttribute("industryInfos", userIndustryInfoService.findAll());
+			uiModel.addAttribute("citys", cityService.findByProvince(commonUser.getProvince()));
 			return "/user/common/detail";
 		}
 		SiteUser siteUser = userContext.getCurrentUser();
