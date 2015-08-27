@@ -76,6 +76,7 @@ public class ProviderController extends BaseController<Provider> {
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
 			uiModel.addAttribute("user", provider);
 			uiModel.addAttribute("provinces", provinceService.findAll());
 			uiModel.addAttribute("industryInfos", providerIndustryInfoService.findAll());
