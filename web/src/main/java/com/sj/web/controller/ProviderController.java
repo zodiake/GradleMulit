@@ -64,22 +64,24 @@ public class ProviderController extends BaseController<Provider> {
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Provider provider = providerService.findById(user.getId());
-		uiModel.addAttribute("IndustryInfos", providerIndustryInfoService.findAll());
 		uiModel.addAttribute("user", provider);
 		uiModel.addAttribute("provinces", provinceService.findAll());
+		uiModel.addAttribute("industryInfos", providerIndustryInfoService.findAll());
 		uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
 		return "user/provider/detail";
 	}
 
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.PUT)
 	public String updateCurrentProvider(Model uiModel,
-			@ModelAttribute("user") Provider provider,
+			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", provider);
+			uiModel.addAttribute("provinces", provinceService.findAll());
+			uiModel.addAttribute("industryInfos", providerIndustryInfoService.findAll());
+			uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
 			return "user/provider/detail";
 		}
-		System.out.println(provider.getCity().getName());
 		SiteUser user = userContext.getCurrentUser();
 		provider.setId(user.getId());
 		provider = providerService.updateProvider(provider);
@@ -114,7 +116,7 @@ public class ProviderController extends BaseController<Provider> {
 	public String create(Model uiModel) {
 		Product p = new Product();
 		uiModel.addAttribute("product", new Product());
-		uiModel.addAttribute("brand", brandService.findAll());
+		uiModel.addAttribute("brands", brandService.findAll());
 		List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pcs", pcs);
 		return "user/provider/release";
@@ -126,8 +128,8 @@ public class ProviderController extends BaseController<Provider> {
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
 		if (bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
 			uiModel.addAttribute("product", product);
-			System.out.println("hasErrors");
 			return "user/provider/release";
 		}
 		product.setCreatedBy(new Provider(user.getId()));

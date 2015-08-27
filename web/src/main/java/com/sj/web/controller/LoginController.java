@@ -75,8 +75,6 @@ public class LoginController {
 	private final String LOGIN = "user/login";
 	private final String COMMONSIGNUP = "user/common/signup";
 	private final String PSIGNUP = "user/provider/signup";
-	private final String HOME = "index";
-	private final String CHANGEPASSWORD = "user/changePassword";
 	private final String AJAXLOGIN = "ajaxLogin";
 
 	@Value("${login.passwordError}")
@@ -266,8 +264,8 @@ public class LoginController {
 
 		validateChangePassword(user, form, result);
 		if (result.hasErrors()) {
-			source.setNewPassword("");
-			source.setOldPassword("");
+			source.setNewPassword(null);
+			source.setOldPassword(null);
 			uiModel.addAttribute("form", source);
 			return "user/common/changePassword";
 		}

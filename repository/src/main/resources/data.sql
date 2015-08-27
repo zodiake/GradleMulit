@@ -143,11 +143,11 @@ insert into review(id,content,product_id,user_id,created_time) values(2,'haha,ve
 insert into review(id,content,product_id,user_id,created_time) values(3,'haha,very good user3',1,3,'2012-09-28');
 
 --test scrollImage
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(1,'/upload/img/scroll1.jpg',1,'INDEX','www.baiduc.com');
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(2,'/upload/img/scroll1.jpg',1,'INDEX','www.baiduc.com');
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(3,'/upload/img/scroll1.jpg',1,'INDEX','www.baiduc.com');
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(4,'/upload/img/scroll1.jpg',1,'INDEX','www.baiduc.com');
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(5,'/upload/img/scroll1.jpg',1,'INDEX','www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(1,'/img/banner1.jpg',1,'INDEX','www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(2,'/img/banner2.jpg',1,'INDEX','www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(3,'/img/banner1.jpg',1,'INDEX','www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(4,'/img/banner2.jpg',1,'INDEX','www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(5,'/img/banner1.jpg',1,'INDEX','www.baiduc.com');
 
 --test information_content
 insert into information_content(id,content) values (1,'我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京');
@@ -163,6 +163,12 @@ insert into Information(id,created_time,category_id,title,content_id,create_by) 
 insert into Information(id,created_time,category_id,title,content_id,create_by) values (7,'2012-1-12',9,'tre7',2,'shenjie');
 insert into Information(id,created_time,category_id,title,content_id,create_by) values (8,'2012-1-12',9,'tre8',2,'shenjie');
 insert into Information(id,created_time,category_id,title,content_id,create_by) values (9,'2012-1-12',9,'tre9',2,'shenjie');
+
+insert into advertisement(id,cover_img,created_time,category_id,url) values (1,'/upload/img/scroll1.jpg','2012-1-1',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url) values (2,'/upload/img/scroll1.jpg','2012-1-2',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url) values (3,'/upload/img/scroll1.jpg','2012-1-3',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url) values (4,'/upload/img/scroll1.jpg','2012-1-4',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url) values (5,'/upload/img/scroll1.jpg','2012-1-5',20,'www.baidu.com');
 
 
 -- test buy_record

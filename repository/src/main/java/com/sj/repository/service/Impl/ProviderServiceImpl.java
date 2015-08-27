@@ -60,25 +60,14 @@ public class ProviderServiceImpl implements ProviderService {
 	@Override
 	public Provider updateProvider(Provider provider) {
 		Provider p = repository.findById(provider.getId());
-		if (provider.getLegalPerson() == null
-				|| "".equals(provider.getLegalPerson()))
-			p.setLegalPerson("");
-		else
-			p.setLegalPerson(provider.getLegalPerson());
+		p.setLegalPerson(provider.getLegalPerson());
 		p.setComponyType(provider.getComponyType());
-		if (provider.getRegisteredCapital() == null
-				|| "".equals(provider.getRegisteredCapital()))
-			p.setRegisteredCapital("");
-		else
-			p.setRegisteredCapital(provider.getRegisteredCapital());
+		p.setRegisteredCapital(provider.getRegisteredCapital());
 		p.setIndustryInfo(provider.getIndustryInfo());
 		p.setMainProduct(provider.getMainProduct());
 		p.setBusinessType(provider.getBusinessType());
 		p.setOutput(provider.getOutput());
-		if (provider.getWebsite() == null || "".equals(provider.getWebsite()))
-			p.setWebsite("");
-		else
-			p.setWebsite(provider.getWebsite());
+		p.setWebsite(provider.getWebsite());
 		p.setProvince(provider.getProvince());
 		p.setCity(provider.getCity());
 		p.setAddress(provider.getAddress());
@@ -88,10 +77,7 @@ public class ProviderServiceImpl implements ProviderService {
 		p.setSex(provider.getSex());
 		p.setContent(provider.getContent());
 		p.setProviderPhone(provider.getProviderPhone());
-		if (provider.getFax() == null || "".equals(provider.getFax()))
-			p.setFax("");
-		else
-			p.setFax(provider.getFax());
+		p.setFax(provider.getFax());
 		return repository.save(p);
 	}
 

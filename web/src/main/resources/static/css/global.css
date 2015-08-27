@@ -812,7 +812,7 @@ table{
 	width: 235px;
 }
 .form-control select.w115{
-	width: 115px;
+	width: 113px;
 	margin-right: 3px;
 }
 .form-control button.btn{
@@ -1632,8 +1632,19 @@ button.default{
 .orders-form .form-group label{
 	vertical-align: middle;
 }
-
-
+.basic-info .form-group{
+	overflow: hidden;
+}
+.basic-info .form-group i.error{
+	display: block;
+	margin-left: 125px;
+	position: absolute;
+	z-index: 2;
+	margin-bottom: -20px;
+}
+.basic-info .form-group i.error.ml143{
+	margin-left:143px;
+}
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	li div.topic-detail{
 		max-height: 152px;
