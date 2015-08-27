@@ -164,6 +164,12 @@ insert into Information(id,created_time,category_id,title,content_id,create_by) 
 insert into Information(id,created_time,category_id,title,content_id,create_by) values (8,'2012-1-12',9,'tre8',2,'shenjie');
 insert into Information(id,created_time,category_id,title,content_id,create_by) values (9,'2012-1-12',9,'tre9',2,'shenjie');
 
+insert into advertisement(id,cover_img,created_time,category_id,url) values (1,'/upload/img/scroll1.jpg','2012-1-1',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url) values (2,'/upload/img/scroll1.jpg','2012-1-2',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url) values (3,'/upload/img/scroll1.jpg','2012-1-3',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url) values (4,'/upload/img/scroll1.jpg','2012-1-4',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url) values (5,'/upload/img/scroll1.jpg','2012-1-5',20,'www.baidu.com');
+
 
 -- test buy_record
 insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(1,'test1',11,'test category','test reason','2015-06-06','2015-06-08',100,'20150820001');
