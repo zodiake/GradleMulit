@@ -76,7 +76,6 @@ public class ProviderController extends BaseController<Provider> {
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
 			uiModel.addAttribute("user", provider);
 			uiModel.addAttribute("provinces", provinceService.findAll());
 			uiModel.addAttribute("industryInfos", providerIndustryInfoService.findAll());
@@ -117,7 +116,7 @@ public class ProviderController extends BaseController<Provider> {
 	public String create(Model uiModel) {
 		Product p = new Product();
 		uiModel.addAttribute("product", new Product());
-		uiModel.addAttribute("brand", brandService.findAll());
+		uiModel.addAttribute("brands", brandService.findAll());
 		List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pcs", pcs);
 		return "user/provider/release";
@@ -129,8 +128,8 @@ public class ProviderController extends BaseController<Provider> {
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
 		if (bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
 			uiModel.addAttribute("product", product);
-			System.out.println("hasErrors");
 			return "user/provider/release";
 		}
 		product.setCreatedBy(new Provider(user.getId()));

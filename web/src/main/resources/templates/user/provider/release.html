@@ -61,13 +61,15 @@
 						<div class="form-group">
 							<label><i>*</i>品牌</label>
 							<select class="w235" >
-								<option>aaa</option>
-								<option>bbbb</option>
+								<option value="">请选择</option>
+								<option th:each="brand:${brands}" th:text="${brand.name}" th:value="${brand.id}"></option>
 							</select>
 							<label><i>*</i>产地</label>
 							<select class="w235">
-								<option>上海</option>
-								<option>北京</option>
+								<option value="">请选择</option>
+								<option th:value="DOMESTIC">国内</option>
+								<option th:value="EUROPEANDUS">欧美</option>
+								<option th:value="OTHER">其他</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -76,17 +78,13 @@
 						</div>
 						<div class="form-group">
 							<label><i>*</i>产品类别</label>
-							<select class="w200">
-								<option>aaa</option>
-								<option>bbbb</option>
+							<select class="w200" th:field="*{firstCategory}">
+								<option value="请选择">请选择</option>
+								<option th:each="category:${pcs}" th:value="${category.id}" th:text="${category.name}"></option>
 							</select>
 							<select class="w200">
-								<option>上海</option>
-								<option>北京</option>
 							</select>
 							<select class="w200">
-								<option>上海</option>
-								<option>北京</option>
 							</select>
 						</div>
 						<div class="form-group">

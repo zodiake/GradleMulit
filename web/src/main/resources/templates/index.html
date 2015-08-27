@@ -29,17 +29,12 @@
 				<div id="J-banner-carousel" class="carousel slide"
 					data-ride="carousel">
 					<ol class="carousel-indicators">
-						<li data-target="#J-banner-carousel" data-slide-to="0"
-							class="active"></li>
-						<li data-target="#J-banner-carousel" data-slide-to="1"></li>
+							<li data-target="#J-banner-carousel" data-slide-to="0" class="active"></li>
+							<li th:each="image,imageStat:${images}" th:unless="${imageStat.index}==0" data-target="#J-banner-carousel" th:attr="data-slide-to=${imageStat.index}"></li>
 					</ol>
 					<div class="carousel-inner" role="listbox">
-						<div>
-							<div class="item active"
-								style="background-image: url(img/banner1.jpg)"></div>
-							<div class="item " style="background-image: url(img/banner2.jpg)">
-							</div>
-						</div>
+							<div  class="item active" th:style="'background-image: url('+${images.get(0).getImageUrl()}+')'"></div>
+							<div th:each="image,imageStat:${images}" th:unless="${imageStat.index}==0"  class="item" th:style="'background-image: url('+${image.imageUrl}+')'"></div>
 					</div>
 				</div>
 			</div>
