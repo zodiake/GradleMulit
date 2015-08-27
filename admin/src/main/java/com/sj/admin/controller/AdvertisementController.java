@@ -42,7 +42,9 @@ public class AdvertisementController {
 			uiModel.addAttribute("advertisement", advertisement);
 			return "\"fail\"";
 		}
+		advertisement.setActivate(ActivateEnum.ACTIVATE);
 		Advertisement adv = advertisementService.save(advertisement);
+		System.out.println(adv.getActivate());
 		return "\"success\"";
 	}
 

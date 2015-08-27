@@ -224,9 +224,10 @@ create table advertisement(
 	category_id bigint,
 	cover_img varchar(50),
 	url varchar(100),
-	activate smallint,
+	activate smallint ,
 	created_time timestamp,
 	updated_time timestamp,
+	primary key(id),
 	foreign key(category_id) references category(id)
 );
 --采购申请

@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Advertisement {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Enumerated
 	private ActivateEnum activate;
 
 	@ManyToOne(fetch = FetchType.LAZY)

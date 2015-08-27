@@ -1,6 +1,5 @@
 package com.sj.model.model;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -8,13 +7,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "category")
 @DiscriminatorValue("ic")
-public class InformationCategory extends Category implements Serializable {
-
+public class InformationCategory extends Category {
 
 	@Column(name = "url")
 	private String url;
