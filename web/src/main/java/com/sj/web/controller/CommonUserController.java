@@ -17,9 +17,13 @@ import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
+import com.sj.repository.service.CityService;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductService;
+import com.sj.repository.service.ProviderIndustryInfoService;
+import com.sj.repository.service.ProvinceService;
+import com.sj.repository.service.UserIndustryInfoService;
 import com.sj.web.annotation.SecurityUser;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.SiteUserContext;
@@ -34,12 +38,21 @@ public class CommonUserController {
 	private PreferProductService preferService;
 	@Autowired
 	private ProductService productServise;
+	@Autowired
+	private UserIndustryInfoService userIndustryInfoService;
+	@Autowired
+	private ProvinceService provinceService;
+	@Autowired
+	private CityService cityService;
 
 	@RequestMapping(value = "/user/detail", method = RequestMethod.GET)
 	public String findOne(Model uiModel) {
 		SiteUser siteUser = userContext.getCurrentUser();
 		CommonUser commonUser = commonUserService.findOne(siteUser.getId());
 		uiModel.addAttribute("user", commonUser);
+		uiModel.addAttribute("provinces", provinceService.findAll());
+		uiModel.addAttribute("industryInfos", userIndustryInfoService.findAll());
+		uiModel.addAttribute("citys", cityService.findByProvince(commonUser.getProvince()));
 		return "/user/common/detail";
 	}
 
@@ -55,7 +68,7 @@ public class CommonUserController {
 		commonUser.setId(siteUser.getId());
 		commonUser = commonUserService.update(commonUser);
 		uiModel.addAttribute("user", commonUser);
-		return "/user/common/detail";
+		return "redirect:/user/detail";
 	}
 
 	@RequestMapping(value = "/user/collection", method = RequestMethod.GET)

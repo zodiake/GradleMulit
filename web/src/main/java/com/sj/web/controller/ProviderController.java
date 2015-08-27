@@ -64,9 +64,9 @@ public class ProviderController extends BaseController<Provider> {
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Provider provider = providerService.findById(user.getId());
-		uiModel.addAttribute("IndustryInfos", providerIndustryInfoService.findAll());
 		uiModel.addAttribute("user", provider);
 		uiModel.addAttribute("provinces", provinceService.findAll());
+		uiModel.addAttribute("industryInfos", providerIndustryInfoService.findAll());
 		uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
 		return "user/provider/detail";
 	}

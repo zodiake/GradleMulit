@@ -53,6 +53,8 @@ public class CommonUserServiceImpl implements CommonUserService {
 	@Override
 	public CommonUser update(CommonUser user) {
 		CommonUser u = commonUserRepository.findOne(user.getId());
+		u.setProvince(user.getProvince());
+		u.setCity(user.getCity());
 		u.setIndustryInfo(user.getIndustryInfo());
 		u.setCompany(user.getCompany());
 		u.setDepartment(user.getDepartment());

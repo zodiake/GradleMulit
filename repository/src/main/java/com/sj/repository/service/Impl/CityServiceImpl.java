@@ -29,6 +29,7 @@ public class CityServiceImpl implements CityService {
 	@Override
 	@Cacheable(value = "cityCache",key="#province.id")
 	public Set<City> findByProvince(Province province) {
+		System.out.println(province.getId());
 		return cityRepository.findByProvince(province);
 	}
 }
