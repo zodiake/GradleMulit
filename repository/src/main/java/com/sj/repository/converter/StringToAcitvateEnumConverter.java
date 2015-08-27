@@ -9,6 +9,7 @@ public class StringToAcitvateEnumConverter implements
 
 	@Override
 	public ActivateEnum convert(String source) {
-		return ActivateEnum.valueOf(source);
+		ActivateEnum e = ActivateEnum.valueOf(source);
+		return e;
 	}
 }

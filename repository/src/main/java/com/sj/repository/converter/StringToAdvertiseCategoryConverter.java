@@ -9,8 +9,6 @@ public class StringToAdvertiseCategoryConverter implements
 
 	@Override
 	public AdvertisementCategory convert(String source) {
-		Long id = Long.valueOf(source);
-		return new AdvertisementCategory(id);
+		return new AdvertisementCategory(Long.parseLong(source));
 	}
-
 }

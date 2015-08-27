@@ -33,7 +33,7 @@ public class AdvertisementController {
 		return null;
 	}
 
-	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.POST, params = "create")
+	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.POST)
 	@ResponseBody
 	public String createProcess(
 			@Valid @ModelAttribute("advertisement") Advertisement advertisement,
@@ -42,7 +42,9 @@ public class AdvertisementController {
 			uiModel.addAttribute("advertisement", advertisement);
 			return "\"fail\"";
 		}
+		advertisement.setActivate(ActivateEnum.ACTIVATE);
 		Advertisement adv = advertisementService.save(advertisement);
+		System.out.println(adv.getActivate());
 		return "\"success\"";
 	}
 

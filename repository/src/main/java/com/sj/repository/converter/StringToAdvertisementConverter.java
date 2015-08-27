@@ -4,7 +4,7 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.sj.model.model.AdvertisementContent;
 
-public class StringToAdvertisementContent implements
+public class StringToAdvertisementConverter implements
 		Converter<String, AdvertisementContent> {
 
 	@Override

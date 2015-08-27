@@ -230,10 +230,11 @@ create table advertisement(
 	cover_img varchar(50),
 	content_id bigint,
 	url varchar(100),
-	activate smallint,
+	activate smallint ,
 	created_time timestamp,
 	updated_time timestamp,
 	foreign key(content_id) references advertisement_content(id),
+	primary key(id),
 	foreign key(category_id) references category(id)
 );
 --采购申请

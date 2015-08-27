@@ -32,7 +32,7 @@ import com.sj.repository.converter.LongToBrandConverter;
 import com.sj.repository.converter.LongToProductCategoryConverter;
 import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
-import com.sj.repository.converter.StringToAdvertisementContent;
+import com.sj.repository.converter.StringToAdvertisementConverter;
 import com.sj.repository.converter.StringToBusinessTypeEnumConverter;
 import com.sj.repository.converter.StringToComponyTypeEnumConverter;
 import com.sj.repository.converter.StringToOriginalEnumConverter;
@@ -133,9 +133,9 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Override
 	public void addFormatters(FormatterRegistry formatterRegistry) {
 		formatterRegistry.addConverter(stringToAcitvateEnumConverter());
-		formatterRegistry.addConverter(stringToAdvertisementContent());
-		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
 		formatterRegistry.addConverter(stringToAdvertiseCategoryConverter());
+		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
+		formatterRegistry.addConverter(stringToAdvertisementCoverter());
 		formatterRegistry.addConverter(stringToProductConverter());
 		formatterRegistry.addConverter(stringToProductCategoryConverter());
 		formatterRegistry.addConverter(stringToOriginalEnumConverter());
@@ -160,8 +160,8 @@ public class Application extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public StringToAdvertisementContent stringToAdvertisementContent() {
-		return new StringToAdvertisementContent();
+	public StringToAdvertisementConverter stringToAdvertisementCoverter() {
+		return new StringToAdvertisementConverter();
 	}
 
 	@Bean

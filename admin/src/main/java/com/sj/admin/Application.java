@@ -25,7 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
-import com.sj.repository.converter.StringToAdvertisementContent;
+import com.sj.repository.converter.StringToAdvertisementConverter;
 import com.sj.repository.converter.StringToProductConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
 
@@ -81,7 +81,7 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Override
 	public void addFormatters(FormatterRegistry formatterRegistry) {
 		formatterRegistry.addConverter(stringToAcitvateEnumConverter());
-		formatterRegistry.addConverter(stringToAdvertisementContent());
+		formatterRegistry.addConverter(stringToAdvertisementConverter());
 		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
 		formatterRegistry.addConverter(stringToAdvertiseCategoryConverter());
 		formatterRegistry.addConverter(stringToProductConverter());
@@ -93,8 +93,8 @@ public class Application extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public StringToAdvertisementContent stringToAdvertisementContent() {
-		return new StringToAdvertisementContent();
+	public StringToAdvertisementConverter stringToAdvertisementConverter() {
+		return new StringToAdvertisementConverter();
 	}
 
 	@Bean

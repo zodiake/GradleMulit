@@ -36,6 +36,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 		return repository.findByActivate(pageable, activate);
 	}
 
+	@Override
 	public Page<AdvertisementJson> findAllJson(Pageable pageable,
 			ActivateEnum activate) {
 		Page<Advertisement> pages;
@@ -80,6 +81,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
 	@Override
 	public Advertisement save(Advertisement advertisement) {
+		System.out.println("----" + advertisement.getCategory());
+		System.out.println("===" + advertisement.getActivate());
 		return repository.save(advertisement);
 	}
 
