@@ -1,10 +1,10 @@
 <div class="contentpanel">
 	<form class="form-inline">
 		<div class="form-group company-select">
-			<select>
-				<option>全部状态</option>
-				<option>已审核</option>
-				<option>未审核</option>
+			<select ng-change="search()" ng-model="state" name="state">
+				<option value="">全部状态</option>
+				<option value="ACTIVATE">已审核</option>
+				<option value="DEACTIVATE">未审核</option>
 			</select>
 		</div>
 	</form>

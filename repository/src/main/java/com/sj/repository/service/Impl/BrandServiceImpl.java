@@ -57,8 +57,12 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	public Brand update(Brand brand) {
-		return repository.save(brand);
+	public void update(Brand brand) {
+		em.createQuery(
+				"update Brand b set b.name=:name,b.coverImg=:cover where b.id=:id")
+				.setParameter("name", brand.getName())
+				.setParameter("cover", brand.getCoverImg())
+				.setParameter("id", brand.getId()).executeUpdate();
 	}
 
 	@Override

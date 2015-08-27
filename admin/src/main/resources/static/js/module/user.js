@@ -14,7 +14,7 @@ userModule.service('CommonUserService', ['$http',
             return $http.put('/admin/CommonUsers/' + item.id + '/score', {
                 score: item.score
             });
-        }
+        };
     }
 ]);
 
@@ -30,7 +30,7 @@ userModule.service('ProviderService', ['$http',
         };
         this.authenticate = function (item) {
             return $http.put('/admin/providers/' + item.id + '/isAuthenticated');
-        }
+        };
     }
 ]);
 
@@ -75,7 +75,7 @@ userModule.controller('CommonUserController', ['$scope',
                                 return data;
                             }
                         }
-                    })
+                    });
                 }).error(function (err) {
 
                 });
@@ -101,13 +101,15 @@ userModule.controller('ProviderController', ['$scope',
 
         init({
             page: $scope.page,
-            size: $scope.size
+            size: $scope.size,
+            state:$scope.state
         });
 
         $scope.seach = function () {
             init({
                 page: $scope.page,
-                size: $scope.size
+                size: $scope.size,
+                state:$scope.state
             });
         };
 
@@ -139,9 +141,9 @@ userModule.controller('CommonUserDetailController', ['$scope',
     function ($scope, item, CommonUserService) {
         $scope.item = item;
 
-        $scope.updateScoe = function (item) {
+        $scope.updateScore = function (item) {
 
-        }
+        };
     }
 ]);
 
@@ -161,6 +163,6 @@ userModule.controller('ProviderDetailController', ['$scope',
                 .error(function (err) {
 
                 });
-        }
+        };
     }
 ]);

@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="item in items">
-                <td>{{$index+1}}</td>
+                <td ng-click="view(item)">{{$index+1}}</td>
                 <td>{{item.title}}</td>
                 <td><img ng-src="{{item.cover}}" width="120" height="120" /></td>
                 <td>{{item.state}}</td>

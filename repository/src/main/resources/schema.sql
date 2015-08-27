@@ -126,7 +126,7 @@ create table brand(
 	name varchar(50),
 	created_time timestamp,
 	activate smallint default 1,
-	cover_img varchar(40),
+	cover_img varchar(52),
 	primary key(id),
 );
 
@@ -227,7 +227,7 @@ create table advertisement_content(
 create table advertisement(
 	id bigint not null AUTO_INCREMENT,
 	category_id bigint,
-	cover_img varchar(50),
+	cover_img char(52),
 	content_id bigint,
 	url varchar(100),
 	activate smallint ,
