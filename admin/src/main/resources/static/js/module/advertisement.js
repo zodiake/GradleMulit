@@ -6,6 +6,26 @@ advertiseModule.service('AdvertiseService', ['$http', function ($http) {
             params: opt
         });
     };
+    this.save = function (item) {
+        return $http({
+            method: 'POST',
+            url: '/admin/advertisements?create',
+            data: {
+                category: item.category,
+                href: item.href,
+                img: item.img
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    };
+}]);
+
+advertiseModule.service('AdvertiseCategoryService', ['$http', function ($http) {
+    this.findAll = function () {
+        return $http.get('/admin')
+    };
 }]);
 
 advertiseModule.controller('AdvertiseController', ['$scope',
@@ -42,10 +62,25 @@ advertiseModule.controller('AdvertiseController', ['$scope',
     }
 ]);
 
-advertiseModule.controller('CreateAdvertiseController', ['$scope', function ($scope) {
+advertiseModule.controller('CreateAdvertiseController', ['$scope',
+    'category',
+    'AdvertiseService',
+    function ($scope, category,AdvertiseService) {
+        $scope.categories = category.data;
 
-}]);
+        $scope.submit = function () {
+            AdvertiseService
+                .save($scope.item)
+                .success(function(){
+                    
+                })
+                .error(function(){
+                    
+                });
+        };
+    }
+]);
 
-advertiseModule.controller('AdvertiseDetailController', ['$scope', function ($scope) {
-
+advertiseModule.controller('AdvertiseDetailController', ['$scope', 'category', function ($scope, category) {
+    $scope.category = category;
 }]);

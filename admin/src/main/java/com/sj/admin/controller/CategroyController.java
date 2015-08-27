@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.admin.security.SiteUserContext;
 import com.sj.model.model.ProductCategory;
+import com.sj.repository.model.AdvertisementCategoryJson;
+import com.sj.repository.service.AdvertisementCategoryService;
 import com.sj.repository.service.ProductCategoryService;
 
 @Controller
@@ -24,15 +25,14 @@ public class CategroyController {
 	@Autowired
 	private ProductCategoryService productCategoryService;
 	@Autowired
+	private AdvertisementCategoryService advertisementCategoryService;
+	@Autowired
 	private SiteUserContext userContext;
 
-	@RequestMapping(value = "/admin/category/{category}", method = RequestMethod.GET)
-	public String findBigCategory(Model uiModel,
-			@PathVariable("category") String category) {
-		ProductCategory pc = productCategoryService.findByName(category);
-		List<ProductCategory> pcs = productCategoryService.findByParent(pc);
-		uiModel.addAttribute("productCategories", pcs);
-		return null;
+	@RequestMapping(value = "/admin/advertise/category", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AdvertisementCategoryJson> findAdvertiseCategory() {
+		return advertisementCategoryService.findAllJson();
 	}
 
 	@RequestMapping(value = "/admin/category/{category}", method = RequestMethod.GET, params = "children")
