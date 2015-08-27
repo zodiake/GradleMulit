@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Information;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.InformationJson;
 import com.sj.repository.service.InformationService;
 
 @Controller
@@ -25,14 +26,16 @@ public class InformationController {
 	@Autowired
 	private InformationService informationService;
 
-	@RequestMapping(value = "/admin/informations", method = RequestMethod.GET)
-	public String findAll(Model uiModel,
+	@RequestMapping(value = "/admin/information", method = RequestMethod.GET)
+	@ResponseBody
+	public Page<InformationJson> findAll(
+			Model uiModel,
+			@RequestParam(required = false, value = "state") ActivateEnum activate,
 			@RequestParam(defaultValue = "1", value = "page") int page,
 			@RequestParam(defaultValue = "15", value = "size") int size) {
-		Page<Information> infos = informationService.findAll(new PageRequest(
-				page - 1, size, Direction.DESC, "showOnIndex"));
-		uiModel.addAttribute("information", infos);
-		return null;
+
+		return informationService.findAllJson(new PageRequest(page - 1, size,
+				Direction.DESC, "createdTime"), activate);
 	}
 
 	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.GET)
@@ -63,16 +66,18 @@ public class InformationController {
 		return null;
 	}
 
-	@RequestMapping(value = "/admin/informations/{id}",method = RequestMethod.PUT,params = "edit")
+	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.PUT, params = "edit")
 	public String editProcess(Model uiModel,
 			@Valid @ModelAttribute("information") Information info) {
 		return null;
 	}
-	@RequestMapping(value = "/admin/informaitons/{id}",method = RequestMethod.PUT,params="status")
+
+	@RequestMapping(value = "/admin/informaitons/{id}", method = RequestMethod.PUT, params = "status")
 	@ResponseBody
-	public String editActivate(@PathVariable("id")Long id,@RequestParam("status")String status){
+	public String editActivate(@PathVariable("id") Long id,
+			@RequestParam("status") String status) {
 		Information info = informationService.findOne(id);
-		if(info==null)
+		if (info == null)
 			return "error";
 		info.setActivate(ActivateEnum.valueOf(status));
 		informationService.save(info);

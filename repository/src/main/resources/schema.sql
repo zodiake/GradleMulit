@@ -212,6 +212,7 @@ create table information(
 	activate smallint,
 	content_id bigint,
 	created_time timestamp,
+	updated_time timestamp,
 	create_by varchar(50),
 	category_id bigint,
 	primary key(id),

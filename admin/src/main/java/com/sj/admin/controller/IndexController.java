@@ -73,4 +73,9 @@ public class IndexController extends UploadController {
 	public String productList() {
 		return "product/product";
 	}
+
+	@RequestMapping(value = "/info")
+	public String info() {
+		return "information/info";
+	}
 }

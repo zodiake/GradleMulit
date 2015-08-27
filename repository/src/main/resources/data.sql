@@ -154,15 +154,15 @@ insert into information_content(id,content) values (1,'我国首个通过透皮�
 insert into information_content(id,content) values (2,'1213141fdfdf');
 
 --test Information 资讯
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (1,'2012-1-1',7,'first',1,'shenjie');
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (2,'2012-1-12',7,'tre',2,'shenjie');
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (3,'2012-1-1',7,'first',1,'shenjie');
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (4,'2012-1-12',8,'tre4',2,'shenjie');
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (5,'2012-1-12',8,'tre5',2,'shenjie');
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (6,'2012-1-12',8,'tre6',2,'shenjie');
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (7,'2012-1-12',9,'tre7',2,'shenjie');
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (8,'2012-1-12',9,'tre8',2,'shenjie');
-insert into Information(id,created_time,category_id,title,content_id,create_by) values (9,'2012-1-12',9,'tre9',2,'shenjie');
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (1,'2012-1-1',7,'first',1,'shenjie','2013-1-1',1);
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (2,'2012-1-12',7,'tre',2,'shenjie','2013-1-1',1);
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (3,'2012-1-1',7,'first',1,'shenjie','2013-1-1',1);
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (4,'2012-1-12',8,'tre4',2,'shenjie','2013-1-1',1);
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (5,'2012-1-12',8,'tre5',2,'shenjie','2013-1-1',1);
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (6,'2012-1-12',8,'tre6',2,'shenjie','2013-1-1',1);
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (7,'2012-1-12',9,'tre7',2,'shenjie','2013-1-1',0);
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (8,'2012-1-12',9,'tre8',2,'shenjie','2013-1-1',0);
+insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (9,'2012-1-12',9,'tre9',2,'shenjie','2013-1-1',0);
 
 insert into advertisement(id,cover_img,created_time,category_id,url) values (1,'/upload/img/scroll1.jpg','2012-1-1',20,'www.baidu.com');
 insert into advertisement(id,cover_img,created_time,category_id,url) values (2,'/upload/img/scroll1.jpg','2012-1-2',20,'www.baidu.com');

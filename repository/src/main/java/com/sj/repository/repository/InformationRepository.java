@@ -6,14 +6,16 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
+import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.AdvertiseCategoryEnum;
 
 public interface InformationRepository extends
 		PagingAndSortingRepository<Information, Long> {
-	
+
 	Page<Information> findByCategory(InformationCategory category,
 			Pageable pageable);
-	
-	Information findByIdAndCategory(Long id,AdvertiseCategoryEnum category);
-	
+
+	Information findByIdAndCategory(Long id, AdvertiseCategoryEnum category);
+
+	Page<Information> findByActivate(Pageable pageable, ActivateEnum activate);
 }

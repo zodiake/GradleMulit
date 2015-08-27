@@ -2,6 +2,7 @@ package com.sj.repository.service.Impl;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -18,7 +20,9 @@ import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
+import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.AdvertiseCategoryEnum;
+import com.sj.repository.model.InformationJson;
 import com.sj.repository.repository.InformationCategoryRepository;
 import com.sj.repository.repository.InformationRepository;
 import com.sj.repository.service.InformationService;
@@ -69,7 +73,8 @@ public class InformationServiceImpl implements InformationService {
 
 	@Override
 	@Cacheable(value = "informationCache", key = "#category.id")
-	public List<Information> findByCategoryAndShowOnIndex(InformationCategory category) {
+	public List<Information> findByCategoryAndShowOnIndex(
+			InformationCategory category) {
 		Page<Information> infoPage = repository.findByCategory(category,
 				new PageRequest(0, 3, Direction.DESC, "createdTime"));
 		return infoPage.getContent();
@@ -85,4 +90,23 @@ public class InformationServiceImpl implements InformationService {
 		return repository.save(advertisement);
 	}
 
+	@Override
+	public Page<Information> findByActivate(Pageable pageable,
+			ActivateEnum activate) {
+		return repository.findByActivate(pageable, activate);
+	}
+
+	@Override
+	public Page<InformationJson> findAllJson(Pageable pageable,
+			ActivateEnum activate) {
+		Page<Information> pages;
+		if (activate == null)
+			pages = findAll(pageable);
+		else
+			pages = findByActivate(pageable, activate);
+		List<InformationJson> lists = pages.getContent().stream()
+				.map(c -> new InformationJson(c)).collect(Collectors.toList());
+		return new PageImpl<InformationJson>(lists, pageable,
+				pages.getTotalElements());
+	}
 }
