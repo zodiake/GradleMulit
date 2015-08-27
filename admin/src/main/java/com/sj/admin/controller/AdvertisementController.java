@@ -33,7 +33,7 @@ public class AdvertisementController {
 		return null;
 	}
 
-	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.POST, params = "create")
+	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.POST)
 	@ResponseBody
 	public String createProcess(
 			@Valid @ModelAttribute("advertisement") Advertisement advertisement,
