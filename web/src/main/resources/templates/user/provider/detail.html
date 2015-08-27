@@ -39,7 +39,7 @@
 				<div class="mainpanel fr">
 					<div class="tabs-nav info-tabs bodr">
 						<a class="active">基本资料</a>
-						<a>修改密码</a>
+						<a href="/provider/changePw">修改密码</a>
 					</div>
 					<div class="tab-conts tab-con">
 						<div class="tab-panel form-control company-group">
@@ -113,13 +113,13 @@
 										
 										<div class="form-group">
 											<label><i>*</i>省/市</label>
-											<select class="w115">
-												<option>上海市</option>
-												<option>北京市</option>
+											<select class="w115" th:field="*{province}">
+											<option value="">选择省份/市</option>
+											<option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
 											</select>
-											<select class="w115">
-												<option>上海市</option>
-												<option>上海市</option>
+											<select class="w115" th:field="*{city}">
+											<option value="">选择城市</option>
+											<option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
 											</select>
 										</div>	
 										<div class="form-group">
@@ -133,20 +133,20 @@
 									</div>
 									<div class="fr">
 										<div class="form-group">
-											<label><i>*</i>联系人姓名</label>
-											<input type="text" th:field="*{realName}"/>									
-										</div>
-										<div class="form-group">
-											<label><i>*</i>职位</label>
-											<input type="text" th:field="*{position}"/>									
-										</div>
-										<div class="form-group">
 											<label>注册邮箱</label>
 											<input type="text" th:value="*{email}" readonly="readonly"/>
 										</div>
 										<div class="form-group">
 											<label>注册用户名</label>
 											<input type="text" th:field="*{name}" readonly="readonly"/>
+										</div>
+										<div class="form-group">
+											<label><i>*</i>联系人姓名</label>
+											<input type="text" th:field="*{realName}"/>									
+										</div>
+										<div class="form-group">
+											<label><i>*</i>职位</label>
+											<input type="text" th:field="*{position}"/>									
 										</div>
 										<div class="form-group" >
 											<label>性别</label>
@@ -178,15 +178,17 @@
 							</form>
 						</div>
 						<div class="tab-panel form-control hide w500">
-							<div class="form-group">
-								<label><i>*</i>旧密码</label>
-								<input type="text"/>				
-							</div>
-							<div class="form-group">
-								<label><i>*</i>新密码</label>
-								<input type="text"/>
-							</div>
-							<button class="btn green">保存</button>			
+							<form action="/">
+								<div class="form-group">
+									<label><i>*</i>旧密码</label>
+									<input type="text"/>				
+								</div>
+								<div class="form-group">
+									<label><i>*</i>新密码</label>
+									<input type="text"/>
+								</div>
+								<button class="btn green">保存</button>			
+							</form>
 						</div>
 					</div>
 				</div>

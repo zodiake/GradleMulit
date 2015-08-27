@@ -1,12 +1,12 @@
 package com.sj.repository.model;
 
-import com.sj.model.model.AdvertismentCategory;
+import com.sj.model.model.AdvertisementCategory;
 
 public class AdvertisementCategoryJson {
 	private Long id;
 	private String name;
 
-	public AdvertisementCategoryJson(AdvertismentCategory category) {
+	public AdvertisementCategoryJson(AdvertisementCategory category) {
 		this.id = category.getId();
 		this.name = category.getName();
 	}

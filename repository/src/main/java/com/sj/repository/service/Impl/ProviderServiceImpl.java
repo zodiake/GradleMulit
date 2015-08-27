@@ -79,8 +79,8 @@ public class ProviderServiceImpl implements ProviderService {
 			p.setWebsite("");
 		else
 			p.setWebsite(provider.getWebsite());
-		// p.setProvince(provider.getProvince());
-		// p.setCity(provider.getCity());
+		p.setProvince(provider.getProvince());
+		p.setCity(provider.getCity());
 		p.setAddress(provider.getAddress());
 		p.setCode(provider.getCode());
 		p.setRealName(p.getRealName());

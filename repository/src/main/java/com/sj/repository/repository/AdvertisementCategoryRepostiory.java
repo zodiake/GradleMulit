@@ -2,9 +2,9 @@ package com.sj.repository.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.sj.model.model.AdvertismentCategory;
+import com.sj.model.model.AdvertisementCategory;
 
 public interface AdvertisementCategoryRepostiory extends
-		CrudRepository<AdvertismentCategory, Long> {
+		CrudRepository<AdvertisementCategory, Long> {
 
 }

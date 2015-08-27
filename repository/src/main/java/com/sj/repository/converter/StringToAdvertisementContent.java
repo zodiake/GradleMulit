@@ -2,14 +2,14 @@ package com.sj.repository.converter;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.sj.model.model.InformationContent;
+import com.sj.model.model.AdvertisementContent;
 
 public class StringToAdvertisementContent implements
-		Converter<String, InformationContent> {
+		Converter<String, AdvertisementContent> {
 
 	@Override
-	public InformationContent convert(String source) {
-		InformationContent content = new InformationContent();
+	public AdvertisementContent convert(String source) {
+		AdvertisementContent content = new AdvertisementContent();
 		content.setContent(source);
 		return content;
 	}

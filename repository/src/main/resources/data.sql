@@ -88,10 +88,10 @@ insert into common_user(id,company,department,company_phone,fax,address,code,pro
 values(11,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,6);
 
 --test provider
-insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated) 
-values(1,'上海恒企','hengqixinxi','bmw','两亿','人体强化药剂','/provider/1','/provider/1','/provider/1','boss','12345678901','010-12345678','外航渡路1234号','123456','www.qq.com',0,0,0,0,1,1,1);
-insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated)
-values(2,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider/2','/provider/2','/provider/2','boss','12345678901','010-12345678','外航渡路123发的4号','123456','www.qq.com',0,0,0,0,2,4,1);
+insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated,compony_type,info_id,content) 
+values(1,'上海恒企','hengqixinxi','bmw','两亿','人体强化药剂','/provider/1','/provider/1','/provider/1','boss','12345678901','010-12345678','外航渡路1234号','123456','www.qq.com',0,0,0,0,1,1,1,1,1,'111111111111111111111111111111111111111111111111111111');
+insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated,compony_type,info_id,content)
+values(2,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider/2','/provider/2','/provider/2','boss','12345678901','010-12345678','外航渡路123发的4号','123456','www.qq.com',0,0,0,0,2,4,1,2,2,'22222222222222222222222222222222222222222222222222222222');
 
 --test product
 --tom product
@@ -164,10 +164,6 @@ insert into Information(id,created_time,category_id,title,content_id,create_by) 
 insert into Information(id,created_time,category_id,title,content_id,create_by) values (8,'2012-1-12',9,'tre8',2,'shenjie');
 insert into Information(id,created_time,category_id,title,content_id,create_by) values (9,'2012-1-12',9,'tre9',2,'shenjie');
 
--- test guanggao
-insert into advertisement(id,cover_img,url,activate,category_id)values(1,'/upload/img/scroll1.jpg','baidu.com',1,20);
-insert into advertisement(id,cover_img,url,activate,category_id)values(2,'/upload/img/scroll2.jpg','baidu.com',1,20);
-insert into advertisement(id,cover_img,url,activate,category_id)values(3,'/upload/img/scroll3.jpg','baidu.com',0,20);
 
 -- test buy_record
 insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(1,'test1',11,'test category','test reason','2015-06-06','2015-06-08',100,'20150820001');

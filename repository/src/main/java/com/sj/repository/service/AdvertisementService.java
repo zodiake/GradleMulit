@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.sj.model.model.Advertisement;
-import com.sj.model.model.AdvertismentCategory;
+import com.sj.model.model.AdvertisementCategory;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.AdvertisementJson;
 
@@ -26,5 +26,5 @@ public interface AdvertisementService {
 
 	public Advertisement save(Advertisement advertisement);
 
-	public boolean findByActivate(AdvertismentCategory category);
+	public boolean findByActivate(AdvertisementCategory category);
 }

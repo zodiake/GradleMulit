@@ -27,7 +27,7 @@ public class Advertisement {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
-	private AdvertismentCategory category;
+	private AdvertisementCategory category;
 
 	@Column(name = "cover_img")
 	private String coverImg;
@@ -83,11 +83,11 @@ public class Advertisement {
 		this.activate = activate;
 	}
 
-	public AdvertismentCategory getCategory() {
+	public AdvertisementCategory getCategory() {
 		return category;
 	}
 
-	public void setCategory(AdvertismentCategory category) {
+	public void setCategory(AdvertisementCategory category) {
 		this.category = category;
 	}
 

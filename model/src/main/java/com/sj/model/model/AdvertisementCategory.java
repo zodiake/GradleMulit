@@ -12,14 +12,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "category")
 @DiscriminatorValue("ac")
-public class AdvertismentCategory extends Category {
+public class AdvertisementCategory extends Category {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
 	private Set<Advertisement> advs;
 
-	public AdvertismentCategory() {
+	public AdvertisementCategory() {
 	}
 
-	public AdvertismentCategory(Long id) {
+	public AdvertisementCategory(Long id) {
 		this.id = id;
 	}
 

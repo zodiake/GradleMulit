@@ -2,15 +2,15 @@ package com.sj.repository.converter;
 
 import org.springframework.core.convert.converter.Converter;
 
-import com.sj.model.model.InformationCategory;
+import com.sj.model.model.AdvertisementCategory;
 
 public class StringToAdvertiseCategoryConverter implements
-		Converter<String, InformationCategory> {
+		Converter<String, AdvertisementCategory> {
 
 	@Override
-	public InformationCategory convert(String source) {
+	public AdvertisementCategory convert(String source) {
 		Long id = Long.valueOf(source);
-		return new InformationCategory(id);
+		return new AdvertisementCategory(id);
 	}
 
 }

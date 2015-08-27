@@ -65,8 +65,8 @@ public class IndexController {
 		
 		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 5));
 		uiModel.addAttribute("brands", brands);
-//		List<ScrollImage> scrollImages = scrollImageService.findAll(ScrollImageType.INDEX, new PageRequest(0, 4));
-//		uiModel.addAttribute("images", scrollImages);
+		List<ScrollImage> scrollImages = scrollImageService.findAll(ScrollImageType.INDEX, new PageRequest(0, 4));
+		uiModel.addAttribute("images", scrollImages);
 		return "index";
 	}
 }

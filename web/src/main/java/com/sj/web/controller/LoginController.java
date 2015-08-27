@@ -105,13 +105,13 @@ public class LoginController {
 			authenticationManager.authenticate(token);
 		} catch (BadCredentialsException exception) {
 			user.setPassword(null);
-			bindingResult.addError(new FieldError("user", "error", "用户名或密码错误"));
+			bindingResult.addError(new FieldError("user", "password", "密码错误"));
 			uiModel.addAttribute("user", user);
 			return LOGIN;
 		}
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
 		userContext.setCurrentUser(user);
-		if("ROLE_COMMONUSER".equals(user.getSiteAuthority())){
+		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
 			Set<CartLine> lines = cartLineService.findByUser(user.getId());
 			httpSession.setAttribute("cartLines", lines);
 		}
@@ -184,14 +184,7 @@ public class LoginController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, params = "provider")
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
-			BindingResult providerResult,
-			Model uiModel,
-			@RequestParam(value = "businessLicense", required = false) MultipartFile businessLicense,
-			@RequestParam(value = "taxRegistration", required = false) MultipartFile taxRegistration,
-			@RequestParam(value = "structureCode", required = false) MultipartFile structureCode) {
-		validateImage(businessLicense, providerResult, "businessLicenseUrl");
-		validateImage(taxRegistration, providerResult, "taxRegistrationUrl");
-		validateImage(structureCode, providerResult,"structureCodestructureCodeUrl");
+			BindingResult providerResult, Model uiModel) {
 		if (providerResult.hasErrors()) {
 			provider.setPassword(null);
 			uiModel.addAttribute("provinces", provinceService.findAll());
@@ -209,20 +202,6 @@ public class LoginController {
 		userContext.setCurrentUser(new SiteUser(provider.getId(), provider
 				.getName(), provider.getPassword()));
 		return "redirect:/";
-	}
-
-	private void validateImage(MultipartFile image,
-			BindingResult providerResult, String field) {
-		if (image.isEmpty())
-			providerResult.addError(new FieldError("user", field, "请上传图片"));
-		if (!image.getContentType().equals("image/bmp")
-				&& !image.getContentType().equals("image/jpeg")
-				&& !image.getContentType().equals("image/png"))
-			providerResult.addError(new FieldError("user", field,
-					"请上传jpg、jpeg、bmp和png格式图片"));
-		if(image.getSize()>=1024)
-			providerResult.addError(new FieldError("user", field,
-					"只可上传2M大小以下的图片"));
 	}
 
 	private void validateSignupForm(String captcha, BindingResult result,
@@ -246,14 +225,40 @@ public class LoginController {
 	}
 
 	/* user change password feature */
-	@RequestMapping(value = { "/provider/changePw", "/manufacture/changePw" }, method = RequestMethod.GET)
-	public String editPassword(Model uiModel) {
+	@RequestMapping(value = "/provider/changePw", method = RequestMethod.GET)
+	public String editProviderPassword(Model uiModel,
+			@SecurityUser SiteUser user) {
 		uiModel.addAttribute("form", new ChangePasswordForm());
-		return CHANGEPASSWORD;
+		return "user/provider/changePassword";
 	}
 
-	@RequestMapping(value = { "/provider/changePw", "/manufacture/changePw" }, method = RequestMethod.POST)
-	public String processPassword(
+	@RequestMapping(value = "/user/changePw", method = RequestMethod.GET)
+	public String editCommonPassword(Model uiModel, @SecurityUser SiteUser user) {
+		uiModel.addAttribute("form", new ChangePasswordForm());
+		return "user/common/changePassword";
+	}
+
+	@RequestMapping(value = "/provider/changePw", method = RequestMethod.POST)
+	public String processProviderPassword(
+			@Valid @ModelAttribute("form") ChangePasswordForm form,
+			BindingResult result, Model uiModel, @SecurityUser SiteUser user) {
+		ChangePasswordForm source = form;
+		form = translatePassword(form);
+		validateChangePassword(user, form, result);
+		if (result.hasErrors()) {
+			source.setNewPassword("");
+			source.setOldPassword("");
+			uiModel.addAttribute("form", source);
+			return "user/provider/changePassword";
+		}
+		SiteUser u = userService.updatePassword(user.getId(),
+				form.getNewPassword());
+		userContext.setCurrentUser(u);
+		return "redirect:/provider/detail";
+	}
+
+	@RequestMapping(value = "/user/changePw", method = RequestMethod.POST)
+	public String processUserPassword(
 			@Valid @ModelAttribute("form") ChangePasswordForm form,
 			BindingResult result, Model uiModel, @SecurityUser SiteUser user) {
 		ChangePasswordForm source = form;
@@ -261,11 +266,15 @@ public class LoginController {
 
 		validateChangePassword(user, form, result);
 		if (result.hasErrors()) {
+			source.setNewPassword("");
+			source.setOldPassword("");
 			uiModel.addAttribute("form", source);
-			return CHANGEPASSWORD;
+			return "user/common/changePassword";
 		}
-		userService.updatePassword(user.getId(), form.getNewPassword());
-		return "redirect:/index";
+		SiteUser u = userService.updatePassword(user.getId(),
+				form.getNewPassword());
+		userContext.setCurrentUser(u);
+		return "redirect:/user/detail";
 	}
 
 	private ChangePasswordForm translatePassword(ChangePasswordForm form) {
@@ -282,11 +291,6 @@ public class LoginController {
 		if (!StringUtils.equals(user.getPassword(), form.getOldPassword())) {
 			result.addError(new FieldError("ChangePasswordForm", "oldPassword",
 					oldPasswordError));
-		}
-		if (!StringUtils.equals(form.getNewPassword(),
-				form.getConfirmPassword())) {
-			result.addError(new FieldError("ChangePasswordForm",
-					"confirmPassword", passwordError));
 		}
 	}
 

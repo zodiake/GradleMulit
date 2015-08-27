@@ -1,7 +1,10 @@
 package com.sj.repository.util;
 
+import javax.validation.constraints.Size;
+
 public class ChangePasswordForm {
 	private String oldPassword;
+	@Size(min = 6, message = "密码最少为6位")
 	private String newPassword;
 	private String confirmPassword;
 	public String getOldPassword() {

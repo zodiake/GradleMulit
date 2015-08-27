@@ -9,7 +9,7 @@ import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sj.model.model.AdvertismentCategory;
+import com.sj.model.model.AdvertisementCategory;
 import com.sj.repository.model.AdvertisementCategoryJson;
 import com.sj.repository.repository.AdvertisementCategoryRepostiory;
 import com.sj.repository.service.AdvertisementCategoryService;
@@ -22,7 +22,7 @@ public class AdvertisementCategoryServiceImpl implements
 	private AdvertisementCategoryRepostiory repository;
 
 	@Override
-	public List<AdvertismentCategory> findAll() {
+	public List<AdvertisementCategory> findAll() {
 		return Lists.newArrayList(repository.findAll());
 	}
 

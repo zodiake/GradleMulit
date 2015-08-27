@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Advertisement;
-import com.sj.model.model.AdvertismentCategory;
+import com.sj.model.model.AdvertisementCategory;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.AdvertisementJson;
 import com.sj.repository.repository.AdvertisementRepository;
@@ -84,7 +84,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	}
 
 	@Override
-	public boolean findByActivate(AdvertismentCategory category) {
+	public boolean findByActivate(AdvertisementCategory category) {
 		List<Advertisement> advs = repository.findByActivateAndCategory(
 				ActivateEnum.ACTIVATE, category);
 		if (advs.size() == 0) {

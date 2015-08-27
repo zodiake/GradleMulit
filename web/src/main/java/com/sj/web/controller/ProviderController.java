@@ -24,10 +24,12 @@ import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.OriginalEnum;
 import com.sj.repository.service.BrandService;
+import com.sj.repository.service.CityService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ProviderIndustryInfoService;
 import com.sj.repository.service.ProviderService;
+import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.annotation.SecurityUser;
 import com.sj.web.exception.ProductNotFoundException;
@@ -50,6 +52,10 @@ public class ProviderController extends BaseController<Provider> {
 	private ProductCategoryService productCategoryService;
 	@Autowired
 	private ProviderIndustryInfoService providerIndustryInfoService;
+	@Autowired
+	private ProvinceService provinceService;
+	@Autowired
+	private CityService cityService;
 
 	private final String USERPRODUCTSEDIT = "user/products/edit";
 	private final String USERPRODUCTSEDITOK = "";
@@ -60,6 +66,8 @@ public class ProviderController extends BaseController<Provider> {
 		Provider provider = providerService.findById(user.getId());
 		uiModel.addAttribute("IndustryInfos", providerIndustryInfoService.findAll());
 		uiModel.addAttribute("user", provider);
+		uiModel.addAttribute("provinces", provinceService.findAll());
+		uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
 		return "user/provider/detail";
 	}
 
@@ -71,6 +79,7 @@ public class ProviderController extends BaseController<Provider> {
 			uiModel.addAttribute("user", provider);
 			return "user/provider/detail";
 		}
+		System.out.println(provider.getCity().getName());
 		SiteUser user = userContext.getCurrentUser();
 		provider.setId(user.getId());
 		provider = providerService.updateProvider(provider);
