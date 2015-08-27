@@ -41,13 +41,13 @@ public class ProviderController {
 	@RequestMapping(value = "/admin/providers/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ProviderDetailJson findOne(Model uiModel, @PathVariable("id") Long id) {
-		Provider provider = providerService.findOne(id);
+		Provider provider = providerService.findById(id);
 		return new ProviderDetailJson(provider);
 	}
 
 	@RequestMapping(value = "/admin/providers/{id}", method = RequestMethod.PUT)
 	public String checkUser(@PathVariable("id") Long id) {
-		Provider provider = providerService.findOne(id);
+		Provider provider = providerService.findById(id);
 		provider = providerService.checkUser(provider, ActivateEnum.ACTIVATE);
 		return null;
 	}

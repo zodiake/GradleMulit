@@ -1,6 +1,5 @@
 package com.sj.model.model;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -28,7 +27,7 @@ import com.sj.model.type.ScaleEnum;
 @Entity
 @Table(name = "provider")
 @PrimaryKeyJoinColumn
-public class Provider extends SiteUser implements Serializable {
+public class Provider extends SiteUser {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "authenticated_time")
 	private Calendar authenticatedTime; // 鉴定时间

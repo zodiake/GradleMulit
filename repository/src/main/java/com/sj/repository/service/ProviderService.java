@@ -8,8 +8,10 @@ import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.ProviderJson;
 
 public interface ProviderService {
-	public Provider findOne(Long id);
+	
 
+	public Provider findById(Long id);
+	
 	public Provider create(Provider provider);
 
 	public Provider findByName(String name);

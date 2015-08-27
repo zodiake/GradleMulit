@@ -10,6 +10,8 @@ import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
 
 public interface ProductCategoryService {
+	
+	public List<ProductCategory> findByParent(ProductCategory category);
 
 	public ProductCategory findOne(Long id);
 	
@@ -31,16 +33,13 @@ public interface ProductCategoryService {
 
 	public ProductCategory update(ProductCategory category);
 
-	public List<ProductCategory> findByParent(ProductCategory category);
+	public List<ProductCategory> findSecondCategory(ProductCategory category);
 
 	public List<ProductCategory> findByYQ();
 
 	public void delete(Long id);
 
-	public List<List<ProductCategory>> findByShowOnIndex();
-	
 	public ProductCategory findByName(String name,ActivateEnum activate);
-	
 	
 	public ProductCategory findActivateFirstCategoryById(Long id);
 	

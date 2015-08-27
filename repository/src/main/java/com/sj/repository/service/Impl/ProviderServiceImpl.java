@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.itextpdf.text.log.SysoCounter;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.ProviderJson;
@@ -27,13 +26,6 @@ public class ProviderServiceImpl implements ProviderService {
 	private ProviderRepository repository;
 	@Autowired
 	private EntityManager em;
-
-	@Override
-	public Provider findOne(Long id) {
-		Provider p = repository.findOne(id);
-				System.out.println(p.getId());
-		return p;
-	}
 
 	@Override
 	public Provider create(Provider provider) {
@@ -67,17 +59,28 @@ public class ProviderServiceImpl implements ProviderService {
 
 	@Override
 	public Provider updateProvider(Provider provider) {
-		Provider p = repository.findOne(provider.getId());
-		p.setLegalPerson(provider.getLegalPerson());
+		Provider p = repository.findById(provider.getId());
+		if (provider.getLegalPerson() == null
+				|| "".equals(provider.getLegalPerson()))
+			p.setLegalPerson("");
+		else
+			p.setLegalPerson(provider.getLegalPerson());
 		p.setComponyType(provider.getComponyType());
-		p.setRegisteredCapital(provider.getRegisteredCapital());
+		if (provider.getRegisteredCapital() == null
+				|| "".equals(provider.getRegisteredCapital()))
+			p.setRegisteredCapital("");
+		else
+			p.setRegisteredCapital(provider.getRegisteredCapital());
 		p.setIndustryInfo(provider.getIndustryInfo());
 		p.setMainProduct(provider.getMainProduct());
 		p.setBusinessType(provider.getBusinessType());
 		p.setOutput(provider.getOutput());
-		p.setWebsite(provider.getWebsite());
-		p.setProvince(provider.getProvince());
-		p.setCity(provider.getCity());
+		if (provider.getWebsite() == null || "".equals(provider.getWebsite()))
+			p.setWebsite("");
+		else
+			p.setWebsite(provider.getWebsite());
+		// p.setProvince(provider.getProvince());
+		// p.setCity(provider.getCity());
 		p.setAddress(provider.getAddress());
 		p.setCode(provider.getCode());
 		p.setRealName(p.getRealName());
@@ -85,7 +88,10 @@ public class ProviderServiceImpl implements ProviderService {
 		p.setSex(provider.getSex());
 		p.setContent(provider.getContent());
 		p.setProviderPhone(provider.getProviderPhone());
-		p.setFax(provider.getFax());
+		if (provider.getFax() == null || "".equals(provider.getFax()))
+			p.setFax("");
+		else
+			p.setFax(provider.getFax());
 		return repository.save(p);
 	}
 
@@ -105,5 +111,10 @@ public class ProviderServiceImpl implements ProviderService {
 				"update Provider p set p.isAuthenticated=:state where id=:id")
 				.setParameter("state", 1).setParameter("id", id)
 				.executeUpdate();
+	}
+
+	@Override
+	public Provider findById(Long id) {
+		return repository.findById(id);
 	}
 }

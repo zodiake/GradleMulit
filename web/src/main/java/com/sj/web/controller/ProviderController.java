@@ -26,6 +26,7 @@ import com.sj.model.type.OriginalEnum;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
+import com.sj.repository.service.ProviderIndustryInfoService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.annotation.SecurityUser;
@@ -47,26 +48,17 @@ public class ProviderController extends BaseController<Provider> {
 	private BrandService brandService;
 	@Autowired
 	private ProductCategoryService productCategoryService;
+	@Autowired
+	private ProviderIndustryInfoService providerIndustryInfoService;
 
 	private final String USERPRODUCTSEDIT = "user/products/edit";
 	private final String USERPRODUCTSEDITOK = "";
-	private final String PROVIDERCREATEOK = "";
-
-	@RequestMapping(value = "/providers", method = RequestMethod.GET)
-	public String findAllProvider(Model uiModel) {
-		Provider provider = providerService.findOne(6l);
-		uiModel.addAttribute("provider", provider);
-		return PROVIDERCREATEOK;
-	}
 
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
-		System.out.println(user.getId());
-		Provider provider = providerService.findOne(user.getId());
-		if (provider == null) {
-			throw new UserNotFoundException();
-		}
+		Provider provider = providerService.findById(user.getId());
+		uiModel.addAttribute("IndustryInfos", providerIndustryInfoService.findAll());
 		uiModel.addAttribute("user", provider);
 		return "user/provider/detail";
 	}
@@ -83,7 +75,7 @@ public class ProviderController extends BaseController<Provider> {
 		provider.setId(user.getId());
 		provider = providerService.updateProvider(provider);
 		uiModel.addAttribute("user", provider);
-		return "user/provider/detail";
+		return "redirect:/provider/detail";
 	}
 
 	@RequestMapping(value = "/provider/products/{status}", method = RequestMethod.GET)

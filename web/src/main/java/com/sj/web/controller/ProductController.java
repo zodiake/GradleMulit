@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sj.model.model.Product;
 import com.sj.model.model.Review;
@@ -40,13 +41,14 @@ public class ProductController {
 	private final String DETAIL = "product/product";
 
 	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-	public String view(Model uiModel, @PathVariable(value = "id") Long id) {
+	public String view(Model uiModel, @PathVariable(value = "id") Long id,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size) {
 		Product product = productService.findOne(id);
 		if (product == null)
 			throw new ProductNotFoundException();
 		productService.addViewCount(id);
-		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(0, 10, Direction.DESC, "createdTime"));
-
+		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
 		uiModel.addAttribute("product", product);
 		uiModel.addAttribute("reviewPage", reviewPage);
 		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());

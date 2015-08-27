@@ -102,7 +102,7 @@ public class ProductCategoryController {
 		ProductCategory pc = pcService.findByName(name, ActivateEnum.ACTIVATE);
 		if (pc == null)
 			throw new CategoryNotFoundException();
-		List<ProductCategory> categories = pcService.findByParent(pc);
+		List<ProductCategory> categories = pcService.findByParentAndActivate(pc, ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pc", pc);
 		uiModel.addAttribute("categories", categories);
 		return "/productcategory/productCategorys";

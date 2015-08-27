@@ -188,7 +188,7 @@
 					th:text="${product.content.content}"></div>
 				<div class="tab-panel global-box about-special hide">
 					<ul>
-						<li th:each="subject:${product.getSubjects()}"><a>
+						<li th:each="subject:${product.getSubjects()}"><a th:href="'/subjects/'+${subject.id}">
 								<div class="title">
 									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
 								</div>

@@ -1,6 +1,5 @@
 package com.sj.repository.service.Impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -80,7 +79,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public List<ProductCategory> findByParent(ProductCategory category) {
+	@Cacheable(value="secondProductCategoryCache",key="#category.id")
+	public List<ProductCategory> findSecondCategory(ProductCategory category) {
 		return repository.findByParentAndActivate(category,
 				ActivateEnum.ACTIVATE);
 	}
@@ -107,20 +107,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public List<List<ProductCategory>> findByShowOnIndex() {
-		List<List<ProductCategory>> pcs = new ArrayList<List<ProductCategory>>();
-		List<ProductCategory> yqs = findByParent(new ProductCategory(1l));
-		List<ProductCategory> shs = findByParent(new ProductCategory(2l));
-		List<ProductCategory> hcs = findByParent(new ProductCategory(3l));
-		List<ProductCategory> fws = findByParent(new ProductCategory(4l));
-		pcs.add(yqs);
-		pcs.add(shs);
-		pcs.add(hcs);
-		pcs.add(fws);
-		return pcs;
-	}
-
-	@Override
 	public ProductCategory findOneActivate(Long id) {
 		return repository.findByIdAndActivate(id, ActivateEnum.ACTIVATE);
 	}
@@ -141,6 +127,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Cacheable(value = "productCategoryCache",key="#name")
 	public ProductCategory findByName(String name, ActivateEnum activate) {
 		return repository.findByNameAndActivate(name, activate);
+	}
+
+	@Override
+	public List<ProductCategory> findByParent(ProductCategory category) {
+		return repository.findByParentAndActivate(category,ActivateEnum.ACTIVATE);
 	}
 
 }

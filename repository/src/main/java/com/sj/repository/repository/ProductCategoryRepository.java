@@ -16,6 +16,8 @@ public interface ProductCategoryRepository extends
 	Set<ProductCategory> findAll();
 	
 	ProductCategory findByIdAndActivate(Long id,ActivateEnum activate);
+	
+	List<ProductCategory> findByParent(ProductCategory category);
 
 	Page<ProductCategory> findByParent(Pageable pageable,ProductCategory category);
 

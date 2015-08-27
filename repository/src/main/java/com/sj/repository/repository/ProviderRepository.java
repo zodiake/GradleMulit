@@ -11,5 +11,7 @@ public interface ProviderRepository extends
 		PagingAndSortingRepository<Provider, Long> {
 	Provider findByName(String name);
 	
+	Provider findById(Long id);
+	
 	Page<Provider> findByEnabled(Pageable pageable ,ActivateEnum activate);
 }
