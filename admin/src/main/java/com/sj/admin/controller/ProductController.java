@@ -47,9 +47,11 @@ import com.sj.model.model.Content;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
+import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.OriginalEnum;
 import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 
 @Controller
@@ -58,6 +60,8 @@ public class ProductController {
 	private ProductService productService;
 	@Autowired
 	private SiteUserContext context;
+	@Autowired
+	private ProductCategoryService productCategoryService;
 
 	@RequestMapping(value = "/admins/product", method = RequestMethod.GET, params = "batch")
 	public String createBatch() {
@@ -186,12 +190,9 @@ public class ProductController {
 						.getCell(6).getStringCellValue()));
 				product.setPrice((float) hssfRow.getCell(7)
 						.getNumericCellValue());
-				product.setFirstCategory(ProductCategory.getFirst(hssfRow
-						.getCell(8).getStringCellValue()));
-				product.setSecondCategory(ProductCategory.getFirst(hssfRow
-						.getCell(9).getStringCellValue()));
-				product.setThirdCategory(ProductCategory.getFirst(hssfRow
-						.getCell(10).getStringCellValue()));
+				product.setFirstCategory(productCategoryService.findByName(hssfRow.getCell(8).getStringCellValue(), ActivateEnum.ACTIVATE));
+				product.setSecondCategory(productCategoryService.findByName(hssfRow.getCell(9).getStringCellValue(), ActivateEnum.ACTIVATE));
+				product.setThirdCategory(productCategoryService.findByName(hssfRow.getCell(10).getStringCellValue(), ActivateEnum.ACTIVATE));
 				product.setLabel(hssfRow.getCell(11).getStringCellValue());
 				String text = hssfRow.getCell(12).getStringCellValue();
 				if (text != null && text.length() != 0) {
