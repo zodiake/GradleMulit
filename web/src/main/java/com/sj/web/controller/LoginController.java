@@ -41,6 +41,7 @@ import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.repository.service.UserIndustryInfoService;
 import com.sj.repository.util.ChangePasswordForm;
+import com.sj.repository.util.MobileVerificationForm;
 import com.sj.repository.util.RetrievePasswordForm;
 import com.sj.web.annotation.SecurityUser;
 import com.sj.web.security.SiteUserContext;
@@ -293,29 +294,47 @@ public class LoginController {
 	}
 
 	/* forget password */
-	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/forgetPw", method = RequestMethod.GET)
 	public String forgetPw(Model uiModel) {
-
-		return "index";
+		uiModel.addAttribute("form", new MobileVerificationForm());
+		return "user/forgetPw";
 	}
 
-	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.POST)
-	public String forgetPwVaildata(
-			@ModelAttribute("retrieve") RetrievePasswordForm form, Model uiModel) {
-		uiModel.addAttribute("form", new RetrievePasswordForm("13700000001"));
-		return "user/changePassword";
-	}
-
-	@RequestMapping(value = { "/provider/forgetPw", "/siteUser/forgetPw" }, method = RequestMethod.PUT)
-	public String forgetPwProcess(
-			@ModelAttribute("retrieve") RetrievePasswordForm form,
-			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-
+	@RequestMapping(value ="/forgetPw", method = RequestMethod.POST)
+	public String forgetPwVaildata(@Valid @ModelAttribute("form") MobileVerificationForm form,BindingResult result, Model uiModel) {
+		if(result.hasErrors()){
+			form.setCode(null);
+			uiModel.addAttribute("form", form);
+			return "user/forgetPw";
 		}
 		SiteUser user = userService.findByPhone(form.getPhone());
-		userService.updatePassword(user.getId(),
-				encoder.encodePassword(form.getPassword(), null));
+		if(user==null){
+			result.addError(new FieldError("form", "phone","该手机号码未注册"));
+			form.setCode(null);
+			uiModel.addAttribute("form", form);
+			return "user/forgetPw";
+		}
+		uiModel.addAttribute("form", new RetrievePasswordForm(form.getPhone()));
+		return "user/changePw";
+	}
+
+	@RequestMapping(value = "/forgetPw", method = RequestMethod.PUT)
+	public String forgetPwProcess(@Valid @ModelAttribute("form") RetrievePasswordForm form,BindingResult bindingResult,Model uiModel) {
+		if (bindingResult.hasErrors()) {
+			form.setPassword(null);
+			form.setConfirm(null);
+			uiModel.addAttribute("form", form);
+			return "user/changePw";
+		}
+		if (!StringUtils.equals(form.getPassword(), form.getConfirm())) {
+			bindingResult.addError(new FieldError("form", "confirm","两次输入的密码不一致"));
+			form.setPassword(null);
+			form.setConfirm(null);
+			uiModel.addAttribute("form", form);
+			return "user/changePw";
+		}
+		SiteUser user = userService.findByPhone(form.getPhone());
+		userService.updatePassword(user.getId(),encoder.encodePassword(form.getPassword(), null));
 		return "redirect:/login";
 	}
 

@@ -4,6 +4,8 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"></link>
   	<meta charset="UTF-8"/>
  	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+ 	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
  	<meta name="description" content=""/>
  	<title>登录</title>
  	<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
@@ -62,7 +64,7 @@
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<div class="clearfix">
 					<button class="btn orange fl">登录</button>
-					<a class="fr blue">忘记密码？</a>
+					<a class="fr blue" href="/forgetPw">忘记密码？</a>
 				</div>
 			</form>
 		</div>		
