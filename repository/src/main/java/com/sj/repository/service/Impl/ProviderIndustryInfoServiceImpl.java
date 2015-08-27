@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.ProviderIndustryInfo;
@@ -17,7 +18,7 @@ public class ProviderIndustryInfoServiceImpl implements
 		ProviderIndustryInfoService {
 	@Autowired
 	private ProviderIndustryInfoRepository repository;
-	
+	@Cacheable(value="ProviderIndustryInfoCache")
 	public List<ProviderIndustryInfo> findAll() {
 		
 		return repository.findAll();

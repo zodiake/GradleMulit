@@ -6,4 +6,5 @@ import com.sj.model.model.ProviderIndustryInfo;
 
 public interface ProviderIndustryInfoService {
 	public List<ProviderIndustryInfo> findAll();
+	
 }
