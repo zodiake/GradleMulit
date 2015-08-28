@@ -90,7 +90,6 @@ public class CartController {
 			@PathVariable(value = "check") Boolean check) {
 		if (!userContext.isLogin())
 			return "fail";
-		System.out.println("check......."+check);
 		SiteUser user = userContext.getCurrentUser();
 		cartLineService.updateCheck(user.getId(), cartLineId, check.toString());
 		return "success";
@@ -100,9 +99,6 @@ public class CartController {
 	private String list(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lists = cartLineService.findByUser(user.getId());
-		for (CartLine cartLine : lists) {
-			System.out.println(cartLine.getId()+"/"+cartLine.getCheck());
-		}
 		uiModel.addAttribute("list", lists);
 		uiModel.addAttribute("pc", new ProductCategory());
 		return LIST;

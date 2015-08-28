@@ -8,11 +8,13 @@ $(function() {
 		function verify(productId){
 			$.ajax({
 				type : 'put',
-				url : '/provider/products/'+productId+'/VERIFY',
+				url : '/provider/products/'+productId+'/EXAMINE',
 				success : function(data){
 					var td = $("#tr"+productId);
 					td.empty();
-					td.append(data);
+					if($("#all").attr("class")){
+						td.append(data);
+					}
 				},error : function(data){
 					alert(data);
 				}
@@ -21,29 +23,28 @@ $(function() {
 		function out(productId){
 			$.ajax({
 				type : 'put',
-				url : '/provider/products/'+productId+'/OUT',
+				url : '/provider/products/'+productId+'/DOWN',
 				success : function(data){
 					var td = $("#tr"+productId);
 					td.empty();
-					td.append(data);
+					if($("#all").attr("class")){
+						td.append(data);
+					}
 				},error : function(data){
 					alert("error");
 				}
 			});
 		}
 		$(".pass").click(function(){
-			var pass = $(this);
-			var productId = pass.attr("data-id");
-			verify(productId);
+			var pass = $(this).parent();
+			verify(pass.attr('data-id'));
 		});
 		$(".nopass").click(function(){
-			var pass = $(this);
-			var productId = pass.attr("data-id");
-			out(productId);
+			var pass = $(this).parent();
+			out(pass.attr('data-id'));
 		});
 		$(".off").click(function(){
-			var pass = $(this);
-			var productId = pass.attr("data-id");
-			out(productId);
+			var pass = $(this).parent();
+			out(pass.attr('data-id'));
 		});
 	});

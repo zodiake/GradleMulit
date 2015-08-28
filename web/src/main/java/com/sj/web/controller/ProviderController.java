@@ -32,6 +32,7 @@ import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.annotation.SecurityUser;
+import com.sj.web.exception.EnumNotFoundException;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.UserContext;
 
@@ -92,23 +93,27 @@ public class ProviderController extends BaseController<Provider> {
 		return "redirect:/provider/detail";
 	}
 
+	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)
+	public String findAllProductByProvider(Model uiModel,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "15") int size,
+			@SecurityUser SiteUser user) {
+		Page<Product> products = productService.findByUsers(
+				new Provider(user.getId()), new PageRequest(page - 1, size,
+						Direction.DESC, "createdTime"));
+		uiModel.addAttribute("lists", products);
+		return "user/provider/maintain";
+	}
+
 	@RequestMapping(value = "/provider/products/{status}", method = RequestMethod.GET)
-	public String productLists(Model uiModel,
+	public String findAllProductByProviderAndStatus(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size,
 			@SecurityUser SiteUser user, @PathVariable("status") String status) {
-		System.out.println("user" + user.getId());
-		Page<Product> products = null;
-		if (status.equals(ProductStatusEnum.ALL.toString().toUpperCase())) {
-
-			products = productService.findByUsers(new Provider(user.getId()),
-					new PageRequest(page - 1, size, Direction.DESC,
-							"createdTime"));
-		} else {
-			products = productService.findByUsers(new Provider(user.getId()),
-					new PageRequest(page - 1, size, Direction.DESC,
-							"createdTime"), ProductStatusEnum.stringToEnum(status));
-		}
+		Page<Product> products = productService.findByUsers(
+				new Provider(user.getId()), new PageRequest(page - 1, size,
+						Direction.DESC, "createdTime"), ProductStatusEnum
+						.stringToEnum(status));
 		uiModel.addAttribute("lists", products);
 		uiModel.addAttribute("status", ProductStatusEnum.stringToEnum(status));
 		return "user/provider/maintain";
@@ -132,15 +137,17 @@ public class ProviderController extends BaseController<Provider> {
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
 		if (bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
+			System.out.println(bindingResult.getAllErrors().get(0)
+					.getDefaultMessage());
 			uiModel.addAttribute("brands", brandService.findAll());
-			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			List<ProductCategory> pcs = productCategoryService
+					.findAllFirstCategory(ActivateEnum.ACTIVATE);
 			uiModel.addAttribute("pcs", pcs);
 			uiModel.addAttribute("product", product);
 			return "user/provider/release";
 		}
 		product.setCreatedBy(new Provider(user.getId()));
-		productService.saveOne(product);
+		product = productService.saveOne(product);
 		uiModel.addAttribute("product", product);
 		return "redirect:/provider/products/ALL";
 	}
@@ -176,7 +183,10 @@ public class ProviderController extends BaseController<Provider> {
 				new Provider(user.getId()), id);
 		if (product == null)
 			throw new ProductNotFoundException();
-		product = productService.saveOne(product);
+		ProductStatusEnum productStatusEnum = ProductStatusEnum.stringToEnum(status);
+		if(productStatusEnum==null)
+			throw new EnumNotFoundException();
+		product = productService.updateStatus(product, ProductStatusEnum.stringToEnum(status));
 		uiModel.addAttribute("product", product);
 		return "user/provider/maintaintd";
 	}
