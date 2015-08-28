@@ -13,4 +13,6 @@ public interface InstrumentService {
 	public Instrument update(Instrument instrument);
 	
 	public Page<Instrument> findAll(Pageable pageable);
+	
+	public Instrument saveNoPublisher(Instrument instrument);
 }

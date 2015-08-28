@@ -19,21 +19,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sj.model.model.Consumable;
 import com.sj.model.model.Instrument;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
+import com.sj.model.model.Reagents;
+import com.sj.model.model.Service;
 import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.CityService;
+import com.sj.repository.service.ConsumableService;
 import com.sj.repository.service.InstrumentService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ProviderIndustryInfoService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
+import com.sj.repository.service.ReagentsService;
+import com.sj.repository.service.ServiceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.annotation.SecurityUser;
 import com.sj.web.exception.EnumNotFoundException;
@@ -62,7 +68,13 @@ public class ProviderController extends BaseController<Provider> {
 	private CityService cityService;
 	@Autowired
 	private InstrumentService instrumentService;
-
+	@Autowired
+	private ConsumableService comsumableService;
+	@Autowired
+	private ReagentsService reagentsService;
+	@Autowired
+	private ServiceService serviceService;
+	
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
@@ -145,14 +157,120 @@ public class ProviderController extends BaseController<Provider> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
 			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			if(instrument.getSecondCategory()!=null){
+				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(instrument.getFirstCategory(), ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("secondCategory", secondCategory);
+			}
+			if(instrument.getSecondCategory()!=null){
+				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(instrument.getSecondCategory(), ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("thirdCategory", thirdCategory);
+			}
 			uiModel.addAttribute("pcs", pcs);
 			uiModel.addAttribute("product", instrument);
 			return "user/provider/release";
 		}
+		instrument.setCoverImg("/img/111.jpg");
 		instrument.setCreatedBy(new Provider(user.getId()));
 		instrument.setCreatedTime(Calendar.getInstance());
 		instrument.setStatus(ProductStatusEnum.EXAMINE);
-		instrumentService.save(instrument);
+		
+		instrumentService.saveNoPublisher(instrument);
+		return "redirect:/provider/products";
+	}
+	@RequestMapping(value = "/provider/consumables", method = RequestMethod.POST, params = "form")
+	public String createConsumable(
+			@Valid @ModelAttribute("product") Consumable consumable,
+			BindingResult bindingResult, Model uiModel,
+			@SecurityUser SiteUser user) {
+		float price = consumable.getPrice();
+		if (price == 0.0f) {
+			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
+		}
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("brands", brandService.findAll());
+			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			if(consumable.getSecondCategory()!=null){
+				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(consumable.getFirstCategory(), ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("secondCategory", secondCategory);
+			}
+			if(consumable.getSecondCategory()!=null){
+				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(consumable.getSecondCategory(), ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("thirdCategory", thirdCategory);
+			}
+			uiModel.addAttribute("pcs", pcs);
+			uiModel.addAttribute("product", consumable);
+			return "user/provider/release";
+		}
+		consumable.setCoverImg("/img/111.jpg");
+		consumable.setCreatedBy(new Provider(user.getId()));
+		consumable.setCreatedTime(Calendar.getInstance());
+		consumable.setStatus(ProductStatusEnum.EXAMINE);
+		
+		comsumableService.saveNoPublisher(consumable);
+		return "redirect:/provider/products";
+	}
+	@RequestMapping(value = "/provider/reagents", method = RequestMethod.POST, params = "form")
+	public String createReagents(
+			@Valid @ModelAttribute("product") Reagents reagents,
+			BindingResult bindingResult, Model uiModel,
+			@SecurityUser SiteUser user) {
+		float price = reagents.getPrice();
+		if (price == 0.0f) {
+			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
+		}
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("brands", brandService.findAll());
+			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			if(reagents.getSecondCategory()!=null){
+				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(reagents.getFirstCategory(), ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("secondCategory", secondCategory);
+			}
+			if(reagents.getSecondCategory()!=null){
+				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(reagents.getSecondCategory(), ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("thirdCategory", thirdCategory);
+			}
+			uiModel.addAttribute("pcs", pcs);
+			uiModel.addAttribute("product", reagents);
+			return "user/provider/release";
+		}
+		reagents.setCoverImg("/img/111.jpg");
+		reagents.setCreatedBy(new Provider(user.getId()));
+		reagents.setCreatedTime(Calendar.getInstance());
+		reagents.setStatus(ProductStatusEnum.EXAMINE);
+		
+		reagentsService.saveNoPublisher(reagents);
+		return "redirect:/provider/products";
+	}
+	@RequestMapping(value = "/provider/services", method = RequestMethod.POST, params = "form")
+	public String createInstrument(
+			@Valid @ModelAttribute("product") Service service,
+			BindingResult bindingResult, Model uiModel,
+			@SecurityUser SiteUser user) {
+		float price = service.getPrice();
+		if (price == 0.0f) {
+			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
+		}
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("brands", brandService.findAll());
+			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			if(service.getSecondCategory()!=null){
+				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(service.getFirstCategory(), ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("secondCategory", secondCategory);
+			}
+			if(service.getSecondCategory()!=null){
+				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(service.getSecondCategory(), ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("thirdCategory", thirdCategory);
+			}
+			uiModel.addAttribute("pcs", pcs);
+			uiModel.addAttribute("product", service);
+			return "user/provider/release";
+		}
+		service.setCoverImg("/img/111.jpg");
+		service.setCreatedBy(new Provider(user.getId()));
+		service.setCreatedTime(Calendar.getInstance());
+		service.setStatus(ProductStatusEnum.EXAMINE);
+		
+		serviceService.saveNoPublisher(service);
 		return "redirect:/provider/products";
 	}
 

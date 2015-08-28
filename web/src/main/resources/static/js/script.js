@@ -55,6 +55,11 @@ $(function(){
 			$(this).find('input').prop('checked', true);
 		}
 	})
+	$('#price').keyup(function(){      
+        $(this).val($(this).val().replace(/[^0-9.]/g,''));      
+    }).bind("paste",function(){       
+        $(this).val($(this).val().replace(/[^0-9.]/g,''));       
+    }) 
 })
 
 function selectAll(){

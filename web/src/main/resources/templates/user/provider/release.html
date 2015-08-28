@@ -45,7 +45,7 @@
 					<a href="/provider/count">商品信息统计</a>
 				</div>
 				<div class="mainpanel bodr basic-info push-good fr">
-					<form th:object="${product}" method="post" action="/provider/instrument?form">	
+					<form th:object="${product}" method="post" action="/provider/instruments?form">	
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 		
 						<div class="form-group">
 							<div class="fl">
@@ -121,7 +121,7 @@
 						<div class="form-group">
 							<div class="fl">
 							<label><i>*</i>标签</label>							
-							<input type="text" class="w630" th:text="*{label}"/>
+							<input type="text" class="w630" th:field="*{label}"/>
 							<i class="error" th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
 							</div>
 						</div>	
