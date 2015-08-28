@@ -89,7 +89,7 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
 
         $scope.create = function () {
             $modal.open({
-                templateUrl: '/admin/createAdvertise',
+                templateUrl: '/admin/advertise?create',
                 size: 'sm',
                 controller: 'CreateAdvertiseController',
                 resolve: {
@@ -102,7 +102,7 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
 
         $scope.view = function (item) {
             $modal.open({
-                templateUrl: '/admin/createAdvertise',
+                templateUrl: '/admin/advertise?create',
                 size: 'sm',
                 controller: 'AdvertiseDetailController',
                 resolve: {

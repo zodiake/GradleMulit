@@ -2,7 +2,7 @@ var infoModule = angular.module('Info', []);
 
 infoModule.service('InfoService', ['$http', function ($http) {
     this.findAll = function (opt) {
-        $http.get('/admin/information', {
+        return $http.get('/admin/information', {
             params: opt
         });
     };
@@ -31,5 +31,23 @@ infoModule.controller('InfoController', ['$scope',
             size: $scope.size,
             state: $scope.state
         });
+
+        $scope.search = function () {
+            init({
+                page: $scope.page,
+                size: $scope.size,
+                state: $scope.state
+            });
+        }
     }
 ]);
+
+infoModule.controller('InfoCreateController', ['$scope', function ($scope) {
+    $scope.editorOptions = {
+        uiColor: '#000000',
+        filebrowserBrowseUrl: '/upload',
+        filebrowserUploadUrl: '/img/upload?',
+        width: 895,
+        height: 300
+    };
+}]);

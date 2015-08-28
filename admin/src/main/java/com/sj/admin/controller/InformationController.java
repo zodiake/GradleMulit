@@ -28,12 +28,11 @@ public class InformationController {
 
 	@RequestMapping(value = "/admin/information", method = RequestMethod.GET)
 	@ResponseBody
-	public Page<InformationJson> findAll(
-			Model uiModel,
-			@RequestParam(required = false, value = "state") ActivateEnum activate,
+	public Page<InformationJson> findAll(Model uiModel,
+			@RequestParam(required = false, value = "state") String state,
 			@RequestParam(defaultValue = "1", value = "page") int page,
 			@RequestParam(defaultValue = "15", value = "size") int size) {
-
+		ActivateEnum activate = ActivateEnum.fromString(state);
 		return informationService.findAllJson(new PageRequest(page - 1, size,
 				Direction.DESC, "createdTime"), activate);
 	}

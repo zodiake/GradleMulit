@@ -64,7 +64,7 @@ public class IndexController extends UploadController {
 		return "advertisement/advertisement";
 	}
 
-	@RequestMapping(value = "/createAdvertise")
+	@RequestMapping(value = "/advertise", params = "create")
 	public String createAdvertise() {
 		return "advertisement/createAdvertise";
 	}
@@ -77,5 +77,10 @@ public class IndexController extends UploadController {
 	@RequestMapping(value = "/info")
 	public String info() {
 		return "information/info";
+	}
+
+	@RequestMapping(value = "/info", params = "form")
+	public String newInfo() {
+		return "information/create";
 	}
 }

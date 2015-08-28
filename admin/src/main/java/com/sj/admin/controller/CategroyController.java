@@ -35,10 +35,17 @@ public class CategroyController {
 		return advertisementCategoryService.findAllJson();
 	}
 
+	@RequestMapping(value = "/admin/info/category", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AdvertisementCategoryJson> findInfoCategory() {
+		return advertisementCategoryService.findAllJson();
+	}
+
 	@RequestMapping(value = "/admin/category/{category}", method = RequestMethod.GET, params = "children")
 	@ResponseBody
 	public List<Category> findCategroyByParent(@PathVariable("category") Long id) {
-		List<ProductCategory> pcs = productCategoryService.findByParent(new ProductCategory(id));
+		List<ProductCategory> pcs = productCategoryService
+				.findByParent(new ProductCategory(id));
 		List<Category> categories = pcs.stream()
 				.map((r) -> new Category(r.getId(), r.getName()))
 				.collect(Collectors.toList());
