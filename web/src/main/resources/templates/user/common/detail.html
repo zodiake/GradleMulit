@@ -34,8 +34,7 @@
 					<div class="tab-conts tab-con basic-info">
 						<div class="tab-panel form-control">
 							<form th:object="${user}" th:method="put">
-								<input type="hidden" th:name="${_csrf.parameterName}"
-									th:value="${_csrf.token}" />
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 								<div class="form-group">
 									<div class="fl">
 										<label>邮箱</label> <input type="text" th:field="*{email}" readonly="readonly" />

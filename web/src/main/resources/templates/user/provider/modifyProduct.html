@@ -1,0 +1,70 @@
+	<div class="mainpanel bodr push-good fr">
+		<form th:object="${product}" method="put">
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+			<div class="form-group">
+				<label><i>*</i>产品名称</label> <input type="text" th:field="*{name}" />
+				<label>产品英文名</label> <input type="text" th:field="*{nameEnglish}" />
+			</div>
+			<div class="form-group">
+				<label><i>*</i>产品型号</label> <input type="text" th:field="*{model}" />
+				<label><i>*</i>产品规格/单位</label> <input type="text"
+					th:field="*{specifications}" />
+			</div>
+			<div class="form-group">
+				<label><i>*</i>品牌</label> <select class="w235" th:field="*{brand}">
+					<option value="">请选择</option>
+					<option th:each="brand:${brands}" th:text="${brand.name}"
+						th:value="${brand.id}"></option>
+				</select> <label><i>*</i>产地</label> <select class="w235"
+					th:field="*{placeOfProduction}">
+					<option value="">请选择</option>
+					<option th:value="DOMESTIC">国内</option>
+					<option th:value="EUROPEANDUS">欧美</option>
+					<option th:value="OTHER">其他</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>参考报价</label> <input type="text" th:field="*{price}" />
+			</div>
+			<div class="form-group">
+				<label><i>*</i>产品类别</label> <select class="w200"
+					th:field="*{firstCategory}">
+					<option th:each="category:${pcs}" th:value="${category.id}"
+						th:text="${category.name}"></option>
+				</select> 
+				<select class="w200" th:field="*{secondCategory}">
+					<option th:each="category:${seconds}" th:value="${category.id}" th:text="${category.name}"></option>
+				</select> 
+				<select class="w200" th:field="*{thirdCategory}">
+				<option value="">请选择</option>
+					<option th:each="category:${thirds}" th:value="${category.id}" th:text="${category.name}"></option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>标签</label> <input type="text" class="w630"
+					th:text="*{label}" />
+			</div>
+			<div class="form-group">
+				<label><i>*</i>产品图片</label> <input type="file" /> <span
+					class="file-type">(只上传小于XXXK的图片)</span>
+			</div>
+			<div class="form-group clearfix" style="height: 400px;">
+				<label class="fl"><i>*</i>产品介绍</label>
+				<div class="fl edit w630" style="height: 400px;">
+					<textarea class="w630" th:field="*{content.content}"></textarea>
+				</div>
+			</div>
+			<div class="point">
+				<div class="red">[重要提示]</div>
+				<p>1.
+					为了规范申捷电商平台信息发布，产品修改后需要重新通过审核，我们会在2-4小时内进行一次审核工作，网络繁忙时1个工作日内审核。</p>
+				<p>2.
+					产品名称中只能包含一种产品，不得把产品系列当作单条产品发布；可加入型号，但不允许加入其它任何如联系方式、价格或“进口”“国产”“现货”等,或和产品名称无关的符号。否则，我们有权更改或删除。</p>
+			</div>
+			<div class="center">
+				<button class="btn green">发布</button>
+				<button class="btn default">cancel</button>
+			</div>
+		</form>
+	</div>

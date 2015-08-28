@@ -6,6 +6,10 @@ $(function(){
 		$('.tab-conts .tab-panel').eq(index).show().siblings().hide();
 	})
 	$('.change-color tr:even').css('background','#eee');
+	$('.show-wrap a,button.show-wrap,.temped,.show-wrap').click(function(){
+		$('.hide-wrap').fadeIn();
+		$('.fixed').fadeIn();
+	})
 	$('a.download').click(function(){
 		$('.hide-wrap-small').fadeIn();
 		$('.fixed').fadeIn();

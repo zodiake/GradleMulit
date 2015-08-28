@@ -1,4 +1,7 @@
+
 <td th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015年01月11日</td>
+	<script type="text/javascript" th:src="@{/js/maintain.js}">
+	</script>
 <script type="text/javascript" th:src="@{/js/maintain.js}"></script>
 <td><a th:text="${product.name}">名称名称</a></td>
 <td><span class="one-sort"
@@ -11,13 +14,16 @@
 		th:case="${'EXAMINE'}">审核中</a> <a th:case="${'UP'}">已上架</a> <a
 		th:case="${'NOT'}">未通过</a> <a th:case="${'DOWN'}">已下架</a>
 </i></td>
-<td class="show-wrap"><i th:switch="${product.status.toString()}">
-		<i class="blue" th:case="${'EXAMINE'}" th:attr="data-id=${product.id}"><a
-			class="off">撤销</a></i> <i class="blue" th:case="${'UP'}"
-		th:attr="data-id=${product.id}"> <a class="blue nopass">下架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-			class="blue">修改</a></i> <i class="blue" th:case="${'DOWN'}"
-		th:attr="data-id=${product.id}"><a class="blue pass">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-			class="blue">修改</a></i> <i class="blue" th:case="${'NOT'}"
-		th:attr="data-id=${product.id}"> <a class="blue pass">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-			class="blue">修改</a></i>
-</i></td>
+<i th:switch="${product.status.toString()}">
+	<td class="show-wrap" th:attr="data-id=${product.id}"
+	th:case="${'EXAMINE'}"><a class="blue revoke">撤销</a></td>
+	<td class="show-wrap" th:attr="data-id=${product.id}" th:case="${'UP'}">
+		<a class="blue down">下架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue">修改</a>
+</td>
+	<td class="show-wrap1" th:attr="data-id=${product.id}"
+	th:case="${'DOWN'}"><a class="blue up">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+		class="blue">修改</a></td>
+	<td class="show-wrap1" th:attr="data-id=${product.id}"
+	th:case="${'NOT'}"><a class="blue up">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+		class="blue">修改</a></td>
+</i>

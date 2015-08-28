@@ -125,8 +125,7 @@ public class ProviderController extends BaseController<Provider> {
 		Product p = new Product();
 		uiModel.addAttribute("product", new Product());
 		uiModel.addAttribute("brands", brandService.findAll());
-		List<ProductCategory> pcs = productCategoryService
-				.findAllFirstCategory(ActivateEnum.ACTIVATE);
+		List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pcs", pcs);
 		return "user/provider/release";
 	}
@@ -149,17 +148,25 @@ public class ProviderController extends BaseController<Provider> {
 		product.setCreatedBy(new Provider(user.getId()));
 		product = productService.saveOne(product);
 		uiModel.addAttribute("product", product);
-		return "redirect:/provider/products/ALL";
+		return "redirect:/provider/products";
 	}
 
 	/* 商品发布 end */
 
 	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.GET, params = "edit")
 	public String edit(Model uiModel, @PathVariable("id") Long id) {
-		Provider user = (Provider) userContext.getCurrentUser();
-		Product product = productService.findOneByUser(user, id);
+		System.out.println("edit..............");
+		SiteUser siteUser =  userContext.getCurrentUser();
+		Product product = productService.findOneByUser(new Provider(siteUser.getId()), id);
 		uiModel.addAttribute("product", product);
-		return USERPRODUCTSEDIT;
+		uiModel.addAttribute("brands", brandService.findAll());
+		List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+		List<ProductCategory> secondCategories = productCategoryService.findByParent(product.getFirstCategory());
+		List<ProductCategory> thirdCategories = productCategoryService.findByParent(product.getSecondCategory());
+		uiModel.addAttribute("pcs", pcs);
+		uiModel.addAttribute("seconds", secondCategories);
+		uiModel.addAttribute("thirds", thirdCategories);
+		return "user/provider/modifyProduct";
 	}
 
 	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.PUT, params = "edit")
