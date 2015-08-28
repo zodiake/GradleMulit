@@ -53,7 +53,7 @@ public class Product {
 	@NotBlank(message = "请上传商品图片")
 	@Column(name = "cover_img")
 	protected String coverImg;
-	@NotNull(message="价格不能为空")
+	
 	protected float price;
 
 	@NotNull(message = "请选择一级目录")

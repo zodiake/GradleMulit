@@ -168,13 +168,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product saveOne(Product product) {
 		product.setCreatedTime(Calendar.getInstance());
 		product.setStatus(ProductStatusEnum.EXAMINE);
-//		switch (product.getFirstCategory().getId().toString()) {
-//		case "1":
-			Instrument instrument = new Instrument(product);
-			instrumentService.save(instrument);
-			return product;
-//		}
-//		return repository.save(product);
+		return product;
 	}
 
 	@Override

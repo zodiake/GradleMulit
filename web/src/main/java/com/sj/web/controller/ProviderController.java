@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,9 +57,6 @@ public class ProviderController extends BaseController<Provider> {
 	private ProvinceService provinceService;
 	@Autowired
 	private CityService cityService;
-
-	private final String USERPRODUCTSEDIT = "user/products/edit";
-	private final String USERPRODUCTSEDITOK = "";
 
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
@@ -135,9 +133,11 @@ public class ProviderController extends BaseController<Provider> {
 			@Valid @ModelAttribute("product") Product product,
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
+		float price = product.getPrice();
+		if(price==0.0f){
+			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
+		}
 		if (bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getAllErrors().get(0)
-					.getDefaultMessage());
 			uiModel.addAttribute("brands", brandService.findAll());
 			List<ProductCategory> pcs = productCategoryService
 					.findAllFirstCategory(ActivateEnum.ACTIVATE);
@@ -150,12 +150,11 @@ public class ProviderController extends BaseController<Provider> {
 		uiModel.addAttribute("product", product);
 		return "redirect:/provider/products";
 	}
-
+	
 	/* 商品发布 end */
 
 	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.GET, params = "edit")
 	public String edit(Model uiModel, @PathVariable("id") Long id) {
-		System.out.println("edit..............");
 		SiteUser siteUser =  userContext.getCurrentUser();
 		Product product = productService.findOneByUser(new Provider(siteUser.getId()), id);
 		uiModel.addAttribute("product", product);
@@ -172,14 +171,23 @@ public class ProviderController extends BaseController<Provider> {
 	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.PUT, params = "edit")
 	public String editProcess(@PathVariable("id") Long id,
 			@Valid @ModelAttribute("product") Product product,
-			BindingResult request, Model uiModel) {
+			BindingResult result, Model uiModel) {
+		float price = product.getPrice();
+		if(price==0.0f){
+			result.addError(new FieldError("product", "price", "价格不能为0"));
+		}
+		if(result.hasErrors()){
+			uiModel.addAttribute("product", product);
+			return "user/provider/modifyProduct";
+		}
+		
 		Product oldProduct = productService.findOne(id);
 		if (oldProduct == null) {
 			throw new ProductNotFoundException();
 		}
 		product = productService.updateProduct(product, oldProduct);
 		uiModel.addAttribute("product", product);
-		return USERPRODUCTSEDITOK;
+		return null;
 	}
 
 	@RequestMapping(value = "/provider/products/{id}/{status}", method = RequestMethod.PUT)

@@ -13,6 +13,7 @@
   <meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_parameterName" th:content="${_csrf.parameterName}" />	
 	<script th:src="@{/js/ckeditor/adapters/jquery.js}"></script>
+	<script th:src="@{/js/modifyAction.js}"></script>
 	<script>
         $(function() {
             var token = $("meta[name='_csrf']").attr("content");
