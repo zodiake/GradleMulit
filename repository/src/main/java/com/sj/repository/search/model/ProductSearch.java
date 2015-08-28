@@ -74,7 +74,6 @@ public class ProductSearch {
 		this.imgurl = i.getCoverImg();
 		this.serialNo = i.getSerialNO();
 		this.url = i.getUrl();
-		this.original = i.getOriginal().toString();
 	}
 
 	public Long getId() {

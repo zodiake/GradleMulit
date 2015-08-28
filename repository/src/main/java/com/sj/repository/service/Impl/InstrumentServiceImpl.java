@@ -52,7 +52,6 @@ public class InstrumentServiceImpl implements InstrumentService {
 		old.setSecondCategory(newTarget.getSecondCategory());
 		old.setThirdCategory(newTarget.getThirdCategory());
 		old.setName(newTarget.getName());
-		old.setOriginal(newTarget.getOriginal());
 		old.setCoverImg(newTarget.getCoverImg());
 		old.setPrice(newTarget.getPrice());
 		old.setContent(newTarget.getContent());

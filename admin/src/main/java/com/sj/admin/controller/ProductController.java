@@ -45,10 +45,8 @@ import com.sj.admin.util.AdminSeachProductForm;
 import com.sj.model.model.Brand;
 import com.sj.model.model.Content;
 import com.sj.model.model.Product;
-import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
-import com.sj.model.type.OriginalEnum;
 import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.service.ProductCategoryService;
@@ -190,9 +188,15 @@ public class ProductController {
 						.getCell(6).getStringCellValue()));
 				product.setPrice((float) hssfRow.getCell(7)
 						.getNumericCellValue());
-				product.setFirstCategory(productCategoryService.findByName(hssfRow.getCell(8).getStringCellValue(), ActivateEnum.ACTIVATE));
-				product.setSecondCategory(productCategoryService.findByName(hssfRow.getCell(9).getStringCellValue(), ActivateEnum.ACTIVATE));
-				product.setThirdCategory(productCategoryService.findByName(hssfRow.getCell(10).getStringCellValue(), ActivateEnum.ACTIVATE));
+				product.setFirstCategory(productCategoryService.findByName(
+						hssfRow.getCell(8).getStringCellValue(),
+						ActivateEnum.ACTIVATE));
+				product.setSecondCategory(productCategoryService.findByName(
+						hssfRow.getCell(9).getStringCellValue(),
+						ActivateEnum.ACTIVATE));
+				product.setThirdCategory(productCategoryService.findByName(
+						hssfRow.getCell(10).getStringCellValue(),
+						ActivateEnum.ACTIVATE));
 				product.setLabel(hssfRow.getCell(11).getStringCellValue());
 				String text = hssfRow.getCell(12).getStringCellValue();
 				if (text != null && text.length() != 0) {
@@ -202,7 +206,6 @@ public class ProductController {
 				}
 				product.setCreatedBy(p);
 				product.setCreatedTime(Calendar.getInstance());
-				product.setOriginal(OriginalEnum.PASS);
 
 				products.add(product);
 			} catch (Exception e) {
