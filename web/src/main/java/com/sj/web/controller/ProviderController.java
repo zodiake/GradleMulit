@@ -1,5 +1,6 @@
 package com.sj.web.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sj.model.model.Instrument;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
@@ -26,6 +28,7 @@ import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.CityService;
+import com.sj.repository.service.InstrumentService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ProviderIndustryInfoService;
@@ -57,6 +60,8 @@ public class ProviderController extends BaseController<Provider> {
 	private ProvinceService provinceService;
 	@Autowired
 	private CityService cityService;
+	@Autowired
+	private InstrumentService instrumentService;
 
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
@@ -120,48 +125,52 @@ public class ProviderController extends BaseController<Provider> {
 	/* 商品发布 */
 	@RequestMapping(value = "/provider/products", params = "form", method = RequestMethod.GET)
 	public String create(Model uiModel) {
-		Product p = new Product();
 		uiModel.addAttribute("product", new Product());
 		uiModel.addAttribute("brands", brandService.findAll());
-		List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+		List<ProductCategory> pcs = productCategoryService
+				.findAllFirstCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pcs", pcs);
 		return "user/provider/release";
 	}
 
-	@RequestMapping(value = "/provider/products", method = RequestMethod.POST, params = "form")
-	public String createProcess(
-			@Valid @ModelAttribute("product") Product product,
+	@RequestMapping(value = "/provider/instruments", method = RequestMethod.POST, params = "form")
+	public String createInstrument(
+			@Valid @ModelAttribute("product") Instrument instrument,
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
-		float price = product.getPrice();
-		if(price==0.0f){
+		float price = instrument.getPrice();
+		if (price == 0.0f) {
 			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
-			List<ProductCategory> pcs = productCategoryService
-					.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
 			uiModel.addAttribute("pcs", pcs);
-			uiModel.addAttribute("product", product);
+			uiModel.addAttribute("product", instrument);
 			return "user/provider/release";
 		}
-		product.setCreatedBy(new Provider(user.getId()));
-		product = productService.saveOne(product);
-		uiModel.addAttribute("product", product);
+		instrument.setCreatedBy(new Provider(user.getId()));
+		instrument.setCreatedTime(Calendar.getInstance());
+		instrument.setStatus(ProductStatusEnum.EXAMINE);
+		instrumentService.save(instrument);
 		return "redirect:/provider/products";
 	}
-	
+
 	/* 商品发布 end */
 
 	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.GET, params = "edit")
 	public String edit(Model uiModel, @PathVariable("id") Long id) {
-		SiteUser siteUser =  userContext.getCurrentUser();
-		Product product = productService.findOneByUser(new Provider(siteUser.getId()), id);
+		SiteUser siteUser = userContext.getCurrentUser();
+		Product product = productService.findOneByUser(
+				new Provider(siteUser.getId()), id);
 		uiModel.addAttribute("product", product);
 		uiModel.addAttribute("brands", brandService.findAll());
-		List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-		List<ProductCategory> secondCategories = productCategoryService.findByParent(product.getFirstCategory());
-		List<ProductCategory> thirdCategories = productCategoryService.findByParent(product.getSecondCategory());
+		List<ProductCategory> pcs = productCategoryService
+				.findAllFirstCategory(ActivateEnum.ACTIVATE);
+		List<ProductCategory> secondCategories = productCategoryService
+				.findByParent(product.getFirstCategory());
+		List<ProductCategory> thirdCategories = productCategoryService
+				.findByParent(product.getSecondCategory());
 		uiModel.addAttribute("pcs", pcs);
 		uiModel.addAttribute("seconds", secondCategories);
 		uiModel.addAttribute("thirds", thirdCategories);
@@ -173,14 +182,14 @@ public class ProviderController extends BaseController<Provider> {
 			@Valid @ModelAttribute("product") Product product,
 			BindingResult result, Model uiModel) {
 		float price = product.getPrice();
-		if(price==0.0f){
+		if (price == 0.0f) {
 			result.addError(new FieldError("product", "price", "价格不能为0"));
 		}
-		if(result.hasErrors()){
+		if (result.hasErrors()) {
 			uiModel.addAttribute("product", product);
 			return "user/provider/modifyProduct";
 		}
-		
+
 		Product oldProduct = productService.findOne(id);
 		if (oldProduct == null) {
 			throw new ProductNotFoundException();
@@ -198,10 +207,12 @@ public class ProviderController extends BaseController<Provider> {
 				new Provider(user.getId()), id);
 		if (product == null)
 			throw new ProductNotFoundException();
-		ProductStatusEnum productStatusEnum = ProductStatusEnum.stringToEnum(status);
-		if(productStatusEnum==null)
+		ProductStatusEnum productStatusEnum = ProductStatusEnum
+				.stringToEnum(status);
+		if (productStatusEnum == null)
 			throw new EnumNotFoundException();
-		product = productService.updateStatus(product, ProductStatusEnum.stringToEnum(status));
+		product = productService.updateStatus(product,
+				ProductStatusEnum.stringToEnum(status));
 		uiModel.addAttribute("product", product);
 		return "user/provider/maintaintd";
 	}
