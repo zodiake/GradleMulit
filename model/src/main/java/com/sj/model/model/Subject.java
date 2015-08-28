@@ -49,7 +49,7 @@ public class Subject implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Content content;
 
-	@OneToMany(mappedBy = "subject")
+	@OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
 	private List<Solution> solutions;
 
 	@Column(name = "u_id")
@@ -147,6 +147,14 @@ public class Subject implements Serializable {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public List<Solution> getSolutions() {
+		return solutions;
+	}
+
+	public void setSolutions(List<Solution> solutions) {
+		this.solutions = solutions;
 	}
 
 	@Override

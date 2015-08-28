@@ -138,4 +138,14 @@ public class IndexController extends UploadController {
 	public String newInfo() {
 		return "information/create";
 	}
+
+	@RequestMapping(value = "/subject")
+	public String subject() {
+		return "subject/subjects";
+	}
+
+	@RequestMapping(value = "/subject/create")
+	public String subjectCreate() {
+		return "subject/create";
+	}
 }

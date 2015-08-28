@@ -1,0 +1,27 @@
+<!-- leftpanel -->
+<div class="contentpanel">
+    <form class="form-inline">
+        <div class="form-group">
+            <a class="btn btn-success btn-sm" ui-sref="subjectCreate">添加</a>
+        </div>
+    </form>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>图片</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td><a href="#/subjectDetail/{{item.id}}">{{$index+1}}</a></td>
+                <td>{{item.name}}</td>
+                <td>{{item.img}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pagenumQu">
+        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
+    </div>
+</div>

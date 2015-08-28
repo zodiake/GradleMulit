@@ -134,12 +134,26 @@ insert into subject(id,name,show_on_index,activate,created_by,created_time,conte
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (2,'subject2',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (3,'subject3',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (4,'subject4',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (5,'subject1',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (6,'subject2',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (7,'subject3',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (8,'subject4',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (9,'subject1',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (10,'subject2',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (5,'subject5',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (6,'subject6',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (7,'subject7',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (8,'subject8',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (9,'subject9',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (10,'subject10',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
+
+insert into solution(id,name,subject_id) values(1,'solution1',1);
+insert into solution(id,name,subject_id) values(2,'solution2',1);
+insert into solution(id,name,subject_id) values(3,'solution3',1);
+insert into solution(id,name,subject_id) values(4,'solution4',2);
+insert into solution(id,name,subject_id) values(5,'solution5',2);
+insert into solution(id,name,subject_id) values(6,'solution6',2);
+
+insert into solution_product(solution_id,product_id) values(1,1);
+insert into solution_product(solution_id,product_id) values(1,2);
+insert into solution_product(solution_id,product_id) values(2,1);
+insert into solution_product(solution_id,product_id) values(2,3);
+insert into solution_product(solution_id,product_id) values(2,4);
+
 
 --test reviews
 insert into review(id,content,product_id,user_id,created_time) values(1,'haha,very good user1',1,3,'2015-08-15');

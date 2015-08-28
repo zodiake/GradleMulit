@@ -1,19 +1,17 @@
-
-
 @import url('bootstrap.min.css');
 @import url('bootstrap-override.css');
 
-
-
 /********** 2. RESET STYLES **********/
+
+
 /*************************************/
 
 body {
     font-size: 13px;
     color: #636E7B;
     background-color: #fff;
-    font-family:'Microsoft Yahei',Helvetica, Arial, sans-serif;
-	font-weight:100
+    font-family: 'Microsoft Yahei', Helvetica, Arial, sans-serif;
+    font-weight: 100
 }
 
 a {
@@ -25,20 +23,21 @@ a:active,
 a:focus {
     text-decoration: none;
 }
-a{
-    color:#fff;
+
+a {
+    color: #fff;
 }
 
 
-
 /********** 3. HEADER STYLES **********/
+
+
 /**************************************/
 
-html{
-	position:relative;
-	min-height:100%
-	}
-
+html {
+    position: relative;
+    min-height: 100%
+}
 
 .headerwrapper {
     background-color: #31445e;
@@ -62,10 +61,15 @@ html{
     font-size: 18px;
     float: left;
 }
-.headerwrapper .header-right{
+
+.headerwrapper .header-right {
     float: right;
-} 
+}
+
+
 /********* 4. MAIN WRAPPER STYLES *********/
+
+
 /******************************************/
 
 .img-online {
@@ -81,18 +85,20 @@ html{
 }
 
 
-
 /***** 4.1 LEFT PANEL STYLES *****/
 
 .leftpanel {
     width: 190px;
     float: left;
-	background-color:#fff;    
+    background-color: #fff;
     border-right: 1px solid #e0e4e7;
 }
-#child_nav{
-	margin-top:0!important
-	}
+
+#child_nav {
+    margin-top: 0!important
+}
+
+
 /***** 4.1.1 LEFT PANEL NAVIGATION *****/
 
 .leftpanel .nav {
@@ -114,18 +120,20 @@ html{
 .leftpanel .nav > li.active + li {
     border-top: 0;
 }
-.leftpanel .nav > li.active a{
+
+.leftpanel .nav > li.active a {
     background: #1caf9a;
     color: #fff;
 }
+
 .leftpanel .nav > li > a {
     color: #43505d;
-	font-size:15px;
-    padding:0 40px;
-	height:45px;
-	line-height:45px;
-	background-color:#f7fafc;
-	border-bottom: 1px solid #ebeff0;
+    font-size: 15px;
+    padding: 0 40px;
+    height: 45px;
+    line-height: 45px;
+    background-color: #f7fafc;
+    border-bottom: 1px solid #ebeff0;
 }
 
 .leftpanel .nav > li > a i {
@@ -138,7 +146,6 @@ html{
     text-align: center;
 }
 
-
 .leftpanel .nav > li.parent-focus > a {
     background-color: #f7fafc;
 }
@@ -149,43 +156,47 @@ html{
     font-size: 11px;
     background-color: #2f363d;
 }
-.leftpanel .nav .children{
+
+.leftpanel .nav .children {
     list-style: none;
-    padding:10px 0;
+    padding: 10px 0;
     margin: 0;
 }
 
-.leftpanel .nav .children li a{
-	position:relative;
+.leftpanel .nav .children li a {
+    position: relative;
     font-weight: normal;
     font-size: 14px;
     display: block;
     color: #444;
-    padding:4px 10px 4px 40px;
+    padding: 4px 10px 4px 40px;
     -moz-transition: all 0.2s ease-out 0s;
     -webkit-transition: all 0.2s ease-out 0s;
     transition: all 0.2s ease-out 0s;
 }
+
 .leftpanel .nav .children li a:hover {
     text-decoration: none;
     background-color: #f7f7f7;
 }
 
 .leftpanel .nav .children li.active a {
-	padding-left:42px;
-    font-size:18px;
-	color:#1caf9a;
+    padding-left: 42px;
+    font-size: 18px;
+    color: #1caf9a;
 }
-.leftpanel .nav .children li.active a:before{
-	content:'';
-	position:absolute;
-	left:26px;
-	top:10px;
-	height:16px;
-	width:4px;
-	border-radius:0;
-	background-color:#1caf9a;
+
+.leftpanel .nav .children li.active a:before {
+    content: '';
+    position: absolute;
+    left: 26px;
+    top: 10px;
+    height: 16px;
+    width: 4px;
+    border-radius: 0;
+    background-color: #1caf9a;
 }
+
 .leftpanel .nav .active .children {
     border-bottom: 1px solid #e7e7e7;
 }
@@ -195,7 +206,6 @@ html{
 }
 
 
-
 /***** 4.2 MAIN PANEL STYLES *****/
 
 .mainpanel {
@@ -203,14 +213,13 @@ html{
 }
 
 .pageheader {
-
     border-bottom: 1px solid #eee;
-    -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
-    box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
 }
 
 .pageheader .media {
-	display:none;
+    display: none;
     padding: 0;
     clear: both;
 }
@@ -219,7 +228,7 @@ html{
     width: 50px;
     height: 50px;
     background-color: #4e5154;
-    display:none;
+    display: none;
     color: #fff;
     font-size: 32px;
     border-radius: 3px;
@@ -299,20 +308,23 @@ html{
 }
 
 .pageheader h4 {
-	padding-left:25px;
-	height:40px;
-	line-height:40px;
+    padding-left: 25px;
+    height: 40px;
+    line-height: 40px;
     font-size: 20px;
     color: #303942;
-	font-weight:100;
+    font-weight: 100;
 }
+
 
 /***** 4.2.1 CONTENT PANEL STYLES *****/
 
 .contentpanel {
     position: relative;
-    padding:16px 32px 0;
+    padding: 16px 32px 0;
 }
+
+
 /***** 6.1 BUTTONS PAGE STYLES *****/
 
 .btn-dark {
@@ -344,7 +356,7 @@ html{
 }
 
 .btn-sm.btn-bordered {
-    padding: 4px 10px; 
+    padding: 4px 10px;
 }
 
 .btn-xs.btn-bordered {
@@ -591,8 +603,6 @@ html{
     border-radius: 0;
 }
 
-
-
 .table-bordered tbody > tr > th,
 .table-bordered tbody > tr > td {
     padding: 15px;
@@ -600,41 +610,53 @@ html{
     text-align: center!important;
 }
 
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: 3px;
+}
 
-.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
-	padding:3px;
-	}
+.footerwrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 9999;
+    height: 48px;
+    line-height: 48px;
+    color: #fff;
+    text-align: center;
+    background-color: #31445e;
+}
 
-	
-.footerwrapper{
-	position:absolute;
-	bottom:0;
-	width:100%;
-	z-index:9999;
-	height:48px;
-	line-height:48px;
-	color:#fff;
-	text-align:center;
-	background-color:#31445e;
-	}
 .pagenumQu {
     padding: 0;
     margin-top: 30px;
     text-align: right;
 }
+
 .pagenumQu .paup {
     padding: 0 8px 0 0;
 }
+
 .pagenumQu .padown {
     padding: 0 0 0 8px;
 }
+
 .pagenumQu .pashu {
     background: #fff none repeat scroll 0 0;
     border: 1px solid #d6d6d6;
     margin: 0 9px 0 8px;
     padding: 4px 8px 3px;
 }
-.pagenumQu .page, .pagenumQu .first, .pagenumQu .previous, .pagenumQu .next, .pagenumQu .last {
+
+.pagenumQu .page,
+.pagenumQu .first,
+.pagenumQu .previous,
+.pagenumQu .next,
+.pagenumQu .last {
     background: #fff none repeat scroll 0 0;
     border: 1px solid #92a0ad;
     border-radius: 2px;
@@ -643,6 +665,7 @@ html{
     padding: 5px 0;
     position: relative;
 }
+
 .pagenumQu .selected {
     background: #3e8acc none repeat scroll 0 0;
     border: 1px solid #428bca;
@@ -651,61 +674,77 @@ html{
     padding: 5px 0;
     position: relative;
 }
+
 .pagenumQu .selected a {
     color: #fff;
 }
+
 .pagenumQu .hidden {
     display: none;
 }
+
 .pagenumQu a {
     color: #636e7b;
     padding: 0 12px;
     text-decoration: none;
 }
+
 .pagenumQu > span {
     float: left;
 }
+
 .panel-footer .pagenumQu {
     overflow: hidden;
 }
+
 .panel-footer .Tables_info b {
     color: #2b84d1;
     font-size: 18px;
     font-weight: 500;
 }
-.w300{
+
+.w300 {
     width: 300px;
 }
-.w400{
+
+.w400 {
     width: 400px;
 }
-.w700{
+
+.w700 {
     width: 700px;
 }
-.pl100{
+
+.pl100 {
     padding-left: 100px;
 }
-.mt20{
+
+.mt20 {
     margin-top: 20px;
 }
-select{
+
+select {
     height: 30px;
     border-radius: 3px;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
 }
-.company-select select{
+
+.company-select select {
     width: 150px;
     padding-left: 10px;
 }
-.modal-content{
+
+.modal-content {
     max-height: 700px;
-    overflow-y: auto; 
+    overflow-y: auto;
     overflow-x: hidden;
 }
-.mauto{
+
+.mauto {
     margin-top: -20px;
     margin-left: 120px;
 }
+
 .manage-dl dl {
     margin-right: 20px;
     padding: 0;
@@ -723,30 +762,36 @@ select{
     text-align: center;
     line-height: 35px;
 }
-.manage-dl .nav-tabs{
+
+.manage-dl .nav-tabs {
     height: 30px;
 }
-.manage-dl .nav-tabs > li > a{
+
+.manage-dl .nav-tabs > li > a {
     font-size: 16px;
 }
-.sort-list ul{
-    width: 700px; 
-    padding: 0; 
-    border-top:1px solid #e0e4e7;  
+
+.sort-list ul {
+    width: 700px;
+    padding: 0;
+    border-top: 1px solid #e0e4e7;
 }
-.sort-list li{
+
+.sort-list li {
     position: relative;
     padding-left: 30px;
     line-height: 35px;
     list-style: none;
     overflow: hidden;
-    border:1px solid #e0e4e7;
+    border: 1px solid #e0e4e7;
     border-top: none;
 }
-.sort-list li>div>button{
+
+.sort-list li>div>button {
     margin: 2px;
 }
-.sort-list li>div>i{
+
+.sort-list li>div>i {
     display: block;
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
@@ -756,27 +801,32 @@ select{
     border-image: none;
     border-style: solid;
     border-width: 10px;
-    position: absolute;;
+    position: absolute;
+    ;
     left: 10px;
-    top:8px;
+    top: 8px;
     transition: all 0.5s ease 0s;
 }
-.sort-list li>div>i.active{
-    top:13px;
+
+.sort-list li>div>i.active {
+    top: 13px;
     transition: all 0.5s ease 0s;
-      -webkit-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
 }
-.sort-list li>div.floor-two{
+
+.sort-list li>div.floor-two {
     padding-left: 30px;
     position: relative;
     overflow: hidden;
     display: none;
 }
-.sort-list li:hover>div.floor-two{
+
+.sort-list li:hover>div.floor-two {
     transition: all 0.5s ease 0s;
     z-index: 111;
 }
-.sort-list li>div.floor-two>div.line{
+
+.sort-list li>div.floor-two>div.line {
     width: 20px;
     height: 15px;
     position: absolute;
@@ -785,14 +835,17 @@ select{
     border-left: 1px dotted #ccc;
     border-bottom: 1px dotted #ccc;
 }
-.sort-list li>button.add{
+
+.sort-list li>button.add {
     margin-bottom: 10px;
     display: none;
 }
-.sort-list li>div.save-group{
+
+.sort-list li>div.save-group {
     display: none;
 }
-.sort-list li>div.save-group input{
+
+.sort-list li>div.save-group input {
     height: 30px;
     width: 620px;
     padding-left: 10px;
