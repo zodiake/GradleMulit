@@ -20,12 +20,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter.XFrameOptionsMode;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementConverter;
+import com.sj.repository.converter.StringToInfoCategoryConverter;
+import com.sj.repository.converter.StringToInfoContentConverter;
 import com.sj.repository.converter.StringToProductConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
 
@@ -48,14 +52,32 @@ public class Application extends WebMvcConfigurerAdapter {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable().authorizeRequests().antMatchers("/admin/**")
-					.hasRole("ADMIN").anyRequest().permitAll().and()
-					.formLogin().defaultSuccessUrl("/index")
+			http.csrf()
+					.disable()
+					.authorizeRequests()
+					.antMatchers("/admin/**")
+					.hasRole("ADMIN")
+					.anyRequest()
+					.permitAll()
+					.and()
+					.formLogin()
+					.defaultSuccessUrl("/index")
 					.loginProcessingUrl("/loginProcess")
-					.usernameParameter("name").passwordParameter("password")
-					.loginPage("/login").failureUrl("/login?error").and()
-					.logout().logoutSuccessUrl("/index").logoutUrl("/logout")
-					.permitAll();
+					.usernameParameter("name")
+					.passwordParameter("password")
+					.loginPage("/login")
+					.failureUrl("/login?error")
+					.and()
+					.logout()
+					.logoutSuccessUrl("/index")
+					.logoutUrl("/logout")
+					.permitAll()
+					.and()
+					.headers()
+					.addHeaderWriter(
+							new XFrameOptionsHeaderWriter(
+									XFrameOptionsMode.SAMEORIGIN));
+			;
 		}
 
 		@Override
@@ -85,6 +107,8 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToScrollImageTypeConverter());
 		formatterRegistry.addConverter(stringToAdvertiseCategoryConverter());
 		formatterRegistry.addConverter(stringToProductConverter());
+		formatterRegistry.addConverter(stringToInfoCategoryConverter());
+		formatterRegistry.addConverter(stringToInfoContentConverter());
 	}
 
 	@Bean
@@ -110,6 +134,16 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public StringToProductConverter stringToProductConverter() {
 		return new StringToProductConverter();
+	}
+
+	@Bean
+	public StringToInfoCategoryConverter stringToInfoCategoryConverter() {
+		return new StringToInfoCategoryConverter();
+	}
+
+	@Bean
+	public StringToInfoContentConverter stringToInfoContentConverter() {
+		return new StringToInfoContentConverter();
 	}
 
 	/*---------------------------end converter bean---------------------------------------*/

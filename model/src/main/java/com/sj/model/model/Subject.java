@@ -25,7 +25,7 @@ import com.sj.model.type.ActivateEnum;
 
 @Entity
 @Table(name = "subject")
-public class Subject implements Serializable{
+public class Subject implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -46,23 +46,21 @@ public class Subject implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
 	private Calendar createdTime;
-	
+
 	@Column(name = "created_by")
 	private String createdBy;
-	
+
 	@JoinColumn(name = "content_id")
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
-			CascadeType.PERSIST })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Content content;
-	
-	@Column(name="u_id")
+
+	@Column(name = "u_id")
 	private String uId;
-	
+
 	private String image;
-	
+
 	@Transient
-	private Long viewCount=0l;
-	
+	private Long viewCount = 0l;
 
 	public Subject() {
 		super();
@@ -121,31 +119,6 @@ public class Subject implements Serializable{
 		this.products = products;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Subject other = (Subject) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -184,5 +157,30 @@ public class Subject implements Serializable{
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Subject other = (Subject) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 }

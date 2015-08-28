@@ -141,11 +141,6 @@ insert into subject(id,name,show_on_index,activate,created_by,created_time,conte
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (9,'subject1',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (10,'subject2',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
 
---test subject_product
-insert into subject_product(subject_id,product_id)values(1,1);
-insert into subject_product(subject_id,product_id)values(1,2);
-insert into subject_product(subject_id,product_id)values(1,3);
-
 --test reviews
 insert into review(id,content,product_id,user_id,created_time) values(1,'haha,very good user1',1,3,'2015-08-15');
 insert into review(id,content,product_id,user_id,created_time) values(2,'haha,very good user2',1,3,'2012-09-28');

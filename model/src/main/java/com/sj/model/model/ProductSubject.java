@@ -6,16 +6,13 @@ import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name = "product_subject")
+@Deprecated
 public class ProductSubject {
 	@Embeddable
 	public static class Id implements Serializable {
