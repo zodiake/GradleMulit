@@ -42,7 +42,6 @@ create table subject(
 	created_time timestamp,
 	created_by varchar(64),
 	content_id bigint,
-	u_id varchar(64),
 	image varchar(64),
 	primary key(id),
 	foreign key (content_id) references content(id)
