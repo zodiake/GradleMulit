@@ -141,11 +141,6 @@ insert into subject(id,name,show_on_index,activate,created_by,created_time,conte
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (9,'subject1',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (10,'subject2',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
 
---test subject_product
-insert into subject_product(subject_id,product_id)values(1,1);
-insert into subject_product(subject_id,product_id)values(1,2);
-insert into subject_product(subject_id,product_id)values(1,3);
-
 --test reviews
 insert into review(id,content,product_id,user_id,created_time) values(1,'haha,very good user1',1,3,'2015-08-15');
 insert into review(id,content,product_id,user_id,created_time) values(2,'haha,very good user2',1,3,'2012-09-28');
@@ -173,11 +168,11 @@ insert into Information(id,created_time,category_id,title,content_id,create_by,u
 insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (8,'2012-1-12',9,'tre8',2,'shenjie','2013-1-1',0);
 insert into Information(id,created_time,category_id,title,content_id,create_by,updated_time,activate) values (9,'2012-1-12',9,'tre9',2,'shenjie','2013-1-1',0);
 
-insert into advertisement(id,cover_img,created_time,category_id,url) values (1,'/upload/img/scroll1.jpg','2012-1-1',20,'www.baidu.com');
-insert into advertisement(id,cover_img,created_time,category_id,url) values (2,'/upload/img/scroll1.jpg','2012-1-2',20,'www.baidu.com');
-insert into advertisement(id,cover_img,created_time,category_id,url) values (3,'/upload/img/scroll1.jpg','2012-1-3',20,'www.baidu.com');
-insert into advertisement(id,cover_img,created_time,category_id,url) values (4,'/upload/img/scroll1.jpg','2012-1-4',20,'www.baidu.com');
-insert into advertisement(id,cover_img,created_time,category_id,url) values (5,'/upload/img/scroll1.jpg','2012-1-5',20,'www.baidu.com');
+insert into advertisement(id,cover_img,created_time,category_id,url,activate) values (1,'/upload/img/scroll1.jpg','2012-1-1',20,'www.baidu.com',1);
+insert into advertisement(id,cover_img,created_time,category_id,url,activate) values (2,'/upload/img/scroll1.jpg','2012-1-2',20,'www.baidu.com',1);
+insert into advertisement(id,cover_img,created_time,category_id,url,activate) values (3,'/upload/img/scroll1.jpg','2012-1-3',20,'www.baidu.com',1);
+insert into advertisement(id,cover_img,created_time,category_id,url,activate) values (4,'/upload/img/scroll1.jpg','2012-1-4',20,'www.baidu.com',0);
+insert into advertisement(id,cover_img,created_time,category_id,url,activate) values (5,'/upload/img/scroll1.jpg','2012-1-5',20,'www.baidu.com',0);
 
 
 -- test buy_record

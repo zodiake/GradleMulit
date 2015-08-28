@@ -28,12 +28,11 @@ public class InformationController {
 
 	@RequestMapping(value = "/admin/information", method = RequestMethod.GET)
 	@ResponseBody
-	public Page<InformationJson> findAll(
-			Model uiModel,
-			@RequestParam(required = false, value = "state") ActivateEnum activate,
+	public Page<InformationJson> findAll(Model uiModel,
+			@RequestParam(required = false, value = "state") String state,
 			@RequestParam(defaultValue = "1", value = "page") int page,
 			@RequestParam(defaultValue = "15", value = "size") int size) {
-
+		ActivateEnum activate = ActivateEnum.fromString(state);
 		return informationService.findAllJson(new PageRequest(page - 1, size,
 				Direction.DESC, "createdTime"), activate);
 	}
@@ -45,18 +44,17 @@ public class InformationController {
 		return null;
 	}
 
-	@RequestMapping(value = "/admin/informations", method = RequestMethod.GET, params = "form")
-	public String create(Model uiModel) {
-		uiModel.addAttribute("information", new Information());
-		return null;
-	}
-
 	@RequestMapping(value = "/admin/informations", method = RequestMethod.POST, params = "form")
+	@ResponseBody
 	public String createProcess(
 			@Valid @ModelAttribute("information") Information info,
 			BindingResult bindingResult, Model uiModel) {
+		info.setActivate(ActivateEnum.ACTIVATE);
+		if (bindingResult.hasErrors()) {
+			return "\"fail\"";
+		}
 		info = informationService.save(info);
-		return null;
+		return "\"success\"";
 	}
 
 	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.GET, params = "edit")

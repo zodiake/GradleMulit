@@ -2,7 +2,7 @@ package com.sj.model.model;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,7 +24,7 @@ import com.sj.model.type.ActivateEnum;
 
 @Entity
 @Table(name = "subject")
-public class Subject implements Serializable{
+public class Subject implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -39,30 +38,27 @@ public class Subject implements Serializable{
 	@Enumerated
 	private ActivateEnum activate;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "subject_product", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-	private Set<Product> products;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
 	private Calendar createdTime;
-	
+
 	@Column(name = "created_by")
 	private String createdBy;
-	
+
 	@JoinColumn(name = "content_id")
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
-			CascadeType.PERSIST })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Content content;
-	
-	@Column(name="u_id")
+
+	@OneToMany(mappedBy = "subject")
+	private List<Solution> solutions;
+
+	@Column(name = "u_id")
 	private String uId;
-	
+
 	private String image;
-	
+
 	@Transient
-	private Long viewCount=0l;
-	
+	private Long viewCount = 0l;
 
 	public Subject() {
 		super();
@@ -113,39 +109,6 @@ public class Subject implements Serializable{
 		this.createdTime = createdTime;
 	}
 
-	public Set<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<Product> products) {
-		this.products = products;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Subject other = (Subject) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -184,5 +147,30 @@ public class Subject implements Serializable{
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Subject other = (Subject) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 }

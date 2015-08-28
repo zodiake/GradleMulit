@@ -6,6 +6,7 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ui.router.tabs',
     'upload',
+    'ngCkeditor',
     'User',
     'Brand',
     'Advertise',
@@ -49,6 +50,16 @@ app.config([
                 url: '/info',
                 templateUrl: '/admin/info',
                 controller: 'InfoController'
+            })
+            .state('infoCreate', {
+                url: '/newInfo',
+                templateUrl: '/admin/info?form',
+                controller: 'InfoCreateController',
+                resolve: {
+                    categories: ['$http', function ($http) {
+                        return $http.get('/admin/info/category');
+                    }]
+                }
             })
             .state('infoDetail', {
                 url: '/info/:id',

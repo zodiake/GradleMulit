@@ -32,6 +32,7 @@ create table content(
 	content varchar(4000),
 	primary key (id)
 );
+
 -- 专题
 create table subject(
 	id bigint not null auto_increment,
@@ -45,6 +46,12 @@ create table subject(
 	image varchar(64),
 	primary key(id),
 	foreign key (content_id) references content(id)
+);
+
+create table solution(
+	id int not null auto_increment,
+	name varchar(40) not null,
+	primary key(id)
 );
 
 create table site_user(
@@ -160,6 +167,14 @@ create table product(
 	foreign key (content_id) references content(id)
 );
 
+create table solution_product(
+	solution_id int,
+	product_id bigint,
+	primary key(solution_id,product_id),
+	foreign key(solution_id) references solution(id),
+	foreign key(product_id) references product(id)
+);
+
 create table review(
 	id bigint not null auto_increment,
 	content varchar(400),
@@ -170,15 +185,6 @@ create table review(
 	foreign key(user_id) references site_user(id),
 	foreign key(product_id) references product(id)
 );
-
-create table subject_product(
-	product_id bigint,
-	subject_id bigint,
-	primary key(product_id,subject_id),
-	foreign key(product_id) references product(id),
-	foreign key(subject_id) references subject(id)
-);
-
 
 create table prefer_products(
 	user_id bigint not null,

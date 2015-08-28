@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sj.admin.security.SiteUserContext;
 import com.sj.model.model.ProductCategory;
 import com.sj.repository.model.AdvertisementCategoryJson;
+import com.sj.repository.model.InformationCategoryJson;
 import com.sj.repository.service.AdvertisementCategoryService;
+import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.ProductCategoryService;
 
 @Controller
@@ -27,6 +30,8 @@ public class CategroyController {
 	@Autowired
 	private AdvertisementCategoryService advertisementCategoryService;
 	@Autowired
+	private InformationCategoryService informationCategoryService;
+	@Autowired
 	private SiteUserContext userContext;
 
 	@RequestMapping(value = "/admin/advertise/category", method = RequestMethod.GET)
@@ -35,10 +40,17 @@ public class CategroyController {
 		return advertisementCategoryService.findAllJson();
 	}
 
+	@RequestMapping(value = "/admin/info/category", method = RequestMethod.GET)
+	@ResponseBody
+	public Page<InformationCategoryJson> findInfoCategory() {
+		return informationCategoryService.findAllJson();
+	}
+
 	@RequestMapping(value = "/admin/category/{category}", method = RequestMethod.GET, params = "children")
 	@ResponseBody
 	public List<Category> findCategroyByParent(@PathVariable("category") Long id) {
-		List<ProductCategory> pcs = productCategoryService.findByParent(new ProductCategory(id));
+		List<ProductCategory> pcs = productCategoryService
+				.findByParent(new ProductCategory(id));
 		List<Category> categories = pcs.stream()
 				.map((r) -> new Category(r.getId(), r.getName()))
 				.collect(Collectors.toList());

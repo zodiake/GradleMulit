@@ -1,6 +1,7 @@
 package com.sj.model.model;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -101,6 +102,9 @@ public class Product {
 	protected Calendar createdTime;
 
 	protected String serialNO;
+
+	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+	private List<Solution> solutions;
 
 	public Product() {
 		super();
@@ -231,31 +235,6 @@ public class Product {
 		this.serialNO = serialNO;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
 	public String getNameEnglish() {
 		return nameEnglish;
 	}
@@ -336,4 +315,28 @@ public class Product {
 		this.buyCount = buyCount;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }
