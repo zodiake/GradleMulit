@@ -2,7 +2,7 @@ package com.sj.model.model;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,10 +38,6 @@ public class Subject implements Serializable {
 	@Enumerated
 	private ActivateEnum activate;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "subject_product", joinColumns = @JoinColumn(name = "subject_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-	private Set<Product> products;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
 	private Calendar createdTime;
@@ -53,6 +48,9 @@ public class Subject implements Serializable {
 	@JoinColumn(name = "content_id")
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Content content;
+
+	@OneToMany(mappedBy = "subject")
+	private List<Solution> solutions;
 
 	@Column(name = "u_id")
 	private String uId;
@@ -109,14 +107,6 @@ public class Subject implements Serializable {
 
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
-	}
-
-	public Set<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<Product> products) {
-		this.products = products;
 	}
 
 	public String getCreatedBy() {
