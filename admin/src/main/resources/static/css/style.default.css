@@ -834,3 +834,6 @@ select{
 .files_tab .lhg .col-sm-6{
     line-height: 95px;
 }
+.push-good .form-group i.error{
+    margin-left: 165px;
+}
