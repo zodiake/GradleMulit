@@ -20,7 +20,7 @@ public interface AdvertisementService {
 
 	public Advertisement findOne(Long id);
 
-	public Advertisement update(Advertisement advertisement, Advertisement adv);
+	public void update(Advertisement advertisement);
 
 	public Advertisement updateStatus(Advertisement adv);
 

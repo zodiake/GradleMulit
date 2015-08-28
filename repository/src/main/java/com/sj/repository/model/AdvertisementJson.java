@@ -7,6 +7,7 @@ import com.sj.model.model.Advertisement;
 public class AdvertisementJson {
 	private Long id;
 	private String categoryName;
+	private Long category;
 	private String cover;
 	private String url;
 	private String state;
@@ -17,6 +18,7 @@ public class AdvertisementJson {
 		this.id = advertisement.getId();
 		this.categoryName = advertisement.getCategory().getName();
 		this.cover = advertisement.getCoverImg();
+		this.category = advertisement.getCategory().getId();
 		this.url = advertisement.getUrl();
 		this.state = advertisement.getActivate().toString();
 		this.createdTime = advertisement.getCreatedTime();
@@ -77,5 +79,13 @@ public class AdvertisementJson {
 
 	public void setUpdatedTime(Calendar updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	public Long getCategory() {
+		return category;
+	}
+
+	public void setCategory(Long category) {
+		this.category = category;
 	}
 }

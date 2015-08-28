@@ -22,7 +22,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import com.sj.model.type.OriginalEnum;
 import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
 
@@ -102,8 +101,6 @@ public class Product {
 	protected Calendar createdTime;
 
 	protected String serialNO;
-
-	protected OriginalEnum original;
 
 	public Product() {
 		super();
@@ -232,14 +229,6 @@ public class Product {
 
 	public void setSerialNO(String serialNO) {
 		this.serialNO = serialNO;
-	}
-
-	public OriginalEnum getOriginal() {
-		return original;
-	}
-
-	public void setOriginal(OriginalEnum original) {
-		this.original = original;
 	}
 
 	@Override

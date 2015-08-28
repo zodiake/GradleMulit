@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import com.sj.model.type.OriginalEnum;
+import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.util.ViewPage;
 import com.sj.web.util.InstrumentSearch;
 
@@ -54,7 +54,7 @@ public class ImageUploadControllerTest {
 
 	@Test
 	public void testEnum() {
-		OriginalEnum en = OriginalEnum.PASS;
+		ProductStatusEnum en = ProductStatusEnum.UP;
 		assertEquals("", en.toString(), "in");
 	}
 }

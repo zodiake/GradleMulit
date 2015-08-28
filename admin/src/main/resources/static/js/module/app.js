@@ -5,9 +5,11 @@ var app = angular.module('app', [
     'ui.router',
     'ui.bootstrap',
     'ui.router.tabs',
+    'upload',
     'User',
     'Brand',
-    'Advertise'
+    'Advertise',
+    'Info'
 ]);
 
 app.config([
@@ -33,40 +35,27 @@ app.config([
                 templateUrl: '/admin/brand',
                 controller: 'BrandController'
             })
-            .state('brandDetail', {
-                url: '/brandDetail',
-                templateUrl: '/admin/brandDetail',
-                controller: 'BrandDetailController'
-            })
             .state('advertise', {
                 url: '/advertisement',
                 templateUrl: '/admin/advertisement',
                 controller: 'AdvertiseController'
             })
-            .state('advertiseDetail', {
-                url: '/advertisement/:id',
-                templateUrl: '/admin/createAdvertise',
-                controller: 'AdvertiseDetailController',
-                resolve: {
-                    category: function ($http) {
-                        return $http.get('/admin/advertise/category');
-                    }
-                }
-            })
-            .state('createAdvertise', {
-                url: '/createAdvertise',
-                templateUrl: '/admin/createAdvertise',
-                controller: 'CreateAdvertiseController',
-                resolve: {
-                    category: function ($http) {
-                        return $http.get('/admin/advertise/category');
-                    }
-                }
-            })
             .state('products', {
                 url: '/products',
                 templateUrl: '/admin/products',
                 controller: 'ProductsController'
+            })
+            .state('info', {
+                url: '/info',
+                templateUrl: '/admin/info',
+                controller: 'InfoController'
+            })
+            .state('infoDetail', {
+                url: '/info/:id',
+                templateUrl: function (stateParams) {
+                    return '/admin/informations/' + stateParams.id;
+                },
+                controller: 'InfoDetailController'
             });
     }
 ]);

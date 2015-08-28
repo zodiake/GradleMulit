@@ -1,8 +1,10 @@
 package com.sj.repository.service.Impl;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,10 @@ import com.sj.repository.service.AdvertisementService;
 @Service
 @Transactional
 public class AdvertisementServiceImpl implements AdvertisementService {
-
 	@Autowired
 	private AdvertisementRepository repository;
+	@Autowired
+	private EntityManager em;
 
 	@Override
 	public Page<Advertisement> findAll(Pageable pageable) {
@@ -58,9 +61,15 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	}
 
 	@Override
-	public Advertisement update(Advertisement advertisement, Advertisement adv) {
-		adv.setUrl(advertisement.getUrl());
-		return null;
+	public void update(Advertisement advertisement) {
+		em.createQuery(
+				"update Advertisement a set a.category=:category,a.coverImg=:coverImg,a.url=:url,a.updatedTime=:updatedTime where a.id=:id")
+				.setParameter("category", advertisement.getCategory())
+				.setParameter("coverImg", advertisement.getCoverImg())
+				.setParameter("url", advertisement.getUrl())
+				.setParameter("id", advertisement.getId())
+				.setParameter("updatedTime", Calendar.getInstance())
+				.executeUpdate();
 	}
 
 	@Override

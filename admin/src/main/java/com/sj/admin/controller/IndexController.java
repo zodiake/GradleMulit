@@ -1,11 +1,29 @@
 package com.sj.admin.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sj.model.model.UploadResult;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class IndexController {
+public class IndexController extends UploadController {
+
+	@RequestMapping(value = "/img/upload", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> uploadImage(MultipartFile file) {
+		UploadResult result = super.upload(file);
+		List<String> url = result.getFiles().stream().map(f -> f.getUrl())
+				.collect(Collectors.toList());
+		return url;
+	}
+
 	@RequestMapping(value = "/index")
 	public String index() {
 		return "index";
@@ -54,5 +72,10 @@ public class IndexController {
 	@RequestMapping(value = "/products")
 	public String productList() {
 		return "product/product";
+	}
+
+	@RequestMapping(value = "/info")
+	public String info() {
+		return "information/info";
 	}
 }

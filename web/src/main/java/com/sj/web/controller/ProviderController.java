@@ -22,7 +22,7 @@ import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
-import com.sj.model.type.OriginalEnum;
+import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.CityService;
 import com.sj.repository.service.ProductCategoryService;
@@ -33,7 +33,6 @@ import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.annotation.SecurityUser;
 import com.sj.web.exception.ProductNotFoundException;
-import com.sj.web.exception.UserNotFoundException;
 import com.sj.web.security.UserContext;
 
 @Controller
@@ -66,8 +65,10 @@ public class ProviderController extends BaseController<Provider> {
 		Provider provider = providerService.findById(user.getId());
 		uiModel.addAttribute("user", provider);
 		uiModel.addAttribute("provinces", provinceService.findAll());
-		uiModel.addAttribute("industryInfos", providerIndustryInfoService.findAll());
-		uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
+		uiModel.addAttribute("industryInfos",
+				providerIndustryInfoService.findAll());
+		uiModel.addAttribute("citys",
+				cityService.findByProvince(provider.getProvince()));
 		return "user/provider/detail";
 	}
 
@@ -78,8 +79,10 @@ public class ProviderController extends BaseController<Provider> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", provider);
 			uiModel.addAttribute("provinces", provinceService.findAll());
-			uiModel.addAttribute("industryInfos", providerIndustryInfoService.findAll());
-			uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
+			uiModel.addAttribute("industryInfos",
+					providerIndustryInfoService.findAll());
+			uiModel.addAttribute("citys",
+					cityService.findByProvince(provider.getProvince()));
 			return "user/provider/detail";
 		}
 		SiteUser user = userContext.getCurrentUser();
@@ -96,7 +99,7 @@ public class ProviderController extends BaseController<Provider> {
 			@SecurityUser SiteUser user, @PathVariable("status") String status) {
 		System.out.println("user" + user.getId());
 		Page<Product> products = null;
-		if (status.equals(OriginalEnum.ALL.toString().toUpperCase())) {
+		if (status.equals(ProductStatusEnum.ALL.toString().toUpperCase())) {
 
 			products = productService.findByUsers(new Provider(user.getId()),
 					new PageRequest(page - 1, size, Direction.DESC,
@@ -104,10 +107,10 @@ public class ProviderController extends BaseController<Provider> {
 		} else {
 			products = productService.findByUsers(new Provider(user.getId()),
 					new PageRequest(page - 1, size, Direction.DESC,
-							"createdTime"), OriginalEnum.fromString(status));
+							"createdTime"), ProductStatusEnum.stringToEnum(status));
 		}
 		uiModel.addAttribute("lists", products);
-		uiModel.addAttribute("status", OriginalEnum.fromString(status));
+		uiModel.addAttribute("status", ProductStatusEnum.stringToEnum(status));
 		return "user/provider/maintain";
 	}
 
@@ -117,7 +120,8 @@ public class ProviderController extends BaseController<Provider> {
 		Product p = new Product();
 		uiModel.addAttribute("product", new Product());
 		uiModel.addAttribute("brands", brandService.findAll());
-		List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+		List<ProductCategory> pcs = productCategoryService
+				.findAllFirstCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pcs", pcs);
 		return "user/provider/release";
 	}
@@ -172,7 +176,6 @@ public class ProviderController extends BaseController<Provider> {
 				new Provider(user.getId()), id);
 		if (product == null)
 			throw new ProductNotFoundException();
-		product.setOriginal(OriginalEnum.valueOf(status));
 		product = productService.saveOne(product);
 		uiModel.addAttribute("product", product);
 		return "user/provider/maintaintd";

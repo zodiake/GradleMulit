@@ -43,6 +43,10 @@ public class Information {
 	@Column(name = "created_time")
 	private Calendar createdTime;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_time")
+	private Calendar updatedTime;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private InformationCategory category;
@@ -119,6 +123,14 @@ public class Information {
 
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
+	}
+
+	public Calendar getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Calendar updatedTime) {
+		this.updatedTime = updatedTime;
 	}
 
 	@Override

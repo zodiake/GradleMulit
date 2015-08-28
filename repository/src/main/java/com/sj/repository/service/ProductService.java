@@ -10,12 +10,10 @@ import com.sj.model.model.Brand;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
-import com.sj.model.type.OriginalEnum;
 import com.sj.model.type.ProductStatusEnum;
 
 public interface ProductService {
-	public Page<Product> findByUsers(Provider user, Pageable pageable,
-			OriginalEnum original);
+	public Page<Product> findByUsers(Provider user, Pageable pageable,ProductStatusEnum status);
 	public Page<Product> findByUsers(Provider user, Pageable pageable);
 
 	public Product findOne(Long id);

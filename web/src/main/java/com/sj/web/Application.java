@@ -35,7 +35,6 @@ import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementConverter;
 import com.sj.repository.converter.StringToBusinessTypeEnumConverter;
 import com.sj.repository.converter.StringToComponyTypeEnumConverter;
-import com.sj.repository.converter.StringToOriginalEnumConverter;
 import com.sj.repository.converter.StringToOutputEnumConverter;
 import com.sj.repository.converter.StringToPositionInformationEnumConverter;
 import com.sj.repository.converter.StringToProductConverter;
@@ -138,7 +137,6 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToAdvertisementCoverter());
 		formatterRegistry.addConverter(stringToProductConverter());
 		formatterRegistry.addConverter(stringToProductCategoryConverter());
-		formatterRegistry.addConverter(stringToOriginalEnumConverter());
 		formatterRegistry.addConverter(longToBrandConverter());
 		// new
 		formatterRegistry.addConverter(stringToBusinessTypeEnumConverter());
@@ -182,11 +180,6 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public LongToProductCategoryConverter stringToProductCategoryConverter() {
 		return new LongToProductCategoryConverter();
-	}
-
-	@Bean
-	public StringToOriginalEnumConverter stringToOriginalEnumConverter() {
-		return new StringToOriginalEnumConverter();
 	}
 
 	@Bean

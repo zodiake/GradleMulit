@@ -25,7 +25,7 @@ public interface BrandService {
 
 	public Brand save(Brand brand);
 
-	public Brand update(Brand brand);
+	public void update(Brand brand);
 
 	public Brand findByName(String name);
 

@@ -27,12 +27,6 @@ public class AdvertisementController {
 	@Autowired
 	private AdvertisementService advertisementService;
 
-	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.GET, params = "create")
-	public String create(Model uiModel) {
-		uiModel.addAttribute("advertisement", new Advertisement());
-		return null;
-	}
-
 	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.POST)
 	@ResponseBody
 	public String createProcess(
@@ -45,6 +39,15 @@ public class AdvertisementController {
 		advertisement.setActivate(ActivateEnum.ACTIVATE);
 		Advertisement adv = advertisementService.save(advertisement);
 		System.out.println(adv.getActivate());
+		return "\"success\"";
+	}
+
+	@RequestMapping(value = "/admin/advertisements/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public String update(@PathVariable("id") Long id,
+			Advertisement advertisement) {
+		advertisement.setId(id);
+		advertisementService.update(advertisement);
 		return "\"success\"";
 	}
 
@@ -88,23 +91,6 @@ public class AdvertisementController {
 			return "error";
 		adv.setActivate(ActivateEnum.values()[status]);
 		advertisementService.updateStatus(adv);
-		return "success";
-	}
-
-	@RequestMapping(value = "/admins/advertisements/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public String updateProess(
-			@PathVariable("id") Long id,
-			@Valid @ModelAttribute("advertisement") Advertisement advertisement,
-			BindingResult bindingResult, Model uiModel) {
-		Advertisement adv = advertisementService.findOne(id);
-		if (adv == null)
-			return "error";
-		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute("advertisement", advertisement);
-			return "fail";
-		}
-		advertisementService.update(advertisement, adv);
 		return "success";
 	}
 }

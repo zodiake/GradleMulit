@@ -1,9 +1,9 @@
 package com.sj.repository.service.Impl;
 
-import static com.sj.repository.util.RedisConstant.VIEWCOUNT;
-import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
-import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
 import static com.sj.repository.util.RedisConstant.BUYCOUNT;
+import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
+import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
+import static com.sj.repository.util.RedisConstant.VIEWCOUNT;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,8 +27,6 @@ import com.sj.model.model.Instrument;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
-import com.sj.model.type.ActivateEnum;
-import com.sj.model.type.OriginalEnum;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.ProductService;
@@ -44,9 +42,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<Product> findByUsers(Provider user, Pageable pageable,
-			OriginalEnum original) {
-		Page<Product> pages = repository.findByCreatedByAndOriginal(user,
-				pageable, original);
+			ProductStatusEnum status) {
+		Page<Product> pages = repository.findByCreatedByAndStatus(user, pageable, status);
 		List<Product> lists = pages.getContent();
 		lists.stream().forEach(
 				l -> {
@@ -56,20 +53,23 @@ public class ProductServiceImpl implements ProductService {
 						l.setViewCount(Long.valueOf(count));
 					else
 						l.setViewCount(0l);
-					
-					String review = template.opsForValue().get(REVIEWCOUNT +l.getId().toString());
+
+					String review = template.opsForValue().get(
+							REVIEWCOUNT + l.getId().toString());
 					if (review != null)
 						l.setReviewCount(Long.valueOf(review));
 					else
 						l.setReviewCount(0l);
-					
-					String buy = template.opsForValue().get(BUYCOUNT +l.getId().toString());
+
+					String buy = template.opsForValue().get(
+							BUYCOUNT + l.getId().toString());
 					if (buy != null)
 						l.setBuyCount(Long.valueOf(buy));
 					else
 						l.setBuyCount(0l);
-					
-					String collection = template.opsForValue().get(COLLECTIONCOUNT +l.getId().toString());
+
+					String collection = template.opsForValue().get(
+							COLLECTIONCOUNT + l.getId().toString());
 					if (collection != null)
 						l.setCollectionCount(Long.valueOf(collection));
 					else
@@ -81,8 +81,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findOne(Long id) {
 		Product p = repository.findOne(id);
-		String count = (String) template.opsForValue().get(VIEWCOUNT+id.toString());
-		if(count==null)
+		String count = template.opsForValue().get(VIEWCOUNT + id.toString());
+		if (count == null)
 			p.setCollectionCount(0l);
 		else
 			p.setCollectionCount(Long.valueOf(count));
@@ -98,7 +98,6 @@ public class ProductServiceImpl implements ProductService {
 	public Product addOneProduct(Product product) {
 		product.setCreatedTime(Calendar.getInstance());
 		product.setViewCount(0L);
-		product.setOriginal(OriginalEnum.VERIFY);
 		return repository.save(product);
 	}
 
@@ -165,7 +164,6 @@ public class ProductServiceImpl implements ProductService {
 	public Product saveOne(Product product) {
 		product.setStatus(ProductStatusEnum.EXAMINE);
 		product.setCreatedTime(Calendar.getInstance());
-		product.setOriginal(OriginalEnum.VERIFY);
 		product.setStatus(ProductStatusEnum.EXAMINE);
 		switch(product.getFirstCategory().getId().toString()){
 		case "1":
@@ -181,8 +179,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<Product> findCount(Provider user, Pageable pageable) {
-		Page<Product> pages = repository.findByCreatedBy(user,
-				pageable);
+		Page<Product> pages = repository.findByCreatedBy(user, pageable);
 		List<Product> lists = pages.getContent();
 		lists.stream().forEach(
 				l -> {
@@ -192,20 +189,23 @@ public class ProductServiceImpl implements ProductService {
 						l.setViewCount(Long.valueOf(count));
 					else
 						l.setViewCount(0l);
-					
-					String review = template.opsForValue().get(REVIEWCOUNT +l.getId().toString());
+
+					String review = template.opsForValue().get(
+							REVIEWCOUNT + l.getId().toString());
 					if (review != null)
 						l.setReviewCount(Long.valueOf(review));
 					else
 						l.setReviewCount(0l);
-					
-					String buy = template.opsForValue().get(BUYCOUNT +l.getId().toString());
+
+					String buy = template.opsForValue().get(
+							BUYCOUNT + l.getId().toString());
 					if (buy != null)
 						l.setBuyCount(Long.valueOf(buy));
 					else
 						l.setBuyCount(0l);
-					
-					String collection = template.opsForValue().get(COLLECTIONCOUNT +l.getId().toString());
+
+					String collection = template.opsForValue().get(
+							COLLECTIONCOUNT + l.getId().toString());
 					if (collection != null)
 						l.setCollectionCount(Long.valueOf(collection));
 					else
