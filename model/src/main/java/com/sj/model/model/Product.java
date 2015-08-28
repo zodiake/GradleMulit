@@ -2,7 +2,6 @@ package com.sj.model.model;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,9 +51,6 @@ public class Product {
 	protected String coverImg;
 
 	protected float price;
-
-	@ManyToMany(mappedBy = "products")
-	protected Set<Subject> subjects;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "first_category_id")
@@ -145,14 +141,6 @@ public class Product {
 
 	public void setPrice(float price) {
 		this.price = price;
-	}
-
-	public Set<Subject> getSubjects() {
-		return subjects;
-	}
-
-	public void setSubjects(Set<Subject> subjects) {
-		this.subjects = subjects;
 	}
 
 	public ProductCategory getFirstCategory() {

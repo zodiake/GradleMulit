@@ -51,7 +51,9 @@ create table subject(
 create table solution(
 	id int not null auto_increment,
 	name varchar(40) not null,
-	primary key(id)
+	subject_id bigint,
+	primary key(id),
+	foreign key (subject_id) references subject(id)
 );
 
 create table site_user(
