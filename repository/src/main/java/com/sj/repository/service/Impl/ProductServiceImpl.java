@@ -23,6 +23,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Brand;
+import com.sj.model.model.Instrument;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
@@ -162,6 +163,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product saveOne(Product product) {
+		product.setStatus(ProductStatusEnum.EXAMINE);
+		product.setCreatedTime(Calendar.getInstance());
+		product.setOriginal(OriginalEnum.VERIFY);
+		product.setStatus(ProductStatusEnum.EXAMINE);
+		switch(product.getFirstCategory().getId().toString()){
+		case "1":
+			Instrument instrument = (Instrument) product;
+		}
 		return repository.save(product);
 	}
 

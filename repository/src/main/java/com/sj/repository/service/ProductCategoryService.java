@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.service.Impl.ProductCategoryServiceImpl.Category;
 
 public interface ProductCategoryService {
 	
@@ -44,5 +45,6 @@ public interface ProductCategoryService {
 	public ProductCategory findActivateFirstCategoryById(Long id);
 	
 	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate);
-
+	
+	public List<Category> ajaxFineByParent(ProductCategory category);
 }

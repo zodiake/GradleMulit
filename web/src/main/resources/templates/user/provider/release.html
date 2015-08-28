@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
   <script th:src="@{/js/jquery-min.js}"></script>
   <script th:src="@{/js/script.js}"></script>
+   <script th:src="@{/js/searchCategory.js}"></script>
   <script th:src="@{/js/ckeditor/ckeditor.js}"></script>
   <meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_parameterName" th:content="${_csrf.parameterName}" />	
@@ -21,7 +22,7 @@
     			xhr.setRequestHeader(header, token);
     		});
             $('#content').ckeditor({
-                filebrowserUploadUrl : '/aaa/upload?' + header + "=" + token,
+                filebrowserUploadUrl : '/img/upload?' + header + "=" + token,
                 width : 630,
                  height : 295
             });
@@ -60,12 +61,12 @@
 						</div>
 						<div class="form-group">
 							<label><i>*</i>品牌</label>
-							<select class="w235" >
+							<select class="w235" th:field="*{brand}">
 								<option value="">请选择</option>
 								<option th:each="brand:${brands}" th:text="${brand.name}" th:value="${brand.id}"></option>
 							</select>
 							<label><i>*</i>产地</label>
-							<select class="w235">
+							<select class="w235" th:field="*{placeOfProduction}">
 								<option value="">请选择</option>
 								<option th:value="DOMESTIC">国内</option>
 								<option th:value="EUROPEANDUS">欧美</option>
@@ -79,12 +80,12 @@
 						<div class="form-group">
 							<label><i>*</i>产品类别</label>
 							<select class="w200" th:field="*{firstCategory}">
-								<option value="请选择">请选择</option>
+								<option value="">请选择</option>
 								<option th:each="category:${pcs}" th:value="${category.id}" th:text="${category.name}"></option>
 							</select>
-							<select class="w200">
+							<select class="w200" th:field="*{secondCategory}">
 							</select>
-							<select class="w200">
+							<select class="w200" th:field="*{thirdCategory}">
 							</select>
 						</div>
 						<div class="form-group">

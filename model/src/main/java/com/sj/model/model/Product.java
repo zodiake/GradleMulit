@@ -33,77 +33,77 @@ import com.sj.model.type.ProductStatusEnum;
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	protected Long id;
 
-	private String name;
-	private String nameEnglish; // 产品英文名
+	protected String name;
+	protected String nameEnglish; // 产品英文名
 
-	private String model; // 型号
+	protected String model; // 型号
 
-	private PlaceEnum placeOfProduction; // 产地
+	protected PlaceEnum placeOfProduction; // 产地
 
-	private String specifications; // 规格
+	protected String specifications; // 规格
 
-	private ProductStatusEnum status;
+	protected ProductStatusEnum status;
 
-	private String label;
+	protected String label;
 
 	@Column(name = "cover_img")
-	private String coverImg;
+	protected String coverImg;
 
-	private float price;
+	protected float price;
 
 	@ManyToMany(mappedBy = "products")
-	private Set<Subject> subjects;
+	protected Set<Subject> subjects;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "first_category_id")
-	private ProductCategory firstCategory;
+	protected ProductCategory firstCategory;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "second_category_id")
-	private ProductCategory secondCategory;
+	protected ProductCategory secondCategory;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "third_category_id")
-	private ProductCategory thirdCategory;
+	protected ProductCategory thirdCategory;
 
-	private String url;
+	protected String url;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "brand_id")
-	private Brand brand;
+	protected Brand brand;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "created_by")
-	private Provider createdBy;
+	protected Provider createdBy;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
 			CascadeType.PERSIST })
 	@JoinColumn(name = "content_id")
-	private Content content;
+	protected Content content;
 
 	@Transient
-	private Long viewCount;
+	protected Long viewCount;
 
 	@Transient
 	private Long reviewCount = 0l;
 	@Transient
-	private Long collectionCount;
+	protected Long collectionCount;
 
 	@Transient
-	private Long buyCount;
+	protected Long buyCount;
 
 	@Transient
-	private boolean isCollection;// 是否被收藏
+	protected boolean isCollection;// 是否被收藏
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_time")
-	private Calendar createdTime;
+	protected Calendar createdTime;
 
-	private String serialNO;
+	protected String serialNO;
 
-	private OriginalEnum original;
+	protected OriginalEnum original;
 
 	public Product() {
 		super();

@@ -37,6 +37,11 @@ values(10,'secondCategory1-2',1,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(11,'secondCategory1-3',1,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(18,'secondCategory2-1',2,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(19,'secondCategory18-19',18,1,'2012-1-1','tom','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(12,'thirdCategory2-4',11,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(13,'thirdCategory2-5',10,1,'2012-1-1','tom','pc');
@@ -44,6 +49,10 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(14,'thirdCategory3-6',10,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(15,'thirdCategory3-7',10,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(16,'thirdCategory3-6',11,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(17,'thirdCategory3-7',11,1,'2012-1-1','tom','pc');
 
 --test advertise category
 insert into category(id,name,category_type,activate,url) values(7,'行业要闻','ic',1,'HYYW');

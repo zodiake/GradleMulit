@@ -3,8 +3,6 @@ package com.sj.web.util;
 public class InstrumentSearch {
 	private String brand;
 	private String name;
-	private String place;
-	private float price;
 
 	public String getBrand() {
 		return brand;
@@ -22,19 +20,4 @@ public class InstrumentSearch {
 		this.name = name;
 	}
 
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
 }

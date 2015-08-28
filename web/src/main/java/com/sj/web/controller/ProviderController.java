@@ -129,12 +129,16 @@ public class ProviderController extends BaseController<Provider> {
 			@SecurityUser SiteUser user) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
+			uiModel.addAttribute("brands", brandService.findAll());
+			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			uiModel.addAttribute("pcs", pcs);
 			uiModel.addAttribute("product", product);
 			return "user/provider/release";
 		}
 		product.setCreatedBy(new Provider(user.getId()));
+		productService.saveOne(product);
 		uiModel.addAttribute("product", product);
-		return "user/provider/release";
+		return "redirect:/provider/products/ALL";
 	}
 
 	/* 商品发布 end */
