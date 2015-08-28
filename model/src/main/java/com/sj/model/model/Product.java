@@ -21,6 +21,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
@@ -33,39 +37,41 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
-
+	@NotBlank(message = "商品名称不能为空")
 	protected String name;
 	protected String nameEnglish; // 产品英文名
-
+	@NotBlank(message = "型号不能为空")
 	protected String model; // 型号
-
+	@NotNull(message = "请选择产地")
 	protected PlaceEnum placeOfProduction; // 产地
-
+	@NotBlank(message = "规格不能为空")
 	protected String specifications; // 规格
 
 	protected ProductStatusEnum status;
-
+	@NotBlank(message = "商品标签不能为空")
 	protected String label;
-
+	
 	@Column(name = "cover_img")
 	protected String coverImg;
-
+	
 	protected float price;
 
+	@NotNull(message = "请选择一级目录")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "first_category_id")
 	protected ProductCategory firstCategory;
 
+	@NotNull(message = "请选择二级目录")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "second_category_id")
 	protected ProductCategory secondCategory;
-
+	@NotNull(message = "请选择三级目录")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "third_category_id")
 	protected ProductCategory thirdCategory;
 
 	protected String url;
-
+	@NotNull(message = "请选择品牌")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "brand_id")
 	protected Brand brand;

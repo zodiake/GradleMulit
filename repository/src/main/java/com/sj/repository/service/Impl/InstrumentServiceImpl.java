@@ -63,4 +63,9 @@ public class InstrumentServiceImpl implements InstrumentService {
 		return repository.findAll(pageable);
 	}
 
+	@Override
+	public Instrument saveNoPublisher(Instrument instrument) {
+		return repository.save(instrument);
+	}
+
 }

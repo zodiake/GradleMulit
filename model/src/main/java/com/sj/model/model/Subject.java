@@ -52,9 +52,6 @@ public class Subject implements Serializable {
 	@OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
 	private List<Solution> solutions;
 
-	@Column(name = "u_id")
-	private String uId;
-
 	private String image;
 
 	@Transient
@@ -123,14 +120,6 @@ public class Subject implements Serializable {
 
 	public void setContent(Content content) {
 		this.content = content;
-	}
-
-	public String getuId() {
-		return uId;
-	}
-
-	public void setuId(String uId) {
-		this.uId = uId;
 	}
 
 	public Long getViewCount() {

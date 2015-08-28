@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="description" content=""/>
-  <title>发布商品</title>
+  <title>商品修改</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
   <script th:src="@{/js/jquery-min.js}"></script>
   <script th:src="@{/js/script.js}"></script>
@@ -13,7 +13,6 @@
   <meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_parameterName" th:content="${_csrf.parameterName}" />	
 	<script th:src="@{/js/ckeditor/adapters/jquery.js}"></script>
-	<script th:src="@{/js/modifyAction.js}"></script>
 	<script>
         $(function() {
             var token = $("meta[name='_csrf']").attr("content");
@@ -40,12 +39,12 @@
 			<div class="mainwrapper clearfix">
 				<div class="aside fl">
 					<a href="/provider/detail">个人资料</a>
-					<a class="active">发布商品</a>
-					<a href="/provider/products">商品维护</a>
+					<a href="/provider/products?form">发布商品</a>
+					<a class="active">商品维护</a>
 					<a href="/provider/count">商品信息统计</a>
 				</div>
 				<div class="mainpanel bodr basic-info push-good fr">
-					<form th:object="${product}" method="post" action="/provider/instruments?form">	
+					<form th:object="${product}" method="post">	
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 		
 						<div class="form-group">
 							<div class="fl">
@@ -121,7 +120,7 @@
 						<div class="form-group">
 							<div class="fl">
 							<label><i>*</i>标签</label>							
-							<input type="text" class="w630" th:field="*{label}"/>
+							<input type="text" class="w630" th:text="*{label}"/>
 							<i class="error" th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
 							</div>
 						</div>	
@@ -145,8 +144,8 @@
 							<button class="btn green">发布</button>	
 						</div>
 						<div class="center">
-							<button class="btn green">发布</button>	
-							<button class="btn default">cancel</button>	
+							<button class="btn green">保存</button>	
+							<button class="btn default">返回</button>	
 						</div>						
 					</form>
 				</div>

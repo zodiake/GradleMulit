@@ -29,6 +29,7 @@ import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.repository.ProductRepository;
+import com.sj.repository.service.InstrumentService;
 import com.sj.repository.service.ProductService;
 
 @Service
@@ -39,11 +40,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private StringRedisTemplate template;
+	@Autowired
+	private InstrumentService instrumentService;
 
 	@Override
 	public Page<Product> findByUsers(Provider user, Pageable pageable,
 			ProductStatusEnum status) {
-		Page<Product> pages = repository.findByCreatedByAndStatus(user, pageable, status);
+		Page<Product> pages = repository.findByCreatedByAndStatus(user,
+				pageable, status);
 		List<Product> lists = pages.getContent();
 		lists.stream().forEach(
 				l -> {
@@ -162,14 +166,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product saveOne(Product product) {
-		product.setStatus(ProductStatusEnum.EXAMINE);
 		product.setCreatedTime(Calendar.getInstance());
 		product.setStatus(ProductStatusEnum.EXAMINE);
-		switch(product.getFirstCategory().getId().toString()){
-		case "1":
-			Instrument instrument = (Instrument) product;
-		}
-		return repository.save(product);
+		return product;
 	}
 
 	@Override

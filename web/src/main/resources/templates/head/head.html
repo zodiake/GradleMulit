@@ -71,7 +71,7 @@
 								<a href="/provider/products?form">商品发布</a>
 							</li>
 							<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
-								<a href="/provider/products/ALL">商品维护</a>
+								<a href="/provider/products">商品维护</a>
 							</li>
 							<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
 								<a href="/provider/count">商品信息统计</a>

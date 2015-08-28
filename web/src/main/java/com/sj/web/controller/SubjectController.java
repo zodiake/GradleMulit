@@ -1,6 +1,7 @@
 package com.sj.web.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sj.model.model.Product;
+import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.ProductCategoryService;
@@ -51,6 +53,7 @@ public class SubjectController {
 		List<Product> sjs = new ArrayList<Product>();
 		List<Product> hcs = new ArrayList<Product>();
 		List<Product> fws = new ArrayList<Product>();
+		
 		uiModel.addAttribute("yqs", yqs);
 		uiModel.addAttribute("sjs", sjs);
 		uiModel.addAttribute("hcs", hcs);

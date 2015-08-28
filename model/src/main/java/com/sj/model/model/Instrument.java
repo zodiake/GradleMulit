@@ -13,6 +13,4 @@ public class Instrument extends Product {
 	public Instrument(Long id){
 		super(id);
 	}
-	public Instrument(Product product){
-	}
 }

@@ -96,7 +96,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("user") SiteUser user,
+	public String login(@ModelAttribute("user") SiteUser user,
 			BindingResult bindingResult, Model uiModel, HttpSession httpSession) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				user.getName(), user.getPassword());
