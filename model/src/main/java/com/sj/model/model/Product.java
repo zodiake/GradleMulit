@@ -2,7 +2,6 @@ package com.sj.model.model;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,8 +53,7 @@ public class Product {
 	@NotBlank(message = "请上传商品图片")
 	@Column(name = "cover_img")
 	protected String coverImg;
-
-	@Pattern(regexp = "^[0-9]+\\.?[0-9]{0,2}$", message = "价格精确到小数点后一位")
+	@NotNull(message="价格不能为空")
 	protected float price;
 
 	@NotNull(message = "请选择一级目录")
