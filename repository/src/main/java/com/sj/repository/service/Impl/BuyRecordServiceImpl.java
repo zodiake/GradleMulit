@@ -29,13 +29,28 @@ public class BuyRecordServiceImpl implements BuyRecordService{
 	}
 
 	@Override
-	public BuyRecord findOne(Long id) {
-		return buyRecordRepository.findOne(id);
+	public BuyRecord findOne(Long id,CommonUser user) {
+		return buyRecordRepository.findByIdAndUser(id, user);
 	}
 
 	@Override
 	public void deleteOne(Long id) {
 		buyRecordRepository.delete(new BuyRecord(id));
+	}
+
+	@Override
+	public BuyRecord update(CommonUser user, BuyRecord newBuy) {
+		BuyRecord old = buyRecordRepository.findByIdAndUser(newBuy.getId(), user);
+		
+		return buyRecordRepository.save(bind(old,newBuy));
+	}
+	
+	public BuyRecord bind(BuyRecord old,BuyRecord newBuy){
+		old.setName(newBuy.getName());
+		old.setFundCategory(newBuy.getFundCategory());
+		old.setReason(newBuy.getReason());
+//		old.setArrivalTime(newBuy.getArrivalTime());
+		return old;
 	}
 
 }

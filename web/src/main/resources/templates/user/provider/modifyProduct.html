@@ -84,6 +84,9 @@
           			}
           		});
           	});
+          	$("#cancel").click(function(){
+          		window.location.href="/provider/products";
+          	});
         });
 	</script>
 </head>
@@ -203,11 +206,8 @@
 							<p>2. 产品名称中只能包含一种产品，不得把产品系列当作单条产品发布；可加入型号，但不允许加入其它任何如联系方式、价格或“进口”“国产”“现货”等,或和产品名称无关的符号。否则，我们有权更改或删除。</p>
 						</div>
 						<div class="center">
-							<button class="btn green">发布</button>	
-						</div>
-						<div class="center">
 							<button class="btn green">保存</button>	
-							<button class="btn default">返回</button>	
+							<button class="btn default" id="cancel">返回</button>	
 						</div>						
 					</form>
 				</div>

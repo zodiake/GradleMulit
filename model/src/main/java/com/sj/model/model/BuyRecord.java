@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "buy_record")
 public class BuyRecord {
@@ -27,11 +29,14 @@ public class BuyRecord {
 	@Column(name = "no_id")
 	private String noId;
 	
+	@NotBlank(message ="请输入项目名称")
 	private String name;
 	
 	@Column(name="fund_category")
+	@NotBlank(message = "请输入经费类别")
 	private String fundCategory;		//经费类别
 	
+	@NotBlank(message = "申请理由")
 	private String reason;				//申请理由
 	
 	@JoinColumn(name = "user_id")

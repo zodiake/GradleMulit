@@ -78,7 +78,7 @@
 								<th>操作</th>
 							</tr>
 						</thead>
-						<tbody th:with="num=0">
+						<tbody>
 							<tr th:each="buy,buyStat:${pages.getContent()}" th:id="'tr'+${buy.id}">
 								<td th:text="${buyStat.index+1}"></td>
 								<td th:text="${#dates.format(buy.createTime, 'yyyy-MM-dd')}"></td>
@@ -90,7 +90,7 @@
 								<td th:text="${buy.price}">1111.00</td>
 								<td>
 									<a class="blue delete" th:attr="data-id=${buy.id}">删除</a>|
-									<a class="blue">修改</a>|
+									<a class="blue" th:href="'/user/buyRecords/'+${buy.id}+'?edit'">修改</a>|
 									<a class="blue download">下载</a>
 								</td>
 							</tr>

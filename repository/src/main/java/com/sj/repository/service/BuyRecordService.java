@@ -11,7 +11,9 @@ public interface BuyRecordService {
 
 	public Page<BuyRecord> findPage(CommonUser user, Pageable pageable);
 	
-	public BuyRecord findOne(Long id);
+	public BuyRecord findOne(Long id,CommonUser user);
 	
 	public void deleteOne(Long id);
+	
+	public BuyRecord update(CommonUser user,BuyRecord buy);
 }
