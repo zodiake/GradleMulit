@@ -82,27 +82,4 @@ $(function() {
 		  $(".hide-wrap-small").fadeOut();
 		  $(".fixed").fadeOut();
 	 })
-	modId=0;
-	$(".modify").click(function(){
-		var obj = $(this).parent();
-		var mId = obj.attr('data-id');
-		if(mId != modId){
-			$("#modify").empty();
-			$.ajax({
-				type : 'get',
-				url : '/provider/products/'+mId+'?edit',
-				success : function(data){
-					$("#modify").append(data);
-					$("#modify").show();
-					$('.fixed').show();
-					modId=mId;
-				},error : function(data){
-					alert("error");
-				}
-			});
-		}else{
-			$("#modify").show();
-			$('.fixed').show();
-		}
-	});
 });

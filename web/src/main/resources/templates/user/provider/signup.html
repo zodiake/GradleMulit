@@ -8,9 +8,14 @@
 	<meta charset="UTF-8" />
 	<meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-	<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+	
+	<script type="text/javascript"  th:src="@{/js/jquery-1.11.2.min.js}"></script>
+	<script type="text/javascript"  th:src="@{/js/jquery.ui.widget.js}"></script>
+	<script type="text/javascript"  th:src="@{/js/jquery.iframe-transport.js}"></script>
+	<script type="text/javascript"  th:src="@{/js/jquery.fileupload.js}"></script>
 	<script type="text/javascript" th:src="@{/js/province.js}"></script>
 	<script type="text/javascript" th:src="@{/js/validata_signup.js}"></script>
+	
 	<script type="text/javascript">
 		$(function() {
 			var token = $("meta[name='_csrf']").attr("content");
@@ -19,6 +24,78 @@
 			$(document).ajaxSend(function(e, xhr, options) {
 				xhr.setRequestHeader(header, token);
 			});
+			$('#province').change(function(){
+				var obj = $(this);
+				var id = obj.val();
+				$.ajax({
+					type : 'get',
+					url : '/provinces/'+id,
+					success : function(data){
+						$('#city').empty();
+						var str = '<option value="">选择城市</option>';
+						$.each(data,function(key,val){
+							str = str+'<option value="'+val.id+'">'+val.name+'</option>';
+						});
+						$('#city').append(str);
+					},error : function(data){
+						alert("error");
+					}
+				});
+			});
+			var all = false;
+			var agreementCheck = false;
+			$("#agreement").click(function(){
+				if(agreementCheck==true)
+					agreementCheck=false;
+				else
+					agreementCheck=true;
+				if(agreementCheck){
+					$("#regirect").removeAttr("disabled");
+				}else{
+					$("#regirect").attr("disabled","disabled");
+				}
+			});
+			$("#name").change(function(){
+				var obj = $(this);
+				$.ajax({
+					type : 'POST',
+					url : '/name?valid',
+					data : {'name':obj.val()},
+					success : function(data){
+						if(data=="true"){
+							$("#nameerror").remove();
+						}else{
+							if($("#nameerror").text()){
+							}else{
+								obj.after('<i class="error" id="nameerror">用户名已存在</i>');
+							}
+						}
+					},error : function(data){
+					}
+				});
+			});
+			var ajaxUrl = "";
+			  $('input[type="file"]').bind('fileuploadsubmit', function(e, data) {
+                  var self = $(this);
+                  ajaxUrl = self.attr('data-url');
+                  data.formData = {
+                      url : self.prev('input').val()
+                  };
+              });
+
+              $('input[type="file"]').fileupload({
+                  dataType : 'json',
+                  add : function(e, data) {
+                      data.submit();
+                  },
+                  done : function(e, data) {
+                	  $("#"+ajaxUrl).val(data.result.files[0].url);
+                	  $(this).parent().parent().find("img").attr("src",data.result.files[0].url);
+                  },
+                  progressall : function(e, data) {
+                  }
+              });
+
 		});
 	</script>
 </head>
@@ -161,27 +238,33 @@
 			</div>
 			<div class="form-group files">
 				<label><i>*</i>企业营业执照上传</label>
-				<img src="img/banner1.jpg" width="100" height="100" />
+				<img th:src="*{businessLicenseUrl}" width="100" height="100"/>
 				<button id="uploadImg">
-                    <input type='file'/>
+                    <input type='file' name='file' th:attr="data-url=@{businessLicenseUrl}"/>
                     <a href="#">选择文件</a>
-                </button>		
+                </button>	
+                	<input type="hidden" th:field="*{businessLicenseUrl}"/>
+                <i class="error" th:if="${#fields.hasErrors('businessLicenseUrl')}" th:errors="*{businessLicenseUrl}">必填</i>	
 			</div>
 			<div class="form-group files">
 				<label><i>*</i>税务登记证上传</label>
-				<img src="img/banner1.jpg" width="100" height="100" />
+				<img th:src="*{taxRegistrationUrl}" width="100" height="100"/>
 				<button id="uploadImg">
-                    <input type='file'/>
+                    <input type='file' name='file' th:attr="data-url=@{taxRegistrationUrl}"/>
                     <a href="#">选择文件</a>
                 </button>				
+                <input type="hidden" th:field="*{taxRegistrationUrl}"/>
+                <i class="error" th:if="${#fields.hasErrors('taxRegistrationUrl')}" th:errors="*{taxRegistrationUrl}">必填</i>
 			</div>
 			<div class="form-group files">
 				<label><i>*</i>组织结构代码证上传</label>
-				<img src="img/banner1.jpg" width="100" height="100" />
+				<img th:src="*{structureCodeUrl}" width="100" height="100"/>
 				<button id="uploadImg">
-                    <input type='file'/>
+                    <input type='file' name='file' th:attr="data-url=@{structureCodeUrl}"/>
                     <a href="#">选择文件</a>
-                </button>				
+                </button>		
+                <input type="hidden" th:field="*{structureCodeUrl}"/>
+                <i class="error" th:if="${#fields.hasErrors('structureCodeUrl')}" th:errors="*{structureCodeUrl}">必填</i>		
 			</div>
 			<div class="hd resg-hd">
 				<span>联系信息</span>

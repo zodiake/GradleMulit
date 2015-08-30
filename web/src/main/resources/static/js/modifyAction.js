@@ -1,6 +1,5 @@
-$(function() {
 	var formObj = $('form');
-	$("#firstCategory").change(function(){
+	$('#firstCategory').change(function(){
 		var categoryId = $(this).val();
 		switch(categoryId){
 		case '1':
@@ -17,4 +16,3 @@ $(function() {
 			break;
 		}
 	});
-});

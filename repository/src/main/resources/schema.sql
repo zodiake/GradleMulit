@@ -146,7 +146,7 @@ create table product(
 	place_of_production smallint,
 	status smallint,
 	specifications varchar(20),
-	cover_img varchar(40),
+	cover_img varchar(60),
 	first_category_id bigint,
 	second_category_id bigint,
 	third_category_id bigint,

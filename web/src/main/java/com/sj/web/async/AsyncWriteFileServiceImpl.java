@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sj.model.model.Provider;
 import com.sj.model.model.UploadResult;
 import com.sj.model.model.UploadResultDetail;
 import com.sj.repository.util.FileUtil;
@@ -21,8 +22,10 @@ import com.sj.repository.util.FileUtil;
 public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 	private final String imgPath = "src/main/resources/static/upload/img/";
 	private final String audioPath = "src/main/resources/static/upload/audio/";
+	private final String providerPath = "src/main/resources/static/upload/";
 
 	private final String imgUrl = "/upload/img/";
+	private final String productUrl = "/upload/";
 	private final String audioUrl = "/upload/audio/";
 
 	@Override
@@ -72,4 +75,25 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 		result.setFiles(files);
 		return result;
 	}
+
+	@Override
+	public UploadResult writeProductToProviderFile(MultipartFile file,Provider provider) {
+		InputStream stream;
+		String fileName = provider.getId() + "/"+FileUtil.getFileName(file.getContentType());
+		try {
+			stream = file.getInputStream();
+			Path basePath = Paths.get("").resolve(providerPath  + fileName);
+			IOUtils.copyLarge(stream, Files.newOutputStream(basePath));
+			stream.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		UploadResult result = new UploadResult();
+		List<UploadResultDetail> files = new ArrayList<>();
+		files.add(new UploadResultDetail(file.getOriginalFilename(), file.getSize(), productUrl + fileName, "asd", "delete"));
+		result.setFiles(files);
+		return result;
+	}
+
 }

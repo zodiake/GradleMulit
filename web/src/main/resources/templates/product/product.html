@@ -111,7 +111,7 @@
 			</div>
 			<div class="goods-property bodr clearfix">
 				<div class="fl pro-big">
-					<img th:src="@{/img/banner1.jpg}" width="400" height="400" />
+					<img th:src="*{coverImg}" width="400" height="400" />
 				</div>
 				<div class="fl pro-info">
 					<div class="panel global-panel clearfix">
@@ -176,8 +176,7 @@
 			</div>
 			<div class="layout">
 				<div class="tabs-nav detail-nav bodr">
-					<a class="active">商品详情</a><a>相关专题(<i
-					th:text="${product.getSubjects().size()}"></i>) </a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
+					<a class="active">商品详情</a><a>相关专题() </a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
 					id="reviewNum"></i>) </a>
 				</div>
 				<div class="tab-conts detail-con bodr">
@@ -185,7 +184,7 @@
 					th:text="${product.content.content}"></div>
 					<div class="tab-panel global-box about-special hide">
 						<ul>
-							<li th:each="subject:${product.getSubjects()}">
+							<!-- <li th:each="subject:${product.getSubjects()}">
 								<a th:href="'/subjects/'+${subject.id}">
 								<div class="title">
 									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
@@ -193,7 +192,7 @@
 								<div class="spe-pic">
 									<img th:src="@{/img/list1.jpg}" width="240" height="140" />
 								</div> <div class="topic-detail" th:text="${subject.content.content}"></div> </a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 					<div class="tab-panel global-box comments hide">

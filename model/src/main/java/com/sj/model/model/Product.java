@@ -52,20 +52,19 @@ public class Product {
 	protected String label;
 	
 	@Column(name = "cover_img")
+	@NotBlank(message = "请上传图片")
 	protected String coverImg;
 	
 	protected float price;
 
-	@NotNull(message = "请选择一级目录")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "first_category_id")
 	protected ProductCategory firstCategory;
 
-	@NotNull(message = "请选择二级目录")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "second_category_id")
 	protected ProductCategory secondCategory;
-	@NotNull(message = "请选择三级目录")
+	@NotNull(message = "请选择所属分类")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "third_category_id")
 	protected ProductCategory thirdCategory;
