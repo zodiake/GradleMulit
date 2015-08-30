@@ -130,16 +130,16 @@ insert into prefer_products(user_id,product_id,created_time) values(11,2,'2014-1
 insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-1');
 
 --test subject 专题
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (1,'subject1',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (2,'subject2',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (3,'subject3',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (4,'subject4',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (5,'subject5',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (6,'subject6',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (7,'subject7',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (8,'subject8',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (9,'subject9',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,u_id) values (10,'subject10',1,1,'上海申捷卫生科技',systimestamp,1,'XMTMwNTc4NzcxMg==');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (1,'subject1',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (2,'subject2',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (3,'subject3',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (4,'subject4',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (5,'subject5',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (6,'subject6',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (7,'subject7',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (8,'subject8',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (9,'subject9',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (10,'subject10',1,1,'上海申捷卫生科技',systimestamp,1);
 
 insert into solution(id,name,subject_id) values(1,'solution1',1);
 insert into solution(id,name,subject_id) values(2,'solution2',1);
