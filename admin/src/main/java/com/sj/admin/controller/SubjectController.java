@@ -2,6 +2,7 @@ package com.sj.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.admin.exception.SubjectNotFoundException;
-import com.sj.admin.util.ActivateState;
 import com.sj.model.model.Subject;
+import com.sj.repository.model.SubjectDetailJson;
+import com.sj.repository.model.SubjectJson;
 import com.sj.repository.service.SubjectService;
 
 @Controller
@@ -25,40 +28,26 @@ public class SubjectController {
 	private final String LIST = "subject/list";
 
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.GET)
-	public String lists(Model uiModel,
-			@PageableDefault(page = 0, size = 15) Pageable pageable,
-			@ModelAttribute(value = "state") ActivateState state) {
+	@ResponseBody
+	public Page<SubjectJson> lists(Model uiModel,
+			@PageableDefault(page = 0, size = 15) Pageable pageable) {
 
-		Page<Subject> result;
-		if (state != null)
-			result = subjectService.findByActivated(pageable,
-					state.getActivateEnum());
-		else
-			result = subjectService.findAll(pageable);
-		uiModel.addAttribute("lists", result);
-		uiModel.addAttribute("state", state);
-		return LIST;
-	}
-
-	@RequestMapping(value = "/admin/subjects", params = "form", method = RequestMethod.GET)
-	public String create(Model uiModel) {
-		uiModel.addAttribute("subject", new Subject());
-		return null;
+		return subjectService.findAllJson(new PageRequest(pageable
+				.getPageNumber() - 1, pageable.getPageSize()));
 	}
 
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.POST)
+	@ResponseBody
 	public String createProcess(@ModelAttribute("subject") Subject subject) {
-		Subject result = subjectService.save(subject);
-		return "redirect:/admin/subjects/" + result.getId() + "?edit";
+		subjectService.save(subject);
+		return "\"success\"";
 	}
 
-	@RequestMapping(value = "/admin/subjects/{id}", params = "edit", method = RequestMethod.GET)
-	public String edit(@PathVariable("id") Long id, Model uiModel) {
+	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public SubjectDetailJson edit(@PathVariable("id") Long id, Model uiModel) {
 		Subject subject = subjectService.findOne(id);
-		if (subject == null)
-			throw new SubjectNotFoundException();
-		uiModel.addAttribute("subject", subject);
-		return null;
+		return new SubjectDetailJson(subject);
 	}
 
 	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.PUT)
@@ -66,9 +55,9 @@ public class SubjectController {
 			@ModelAttribute("subject") Subject subject,
 			BindingResult bindingResult) {
 		Subject oldSubject = subjectService.findOne(id);
-		if(oldSubject==null)
+		if (oldSubject == null)
 			throw new SubjectNotFoundException();
-		if(bindingResult.hasErrors()){
+		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("subject", subject);
 			return null;
 		}

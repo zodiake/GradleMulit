@@ -54,6 +54,14 @@ public class Solution {
 		this.subject = subject;
 	}
 
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

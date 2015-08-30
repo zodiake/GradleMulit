@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.SubjectJson;
 
 public interface SubjectService {
 	Page<Subject> findAll(Pageable pageable);
@@ -16,9 +17,10 @@ public interface SubjectService {
 	Subject findOne(Long id);
 
 	Subject save(Subject s);
-	
-	Subject update(Subject s,Subject old);
-	
+
+	Subject update(Subject s, Subject old);
+
 	List<Subject> findByShowOnIndex();
 
+	Page<SubjectJson> findAllJson(Pageable pageable);
 }

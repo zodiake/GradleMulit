@@ -10,7 +10,8 @@ var app = angular.module('app', [
     'User',
     'Brand',
     'Advertise',
-    'Info'
+    'Info',
+    'Subject'
 ]);
 
 app.config([
@@ -67,6 +68,21 @@ app.config([
                     return '/admin/informations/' + stateParams.id;
                 },
                 controller: 'InfoDetailController'
+            })
+            .state('subject', {
+                url: '/subject',
+                templateUrl: '/admin/subject',
+                controller: 'SubjectController'
+            })
+            .state('subjectCreate', {
+                url: '/subjectCreate',
+                templateUrl: '/admin/subject/create',
+                controller: 'SubjectCreateController'
+            })
+            .state('subjectDetail', {
+                url: '/subjectDetail/:id',
+                templateUrl: '/admin/subject/edit',
+                controller: 'SubjectEditController'
             });
     }
 ]);

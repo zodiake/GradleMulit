@@ -11,8 +11,9 @@ import com.sj.model.type.ActivateEnum;
 
 public interface SubjectRepository extends
 		PagingAndSortingRepository<Subject, Long> {
-	Page<Subject> findByActivateOrderByCreatedTimeDesc(Pageable pageable, ActivateEnum activate);
-	
+	Page<Subject> findByActivateOrderByCreatedTimeDesc(Pageable pageable,
+			ActivateEnum activate);
+
 	List<Subject> findByShowOnIndex(ActivateEnum activate);
 
 }
