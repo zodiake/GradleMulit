@@ -1,0 +1,21 @@
+<!-- leftpanel -->
+<div class="contentpanel">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td><a href="#/subjectDetail/{{item.id}}">{{$index+1}}</a></td>
+                <td><input type="text" ng-model="item.name"/></td>
+                <td><button ng-click="update(item)">update</button></td>
+            </tr>
+        </tbody>
+        <input ng-model="solution.name"></input>
+        <button ng-click="add()">add</button>
+    </table>
+</div>

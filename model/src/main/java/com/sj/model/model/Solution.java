@@ -30,6 +30,18 @@ public class Solution {
 	@JoinTable(name = "solution_product", joinColumns = @JoinColumn(name = "solution_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> products;
 
+	public Solution() {
+
+	}
+
+	public Solution(Long id) {
+		this.id = id;
+	}
+
+	public Solution(String name) {
+		this.name = name;
+	}
+
 	public Long getId() {
 		return id;
 	}

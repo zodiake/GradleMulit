@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sj.admin.model.ProductOption;
 import com.sj.admin.security.SiteUserContext;
 import com.sj.admin.util.AdminSeachProductForm;
 import com.sj.model.model.Brand;
@@ -49,6 +50,7 @@ import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.model.ProductJson;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 
@@ -61,7 +63,12 @@ public class ProductController {
 	@Autowired
 	private ProductCategoryService productCategoryService;
 
-	@RequestMapping(value = "/admins/product", method = RequestMethod.GET, params = "batch")
+	@RequestMapping(value = "/admin/product", method = RequestMethod.GET)
+	public List<ProductJson> list(ProductOption option) {
+		return null;
+	}
+
+	@RequestMapping(value = "/admin/product", method = RequestMethod.GET, params = "batch")
 	public String createBatch() {
 
 		return "create";
@@ -152,7 +159,7 @@ public class ProductController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/admins/product", method = RequestMethod.POST, params = "batch")
+	@RequestMapping(value = "/admin/product", method = RequestMethod.POST, params = "batch")
 	@ResponseBody
 	public String createBatchProcess(@RequestParam("file") MultipartFile mf)
 			throws IOException, InvalidFormatException {

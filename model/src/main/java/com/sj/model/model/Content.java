@@ -13,16 +13,21 @@ public class Content {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String content;
-	
-	public Content(){
+
+	public Content() {
 	}
-	public Content(Long id){
+
+	public Content(Long id) {
 		this.id = id;
 	}
-	
-	public Content(Long id,String content){
-		this.id=id;
-		this.content=content;
+
+	public Content(String content) {
+		this.content = content;
+	}
+
+	public Content(Long id, String content) {
+		this.id = id;
+		this.content = content;
 	}
 
 	public Long getId() {

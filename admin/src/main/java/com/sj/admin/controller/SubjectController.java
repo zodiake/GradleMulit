@@ -1,5 +1,11 @@
 package com.sj.admin.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,8 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.admin.exception.SubjectNotFoundException;
+import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
-import com.sj.repository.model.SubjectDetailJson;
+import com.sj.repository.model.SolutionJson;
 import com.sj.repository.model.SubjectJson;
 import com.sj.repository.service.SubjectService;
 
@@ -38,16 +45,38 @@ public class SubjectController {
 
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.POST)
 	@ResponseBody
-	public String createProcess(@ModelAttribute("subject") Subject subject) {
+	public String createProcess(@ModelAttribute("subject") Subject subject,
+			HttpServletRequest request) {
+		String solution = request.getParameter("solution");
+		List<Solution> solutions = convertStringToSolution(solution);
+		solutions.forEach(c -> c.setSubject(subject));
+		subject.setSolutions(solutions);
 		subjectService.save(subject);
 		return "\"success\"";
 	}
 
+	private List<Solution> convertStringToSolution(String solution) {
+		String[] strings = solution.split(",");
+		List<Solution> solutions = new ArrayList<>();
+		for (int i = 0; i < strings.length; i++) {
+			solutions.add(new Solution(solution));
+		}
+		return solutions;
+	}
+
 	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public SubjectDetailJson edit(@PathVariable("id") Long id, Model uiModel) {
+	public String edit(@PathVariable("id") Long id, Model uiModel) {
 		Subject subject = subjectService.findOne(id);
-		return new SubjectDetailJson(subject);
+		uiModel.addAttribute("subject", subject);
+		return "subject/edit";
+	}
+
+	@RequestMapping(value = "/admin/subjects/{id}/solutions", method = RequestMethod.GET)
+	@ResponseBody
+	public List<SolutionJson> solution(@PathVariable("id") Long id) {
+		Subject s = subjectService.findOne(id);
+		return s.getSolutions().stream().map(p -> new SolutionJson(p))
+				.collect(Collectors.toList());
 	}
 
 	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.PUT)

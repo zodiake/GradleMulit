@@ -1,5 +1,7 @@
 package com.sj.admin.controller;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,15 @@ public class BrandController {
 		ActivateEnum activate = ActivateEnum.fromString(state);
 		return brandService.findByActivateToJson(activate, new PageRequest(
 				page - 1, size, Direction.DESC, "createdTime"));
+	}
+
+	@RequestMapping(value = "/admin/brands", method = RequestMethod.POST)
+	@ResponseBody
+	public String create(Brand brand) {
+		brand.setActivate(ActivateEnum.ACTIVATE);
+		brand.setCreatedTime(Calendar.getInstance());
+		brandService.save(brand);
+		return "";
 	}
 
 	@RequestMapping(value = "/admin/brands/{id}/activate", method = RequestMethod.POST)

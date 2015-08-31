@@ -49,7 +49,7 @@ public class Subject implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Content content;
 
-	@OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "subject", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private List<Solution> solutions;
 
 	private String image;
