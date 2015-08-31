@@ -111,8 +111,8 @@ public class LoginController {
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
 		userContext.setCurrentUser(user);
 		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
-			Set<CartLine> lines = cartLineService.findByUser(user.getId());
-			httpSession.setAttribute("cartLines", lines);
+//			Set<CartLine> lines = cartLineService.findByUser(user.getId());
+//			httpSession.setAttribute("cartLines", lines);
 		}
 		return "redirect:/index";
 	}
@@ -301,7 +301,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value ="/forgetPw", method = RequestMethod.POST)
-	public String forgetPwVaildata(@Valid @ModelAttribute("form") MobileVerificationForm form,BindingResult result, Model uiModel) {
+	public String forgetPwVaildata(@Valid @ModelAttribute("form") MobileVerificationForm form,BindingResult result, Model uiModel,HttpSession session) {
 		if(result.hasErrors()){
 			form.setCode(null);
 			uiModel.addAttribute("form", form);
@@ -314,12 +314,13 @@ public class LoginController {
 			uiModel.addAttribute("form", form);
 			return "user/forgetPw";
 		}
+		session.setAttribute("phone", form.getPhone());
 		uiModel.addAttribute("form", new RetrievePasswordForm(form.getPhone()));
 		return "user/changePw";
 	}
 
 	@RequestMapping(value = "/forgetPw", method = RequestMethod.PUT)
-	public String forgetPwProcess(@Valid @ModelAttribute("form") RetrievePasswordForm form,BindingResult bindingResult,Model uiModel) {
+	public String forgetPwProcess(@Valid @ModelAttribute("form") RetrievePasswordForm form,BindingResult bindingResult,Model uiModel,HttpSession session) {
 		if (bindingResult.hasErrors()) {
 			form.setPassword(null);
 			form.setConfirm(null);
@@ -333,7 +334,14 @@ public class LoginController {
 			uiModel.addAttribute("form", form);
 			return "user/changePw";
 		}
-		SiteUser user = userService.findByPhone(form.getPhone());
+		String phone = (String) session.getAttribute("phone");
+		if(phone==null || "".equals(phone)){
+			form.setPassword(null);
+			form.setConfirm(null);
+			uiModel.addAttribute("form", form);
+			return "user/changePw";
+		}
+		SiteUser user = userService.findByPhone(phone);
 		userService.updatePassword(user.getId(),encoder.encodePassword(form.getPassword(), null));
 		return "redirect:/login";
 	}

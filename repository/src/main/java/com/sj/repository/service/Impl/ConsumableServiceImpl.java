@@ -73,4 +73,29 @@ public class ConsumableServiceImpl implements ConsumableService {
 		Long count = em.createQuery(cq).getSingleResult();
 		return new PageImpl<ProductJson>(products, pageable, count);
 	}
+
+	@Override
+	public Consumable updateNoPublisher(Consumable consumable) {
+		Consumable source = repository.findOne(consumable.getId());
+		if (source.getStatus() == ProductStatusEnum.UP)
+			source.setStatus(ProductStatusEnum.EXAMINE);
+		Consumable result = repository
+				.save(bindNoPublisher(source, consumable));
+		return repository.save(result);
+	}
+
+	private Consumable bindNoPublisher(Consumable old, Consumable newTarget) {
+		old.setCoverImg(newTarget.getCoverImg());
+		old.setNameEnglish(newTarget.getNameEnglish());
+		old.setModel(newTarget.getModel());
+		old.setSpecifications(newTarget.getSpecifications());
+		old.setLabel(newTarget.getLabel());
+		old.setBrand(newTarget.getBrand());
+		old.setSecondCategory(newTarget.getSecondCategory());
+		old.setThirdCategory(newTarget.getThirdCategory());
+		old.setName(newTarget.getName());
+		old.setPrice(newTarget.getPrice());
+		old.setContent(newTarget.getContent());
+		return old;
+	}
 }

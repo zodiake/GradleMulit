@@ -1,33 +1,113 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="description" content=""/>
-  <title>发布商品</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-  <script th:src="@{/js/jquery-min.js}"></script>
-  <script th:src="@{/js/script.js}"></script>
-   <script th:src="@{/js/searchCategory.js}"></script>
-  <script th:src="@{/js/ckeditor/ckeditor.js}"></script>
-  <meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_parameterName" th:content="${_csrf.parameterName}" />	
-	<script th:src="@{/js/ckeditor/adapters/jquery.js}"></script>
-	<script th:src="@{/js/modifyAction.js}"></script>
-	<script>
-        $(function() {
-            var token = $("meta[name='_csrf']").attr("content");
-            var header = $("meta[name='_csrf_parameterName']").attr("content");
-            $(document).ajaxSend(function(e, xhr, options) {
-    			xhr.setRequestHeader(header, token);
-    		});
-            $('#content').ckeditor({
-                filebrowserUploadUrl : '/img/upload?' + header + "=" + token,
-                width : 630,
-                 height : 300
-            });
-        });
-	</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<title>发布商品</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
+
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.ui.widget.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.iframe-transport.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.fileupload.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript" th:src="@{/js/ckeditor/ckeditor.js}"></script>
+<script type="text/javascript" th:src="@{/js/ckeditor/adapters/jquery.js}"></script>
+
+<script>
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		
+		$('#content').ckeditor({
+			filebrowserUploadUrl : '/img/upload?' + header + "=" + token,
+			width : 630,
+			height : 300
+		});
+		  $('input[type="file"]').bind('fileuploadsubmit', function(e, data) {
+              var self = $(this);
+              data.formData = {
+                  url : self.prev('input').val()
+              };
+          });
+
+          $('input[type="file"]').fileupload({
+              dataType : 'json',
+              add : function(e, data) {
+                  data.submit();
+              },
+              done : function(e, data) {
+                  $(this).parent().parent().find("img").attr("src",data.result.files[0].url);
+                  $('#coverImg').val(data.result.files[0].url);
+              },
+              progressall : function(e, data) {
+              }
+          });
+        var firstCategory = $('#firstCategory');
+      	var secondCategory = $('#secondCategory');
+      	var thirdCategory = $('#thirdCategory');
+      	$('#firstCategory').change(function(){
+      		secondCategory.empty();
+      		thirdCategory.empty();
+      		$.ajax({
+      			type : 'get',
+      			url : '/ajaxProductCategory/'+firstCategory.val(),
+      			success:function(data){
+      				var str = '<option value="">请选择</option>';
+      				$.each(data,function(key,val){
+      					str = str+'<option value="'+val.id+'">'+val.name+'</option>';
+      				});
+      				secondCategory.append(str);
+      			},error:function(data){
+      				alert("error");
+      			}
+      		});
+      	});
+      	$('#secondCategory').change(function(){
+      		thirdCategory.empty();
+      		$.ajax({
+      			type : 'get',
+      			url : '/ajaxProductCategory/'+secondCategory.val(),
+      			success:function(data){
+      				var str = '<option value="">请选择</option>';
+      				$.each(data,function(key,val){
+      					str = str+'<option value="'+val.id+'">'+val.name+'</option>';
+      				});
+      				thirdCategory.append(str);
+      			},error:function(data){
+      				alert("error");
+      			}
+      		});
+      	});
+    	var formObj = $('form');
+    	$('#firstCategory').change(function(){
+    		var categoryId = $(this).val();
+    		switch(categoryId){
+    		case '1':
+    			formObj.attr("action","/provider/instruments?form");
+    			break;
+    		case '2':
+    			formObj.attr("action","/provider/reagents?form");
+    			break;
+    		case '3':
+    			formObj.attr("action","/provider/consumables?form");
+    			break;
+    		case '4':
+    			formObj.attr("action","/provider/services?form");
+    			break;
+    		}
+    	});
+	});
+</script>
 </head>
 <body>
 	<div class="header">
@@ -36,125 +116,130 @@
 	<!-- header -->
 	<div class="wrapper">
 		<div class="self-wrap">
-			<div class="gray-hd"><a class="blue">个人中心</a></div>
+			<div class="gray-hd">
+				<a class="blue">个人中心</a>
+			</div>
 			<div class="mainwrapper clearfix">
 				<div class="aside fl">
-					<a href="/provider/detail">个人资料</a>
-					<a class="active">发布商品</a>
-					<a href="/provider/products">商品维护</a>
-					<a href="/provider/count">商品信息统计</a>
+					<a href="/provider/detail">个人资料</a> <a class="active">发布商品</a> <a
+						href="/provider/products">商品维护</a> <a href="/provider/count">商品信息统计</a>
 				</div>
 				<div class="mainpanel bodr basic-info push-good fr">
-					<form th:object="${product}" method="post" action="/provider/instruments?form">	
-						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 		
+					<form th:object="${product}" method="post"
+						action="/provider/instruments?form">
+						<input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}" />
 						<div class="form-group">
 							<div class="fl">
-							<label><i>*</i>产品名称</label>
-							<input type="text" th:field="*{name}"/>
-							<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
+								<label><i>*</i>产品名称</label> <input type="text"
+									th:field="*{name}" /> <i class="error"
+									th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
 							</div>
 							<div class="fl">
-							<label>产品英文名</label>
-							<input type="text" th:field="*{nameEnglish}"/>
-							<i class="error" th:if="${#fields.hasErrors('nameEnglish')}" th:errors="*{nameEnglish}"></i>
+								<label>产品英文名</label> <input type="text"
+									th:field="*{nameEnglish}" /> <i class="error"
+									th:if="${#fields.hasErrors('nameEnglish')}"
+									th:errors="*{nameEnglish}"></i>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="fl">
-							<label><i>*</i>产品型号</label>
-							<input type="text" th:field="*{model}"/>
-							<i class="error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></i>
+								<label><i>*</i>产品型号</label> <input type="text"
+									th:field="*{model}" /> <i class="error"
+									th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></i>
 							</div>
 							<div class="fl">
-							<label><i>*</i>产品规格/单位</label>
-							<input type="text" th:field="*{specifications}"/>
-							<i class="error" th:if="${#fields.hasErrors('specifications')}" th:errors="*{specifications}"></i>
+								<label><i>*</i>产品规格/单位</label> <input type="text"
+									th:field="*{specifications}" /> <i class="error"
+									th:if="${#fields.hasErrors('specifications')}"
+									th:errors="*{specifications}"></i>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="fl">
-							<label><i>*</i>品牌</label>
-							<select class="w235" th:field="*{brand}">
-								<option value="">请选择</option>
-								<option th:each="brand:${brands}" th:text="${brand.name}" th:value="${brand.id}"></option>
-							</select>
-							<i class="error" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></i>
+								<label><i>*</i>品牌</label> <select class="w235"
+									th:field="*{brand}">
+									<option value="">请选择</option>
+									<option th:each="brand:${brands}" th:text="${brand.name}"
+										th:value="${brand.id}"></option>
+								</select> <i class="error" th:if="${#fields.hasErrors('brand')}"
+									th:errors="*{brand}"></i>
 							</div>
 							<div class="fl">
-							<label><i>*</i>产地</label>
-							<select class="w235" th:field="*{placeOfProduction}">
-								<option value="">请选择</option>
-								<option th:value="DOMESTIC">国内</option>
-								<option th:value="EUROPEANDUS">欧美</option>
-								<option th:value="OTHER">其他</option>
-							</select>
-							<i class="error" th:if="${#fields.hasErrors('placeOfProduction')}" th:errors="*{placeOfProduction}"></i>
+								<label><i>*</i>产地</label> <select class="w235"
+									th:field="*{placeOfProduction}">
+									<option value="">请选择</option>
+									<option th:value="DOMESTIC">国内</option>
+									<option th:value="EUROPEANDUS">欧美</option>
+									<option th:value="OTHER">其他</option>
+								</select> <i class="error"
+									th:if="${#fields.hasErrors('placeOfProduction')}"
+									th:errors="*{placeOfProduction}"></i>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="fl">
-							<label><i>*</i>参考报价</label>
-							<input type="text" th:field="*{price}" />
-							<i class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></i>
+								<label><i>*</i>参考报价</label> <input type="text"
+									th:field="*{price}" /> <i class="error"
+									th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></i>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="fl">
-							<label><i>*</i>产品分类</label>
-							<select class="w200" th:field="*{firstCategory}">
-								<option value="">请选择</option>
-								<option th:each="category:${pcs}" th:value="${category.id}" th:text="${category.name}"></option>
-							</select>
-							<i class="error" th:if="${#fields.hasErrors('firstCategory')}" th:errors="*{firstCategory}"></i>
+								<label><i>*</i>产品分类</label> 
+								<select class="w200" th:field="*{firstCategory}">
+									<option value="">请选择</option>
+									<option th:each="category:${pcs}" th:value="${category.id}"
+										th:text="${category.name}"></option>
+								</select>
+								<i class="error" th:if="${#fields.hasErrors('thirdCategory')}" th:errors="*{thirdCategory}"></i>
 							</div>
 							<div class="fl">
-							<select class="w200" th:field="*{secondCategory}">
-							</select>
-							<i class="error" th:if="${#fields.hasErrors('secondCategory')}" th:errors="*{secondCategory}"></i>
+								<select class="w200" th:field="*{secondCategory}">
+								</select>
 							</div>
 							<div class="fl">
-							<select class="w200" th:field="*{thirdCategory}">
-							</select>
-							<i class="error" th:if="${#fields.hasErrors('thirdCategory')}" th:errors="*{thirdCategory}"></i>
+								<select class="w200" th:field="*{thirdCategory}">
+								</select> 
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="fl">
-							<label><i>*</i>标签</label>							
-							<input type="text" class="w630" th:field="*{label}"/>
-							<i class="error" th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
+								<label><i>*</i>标签</label> <input type="text" class="w630"
+									th:field="*{label}" /> <i class="error"
+									th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
 							</div>
-						</div>	
-						<div class="form-group">
-							<label><i>*</i>产品图片</label>							
-							<input type="file" />
-							<span class="file-type">(只上传小于XXXK的图片)</span>
-						</div>	
+						</div>
+						<div class="form-group files">
+							<label><i>*</i>商品图片</label> <img width="100" height="100" th:src="*{coverImg}"/>
+							<input type="hidden" th:field="*{coverImg}"/>
+							<button id="uploadImg">
+								<input type='file' name='file' th:attr="data-url=@{/productImage}" /> <a href="#">选择文件</a>
+							</button>
+								<i class="error" th:if="${#fields.hasErrors('coverImg')}" th:errors="*{coverImg}"></i>
+						</div>
 						<div class="form-group clearfix" style="height: 400px;">
-							<label class="fl">产品介绍</label>							
+							<label class="fl">产品介绍</label>
 							<div class="fl edit w630" style="height: 400px;">
-								<textarea th:id="content" th:field="*{content.content}"></textarea>
+								<textarea id="content" th:field="*{content.content}"></textarea>
 							</div>
-						</div>	
+						</div>
 						<div class="point">
 							<div class="red">[重要提示]</div>
-							<p>1. 为了规范申捷电商平台信息发布，产品修改后需要重新通过审核，我们会在2-4小时内进行一次审核工作，网络繁忙时1个工作日内审核。</p>
-							<p>2. 产品名称中只能包含一种产品，不得把产品系列当作单条产品发布；可加入型号，但不允许加入其它任何如联系方式、价格或“进口”“国产”“现货”等,或和产品名称无关的符号。否则，我们有权更改或删除。</p>
+							<p>1.
+								为了规范申捷电商平台信息发布，产品修改后需要重新通过审核，我们会在2-4小时内进行一次审核工作，网络繁忙时1个工作日内审核。</p>
+							<p>2.
+								产品名称中只能包含一种产品，不得把产品系列当作单条产品发布；可加入型号，但不允许加入其它任何如联系方式、价格或“进口”“国产”“现货”等,或和产品名称无关的符号。否则，我们有权更改或删除。</p>
 						</div>
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 						<div class="center">
-							<button class="btn green">发布</button>	
+							<button class="btn green">发布</button>
 						</div>
-						<div class="center">
-							<button class="btn green">发布</button>	
-							<button class="btn default">cancel</button>	
-						</div>						
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="footer">
-		© 1998 - 2015 SJ Inc. All Rights Reserved
-	</div>
+	<div class="footer">© 1998 - 2015 SJ Inc. All Rights Reserved</div>
 </body>
-</html>	
+</html>

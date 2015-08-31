@@ -8,50 +8,39 @@ import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "buy_product")
-public class BuyProduct {
-	@Embeddable
-	public static class Id implements Serializable {
+public class BuyProduct implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-		@Column(name = "buy_id")
-		private Long buyId;
-
-		@Column(name = "product_id")
-		private Long productId;
-
-		public Id() {
-		}
-
-		public Id(Long buyId, Long productId) {
-			this.buyId = buyId;
-			this.productId = productId;
-		}
-	}
-
-	@EmbeddedId
-	private Id id = new Id();
-
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name = "buy_id",insertable = false, updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "buy_id",insertable= true,updatable=true)
 	private BuyRecord buy;
 
-	@ManyToOne()
-	@JoinColumn(name = "product_id",insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id",insertable= true,updatable=true)
 	private Product product;
 	
 	private Integer number;
 	
 	public BuyProduct(){
 	}
-	public BuyProduct(BuyRecord buy,Product product){
-		this.id.buyId=buy.getId();
-		this.id.productId=product.getId();
+	public BuyProduct(Long id){
+		this.id = id;
+	}
+	public BuyProduct(BuyRecord buy,Product product,Integer number){
 		this.product = product;
+		this.buy = buy;
+		this.number = number;
 	}
 
 	public BuyRecord getBuy() {
@@ -68,14 +57,6 @@ public class BuyProduct {
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public Id getId() {
-		return id;
-	}
-
-	public void setId(Id id) {
-		this.id = id;
 	}
 
 	public Integer getNumber() {

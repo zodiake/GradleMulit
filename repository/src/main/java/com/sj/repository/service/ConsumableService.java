@@ -14,4 +14,6 @@ public interface ConsumableService {
 	public Page<ProductJson> findByFirstCategoryAndSecondCategoryAndStatusJson(
 			Pageable pageable, ProductCategory fc, ProductCategory sc,
 			ProductStatusEnum status);
+
+	public Consumable updateNoPublisher(Consumable consumable);
 }

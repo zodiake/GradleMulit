@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Instrument;
+import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.publisher.ProductSavedEventPublisher;
 import com.sj.repository.publisher.ProductUpdateEventPublisher;
 import com.sj.repository.repository.InstrumentRepository;
@@ -68,4 +69,30 @@ public class InstrumentServiceImpl implements InstrumentService {
 		return repository.save(instrument);
 	}
 
+	@Override
+	public Instrument updateNoPublisher(Instrument instrument) {
+		Instrument source = repository.findById(instrument.getId());
+		if(source.getStatus()==ProductStatusEnum.UP)
+			source.setStatus(ProductStatusEnum.EXAMINE);
+		Instrument result = repository
+				.save(bindNoPublisher(source, instrument));
+		return repository.save(result);
+	}
+
+	private Instrument bindNoPublisher(Instrument old, Instrument newTarget) {
+		old.setCoverImg(newTarget.getCoverImg());
+		old.setModel(newTarget.getModel());
+		old.setSpecifications(newTarget.getSpecifications());
+		old.setLabel(newTarget.getLabel());
+		old.setBrand(newTarget.getBrand());
+		old.setSecondCategory(newTarget.getSecondCategory());
+		old.setThirdCategory(newTarget.getThirdCategory());
+		old.setName(newTarget.getName());
+		old.setPrice(newTarget.getPrice());
+		old.setCoverImg(newTarget.getCoverImg());
+		old.setContent(null);
+		old.setContent(newTarget.getContent());
+		old.setNameEnglish(newTarget.getNameEnglish());
+		return old;
+	}
 }

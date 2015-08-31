@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Reagents;
+import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.repository.ReagentsRepository;
 import com.sj.repository.service.ReagentsService;
 
@@ -20,5 +21,26 @@ public class ReagentsServiceImpl implements ReagentsService {
 		// TODO Auto-generated method stub
 		return repository.save(reagents);
 	}
-
+	@Override
+	public Reagents updateNoPublisher(Reagents reagents) {
+		Reagents source = repository.findOne(reagents.getId());
+		if(source.getStatus()==ProductStatusEnum.UP)
+			source.setStatus(ProductStatusEnum.EXAMINE);
+		Reagents result = repository.save(bindNoPublisher(source, reagents));
+		return repository.save(result);
+	}
+	private Reagents bindNoPublisher(Reagents old, Reagents newTarget) {
+		old.setCoverImg(newTarget.getCoverImg());
+		old.setNameEnglish(newTarget.getNameEnglish());
+		old.setModel(newTarget.getModel());
+		old.setSpecifications(newTarget.getSpecifications());
+		old.setLabel(newTarget.getLabel());
+		old.setBrand(newTarget.getBrand());
+		old.setSecondCategory(newTarget.getSecondCategory());
+		old.setThirdCategory(newTarget.getThirdCategory());
+		old.setName(newTarget.getName());
+		old.setPrice(newTarget.getPrice());
+		old.setContent(newTarget.getContent());
+		return old;
+	}
 }

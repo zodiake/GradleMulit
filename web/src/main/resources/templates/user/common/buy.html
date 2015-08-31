@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<title>采购申请</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
+<script th:src="@{/js/jquery-min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+	<div class="header">
+		<div th:include="/head/head"></div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="self-wrap">
+			<div class="gray-hd">
+				<a class="blue">个人中心</a>
+			</div>
+			<div class="mainwrapper clearfix">
+				<div class="aside fl">
+					<a href="/user/detail">个人资料</a> <a href="/user/collection">收藏夹</a>
+					<a href="/user/cart">购物车</a> <a class="active" href="/user/buyRecords">采购申请</a>
+				</div>
+				<div class="mainpanel pdf fr">
+					<h2><i th:text="${buy.user.company}"></i>采购方单位-物资(外包服务)申购单</h2>
+					<div>编号 : <i th:text="${buy.noId}"></i></div>
+					<form th:object="${buy}">
+						<div class="form-group">
+							<label>申请单位</label><input type="text" disabled="disabled" th:field="*{user.company}"/> 
+							<label>行业</label><input type="text" disabled="disabled" th:field="*{user.industryInfo.name}"/>
+						</div>
+						<div class="form-group">
+							<label>申请部门</label><input type="text" disabled="disabled" th:field="*{user.department}"/> 
+							<label>申请人</label><input type="text" disabled="disabled" th:field="*{user.realName}"/>
+						</div>
+						<div class="form-group">
+							<label>经费类别</label><input type="text" class="w635" th:field="*{fundCategory}" disabled="disabled"/>
+						</div>
+						<div class="form-group">
+							<label>项目名称</label><input type="text" class="w635" th:field="*{name}" disabled="disabled"/>
+						</div>
+						<table width="100%">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>名称</th>
+									<th>型号</th>
+									<th>单位</th>
+									<th>数量</th>
+									<th>估价（元）</th>
+									<th>产地</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="product,productStat:${buy.getProducts()}">
+									<td th:text="${productStat.index+1}"></td>
+									<td th:text="${product.product.name}"></td>
+									<td th:text="${product.product.model}"></td>
+									<td th:text="${product.product.specifications}"></td>
+									<td th:text="${product.number}"></td>
+									<td th:text="${product.number * product.product.price}"></td>
+									<td th:switch="${product.product.placeOfProduction.toString()}">
+										<i th:case="'DOMESTIC'" th:text="国内"></i> 
+										<i th:case="'EUROPEANDUS'" th:text="欧美"></i> 
+										<i th:case="'OTHER'" th:text="其他"></i>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="gray-hd winh clearfix">
+							<div class="fr mr20">
+								<i class="ft14">共计：</i><i th:text="*{price}"></i>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="w95">申请理由</label>
+							<textarea class="w635" rows="5" th:field="*{reason}" disabled="disabled"></textarea>
+						</div>
+						<div class="form-group clearfix">
+						<label class="fl w95">期望到货日期</label>
+			        			 <input type="text" disabled="disabled" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}"/>
+						</div>
+						<a th:href="'/user/buyRecords/'+${buy.id}+'?download'"><button class="btn green mauto" type="button">下载PDF文档</button></a>
+						<a href="/user/buyRecords"><button class="btn green mauto" type="button">返回列表</button></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">© 1998 - 2015 SJ Inc. All Rights Reserved</div>
+</body>
+</html>

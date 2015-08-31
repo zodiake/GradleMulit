@@ -43,10 +43,9 @@
                     }
                 });
                 $('#addCart').click(function() {
-
                     var id = $(this);
                     var product = id.attr("data-id");
-                    var number = $("#number").val();
+                    var number = $("#num").val();
                     if (number == 0) {
                         alert("数量不能为空");
                     } else {
@@ -62,8 +61,10 @@
                                     alert("success");
                                 } else if (data == "login") {
                                     window.location.href = "/login";
-                                } else {
-                                    alert("没有权限");
+                                } else if(data == "exists"){
+                                    alert("已加入购物车");
+                                }else{
+                                	alert("没有权限");
                                 }
                             },
                             error : function(data) {
@@ -72,7 +73,6 @@
                         });
                     }
                 });
-
                 $("#collection").click(function() {
                     var coll = $(this);
                     var productId = coll.attr("data-id");
@@ -80,7 +80,6 @@
                         type : 'post',
                         url : '/ajax/preferProduct/' + productId,
                         success : function(data) {
-                            alert(data);
                             if (data == "success") {
                                 var num = $("#number");
                                 var number = num.text() * 1 + 1;
@@ -111,7 +110,7 @@
 			</div>
 			<div class="goods-property bodr clearfix">
 				<div class="fl pro-big">
-					<img th:src="@{/img/banner1.jpg}" width="400" height="400" />
+					<img th:src="*{coverImg}" width="400" height="400" />
 				</div>
 				<div class="fl pro-info">
 					<div class="panel global-panel clearfix">
@@ -123,8 +122,7 @@
 							th:attr="data-id=${product.id}">
 								收藏
 							</div>
-							<div class="number" id="number"
-							th:text="${product.collectionCount}">
+							<div class="number" id="number" th:text="${product.collectionCount}">
 								121
 							</div>
 						</div>
@@ -162,22 +160,23 @@
 						th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015-05-18
 							17:25</span>
 					</div>
-					<div class="panel"
-					th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">
-						<label>数量：</label><span class="mu-amount">
-							<input
-							type="text" class="amount-input" th:value="0" id="number" />
-							<span
-							class="amount-btn"> <span class="amount-increase">+</span> <span class="amount-decrease">-</span> </span> </span><a class="add-cart ft16" id="addCart"
-						th:attr="data-id=${product.id}"
+					<div class="panel" th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">
+						<label>数量：</label>
+						<span class="mu-amount">
+							<input type="text" class="amount-input" id="num" value="1"/>
+							<span class="amount-btn"> 
+								<span class="amount-increase">+</span> 
+								<span class="amount-decrease">-</span> 
+							</span> 
+						</span>
+						<a class="add-cart ft16" id="addCart" th:attr="data-id=${product.id}"
 						th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">加入购物车</a>
 					</div>
 				</div>
 			</div>
 			<div class="layout">
 				<div class="tabs-nav detail-nav bodr">
-					<a class="active">商品详情</a><a>相关专题(<i
-					th:text="${product.getSubjects().size()}"></i>) </a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
+					<a class="active">商品详情</a><a>相关专题() </a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
 					id="reviewNum"></i>) </a>
 				</div>
 				<div class="tab-conts detail-con bodr">
@@ -185,7 +184,7 @@
 					th:text="${product.content.content}"></div>
 					<div class="tab-panel global-box about-special hide">
 						<ul>
-							<li th:each="subject:${product.getSubjects()}">
+							<!-- <li th:each="subject:${product.getSubjects()}">
 								<a th:href="'/subjects/'+${subject.id}">
 								<div class="title">
 									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
@@ -193,7 +192,7 @@
 								<div class="spe-pic">
 									<img th:src="@{/img/list1.jpg}" width="240" height="140" />
 								</div> <div class="topic-detail" th:text="${subject.content.content}"></div> </a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 					<div class="tab-panel global-box comments hide">

@@ -39,26 +39,29 @@ public class CartController {
 
 	@RequestMapping(value = "/ajax/cart", method = RequestMethod.POST)
 	@ResponseBody
-	private String addCartLine(@ModelAttribute CartLine cartLine,HttpSession httpSession) {
-		cartLine.setId(Calendar.getInstance().getTime().getTime());
+	private String addCartLine(@ModelAttribute CartLine cartLine,
+			HttpSession httpSession) {
 		if (!userContext.isLogin())
 			return "login";
-		SiteUser user = userContext.getCurrentUser();
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
 			return "no authority";
-		Set<CartLine> lines = (Set<CartLine>) httpSession.getAttribute("cartLines");
-		Long cartId = cartLine.getId();
-		for (CartLine cart : lines) {
-			if(cart.getId().equals(cartId)){
-				return "exists";
+		cartLine.setId(Calendar.getInstance().getTime().getTime());
+
+		SiteUser user = userContext.getCurrentUser();
+		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		if (lines != null) {
+			for (CartLine cart : lines) {
+				if (cartLine.getProductId().equals(cart.getProductId())) {
+					return "exists";
+				}
 			}
 		}
 		Product p = productService.findOne(cartLine.getProductId());
-		cartLine.setId(Calendar.getInstance().getTime().getTime());
-		CartLine c = new CartLine(p, cartLine.getNumber());
-		cartLineService.save(user.getId(), c);
+		cartLine = new CartLine(p, cartLine.getNumber());
 		
-		lines.add(c);
+		cartLineService.save(user.getId(), cartLine);
+		lines.add(cartLine);
+		
 		httpSession.setAttribute("cartLines", lines);
 		return "success";
 	}
@@ -82,8 +85,8 @@ public class CartController {
 		cartLineService.updateNumber(user.getId(), cartLineId, number);
 		return "success";
 	}
-	
-	@RequestMapping(value = "/user/cart/{cartLineId}/{check}", method = RequestMethod.PUT,params="check")
+
+	@RequestMapping(value = "/user/cart/{cartLineId}/{check}", method = RequestMethod.PUT, params = "check")
 	@ResponseBody
 	private String updateCartLineCheck(
 			@PathVariable(value = "cartLineId") Long cartLineId,
@@ -99,6 +102,9 @@ public class CartController {
 	private String list(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lists = cartLineService.findByUser(user.getId());
+		for (CartLine cartLine : lists) {
+			System.out.println(cartLine.getProductId());
+		}
 		uiModel.addAttribute("list", lists);
 		uiModel.addAttribute("pc", new ProductCategory());
 		return LIST;

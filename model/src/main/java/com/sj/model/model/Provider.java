@@ -73,12 +73,15 @@ public class Provider extends SiteUser {
 	private String content; // 企业介绍*
 
 	@Column(name = "business_license_url")
+	@NotBlank(message = "请上传图片")
 	private String businessLicenseUrl; // 营业执照图片地址*
 	
 	@Column(name = "tax_registration_url")
+	@NotBlank(message = "请上传图片")
 	private String taxRegistrationUrl; // 税务登记图片地址*
 	
 	@Column(name = "structure_code_url")
+	@NotBlank(message = "请上传图片")
 	private String structureCodeUrl; // 组织结构图片地址*
 	
 	@NotBlank(message = "联系人职位不能为空")

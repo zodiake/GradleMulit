@@ -1,7 +1,6 @@
-$(function() {
 	var firstCategory = $('#firstCategory');
-	var secondCategory = $("#secondCategory");
-	var thirdCategory = $("#thirdCategory");
+	var secondCategory = $('#secondCategory');
+	var thirdCategory = $('#thirdCategory');
 	$('#firstCategory').change(function(){
 		secondCategory.empty();
 		thirdCategory.empty();
@@ -35,4 +34,3 @@ $(function() {
 			}
 		});
 	});
-});

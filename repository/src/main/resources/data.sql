@@ -50,9 +50,9 @@ values(14,'thirdCategory3-6',10,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(15,'thirdCategory3-7',10,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(16,'thirdCategory3-6',11,1,'2012-1-1','tom','pc');
+values(16,'thirdCategory3-8',11,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(17,'thirdCategory3-7',11,1,'2012-1-1','tom','pc');
+values(17,'thirdCategory3-9',11,1,'2012-1-1','tom','pc');
 
 --test advertise category
 insert into category(id,name,category_type,activate,url) values(7,'行业要闻','ic',1,'HYYW');
@@ -74,9 +74,9 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone,real_n
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(2,'mary2','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_PROVIDER','1234562@qq.com','13700000002','lisi',1,systimestamp);
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(3,'mary3','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234563@qq.com','13700000003','mary3',0,systimestamp);
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(4,'pjf1','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234564@qq.com','13700000004','mary3',0,systimestamp);
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(6,'pjf12','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234565@qq.com','13700000004','mary3',0,systimestamp);
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(11,'pjf123','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234566@qq.com','13700000004','mary3',0,systimestamp);
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000005','admin',1,systimestamp);
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(6,'pjf12','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234565@qq.com','13700000005','mary3',0,systimestamp);
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(14,'pjf123','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234566@qq.com','13700000006','mary3',0,systimestamp);
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,systimestamp);
 
 --test industry_info
 insert into  industry_info(id,name,industry_type) values(1,'a1','p');
@@ -94,7 +94,7 @@ values(4,'上海恒企信息','生物研究部','010-12345678','010-12345678','�
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
 values(6,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,5);
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
-values(11,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,6);
+values(14,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,6);
 
 --test provider
 insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated,compony_type,info_id,content) 
@@ -105,28 +105,28 @@ values(2,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider
 --test product
 --tom product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type) 
-values(1,'instrument1','/img/banner1.jpg',10.0,'/product/1',1,10,13,1,1,'instrument1English','HD300',1,'10支',1,1,systimestamp,'c');
+values(1,'instrument1','/img/banner1.jpg',10.0,'/product/1',1,10,13,1,1,'instrument1English','HD300',1,'10支',1,1,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(2,'product2','/img/banner1.jpg',10.0,'/product/2',1,11,13,1,2,'product2English','HD302',1,'10支',1,1,systimestamp,'c');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(3,'product3','/img/banner1.jpg',10.0,'/product/3',1,10,13,1,3,'product3English','HD303',1,'10支',1,1,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(4,'product4','/img/banner1.jpg',10.0,'/product/4',1,10,13,1,4,'product3English','HD303',1,'10支',1,1,systimestamp,'s');
+values(4,'product4','/img/banner1.jpg',10.0,'/product/4',4,10,13,1,4,'product3English','HD303',1,'10支',1,1,systimestamp,'s');
 
 --mary2 product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(5,'product5','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,5,'product3English','HD303',1,'10支',1,0,systimestamp,'c');
+values(5,'product5','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,5,'product3English','HD303',1,'10支',1,0,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(6,'product6','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3English','HD303',1,'10支',1,1,systimestamp,'c');
+values(6,'product6','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3English','HD303',1,'10支',1,1,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(7,'product7','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,2,systimestamp,'c');
+values(7,'product7','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,2,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,11,13,2,8,'product3English','HD303',1,'10支',1,3,systimestamp,'c');
 
 --test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');
-insert into prefer_products(user_id,product_id,created_time) values(11,1,'2013-1-1');
-insert into prefer_products(user_id,product_id,created_time) values(11,2,'2014-1-1');
+insert into prefer_products(user_id,product_id,created_time) values(14,1,'2013-1-1');
+insert into prefer_products(user_id,product_id,created_time) values(14,2,'2014-1-1');
 insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-1');
 
 --test subject 专题
@@ -188,9 +188,9 @@ insert into advertisement(id,cover_img,created_time,category_id,url,activate) va
 insert into advertisement(id,cover_img,created_time,category_id,url,activate) values (5,'/upload/img/scroll1.jpg','2012-1-5',20,'www.baidu.com',0);
 
 -- test buy_record
-insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(1,'test1',11,'test category','test reason','2015-06-06','2015-06-08',100,'20150820001');
-insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(2,'test2',11,'test category','test reason','2015-06-06','2015-06-08',100,'20150820002');
+insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(1,'test1',14,'test category','test reason','2015-06-06','2015-06-08',100,'20150820001');
+insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(2,'test2',14,'test category','test reason','2015-06-06','2015-06-08',100,'20150820002');
 
 -- test buy_product
-insert into buy_product(buy_id,product_id,number)values(1,1,10);
-insert into buy_product(buy_id,product_id,number)values(2,1,10);
+insert into buy_product(id,buy_id,product_id,number)values(1,1,1,10);
+insert into buy_product(id,buy_id,product_id,number)values(2,2,1,10);

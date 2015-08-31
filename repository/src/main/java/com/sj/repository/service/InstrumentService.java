@@ -15,4 +15,6 @@ public interface InstrumentService {
 	public Page<Instrument> findAll(Pageable pageable);
 	
 	public Instrument saveNoPublisher(Instrument instrument);
+	
+	public Instrument updateNoPublisher(Instrument instrument);
 }

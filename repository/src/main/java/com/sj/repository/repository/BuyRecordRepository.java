@@ -10,4 +10,6 @@ import com.sj.model.model.CommonUser;
 public interface BuyRecordRepository extends PagingAndSortingRepository<BuyRecord, Long> {
 	
 	Page<BuyRecord> findByUser(CommonUser user,Pageable pageable);
+	
+	BuyRecord findByIdAndUser(Long id,CommonUser user);
 }

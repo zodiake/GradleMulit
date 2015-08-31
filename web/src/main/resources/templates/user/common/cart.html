@@ -6,11 +6,20 @@
   <meta name="description" content=""/>
   <title>购物车</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-    <meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <script th:src="@{/js/jquery-min.js}"></script>
   <script th:src="@{/js/script.js}"></script>
   	<script type="text/javascript" th:src="@{/js/cart.js}"></script>
+  		<script type="text/javascript">
+		$(function() {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader(header, token);
+			});
+		});
+	</script>
 </head>
 <body>
 	<div class="header">
@@ -44,8 +53,8 @@
 							</thead>
 							<tbody>
 								<tr th:if="${list!=null}" th:each="cart:${list}" th:id="${cart.productId}" th:attr="data-id=${cart.id}">
-									<td><input type="checkbox"  class="check" th:if="${cart.check==false}" th:attr="data-id=${cart.id}"/>
-									<input type="checkbox" checked="checked"  class="check" th:if="${cart.check==true}" th:attr="data-id=${cart.id}"/></td>
+									<td><input type="checkbox"  class="check" th:if="${cart.check==false}" id="products" name="products" th:value="${cart.productId}" th:attr="data-id=${cart.id}"/>
+									<input type="checkbox" checked="checked"  class="check" th:if="${cart.check==true}" id="products" name="products" th:value="${cart.id}" th:attr="data-id=${cart.id}"/></td>
 									<td>
 										<img th:src="@{${cart.image}}" width="80" height="80"/>
 									</td>
@@ -113,7 +122,7 @@
 			<span><input type="radio" name="radio" />模板3</span>
 			<span><input type="radio" name="radio" />模板4</span>		
 		</div>
-		<button class="btn green temped">确认</button>
+		<a href="/user/buyRecords?form">确认</a>
 	</div>
 	<div class="hide-wrap orders bodr">
 		<div class="hide-con">
