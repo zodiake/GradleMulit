@@ -19,6 +19,7 @@ import com.sj.admin.security.SiteUserContext;
 import com.sj.model.model.ProductCategory;
 import com.sj.repository.model.AdvertisementCategoryJson;
 import com.sj.repository.model.InformationCategoryJson;
+import com.sj.repository.model.ProductCategoryJson;
 import com.sj.repository.service.AdvertisementCategoryService;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.ProductCategoryService;
@@ -44,6 +45,20 @@ public class CategroyController {
 	@ResponseBody
 	public Page<InformationCategoryJson> findInfoCategory() {
 		return informationCategoryService.findAllJson();
+	}
+
+	@RequestMapping(value = "/admin/product/category", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ProductCategoryJson> findProductCategory() {
+		return productCategoryService.findByParentJson(null);
+	}
+
+	@RequestMapping(value = "/admin/product/category/{id}/categories", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ProductCategoryJson> findSecondCategory(
+			@PathVariable("id") Long id) {
+		ProductCategory c = new ProductCategory(id);
+		return productCategoryService.findByParentJson(c);
 	}
 
 	@RequestMapping(value = "/admin/category/{category}", method = RequestMethod.GET, params = "children")

@@ -1,12 +1,13 @@
 package com.sj.admin.model;
 
-import com.sj.model.type.ActivateEnum;
+import com.sj.model.model.ProductCategory;
+import com.sj.model.type.ProductStatusEnum;
 
 public class ProductOption {
 	private String productType;
-	private String firstCategory;
-	private String secondCategory;
-	private ActivateEnum state;
+	private ProductCategory firstCategory;
+	private ProductCategory secondCategory;
+	private ProductStatusEnum state;
 
 	public String getProductType() {
 		return productType;
@@ -16,27 +17,27 @@ public class ProductOption {
 		this.productType = productType;
 	}
 
-	public String getFirstCategory() {
+	public ProductCategory getFirstCategory() {
 		return firstCategory;
 	}
 
-	public void setFirstCategory(String firstCategory) {
+	public void setFirstCategory(ProductCategory firstCategory) {
 		this.firstCategory = firstCategory;
 	}
 
-	public String getSecondCategory() {
+	public ProductCategory getSecondCategory() {
 		return secondCategory;
 	}
 
-	public void setSecondCategory(String secondCategory) {
+	public void setSecondCategory(ProductCategory secondCategory) {
 		this.secondCategory = secondCategory;
 	}
 
-	public ActivateEnum getState() {
+	public ProductStatusEnum getState() {
 		return state;
 	}
 
-	public void setState(ActivateEnum state) {
+	public void setState(ProductStatusEnum state) {
 		this.state = state;
 	}
 }

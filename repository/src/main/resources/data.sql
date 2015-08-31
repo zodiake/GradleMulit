@@ -107,7 +107,7 @@ values(2,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type) 
 values(1,'instrument1','/img/banner1.jpg',10.0,'/product/1',1,10,13,1,1,'instrument1English','HD300',1,'10支',1,1,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(2,'product2','/img/banner1.jpg',10.0,'/product/2',1,10,13,1,2,'product2English','HD302',1,'10支',1,1,systimestamp,'i');
+values(2,'product2','/img/banner1.jpg',10.0,'/product/2',1,11,13,1,2,'product2English','HD302',1,'10支',1,1,systimestamp,'c');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(3,'product3','/img/banner1.jpg',10.0,'/product/3',1,10,13,1,3,'product3English','HD303',1,'10支',1,1,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
@@ -121,7 +121,7 @@ values(6,'product6','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3En
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(7,'product7','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,2,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,10,13,2,8,'product3English','HD303',1,'10支',1,3,systimestamp,'i');
+values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,11,13,2,8,'product3English','HD303',1,'10支',1,3,systimestamp,'c');
 
 --test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');

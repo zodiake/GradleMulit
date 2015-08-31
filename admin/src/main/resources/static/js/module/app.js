@@ -11,7 +11,8 @@ var app = angular.module('app', [
     'Brand',
     'Advertise',
     'Info',
-    'Subject'
+    'Subject',
+    'Product'
 ]);
 
 app.config([
@@ -91,15 +92,30 @@ app.config([
                 templateUrl: '/admin/solutions',
                 controller: 'SolutionController'
             })
-            .state('product',{
-                url:'/product',
-                templateUrl:'/admin/products',
-                controller:'ProductController'
+            .state('consumable', {
+                url: '/consumable',
+                templateUrl: '/admin/products',
+                controller: 'ConsumableController'
             })
-            .state('productDetail',{
-                url:'/product/:id',
-                templateUrl:'/admin/productDetail',
-                controller:'ProductDetailController'
+            .state('instrument', {
+                url: '/instrument',
+                templateUrl: '/admin/products',
+                controller: 'InstrumentController'
+            })
+            .state('reagents', {
+                url: '/reagents',
+                templateUrl: '/admin/products',
+                controller: 'ReagentsController'
+            })
+            .state('service', {
+                url: '/service',
+                templateUrl: '/admin/products',
+                controller: 'ServiceController'
+            })
+            .state('productDetail', {
+                url: '/product/:id',
+                templateUrl: '/admin/productDetail',
+                controller: 'ProductDetailController'
             });
     }
 ]);
