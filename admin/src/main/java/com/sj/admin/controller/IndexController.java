@@ -124,11 +124,6 @@ public class IndexController extends UploadController {
 		return "advertisement/createAdvertise";
 	}
 
-	@RequestMapping(value = "/products")
-	public String productList() {
-		return "product/product";
-	}
-
 	@RequestMapping(value = "/info")
 	public String info() {
 		return "information/info";
@@ -147,5 +142,25 @@ public class IndexController extends UploadController {
 	@RequestMapping(value = "/subject/create")
 	public String subjectCreate() {
 		return "subject/create";
+	}
+
+	@RequestMapping(value = "/solutions")
+	public String solution() {
+		return "subject/solution/list";
+	}
+
+	@RequestMapping(value = "/solutions", params = "form")
+	public String newSolution() {
+		return "subject/solution/create";
+	}
+
+	@RequestMapping(value = "/products")
+	public String products() {
+		return "product/list";
+	}
+
+	@RequestMapping(value = "/productsDetail")
+	public String productDetail() {
+		return "product/detail";
 	}
 }

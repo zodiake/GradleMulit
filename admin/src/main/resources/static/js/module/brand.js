@@ -131,7 +131,7 @@ brandModule.controller('BrandDetailController', ['$scope',
                 },
                 transformRequest: angular.identity
             }).success(function (data) {
-                $scope.item.cover = data[0];
+                $scope.item.src = data[0];
             });
         };
 

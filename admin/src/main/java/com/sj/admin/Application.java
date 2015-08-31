@@ -28,6 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementConverter;
+import com.sj.repository.converter.StringToContentConverter;
 import com.sj.repository.converter.StringToInfoCategoryConverter;
 import com.sj.repository.converter.StringToInfoContentConverter;
 import com.sj.repository.converter.StringToProductConverter;
@@ -109,6 +110,7 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToProductConverter());
 		formatterRegistry.addConverter(stringToInfoCategoryConverter());
 		formatterRegistry.addConverter(stringToInfoContentConverter());
+		formatterRegistry.addConverter(stringToContentConverter());
 	}
 
 	@Bean
@@ -144,6 +146,11 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public StringToInfoContentConverter stringToInfoContentConverter() {
 		return new StringToInfoContentConverter();
+	}
+
+	@Bean
+	public StringToContentConverter stringToContentConverter() {
+		return new StringToContentConverter();
 	}
 
 	/*---------------------------end converter bean---------------------------------------*/

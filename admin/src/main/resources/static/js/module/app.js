@@ -81,8 +81,25 @@ app.config([
             })
             .state('subjectDetail', {
                 url: '/subjectDetail/:id',
-                templateUrl: '/admin/subject/edit',
+                templateUrl: function (stateParams) {
+                    return '/admin/subjects/' + stateParams.id;
+                },
                 controller: 'SubjectEditController'
+            })
+            .state('solutions', {
+                url: '/subject/:id/solutions',
+                templateUrl: '/admin/solutions',
+                controller: 'SolutionController'
+            })
+            .state('product',{
+                url:'/product',
+                templateUrl:'/admin/products',
+                controller:'ProductController'
+            })
+            .state('productDetail',{
+                url:'/product/:id',
+                templateUrl:'/admin/productDetail',
+                controller:'ProductDetailController'
             });
     }
 ]);
