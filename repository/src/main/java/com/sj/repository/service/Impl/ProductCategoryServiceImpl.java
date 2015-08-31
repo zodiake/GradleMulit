@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.ProductCategoryJson;
 import com.sj.repository.repository.ProductCategoryRepository;
 import com.sj.repository.service.ProductCategoryService;
 
@@ -138,12 +140,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	public List<Category> ajaxFineByParent(ProductCategory productCategory) {
-		List<ProductCategory> productCategories = repository.findByParentAndActivate(productCategory, ActivateEnum.ACTIVATE);
+		List<ProductCategory> productCategories = repository
+				.findByParentAndActivate(productCategory, ActivateEnum.ACTIVATE);
 		List<Category> categories = new ArrayList<Category>();
-		productCategories.stream().map(r->{
+		productCategories.stream().map(r -> {
 			Category category = new Category(r.getId(), r.getName());
 			return category;
-		}).forEach(i->categories.add(i));
+		}).forEach(i -> categories.add(i));
 		return categories;
 	}
 
@@ -171,5 +174,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		public void setName(String name) {
 			this.name = name;
 		}
+	}
+
+	@Override
+	public List<ProductCategoryJson> findByParentJson(ProductCategory pc) {
+		return repository.findByParent(pc).stream()
+				.map(m -> new ProductCategoryJson(m))
+				.collect(Collectors.toList());
 	}
 }

@@ -1,61 +1,57 @@
 <div class="contentpanel">
-	<form class="form-inline">
-		<div class="form-group company-select">
-			<a class="btn btn-success btn-sm">导入</a>
-		</div>
-		<div class="form-group company-select">
-			<select>
-				<option>产品类型</option>
-				<option>111</option>
-				<option>2222</option>
-			</select>
-		</div>
-		<div class="form-group company-select">
-			<select>
-				<option>一级分类</option>
-				<option>111</option>
-				<option>2222</option>
-			</select>
-		</div>
-		<div class="form-group company-select">
-			<select>
-				<option>二级分类</option>
-				<option>111</option>
-				<option>2222</option>
-			</select>
-		</div>
-		<div class="form-group company-select">
-			<select>
-				<option>状态</option>
-				<option>111</option>
-				<option>2222</option>
-			</select>
-		</div>
-	</form>
-	<table class="table table-bordered mb30">
-		<thead>
-			<tr>
-				<th>序号</th>
-				<th>产品类型</th>
-				<th>一级分类</th>
-				<th>二级分类</th>
-				<th>名称</th>
-				<th>价格</th>
-				<th>提交日期</th>
-				<th>状态</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>ddddddd</td>
-				<td>fffffff</td>
-				<td>1215456315</td>
-				<td>dadsadsad</td>
-				<td>2500</td>
-				<td>2015-02-06  12:05:20</td>
-				<td>已上架</td>
-			</tr>
-		</tbody>
-	</table>
+    <form class="form-inline">
+        <div class="form-group company-select">
+            <a class="btn btn-success btn-sm">导入</a>
+        </div>
+        <div class="form-group company-select">
+            <select>
+                <option>产品类型</option>
+                <option>111</option>
+                <option>2222</option>
+            </select>
+        </div>
+        <div class="form-group company-select">
+            <select ng-model="opt.firstCategory" ng-change="findByParent(opt.firstCategory)" ng-options="c.id as c.name for c in firstCategories">
+            </select>
+        </div>
+        <div class="form-group company-select">
+            <select ng-model="opt.secondCategory" ng-options="s.id as s.name for s in secondCategories">
+            </select>
+        </div>
+        <div class="form-group company-select">
+            <select ng-model="opt.status">
+                <option value="1">down</option>
+                <option value="2">up</option>
+                <option value="3">ex</option>
+                <option value="4">not</option>
+            </select>
+        </div>
+        <div class="form-group company-select">
+            <button ng-click="search()">search</button>
+        </div>
+    </form>
+    <table class="table table-bordered mb30">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>一级分类</th>
+                <th>二级分类</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>提交日期</th>
+                <th>状态</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td>{{$index+1}}</td>
+                <td>{{item.firstCategoryName}}</td>
+                <td>{{item.secondCategoryName}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.createdTime}}</td>
+                <td>已上架</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

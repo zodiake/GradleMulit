@@ -8,14 +8,15 @@ import org.springframework.data.domain.Pageable;
 
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.ProductCategoryJson;
 import com.sj.repository.service.Impl.ProductCategoryServiceImpl.Category;
 
 public interface ProductCategoryService {
-	
+
 	public List<ProductCategory> findByParent(ProductCategory category);
 
 	public ProductCategory findOne(Long id);
-	
+
 	public ProductCategory findOneActivate(Long id);
 
 	public Set<ProductCategory> findAll();
@@ -40,11 +41,13 @@ public interface ProductCategoryService {
 
 	public void delete(Long id);
 
-	public ProductCategory findByName(String name,ActivateEnum activate);
-	
+	public ProductCategory findByName(String name, ActivateEnum activate);
+
 	public ProductCategory findActivateFirstCategoryById(Long id);
-	
+
 	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate);
-	
+
 	public List<Category> ajaxFineByParent(ProductCategory category);
+
+	public List<ProductCategoryJson> findByParentJson(ProductCategory pc);
 }
