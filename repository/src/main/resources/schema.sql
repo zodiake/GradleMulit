@@ -84,9 +84,9 @@ create TABLE provider(
 	legal_person varchar(20),
 	registered_capital varchar(20),
 	main_product varchar(64),
-	business_license_url varchar(40),
-	tax_registration_url varchar(40),
-	structure_code_url varchar(40),
+	business_license_url varchar(100),
+	tax_registration_url varchar(100),
+	structure_code_url varchar(100),
 	position varchar(20),
 	provider_phone varchar(20),
 	fax varchar(20),
@@ -259,10 +259,11 @@ create table buy_record(
 	foreign key(user_id) references common_user(id)
 );
 create table buy_product(
+	id bigint not null AUTO_INCREMENT,
 	buy_id bigint not null,
 	product_id bigint not null,
 	number int,
-	primary key(buy_id,product_id),
+	primary key(id),
 	foreign key(buy_id) references buy_record(id),
 	foreign key(product_id) references product(id)
 );

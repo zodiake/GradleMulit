@@ -7,27 +7,26 @@ import com.sj.model.type.PlaceEnum;
 public class CartLine {
 	private Long id;
 	private Long productId;
-	private String url;
 	private String name;
 	private int number;
-	private double price;
+	private float price;
 	private String image;
 	private String brandName;
 	private String model;
 	private PlaceEnum place;
 	private boolean check;
+	private float count;
 
 	public CartLine() {
 		super();
 	}
 
-	public CartLine(String id, String url, String name, String price,
+	public CartLine(String id, String name, String price,
 			String number,String image,String brandName,String model,String place,String productId,String check) {
 		super();
 		this.id = Long.valueOf(id);
-		this.url = url;
 		this.name = name;
-		this.price = Double.valueOf(price);
+		this.price = Float.valueOf(price);
 		this.number = Integer.valueOf(number);
 		this.image = image;
 		this.brandName=brandName;
@@ -35,13 +34,13 @@ public class CartLine {
 		this.model = model;
 		this.check=Boolean.valueOf(check);
 		this.productId=Long.valueOf(productId);
+		this.count = this.number * this.price;
 	}
 
 	public CartLine(Product p,int number) {
 		this.id =Calendar.getInstance().getTime().getTime();
 		this.productId = p.getId();
 		this.name = p.getName();
-		this.url = p.getUrl();
 		this.price = p.getPrice();
 		this.image = p.getCoverImg();
 		this.brandName=p.getBrand().getName();
@@ -68,14 +67,6 @@ public class CartLine {
 		this.name = name;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	public int getNumber() {
 		return number;
 	}
@@ -84,11 +75,11 @@ public class CartLine {
 		this.number = number;
 	}
 
-	public double getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 
@@ -139,6 +130,14 @@ public class CartLine {
 
 	public void setCheck(boolean check) {
 		this.check = check;
+	}
+
+	public float getCount() {
+		return count;
+	}
+
+	public void setCount(float count) {
+		this.count = count;
 	}
 
 }

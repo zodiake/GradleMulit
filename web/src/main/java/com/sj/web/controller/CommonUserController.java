@@ -1,6 +1,7 @@
 package com.sj.web.controller;
 
-import java.io.Reader;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -17,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sj.model.model.BuyProduct;
 import com.sj.model.model.BuyRecord;
+import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
+import com.sj.repository.service.BuyProductService;
 import com.sj.repository.service.BuyRecordService;
+import com.sj.repository.service.CartLineService;
 import com.sj.repository.service.CityService;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.PreferProductService;
@@ -53,7 +58,11 @@ public class CommonUserController {
 	@Autowired
 	private BuyRecordService buyRecordService;
 	@Autowired
+	private BuyProductService buyProductService;
+	@Autowired
 	private SiteUserContext siteUserContext;
+	@Autowired
+	private CartLineService cartLineService;
 
 	@RequestMapping(value = "/user/detail", method = RequestMethod.GET)
 	public String findOne(Model uiModel) {
@@ -117,15 +126,7 @@ public class CommonUserController {
 		SiteUser user = userContext.getCurrentUser();
 		preferService.deleteByUserAndProduct(new CommonUser(user.getId()),
 				new Product(productId));
-		;
 		return "success";
-	}
-
-	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.POST)
-	public String save(@ModelAttribute("buy") BuyRecord buyRecord, Model uiModel) {
-		BuyRecord buy = buyRecordService.save(buyRecord);
-		uiModel.addAttribute("buy", buy);
-		return null;
 	}
 
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.GET)
@@ -142,11 +143,12 @@ public class CommonUserController {
 	@RequestMapping(value = "/user/buyRecords/{id}", method = RequestMethod.GET)
 	public String findOne(@PathVariable("id") Long id, Model uiModel,
 			@SecurityUser SiteUser user) {
-		BuyRecord buyRecord = buyRecordService.findOne(id,new CommonUser(user.getId()));
+		BuyRecord buyRecord = buyRecordService.findOne(id,
+				new CommonUser(user.getId()));
 		if (buyRecord == null)
 			throw new BuyRecordNotFoundException();
 		uiModel.addAttribute("buy", buyRecord);
-		return "user/common/pdf";
+		return "user/common/buy";
 	}
 
 	@RequestMapping(value = "/user/buyRecords/{id}", method = RequestMethod.DELETE)
@@ -171,9 +173,36 @@ public class CommonUserController {
 	public String updateProcess(
 			@Valid @ModelAttribute("buy") BuyRecord buyRecord,
 			BindingResult result, @PathVariable("id") Long id, Model uiModel,
-			@SecurityUser SiteUser user) {
-		buyRecord = buyRecordService.update(new CommonUser(user.getId()), buyRecord);
+			@SecurityUser SiteUser user,@RequestParam("arrivalTime")String time) {
+		System.out.println(time);
+		buyRecord = buyRecordService.update(new CommonUser(user.getId()),
+				buyRecord);
 		uiModel.addAttribute("buy", buyRecord);
-		return "redirect:/user/buyRecords/" + id+"?edit";
+		return "redirect:/user/buyRecords/" + id ;
+	}
+
+	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.GET, params = "form")
+	public String createBuyRecord(Model uiModel, @SecurityUser SiteUser user) {
+		Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
+		float totalPrice = 0f;
+		for (CartLine cartLine : lines) {
+			totalPrice = totalPrice + cartLine.getPrice()*cartLine.getNumber();
+		}
+		CommonUser commonUser = commonUserService.findOne(user.getId());
+		uiModel.addAttribute("lines", lines);
+		uiModel.addAttribute("user", commonUser);
+		uiModel.addAttribute("buy", new BuyRecord());
+		uiModel.addAttribute("totalPrice", totalPrice);
+		return "user/common/createBuy";
+	}
+
+	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.POST, params = "form")
+	public String createBuyRecordProcess(
+			@Valid @ModelAttribute("buy") BuyRecord buyRecord,BindingResult result, Model uiModel,
+			@SecurityUser SiteUser user) {
+		Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
+		buyRecord.setUser(new CommonUser(user.getId()));
+		buyRecordService.save(buyRecord, lines);
+		return "redirect:/user/buyRecords/"+buyRecord.getId();
 	}
 }

@@ -1549,11 +1549,29 @@ li div.topic-detail{
 .hide-wrap.orders label{
 	width: 58px;
 }
-.hide-wrap.orders input{
+.hide-wrap.orders input,
+.pdf .form-group input[type=text]{
 	width: 150px;
 }
-.hide-wrap.orders input.w635,textarea.w635{
+.pdf .form-group label{
+	width: 57px;
+}
+.pdf .form-group label.w95{
+	width: 95px;
+}
+.hide-wrap.orders input.w635,
+.pdf .form-group input.w635,
+textarea.w635{
 	width: 635px;
+}
+.self-wrap .gray-hd.winh{
+	width: inherit;
+}
+.block{
+	display: block;
+}
+。ml5{
+	margin-left：5px;
 }
 .hide-wrap textarea.w635{
 	vertical-align: top;
@@ -1701,4 +1719,19 @@ button.default{
 	overflow-y: auto;
 	border:none;
 }
+.table-condensed th,
+.table-condensed td{
+	line-height: 20px;
+}
+input[readonly]{cursor:not-allowed;}
+.glyphicon-arrow-left,
+.glyphicon-arrow-right{
+	background: url('../img/icon-date.png') no-repeat;
+	display: inline-block;
+	width: 14px;height: 14px;
+}
+.glyphicon-arrow-left{background-position:-28px 0}
+.glyphicon-arrow-right{background-position:-48px 0}
+.icon-arrow-right{background-position:-48px 0;}
+.dropdown-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:160px;padding:5px 0;margin:2px 0 0;list-style:none;background-color:#ffffff;border:1px solid #ccc;border:1px solid rgba(0, 0, 0, 0.2);*border-right-width:2px;*border-bottom-width:2px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);-moz-box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box;}.dropdown-menu.pull-right{right:0;left:auto;}
 

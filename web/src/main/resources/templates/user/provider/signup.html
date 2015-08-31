@@ -133,10 +133,15 @@
 			<div class="hd resg-hd">
 				<span>注册信息</span>
 			</div>
+						<div class="form-group">
+				<label><i>*</i>手机号</label>
+				<input type="text" th:field="*{phone}"/>
+				<button class="tel-code">获取验证码</button>
+				<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
+			</div>
 			<div class="form-group">
-				<label><i>*</i>邮箱</label>
-				<input type="text" th:field="*{email}"/>
-				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">必填</i>
+				<label><i>*</i>验证码</label>
+				<input type="text" />
 			</div>
 			<div class="form-group">
 				<label><i>*</i>用户名</label>
@@ -149,15 +154,10 @@
 				<i class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">必填</i>
 			</div>
 			<div class="form-group">
-				<label><i>*</i>手机号</label>
-				<input type="text" th:field="*{phone}"/>
-				<button class="tel-code">获取验证码</button>
-				<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
+				<label><i>*</i>邮箱</label>
+				<input type="text" th:field="*{email}"/>
+				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">必填</i>
 			</div>
-			<div class="form-group">
-				<label><i>*</i>验证码</label>
-				<input type="text" />
-			</div>			
 			<div class="hd resg-hd">
 				<span>企业信息</span>
 			</div>
