@@ -93,7 +93,7 @@ public class PDFServiceImpl implements PDFService {
 	}
 
 	private PdfPTable getProductTable(Set<BuyProduct> buyProducts , Font fontChinese,float totalPrice) throws DocumentException {
-		String[] header = { "名称", "型号", "规格", "数量", "小计/元", "产地" };
+		String[] header = { "名称", "型号", "规格", "数量", "单价/元", "产地" };
 		PdfPTable table = new PdfPTable(header.length);
 
 		table.setTotalWidth(new float[] { 210, 130, 70, 70, 100, 90 });

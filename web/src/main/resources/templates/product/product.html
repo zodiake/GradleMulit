@@ -144,7 +144,8 @@
 					</div>
 					<div class="panel">
 						<label>产地：</label>
-						<span th:text="${product.placeOfProduction.toString()}"></span>
+						<span th:if="${product.placeOfProduction.toString()=='DOMESTIC'}" th:text="国产"></span>
+						<span th:if="${product.placeOfProduction.toString()=='IMPORTED'}" th:text="进口"></span>
 					</div>
 					<div class="panel">
 						<label>产品规格：</label><span th:text="${product.specifications}">中国</span>

@@ -29,27 +29,27 @@ import com.sj.model.type.SexEnum;
 public class SiteUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	protected Long id;
 
 	@NotBlank(message = "用户名不能为空")
-	private String name; // 用户名
+	protected String name; // 用户名
 
 	@NotBlank(message = "真实姓名不能为空")
 	@Column(name = "real_name")
-	private String realName;
+	protected String realName;
 	
 	@NotNull(message="请选择性别")
 	@Column(name="sex")
-	private SexEnum sex;
+	protected SexEnum sex;
 
 	@Size(min = 6, message = "密码最少为6位")
-	private String password; // 密码
+	protected String password; // 密码
 
 	@Column(name = "site_Authority")
-	private String siteAuthority; // 网站权限
+	protected String siteAuthority; // 网站权限
 
 	@Enumerated
-	private ActivateEnum enabled; // 是否激活
+	protected ActivateEnum enabled; // 是否激活
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_time")
@@ -57,12 +57,12 @@ public class SiteUser {
 
 	@NotBlank(message = "邮箱不能为空")
 	@Email(message = "请输入正确的邮箱")
-	private String email; // 邮箱
+	protected String email; // 邮箱
 
 	@Pattern(regexp = "[0-9]{11}", message = "手机号码为11位数组")
-	private String phone; // 手机号码
+	protected String phone; // 手机号码
 
-	private int score;
+	protected int score;
 
 	public SiteUser() {
 	}

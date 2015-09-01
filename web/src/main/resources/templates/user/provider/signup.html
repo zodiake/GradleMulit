@@ -184,12 +184,12 @@
 				<label><i>*</i>企业性质</label>
 				<select class="w228" th:field="*{componyType}">
 					<option value="">请选择</option>
-					<option value="外商独资">外商独资</option>
-					<option value="合资企业">合资企业</option>
-					<option value="民营企业">民营企业</option>
-					<option value="国有企业">国有企业</option>
-					<option value="高等院校">高等院校</option>
-					<option value="刑侦机关">刑侦机关</option>
+					<option value="ONE">外商独资</option>
+					<option value="TWO">合资企业</option>
+					<option value="THREE">民营企业</option>
+					<option value="FOUR">国有企业</option>
+					<option value="FIVE">高等院校</option>
+					<option value="SIX">刑侦机关</option>
 				</select>
 				<i class="error" th:if="${#fields.hasErrors('componyType')}" th:errors="*{componyType}">必填</i>
 			</div>
@@ -200,21 +200,21 @@
 			</div>
 			<div class="form-group">
 				<label><i>*</i>业务类型</label>
-				<input type="radio" th:field="*{businessType}" value="生产型"/>生产型
-				<input type="radio" th:field="*{businessType}" value="贸易型"/>贸易型
-				<input type="radio" th:field="*{businessType}" value="服务型"/>服务型
-				<input type="radio" th:field="*{businessType}" value="政府机关"/>政府机关
-				<input type="radio" th:field="*{businessType}" value="其它"/>其它
+				<input type="radio" th:field="*{businessType}" value="ONE"/>生产型
+				<input type="radio" th:field="*{businessType}" value="TWO"/>贸易型
+				<input type="radio" th:field="*{businessType}" value="THREE"/>服务型
+				<input type="radio" th:field="*{businessType}" value="FOUR"/>政府机关
+				<input type="radio" th:field="*{businessType}" value="FIVE"/>其它
 				<i class="error" th:if="${#fields.hasErrors('businessType')}" th:errors="*{businessType}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>企业规模</label>
 				<select class="w228" th:field="*{scale}">
 					<option value="">请选择</option>
-					<option value="五十人以下">五十人以下</option>
-					<option value="五十到一百人">五十到一百人</option>
-					<option value="一百到五百">一百到五百</option>
-					<option value="超过五百">超过五百</option>
+					<option value="ONE">五十人以下</option>
+					<option value="TWO">五十到一百人</option>
+					<option value="THREE">一百到五百</option>
+					<option value="FOUR">超过五百</option>
 				</select>
 				<i class="error" th:if="${#fields.hasErrors('scale')}" th:errors="*{scale}">必填</i>
 			</div>
@@ -222,12 +222,12 @@
 				<label><i>*</i>年产值</label>
 				<select class="w228" th:field="*{output}">
 					<option value="">请选择</option>
-					<option value="五百万以下">五百万以下</option>
-					<option value="五百万至两千万">五百万至两千万</option>
-					<option value="两千万至五千万">两千万至五千万</option>
-					<option value="五千万至一亿">五千万至一亿</option>
-					<option value="一亿至五亿">一亿至五亿</option>
-					<option value="五亿以上">五亿以上</option>
+					<option value="ONE">五百万以下</option>
+					<option value="TWO">五百万至两千万</option>
+					<option value="THREE">两千万至五千万</option>
+					<option value="FOUR">五千万至一亿</option>
+					<option value="FIVE">一亿至五亿</option>
+					<option value="SIX">五亿以上</option>
 				</select>
 				<i class="error" th:if="${#fields.hasErrors('output')}" th:errors="*{output}">必填</i>
 			</div>
