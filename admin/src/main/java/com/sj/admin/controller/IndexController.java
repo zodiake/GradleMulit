@@ -154,7 +154,7 @@ public class IndexController extends UploadController {
 		return "subject/solution/create";
 	}
 
-	@RequestMapping(value = "/products")
+	@RequestMapping(value = "/templates/products")
 	public String products() {
 		return "product/list";
 	}

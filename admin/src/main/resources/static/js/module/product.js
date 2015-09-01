@@ -3,18 +3,18 @@
  */
 var productModule = angular.module('Product', ['ProductCategory']);
 
-productModule.service('ConsumableService', ['$http', function ($http) {
+productModule.service('ProductService', ['$http', function ($http) {
     this.findAll = function (opt) {
-        return $http.get('/admin/consumable', {
+        return $http.get('/admin/products', {
             params: opt
         });
     };
 }]);
 
-productModule.controller('ConsumableController', ['$scope',
-    'ConsumableService',
+productModule.controller('ProductController', ['$scope',
+    'ProductService',
     'ProductCategoryService',
-    function ($scope, ConsumableService, ProductCategoryService) {
+    function ($scope, ProductService, ProductCategoryService) {
         $scope.page = 1;
         $scope.size = 15;
         $scope.opt = {};
@@ -23,7 +23,7 @@ productModule.controller('ConsumableController', ['$scope',
         $scope.opt.size = $scope.size;
 
         function init(opt) {
-            ConsumableService
+            ProductService
                 .findAll(opt)
                 .success(function (data) {
                     $scope.items = data.content;
@@ -38,7 +38,6 @@ productModule.controller('ConsumableController', ['$scope',
         init($scope.opt);
 
         $scope.findByParent = function (category) {
-            console.log(category);
             ProductCategoryService
                 .findByParentId(category)
                 .success(function (data) {
@@ -47,7 +46,7 @@ productModule.controller('ConsumableController', ['$scope',
         };
 
         $scope.search = function () {
-            ConsumableService
+            ProductService
                 .findAll($scope.opt)
                 .success(function (data) {
                     $scope.items = data.content;

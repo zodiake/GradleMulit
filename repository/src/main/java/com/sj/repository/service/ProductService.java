@@ -14,7 +14,9 @@ import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.model.ProductJson;
 
 public interface ProductService {
-	public Page<Product> findByUsers(Provider user, Pageable pageable,ProductStatusEnum status);
+	public Page<Product> findByUsers(Provider user, Pageable pageable,
+			ProductStatusEnum status);
+
 	public Page<Product> findByUsers(Provider user, Pageable pageable);
 
 	public Product findOne(Long id);
@@ -27,7 +29,6 @@ public interface ProductService {
 
 	public Product updateProduct(Product newProduct, Product oldProduct);
 
-
 	public Page<Product> findByBrand(Pageable pageable, Brand brand);
 
 	public Page<Product> findByCategory(ProductCategory category,
@@ -38,13 +39,15 @@ public interface ProductService {
 	public Product updateStatus(Product product, ProductStatusEnum status);
 
 	public List<String> saveProducts(List<Product> products);
-	
+
 	public Product saveOne(Product product);
-	
+
 	public Page<Product> findCount(Provider user, Pageable pageable);
 	
-	public Page<Product> findBySecondCategory(ProductCategory second,Pageable pageable);
-	
+
+	public Page<Product> findBySecondCategory(ProductCategory second,
+			Pageable pageable);
+
 	public Page<ProductJson> findByFirstCategoryAndSecondCategoryAndStatusJson(
 			Pageable pageable, ProductCategory fc, ProductCategory sc,
 			ProductStatusEnum status);

@@ -76,7 +76,8 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone,real_n
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(4,'pjf1','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234564@qq.com','13700000004','mary3',0,systimestamp);
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(6,'pjf12','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234565@qq.com','13700000005','mary3',0,systimestamp);
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(15,'pjf123','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234566@qq.com','13700000006','mary3',0,systimestamp);
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,systimestamp);
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,systimestamp);
+
 
 --test industry_info
 insert into  industry_info(id,name,industry_type) values(1,'a1','p');
