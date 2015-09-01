@@ -1,12 +1,17 @@
 package com.sj.repository.service.Impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Solution;
+import com.sj.repository.model.SolutionJson;
 import com.sj.repository.repository.SolutionRepository;
 import com.sj.repository.service.SolutionService;
 
@@ -33,5 +38,12 @@ public class SolutionServiceImpl implements SolutionService {
 	@Override
 	public void save(Solution s) {
 		repository.save(s);
+	}
+
+	@Override
+	public List<SolutionJson> findAll() {
+		List<Solution> solutions = Lists.newArrayList(repository.findAll());
+		return solutions.stream().map(i -> new SolutionJson(i))
+				.collect(Collectors.toList());
 	}
 }

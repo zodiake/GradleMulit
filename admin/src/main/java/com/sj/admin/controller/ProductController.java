@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -77,6 +78,15 @@ public class ProductController {
 	private String updateProductState(@PathVariable("id") Long id,
 			ProductStatusEnum state) {
 		productService.updateState(id, state);
+		return "";
+	}
+
+	@RequestMapping(value = "/admin/products/{id}/solutions", method = RequestMethod.POST)
+	@ResponseBody
+	private String addSolution(@PathVariable("id") Long id,
+			HttpServletRequest request) {
+		String solutions = request.getParameter("solutions");
+		productService.updateSolution(id, solutions);
 		return "";
 	}
 

@@ -6,6 +6,7 @@ import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
 import static com.sj.repository.util.RedisConstant.VIEWCOUNT;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
@@ -277,5 +278,23 @@ public class ProductServiceImpl implements ProductService {
 		em.createQuery("update Product p set p.status=:state where p.id=:id")
 				.setParameter("state", state).setParameter("id", id)
 				.executeUpdate();
+	}
+
+	@Override
+	public void updateSolution(Long id, String lists) {
+		String[] solutions = lists.split(",");
+		em.createNativeQuery(
+				"delete from solution_product where product_id=:productId")
+				.setParameter("productId", id).executeUpdate();
+		Arrays.asList(solutions)
+				.forEach(
+						j -> {
+							em.createNativeQuery(
+									"insert into solution_product (solution_id,product_id) values (:solutionId,:productId)")
+									.setParameter("solutionId", j)
+									.setParameter("productId", id)
+									.executeUpdate();
+						});
+
 	}
 }
