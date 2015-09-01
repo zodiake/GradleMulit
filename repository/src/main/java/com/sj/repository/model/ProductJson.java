@@ -2,11 +2,7 @@ package com.sj.repository.model;
 
 import java.util.Calendar;
 
-import com.sj.model.model.Consumable;
-import com.sj.model.model.Instrument;
 import com.sj.model.model.Product;
-import com.sj.model.model.Reagents;
-import com.sj.model.model.Service;
 
 public class ProductJson {
 	private Long id;
@@ -20,54 +16,6 @@ public class ProductJson {
 	private String stateName;
 
 	public ProductJson(Product p) {
-		this.id = p.getId();
-		this.name = p.getName();
-		this.firstCategory = p.getFirstCategory().getId();
-		this.firstCategoryName = p.getFirstCategory().getName();
-		this.secondCategory = p.getSecondCategory().getId();
-		this.secondCategoryName = p.getSecondCategory().getName();
-		this.price = p.getPrice();
-		this.createdTime = p.getCreatedTime();
-		this.stateName = p.getStatus().toString();
-	}
-
-	public ProductJson(Consumable p) {
-		this.id = p.getId();
-		this.name = p.getName();
-		this.firstCategory = p.getFirstCategory().getId();
-		this.firstCategoryName = p.getFirstCategory().getName();
-		this.secondCategory = p.getSecondCategory().getId();
-		this.secondCategoryName = p.getSecondCategory().getName();
-		this.price = p.getPrice();
-		this.createdTime = p.getCreatedTime();
-		this.stateName = p.getStatus().toString();
-	}
-
-	public ProductJson(Service p) {
-		this.id = p.getId();
-		this.name = p.getName();
-		this.firstCategory = p.getFirstCategory().getId();
-		this.firstCategoryName = p.getFirstCategory().getName();
-		this.secondCategory = p.getSecondCategory().getId();
-		this.secondCategoryName = p.getSecondCategory().getName();
-		this.price = p.getPrice();
-		this.createdTime = p.getCreatedTime();
-		this.stateName = p.getStatus().toString();
-	}
-
-	public ProductJson(Reagents p) {
-		this.id = p.getId();
-		this.name = p.getName();
-		this.firstCategory = p.getFirstCategory().getId();
-		this.firstCategoryName = p.getFirstCategory().getName();
-		this.secondCategory = p.getSecondCategory().getId();
-		this.secondCategoryName = p.getSecondCategory().getName();
-		this.price = p.getPrice();
-		this.createdTime = p.getCreatedTime();
-		this.stateName = p.getStatus().toString();
-	}
-
-	public ProductJson(Instrument p) {
 		this.id = p.getId();
 		this.name = p.getName();
 		this.firstCategory = p.getFirstCategory().getId();

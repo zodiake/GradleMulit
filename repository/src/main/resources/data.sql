@@ -60,7 +60,7 @@ insert into category(id,name,category_type,activate,url) values(8,'新品成果'
 insert into category(id,name,category_type,activate,url) values(9,'厂商动态','ic',1,'CSDT');
 
 --test content
-insert into content values(1,'product1-content');
+insert into content values(1,'<p>product1-content</p>');
 insert into content values(2,'product2-content');
 insert into content values(3,'product3-content');
 insert into content values(4,'product4-content');

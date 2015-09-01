@@ -9,14 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -25,14 +19,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.admin.model.ProductOption;
 import com.sj.admin.security.SiteUserContext;
-import com.sj.admin.util.AdminSeachProductForm;
 import com.sj.model.model.Brand;
 import com.sj.model.model.Content;
 import com.sj.model.model.Product;
@@ -50,6 +40,7 @@ import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
@@ -75,95 +66,24 @@ public class ProductController {
 						option.getSecondCategory(), option.getState());
 	}
 
+	@RequestMapping(value = "/admin/products/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	private ProductDetailJson findOne(@PathVariable("id") Long id) {
+		return new ProductDetailJson(productService.findOneAdmin(id));
+	}
+
+	@RequestMapping(value = "/admin/products/{id}/state", method = RequestMethod.POST)
+	@ResponseBody
+	private String updateProductState(@PathVariable("id") Long id,
+			ProductStatusEnum state) {
+		productService.updateState(id, state);
+		return "";
+	}
+
 	@RequestMapping(value = "/admin/product", method = RequestMethod.GET, params = "batch")
 	public String createBatch() {
 
 		return "create";
-	}
-
-	@RequestMapping(value = "/admin/product/search", method = RequestMethod.GET)
-	public String seachProduct(
-			@ModelAttribute("form") AdminSeachProductForm form, Model uiModel,
-			@RequestParam(defaultValue = "1", value = "page") int page,
-			@RequestParam(defaultValue = "15", value = "size") int size) {
-		Specification<Product> specification = new Specification<Product>() {
-
-			@Override
-			public Predicate toPredicate(Root<Product> root,
-					CriteriaQuery<?> query, CriteriaBuilder cb) {
-				Predicate predicate = cb.conjunction();
-				List<Expression<Boolean>> expressions = predicate
-						.getExpressions();
-				if (form.getType() != null
-						&& NumberUtils.isNumber(form.getType().getId()
-								.toString())) {
-					expressions.add(cb.equal(root.get("firstCategory")
-							.get("id"), form.getType().getId()));
-				}
-				if (form.getFirst() != null
-						&& NumberUtils.isNumber(form.getFirst().getId()
-								.toString())) {
-					expressions.add(cb.equal(
-							root.get("secondCategory").get("id"), form
-									.getFirst().getId()));
-				}
-				if (form.getSecond() != null
-						&& NumberUtils.isNumber(form.getSecond().getId()
-								.toString())) {
-					expressions.add(cb.equal(root.get("thirdCategory")
-							.get("id"), form.getSecond().getId()));
-				}
-				if (form.getStatus() != null) {
-					expressions.add(cb.equal(root.get("status"),
-							form.getStatus()));
-				}
-
-				return predicate;
-			}
-		};
-		Page<Product> products = productService.search(specification,
-				new PageRequest(page - 1, size));
-		uiModel.addAttribute("products", products);
-		uiModel.addAttribute("form", form);
-		return "index";
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/admin/product/{id}", method = RequestMethod.GET)
-	public String findOne(Model uiModel, @PathVariable("id") Long id) {
-		Product product = productService.findOne(id);
-		uiModel.addAttribute("product", product);
-		return null;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/admin/product/{id}", method = RequestMethod.DELETE)
-	public String deleteOne(@PathVariable("id") Long id) {
-		Product product = productService.findOne(id);
-		if (product == null)
-			return "fail";
-		productService.updateStatus(product, ProductStatusEnum.DOWN);
-		return "success";
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/admin/product/{id}", method = RequestMethod.POST)
-	public String upOne(@PathVariable("id") Long id) {
-		Product product = productService.findOne(id);
-		if (product == null)
-			return "fail";
-		productService.updateStatus(product, ProductStatusEnum.UP);
-		return "success";
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/admin/product/{id}", method = RequestMethod.PUT)
-	public String notOne(@PathVariable("id") Long id) {
-		Product product = productService.findOne(id);
-		if (product == null)
-			return "fail";
-		productService.updateStatus(product, ProductStatusEnum.NOT);
-		return "success";
 	}
 
 	@RequestMapping(value = "/admin/product", method = RequestMethod.POST, params = "batch")
