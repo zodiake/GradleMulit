@@ -14,7 +14,8 @@ productModule.service('ProductService', ['$http', function ($http) {
 productModule.controller('ProductController', ['$scope',
     'ProductService',
     'ProductCategoryService',
-    function ($scope, ProductService, ProductCategoryService) {
+    '$modal',
+    function ($scope, ProductService, ProductCategoryService, $modal) {
         $scope.page = 1;
         $scope.size = 15;
         $scope.opt = {};
@@ -52,5 +53,17 @@ productModule.controller('ProductController', ['$scope',
                     $scope.items = data.content;
                 });
         };
+
+        $scope.view = function (product) {
+            $modal.open({
+                templateUrl: '/admin/brandDetail',
+                size: 'lg',
+                controller: 'BrandDetailController'
+            });
+        };
     }
 ]);
+
+productModule.controller('ProductDetailController', ['$scope', function ($scope) {
+
+}]);
