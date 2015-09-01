@@ -91,11 +91,6 @@ app.config([
                 url: '/consumable',
                 templateUrl: '/admin/templates/products',
                 controller: 'ProductController'
-            })
-            .state('productDetail', {
-                url: '/product/:id',
-                templateUrl: '/admin/productDetail',
-                controller: 'ProductDetailController'
             });
     }
 ]);

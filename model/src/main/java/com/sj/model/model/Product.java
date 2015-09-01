@@ -36,24 +36,30 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
+
 	@NotBlank(message = "商品名称不能为空")
 	protected String name;
-	protected String nameEnglish; 
+
+	protected String nameEnglish;
+
 	@NotBlank(message = "型号不能为空")
-	protected String model; 
+	protected String model;
+
 	@NotNull(message = "请选择产地")
 	protected PlaceEnum placeOfProduction;
+
 	@NotBlank(message = "规格不能为空")
 	protected String specifications;
 
 	protected ProductStatusEnum status;
+
 	@NotBlank(message = "商品标签不能为空")
 	protected String label;
-	
+
 	@Column(name = "cover_img")
 	@NotBlank(message = "请上传图片")
 	protected String coverImg;
-	
+
 	protected float price;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -63,12 +69,14 @@ public class Product {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "second_category_id")
 	protected ProductCategory secondCategory;
+
 	@NotNull(message = "请选择所属分类")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "third_category_id")
 	protected ProductCategory thirdCategory;
 
 	protected String url;
+
 	@NotNull(message = "请选择品牌")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "brand_id")
@@ -88,6 +96,7 @@ public class Product {
 
 	@Transient
 	private Long reviewCount = 0l;
+
 	@Transient
 	protected Long collectionCount;
 
@@ -102,6 +111,10 @@ public class Product {
 	protected Calendar createdTime;
 
 	protected String serialNO;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "authenticated_time")
+	private Calendar authenticatedTime;
 
 	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
 	private List<Solution> solutions;
@@ -305,6 +318,22 @@ public class Product {
 
 	public void setBuyCount(Long buyCount) {
 		this.buyCount = buyCount;
+	}
+
+	public Calendar getAuthenticatedTime() {
+		return authenticatedTime;
+	}
+
+	public void setAuthenticatedTime(Calendar authenticatedTime) {
+		this.authenticatedTime = authenticatedTime;
+	}
+
+	public List<Solution> getSolutions() {
+		return solutions;
+	}
+
+	public void setSolutions(List<Solution> solutions) {
+		this.solutions = solutions;
 	}
 
 	@Override

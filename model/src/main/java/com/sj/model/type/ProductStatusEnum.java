@@ -3,15 +3,13 @@ package com.sj.model.type;
 import java.util.Locale;
 
 public enum ProductStatusEnum {
+	// 下架,上架，审核中，未通过
 	DOWN, UP, EXAMINE, NOT;
-	public static ProductStatusEnum fromString(String source) {
+	public static ProductStatusEnum formString(String scale) {
 		try {
-			return ProductStatusEnum.valueOf(source.toUpperCase(Locale.US));
+			return ProductStatusEnum.valueOf(scale.toUpperCase(Locale.US));
 		} catch (Exception e) {
-			throw new IllegalArgumentException(
-					String.format(
-							"Invalid value '%s' for orders given! Has to be either 'index' (case insensitive).",
-							source), e);
+			return null;
 		}
 	}
 }

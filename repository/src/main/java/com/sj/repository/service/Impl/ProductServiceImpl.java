@@ -33,6 +33,7 @@ import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.ProductService;
@@ -95,6 +96,11 @@ public class ProductServiceImpl implements ProductService {
 		else
 			p.setCollectionCount(Long.valueOf(count));
 		return p;
+	}
+
+	@Override
+	public Product findOneAdmin(Long id) {
+		return repository.findOne(id);
 	}
 
 	@Override
@@ -259,5 +265,17 @@ public class ProductServiceImpl implements ProductService {
 
 		Long count = em.createQuery(cq).getSingleResult();
 		return new PageImpl<ProductJson>(products, pageable, count);
+	}
+
+	@Override
+	public ProductDetailJson findOneJson(Long id) {
+		return new ProductDetailJson(findOne(id));
+	}
+
+	@Override
+	public void updateState(Long id, ProductStatusEnum state) {
+		em.createQuery("update Product p set p.status=:state where p.id=:id")
+				.setParameter("state", state).setParameter("id", id)
+				.executeUpdate();
 	}
 }
