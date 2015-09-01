@@ -145,8 +145,8 @@
 							<label><i>*</i>产地</label>
 							<select class="w235" th:field="*{placeOfProduction}">
 								<option value="">请选择</option>
-								<option th:value="国产">国产</option>
-								<option th:value="进口">进口</option>
+								<option th:value="DOMESTIC">国产</option>
+								<option th:value="IMPORTED">进口</option>
 							</select>
 							<i class="error" th:if="${#fields.hasErrors('placeOfProduction')}" th:errors="*{placeOfProduction}"></i>
 							</div>

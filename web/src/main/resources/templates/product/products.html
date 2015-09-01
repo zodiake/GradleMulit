@@ -214,7 +214,8 @@
 							</div>
 							<div class="pic-row">
 								<label >产地：</label>
-								<label th:text="${product.placeOfProduction.toString()}"></label>
+								<label th:if="${product.placeOfProduction.toString()=='DOMESTIC'}" th:text="国产"></label>
+								<label th:if="${product.placeOfProduction.toString()=='IMPORTED'}" th:text="进口"></label>
 							</div>
 							<div class="pic-row">
 								<label>型号：</label>

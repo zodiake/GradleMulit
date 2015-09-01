@@ -84,8 +84,8 @@
 											<td th:text="${product.product.specifications}">Lorem</td>
 											<td th:text="${product.number}">1</td>
 											<td th:text="${product.number * product.product.price}">1222.00</td>
-											<td th:text="${product.product.placeOfProduction.toString()}">
-											</td>
+											<td th:if="${product.product.placeOfProduction.toString()=='DOMESTIC'}" th:text="国产"></td>
+											<td th:if="${product.product.placeOfProduction.toString()=='IMPORTED'}" th:text="进口"></td>
 										</tr>
 									</tbody>
 								</table>
