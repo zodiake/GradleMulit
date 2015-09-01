@@ -88,7 +88,7 @@ insert into  industry_info(id,name,industry_type) values(6,'a6','u');
 
 -- test common user
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
-values(3,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',1,3,3);
+values(3,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2171号','317500',1,3,3);
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
 values(4,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,4);
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
