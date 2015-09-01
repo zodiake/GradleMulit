@@ -145,7 +145,7 @@ public class IndexController extends UploadController {
 		return "subject/create";
 	}
 
-	@RequestMapping(value = "/solutions")
+	@RequestMapping(value = "/templates/solutions")
 	public String solution() {
 		return "subject/solution/list";
 	}
