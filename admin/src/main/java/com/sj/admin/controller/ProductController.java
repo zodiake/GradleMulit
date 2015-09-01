@@ -128,7 +128,7 @@ public class ProductController {
 				product.setSpecifications(hssfRow.getCell(4)
 						.getStringCellValue());
 				product.setBrand(new Brand(1l));
-				product.setPlaceOfProduction(PlaceEnum.stringToEnum(hssfRow
+				product.setPlaceOfProduction(PlaceEnum.formString(hssfRow
 						.getCell(6).getStringCellValue()));
 				product.setPrice((float) hssfRow.getCell(7)
 						.getNumericCellValue());

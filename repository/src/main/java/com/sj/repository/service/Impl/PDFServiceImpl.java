@@ -28,63 +28,18 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.sj.model.model.BuyProduct;
 import com.sj.model.model.BuyRecord;
 import com.sj.model.model.Product;
+import com.sj.model.type.PlaceEnum;
 import com.sj.repository.service.PDFService;
 
 @Service
 public class PDFServiceImpl implements PDFService {
 
 	private final static String TEXT = "上海申捷卫生科技";
-	/*
-	 * 
-	 */
-//	@Override
-//	public PdfPTable getPdfPTable(List<Product> products,
-//			String departmentName, String applicant, String type,
-//			String projectName, String reason, String head, String logistic) {
-//		BaseFont baseFontChinese = null;
-//		try {
-//			baseFontChinese = BaseFont.createFont(
-//					"c:\\Windows\\Fonts\\SIMSUN.TTC,1", BaseFont.IDENTITY_H,
-//					BaseFont.NOT_EMBEDDED);
-//		} catch (DocumentException | IOException e) {
-//			e.printStackTrace();
-//		}
-//		Font fontChinese = new Font(baseFontChinese, 14);
-//
-//		PdfPTable table = new PdfPTable(4);
-//		table.setSplitLate(false);
-//		table.addCell(getCell("申请科室名称:", 1, fontChinese));
-//		table.addCell(getCell(departmentName, 1, fontChinese));
-//		table.addCell(getCell("申请人:", 1, fontChinese));
-//		table.addCell(getCell(applicant, 1, fontChinese));
-//		table.addCell(getCell("经费类别", 1, fontChinese));
-//		table.addCell(getCell(type, 3, fontChinese));
-//		table.addCell(getCell("项目名称及编号", 1, fontChinese));
-//		table.addCell(getCell(projectName, 3, fontChinese));
-//		table.addCell(getCell("请购物资(外包服务)明细", 4, fontChinese));
-//
-//		PdfPCell c = new PdfPCell(getTable(products, fontChinese));
-//		c.setColspan(4);
-//		c.setPaddingLeft(5);
-//		c.setPaddingRight(5);
-//
-//		table.addCell(c);
-//
-//		table.addCell(getCell("申请理由", 1, fontChinese));
-//		table.addCell(getCell(reason, 3, fontChinese));
-//		table.addCell(getCell("科室负责人", 1, fontChinese));
-//		table.addCell(getCell(head, 3, fontChinese));
-//		table.addCell(getCell("后勤管理负责人", 1, fontChinese));
-//		table.addCell(getCell(logistic, 3, fontChinese));
-//		table.setTotalWidth(600);
-//		table.setSplitLate(false);
-//		table.setSplitRows(true);
-//		return table;
-//	}
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	private PdfPCell getCell(String content, int colspan, Font fontChinese) {
 		PdfPCell c = new PdfPCell(new Paragraph(content, fontChinese));
-		c.setFixedHeight(75);
+		c.setFixedHeight(70);
 		c.setPaddingLeft(10);
 		c.setPaddingRight(10);
 		c.setColspan(colspan);
@@ -96,7 +51,7 @@ public class PDFServiceImpl implements PDFService {
 		String[] header = { "名称", "型号", "规格", "数量", "单价/元", "产地" };
 		PdfPTable table = new PdfPTable(header.length);
 
-		table.setTotalWidth(new float[] { 210, 130, 70, 70, 100, 90 });
+		table.setTotalWidth(new float[] { 29, 17, 13, 13, 15, 13 });
 		
 		for (int i = 0; i < header.length; i++) {
 			PdfPCell cell = getCell(header[i], 1, fontChinese);
@@ -112,7 +67,11 @@ public class PDFServiceImpl implements PDFService {
 			table.addCell(getCell(product.getSpecifications(), 1, fontChinese));
 			table.addCell(getCell(buyProduct.getNumber().toString(), 1, fontChinese));
 			table.addCell(getCell(String.valueOf(buyProduct.getProduct().getPrice()), 1, fontChinese));
-			table.addCell(getCell(buyProduct.getProduct().getPlaceOfProduction().toString(), 1, fontChinese));
+//			table.addCell(getCell(buyProduct.getProduct().getPlaceOfProduction().toString(), 1, fontChinese));
+			if(buyProduct.getProduct().getPlaceOfProduction()==PlaceEnum.DOMESTIC)
+				table.addCell(getCell("国产", 1, fontChinese));
+			if(buyProduct.getProduct().getPlaceOfProduction()==PlaceEnum.IMPORTED)
+				table.addCell(getCell("进口", 1, fontChinese));
 		}
 		table.addCell(getCell("共计："+totalPrice+"元", 6, fontChinese));
 		return table;
@@ -120,11 +79,17 @@ public class PDFServiceImpl implements PDFService {
 
 	@Override
 	public byte[] getBuyRecordPdf(BuyRecord buyRecord,OutputStream out) throws DocumentException, ParseException, IOException {
+		BaseFont baseFontChinese = BaseFont.createFont("c:\\Windows\\Fonts\\SIMSUN.TTC,1", BaseFont.IDENTITY_H,
+				BaseFont.NOT_EMBEDDED);
+		Font fontChinese = new Font(baseFontChinese, 14);
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		Document document = new Document(PageSize.A4, 0, 0, 50, 40);
+		Document document = new Document(PageSize.A4, 0, 0, 10, 10);
 		PdfWriter write = PdfWriter.getInstance(document,byteArrayOutputStream);
 		document.open();
-		document.add(getTable(buyRecord));
+		Paragraph p = new Paragraph("编号："+buyRecord.getNoId(), fontChinese);
+		p.setAlignment(Element.ALIGN_LEFT);
+		document.add(p);
+		document.add(getTable(buyRecord,fontChinese));
 		document.close();
 		
 		byteArrayOutputStream.writeTo(out);
@@ -133,12 +98,11 @@ public class PDFServiceImpl implements PDFService {
 		return byteArrayOutputStream.toByteArray();
 	}
 	
-	private PdfPTable getTable(BuyRecord buyRecord) throws ParseException, DocumentException, IOException{
-		BaseFont baseFontChinese = BaseFont.createFont("c:\\Windows\\Fonts\\SIMSUN.TTC,1", BaseFont.IDENTITY_H,
-					BaseFont.NOT_EMBEDDED);
-		Font fontChinese = new Font(baseFontChinese, 14);
+	private PdfPTable getTable(BuyRecord buyRecord,Font fontChinese) throws ParseException, DocumentException, IOException{
+
 
 		PdfPTable table = new PdfPTable(4);
+		table.setWidths(new int[]{18,32,18,32});
 		table.setSplitLate(false);
 		table.addCell(getCell("申请单位:", 1, fontChinese));
 		table.addCell(getCell(buyRecord.getUser().getCompany(), 1, fontChinese));
@@ -165,7 +129,7 @@ public class PDFServiceImpl implements PDFService {
 		table.addCell(getCell("申请理由", 1, fontChinese));
 		table.addCell(getCell(buyRecord.getReason(), 3, fontChinese));
 		table.addCell(getCell("期望到货日期", 1, fontChinese));
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
 		String time = sdf.format(buyRecord.getArrivalTime().getTime());
 		table.addCell(getCell(time, 3, fontChinese));
 		table.setTotalWidth(600);

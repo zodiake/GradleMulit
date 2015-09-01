@@ -9,7 +9,7 @@ public class StringToProductStatusEnumConverter implements
 
 	@Override
 	public ProductStatusEnum convert(String source) {
-		return ProductStatusEnum.stringToEnum(source);
+		return ProductStatusEnum.formString(source);
 	}
 
 }

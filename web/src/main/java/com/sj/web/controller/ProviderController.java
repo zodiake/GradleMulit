@@ -127,10 +127,9 @@ public class ProviderController extends BaseController<Provider> {
 			@SecurityUser SiteUser user, @PathVariable("status") String status) {
 		Page<Product> products = productService.findByUsers(
 				new Provider(user.getId()), new PageRequest(page - 1, size,
-						Direction.DESC, "createdTime"), ProductStatusEnum
-						.stringToEnum(status));
+						Direction.DESC, "createdTime"), ProductStatusEnum.valueOf(status));
 		uiModel.addAttribute("lists", products);
-		uiModel.addAttribute("status", ProductStatusEnum.stringToEnum(status));
+		uiModel.addAttribute("status", ProductStatusEnum.valueOf(status));
 		return "user/provider/maintain";
 	}
 
@@ -402,12 +401,10 @@ public class ProviderController extends BaseController<Provider> {
 				new Provider(user.getId()), id);
 		if (product == null)
 			throw new ProductNotFoundException();
-		ProductStatusEnum productStatusEnum = ProductStatusEnum
-				.stringToEnum(status);
+		ProductStatusEnum productStatusEnum = ProductStatusEnum.valueOf(status);
 		if (productStatusEnum == null)
 			throw new EnumNotFoundException();
-		product = productService.updateStatus(product,
-				ProductStatusEnum.stringToEnum(status));
+		product = productService.updateStatus(product,ProductStatusEnum.valueOf(status));
 		uiModel.addAttribute("product", product);
 		return "user/provider/maintaintd";
 	}

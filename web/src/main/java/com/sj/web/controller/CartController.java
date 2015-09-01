@@ -1,6 +1,7 @@
 package com.sj.web.controller;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -54,6 +55,8 @@ public class CartController {
 					return "exists";
 				}
 			}
+		}else{
+			lines = new HashSet<CartLine>();
 		}
 		Product p = productService.findOne(cartLine.getProductId());
 		cartLine = new CartLine(p, cartLine.getNumber());

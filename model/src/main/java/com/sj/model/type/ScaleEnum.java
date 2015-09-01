@@ -1,13 +1,17 @@
 package com.sj.model.type;
 
+import java.util.Locale;
+
 public enum ScaleEnum {
-//	五十人以下,五十到一百人,一百到五百,超过五百;
-	ONE,TWO,THREE,FOUR;
-	public static ScaleEnum stringToEnum(String scale){
-		try{
-			return ScaleEnum.valueOf(scale);
-		}catch(Exception e){
-			return null;
+	ONE, TWO, THREE, FOUR;
+	public static ScaleEnum formString(String source) {
+		try {
+			return ScaleEnum.valueOf(source.toUpperCase(Locale.US));
+		} catch (Exception e) {
+			throw new IllegalArgumentException(
+					String.format(
+							"Invalid value '%s' for orders given! Has to be either 'index' (case insensitive).",
+							source), e);
 		}
 	}
 }

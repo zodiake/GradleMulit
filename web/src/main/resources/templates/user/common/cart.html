@@ -61,7 +61,6 @@
 									<td>
 									<a th:href="@{'/products/'+${cart.productId}}">
 										<div class="fl" th:text="${cart.name}" >
-											金磨坊猪脆骨盒装30包 烧烤味 麻辣味 特产 猪软骨休闲零食 包邮
 										</div></a>
 										<div class="fr">
 											<div>
@@ -70,7 +69,8 @@
 											</div>
 											<div>
 												<label>产地：</label>
-												<span th:text="${cart.place.toString()}"></span>
+												<span th:if="${cart.place.toString().toString()=='DOMESTIC'}" th:text="国产"></span>
+												<span th:if="${cart.place.toString().toString()=='IMPORTED'}" th:text="国产"></span>
 											</div>
 											<div>
 												<label>型号：</label>
