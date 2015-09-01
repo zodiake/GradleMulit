@@ -43,11 +43,6 @@ app.config([
                 templateUrl: '/admin/advertisement',
                 controller: 'AdvertiseController'
             })
-            .state('products', {
-                url: '/products',
-                templateUrl: '/admin/products',
-                controller: 'ProductsController'
-            })
             .state('info', {
                 url: '/info',
                 templateUrl: '/admin/info',
@@ -92,25 +87,10 @@ app.config([
                 templateUrl: '/admin/solutions',
                 controller: 'SolutionController'
             })
-            .state('consumable', {
+            .state('products', {
                 url: '/consumable',
-                templateUrl: '/admin/products',
-                controller: 'ConsumableController'
-            })
-            .state('instrument', {
-                url: '/instrument',
-                templateUrl: '/admin/products',
-                controller: 'InstrumentController'
-            })
-            .state('reagents', {
-                url: '/reagents',
-                templateUrl: '/admin/products',
-                controller: 'ReagentsController'
-            })
-            .state('service', {
-                url: '/service',
-                templateUrl: '/admin/products',
-                controller: 'ServiceController'
+                templateUrl: '/admin/templates/products',
+                controller: 'ProductController'
             })
             .state('productDetail', {
                 url: '/product/:id',

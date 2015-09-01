@@ -1,21 +1,21 @@
-var module = angular.module('Consumable', []);
+var module = angular.module('Product', []);
 
-module.service('ConsumableService', ['$http', function ($http) {
+module.service('ProductService', ['$http', function ($http) {
     this.findAll = function (opt) {
-        return $http.get('/admin/consumables', {
+        return $http.get('/admin/products', {
             params: opt
         });
     };
 }]);
 
-module.controller('ConsumableController', ['$scope',
-    'ConsumableService',
-    function ($scope, ConsumableService) {
+module.controller('ProductController', ['$scope',
+    'ProductService',
+    function ($scope, ProductService) {
         $scope.page = 1;
         $scope.size = 15;
 
         function init(opt) {
-            ConsumableService
+            ProductService
                 .findAll(opt)
                 .success(function (data) {
                     $scope.items = data;

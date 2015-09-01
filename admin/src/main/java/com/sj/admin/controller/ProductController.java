@@ -63,9 +63,16 @@ public class ProductController {
 	@Autowired
 	private ProductCategoryService productCategoryService;
 
-	@RequestMapping(value = "/admin/product", method = RequestMethod.GET)
-	public List<ProductJson> list(ProductOption option) {
-		return null;
+	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
+	@ResponseBody
+	private Page<ProductJson> list(
+			@RequestParam(defaultValue = "1", value = "page") int page,
+			@RequestParam(defaultValue = "15", value = "size") int size,
+			ProductOption option) {
+		return productService
+				.findByFirstCategoryAndSecondCategoryAndStatusJson(
+						new PageRequest(page, size), option.getFirstCategory(),
+						option.getSecondCategory(), option.getState());
 	}
 
 	@RequestMapping(value = "/admin/product", method = RequestMethod.GET, params = "batch")
