@@ -31,22 +31,31 @@ public class CartLineServiceImpl implements CartLineService {
 	public void save(Long id, CartLine cartline) {
 		String cartlineId = CARTLINE + id + ":" + cartline.getId();
 		String cartId = CART + id;
-
+		
+		
+		System.out.println("cartlineId..............."+cartlineId);
+		System.out.println("cart....................."+cartId);
+		Set<String> strs = template.opsForSet().members(cartId);
+		for (String str : strs) {
+			System.out.println(str);
+			String ids = (String) template.opsForHash().get(CARTLINE+id+":"+str,"name");
+			System.out.println(ids);
+		}
+		
 		// add to user cart
-		template.opsForSet().add(cartId, cartline.getId().toString());
-
-		// add to
-		template.opsForHash()
-				.put(cartlineId, "id", cartline.getId().toString());
-		template.opsForHash().put(cartlineId, "name", cartline.getName());
-		template.opsForHash().put(cartlineId, "price", cartline.getPrice() + "");
-		template.opsForHash().put(cartlineId, "number",cartline.getNumber() + "");
-		template.opsForHash().put(cartlineId, "image", cartline.getImage());
-		template.opsForHash().put(cartlineId, "place",cartline.getPlace().toString());
-		template.opsForHash().put(cartlineId, "brandName",cartline.getBrandName());
-		template.opsForHash().put(cartlineId, "model", cartline.getModel());
-		template.opsForHash().put(cartlineId, "productId",cartline.getProductId() + "");
-		template.opsForHash().put(cartlineId, "check", String.valueOf(cartline.getCheck()));
+//		template.opsForSet().add(cartId, cartline.getId().toString());
+//
+//		// add to
+//		template.opsForHash().put(cartlineId, "id", cartline.getId().toString());
+//		template.opsForHash().put(cartlineId, "name", cartline.getName());
+//		template.opsForHash().put(cartlineId, "price", cartline.getPrice() + "");
+//		template.opsForHash().put(cartlineId, "number",cartline.getNumber() + "");
+//		template.opsForHash().put(cartlineId, "image", cartline.getImage());
+//		template.opsForHash().put(cartlineId, "place",cartline.getPlace().toString());
+//		template.opsForHash().put(cartlineId, "brandName",cartline.getBrandName());
+//		template.opsForHash().put(cartlineId, "model", cartline.getModel());
+//		template.opsForHash().put(cartlineId, "productId",cartline.getProductId() + "");
+//		template.opsForHash().put(cartlineId, "check", String.valueOf(cartline.getCheck()));
 	}
 
 	@Override
@@ -59,6 +68,7 @@ public class CartLineServiceImpl implements CartLineService {
 
 	@Override
 	public Set<CartLine> findByUser(Long id) {
+		System.out.println(id);
 		Set<String> ids = template.opsForSet().members(CART + id);
 		if(ids==null|| ids.size()==0)
 			return null;
@@ -66,6 +76,7 @@ public class CartLineServiceImpl implements CartLineService {
 		return ids
 				.stream()
 				.map(i -> {
+					System.out.println(i);
 					String price = (String) template.opsForHash().get(
 							redisCartlineId + i, "price");
 					String tempId = (String) template.opsForHash().get(
