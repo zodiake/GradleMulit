@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -17,19 +22,19 @@ import javax.validation.Validator;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Brand;
-import com.sj.model.model.Instrument;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.model.ProductJson;
 import com.sj.repository.repository.ProductRepository;
-import com.sj.repository.service.InstrumentService;
 import com.sj.repository.service.ProductService;
 
 @Service
@@ -37,11 +42,10 @@ import com.sj.repository.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductRepository repository;
-
 	@Autowired
 	private StringRedisTemplate template;
 	@Autowired
-	private InstrumentService instrumentService;
+	private EntityManager em;
 
 	@Override
 	public Page<Product> findByUsers(Provider user, Pageable pageable,
@@ -219,4 +223,41 @@ public class ProductServiceImpl implements ProductService {
 		return repository.findBySecondCategory(second, pageable);
 	}
 
+	@Override
+	public Page<ProductJson> findByFirstCategoryAndSecondCategoryAndStatusJson(
+			Pageable pageable, ProductCategory fc, ProductCategory sc,
+			ProductStatusEnum status) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Product> c = cb.createQuery(Product.class);
+		Root<Product> product = c.from(Product.class);
+		c.select(product);
+
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		cq.select(cb.count(cq.from(Product.class)));
+
+		if (fc != null) {
+			c.where(cb.equal(product.get("firstCategory"), fc));
+			cq.where(cb.equal(product.get("firstCategory"), fc));
+		}
+		if (sc != null) {
+			c.where(cb.equal(product.get("secondCategory"), sc));
+			cq.where(cb.equal(product.get("secondCategory"), sc));
+		}
+		if (status != null) {
+			c.where(cb.equal(product.get("status"), status));
+			cq.where(cb.equal(product.get("status"), status));
+		}
+		List<Product> lists = em
+				.createQuery(c)
+				.setFirstResult(
+						(pageable.getPageNumber() - 1) * pageable.getPageSize())
+				.setMaxResults(
+						pageable.getPageNumber() * pageable.getPageSize())
+				.getResultList();
+		List<ProductJson> products = lists.stream()
+				.map(m -> new ProductJson(m)).collect(Collectors.toList());
+
+		Long count = em.createQuery(cq).getSingleResult();
+		return new PageImpl<ProductJson>(products, pageable, count);
+	}
 }
