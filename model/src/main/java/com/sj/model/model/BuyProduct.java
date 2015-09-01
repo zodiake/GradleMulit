@@ -2,10 +2,6 @@ package com.sj.model.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -88,7 +84,6 @@ public class BuyProduct implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		System.out.println("equals......");
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -97,13 +92,8 @@ public class BuyProduct implements Serializable {
 			return false;
 		BuyProduct other = (BuyProduct) obj;
 		if (id == null) {
-			if (other.id != null){
+			if (other.id != null)
 				return false;
-			}else{
-				if(!product.id.equals(other.product.id))
-					System.out.println(!product.id.equals(other.product.id));
-					return false;
-			}
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
