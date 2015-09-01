@@ -36,10 +36,10 @@ public class BuyRecord implements Serializable {
 
 	@Column(name = "fund_category")
 	@NotBlank(message = "请输入经费类别")
-	private String fundCategory; // 经费类别
-
+	private String fundCategory; 
+	
 	@NotBlank(message = "申请理由")
-	private String reason; // 申请理由
+	private String reason; 
 
 	@JoinColumn(name = "user_id")
 	@ManyToOne

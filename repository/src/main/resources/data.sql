@@ -78,6 +78,7 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone,real_n
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(14,'pjf123','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234566@qq.com','13700000006','mary3',0,systimestamp);
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,systimestamp);
 
+
 --test industry_info
 insert into  industry_info(id,name,industry_type) values(1,'a1','p');
 insert into  industry_info(id,name,industry_type) values(2,'a2','p');
@@ -94,7 +95,7 @@ values(4,'上海恒企信息','生物研究部','010-12345678','010-12345678','�
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
 values(6,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,5);
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
-values(14,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,6);
+values(15,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,6);
 
 --test provider
 insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated,compony_type,info_id,content) 
@@ -125,8 +126,8 @@ values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,11,13,2,8,'product3En
 
 --test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');
-insert into prefer_products(user_id,product_id,created_time) values(14,1,'2013-1-1');
-insert into prefer_products(user_id,product_id,created_time) values(14,2,'2014-1-1');
+insert into prefer_products(user_id,product_id,created_time) values(15,1,'2013-1-1');
+insert into prefer_products(user_id,product_id,created_time) values(15,2,'2014-1-1');
 insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-1');
 
 --test subject 专题
@@ -188,8 +189,8 @@ insert into advertisement(id,cover_img,created_time,category_id,url,activate) va
 insert into advertisement(id,cover_img,created_time,category_id,url,activate) values (5,'/upload/img/scroll1.jpg','2012-1-5',20,'www.baidu.com',0);
 
 -- test buy_record
-insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(1,'test1',14,'test category','test reason','2015-06-06','2015-06-08',100,'20150820001');
-insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(2,'test2',14,'test category','test reason','2015-06-06','2015-06-08',100,'20150820002');
+insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(1,'test1',15,'test category','test reason','2015-06-06','2015-06-08',100,'20150820001');
+insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(2,'test2',15,'test category','test reason','2015-06-06','2015-06-08',100,'20150820002');
 
 -- test buy_product
 insert into buy_product(id,buy_id,product_id,number)values(1,1,1,10);

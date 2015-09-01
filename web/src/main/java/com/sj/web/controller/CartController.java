@@ -45,7 +45,6 @@ public class CartController {
 			return "login";
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
 			return "no authority";
-		cartLine.setId(Calendar.getInstance().getTime().getTime());
 
 		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lines = cartLineService.findByUser(user.getId());
@@ -58,6 +57,7 @@ public class CartController {
 		}
 		Product p = productService.findOne(cartLine.getProductId());
 		cartLine = new CartLine(p, cartLine.getNumber());
+		cartLine.setId(Calendar.getInstance().getTime().getTime());
 		
 		cartLineService.save(user.getId(), cartLine);
 		lines.add(cartLine);
@@ -102,9 +102,6 @@ public class CartController {
 	private String list(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lists = cartLineService.findByUser(user.getId());
-		for (CartLine cartLine : lists) {
-			System.out.println(cartLine.getProductId());
-		}
 		uiModel.addAttribute("list", lists);
 		uiModel.addAttribute("pc", new ProductCategory());
 		return LIST;

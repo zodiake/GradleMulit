@@ -80,11 +80,7 @@
 											<td th:text="1111"></td>
 											<td th:text="${cart.number}"></td>
 											<td th:text="${cart.count}"></td>
-											<td th:switch="${cart.place.toString()}">
-												<i th:case="'DOMESTIC'" th:text="国内"></i> <i
-												th:case="'EUROPEANDUS'" th:text="欧美"></i> <i
-												th:case="'OTHER'" th:text="其他"></i>
-											</td>
+											<td th:text="${cart.place.toString()}"></td>
 										</tr> 
 									</tbody>
 								</table>

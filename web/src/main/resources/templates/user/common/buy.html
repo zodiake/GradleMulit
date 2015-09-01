@@ -25,7 +25,8 @@
 					<a href="/user/detail">个人资料</a> <a href="/user/collection">收藏夹</a>
 					<a href="/user/cart">购物车</a> <a class="active" href="/user/buyRecords">采购申请</a>
 				</div>
-				<div class="mainpanel pdf fr">
+				<div class="mainpanel bodr fr">
+				<div class="pdf ">
 					<h2><i th:text="${buy.user.company}"></i>采购方单位-物资(外包服务)申购单</h2>
 					<div>编号 : <i th:text="${buy.noId}"></i></div>
 					<form th:object="${buy}">
@@ -43,7 +44,7 @@
 						<div class="form-group">
 							<label>项目名称</label><input type="text" class="w635" th:field="*{name}" disabled="disabled"/>
 						</div>
-						<table width="100%">
+						<table width="90%" class="mauto">
 							<thead>
 								<tr>
 									<th>序号</th>
@@ -63,15 +64,11 @@
 									<td th:text="${product.product.specifications}"></td>
 									<td th:text="${product.number}"></td>
 									<td th:text="${product.number * product.product.price}"></td>
-									<td th:switch="${product.product.placeOfProduction.toString()}">
-										<i th:case="'DOMESTIC'" th:text="国内"></i> 
-										<i th:case="'EUROPEANDUS'" th:text="欧美"></i> 
-										<i th:case="'OTHER'" th:text="其他"></i>
-									</td>
+									<td th:text="${product.product.placeOfProduction.toString()}"></td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="gray-hd winh clearfix">
+						<div class="gray-hd winh mauto clearfix">
 							<div class="fr mr20">
 								<i class="ft14">共计：</i><i th:text="*{price}"></i>
 							</div>
@@ -84,9 +81,13 @@
 						<label class="fl w95">期望到货日期</label>
 			        			 <input type="text" disabled="disabled" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}"/>
 						</div>
-						<a th:href="'/user/buyRecords/'+${buy.id}+'?download'"><button class="btn green mauto" type="button">下载PDF文档</button></a>
-						<a href="/user/buyRecords"><button class="btn green mauto" type="button">返回列表</button></a>
+						<div class="center">
+							<a th:href="'/user/buyRecords/'+${buy.id}+'?download'"><button class="btn green mauto" type="button">下载PDF文档</button></a>
+							<a href="/user/buyRecords"><button class="btn green mauto" type="button">返回列表</button></a>
+						</div>
+						
 					</form>
+				</div>
 				</div>
 			</div>
 		</div>

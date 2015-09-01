@@ -60,6 +60,8 @@ public class CartLineServiceImpl implements CartLineService {
 	@Override
 	public Set<CartLine> findByUser(Long id) {
 		Set<String> ids = template.opsForSet().members(CART + id);
+		if(ids==null|| ids.size()==0)
+			return null;
 		String redisCartlineId = CARTLINE + id + ":";
 		return ids
 				.stream()

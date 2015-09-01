@@ -84,10 +84,7 @@
 											<td th:text="${product.product.specifications}">Lorem</td>
 											<td th:text="${product.number}">1</td>
 											<td th:text="${product.number * product.product.price}">1222.00</td>
-											<td th:switch="${product.product.placeOfProduction.toString()}">
-												<i th:case="'DOMESTIC'" th:text="国内"></i> <i
-												th:case="'EUROPEANDUS'" th:text="欧美"></i> <i
-												th:case="'OTHER'" th:text="其他"></i>
+											<td th:text="${product.product.placeOfProduction.toString()}">
 											</td>
 										</tr>
 									</tbody>

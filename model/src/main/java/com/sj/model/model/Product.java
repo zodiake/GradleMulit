@@ -22,7 +22,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -39,13 +38,13 @@ public class Product {
 	protected Long id;
 	@NotBlank(message = "商品名称不能为空")
 	protected String name;
-	protected String nameEnglish; // 产品英文名
+	protected String nameEnglish; 
 	@NotBlank(message = "型号不能为空")
-	protected String model; // 型号
+	protected String model; 
 	@NotNull(message = "请选择产地")
-	protected PlaceEnum placeOfProduction; // 产地
+	protected PlaceEnum placeOfProduction;
 	@NotBlank(message = "规格不能为空")
-	protected String specifications; // 规格
+	protected String specifications;
 
 	protected ProductStatusEnum status;
 	@NotBlank(message = "商品标签不能为空")

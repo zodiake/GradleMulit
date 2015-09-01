@@ -143,11 +143,8 @@
 							4100 A</span>
 					</div>
 					<div class="panel">
-						<label>产地：</label><span
-						th:if="${product.placeOfProduction.toString() == 'DOMESTIC'}">国内</span>
-						<span
-						th:if="${product.placeOfProduction.toString() == 'EUROPEANDUS'}">欧美</span>
-						<span th:if="${product.placeOfProduction.toString() == 'OTHER'}">其他</span>
+						<label>产地：</label>
+						<span th:text="${product.placeOfProduction.toString()}"></span>
 					</div>
 					<div class="panel">
 						<label>产品规格：</label><span th:text="${product.specifications}">中国</span>
