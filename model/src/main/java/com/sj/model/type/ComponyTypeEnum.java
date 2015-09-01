@@ -1,12 +1,17 @@
 package com.sj.model.type;
 
+import java.util.Locale;
+
 public enum ComponyTypeEnum {
-	ONE,TWO,THREE,FOUR,FIVE,SIX;
-	public static ComponyTypeEnum stringToEnum(String type) {
+	ONE, TWO, THREE, FOUR, FIVE, SIX;
+	public static ComponyTypeEnum formString(String source) {
 		try {
-			return ComponyTypeEnum.valueOf(type);
+			return ComponyTypeEnum.valueOf(source.toUpperCase(Locale.US));
 		} catch (Exception e) {
-			return null;
+			throw new IllegalArgumentException(
+					String.format(
+							"Invalid value '%s' for orders given! Has to be either 'index' (case insensitive).",
+							source), e);
 		}
 	}
 }

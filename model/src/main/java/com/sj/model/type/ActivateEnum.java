@@ -4,11 +4,14 @@ import java.util.Locale;
 
 public enum ActivateEnum {
 	DEACTIVATE, ACTIVATE,AUDIT,NOPASS;
-	public static ActivateEnum fromString(String state) {
+	public static ActivateEnum fromString(String source) {
 		try {
-			return ActivateEnum.valueOf(state.toUpperCase(Locale.US));
+			return ActivateEnum.valueOf(source.toUpperCase(Locale.US));
 		} catch (Exception e) {
-			return null;
+			throw new IllegalArgumentException(
+					String.format(
+							"Invalid value '%s' for orders given! Has to be either 'index' (case insensitive).",
+							source), e);
 		}
 	}
 }

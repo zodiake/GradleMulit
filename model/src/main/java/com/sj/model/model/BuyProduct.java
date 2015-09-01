@@ -17,30 +17,41 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "buy_product")
-public class BuyProduct implements Serializable{
+public class BuyProduct implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "buy_id",insertable= true,updatable=true)
+	@JoinColumn(name = "buy_id", insertable = true, updatable = true)
 	private BuyRecord buy;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id",insertable= true,updatable=true)
+	@JoinColumn(name = "product_id", insertable = true, updatable = true)
 	private Product product;
-	
+
 	private Integer number;
-	
-	public BuyProduct(){
+
+	public BuyProduct() {
 	}
-	public BuyProduct(Long id){
+
+	public BuyProduct(Long id) {
 		this.id = id;
 	}
-	public BuyProduct(BuyRecord buy,Product product,Integer number){
+
+	public BuyProduct(Long id, BuyRecord buy, Product product, Integer number) {
+		this.id = id;
 		this.product = product;
 		this.buy = buy;
 		this.number = number;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public BuyRecord getBuy() {
@@ -66,6 +77,7 @@ public class BuyProduct implements Serializable{
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,8 +85,10 @@ public class BuyProduct implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
+		System.out.println("equals......");
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -83,8 +97,13 @@ public class BuyProduct implements Serializable{
 			return false;
 		BuyProduct other = (BuyProduct) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null){
 				return false;
+			}else{
+				if(!product.id.equals(other.product.id))
+					System.out.println(!product.id.equals(other.product.id));
+					return false;
+			}
 		} else if (!id.equals(other.id))
 			return false;
 		return true;

@@ -1,7 +1,9 @@
 package com.sj.repository.service.Impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -40,16 +42,16 @@ public class BuyRecordServiceImpl implements BuyRecordService {
 		Set<BuyProduct> products = new HashSet<BuyProduct>();
 		float totalPrice = 0f;
 		for (CartLine cartLine : lines) {
-				BuyProduct buyProduct = new BuyProduct();
-				buyProduct.setBuy(buyRecord);
-				buyProduct.setNumber(cartLine.getNumber());
-				buyProduct.setProduct(new Product(cartLine.getProductId()));
-				products.add(buyProduct);
-				totalPrice = totalPrice + cartLine.getPrice()* cartLine.getNumber();
-				cartLineService.remove(buyRecord.getUser().getId(), cartLine.getId());
+			BuyProduct buyProduct = new BuyProduct();
+			buyProduct.setBuy(buyRecord);
+			buyProduct.setNumber(cartLine.getNumber());
+			buyProduct.setProduct(new Product(cartLine.getProductId()));
+			products.add(buyProduct);
+			totalPrice = totalPrice + cartLine.getPrice()* cartLine.getNumber();
+			cartLineService.remove(buyRecord.getUser().getId(), cartLine.getId());
 		}
-		buyRecord.setPrice(totalPrice);
 		buyRecord.setProducts(products);
+		buyRecord.setPrice(totalPrice);
 		return buyRecordRepository.save(buyRecord);
 	}
 

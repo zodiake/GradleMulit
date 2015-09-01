@@ -80,13 +80,14 @@
 											<td th:text="1111"></td>
 											<td th:text="${cart.number}"></td>
 											<td th:text="${cart.count}"></td>
-											<td th:text="${cart.place.toString()}"></td>
+											<td th:if="${cart.place.toString().toString()=='DOMESTIC'}" th:text="国产"></td>
+											<td th:if="${cart.place.toString().toString()=='IMPORTED'}" th:text="国产"></td>
 										</tr> 
 									</tbody>
 								</table>
 								<div class="gray-hd winh clearfix">
 									<div class="fr mr20">
-										<i class="ft14">共计：</i><i th:text="*{price}"></i>
+										<i class="ft14">共计：</i><i th:text="${totalPrice}"></i>
 									</div>
 								</div>
 								<div class="form-group">

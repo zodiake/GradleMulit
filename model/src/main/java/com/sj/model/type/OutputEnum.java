@@ -1,13 +1,17 @@
 package com.sj.model.type;
 
+import java.util.Locale;
+
 public enum OutputEnum {
-//	五百万以下,五百万两千万,两千万至五千万,五千万至一亿,一亿至五亿,五亿以上;
-	ONT,TWO,THREE,FOUR,FIVE,SIX;
-	public static OutputEnum stringToEnum(String output){
-		try{
-		return OutputEnum.valueOf(output);
-		}catch (Exception e){
-			return null;
+	ONT, TWO, THREE, FOUR, FIVE, SIX;
+	public static OutputEnum formString(String source) {
+		try {
+			return OutputEnum.valueOf(source.toUpperCase(Locale.US));
+		} catch (Exception e) {
+			throw new IllegalArgumentException(
+					String.format(
+							"Invalid value '%s' for orders given! Has to be either 'index' (case insensitive).",
+							source), e);
 		}
 	}
 }

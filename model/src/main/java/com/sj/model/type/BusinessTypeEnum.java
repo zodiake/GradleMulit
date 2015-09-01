@@ -1,13 +1,17 @@
 package com.sj.model.type;
 
+import java.util.Locale;
+
 public enum BusinessTypeEnum {
-//	生产型, 贸易型, 服务型, 政府机关, 其它;
-	ONE,TWO,THREE,FOUR,FIVE;
-	public static BusinessTypeEnum stringToEnum(String source) {
+	ONE, TWO, THREE, FOUR, FIVE;
+	public static BusinessTypeEnum formString(String source) {
 		try {
-			return BusinessTypeEnum.valueOf(source);
+			return BusinessTypeEnum.valueOf(source.toUpperCase(Locale.US));
 		} catch (Exception e) {
-			return null;
+			throw new IllegalArgumentException(
+					String.format(
+							"Invalid value '%s' for orders given! Has to be either 'index' (case insensitive).",
+							source), e);
 		}
 	}
 }
