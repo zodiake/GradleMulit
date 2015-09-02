@@ -30,7 +30,6 @@ public class InformationController {
 			@PathVariable(value = "category") String category, Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		System.out.println(category);
 		InformationCategory ic = informationCategoryService.findByName(category.trim());
 		if(ic == null)
 			throw new CategoryNotFoundException();

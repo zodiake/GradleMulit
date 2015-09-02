@@ -9,7 +9,7 @@
   <meta name="_csrf" th:content="${_csrf.token}" />
   <meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <script th:src="@{/js/jquery-min.js}"></script>
-  <script th:src="@{/js/script.js}"></script>
+  <script th:src="@{/js/noCart.js}"></script>
   	<script type="text/javascript" th:src="@{/js/cart.js}"></script>
   		<script type="text/javascript">
 		$(function() {
@@ -17,6 +17,24 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			$(document).ajaxSend(function(e, xhr, options) {
 				xhr.setRequestHeader(header, token);
+			});
+			$(".delete").click(function(){
+				var obj = $(this);
+				var productId = obj.attr('data-id');
+		    	$.ajax({
+		    		type:"delete",
+		    		url :'/user/cart/'+productId,
+		    		success:function(data){
+		    			$("#cart"+productId).remove();
+		    			var allNum = $("#allNum");
+		            	allNum.html(parseInt(allNum.html())-1);
+		            	var totalNum =$("#totalNum");
+		            	totalNum.html(parseInt(totalNum.html())-1);
+		            	$("#"+productId).remove();
+		    		},error:function(data){
+		    			alert("error");
+		    		}
+		    	});
 			});
 		});
 	</script>
@@ -37,13 +55,13 @@
 					<a href="/user/buyRecords">采购申请</a>
 				</div>
 				<div class="mainpanel fr">
-					<div class="all ft14">全部商品<span th:if="${list==null}"></span><span th:unless="${list==null}" th:text="${list.size()}"></span></div>
+					<div class="all ft14">全部商品<span th:if="${list==null}"></span><span th:unless="${list==null}" th:text="${list.size()}" id="listSize"></span></div>
 					<div class="cart-table change-color">
 						<table cellpadding="0" cellspacing="0" style="width: 100%;">
 							<thead>
 								<tr>
-									<th width="30"><input type="checkbox"/></th>
-									<th width="100">全选</th>
+									<th width="30"></th>
+									<th width="100"></th>
 									<th width="370">商品</th>
 									<th width="90">单价（元）</th>
 									<th width="100">数量</th>
@@ -95,7 +113,7 @@
 						</table>
 						<div class="cart-foot">
 							<div class="clearfix">
-								<span class="choose"><input type="checkbox"/>全选</span>								
+								<span class="choose"><input type="checkbox" id="checkAll"/>全选</span>								
 								<span class="del"><a>删除</a></span>
 								<span class="num">已选好<b class="red" id="num"></b>种商品</span>
 								<span>合计：<b  class="red">￥</b><b class="red" id="count"></b></span>

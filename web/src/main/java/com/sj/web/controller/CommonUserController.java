@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,10 +203,11 @@ public class CommonUserController {
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.POST, params = "form")
 	public String createBuyRecordProcess(
 			@Valid @ModelAttribute("buy") BuyRecord buyRecord,BindingResult result, Model uiModel,
-			@SecurityUser SiteUser user) {
+			@SecurityUser SiteUser user,HttpSession session) {
 		Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
 		buyRecord.setUser(new CommonUser(user.getId()));
 		buyRecordService.save(buyRecord, lines);
+		session.removeAttribute("cartLines");
 		return "redirect:/user/buyRecords/"+buyRecord.getId();
 	}
 }

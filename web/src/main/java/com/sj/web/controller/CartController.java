@@ -23,6 +23,7 @@ import com.sj.model.model.SiteUser;
 import com.sj.repository.service.CartLineService;
 import com.sj.repository.service.CartService;
 import com.sj.repository.service.ProductService;
+import com.sj.web.annotation.SecurityUser;
 import com.sj.web.security.UserContext;
 
 @Controller
@@ -41,19 +42,21 @@ public class CartController {
 	@RequestMapping(value = "/ajax/cart", method = RequestMethod.POST)
 	@ResponseBody
 	private String addCartLine(@ModelAttribute CartLine cartLine,
-			HttpSession httpSession) {
+			HttpSession httpSession,@SecurityUser SiteUser user) {
 		if (!userContext.isLogin())
-			return "login";
+			return "{\"data\":\"login\"}";
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
-			return "no authority";
+			return "{\"data\":\"no authority\"}";
 
-		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lines = cartLineService.findByUser(user.getId());
 		if (lines != null) {
 			for (CartLine cart : lines) {
 				if (cartLine.getProductId().equals(cart.getProductId())) {
-					cartLineService.updateNumber(user.getId(), cart.getId(), cart.getNumber()+1);
-					return "success";
+					int num = cart.getNumber();
+					cartLineService.updateNumber(user.getId(), cart.getId(), num+cartLine.getNumber());
+					cart.setNumber(num+cartLine.getNumber());
+					httpSession.setAttribute("cartLines", lines);
+					return "{\"data\":\"addone\"}";
 				}
 			}
 		}else{
@@ -67,14 +70,21 @@ public class CartController {
 		lines.add(cartLine);
 		
 		httpSession.setAttribute("cartLines", lines);
-		return "success";
+		return "{\"image\":\""+p.getCoverImg()+"\",\"name\":\""+p.getName()+"\",\"price\":\""+p.getPrice()+"\"}";
 	}
 
 	@RequestMapping(value = "/user/cart/{productId}", method = RequestMethod.DELETE)
 	@ResponseBody
-	private String removeCartLine(@PathVariable("productId") Long productId) {
-		SiteUser user = userContext.getCurrentUser();
-		cartLineService.remove(user.getId(), productId);
+	private String removeCartLine(@PathVariable("productId") Long productId,HttpSession session,@SecurityUser SiteUser user) {
+		Set<CartLine> lines = (Set<CartLine>) session.getAttribute("cartLines");
+		for (CartLine cartLine : lines) {
+			if(cartLine.getProductId().equals(productId)){
+				cartLineService.remove(user.getId(), cartLine.getId());
+				lines.remove(cartLine);
+				break;
+			}
+		}
+		session.setAttribute("cartLines", lines);
 		return "success";
 	}
 
@@ -99,6 +109,18 @@ public class CartController {
 			return "fail";
 		SiteUser user = userContext.getCurrentUser();
 		cartLineService.updateCheck(user.getId(), cartLineId, check.toString());
+		return "success";
+	}
+	@RequestMapping(value = "/user/cart/all", method = RequestMethod.PUT, params = "check")
+	@ResponseBody
+	private String updateAllCartLineCheck(){
+		if (!userContext.isLogin())
+			return "fail";
+		SiteUser user = userContext.getCurrentUser();
+		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		for (CartLine cartLine : lines) {
+			cartLineService.updateCheck(user.getId(), cartLine.getId(), "true");
+		}
 		return "success";
 	}
 

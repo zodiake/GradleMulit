@@ -42,37 +42,16 @@
                         }
                     }
                 });
-                $('#addCart').click(function() {
-                    var id = $(this);
-                    var product = id.attr("data-id");
-                    var number = $("#num").val();
-                    if (number == 0) {
-                        alert("数量不能为空");
-                    } else {
-                        $.ajax({
-                            type : 'POST',
-                            url : "/ajax/cart",
-                            data : {
-                                'productId' : product,
-                                'number' : number
-                            },
-                            success : function(data) {
-                                if (data == "success") {
-                                    alert("success");
-                                } else if (data == "login") {
-                                    window.location.href = "/login";
-                                } else if(data == "exists"){
-                                    alert("已加入购物车");
-                                }else{
-                                	alert("没有权限");
-                                }
-                            },
-                            error : function(data) {
-                                alert(data);
-                            }
-                        });
-                    }
-                });
+                $('#addCart').click(function(){
+                	  var id = $(this);
+                      var product = id.attr("data-id");
+                      var number = $("#num").val();
+                      if (number == 0) {
+                          alert("数量不能为空");
+                      } else {
+                    	  createCart(number,product);
+                      }
+                }); 
                 $("#collection").click(function() {
                     var coll = $(this);
                     var productId = coll.attr("data-id");
@@ -90,6 +69,16 @@
                             alert("error");
                         }
                     });
+                });
+                $(".amount-increase").click(function(){
+                	var numVal = $("#num").val();
+                	$("#num").val(parseInt(numVal)+1);
+                });
+                $(".amount-decrease").click(function(){
+                	var numVal = $("#num").val();
+                	if(numVal>0){
+                		$("#num").val(parseInt(numVal)-1);
+                	}
                 });
             });
 		</script>

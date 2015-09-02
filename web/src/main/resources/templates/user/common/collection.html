@@ -21,20 +21,7 @@
                 $('.btn-cart').click(function() {
                     var id = $(this);
                     var product = id.attr("data-id");
-                    $.ajax({
-                        type : 'POST',
-                        url : "/ajax/cart",
-                        data : {
-                            'productId' : product,
-                            'number' : 1
-                        },
-                        success : function(data) {
-                            alert("success");
-                        },
-                        error : function(data) {
-                            alert(data);
-                        }
-                    });
+                    createCart(1,product);
                 });
                 $('.btn-cancel').click(function() {
                     var id = $(this);
@@ -108,6 +95,7 @@
 									</div> </a>
 								</li>
 							</ul>
+							<div th:if="${pages.getContent()==null or pages.getContent().size()==0}">快去添加收藏吧</div>
 						</div>
 					</div>
 				</div>

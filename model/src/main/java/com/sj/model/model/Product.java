@@ -53,7 +53,6 @@ public class Product {
 
 	protected ProductStatusEnum status;
 
-	@NotBlank(message = "商品标签不能为空")
 	protected String label;
 
 	@Column(name = "cover_img")
