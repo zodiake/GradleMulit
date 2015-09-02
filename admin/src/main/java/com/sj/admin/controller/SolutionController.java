@@ -1,5 +1,7 @@
 package com.sj.admin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
+import com.sj.repository.model.SolutionJson;
 import com.sj.repository.service.SolutionService;
 
 @Controller
@@ -36,6 +39,12 @@ public class SolutionController {
 		solution.setSubject(new Subject(id));
 		solutionService.save(solution);
 		return "\"success\"";
+	}
+
+	@RequestMapping(value = "/solutions", method = RequestMethod.GET)
+	@ResponseBody
+	public List<SolutionJson> findAll() {
+		return solutionService.findAll();
 	}
 
 }

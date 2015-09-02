@@ -32,8 +32,6 @@ public class SubjectController {
 	@Autowired
 	private SubjectService subjectService;
 
-	private final String LIST = "subject/list";
-
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<SubjectJson> lists(Model uiModel,

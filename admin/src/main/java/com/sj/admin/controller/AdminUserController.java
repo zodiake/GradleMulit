@@ -6,14 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.admin.exception.UserNotFoundException;
-import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
@@ -25,9 +22,6 @@ public class AdminUserController {
 
 	@Autowired
 	private ProviderService providerService;
-
-	private final String PROVIDERDETAIL = "user/providerDetail";
-	private final String MANUFACTURERDETAIL = "user/manufacturerDetail";
 
 	@RequestMapping(value = "/users")
 	public String userList(Model uiModel,
@@ -49,10 +43,5 @@ public class AdminUserController {
 			Model uiModel) {
 		userService.updateEnabledById(id, state);
 		return "success";
-	}
-
-	@RequestMapping(value = "/manufacturer/{id}", method = RequestMethod.GET)
-	public String viewManufacturer(@PathVariable("id") int id, Model uiModel) {
-		return MANUFACTURERDETAIL;
 	}
 }

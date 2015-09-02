@@ -1,4 +1,4 @@
-var productModule = angular.module('Product', ['ProductCategory']);
+var productModule = angular.module('Product', ['ProductCategory', 'Solution']);
 
 productModule.service('ProductService', ['$http', function ($http) {
 
@@ -36,11 +36,36 @@ productModule.service('ProductService', ['$http', function ($http) {
     }
 
     this.authenticate = function (id) {
-        return updateState(id, 'examine');
+        return $http({
+            method: 'POST',
+            url: '/admin/products/' + id + '/state',
+            transformRequest: transform,
+            data: {
+                state: state
+            },
+            headers: header
+        });
     };
 
     this.refuse = function (id) {
         return updateState(id, 'not');
+    };
+
+    this.addSolution = function (id, solutions) {
+
+        var adds = Object.keys(solutions).filter(function (s) {
+            return solutions[s];
+        });
+
+        return $http({
+            method: 'POST',
+            url: '/admin/products/' + id + '/solutions',
+            transformRequest: transform,
+            data: {
+                solutions: adds
+            },
+            headers: header
+        });
     };
 }]);
 
@@ -95,6 +120,9 @@ productModule.controller('ProductController', ['$scope',
                 resolve: {
                     productId: function () {
                         return product.id;
+                    },
+                    solutions: function (SolutionService) {
+                        return SolutionService.findAll();
                     }
                 }
             });
@@ -106,13 +134,19 @@ productModule.controller('ProductDetailController', ['$scope',
     'productId',
     '$sce',
     'ProductService',
-    function ($scope, productId, $sce, ProductService) {
+    'solutions',
+    function ($scope, productId, $sce, ProductService, solutions) {
+        $scope.solutions = solutions.data;
 
         function init() {
             ProductService
                 .findOne(productId)
                 .success(function (data) {
                     $scope.item = data;
+                    $scope.item.fake = {};
+                    $scope.item.solutions.forEach(function (s) {
+                        $scope.item.fake[s.id] = true;
+                    });
                 });
         }
 
@@ -124,6 +158,10 @@ productModule.controller('ProductDetailController', ['$scope',
 
         $scope.refuse = function () {
             ProductService.refuse($scope.item.id);
+        };
+
+        $scope.addSolution = function () {
+            ProductService.addSolution($scope.item.id, $scope.item.fake);
         };
     }
 ]);

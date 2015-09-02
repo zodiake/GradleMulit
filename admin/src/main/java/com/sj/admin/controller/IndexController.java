@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -144,7 +145,7 @@ public class IndexController extends UploadController {
 		return "subject/create";
 	}
 
-	@RequestMapping(value = "/solutions")
+	@RequestMapping(value = "/templates/solutions")
 	public String solution() {
 		return "subject/solution/list";
 	}
@@ -160,7 +161,7 @@ public class IndexController extends UploadController {
 	}
 
 	@RequestMapping(value = "/templates/products/detail")
-	public String productDetail() {
+	public String productDetail(Model uiModel) {
 		return "product/detail";
 	}
 }

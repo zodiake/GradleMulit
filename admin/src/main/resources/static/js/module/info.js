@@ -25,8 +25,8 @@ infoModule.service('InfoService', ['$http', function ($http) {
             transformRequest: transform,
             data: {
                 title: item.title,
-                category:item.category,
-                content:item.content
+                category: item.category,
+                content: item.content
             },
             headers: header
         });
@@ -35,7 +35,8 @@ infoModule.service('InfoService', ['$http', function ($http) {
 
 infoModule.controller('InfoController', ['$scope',
     'InfoService',
-    function ($scope, InfoService) {
+    '$modal',
+    function ($scope, InfoService, $modal) {
         $scope.page = 1;
         $scope.size = 15;
         $scope.state = "";
@@ -64,16 +65,24 @@ infoModule.controller('InfoController', ['$scope',
                 state: $scope.state
             });
         };
+
+        $scope.view = function () {
+            $modal.open({
+                templateUrl: '/admin/info',
+                size: 'lg',
+                controller: 'BrandDetailController'
+            });
+        };
     }
 ]);
 
 infoModule.controller('InfoCreateController', ['$scope',
     'categories',
     'InfoService',
-    function ($scope, categories,InfoService) {
+    function ($scope, categories, InfoService) {
         $scope.categories = categories.data.content;
         console.log(categories);
-        $scope.item={};
+        $scope.item = {};
 
         $scope.editorOptions = {
             uiColor: '#000000',
@@ -86,11 +95,11 @@ infoModule.controller('InfoCreateController', ['$scope',
         $scope.submit = function () {
             InfoService
                 .save($scope.item)
-                .success(function(){
-                    
+                .success(function () {
+
                 })
-                .error(function(err){
-                    
+                .error(function (err) {
+
                 });
         };
 

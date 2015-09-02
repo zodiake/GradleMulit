@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,16 +27,16 @@ public class ScrollImage {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdTime;
 
-	@Enumerated(EnumType.STRING)
+	@Enumerated
 	@Column(name = "scroll_type")
 	private ScrollImageType scrollType;
 
 	@Column(name = "sort_number")
 	private Integer sortNumber;
-	
+
 	@Column
 	private String href;
-	
+
 	public ScrollImage() {
 		super();
 	}
@@ -86,7 +85,7 @@ public class ScrollImage {
 	public void setSortNumber(Integer sortNumber) {
 		this.sortNumber = sortNumber;
 	}
-	
+
 	public String getHref() {
 		return href;
 	}

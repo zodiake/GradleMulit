@@ -1,6 +1,8 @@
 package com.sj.repository.model;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.sj.model.model.Product;
 
@@ -20,6 +22,7 @@ public class ProductDetailJson {
 	private String tag;
 	private String content;
 	private String modal;
+	private List<SolutionJson> solutions;
 
 	public ProductDetailJson(Product p) {
 		this.id = p.getId();
@@ -37,6 +40,8 @@ public class ProductDetailJson {
 		this.tag = p.getLabel();
 		this.modal = p.getModel();
 		this.content = p.getContent().getContent();
+		this.solutions = p.getSolutions().stream()
+				.map(i -> new SolutionJson(i)).collect(Collectors.toList());
 	}
 
 	public Long getId() {
@@ -157,5 +162,13 @@ public class ProductDetailJson {
 
 	public void setModal(String modal) {
 		this.modal = modal;
+	}
+
+	public List<SolutionJson> getSolutions() {
+		return solutions;
+	}
+
+	public void setSolutions(List<SolutionJson> solutions) {
+		this.solutions = solutions;
 	}
 }

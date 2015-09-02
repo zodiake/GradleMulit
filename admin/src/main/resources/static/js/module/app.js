@@ -84,7 +84,7 @@ app.config([
             })
             .state('solutions', {
                 url: '/subject/:id/solutions',
-                templateUrl: '/admin/solutions',
+                templateUrl: '/admin/templates/solutions',
                 controller: 'SolutionController'
             })
             .state('products', {

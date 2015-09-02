@@ -1,86 +1,97 @@
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-body">
-            <form class="form-horizontal" >
+            <form class="form-horizontal">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 提交日期 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.createdTime"/>
+                                <input class="form-control" disabled="true" ng-value="item.createdTime" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 状态 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.state"/>
+                                <input class="form-control" disabled="true" ng-value="item.state" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 一级分类 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.firstCategoryName"/>
+                                <input class="form-control" disabled="true" ng-value="item.firstCategoryName" />
                             </div>
                             <label class="control-label col-sm-2"> 上架日期 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.authenticatedTime"/>
+                                <input class="form-control" disabled="true" ng-value="item.authenticatedTime" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 二级分类 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.secondCategoryName"/>
+                                <input class="form-control" disabled="true" ng-value="item.secondCategoryName" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 名称 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.name"/>
+                                <input class="form-control" disabled="true" ng-value="item.name" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 价格 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.price"/>
+                                <input class="form-control" disabled="true" ng-value="item.price" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 型号 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.model"/>
+                                <input class="form-control" disabled="true" ng-value="item.model" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 产地 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.original"/>
+                                <input class="form-control" disabled="true" ng-value="item.original" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 规格 </label>
                             <div class="col-sm-4">
-                                <input class="form-control" disabled="true" ng-value="item.specifications"/>
+                                <input class="form-control" disabled="true" ng-value="item.specifications" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 标签 </label>
                             <div class="col-sm-8">
-                                <input class="form-control" disabled="true" ng-value="item.label"/>
+                                <input class="form-control" disabled="true" ng-value="item.label" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2"> 商品详情 </label>
-                            <div class="col-sm-10" ng-bind-html="content">
-                            </div>
+                            <div class="col-sm-10" ng-bind-html="content"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">解决方案</label>
+                            <ul>
+                                <li ng-repeat="s in solutions">
+                                    <label>{{s.name}}</label>
+                                    <input type="checkbox" ng-model="item.fake[s.id]" />
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer mauto">
-                    <button class="btn btn-primary" type="button" ng-click="authenticate()" >
+                    <button class="btn btn-primary" type="button" ng-click="authenticate()">
                         上架
                     </button>
                     <button class="btn btn-defalut" type="button" ng-click="refuse()">
                         拒绝
+                    </button>
+                    <button class="btn btn-defalut" type="button" ng-click="addSolution()">
+                        relate
                     </button>
                 </div>
             </form>

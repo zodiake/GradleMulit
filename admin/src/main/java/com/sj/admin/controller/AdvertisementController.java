@@ -82,8 +82,8 @@ public class AdvertisementController {
 		return null;
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/admin/advertisements/{id}", method = RequestMethod.PUT, params = "status")
+	@ResponseBody
 	public String updateStatus(@PathVariable("id") Long id,
 			@RequestParam("status") int status) {
 		Advertisement adv = advertisementService.findOne(id);

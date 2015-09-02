@@ -1,49 +1,4 @@
-var subjectModule = angular.module('Subject', []);
-
-subjectModule.service('SolutionService', ['$http', function ($http) {
-    function transform(obj) {
-        var str = [];
-        for (var p in obj)
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        return str.join("&");
-    }
-
-    var header = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    };
-
-    this.findAll = function (id) {
-        return $http.get('/admin/subjects/' + id + '/solutions');
-    };
-
-    this.updateName = function (item) {
-        return $http({
-            method: 'POST',
-            url: '/admin/solutions/' + item.id,
-            transformRequest: transform,
-            data: {
-                name: item.name,
-            },
-            headers: header
-        });
-    };
-
-    this.delete = function (id) {
-        return $http.delete('/admin/solutions/' + id);
-    };
-    
-    this.save=function(item){
-       return $http({
-            method: 'POST',
-            url: '/admin/subjects/'+item.subject+'/solutions/',
-            transformRequest: transform,
-            data: {
-                name: item.name,
-            },
-            headers: header
-       }); 
-    };
-}]);
+var subjectModule = angular.module('Subject', ['Solution']);
 
 subjectModule.service('SubjectService', ['$http',
     function ($http) {
@@ -162,10 +117,10 @@ subjectModule.controller('SubjectEditController', ['$scope', 'SubjectService',
     }
 ]);
 
-subjectModule.controller('SolutionCreateController',['$scope',function($scope){
-    $scope.solution={};
+subjectModule.controller('SolutionCreateController', ['$scope', function ($scope) {
+    $scope.solution = {};
 
-    $scope.add=function(solution){
+    $scope.add = function (solution) {
         $scope.item.solutions.push($scope.solution);
     };
 }]);
@@ -174,11 +129,12 @@ subjectModule.controller('SolutionController', ['$scope',
     '$stateParams',
     'SolutionService',
     '$modal',
-    function ($scope, $stateParams, SolutionService,$modal) {
+    function ($scope, $stateParams, SolutionService, $modal) {
         var id = $stateParams.id;
         $scope.items = {};
-        $scope.solution={subject:id};
-
+        $scope.solution = {
+            subject: id
+        };
 
         $scope.update = function (item) {
             SolutionService
@@ -207,15 +163,17 @@ subjectModule.controller('SolutionController', ['$scope',
         }
 
         init(id);
-        
-        $scope.add=function(s){
+
+        $scope.add = function (s) {
             SolutionService
                 .save($scope.solution)
-                .success(function(){
-                    $scope.items.push({name:$scope.solution.name});   
+                .success(function () {
+                    $scope.items.push({
+                        name: $scope.solution.name
+                    });
                 })
-                .error(function(err){
-                    
+                .error(function (err) {
+
                 });
         };
     }

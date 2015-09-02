@@ -68,22 +68,22 @@ public class Provider extends SiteUser {
 	@Column(name = "output")
 	@NotNull(message = "请选择年产值")
 	private OutputEnum output; // 年产值
-	
+
 	@NotBlank(message = "企业介绍不能为空")
 	private String content; // 企业介绍*
 
 	@Column(name = "business_license_url")
 	@NotBlank(message = "请上传图片")
 	private String businessLicenseUrl; // 营业执照图片地址*
-	
+
 	@Column(name = "tax_registration_url")
 	@NotBlank(message = "请上传图片")
 	private String taxRegistrationUrl; // 税务登记图片地址*
-	
+
 	@Column(name = "structure_code_url")
 	@NotBlank(message = "请上传图片")
 	private String structureCodeUrl; // 组织结构图片地址*
-	
+
 	@NotBlank(message = "联系人职位不能为空")
 	private String position; // 联系人职位*
 
@@ -104,6 +104,7 @@ public class Provider extends SiteUser {
 
 	@NotBlank(message = "详细地址不能为空")
 	private String address; // 详细地址*
+
 	@NotBlank(message = "邮编不能为空")
 	private String code; // 邮编*
 
@@ -111,7 +112,7 @@ public class Provider extends SiteUser {
 
 	@OneToOne
 	@JoinColumn(name = "info_id")
-	@NotNull(message="请选择行业信息")
+	@NotNull(message = "请选择行业信息")
 	private ProviderIndustryInfo industryInfo;// 行业信息*
 
 	public Provider() {
@@ -311,29 +312,5 @@ public class Provider extends SiteUser {
 
 	public void setIsAuthenticated(int isAuthenticated) {
 		this.isAuthenticated = isAuthenticated;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Provider other = (Provider) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 }
