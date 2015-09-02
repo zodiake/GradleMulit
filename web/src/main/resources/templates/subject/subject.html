@@ -33,7 +33,7 @@
 					<span>浏览<i th:text="${subject.viewCount}">1212</i>次</span>	
 					<span> 来源 : <i th:text="${subject.createdBy}">上海申捷卫生科1技</i></span>
 				</div>
-				<div class="dtl-txt" >
+				<div class="dtl-txt" escapeXml="false" th:text="${subject.content.content}">
 				</div>			
 				<div class="gray-hd ft14">设备方案</div>
 				<div class="plans" th:if="${yqs.size()!=0}">

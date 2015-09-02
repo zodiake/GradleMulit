@@ -110,7 +110,7 @@
 			</div>
 			<div class="goods-property bodr clearfix">
 				<div class="fl pro-big">
-					<img th:src="*{coverImg}" width="400" height="400" />
+					<img th:src="*{coverImg}" width="420" height="350" />
 				</div>
 				<div class="fl pro-info">
 					<div class="panel global-panel clearfix">
@@ -180,15 +180,15 @@
 				<div class="tab-conts detail-con bodr">
 					<div class="tab-panel global-box goods-detail"
 					th:text="${product.content.content}"></div>
-					<div class="tab-panel global-box about-special hide">
-						<ul>
+					<div class="tab-panel global-box topic-box hide">
+						<ul class="ml-20">
 							<!-- <li th:each="subject:${product.getSubjects()}">
 								<a th:href="'/subjects/'+${subject.id}">
 								<div class="title">
 									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
 								</div>
 								<div class="spe-pic">
-									<img th:src="@{/img/list1.jpg}" width="240" height="140" />
+									<img th:src="@{/img/list1.jpg}" width="210" height="175" />
 								</div> <div class="topic-detail" th:text="${subject.content.content}"></div> </a>
 							</li> -->
 						</ul>

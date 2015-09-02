@@ -1,9 +1,7 @@
 package com.sj.repository.service.Impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;

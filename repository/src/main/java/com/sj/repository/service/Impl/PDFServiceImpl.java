@@ -3,19 +3,31 @@ package com.sj.repository.service.Impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import javax.print.DocFlavor.URL;
+
+import org.elasticsearch.common.Table.Cell;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.remoting.support.UrlBasedRemoteAccessor;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
@@ -29,17 +41,31 @@ import com.sj.model.model.BuyProduct;
 import com.sj.model.model.BuyRecord;
 import com.sj.model.model.Product;
 import com.sj.model.type.PlaceEnum;
+import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.PDFService;
+import com.sj.repository.service.ProductService;
 
 @Service
 public class PDFServiceImpl implements PDFService {
+	@Autowired
+	private ProductRepository productRepository;
 
 	private final static String TEXT = "上海申捷卫生科技";
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	private final String providerPath = "src/main/resources/static/upload/";
 
 	private PdfPCell getCell(String content, int colspan, Font fontChinese) {
 		PdfPCell c = new PdfPCell(new Paragraph(content, fontChinese));
-		c.setFixedHeight(70);
+		c.setFixedHeight(67);
+		c.setPaddingLeft(10);
+		c.setPaddingRight(10);
+		c.setColspan(colspan);
+		c.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		return c;
+	}
+	private PdfPCell getProductCell(String content, int colspan, Font fontChinese) {
+		PdfPCell c = new PdfPCell(new Paragraph(content, fontChinese));
+		c.setFixedHeight(55);
 		c.setPaddingLeft(10);
 		c.setPaddingRight(10);
 		c.setColspan(colspan);
@@ -67,7 +93,6 @@ public class PDFServiceImpl implements PDFService {
 			table.addCell(getCell(product.getSpecifications(), 1, fontChinese));
 			table.addCell(getCell(buyProduct.getNumber().toString(), 1, fontChinese));
 			table.addCell(getCell(String.valueOf(buyProduct.getProduct().getPrice()), 1, fontChinese));
-//			table.addCell(getCell(buyProduct.getProduct().getPlaceOfProduction().toString(), 1, fontChinese));
 			if(buyProduct.getProduct().getPlaceOfProduction()==PlaceEnum.DOMESTIC)
 				table.addCell(getCell("国产", 1, fontChinese));
 			if(buyProduct.getProduct().getPlaceOfProduction()==PlaceEnum.IMPORTED)
@@ -83,13 +108,30 @@ public class PDFServiceImpl implements PDFService {
 				BaseFont.NOT_EMBEDDED);
 		Font fontChinese = new Font(baseFontChinese, 14);
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		Document document = new Document(PageSize.A4, 0, 0, 10, 10);
+		Document document = new Document(PageSize.A4, 0f, 0f, 10, 10);
 		PdfWriter write = PdfWriter.getInstance(document,byteArrayOutputStream);
 		document.open();
-		Paragraph p = new Paragraph("编号："+buyRecord.getNoId(), fontChinese);
+		Paragraph p = new Paragraph("         编号："+buyRecord.getNoId(), fontChinese);
+		p.setSpacingBefore(40);
+		p.setSpacingAfter(30);
 		p.setAlignment(Element.ALIGN_LEFT);
+		Font titleFont = new Font(baseFontChinese, 22);
+		p.setFont(titleFont);
 		document.add(p);
 		document.add(getTable(buyRecord,fontChinese));
+		document.newPage();
+		
+		int num = 0;
+		for (BuyProduct buyProduct: buyRecord.getProducts()) {
+			if(num==2){
+				document.newPage();
+				num=0;
+			}
+			Product product = productRepository.findOne(buyProduct.getId());
+			document.add(getProductsTable(product,fontChinese));
+			num++;
+		}
+		
 		document.close();
 		
 		byteArrayOutputStream.writeTo(out);
@@ -99,23 +141,21 @@ public class PDFServiceImpl implements PDFService {
 	}
 	
 	private PdfPTable getTable(BuyRecord buyRecord,Font fontChinese) throws ParseException, DocumentException, IOException{
-
-
 		PdfPTable table = new PdfPTable(4);
 		table.setWidths(new int[]{18,32,18,32});
 		table.setSplitLate(false);
-		table.addCell(getCell("申请单位:", 1, fontChinese));
+		table.addCell(getCell("申请单位", 1, fontChinese));
 		table.addCell(getCell(buyRecord.getUser().getCompany(), 1, fontChinese));
-		table.addCell(getCell("行业:", 1, fontChinese));
+		table.addCell(getCell("行业", 1, fontChinese));
 		table.addCell(getCell(buyRecord.getUser().getIndustryInfo().getName(), 1, fontChinese));
-		table.addCell(getCell("申请部门:", 1, fontChinese));
+		table.addCell(getCell("申请部门", 1, fontChinese));
 		table.addCell(getCell(buyRecord.getUser().getDepartment(), 1, fontChinese));
-		table.addCell(getCell("申请人:", 1, fontChinese));
+		table.addCell(getCell("申请人", 1, fontChinese));
 		table.addCell(getCell(buyRecord.getUser().getRealName(), 1, fontChinese));
-		table.addCell(getCell("编号", 1, fontChinese));
-		table.addCell(getCell(buyRecord.getNoId(), 1, fontChinese));
 		table.addCell(getCell("项目名称", 1, fontChinese));
 		table.addCell(getCell(buyRecord.getName(), 1, fontChinese));
+		table.addCell(getCell("生成时间", 1, fontChinese));
+		table.addCell(getCell(sdf.format(buyRecord.getCreateTime().getTime()), 1, fontChinese));
 		table.addCell(getCell("经费类别", 1, fontChinese));
 		table.addCell(getCell(buyRecord.getFundCategory(), 3, fontChinese));
 		
@@ -132,7 +172,7 @@ public class PDFServiceImpl implements PDFService {
 	
 		String time = sdf.format(buyRecord.getArrivalTime().getTime());
 		table.addCell(getCell(time, 3, fontChinese));
-		table.setTotalWidth(600);
+		table.setTotalWidth(650);
 		table.setSplitLate(false);
 		table.setSplitRows(true);
 		return table;
@@ -162,5 +202,40 @@ public class PDFServiceImpl implements PDFService {
 		}
 		stamper.close();
 		return bytes;
+	}
+	
+	private PdfPTable getProductsTable(Product product,Font fontChinese) throws MalformedURLException, IOException, DocumentException{
+			PdfPTable table = new PdfPTable(2);
+			Path basePath = Paths.get("").resolve(providerPath + product.getCreatedBy().getId()+"/"+product.getCoverImg());
+			Image image = Image.getInstance(basePath.toString());
+			image.setAlignment(Element.ALIGN_CENTER);
+			PdfPCell imageCell = new PdfPCell();
+			imageCell.addElement(image);
+			imageCell.setUseAscender(true);
+			imageCell.setVerticalAlignment(PdfPCell.ALIGN_MIDDLE);
+			table.addCell(imageCell);
+			
+			PdfPTable infoTable = new PdfPTable(2);
+			infoTable.setWidths(new int[]{18,32});
+			infoTable.addCell(getProductCell("商品名称",1,fontChinese));
+			infoTable.addCell(getProductCell(product.getName(), 1, fontChinese));
+			infoTable.addCell(getProductCell("价格",1,fontChinese));
+			infoTable.addCell(getProductCell(String.valueOf(product.getPrice()), 1, fontChinese));
+			infoTable.addCell(getProductCell("型号",1,fontChinese));
+			infoTable.addCell(getProductCell(product.getModel(), 1, fontChinese));
+			infoTable.addCell(getProductCell("品牌",1,fontChinese));
+			infoTable.addCell(getProductCell(product.getBrand().getName(), 1, fontChinese));
+			infoTable.addCell(getProductCell("产地",1,fontChinese));
+			if(product.getPlaceOfProduction()==PlaceEnum.DOMESTIC)
+				infoTable.addCell(getProductCell("国产", 1, fontChinese));
+			if(product.getPlaceOfProduction()==PlaceEnum.IMPORTED)
+				infoTable.addCell(getProductCell("进口", 1, fontChinese));
+			infoTable.addCell(getProductCell("标签", 1, fontChinese));
+			infoTable.addCell(getProductCell(product.getLabel(),1, fontChinese));
+			infoTable.addCell(getProductCell("上架日期", 1, fontChinese));
+			infoTable.addCell(getProductCell(sdf.format(product.getCreatedTime().getTime()),1, fontChinese));
+			table.addCell(infoTable);
+		return table;
+		
 	}
 }

@@ -25,24 +25,24 @@
 	<div class="resg-header">		
 		<div class="head-nav">
 			<div class="nav-box">
-				<a href="#">仪器</a>
+				<a href="/productCategory/仪器">仪器</a>
 				<i>|</i>
-				<a href="#">试剂</a>
+				<a href="/productCategory/仪器">试剂</a>
 				<i>|</i>
-				<a href="#">耗材</a>
+				<a href="/productCategory/仪器">耗材</a>
 				<i>|</i>
-				<a href="#">服务</a>
+				<a href="/productCategory/仪器">服务</a>
 				<i>|</i>
-				<a href="#">专题</a>
+				<a href="/productCategory/仪器">专题</a>
 				<i>|</i>
-				<a href="#">资讯</a>
+				<a href="/informationCategorys/行业要闻">资讯</a>
 			</div>
 		</div>
 		<div class="head-box clearfix">
 			<a href="#" class="logo"><img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/></a>
 			<div class="head-menu-btn resg-self">
 				<a class="self-btn"></a>
-				<a class="company-btn"></a>
+				<a href="/signup?provider" class="company-btn"></a>
 			</div>
 			<div class="head-menu">
 				<a href="/login">已有账号？马上登录</a>
@@ -56,9 +56,14 @@
 				<span>注册信息</span>
 			</div>
 			<div class="form-group">
-				<label><i>*</i>邮箱</label>
-				<input type="text" th:field="*{email}"/>
-				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></i>
+				<label><i>*</i>手机号</label>
+				<input type="text" th:field="*{phone}"/>
+				<button class="tel-code">获取验证码</button>
+				<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>验证码</label>
+				<input type="text" th:field="*{captcha}"/>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>用户名</label>
@@ -70,14 +75,9 @@
 				<input type="password" th:field="*{password}"/>
 			</div>
 			<div class="form-group">
-				<label><i>*</i>手机号</label>
-				<input type="text" th:field="*{phone}"/>
-				<button class="tel-code">获取验证码</button>
-				<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>验证码</label>
-				<input type="text" th:field="*{captcha}"/>
+				<label><i>*</i>邮箱</label>
+				<input type="text" th:field="*{email}"/>
+				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>真实姓名</label>

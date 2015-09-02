@@ -52,7 +52,8 @@ public class CartController {
 		if (lines != null) {
 			for (CartLine cart : lines) {
 				if (cartLine.getProductId().equals(cart.getProductId())) {
-					return "exists";
+					cartLineService.updateNumber(user.getId(), cart.getId(), cart.getNumber()+1);
+					return "success";
 				}
 			}
 		}else{
