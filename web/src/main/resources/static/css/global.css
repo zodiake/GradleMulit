@@ -844,6 +844,7 @@ table{
 	margin:auto;
 }
 .company-group .form-group textarea{
+	color:#868f87;
 	width: 220px;
 }
 .company-group .form-group label{
@@ -980,10 +981,16 @@ a.minus:hover, a.plus:hover {
 /**收藏夹**/
 .collect{
 	width: 780px;
-	padding-left: 25px;
-}
-.collect{
+	padding-left:25px;
+	padding-top: 20px;
 	overflow: hidden;
+}
+.collect .items-list{
+	padding-left: 15px;
+}
+.collect .items-list li{
+	height:355px;
+	margin-right: 30px;
 }
 .items-list li{
 	padding: 5px;

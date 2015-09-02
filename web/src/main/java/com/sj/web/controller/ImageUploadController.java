@@ -28,13 +28,12 @@ public class ImageUploadController {
 	@Autowired
 	private UserContext userContext;
 
-	@RequestMapping(value = "/img/upload", method = RequestMethod.POST)
+	@RequestMapping(value = "/provider/img/upload", method = RequestMethod.POST)
 	@ResponseBody
-	private void upload(
+	public void upload(
 			@RequestParam(value = "upload", required = false) MultipartFile file,
 			@RequestParam("CKEditorFuncNum") String num,
 			HttpServletResponse response) {
-
 		String userFold = userContext.getCurrentUser().getId().toString();
 		Path userDir = Paths.get(userFold);
 		Path basePath = Paths.get("").resolve(
@@ -52,7 +51,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 	}
-
+	
 	private Path getUploadDir(Path baseDir, Path userDir, String fileName)
 			throws IOException {
 		Path temp = baseDir.resolve(userDir);

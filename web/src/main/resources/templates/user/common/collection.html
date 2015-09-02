@@ -72,11 +72,11 @@
 						<a href="/user/cart">购物车</a>
 						<a href="/user/buyRecords">采购申请</a>
 					</div>
-					<div class="mainpanel collect fr">
+					<div class="mainpanel bodr collect fr">
 						<div class="items-list">
 							<ul>
 								<li class="bodr" th:each="prefer:${pages.getContent()}" th:id="'li'+${prefer.product.id}">
-									<a th:href="@{'/products/'+${prefer.product.id}}"><img th:src="@{${prefer.product.coverImg}}" width="220" height="160"/>
+									<a th:href="@{'/products/'+${prefer.product.id}}"><img th:src="@{${prefer.product.coverImg}}" width="210" height="175"/>
 									<div class="pic-box">
 										<div class="pic-row refer">
 											<label>参考报价</label>
