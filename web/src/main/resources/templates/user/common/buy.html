@@ -29,14 +29,15 @@
 				<div class="pdf ">
 					<h2><i th:text="${buy.user.company}"></i>采购方单位-物资(外包服务)申购单</h2>
 					<div>编号 : <i th:text="${buy.noId}"></i></div>
+					<div class="orders-form">
 					<form th:object="${buy}">
 						<div class="form-group">
-							<label>申请单位</label><input type="text" disabled="disabled" th:field="*{user.company}"/> 
-							<label>行业</label><input type="text" disabled="disabled" th:field="*{user.industryInfo.name}"/>
+							<label>申请单位</label><input type="text" disabled="disabled" th:field="*{user.company}" style="width: 236px;"/> 
+							<label>行业</label><input type="text" disabled="disabled" th:field="*{user.industryInfo.name}" style="width: 236px;"/>
 						</div>
 						<div class="form-group">
-							<label>申请部门</label><input type="text" disabled="disabled" th:field="*{user.department}"/> 
-							<label>申请人</label><input type="text" disabled="disabled" th:field="*{user.realName}"/>
+							<label>申请部门</label><input type="text" disabled="disabled" th:field="*{user.department}" style="width: 236px;"/> 
+							<label>申请人</label><input type="text" disabled="disabled" th:field="*{user.realName}" style="width: 236px;"/>
 						</div>
 						<div class="form-group">
 							<label>经费类别</label><input type="text" class="w635" th:field="*{fundCategory}" disabled="disabled"/>
@@ -83,10 +84,11 @@
 						</div>
 						<div class="center">
 							<a th:href="'/user/buyRecords/'+${buy.id}+'?download'"><button class="btn green mauto" type="button">下载PDF文档</button></a>
-							<a href="/user/buyRecords"><button class="btn green mauto" type="button">返回列表</button></a>
+							<a th:href="'/user/buyRecords/'+${buy.id}+'?edit'"><button class="btn green mauto" type="button">修改</button></a>
+							<a href="/user/buyRecords"><button class="btn mauto default" type="button">返回列表</button></a>
 						</div>
-						
 					</form>
+					</div>
 				</div>
 				</div>
 			</div>
