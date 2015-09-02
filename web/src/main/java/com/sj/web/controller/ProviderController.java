@@ -156,7 +156,7 @@ public class ProviderController extends BaseController<Provider> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
 			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-			if(instrument.getSecondCategory()!=null){
+			if(instrument.getFirstCategory()!=null){
 				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(instrument.getFirstCategory(), ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}
@@ -188,7 +188,7 @@ public class ProviderController extends BaseController<Provider> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
 			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-			if(consumable.getSecondCategory()!=null){
+			if(consumable.getFirstCategory()!=null){
 				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(consumable.getFirstCategory(), ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}
@@ -220,7 +220,7 @@ public class ProviderController extends BaseController<Provider> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
 			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-			if(reagents.getSecondCategory()!=null){
+			if(reagents.getFirstCategory()!=null){
 				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(reagents.getFirstCategory(), ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}
@@ -252,7 +252,7 @@ public class ProviderController extends BaseController<Provider> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
 			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-			if(service.getSecondCategory()!=null){
+			if(service.getFirstCategory()!=null){
 				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(service.getFirstCategory(), ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}

@@ -260,6 +260,13 @@ public class LoginController {
 	public String processUserPassword(
 			@Valid @ModelAttribute("form") ChangePasswordForm form,
 			BindingResult result, Model uiModel, @SecurityUser SiteUser user) {
+		if(StringUtils.equals(form.getOldPassword(), form.getNewPassword())){
+			result.addError(new FieldError("ChangePasswordForm", "oldPassword","新旧密码不能一致"));
+			form.setNewPassword(null);
+			form.setOldPassword(null);
+			uiModel.addAttribute("form", form);
+			return "user/common/changePassword";
+		}
 		ChangePasswordForm source = form;
 		form = translatePassword(form);
 
@@ -270,8 +277,7 @@ public class LoginController {
 			uiModel.addAttribute("form", source);
 			return "user/common/changePassword";
 		}
-		SiteUser u = userService.updatePassword(user.getId(),
-				form.getNewPassword());
+		SiteUser u = userService.updatePassword(user.getId(),form.getNewPassword());
 		userContext.setCurrentUser(u);
 		return "redirect:/user/detail";
 	}
@@ -280,8 +286,7 @@ public class LoginController {
 		ChangePasswordForm temp = new ChangePasswordForm();
 		temp.setOldPassword(encoder.encodePassword(form.getOldPassword(), null));
 		temp.setNewPassword(encoder.encodePassword(form.getNewPassword(), null));
-		temp.setConfirmPassword(encoder.encodePassword(
-				form.getConfirmPassword(), null));
+		temp.setConfirmPassword(encoder.encodePassword(form.getConfirmPassword(), null));
 		return temp;
 	}
 

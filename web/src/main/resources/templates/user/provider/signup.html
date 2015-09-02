@@ -103,23 +103,23 @@
 	<div class="resg-header">		
 		<div class="head-nav">
 			<div class="nav-box">
-				<a href="#">仪器</a>
+				<a href="/productCategory/仪器">仪器</a>
 				<i>|</i>
-				<a href="#">试剂</a>
+				<a href="/productCategory/仪器">试剂</a>
 				<i>|</i>
-				<a href="#">耗材</a>
+				<a href="/productCategory/仪器">耗材</a>
 				<i>|</i>
-				<a href="#">服务</a>
+				<a href="/productCategory/仪器">服务</a>
 				<i>|</i>
-				<a href="#">专题</a>
+				<a href="/productCategory/仪器">专题</a>
 				<i>|</i>
-				<a href="#">资讯</a>
+				<a href="/informationCategorys/行业要闻">资讯</a>
 			</div>
 		</div>
 		<div class="head-box clearfix">
 			<a href="#" class="logo"><img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/></a>
 			<div class="head-menu-btn resg-company">
-				<a class="self-btn"></a>
+				<a href="/signup?user" class="self-btn"></a>
 				<a class="company-btn"></a>
 			</div>
 			<div class="head-menu">
@@ -177,7 +177,7 @@
 			</div>
 			<div class="form-group">
 				<label>注册资本</label>
-				<input type="text" th:field="*{registeredCapital}"/>
+				<input type="text" th:field="*{registeredCapital}"/>万
 				<i class="error" th:if="${#fields.hasErrors('registeredCapital')}" th:errors="*{registeredCapital}">必填</i>
 			</div>
 			<div class="form-group">

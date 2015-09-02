@@ -195,11 +195,11 @@
 			<a>评论数</a>
 			<a>上架时间</a>
 		</div>	
-		<div class="items-list">
+		<div class="items-list pro-list">
 			<ul>
 				<li class="bodr product" th:each="product:${page.getContent()}" >
 					<a th:href="@{'/products/'+${product.id}}">
-						<img th:src="@{${product.coverImg}}" width="220" height="160"/>
+						<img th:src="@{${product.coverImg}}" width="210" height="175"/>
 						<div class="pic-box">
 							<div class="pic-row refer">
 								<label>参考报价</label>

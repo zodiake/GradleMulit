@@ -93,6 +93,9 @@ button{
 .mr20{
 	margin-right: 20px;
 }
+.ml-20{
+	margin: 0 -20px;
+}
 .gray-hd{
 	background: #eee;
 	line-height: 35px;
@@ -491,16 +494,17 @@ table{
 .global-box ul{
 	overflow: hidden;
 }
-.global-box.topic-box li,
-.global-box.about-special li{
+.global-box.topic-box li{
 	float: left;
 	overflow: hidden;
 	border: 1px solid #dcdcdc;
 }
 .topic-box li{
-	width: 230px;
-	height: 300px;
-	margin:0 7px 20px;
+	padding: 5px;
+	width: 210px;
+	height: 335px;
+	margin-left: 20px;
+	margin-bottom: 20px;
 }
 
 /***** J-banner *****/
@@ -983,17 +987,22 @@ a.minus:hover, a.plus:hover {
 }
 .items-list li{
 	padding: 5px;
-	width: 220px;
+	width: 210px;
 	height: 340px;
 	padding-bottom: 10px;
 	float: left;
 	margin-right: 28px;
 	margin-bottom: 28px;
 }
+.pro-list li{
+	height:355px;
+}
+.pro-list li a{
+	color:#868fa7;
+}
 .collect li:hover,
 .items-list li:hover,
-.global-box.topic-box li:hover,
-.global-box.about-special li:hover{
+.global-box.topic-box li:hover{
 	box-shadow: 1px 0px 10px #dcdcdc;
 }
 .pic-box{
@@ -1119,13 +1128,13 @@ a.minus:hover, a.plus:hover {
 	background: url('../img/icon-price.png') no-repeat;
 }
 .items-list{
-	padding-left: 12px;
+	padding-left: 20px;
 }
 .items-list ul{
 	overflow: hidden;
 }
 .items-list li{
-	margin-right: 12px;
+	margin-right: 20px;
 }
 .pagination {
     margin: 0 0 50px;
@@ -1134,7 +1143,7 @@ a.minus:hover, a.plus:hover {
 .pagination .l-pagination{
 	overflow: hidden;
 	float: right;
-	margin-right: 10px;
+	margin-right: 20px;
 }
 .l-pagination ul,
 .l-pagination .page-from,
@@ -1332,12 +1341,6 @@ a.add-cart{
 	width:700px;
 	margin:0 auto 20px;
 }
-.about-special li{	
-	width: 240px;
-	height: 360px;
-	margin: 0 45px 40px;
-	margin-right: 20px;
-}
 .plans{
 	padding-left: 20px;
 	margin: 10px 0;
@@ -1378,8 +1381,8 @@ li div.title{
 	text-align: center;
 }
 li div.spe-pic{
-	width: 240px;
-	height: 140px;
+	width: 210px;
+	height: 175px;
 }
 li div.topic-detail{
 	max-height: 158px;
@@ -1689,7 +1692,7 @@ button.default{
 }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	li div.topic-detail{
-		max-height: 152px;
+		max-height: 100px;
 	}
 }
 .files{

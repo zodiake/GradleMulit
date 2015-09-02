@@ -50,12 +50,12 @@
 									<div class="fl">
 										<div class="form-group">
 											<label>企业名称（中文）</label>
-											<input type="text" th:field="*{companyNameChina}" readonly="readonly"/>	
+											<input type="text" th:field="*{companyNameChina}" disabled="disabled" />	
 										</div>
 										<div class="form-group">
 											<div class="fl">
 											<label>企业名称（英文）</label>
-											<input type="text" th:field="*{companyNameEnglish}" readonly="readonly"/>									
+											<input type="text" th:field="*{companyNameEnglish}" disabled="disabled"/>									
 											</div>
 										</div>
 										<div class="form-group">
@@ -174,13 +174,19 @@
 										<div class="form-group">
 											<div class="fl">
 											<label>注册邮箱</label>
-											<input type="text" th:field="*{email}" readonly="readonly"/>
+											<input type="text" th:field="*{email}" disabled="disabled"/>
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="fl">
 											<label>注册用户名</label>
-											<input type="text" th:field="*{name}" readonly="readonly"/>
+											<input type="text" th:field="*{name}" disabled="disabled"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="fl">
+											<label>手机号</label>
+											<input type="text" th:field="*{phone}" disabled="disabled"/>	
 											</div>
 										</div>
 										<div class="form-group">
@@ -234,13 +240,6 @@
 										
 									</div>
 								</div>								
-								<div class="form-group">
-									<label><i>*</i>手机号</label>
-									<input type="text"/>
-									<button class="tel-code">获取验证码</button>	
-									<label><i>*</i>验证码</label>
-									<input type="text" class="code" />						
-								</div>
 								<button class="btn green">保存</button>							
 							</form>
 						</div>
