@@ -4,6 +4,7 @@ import com.sj.model.model.CommonUser;
 import com.sj.model.type.SexEnum;
 
 public class CommonUserDetailJson {
+	private Long id;
 	private String email;
 	private String mobile;
 	private String name;
@@ -20,6 +21,7 @@ public class CommonUserDetailJson {
 	private int score;
 
 	public CommonUserDetailJson(CommonUser user) {
+		this.id = user.getId();
 		this.email = user.getEmail();
 		this.mobile = user.getPhone();
 		this.name = user.getName();
@@ -36,6 +38,14 @@ public class CommonUserDetailJson {
 		if (user.getIndustryInfo() != null)
 			this.industryInfo = user.getIndustryInfo().getName();
 		this.score = user.getScore();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {

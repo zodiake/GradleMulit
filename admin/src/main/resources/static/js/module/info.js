@@ -18,10 +18,28 @@ infoModule.service('InfoService', ['$http', function ($http) {
         });
     };
 
+    this.findOne = function (item) {
+        return $http.get('/admin/informations/' + item.id);
+    };
+
     this.save = function (item) {
         return $http({
             method: 'POST',
             url: '/admin/informations?form',
+            transformRequest: transform,
+            data: {
+                title: item.title,
+                category: item.category,
+                content: item.content
+            },
+            headers: header
+        });
+    };
+
+    this.update = function (item) {
+        return $http({
+            method: 'POST',
+            url: '/admin/informations/' + item.id,
             transformRequest: transform,
             data: {
                 title: item.title,
@@ -66,12 +84,27 @@ infoModule.controller('InfoController', ['$scope',
             });
         };
 
-        $scope.view = function () {
-            $modal.open({
-                templateUrl: '/admin/info',
-                size: 'lg',
-                controller: 'BrandDetailController'
-            });
+        $scope.view = function (item) {
+            InfoService
+                .findOne(item)
+                .success(function () {
+                    $modal.open({
+                        templateUrl: '/admin/templates/info/detail',
+                        size: 'lg',
+                        controller: 'InfoDetailController',
+                        resolve: {
+                            item: function () {
+                                return item;
+                            },
+                            categories: function ($http) {
+                                return $http.get('/admin/info/category');
+                            }
+                        }
+                    });
+                })
+                .error(function (err) {
+
+                });
         };
     }
 ]);
@@ -81,7 +114,6 @@ infoModule.controller('InfoCreateController', ['$scope',
     'InfoService',
     function ($scope, categories, InfoService) {
         $scope.categories = categories.data.content;
-        console.log(categories);
         $scope.item = {};
 
         $scope.editorOptions = {
@@ -103,5 +135,33 @@ infoModule.controller('InfoCreateController', ['$scope',
                 });
         };
 
+    }
+]);
+
+infoModule.controller('InfoDetailController', ['$scope',
+    'item',
+    'categories',
+    'InfoService',
+    function ($scope, item, categories, InfoService) {
+        $scope.editorOptions = {
+            uiColor: '#000000',
+            filebrowserBrowseUrl: '/upload',
+            filebrowserUploadUrl: '/admin/editor/img/upload',
+            width: 795,
+            height: 300
+        };
+        $scope.item = item;
+        $scope.categories = categories.data.content;
+
+        $scope.submit = function () {
+            InfoService
+                .update($scope.item)
+                .success(function () {
+
+                })
+                .error(function (err) {
+
+                });
+        }
     }
 ]);

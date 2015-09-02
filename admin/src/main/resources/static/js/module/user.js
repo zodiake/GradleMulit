@@ -2,17 +2,37 @@ var userModule = angular.module('User', []);
 
 userModule.service('CommonUserService', ['$http',
     function ($http) {
+
+        function transform(obj) {
+            var str = [];
+            for (var p in obj)
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+        }
+
+        var header = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
+
         this.findAll = function (opt) {
             return $http.get('/admin/CommonUsers', {
                 params: opt
             });
         };
+
         this.findOne = function (item) {
             return $http.get('/admin/CommonUsers/' + item.id);
         };
+
         this.updateScore = function (item) {
-            return $http.put('/admin/CommonUsers/' + item.id + '/score', {
-                score: item.score
+            return $http({
+                method: 'POST',
+                url: '/admin/CommonUsers/' + item.id + '/score',
+                transformRequest: transform,
+                data: {
+                    score: item.score,
+                },
+                headers: header
             });
         };
     }
@@ -142,7 +162,14 @@ userModule.controller('CommonUserDetailController', ['$scope',
         $scope.item = item;
 
         $scope.updateScore = function (item) {
+            CommonUserService
+                .updateScore(item)
+                .success(function () {
 
+                })
+                .error(function () {
+
+                });
         };
     }
 ]);
@@ -152,12 +179,10 @@ userModule.controller('ProviderDetailController', ['$scope',
     'ProviderService',
     function ($scope, item, ProviderService) {
         $scope.item = item;
-
         $scope.authenticate = function (item) {
             ProviderService
                 .authenticate(item)
-                .success(function (data) {
-                })
+                .success(function (data) {})
                 .error(function (err) {
 
                 });

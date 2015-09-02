@@ -11,6 +11,7 @@ public class InformationJson {
 	private Long category;
 	private String state;
 	private Calendar updatedTime;
+	private String content;
 
 	public InformationJson(Information info) {
 		this.id = info.getId();
@@ -19,6 +20,7 @@ public class InformationJson {
 		this.category = info.getCategory().getId();
 		this.state = info.getActivate().toString();
 		this.updatedTime = info.getUpdatedTime();
+		this.content = info.getContent().getContent();
 	}
 
 	public Long getId() {
@@ -67,5 +69,13 @@ public class InformationJson {
 
 	public void setUpdatedTime(Calendar updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }
