@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.ProductCategoryDetailJson;
 import com.sj.repository.model.ProductCategoryJson;
 import com.sj.repository.repository.ProductCategoryRepository;
 import com.sj.repository.service.ProductCategoryService;
@@ -33,8 +35,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Set<ProductCategory> findAll() {
-		return repository.findAll();
+	public List<ProductCategory> findAll() {
+		return Lists.newArrayList(repository.findAll());
 	}
 
 	@Override
@@ -180,6 +182,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	public List<ProductCategoryJson> findByParentJson(ProductCategory pc) {
 		return repository.findByParent(pc).stream()
 				.map(m -> new ProductCategoryJson(m))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<ProductCategoryDetailJson> findAllDetail() {
+		List<ProductCategory> lists = Lists.newArrayList(repository
+				.findByParent(null));
+		return lists.stream().map(p -> new ProductCategoryDetailJson(p))
 				.collect(Collectors.toList());
 	}
 }

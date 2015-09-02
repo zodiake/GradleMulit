@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary" value="提交" />
+                    <input type="submit" id="submit" class="btn btn-primary" value="提交" />
                     <button ng-click="addSolution()">add</button>
                 </div>
                 <a th:attr="href=@{#/subject/__${id}__/solutions}">link</a>
@@ -45,6 +45,24 @@ $(function() {
         filebrowserUploadUrl: '/admin/editor/img/upload',
         width: 895,
         height: 300
+    });
+
+    $('#submit').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/admin/subjects/10',
+            method: 'post',
+            data: {
+                name: $('#name').val(),
+                content: CKEDITOR.instances['content.content'].getData()
+            },
+            success: function(data) {
+
+            },
+            fail: function() {
+
+            }
+        });
     });
 });
 </script>

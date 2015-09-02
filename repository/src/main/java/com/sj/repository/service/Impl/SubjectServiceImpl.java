@@ -77,4 +77,12 @@ public class SubjectServiceImpl implements SubjectService {
 				page.getTotalElements());
 	}
 
+	@Override
+	public Subject update(Subject subject) {
+		Subject s = repository.findOne(subject.getId());
+		s.setContent(subject.getContent());
+		s.setName(subject.getName());
+		return s;
+	}
+
 }

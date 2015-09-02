@@ -69,6 +69,14 @@ public class SubjectController {
 		return "subject/edit";
 	}
 
+	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public String update(@PathVariable("id") Long id, Subject subject) {
+		subject.setId(id);
+		subjectService.update(subject);
+		return "";
+	}
+
 	@RequestMapping(value = "/admin/subjects/{id}/solutions", method = RequestMethod.GET)
 	@ResponseBody
 	public List<SolutionJson> solution(@PathVariable("id") Long id) {
