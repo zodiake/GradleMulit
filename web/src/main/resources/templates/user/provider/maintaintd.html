@@ -10,10 +10,7 @@
 	<span th:text="${#strings.abbreviate(product.thirdCategory.name,15)}">芯片扫描仪</span>
 </td>
 <td>￥<i th:text="${product.price}"></i></td>
-<td><i th:switch="${product.status.toString()}"> <a
-		th:case="${'EXAMINE'}">审核中</a> <a th:case="${'UP'}">已上架</a> <a
-		th:case="${'NOT'}">未通过</a> <a th:case="${'DOWN'}">已下架</a>
-</i></td>
+<td><a th:text="${product.status.getName()}"></a></td>
 <i th:switch="${product.status.toString()}">
 	<td class="show-wrap" th:attr="data-id=${product.id}"
 	th:case="${'EXAMINE'}"><a class="blue revoke">撤销</a></td>

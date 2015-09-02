@@ -184,6 +184,7 @@ public class LoginController {
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult providerResult, Model uiModel) {
+		System.out.println(provider.getComponyType().toString());
 		if (providerResult.hasErrors()) {
 			provider.setPassword(null);
 			uiModel.addAttribute("provinces", provinceService.findAll());

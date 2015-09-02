@@ -3,7 +3,10 @@ package com.sj.model.type;
 import java.util.Locale;
 
 public enum PlaceEnum {
-	DOMESTIC, IMPORTED;
+	DOMESTIC{public String getName(){return "国产";}}, 
+	IMPORTED{public String getName(){return "进口";}};
+	
+	public abstract String getName();
 	public static PlaceEnum formString(String source) {
 		try {
 			return PlaceEnum.valueOf(source.toUpperCase(Locale.US));

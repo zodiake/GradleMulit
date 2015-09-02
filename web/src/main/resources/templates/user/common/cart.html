@@ -69,8 +69,8 @@
 											</div>
 											<div>
 												<label>产地：</label>
-												<span th:if="${cart.place.toString().toString()=='DOMESTIC'}" th:text="国产"></span>
-												<span th:if="${cart.place.toString().toString()=='IMPORTED'}" th:text="国产"></span>
+												<span th:if="${cart.place.toString()=='DOMESTIC'}" th:text="国产"></span>
+												<span th:if="${cart.place.toString()=='IMPORTED'}" th:text="国产"></span>
 											</div>
 											<div>
 												<label>型号：</label>

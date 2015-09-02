@@ -63,7 +63,7 @@ public class IndexController {
 		uiModel.addAttribute("newResults", newResults);
 		uiModel.addAttribute("vendorDynamics", vendorDynamics);
 		
-		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 5));
+		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 6));
 		uiModel.addAttribute("brands", brands);
 		List<ScrollImage> scrollImages = scrollImageService.findAll(ScrollImageType.INDEX, new PageRequest(0, 4));
 		uiModel.addAttribute("images", scrollImages);

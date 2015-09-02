@@ -69,12 +69,12 @@
 											<div class="fl">
 											<label>企业性质</label>
 											<select class="w228" th:field="*{componyType}">
-												<option value="外商独资">外商独资</option>
-												<option value="合资企业">合资企业</option>
-												<option value="民营企业">民营企业</option>
-												<option value="国有企业">国有企业</option>
-												<option value="高等院校">高等院校</option>
-												<option value="刑侦机关">刑侦机关</option>
+												<option value="FOREIGNOWNED">外商独资</option>
+												<option value="JOINTVENTURE">合资企业</option>
+												<option value="PRIVATE">民营企业</option>
+												<option value="STATEOWNED">国有企业</option>
+												<option value="UNIVERSITIES">高等院校</option>
+												<option value="INVESTIGATION">刑侦机关</option>
 											</select>
 											<i class="error ml143" th:if="${#fields.hasErrors('componyType')}" th:errors="*{componyType}"></i>
 											</div>
@@ -82,7 +82,7 @@
 										<div class="form-group">
 											<div class="fl">
 											<label>注册资本</label>
-											<input type="text" th:field="*{registeredCapital}"/>	
+											<input type="text" th:field="*{registeredCapital}"/>万
 											<i class="error ml143" th:if="${#fields.hasErrors('registeredCapital')}" th:errors="*{registeredCapital}"></i>								
 											</div>
 										</div>
@@ -90,7 +90,7 @@
 											<div class="fl">
 											<label><i>*</i>行业</label>
 											<select class="w228" th:field="*{industryInfo}">
-											<option th:each="info : ${industryInfos}" th:value="${info.id}" th:text="${info.name}">brand</option>
+											<option th:each="info : ${industryInfos}" th:value="${info.id}" th:text="${info.name}"></option>
 											</select>
 											<i class="error ml143" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}"></i>
 											</div>
@@ -106,11 +106,11 @@
 											<div class="fl">
 											<label><i>*</i>业务类型</label>
 											<select class="w228" th:field="*{businessType}">
-												<option value="生产型">生产型</option>
-												<option value="贸易型">贸易型</option>
-												<option value="服务型">服务型</option>
-												<option value="政府机关">政府机关</option>
-												<option value="其他">其他</option>
+												<option value="PRODUCTION">生产型</option>
+												<option value="TRADE">贸易型</option>
+												<option value="SERVICE">服务型</option>
+												<option value="GOVERNMENT">政府机关</option>
+												<option value="OTHER">其他</option>
 											</select>
 											<i class="error ml143" th:if="${#fields.hasErrors('businessType')}" th:errors="*{businessType}"></i>
 											</div>
@@ -119,10 +119,10 @@
 											<div class="fl">
 											<label><i>*</i>企业规模</label>
 											<select class="w228" th:field="*{scale}">
-												<option value="五十人以下">五十人以下</option>
-												<option value="五十到一百人">五十到一百人</option>
-												<option value="一百到五百">一百到五百</option>
-												<option value="超过五百">超过五百</option>
+												<option value="FIFTY">五十人以下</option>
+												<option value="ONEHUNDRED">五十到一百人</option>
+												<option value="FIVEHUNDRED">一百到五百</option>
+												<option value="OTHER">超过五百</option>
 											</select>
 											<i class="error ml143" th:if="${#fields.hasErrors('scale')}" th:errors="*{scale}"></i>
 											</div>
@@ -131,12 +131,12 @@
 											<div class="fl">
 											<label><i>*</i>年产值</label>
 											<select class="w228" th:field="*{output}">
-												<option value="五百万以下">五百万以下</option>
-												<option value="五百万至两千万">五百万至两千万</option>
-												<option value="两千万至五千万">两千万至五千万</option>
-												<option value="五千万至一亿">五千万至一亿</option>
-												<option value="一亿至五亿">一亿至五亿</option>
-												<option value="五亿以上">五亿以上</option>
+												<option value="FIVEMILLION">五百万以下</option>
+												<option value="TWENTYMILLION">五百万至两千万</option>
+												<option value="FIFTYMILLION">两千万至五千万</option>
+												<option value="ONEHUNDREDM">五千万至一亿</option>
+												<option value="FIVEHUNDREDM">一亿至五亿</option>
+												<option value="OTHER">五亿以上</option>
 											</select>
 											<i class="error ml143" th:if="${#fields.hasErrors('output')}" th:errors="*{output}"></i>
 											</div>

@@ -10,5 +10,4 @@ public class StringToComponyTypeEnumConverter implements Converter<String, Compo
 	public ComponyTypeEnum convert(String source) {
 		return ComponyTypeEnum.valueOf(source);
 	}
-
 }

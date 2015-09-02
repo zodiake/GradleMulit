@@ -160,11 +160,11 @@ insert into review(id,content,product_id,user_id,created_time) values(2,'haha,ve
 insert into review(id,content,product_id,user_id,created_time) values(3,'haha,very good user3',1,3,'2012-09-28');
 
 --test scrollImage
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(1,'/img/banner1.jpg',1,'INDEX','www.baiduc.com');
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(2,'/img/banner2.jpg',1,'INDEX','www.baiduc.com');
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(3,'/img/banner1.jpg',1,'INDEX','www.baiduc.com');
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(4,'/img/banner2.jpg',1,'INDEX','www.baiduc.com');
-insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(5,'/img/banner1.jpg',1,'INDEX','www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(1,'/img/banner1.jpg',1,0,'www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(2,'/img/banner2.jpg',1,0,'www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(3,'/img/banner1.jpg',1,0,'www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(4,'/img/banner2.jpg',1,0,'www.baiduc.com');
+insert into scroll_image(id,image_url,sort_number,scroll_type,href) values(5,'/img/banner1.jpg',1,0,'www.baiduc.com');
 
 --test information_content
 insert into information_content(id,content) values (1,'我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京');
