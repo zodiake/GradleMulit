@@ -72,7 +72,7 @@
 								<td>
 									<a class="blue delete" th:attr="data-id=${buy.id}">删除</a>|
 									<a class="blue" th:href="'/user/buyRecords/'+${buy.id}+'?edit'">修改</a>|
-									<a class="blue download">下载</a>
+									<a class="blue" th:href="'/user/buyRecords/'+${buy.id}+'?download'">下载</a>
 								</td>
 							</tr>
 						</tbody>
@@ -83,21 +83,6 @@
 	</div>
 	<div class="footer">
 		© 1998 - 2015 SJ Inc. All Rights Reserved
-	</div>
-	<div class="fixed"></div>
-	<div class="hide-wrap-small bodr">
-		<span class="cancel ft14">关闭</span>
-		<div>
-			<label class="blue">采购单</label>
-			<button class="btn default">下载</button>
-		</div>
-		<div>
-			<label class="blue">
-				<span>商品列表</span>
-				<span>（商品的详情页）</span>			
-			</label>
-			<button class="btn default">下载</button>
-		</div>
 	</div>
 </body>
 </html>	

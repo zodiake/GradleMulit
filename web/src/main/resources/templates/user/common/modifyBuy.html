@@ -35,10 +35,10 @@
 			<div class="mainwrapper clearfix">
 				<div class="aside fl">
 					<a href="/user/detail">个人资料</a> <a href="/user/collection">收藏夹</a>
-					<a href="/user/cart">购物车</a> <a class="active">采购申请</a>
+					<a href="/user/cart">购物车</a> <a class="active" href="/user/buyRecords">采购申请</a>
 				</div>
-				<div class="mainpanel pdf fr">
-					<div class="hide-con" th:object="${buy}">
+				<div class="mainpanel bodr fr">
+				<div class="pdf " th:object="${buy}">
 						<h2>
 							<i th:text="${buy.user.company}"></i>采购方单位-物资(外包服务)申购单
 						</h2>
@@ -49,13 +49,13 @@
 							<form th:object="${buy}" th:method="put">
 								<div class="form-group">
 									<label>申请单位</label> 
-									<input type="text" th:field="*{user.company}" disabled="disabled" /> <label>行业</label>
-									<input type="text" th:field="*{user.industryInfo.name}" disabled="disabled" /> 
-									
+									<input type="text" th:field="*{user.company}" disabled="disabled" style="width: 233px;"/> 
+									<label>行业</label>
+									<input type="text" th:field="*{user.industryInfo.name}" disabled="disabled" style="width: 233px;"/> 
 								</div>
 								<div class="form-group">
-								<label>申请部门</label> <input type="text" th:field="*{user.department}" disabled="disabled" />
-									<label>申请人</label> <input type="text" th:field="*{user.realName}" disabled="disabled" />
+								<label>申请部门</label> <input type="text" th:field="*{user.department}" disabled="disabled" style="width: 233px;"/>
+									<label>申请人</label> <input type="text" th:field="*{user.realName}" disabled="disabled" style="width: 233px;"/>
 								</div>
 								<div class="form-group">
 									<label>经费类别</label><input type="text" class="w635" th:field="*{fundCategory}"/>
@@ -63,7 +63,7 @@
 								<div class="form-group">
 									<label>项目名称</label><input type="text" class="w635" th:field="*{name}" />
 								</div>
-								<table width="100%">
+								<table width="90%" class="mauto">
 									<thead>
 										<tr>
 											<th>序号</th>
@@ -89,7 +89,7 @@
 										</tr>
 									</tbody>
 								</table>
-								<div class="gray-hd winh clearfix">
+								<div class="gray-hd winh mauto clearfix">
 									<div class="fr mr20">
 										<i class="ft14">共计：</i><i th:text="*{price}"></i>
 									</div>
@@ -100,7 +100,7 @@
 								</div>
 								<div class="form-group">
 									<label>期望到货日期</label> 
-									<input class="form-control datepicker" id="arrivalTime" name="arrivalTime" type="text" readonly="readonly"/>
+									<input class="form-control datepicker" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}" id="arrivalTime" name="arrivalTime" type="text"/>
 								</div>
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 								<button class="btn green mauto">保存</button>

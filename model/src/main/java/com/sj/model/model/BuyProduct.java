@@ -96,6 +96,9 @@ public class BuyProduct implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		 if(!product.id.equals(other.product.id)){
+			return false;
+		  }
 		return true;
 	}
 }

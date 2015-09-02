@@ -196,7 +196,7 @@ insert into advertisement(id,cover_img,created_time,category_id,url,activate) va
 insert into advertisement(id,cover_img,created_time,category_id,url,activate) values (5,'/upload/img/scroll1.jpg','2012-1-5',20,'www.baidu.com',0);
 
 -- test buy_record
-insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(1,'test1',15,'test category','test reason','2015-06-06','2015-06-08',100,'20150820001');
+insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(1,'test1',15,'test category','test reason','2015-06-06','2015-06-08',400,'20150820001');
 insert into buy_record(id,name,user_id,fund_category,reason,create_time,arrival_time,price,no_id)values(2,'test2',15,'test category','test reason','2015-06-06','2015-06-08',100,'20150820002');
 
 -- test buy_product

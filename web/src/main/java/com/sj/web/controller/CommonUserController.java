@@ -1,6 +1,8 @@
 package com.sj.web.controller;
 
-import java.util.HashSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.model.model.BuyProduct;
 import com.sj.model.model.BuyRecord;
 import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
@@ -173,10 +174,12 @@ public class CommonUserController {
 	public String updateProcess(
 			@Valid @ModelAttribute("buy") BuyRecord buyRecord,
 			BindingResult result, @PathVariable("id") Long id, Model uiModel,
-			@SecurityUser SiteUser user,@RequestParam("arrivalTime")String time) {
-		System.out.println(time);
-		buyRecord = buyRecordService.update(new CommonUser(user.getId()),
-				buyRecord);
+			@SecurityUser SiteUser user,@RequestParam("arrivalTime")String arrivalTime) throws ParseException {
+		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(sdf.parse(arrivalTime));
+		buyRecord.setArrivalTime(calendar);
+		buyRecord = buyRecordService.update(new CommonUser(user.getId()),buyRecord);
 		uiModel.addAttribute("buy", buyRecord);
 		return "redirect:/user/buyRecords/" + id ;
 	}
