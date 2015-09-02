@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,8 +30,7 @@ public class ProviderServiceImpl implements ProviderService {
 
 	@Override
 	public Provider create(Provider provider) {
-		provider.setEnabled(ActivateEnum.AUDIT);
-		provider.setSiteAuthority("ROLE_PROVIDER");
+		provider.setSiteAuthority("ROLE_UNAUTH");
 		Calendar c = Calendar.getInstance();
 		provider.setCreateTime(c);
 		return repository.save(provider);
@@ -82,8 +82,8 @@ public class ProviderServiceImpl implements ProviderService {
 	}
 
 	@Override
-	public Page<ProviderJson> toJson(Pageable pageable, ActivateEnum activate) {
-		Page<Provider> pages = findAllDescAndStatus(pageable, activate);
+	public Page<ProviderJson> toJson(Pageable pageable, String authority) {
+		Page<Provider> pages = findBySiteAuthority(pageable, authority);
 		List<ProviderJson> lists = pages.getContent().stream()
 				.map(c -> new ProviderJson(c)).collect(Collectors.toList());
 		return new PageImpl<ProviderJson>(lists, pageable,
@@ -91,16 +91,24 @@ public class ProviderServiceImpl implements ProviderService {
 	}
 
 	@Override
-	public void authentic(Long id) {
-		// TODO Auto-generated method stub
+	public void authentic(Long id, String auth) {
 		em.createQuery(
-				"update Provider p set p.isAuthenticated=:state where id=:id")
-				.setParameter("state", 1).setParameter("id", id)
+				"update Provider p set p.siteAuthority=:auth where p.id=:id")
+				.setParameter("auth", auth).setParameter("id", id)
 				.executeUpdate();
 	}
 
 	@Override
 	public Provider findById(Long id) {
 		return repository.findById(id);
+	}
+
+	@Override
+	public Page<Provider> findBySiteAuthority(Pageable pageable,
+			String authority) {
+		if (StringUtils.isEmpty(authority))
+			return repository.findAll(pageable);
+		else
+			return repository.findBySiteAuthority(pageable, authority);
 	}
 }

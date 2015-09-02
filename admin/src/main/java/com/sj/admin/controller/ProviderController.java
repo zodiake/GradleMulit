@@ -31,11 +31,17 @@ public class ProviderController {
 			Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		String state = request.getParameter("state");
-		ActivateEnum stateEnum = ActivateEnum.fromString(state);
+		String auth = request.getParameter("auth");
 		Page<ProviderJson> providers = providerService.toJson(new PageRequest(
-				page - 1, size, Direction.DESC, "createTime"), stateEnum);
+				page - 1, size, Direction.DESC, "createTime"), auth);
 		return providers;
+	}
+
+	@RequestMapping(value = "/admin/providers/{id}/authority", method = RequestMethod.PUT)
+	@ResponseBody
+	public String authUser(@PathVariable("id") Long id) {
+		providerService.authentic(id, "ROLE_PROVIDER");
+		return "";
 	}
 
 	@RequestMapping(value = "/admin/providers/{id}", method = RequestMethod.GET)
@@ -51,12 +57,4 @@ public class ProviderController {
 		provider = providerService.checkUser(provider, ActivateEnum.ACTIVATE);
 		return null;
 	}
-
-	@RequestMapping(value = "/admin/providers/{id}/isAuthenticated", method = RequestMethod.PUT)
-	@ResponseBody
-	public String authentic(@PathVariable("id") Long id) {
-		providerService.authentic(id);
-		return "success";
-	}
-
 }

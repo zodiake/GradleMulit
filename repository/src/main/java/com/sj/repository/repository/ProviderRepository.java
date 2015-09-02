@@ -10,8 +10,10 @@ import com.sj.model.type.ActivateEnum;
 public interface ProviderRepository extends
 		PagingAndSortingRepository<Provider, Long> {
 	Provider findByName(String name);
-	
+
 	Provider findById(Long id);
-	
-	Page<Provider> findByEnabled(Pageable pageable ,ActivateEnum activate);
+
+	Page<Provider> findByEnabled(Pageable pageable, ActivateEnum activate);
+
+	Page<Provider> findBySiteAuthority(Pageable pageable, String authority);
 }

@@ -34,7 +34,7 @@ public class ProductSearch {
 	private String imgurl;
 
 	// 标题
-	@Field(type = FieldType.String, indexAnalyzer = "standardAnalyzer")
+	@Field(type = FieldType.String)
 	private String title;
 
 	// 类型 搜索通过类型区分

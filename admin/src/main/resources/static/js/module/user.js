@@ -29,7 +29,7 @@ userModule.service('ProviderService', ['$http',
             return $http.get('/admin/providers/' + id);
         };
         this.authenticate = function (item) {
-            return $http.put('/admin/providers/' + item.id + '/isAuthenticated');
+            return $http.put('/admin/providers/' + item.id + '/authority');
         };
     }
 ]);
@@ -102,14 +102,14 @@ userModule.controller('ProviderController', ['$scope',
         init({
             page: $scope.page,
             size: $scope.size,
-            state:$scope.state
+            auth: $scope.auth
         });
 
-        $scope.seach = function () {
+        $scope.search = function () {
             init({
                 page: $scope.page,
                 size: $scope.size,
-                state:$scope.state
+                auth: $scope.auth
             });
         };
 
@@ -157,8 +157,6 @@ userModule.controller('ProviderDetailController', ['$scope',
             ProviderService
                 .authenticate(item)
                 .success(function (data) {
-                    if (data == 'success')
-                        alert('success');
                 })
                 .error(function (err) {
 

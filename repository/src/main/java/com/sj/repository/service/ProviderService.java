@@ -8,15 +8,13 @@ import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.ProviderJson;
 
 public interface ProviderService {
-	
-
 	public Provider findById(Long id);
-	
+
 	public Provider create(Provider provider);
 
 	public Provider findByName(String name);
 
-	public void authentic(Long id);
+	public void authentic(Long id, String auth);
 
 	public Page<Provider> findAllDescAndStatus(Pageable pageable,
 			ActivateEnum activate);
@@ -25,5 +23,8 @@ public interface ProviderService {
 
 	public Provider updateProvider(Provider provider);
 
-	public Page<ProviderJson> toJson(Pageable pageable, ActivateEnum activate);
+	public Page<ProviderJson> toJson(Pageable pageable, String authority);
+
+	public Page<Provider> findBySiteAuthority(Pageable pageable,
+			String authority);
 }

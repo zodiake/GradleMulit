@@ -11,6 +11,7 @@ security:
 
 server:
   tomcat.uri-encoding: UTF-8
+  port: 8090
 
 multipart:
         maxFileSize: -1

@@ -1,7 +1,6 @@
 package com.sj.web.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -19,15 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.code.kaptcha.Constants;
-import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
@@ -111,8 +107,8 @@ public class LoginController {
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
 		userContext.setCurrentUser(user);
 		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
-//			Set<CartLine> lines = cartLineService.findByUser(user.getId());
-//			httpSession.setAttribute("cartLines", lines);
+			// Set<CartLine> lines = cartLineService.findByUser(user.getId());
+			// httpSession.setAttribute("cartLines", lines);
 		}
 		return "redirect:/index";
 	}
@@ -198,8 +194,6 @@ public class LoginController {
 		provider.setPassword(encoder.encodePassword(provider.getPassword(),
 				null));
 		provider = providerService.create(provider);
-		userContext.setCurrentUser(new SiteUser(provider.getId(), provider
-				.getName(), provider.getPassword()));
 		return "redirect:/";
 	}
 
@@ -300,16 +294,18 @@ public class LoginController {
 		return "user/forgetPw";
 	}
 
-	@RequestMapping(value ="/forgetPw", method = RequestMethod.POST)
-	public String forgetPwVaildata(@Valid @ModelAttribute("form") MobileVerificationForm form,BindingResult result, Model uiModel,HttpSession session) {
-		if(result.hasErrors()){
+	@RequestMapping(value = "/forgetPw", method = RequestMethod.POST)
+	public String forgetPwVaildata(
+			@Valid @ModelAttribute("form") MobileVerificationForm form,
+			BindingResult result, Model uiModel, HttpSession session) {
+		if (result.hasErrors()) {
 			form.setCode(null);
 			uiModel.addAttribute("form", form);
 			return "user/forgetPw";
 		}
 		SiteUser user = userService.findByPhone(form.getPhone());
-		if(user==null){
-			result.addError(new FieldError("form", "phone","该手机号码未注册"));
+		if (user == null) {
+			result.addError(new FieldError("form", "phone", "该手机号码未注册"));
 			form.setCode(null);
 			uiModel.addAttribute("form", form);
 			return "user/forgetPw";
@@ -320,7 +316,9 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/forgetPw", method = RequestMethod.PUT)
-	public String forgetPwProcess(@Valid @ModelAttribute("form") RetrievePasswordForm form,BindingResult bindingResult,Model uiModel,HttpSession session) {
+	public String forgetPwProcess(
+			@Valid @ModelAttribute("form") RetrievePasswordForm form,
+			BindingResult bindingResult, Model uiModel, HttpSession session) {
 		if (bindingResult.hasErrors()) {
 			form.setPassword(null);
 			form.setConfirm(null);
@@ -328,21 +326,23 @@ public class LoginController {
 			return "user/changePw";
 		}
 		if (!StringUtils.equals(form.getPassword(), form.getConfirm())) {
-			bindingResult.addError(new FieldError("form", "confirm","两次输入的密码不一致"));
+			bindingResult.addError(new FieldError("form", "confirm",
+					"两次输入的密码不一致"));
 			form.setPassword(null);
 			form.setConfirm(null);
 			uiModel.addAttribute("form", form);
 			return "user/changePw";
 		}
 		String phone = (String) session.getAttribute("phone");
-		if(phone==null || "".equals(phone)){
+		if (phone == null || "".equals(phone)) {
 			form.setPassword(null);
 			form.setConfirm(null);
 			uiModel.addAttribute("form", form);
 			return "user/changePw";
 		}
 		SiteUser user = userService.findByPhone(phone);
-		userService.updatePassword(user.getId(),encoder.encodePassword(form.getPassword(), null));
+		userService.updatePassword(user.getId(),
+				encoder.encodePassword(form.getPassword(), null));
 		return "redirect:/login";
 	}
 
