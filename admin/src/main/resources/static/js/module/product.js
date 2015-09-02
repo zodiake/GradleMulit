@@ -41,7 +41,7 @@ productModule.service('ProductService', ['$http', function ($http) {
             url: '/admin/products/' + id + '/state',
             transformRequest: transform,
             data: {
-                state: state
+                state: 'up'
             },
             headers: header
         });
