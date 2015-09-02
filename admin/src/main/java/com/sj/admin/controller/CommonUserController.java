@@ -45,7 +45,7 @@ public class CommonUserController {
 		return new CommonUserDetailJson(user);
 	}
 
-	@RequestMapping(value = "/admin/CommonUsers/{id}/score", method = RequestMethod.PUT)
+	@RequestMapping(value = "/admin/CommonUsers/{id}/score", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateScore(HttpServletRequest request,
 			@PathVariable(value = "id") Long id) {

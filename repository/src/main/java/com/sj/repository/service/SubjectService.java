@@ -20,6 +20,8 @@ public interface SubjectService {
 
 	Subject update(Subject s, Subject old);
 
+	Subject update(Subject subject);
+
 	List<Subject> findByShowOnIndex();
 
 	Page<SubjectJson> findAllJson(Pageable pageable);

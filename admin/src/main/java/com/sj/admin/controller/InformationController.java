@@ -38,10 +38,10 @@ public class InformationController {
 	}
 
 	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.GET)
-	public String findOne(Model uiModel, @PathVariable("id") Long id) {
+	@ResponseBody
+	public InformationJson findOne(Model uiModel, @PathVariable("id") Long id) {
 		Information info = informationService.findOne(id);
-		uiModel.addAttribute("information", info);
-		return null;
+		return new InformationJson(info);
 	}
 
 	@RequestMapping(value = "/admin/informations", method = RequestMethod.POST, params = "form")
@@ -55,6 +55,14 @@ public class InformationController {
 		}
 		info = informationService.save(info);
 		return "\"success\"";
+	}
+
+	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public String update(@PathVariable("id") Long id, Information information) {
+		information.setId(id);
+		informationService.update(information);
+		return "";
 	}
 
 	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.GET, params = "edit")

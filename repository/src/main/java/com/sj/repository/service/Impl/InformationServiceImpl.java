@@ -7,10 +7,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -43,15 +40,12 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	@Caching(evict = @CacheEvict(value = "advertiseCache", key = "#advertisement.category"), put = @CachePut(value = "advertiseCache", key = "#advertisement.category"))
 	public Information update(Information information) {
-		Information result = repository.findOne(information.getId());
-		if (result.getContent() != null)
-			result.getContent().setContent(
-					information.getContent().getContent());
-		else
-			result.setContent(information.getContent());
-		return repository.save(result);
+		Information info = repository.findOne(information.getId());
+		info.setTitle(information.getTitle());
+		info.setContent(information.getContent());
+		info.setCategory(information.getCategory());
+		return info;
 	}
 
 	@Override

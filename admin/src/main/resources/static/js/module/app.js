@@ -59,13 +59,6 @@ app.config([
                     }]
                 }
             })
-            .state('infoDetail', {
-                url: '/info/:id',
-                templateUrl: function (stateParams) {
-                    return '/admin/informations/' + stateParams.id;
-                },
-                controller: 'InfoDetailController'
-            })
             .state('subject', {
                 url: '/subject',
                 templateUrl: '/admin/subject',

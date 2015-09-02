@@ -130,6 +130,11 @@ public class IndexController extends UploadController {
 		return "information/info";
 	}
 
+	@RequestMapping(value = "/templates/info/detail")
+	public String infoDetail() {
+		return "information/create";
+	}
+
 	@RequestMapping(value = "/info", params = "form")
 	public String newInfo() {
 		return "information/create";

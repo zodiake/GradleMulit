@@ -45,11 +45,13 @@ subjectModule.controller('SubjectController', ['$scope', 'SubjectService',
         $scope.size = 15;
 
         function init(opt) {
-            SubjectService.findAll(opt).success(function (data) {
-                $scope.items = data.content;
-            }).error(function (err) {
+            SubjectService
+                .findAll(opt)
+                .success(function (data) {
+                    $scope.items = data.content;
+                }).error(function (err) {
 
-            });
+                });
         }
 
         init({
@@ -105,7 +107,8 @@ subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService',
     }
 ]);
 
-subjectModule.controller('SubjectEditController', ['$scope', 'SubjectService',
+subjectModule.controller('SubjectEditController', ['$scope',
+    'SubjectService',
     function ($scope, SubjectService) {
         $scope.editorOptions = {
             uiColor: '#000000',
