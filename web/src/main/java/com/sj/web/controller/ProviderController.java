@@ -74,8 +74,8 @@ public class ProviderController extends BaseController<Provider> {
 	private ReagentsService reagentsService;
 	@Autowired
 	private ServiceService serviceService;
-	
-	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/supplier/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Provider provider = providerService.findById(user.getId());
@@ -88,7 +88,7 @@ public class ProviderController extends BaseController<Provider> {
 		return "user/provider/detail";
 	}
 
-	@RequestMapping(value = "/provider/detail", method = RequestMethod.PUT)
+	@RequestMapping(value = "/supplier/detail", method = RequestMethod.PUT)
 	public String updateCurrentProvider(Model uiModel,
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult bindingResult) {
@@ -127,7 +127,8 @@ public class ProviderController extends BaseController<Provider> {
 			@SecurityUser SiteUser user, @PathVariable("status") String status) {
 		Page<Product> products = productService.findByUsers(
 				new Provider(user.getId()), new PageRequest(page - 1, size,
-						Direction.DESC, "createdTime"), ProductStatusEnum.valueOf(status));
+						Direction.DESC, "createdTime"), ProductStatusEnum
+						.valueOf(status));
 		uiModel.addAttribute("lists", products);
 		uiModel.addAttribute("status", ProductStatusEnum.valueOf(status));
 		return "user/provider/maintain";
@@ -151,17 +152,24 @@ public class ProviderController extends BaseController<Provider> {
 			@SecurityUser SiteUser user) {
 		float price = instrument.getPrice();
 		if (price == 0.0f) {
-			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
+			bindingResult
+					.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
-			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-			if(instrument.getFirstCategory()!=null){
-				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(instrument.getFirstCategory(), ActivateEnum.ACTIVATE);
+			List<ProductCategory> pcs = productCategoryService
+					.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			if (instrument.getFirstCategory() != null) {
+				List<ProductCategory> secondCategory = productCategoryService
+						.findByParentAndActivate(instrument.getFirstCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}
-			if(instrument.getSecondCategory()!=null){
-				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(instrument.getSecondCategory(), ActivateEnum.ACTIVATE);
+			if (instrument.getSecondCategory() != null) {
+				List<ProductCategory> thirdCategory = productCategoryService
+						.findByParentAndActivate(
+								instrument.getSecondCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("thirdCategory", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
@@ -172,10 +180,11 @@ public class ProviderController extends BaseController<Provider> {
 		instrument.setCreatedBy(new Provider(user.getId()));
 		instrument.setCreatedTime(Calendar.getInstance());
 		instrument.setStatus(ProductStatusEnum.EXAMINE);
-		
+
 		instrumentService.saveNoPublisher(instrument);
 		return "redirect:/provider/products";
 	}
+
 	@RequestMapping(value = "/provider/consumables", method = RequestMethod.POST, params = "form")
 	public String createConsumable(
 			@Valid @ModelAttribute("product") Consumable consumable,
@@ -183,17 +192,24 @@ public class ProviderController extends BaseController<Provider> {
 			@SecurityUser SiteUser user) {
 		float price = consumable.getPrice();
 		if (price == 0.0f) {
-			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
+			bindingResult
+					.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
-			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-			if(consumable.getFirstCategory()!=null){
-				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(consumable.getFirstCategory(), ActivateEnum.ACTIVATE);
+			List<ProductCategory> pcs = productCategoryService
+					.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			if (consumable.getFirstCategory() != null) {
+				List<ProductCategory> secondCategory = productCategoryService
+						.findByParentAndActivate(consumable.getFirstCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}
-			if(consumable.getSecondCategory()!=null){
-				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(consumable.getSecondCategory(), ActivateEnum.ACTIVATE);
+			if (consumable.getSecondCategory() != null) {
+				List<ProductCategory> thirdCategory = productCategoryService
+						.findByParentAndActivate(
+								consumable.getSecondCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("thirdCategory", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
@@ -204,10 +220,11 @@ public class ProviderController extends BaseController<Provider> {
 		consumable.setCreatedBy(new Provider(user.getId()));
 		consumable.setCreatedTime(Calendar.getInstance());
 		consumable.setStatus(ProductStatusEnum.EXAMINE);
-		
+
 		consumableService.saveNoPublisher(consumable);
 		return "redirect:/provider/products";
 	}
+
 	@RequestMapping(value = "/provider/reagents", method = RequestMethod.POST, params = "form")
 	public String createReagents(
 			@Valid @ModelAttribute("product") Reagents reagents,
@@ -215,17 +232,23 @@ public class ProviderController extends BaseController<Provider> {
 			@SecurityUser SiteUser user) {
 		float price = reagents.getPrice();
 		if (price == 0.0f) {
-			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
+			bindingResult
+					.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
-			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-			if(reagents.getFirstCategory()!=null){
-				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(reagents.getFirstCategory(), ActivateEnum.ACTIVATE);
+			List<ProductCategory> pcs = productCategoryService
+					.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			if (reagents.getFirstCategory() != null) {
+				List<ProductCategory> secondCategory = productCategoryService
+						.findByParentAndActivate(reagents.getFirstCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}
-			if(reagents.getSecondCategory()!=null){
-				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(reagents.getSecondCategory(), ActivateEnum.ACTIVATE);
+			if (reagents.getSecondCategory() != null) {
+				List<ProductCategory> thirdCategory = productCategoryService
+						.findByParentAndActivate(reagents.getSecondCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("thirdCategory", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
@@ -236,10 +259,11 @@ public class ProviderController extends BaseController<Provider> {
 		reagents.setCreatedBy(new Provider(user.getId()));
 		reagents.setCreatedTime(Calendar.getInstance());
 		reagents.setStatus(ProductStatusEnum.EXAMINE);
-		
+
 		reagentsService.saveNoPublisher(reagents);
 		return "redirect:/provider/products";
 	}
+
 	@RequestMapping(value = "/provider/services", method = RequestMethod.POST, params = "form")
 	public String createService(
 			@Valid @ModelAttribute("product") Service service,
@@ -247,17 +271,23 @@ public class ProviderController extends BaseController<Provider> {
 			@SecurityUser SiteUser user) {
 		float price = service.getPrice();
 		if (price == 0.0f) {
-			bindingResult.addError(new FieldError("product", "price", "价格不能为0"));
+			bindingResult
+					.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
-			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-			if(service.getFirstCategory()!=null){
-				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(service.getFirstCategory(), ActivateEnum.ACTIVATE);
+			List<ProductCategory> pcs = productCategoryService
+					.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			if (service.getFirstCategory() != null) {
+				List<ProductCategory> secondCategory = productCategoryService
+						.findByParentAndActivate(service.getFirstCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}
-			if(service.getSecondCategory()!=null){
-				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(service.getSecondCategory(), ActivateEnum.ACTIVATE);
+			if (service.getSecondCategory() != null) {
+				List<ProductCategory> thirdCategory = productCategoryService
+						.findByParentAndActivate(service.getSecondCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("thirdCategory", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
@@ -268,18 +298,19 @@ public class ProviderController extends BaseController<Provider> {
 		service.setCreatedBy(new Provider(user.getId()));
 		service.setCreatedTime(Calendar.getInstance());
 		service.setStatus(ProductStatusEnum.EXAMINE);
-		
+
 		serviceService.saveNoPublisher(service);
 		return "redirect:/provider/products";
 	}
 
 	/* 商品发布 end */
 
-	/*商品修改*/
+	/* 商品修改 */
 	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.GET, params = "edit")
 	public String edit(Model uiModel, @PathVariable("id") Long id) {
 		SiteUser siteUser = userContext.getCurrentUser();
-		Product product = productService.findOneByUser(new Provider(siteUser.getId()), id);
+		Product product = productService.findOneByUser(
+				new Provider(siteUser.getId()), id);
 		uiModel.addAttribute("product", product);
 		uiModel.addAttribute("brands", brandService.findAll());
 		List<ProductCategory> secondCategories = productCategoryService
@@ -303,8 +334,10 @@ public class ProviderController extends BaseController<Provider> {
 			uiModel.addAttribute("product", instrument);
 			uiModel.addAttribute("brands", brandService.findAll());
 			instrument.setFirstCategory(productCategoryService.findOne(1l));
-			List<ProductCategory> secondCategories = productCategoryService.findByParent(instrument.getFirstCategory());
-			List<ProductCategory> thirdCategories = productCategoryService.findByParent(instrument.getSecondCategory());
+			List<ProductCategory> secondCategories = productCategoryService
+					.findByParent(instrument.getFirstCategory());
+			List<ProductCategory> thirdCategories = productCategoryService
+					.findByParent(instrument.getSecondCategory());
 			uiModel.addAttribute("seconds", secondCategories);
 			uiModel.addAttribute("thirds", thirdCategories);
 			return "user/provider/modifyProduct";
@@ -317,7 +350,8 @@ public class ProviderController extends BaseController<Provider> {
 
 	@RequestMapping(value = "/provider/consumables/{id}", method = RequestMethod.PUT, params = "edit")
 	public String editConsumable(@PathVariable("id") Long id,
-			@Valid @ModelAttribute("product") Consumable consumable,BindingResult result, Model uiModel) {
+			@Valid @ModelAttribute("product") Consumable consumable,
+			BindingResult result, Model uiModel) {
 		float price = consumable.getPrice();
 		if (price == 0.0f) {
 			result.addError(new FieldError("product", "price", "价格不能为0"));
@@ -341,7 +375,8 @@ public class ProviderController extends BaseController<Provider> {
 
 	@RequestMapping(value = "/provider/services/{id}", method = RequestMethod.PUT, params = "edit")
 	public String editService(@PathVariable("id") Long id,
-			@Valid @ModelAttribute("product") Service service,BindingResult result, Model uiModel) {
+			@Valid @ModelAttribute("product") Service service,
+			BindingResult result, Model uiModel) {
 		float price = service.getPrice();
 		if (price == 0.0f) {
 			result.addError(new FieldError("product", "price", "价格不能为0"));
@@ -388,11 +423,12 @@ public class ProviderController extends BaseController<Provider> {
 			throw new ProductNotFoundException();
 		}
 		reagents.setId(id);
-		reagents =reagentsService.updateNoPublisher(reagents);
+		reagents = reagentsService.updateNoPublisher(reagents);
 		uiModel.addAttribute("product", reagents);
 		return "redirect:/provider/products";
 	}
-	/*商品修改 end*/
+
+	/* 商品修改 end */
 	@RequestMapping(value = "/provider/products/{id}/{status}", method = RequestMethod.PUT)
 	public String offProduct(@PathVariable("id") Long id,
 			@PathVariable("status") String status, @SecurityUser SiteUser user,
@@ -404,7 +440,8 @@ public class ProviderController extends BaseController<Provider> {
 		ProductStatusEnum productStatusEnum = ProductStatusEnum.valueOf(status);
 		if (productStatusEnum == null)
 			throw new EnumNotFoundException();
-		product = productService.updateStatus(product,ProductStatusEnum.valueOf(status));
+		product = productService.updateStatus(product,
+				ProductStatusEnum.valueOf(status));
 		uiModel.addAttribute("product", product);
 		return "user/provider/maintaintd";
 	}

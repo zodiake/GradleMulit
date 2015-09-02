@@ -66,6 +66,8 @@ public class Application extends WebMvcConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
+					.antMatchers("/supplier/**")
+					.hasAnyRole("PROVIDER", "UNAUTH")
 					.antMatchers("/provider/**")
 					.hasRole("PROVIDER")
 					.antMatchers("/user/**")
