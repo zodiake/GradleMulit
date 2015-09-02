@@ -34,7 +34,7 @@ public class ImageController extends UploadController {
 		return result;
 	}
 
-	@RequestMapping(value = "/productImage", method = RequestMethod.POST)
+	@RequestMapping(value = "/provider/productImage", method = RequestMethod.POST)
 	@ResponseBody
 	public UploadResult productUpload(MultipartFile file,
 			@SecurityUser SiteUser user) {

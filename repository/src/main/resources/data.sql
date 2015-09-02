@@ -129,7 +129,7 @@ values(6,'product6','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3En
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(7,'product7','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,2,systimestamp,'i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,11,13,2,8,'product3English','HD303',1,'10支',1,3,systimestamp,'c');
+values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,11,13,2,8,'product3English','HD303',1,'10支',1,3,systimestamp,'i');
 
 --test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');

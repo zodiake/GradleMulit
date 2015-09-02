@@ -40,7 +40,7 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	
 //	config.filebrowserBrowseUrl='/products/upload/image';
-	config.filebrowserUploadUrl='/upload/image';
+//	config.filebrowserUploadUrl='/upload/image';
 	config.image_previewText=' '; //预览区域显示内容
 
 };
