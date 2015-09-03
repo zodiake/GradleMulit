@@ -67,6 +67,7 @@
 					ul.prepend(str);
 						$('#reviewNum').text(parseInt(num) + 1);
 						$("#content").val("");
+						$("#includeHeader").load("/head/head.html");
 				}
 			});
 			return false;

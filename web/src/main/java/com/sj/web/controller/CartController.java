@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.CartLine;
@@ -72,6 +73,7 @@ public class CartController {
 		httpSession.setAttribute("cartLines", lines);
 		return "{\"image\":\""+p.getCoverImg()+"\",\"name\":\""+p.getName()+"\",\"price\":\""+p.getPrice()+"\"}";
 	}
+	
 
 	@RequestMapping(value = "/user/cart/{productId}", method = RequestMethod.DELETE)
 	@ResponseBody

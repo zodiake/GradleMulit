@@ -39,6 +39,7 @@
                             ul.prepend(str);
                             $('#reviewNum').text(parseInt(num) + 1);
                             $("#content").val("");
+                            $("#includeHeader").load("/head");
                         }
                     }
                 });
@@ -163,7 +164,7 @@
 			</div>
 			<div class="layout">
 				<div class="tabs-nav detail-nav bodr">
-					<a class="active">商品详情</a><a>相关专题() </a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
+					<a class="active">商品详情</a><a>相关专题</a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
 					id="reviewNum"></i>) </a>
 				</div>
 				<div class="tab-conts detail-con bodr">
@@ -171,15 +172,15 @@
 					th:text="${product.content.content}"></div>
 					<div class="tab-panel global-box topic-box hide">
 						<ul class="ml-20">
-							<!-- <li th:each="subject:${product.getSubjects()}">
+							 <li th:each="subject:${subjects}">
 								<a th:href="'/subjects/'+${subject.id}">
 								<div class="title">
 									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
 								</div>
 								<div class="spe-pic">
-									<img th:src="@{/img/list1.jpg}" width="210" height="175" />
+									<img th:src="@{${subject.image}}" width="210" height="175" />
 								</div> <div class="topic-detail" th:text="${subject.content.content}"></div> </a>
-							</li> -->
+							</li>
 						</ul>
 					</div>
 					<div class="tab-panel global-box comments hide">

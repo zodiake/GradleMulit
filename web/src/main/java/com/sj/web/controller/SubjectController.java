@@ -49,15 +49,6 @@ public class SubjectController {
 		if (subject == null)
 			throw new SubjectNotFoundException();
 		uiModel.addAttribute("subject", subject);
-		List<Product> yqs = new ArrayList<Product>();
-		List<Product> sjs = new ArrayList<Product>();
-		List<Product> hcs = new ArrayList<Product>();
-		List<Product> fws = new ArrayList<Product>();
-		
-		uiModel.addAttribute("yqs", yqs);
-		uiModel.addAttribute("sjs", sjs);
-		uiModel.addAttribute("hcs", hcs);
-		uiModel.addAttribute("fws", fws);
 		uiModel.addAttribute("pc", productCategoryService.findOne(5l));
 		return "subject/subject";
 	}

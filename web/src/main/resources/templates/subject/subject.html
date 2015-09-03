@@ -5,12 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="description" content=""/>
   <title>检测应用详情</title>
+  		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
   <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
   <script th:src="@{/js/jquery-min.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
   <script th:src="@{/js/silderBox.js}"></script>
   <script th:src="@{/js/script.js}"></script>
+  		<script type="text/javascript">
+            $(function() {
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var id = $("meta[name='id']").attr("content");
+
+                $(document).ajaxSend(function(e, xhr, options) {
+                    xhr.setRequestHeader(header, token);
+                });
+            });
+</script>
 </head>
 <body>
 	<div>
@@ -36,92 +49,27 @@
 				<div class="dtl-txt" escapeXml="false" th:text="${subject.content.content}">
 				</div>			
 				<div class="gray-hd ft14">设备方案</div>
-				<div class="plans" th:if="${yqs.size()!=0}">
-					<h3>仪器（<i th:text="${yqs.size()}"></i>）</h3>
+				<div class="plans" th:if="${subject.getSolutions().size()!=0}" th:each="solution:${subject.getSolutions()}">
+					<h3 th:text="${solution.name}"></h3>
 					<div class="plans-list">
 						<ul>
-							<li th:each="yq:${yqs}">	
-								<input type="checkbox" />
-								<div class="fl">
-									<img th:src="@{${yq.coverImg}}" width="90" height="45"/>
+							<li th:if="${solution.getProducts().size()!=0}" th:each="product:${solution.getProducts()}">	
+								<a th:href="'/products/'+${product.id}"><div class="fl">
+									<img th:src="@{${product.coverImg}}" width="90" height="45"/>
 								</div> 
 								<div class="fl plans-dtl">
 									<p>
 										<label>参考报价：</label>
-										<b class="red ft14" th:text="${yq.price}">￥1500</b>
+										<b class="red ft14" th:text="${product.price}">￥1500</b>
 									</p>
-									<p class="mt5" th:text="${yq.name}">GenePix A生物芯片扫描仪</p>
+									<p class="mt5" th:text="${product.name}">GenePix A生物芯片扫描仪</p>
 								</div>
+								</a>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<div class="plans" th:if="${sjs.size()!=0}">
-					<h3>试剂（<i th:text="${sjs.size()}"></i>）</h3>
-					<div class="plans-list">
-						<ul>
-							<li th:each="sj:${sjs}">	
-								<input type="checkbox" />
-								<div class="fl">
-									<img th:src="@{${sj.coverImg}}" width="90" height="45"/>
-								</div> 
-								<div class="fl plans-dtl">
-									<p>
-										<label>参考报价：</label>
-										<b class="red ft14" th:text="${sj.price}">￥1500</b>
-									</p>
-									<p class="mt5" th:text="${sj.name}">GenePix A生物芯片扫描仪</p>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="plans" th:if="${hcs.size()!=0}">
-					<h3>耗材（<i th:text="${hcs.size()}"></i>）</h3>
-					<div class="plans-list">
-						<ul>
-							<li th:each="hc:${hcs}">	
-								<input type="checkbox" />
-								<div class="fl">
-									<img th:src="@{${hc.coverImg}}" width="90" height="45"/>
-								</div> 
-								<div class="fl plans-dtl">
-									<p>
-										<label>参考报价：</label>
-										<b class="red ft14" th:text="${hc.price}">￥1500</b>
-									</p>
-									<p class="mt5" th:text="${hc.name}">GenePix A生物芯片扫描仪</p>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="plans" th:if="${fws.size()!=0}">
-					<h3>服务（<i th:text="${fws.size()}"></i>）</h3>
-					<div class="plans-list">
-						<ul>
-							<li th:each="fw:${fws}">	
-								<input type="checkbox" />
-								<div class="fl">
-									<img th:src="@{${fw.coverImg}}" width="90" height="45"/>
-								</div> 
-								<div class="fl plans-dtl">
-									<p>
-										<label>参考报价：</label>
-										<b class="red ft14" th:text="${fw.price}">￥1500</b>
-									</p>
-									<p class="mt5" th:text="${fw.name}">GenePix A生物芯片扫描仪</p>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="checkAll" onclick="selectAll()">						
-					<input type="checkbox" />全选
-				</div>	
-				<a class="add-cart ft16 mauto show-wrap">加入购物车</a>
 			</div>
-			
 		</div>
 	</div>
 	<div class="footer">

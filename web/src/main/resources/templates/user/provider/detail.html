@@ -33,14 +33,14 @@
 			<div class="mainwrapper clearfix">
 				<div class="aside fl">
 					<a class="active">个人资料</a>
-					<a href="/provider/products?form">发布商品</a>
-					<a href="/provider/products">商品维护</a>
-					<a href="/provider/count">商品信息统计</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products?form">发布商品</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products">商品维护</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/count">商品信息统计</a>
 				</div>
 				<div class="mainpanel fr">
 					<div class="tabs-nav info-tabs bodr">
 						<a class="active">基本资料</a>
-						<a href="/provider/changePw">修改密码</a>
+						<a href="/supplier/changePw">修改密码</a>
 					</div>
 					<div class="tab-conts tab-con basic-info">
 						<div class="tab-panel form-control company-group">

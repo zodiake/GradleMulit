@@ -134,24 +134,10 @@
 									th:field="*{name}" /> <i class="error"
 									th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
 							</div>
-							<div class="fl">
-								<label>产品英文名</label> <input type="text"
-									th:field="*{nameEnglish}" /> <i class="error"
-									th:if="${#fields.hasErrors('nameEnglish')}"
-									th:errors="*{nameEnglish}"></i>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="fl">
+								<div class="fl">
 								<label><i>*</i>产品型号</label> <input type="text"
 									th:field="*{model}" /> <i class="error"
 									th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></i>
-							</div>
-							<div class="fl">
-								<label><i>*</i>产品规格/单位</label> <input type="text"
-									th:field="*{specifications}" /> <i class="error"
-									th:if="${#fields.hasErrors('specifications')}"
-									th:errors="*{specifications}"></i>
 							</div>
 						</div>
 						<div class="form-group">
@@ -165,6 +151,14 @@
 									th:errors="*{brand}"></i>
 							</div>
 							<div class="fl">
+								<label><i>*</i>产品规格/单位</label> <input type="text"
+									th:field="*{specifications}" /> <i class="error"
+									th:if="${#fields.hasErrors('specifications')}"
+									th:errors="*{specifications}"></i>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="fl">
 								<label><i>*</i>产地</label> <select class="w235" th:field="*{placeOfProduction}">
 									<option value="">请选择</option>
 									<option th:value="DOMESTIC">国产</option>
@@ -173,10 +167,8 @@
 									<i class="error" th:if="${#fields.hasErrors('placeOfProduction')}"
 									th:errors="*{placeOfProduction}"></i>
 							</div>
-						</div>
-						<div class="form-group">
 							<div class="fl">
-								<label><i>*</i>参考报价</label> <input type="text"
+								<label><i>*</i>价格</label> <input type="text"
 									th:field="*{price}" /> <i class="error"
 									th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></i>
 							</div>

@@ -117,7 +117,8 @@
 								<span class="del"><a>删除</a></span>
 								<span class="num">已选好<b class="red" id="num"></b>种商品</span>
 								<span>合计：<b  class="red">￥</b><b class="red" id="count"></b></span>
-								<button class="btn green fr make-orders">生成采购订单</button>
+								<button th:if="${list==null}" class="btn green fr make-orders" disabled="disabled">生成采购订单</button>
+								<button th:unless="${list==null}" class="btn green fr make-orders">生成采购订单</button>
 							</div>
 						</div>
 					</div>

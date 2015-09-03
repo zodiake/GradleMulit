@@ -92,7 +92,6 @@ public class InstrumentServiceImpl implements InstrumentService {
 		old.setCoverImg(newTarget.getCoverImg());
 		old.setContent(null);
 		old.setContent(newTarget.getContent());
-		old.setNameEnglish(newTarget.getNameEnglish());
 		return old;
 	}
 }

@@ -6,11 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.model.model.Provider;
@@ -22,7 +24,6 @@ import com.sj.repository.util.FileUtil;
 public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 	private final String imgPath = "src/main/resources/static/upload/img/";
 	private final String audioPath = "src/main/resources/static/upload/audio/";
-	private final String providerPath = "src/main/resources/static/upload/";
 
 	private final String imgUrl = "/upload/img/";
 	private final String productUrl = "/upload/";
@@ -78,22 +79,30 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 
 	@Override
 	public UploadResult writeProductToProviderFile(MultipartFile file,Provider provider) {
-		InputStream stream;
-		String fileName = provider.getId() + "/"+FileUtil.getFileName(file.getContentType());
+		String userFold = provider.getId().toString();
+		Path userDir = Paths.get(userFold+"/");
+		Path basePath = Paths.get("").resolve("src/main/resources/static/upload/");
+		Calendar c = Calendar.getInstance();
+		String fileName = String.valueOf(c.hashCode())
+				+ StringUtils.trimAllWhitespace(file.getOriginalFilename());
 		try {
-			stream = file.getInputStream();
-			Path basePath = Paths.get("").resolve(providerPath  + fileName);
-			IOUtils.copyLarge(stream, Files.newOutputStream(basePath));
-			stream.close();
-
+			Path uploadFilePath = getUploadDir(basePath, userDir, fileName);
+			byte[] bytes = file.getBytes();
+			Files.write(uploadFilePath, bytes);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		UploadResult result = new UploadResult();
 		List<UploadResultDetail> files = new ArrayList<>();
-		files.add(new UploadResultDetail(file.getOriginalFilename(), file.getSize(), productUrl + fileName, "asd", "delete"));
+		files.add(new UploadResultDetail(file.getOriginalFilename(), file.getSize(), productUrl+userDir+"/" + fileName, "asd", "delete"));
 		result.setFiles(files);
 		return result;
 	}
-
+	private Path getUploadDir(Path baseDir, Path userDir, String fileName)
+			throws IOException {
+		Path temp = baseDir.resolve(userDir);
+		if (!Files.exists(temp))
+			Files.createDirectories(temp);
+		return Paths.get(temp.toString() + "/" + fileName);
+	}
 }

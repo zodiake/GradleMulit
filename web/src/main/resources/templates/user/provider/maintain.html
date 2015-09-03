@@ -66,16 +66,16 @@
 										<td>
 											<a th:text="${product.status.getName()}"></a>
 										</td>
-											<td class="show-wrap" th:attr="data-id=${product.id}" th:case="${'EXAMINE'}">
+											<td  th:attr="data-id=${product.id}" th:case="${'EXAMINE'}">
 													<a class="blue revoke">撤销</a>
 											</td>
-											<td class="show-wrap" th:attr="data-id=${product.id}" th:case="${'UP'}">
+											<td  th:attr="data-id=${product.id}" th:case="${'UP'}">
 													<a class="blue down">下架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'">修改</a>
 											</td>
-											<td class="show-wrap1" th:attr="data-id=${product.id}" th:case="${'DOWN'}">
+											<td  th:attr="data-id=${product.id}" th:case="${'DOWN'}">
 													<a class="blue up">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'">修改</a>
 											</td>
-											<td class="show-wrap1" th:attr="data-id=${product.id}" th:case="${'NOT'}">
+											<td  th:attr="data-id=${product.id}" th:case="${'NOT'}">
 													<a class="blue up">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'">修改</a>
 											</td>
 									</tr>
@@ -109,8 +109,6 @@
 				<button class="btn default cancel" id="revokeCancel">取消</button>
 			</div>
 		</div>
-	</div>
-	<div class="hide-wrap bodr update-pro" id="modify" style="display: display;">
 	</div>
 </body>
 </html>	

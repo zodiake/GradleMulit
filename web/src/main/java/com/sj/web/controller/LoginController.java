@@ -125,7 +125,7 @@ public class LoginController {
 	@ResponseBody
 	public String ajaxLogin(
 			@RequestParam(value = "name", required = true) String name,
-			@RequestParam(value = "password", required = true) String password) {
+			@RequestParam(value = "password", required = true) String password,HttpSession httpSession) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				name, password);
 		try {
@@ -135,6 +135,10 @@ public class LoginController {
 		}
 		SiteUser user = (SiteUser) userDetailsService.loadUserByUsername(name);
 		userContext.setCurrentUser(user);
+		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
+			 Set<CartLine> lines = cartLineService.findByUser(user.getId());
+			 httpSession.setAttribute("cartLines", lines);
+		}
 		return "success";
 	}
 
@@ -198,6 +202,7 @@ public class LoginController {
 		provider.setPassword(encoder.encodePassword(provider.getPassword(),
 				null));
 		provider = providerService.create(provider);
+		userContext.setCurrentUser(provider);
 		return "redirect:/";
 	}
 
@@ -222,7 +227,7 @@ public class LoginController {
 	}
 
 	/* user change password feature */
-	@RequestMapping(value = "/provider/changePw", method = RequestMethod.GET)
+	@RequestMapping(value = "/supplier/changePw", method = RequestMethod.GET)
 	public String editProviderPassword(Model uiModel,
 			@SecurityUser SiteUser user) {
 		uiModel.addAttribute("form", new ChangePasswordForm());
@@ -235,7 +240,7 @@ public class LoginController {
 		return "user/common/changePassword";
 	}
 
-	@RequestMapping(value = "/provider/changePw", method = RequestMethod.POST)
+	@RequestMapping(value = "/supplier/changePw", method = RequestMethod.POST)
 	public String processProviderPassword(
 			@Valid @ModelAttribute("form") ChangePasswordForm form,
 			BindingResult result, Model uiModel, @SecurityUser SiteUser user) {

@@ -1,6 +1,9 @@
 package com.sj.web.controller;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sj.model.model.Product;
 import com.sj.model.model.Review;
+import com.sj.model.model.Solution;
+import com.sj.model.model.Subject;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductCategoryService;
@@ -48,7 +53,14 @@ public class ProductController {
 		if (product == null)
 			throw new ProductNotFoundException();
 		productService.addViewCount(id);
+		Set<Subject> subjects = new HashSet<Subject>(); 
+		List<Solution> solutions = product.getSolutions();
+		for (Solution solution : solutions) {
+			subjects.add(solution.getSubject());
+		}
+		product.setSolutions(null);
 		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
+		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("product", product);
 		uiModel.addAttribute("reviewPage", reviewPage);
 		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());

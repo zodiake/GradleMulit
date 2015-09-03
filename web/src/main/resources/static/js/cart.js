@@ -1,7 +1,5 @@
 $(function() {
-			
 			getCount();
-			
 			$(".delete").click(function(){
 				var product = $(this);
 				var productId = product.attr("data-id");

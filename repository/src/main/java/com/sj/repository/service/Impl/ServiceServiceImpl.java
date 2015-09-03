@@ -28,7 +28,6 @@ private ServiceRepository repository;
 		return repository.save(result);
 	}
 	private Service bindNoPublisher(Service old, Service newTarget) {
-		old.setNameEnglish(newTarget.getNameEnglish());
 		old.setModel(newTarget.getModel());
 		old.setSpecifications(newTarget.getSpecifications());
 		old.setLabel(newTarget.getLabel());

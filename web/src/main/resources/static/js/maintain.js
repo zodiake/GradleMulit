@@ -43,18 +43,19 @@ $(function() {
 		var product = obj.attr('data-id');
 		verify(product);
 	});
-	$('.revoke').click(function() {
+	$('.tab-conts').on('click','.revoke',function(){
 		var pass = $(this).parent();
 		$('#revoke').fadeIn();
 		$('.fixed').fadeIn();
 		id = pass.attr('data-id');
 	});
-	$('.down').click(function() {
+	$('.tab-conts').on('click','.down',function(){
 		var pass = $(this).parent();
-		$('#down').fadeIn();
+		$('#revoke').fadeIn();
 		$('.fixed').fadeIn();
 		id = pass.attr('data-id');
 	});
+
 	$("#revokeOk").click(function() {
 		$(".hide-wrap").fadeOut();
 		$(".hide-wrap-small").fadeOut();

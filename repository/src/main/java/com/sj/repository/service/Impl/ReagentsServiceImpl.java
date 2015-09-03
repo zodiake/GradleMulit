@@ -31,7 +31,6 @@ public class ReagentsServiceImpl implements ReagentsService {
 	}
 	private Reagents bindNoPublisher(Reagents old, Reagents newTarget) {
 		old.setCoverImg(newTarget.getCoverImg());
-		old.setNameEnglish(newTarget.getNameEnglish());
 		old.setModel(newTarget.getModel());
 		old.setSpecifications(newTarget.getSpecifications());
 		old.setLabel(newTarget.getLabel());
