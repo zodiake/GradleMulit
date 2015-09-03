@@ -31,6 +31,15 @@ logging:
 ---
 spring:
    profiles: prod
+   redis.host: 192.168.1.137
+   redis.port: 6379
+   data.elasticsearch.cluster-nodes: 192.168.1.137:9300
+   datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/sj
+        username: root
+        password: 1234
+        initialize: false
 
 logging:
   level.org.springframework.web: INFO

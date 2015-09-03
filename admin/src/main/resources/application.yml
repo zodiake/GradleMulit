@@ -33,6 +33,12 @@ logging:
 ---
 spring:
    profiles: prod
+   datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/sj
+        username: root
+        password: 1234
+        initialize: false
 
 logging:
   level.org.springframework.web: INFO
