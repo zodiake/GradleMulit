@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
+import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.BuyProductService;
 import com.sj.repository.service.BuyRecordService;
@@ -34,6 +36,7 @@ import com.sj.repository.service.CityService;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductService;
+import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.UserIndustryInfoService;
 import com.sj.web.annotation.SecurityUser;
@@ -177,7 +180,22 @@ public class CommonUserController {
 			BindingResult result, @PathVariable("id") Long id, Model uiModel,
 			@SecurityUser SiteUser user,@RequestParam("arrivalTime")String arrivalTime) throws ParseException {
 		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
-		Calendar calendar = Calendar.getInstance();
+		Calendar calendar = null;
+		if(arrivalTime==null || arrivalTime.length()==0)
+			result.addError(new FieldError("buy", "arrivalTime", "请选择到货时间"));
+		else{
+			calendar = Calendar.getInstance();
+			calendar.setTime(sdf.parse(arrivalTime));
+			buyRecord.setArrivalTime(calendar);
+		}
+		if(result.hasErrors()){
+			buyRecord.setId(id);
+			CommonUser common = commonUserService.findOne(user.getId());
+			buyRecord.setUser(common);
+			buyRecord.setArrivalTime(calendar);
+			uiModel.addAttribute("buy", buyRecord);
+			return "user/common/modifyBuy";
+		}
 		calendar.setTime(sdf.parse(arrivalTime));
 		buyRecord.setArrivalTime(calendar);
 		buyRecord = buyRecordService.update(new CommonUser(user.getId()),buyRecord);
@@ -194,8 +212,9 @@ public class CommonUserController {
 		}
 		CommonUser commonUser = commonUserService.findOne(user.getId());
 		uiModel.addAttribute("lines", lines);
-		uiModel.addAttribute("user", commonUser);
-		uiModel.addAttribute("buy", new BuyRecord());
+		BuyRecord buy = new BuyRecord();
+		buy.setUser(commonUser);
+		uiModel.addAttribute("buy", buy);
 		uiModel.addAttribute("totalPrice", totalPrice);
 		return "user/common/createBuy";
 	}
@@ -203,7 +222,24 @@ public class CommonUserController {
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.POST, params = "form")
 	public String createBuyRecordProcess(
 			@Valid @ModelAttribute("buy") BuyRecord buyRecord,BindingResult result, Model uiModel,
-			@SecurityUser SiteUser user,HttpSession session) {
+			@SecurityUser SiteUser user,HttpSession session,@RequestParam("arrivalTime")String arrivalTime) throws ParseException {
+		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = null;
+		if(arrivalTime==null || arrivalTime.length()==0)
+			result.addError(new FieldError("buy", "arrivalTime", "请选择到货时间"));
+		else{
+			calendar = Calendar.getInstance();
+			calendar.setTime(sdf.parse(arrivalTime));
+			buyRecord.setArrivalTime(calendar);
+		}
+		if(result.hasErrors()){
+			CommonUser common = commonUserService.findOne(user.getId());
+			buyRecord.setUser(common);
+			uiModel.addAttribute("buy", buyRecord);
+			Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
+			uiModel.addAttribute("lines", lines);
+			return "user/common/createBuy";
+		}
 		Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
 		buyRecord.setUser(new CommonUser(user.getId()));
 		buyRecordService.save(buyRecord, lines);
