@@ -9,7 +9,6 @@
 		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
   <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
-  <script th:src="@{/js/jquery-min.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
   <script th:src="@{/js/silderBox.js}"></script>
   <script th:src="@{/js/script.js}"></script>
@@ -21,6 +20,48 @@
 
                 $(document).ajaxSend(function(e, xhr, options) {
                     xhr.setRequestHeader(header, token);
+                });
+                $("#addCart").click(function(){
+                	var checksVal = [];
+                	$('input[name="checks"]:checked').each(function(){
+                		checksVal.push($(this).val());
+                	});
+                	if(checksVal.length!=0){
+                	$.ajax({
+                		url : "/ajax/carts",
+                		type : "post",
+                		traditional:true,
+                		dataType:"json",
+                		data : {"productIds":checksVal},
+                		success:function(data){
+                			if(data.data=="login"){
+                				alert(login);
+                			}else if(data.data=="no authority"){
+                				alert(data.data);
+                			}else{
+                			var strs = "";
+                			var num =0;
+                			$(data).each(function(key,val){
+                         	var str = '<li id="cart'+val.productId+'"><div class="fl ct-img"><a href="/products/'+val.productId+'"><img width="50" height="50" src="'+val.image+'"/></a></div><div class="fl ct-name"><a href="/products/'+val.productId+'">'+val.name+'</a>'+
+    						'</div><div class="fr ct-detail"><span class="ct-price"><b>'+val.price+'</b>×<i id="cartNumber'+val.productId+'">'+val.num+'</i></span><br/><a class="fr cartRemove" data-id="'+val.productId+'">删除</a></div></li>';
+    						strs= strs+str;
+    						num++;
+                			});
+                			var cartUl = $("#cartUl");
+                			cartUl.empty();
+                			cartUl.append(strs);
+                        	var allNum = $("#allNum");
+                         	allNum.html(num);
+                         	var totalNum =$("#totalNum");
+                         	totalNum.html(num);
+                			}
+                		},error:function(data){
+                			console.log(data);
+                		}
+                	});
+                }else{
+                	alert("请选择要加入购物车的商品");
+                }
                 });
             });
 </script>
@@ -54,7 +95,9 @@
 					<div class="plans-list">
 						<ul>
 							<li th:if="${solution.getProducts().size()!=0}" th:each="product:${solution.getProducts()}">	
-								<a th:href="'/products/'+${product.id}"><div class="fl">
+								<input type="checkbox"  name = "checks" th:value="${product.id}"/>
+								<a th:href="'/products/'+${product.id}">
+								<div class="fl">
 									<img th:src="@{${product.coverImg}}" width="90" height="45"/>
 								</div> 
 								<div class="fl plans-dtl">
@@ -69,6 +112,10 @@
 						</ul>
 					</div>
 				</div>
+				<div class="checkAll" onclick="selectAll()">						
+					<input type="checkbox" />全选
+				</div>	
+				<a class="add-cart ft16 mauto" id="addCart">加入购物车</a>
 			</div>
 		</div>
 	</div>

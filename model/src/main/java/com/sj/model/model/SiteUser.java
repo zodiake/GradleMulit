@@ -36,33 +36,33 @@ public class SiteUser {
 
 	@NotBlank(message = "真实姓名不能为空")
 	@Column(name = "real_name")
-	protected String realName;
+	private String realName;
 	
 	@NotNull(message="请选择性别")
 	@Column(name="sex")
-	protected SexEnum sex;
+	private SexEnum sex;
 
 	@Size(min = 6, message = "密码最少为6位")
-	protected String password; // 密码
+	private String password; // 密码
 
 	@Column(name = "site_Authority")
-	protected String siteAuthority; // 网站权限
+	private String siteAuthority; // 网站权限
 
 	@Enumerated
-	protected ActivateEnum enabled; // 是否激活
+	private ActivateEnum enabled; // 是否激活
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_time")
-	protected Calendar createTime; // 创建时间
+	private Calendar createTime; // 创建时间
 
 	@NotBlank(message = "邮箱不能为空")
 	@Email(message = "请输入正确的邮箱")
-	protected String email; // 邮箱
+	private String email; // 邮箱
 
 	@Pattern(regexp = "[0-9]{11}", message = "手机号码为11位数组")
-	protected String phone; // 手机号码
+	private String phone; // 手机号码
 
-	protected int score;
+	private int score;
 
 	public SiteUser() {
 	}
