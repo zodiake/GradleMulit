@@ -178,7 +178,7 @@ public class CommonUserController {
 	public String updateProcess(
 			@Valid @ModelAttribute("buy") BuyRecord buyRecord,
 			BindingResult result, @PathVariable("id") Long id, Model uiModel,
-			@SecurityUser SiteUser user,@RequestParam("arrivalTime")String arrivalTime) throws ParseException {
+			@SecurityUser SiteUser user,@RequestParam("arrivaTime")String arrivalTime) throws ParseException {
 		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
 		Calendar calendar = null;
 		if(arrivalTime==null || arrivalTime.length()==0)
@@ -189,6 +189,9 @@ public class CommonUserController {
 			buyRecord.setArrivalTime(calendar);
 		}
 		if(result.hasErrors()){
+			BuyRecord newBuy = buyRecordService.findOne(id, new CommonUser(user.getId()));
+			buyRecord.setProducts(newBuy.getProducts());
+			buyRecord.setPrice(newBuy.getPrice());
 			buyRecord.setId(id);
 			CommonUser common = commonUserService.findOne(user.getId());
 			buyRecord.setUser(common);
@@ -222,7 +225,7 @@ public class CommonUserController {
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.POST, params = "form")
 	public String createBuyRecordProcess(
 			@Valid @ModelAttribute("buy") BuyRecord buyRecord,BindingResult result, Model uiModel,
-			@SecurityUser SiteUser user,HttpSession session,@RequestParam("arrivalTime")String arrivalTime) throws ParseException {
+			@SecurityUser SiteUser user,HttpSession session,@RequestParam("arrivaTime")String arrivalTime) throws ParseException {
 		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
 		Calendar calendar = null;
 		if(arrivalTime==null || arrivalTime.length()==0)
@@ -237,6 +240,11 @@ public class CommonUserController {
 			buyRecord.setUser(common);
 			uiModel.addAttribute("buy", buyRecord);
 			Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
+			float totalPrice = 0f;
+			for (CartLine cartLine : lines) {
+				totalPrice = totalPrice + cartLine.getPrice()*cartLine.getNumber();
+			}
+			uiModel.addAttribute("totalPrice", totalPrice);
 			uiModel.addAttribute("lines", lines);
 			return "user/common/createBuy";
 		}
