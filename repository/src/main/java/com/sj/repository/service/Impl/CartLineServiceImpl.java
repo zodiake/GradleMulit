@@ -50,7 +50,6 @@ public class CartLineServiceImpl implements CartLineService {
 
 	@Override
 	public void remove(Long id, Long cartLineId) {
-		System.out.println("remove.....");
 		String cartId = CART + id;
 		String cartlineId = CARTLINE + id + ":" + cartLineId;
 		template.opsForSet().remove(cartId, cartLineId.toString());

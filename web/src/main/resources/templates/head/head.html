@@ -45,7 +45,7 @@
 							</ul>
 						</div>
 						<div class="ct-total">
-							共<b th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="totalNum"></b>种商品
+						共<b th:if="${session.cartLines==null}" th:text="0" id="totalNum"></b><b th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="totalNum"></b>种商品
 							<a class="go-cart" href="/user/cart">去购物车</a>
 						</div>
 					</div>
