@@ -1,14 +1,11 @@
 package com.sj.web.controller;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import javax.servlet.http.HttpSession;
 
-import org.h2.engine.SysProperties;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sj.model.model.CartLine;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
-import com.sj.model.model.Review;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.CartLineService;
 import com.sj.repository.service.CartService;
@@ -137,6 +133,7 @@ public class CartController {
 	@ResponseBody
 	private String removeCartLine(@PathVariable("productId") Long productId,
 			HttpSession session, @SecurityUser SiteUser user) {
+		@SuppressWarnings("unchecked")
 		Set<CartLine> lines = (Set<CartLine>) session.getAttribute("cartLines");
 		for (CartLine cartLine : lines) {
 			if (cartLine.getProductId().equals(productId)) {
