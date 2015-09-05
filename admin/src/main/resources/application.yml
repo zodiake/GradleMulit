@@ -1,10 +1,13 @@
 spring:
-  profiles.active: dev
+  profiles.active: prod
   thymeleaf.cache: false
-  jpa.hibernate.ddl-auto: ""
   data.jpa.repositories.enabled: true
-  jpa.show-sql: true
   http.encoding.charset: UTF-8
+  jpa:
+    show-sql: true
+    hibernate:
+      dll-auto: none
+
 
 security:
   basic.enabled: false
@@ -39,6 +42,10 @@ spring:
         username: root
         password: 1234
         initialize: false
+   jpa:
+     properties:
+       hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
 
 logging:
   level.org.springframework.web: INFO
