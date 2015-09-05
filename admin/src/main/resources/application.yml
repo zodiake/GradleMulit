@@ -39,7 +39,7 @@ spring:
    data.elasticsearch.cluster-nodes: 192.168.1.137:9300
    datasource:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/sj
+        url: jdbc:mysql://localhost:3306/sj?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
         username: admin
         password: 123456
         initialize: false
