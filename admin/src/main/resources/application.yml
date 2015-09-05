@@ -34,14 +34,11 @@ logging:
 ---
 spring:
    profiles: prod
-   redis.host: 127.0.0.1
-   redis.port: 6379
-   data.elasticsearch.cluster-nodes: 127.0.0.1:9300
    datasource:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/sj?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
-        username: admin
-        password: 123456
+        url: jdbc:mysql://localhost:3306/sj
+        username: root
+        password: root
         initialize: false
    jpa:
      properties:
