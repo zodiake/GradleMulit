@@ -36,6 +36,7 @@ i{
 }
 a{
 	text-decoration: none;
+	color:#868fa7;
 }
 a:hover{
 	cursor: pointer;
@@ -214,7 +215,7 @@ table{
 	border-left: 1px solid #ffbe26;
 	border-right: 1px solid #ffbe26;
 }
-.head-box .head-search i.icon-search{
+.head-box .head-search input.icon-search{
 	display: block;
 	position: absolute;
 	right: 12px;
@@ -222,6 +223,7 @@ table{
 	width: 25px;
 	height: 20px;
 	background: url('../img/icon-search.png') no-repeat;
+	border:none;
 }
 .head-menu{
 	float: right;
@@ -1061,7 +1063,7 @@ a.minus:hover, a.plus:hover {
 }
 .search-select>label{
 	float: left;
-	padding-left:20px;
+	padding-left:11px;
 	line-height:22px;
 }
 .search-select li{
