@@ -263,7 +263,7 @@ table{
 	background: #43b628;
 }
 
-/**头部购物车**/
+/**澶撮儴璐墿杞�**/
 .head-dorpdown{
 	margin-top: 25px;
 	float: right;
@@ -586,7 +586,7 @@ table{
     background-color: #ffbe26;
 }
 
-/** 个人注册 **/
+/** 涓汉娉ㄥ唽 **/
 
 
 .resg-header .head-nav{
@@ -724,7 +724,7 @@ table{
 	text-align: center;
 	background: #7ecef4;
 }
-/**登录**/
+/**鐧诲綍**/
 .resg-header .head-menu-btn.logo-menu{
 	float: right;
 	padding-right: 20px;
@@ -757,11 +757,11 @@ table{
 	margin-right: 32px;
 }
 
-/**找回密码**/
+/**鎵惧洖瀵嗙爜**/
 .find-password button{
 	margin-left: 210px;
 }
-/**仪器分类**/
+/**浠櫒鍒嗙被**/
 .sort-box{
 	width: 480px;
 	margin-bottom: 20px;
@@ -780,7 +780,7 @@ table{
 .sort-box div.sort-detail i{
 	margin-right: 8px;
 }
-/**个人中心**/
+/**涓汉涓績**/
 .self-wrap .gray-hd{
 	margin-bottom: 20px;
 	width: 970px;
@@ -890,7 +890,7 @@ table.save-table span.one-sort{
 .point p{
 	margin: 10px 0;
 }
-/**购物车**/
+/**璐墿杞�**/
 .mainpanel{
 	width: 805px;
 }
@@ -978,7 +978,7 @@ a.minus:hover, a.plus:hover {
 	margin-top: 7px;
 }
 
-/**收藏夹**/
+/**鏀惰棌澶�**/
 .collect{
 	width: 780px;
 	padding-left:25px;
@@ -1043,7 +1043,7 @@ a.minus:hover, a.plus:hover {
 	background: url('../img/icon-cart.png') no-repeat 1px 3px;
 	margin-left: 2px;
 }
-/*仪器分类列表*/
+/*浠櫒鍒嗙被鍒楄〃*/
 .crumb{
 	padding-left: 20px;
 	margin: 8px 0px;
@@ -1053,47 +1053,52 @@ a.minus:hover, a.plus:hover {
 	border-top: none;
 	border-bottom: none;	
 }
-.sort-group ul{		
-
-}
-.sort-group li{
-	padding: 10px 20px;
-	overflow: hidden;
-	position: relative;
+.search-select{
+	padding:8px;
+	position:relative;
 	border-bottom: 1px solid #dcdcdc;
+	overflow:hidden;
 }
-.sort-group li .items{
+.search-select>label{
+	float: left;
+	padding-left:20px;
+	line-height:22px;
+}
+.search-select li{
+	padding:3px;
+	margin:0 3px;
+	display:inline-block;
+	zoom:1;
+	position: relative;
+}
+.search-select li label{
+	display:block;
+}
+.search-select li input[type=radio]{
+	top:-2px;
+	left:20px;
+	display:none;
+}
+.search-select .list-inline{
 	width: 90%;
 	float: left;
 }
-.sort-group li .items.expand{
+.search-select .list-inline.expand{
 	height: auto;
 	margin-bottom: -10px;
 }
-.sort-group li .items.expand a,
-.sort-group li .items.pack a{	
-	margin-bottom: 8px;
-}
-.sort-group li .items.pack{	
-	height:17px;
-}
-.sort-group li .more-items{
+.search-select .more-items{
 	position: absolute;
-	right: 0;
+	right: 10px;
 	top: 10px;
 }
-.sort-group li .more-items i.expand-btn{
+.search-select .more-items i.expand-btn{
 	display: inline-block;
 	width: 16px;
 	height: 7px;
-	margin-left: -10px;
 	background: url('../img/icon-more.png') no-repeat;
 }
-.sort-group label{
-	float: left;
-	width: 5%;
-}
-.sort-group li a{
+.search-select li a{
 	margin-right: 10px;
 	display: inline-block;
 }
@@ -1211,7 +1216,7 @@ a.minus:hover, a.plus:hover {
 	background: url('../img/icon-del.png') no-repeat;
 }
 
-/**仪器商品详情页**/
+/**浠櫒鍟嗗搧璇︽儏椤�**/
 .goods-property{
 	padding: 10px;
 }
@@ -1456,7 +1461,7 @@ li div.topic-detail{
 }
 
 
-/**新闻**/
+/**鏂伴椈**/
 .news-crumb{
 	padding-bottom: 5px;
 	border-bottom: 1px solid #dcdcdc;
@@ -1482,7 +1487,7 @@ li div.topic-detail{
 	background: url('../img/icon-news.png') no-repeat;
 }
 
-/**新闻详细页**/
+/**鏂伴椈璇︾粏椤�**/
 .news-dtl-wrap .news-point{
 	padding-left: 25px;
 	background-position: 0 9px;
