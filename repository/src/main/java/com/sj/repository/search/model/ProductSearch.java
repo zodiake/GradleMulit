@@ -41,28 +41,17 @@ public class ProductSearch {
 	private String type;
 
 	// 产品编号
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 	private String serialNo;
 
 	// 商品url
 	private String url;
 
+	@Field(type = FieldType.String)
 	private String original;
 
-	public ProductSearch() {
-
-	}
-
-	public ProductSearch(Long id, String secondCategory, String thirdCategory,
-			Float price, String brand, String imgurl, String title) {
-		super();
-		this.id = id;
-		this.secondCategory = secondCategory;
-		this.thirdCategory = thirdCategory;
-		this.price = price;
-		this.brand = brand;
-		this.imgurl = imgurl;
-		this.title = title;
-	}
+	@Field(type = FieldType.String)
+	private String tag;
 
 	public ProductSearch(Product i) {
 		this.id = i.getId();
@@ -74,6 +63,8 @@ public class ProductSearch {
 		this.imgurl = i.getCoverImg();
 		this.serialNo = i.getSerialNO();
 		this.url = i.getUrl();
+		this.original = i.getPlaceOfProduction().toString();
+		this.tag = i.getLabel();
 	}
 
 	public Long getId() {
@@ -162,6 +153,14 @@ public class ProductSearch {
 
 	public void setOriginal(String original) {
 		this.original = original;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 	@Override

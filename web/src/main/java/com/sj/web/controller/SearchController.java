@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sj.model.model.Brand;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.model.ProductSearchOption;
 import com.sj.repository.search.service.ProductSearchService;
+import com.sj.repository.service.BrandService;
 import com.sj.repository.service.ProductCategoryService;
 
 @Controller
@@ -26,12 +28,19 @@ public class SearchController extends BaseController<ProductSearch> {
 	private ProductSearchService service;
 	@Autowired
 	private ProductCategoryService categoryService;
+	@Autowired
+	private BrandService brandService;
 
-	private final String SEARCHLIST = "search/products";
+	private final String SEARCHLIST = "search/testSearch";
 
 	@ModelAttribute("firstCategory")
 	public List<ProductCategory> firstCategory() {
 		return categoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+	}
+
+	@ModelAttribute("brands")
+	public List<Brand> brands() {
+		return brandService.findAll();
 	}
 
 	@RequestMapping(value = "/products/_search", method = RequestMethod.GET)
@@ -48,7 +57,7 @@ public class SearchController extends BaseController<ProductSearch> {
 					.findAllSecondCategory(ActivateEnum.ACTIVATE);
 			uiModel.addAttribute("categories", categories);
 		}
-		uiModel.addAttribute("lists", results);
+		uiModel.addAttribute("products", results);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
 		return SEARCHLIST;
