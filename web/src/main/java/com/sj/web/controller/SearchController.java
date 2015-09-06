@@ -1,5 +1,6 @@
 package com.sj.web.controller;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sj.model.model.Brand;
 import com.sj.model.model.ProductCategory;
-import com.sj.model.type.ActivateEnum;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.model.ProductSearchOption;
 import com.sj.repository.search.service.ProductSearchService;
@@ -33,11 +33,6 @@ public class SearchController extends BaseController<ProductSearch> {
 
 	private final String SEARCHLIST = "search/testSearch";
 
-	@ModelAttribute("firstCategory")
-	public List<ProductCategory> firstCategory() {
-		return categoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
-	}
-
 	@ModelAttribute("brands")
 	public List<Brand> brands() {
 		return brandService.findAll();
@@ -47,19 +42,49 @@ public class SearchController extends BaseController<ProductSearch> {
 	public String productSearch(@ModelAttribute ProductSearchOption option,
 			@PageableDefault(page = 0, size = 15) Pageable pageable,
 			Model uiModel) {
+		buildOption(option);
 		Page<ProductSearch> results = service.findByOption(option, pageable);
 		Map<String, String> map = service.buildMap(option);
+
+		// findAll thirdCategory
+		Collection<ProductCategory> thirdCategories;
+		if (option.getSecondCategory() != null) {
+			long id = Long.parseLong(option.getSecondCategory());
+			thirdCategories = categoryService.findOne(id).getCategories();
+		} else {
+			long id = Long.parseLong(option.getThirdCategory());
+			ProductCategory sc = new ProductCategory(id);
+			thirdCategories = categoryService.findSiblings(sc);
+		}
+
 		ViewPage viewpage = caculatePage(results);
 		viewpage.setOption(map);
 		viewpage.setHref("/products/_search");
-		if (option.getFirstCategory() != null) {
-			List<ProductCategory> categories = categoryService
-					.findAllSecondCategory(ActivateEnum.ACTIVATE);
-			uiModel.addAttribute("categories", categories);
-		}
+
 		uiModel.addAttribute("products", results);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
+		uiModel.addAttribute("categories", thirdCategories);
 		return SEARCHLIST;
+	}
+
+	private void buildOption(ProductSearchOption option) {
+		if (option.getPriceRange() != null) {
+			Integer i = Integer.parseInt(option.getPriceRange());
+			switch (i) {
+			case 1:
+				option.setFrom(10000f);
+				option.setTo(30000f);
+				break;
+			case 2:
+				option.setFrom(30000f);
+				option.setTo(50000f);
+				break;
+			case 3:
+				option.setFrom(50000f);
+				option.setTo(70000f);
+				break;
+			}
+		}
 	}
 }

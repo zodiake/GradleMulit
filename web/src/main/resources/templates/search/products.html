@@ -99,66 +99,158 @@
 			</div>
 			<div class="sort-group">
 				<div class="selected">
-					<label>筛选：</label>
+					<label><b>筛选：</b></label>
 					<a class="sel-tag"> 类型：生物芯片 <span class="icon-del"></span> </a>
 					<a class="sel-tag"> 品牌：生物芯片 <span class="icon-del"></span> </a>
 				</div>
-				<ul>
-					<li>
+				<form>
+					<div class="search-select">					
 						<label><b>类型：</b></label>
-						<div class="items pack">
-							<a>生物芯片</a>
-							<a>芯描仪</a>
-							<a>生片</a>
-							<a>芯片扫描仪</a>
-							<a>生物芯片</a>
-							<a>描仪</a>
-							<a>生物芯片</a>
-							<a>描仪</a>
-							<a>生物芯片</a>
-							<a>扫描仪</a>
-							<a>生物芯片</a>
-							<a>芯片扫描仪</a>
-							<a>生物芯片</a>
-							<a>描仪</a>
-							<a>生物芯片</a>
-							<a>芯仪</a>
-							<a>生物芯片</a>
-							<a>扫描仪</a>
-						</div>
+						<ul class="list-inline">
+							<li class="active">
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>		
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>	
+												
+						</ul>
 						<div class="more-items">
-							<a> 更多 </a>
-							<i class="expand-btn"></i>
-						</div>
-					</li>
-					<li>
+	                         <a>更多</a>
+	                         <i class="expand-btn"></i>
+	                     </div>
+					</div>
+					<div class="search-select">					
 						<label><b>品牌：</b></label>
-						<div class="items">
-							<div th:each="brand:${brands}">
-								<label th:text="${brand.name}"></label>
-								<input type="radio" th:field="*{brand}"/>
-							</div>
-						</div>
-					</li>
-					<li>
+						<ul class="list-inline">
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li class="active">
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>		
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>生物芯片</label>
+							</li>						
+						</ul>
+					</div>
+					<div class="search-select">					
 						<label><b>产地：</b></label>
-						<div class="items">
-							<a>国产</a>
-							<a>进口</a>
-						</div>
-					</li>
-					<li>
+						<ul class="list-inline pack">
+							<li>
+								<input type="radio" name="radio" />
+								<label>进口</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>中国</label>
+							</li>				
+						</ul>
+					</div>
+					<div class="search-select">					
 						<label><b>价格：</b></label>
-						<div class="items">
-							<a>1-3万</a>
-							<a>5-7万</a>
-							<a>1-3万</a>
-							<a>5-7万</a>
-							<a>1-30万</a>
-							<a>5-7万</a>
-						</div>
-					</li>
-				</ul>
+						<ul class="list-inline pack">
+							<li>
+								<input type="radio" name="radio" />
+								<label>1-3万</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>3-5万</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>5-8万</label>
+							</li>
+							<li>
+								<input type="radio" name="radio" />
+								<label>8-15万</label>
+							</li>						
+						</ul>
+					</div>
+					
+				</form>
 			</div>
 			<div class="items-search">
 				<label><b>标签：</b></label>

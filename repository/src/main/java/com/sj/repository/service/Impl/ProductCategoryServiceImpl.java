@@ -192,4 +192,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		return lists.stream().map(p -> new ProductCategoryDetailJson(p))
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public List<ProductCategory> findSiblings(ProductCategory category) {
+		ProductCategory c = repository.findOne(category.getId());
+		return Lists.newArrayList(repository.findOne(c.getParent().getId())
+				.getCategories());
+	}
 }

@@ -39,13 +39,13 @@ $(function(){
 		$(this).find('.search-sort').slideUp();
 	})
 	$('.more-items a').click(function(){
-		var li_par=$(this).parents('li');		
-		if($(this).text() =="收起"){
+		var li_par=$(this).parents('.search-select').find('.list-inline');		
+		if($(this).text() =='收起'){
 			$(this).text('更多')
-			li_par.find('.items').removeClass('expand').addClass('pack');
+			li_par.removeClass('expand').addClass('pack');
 		}else{			
 			$(this).text('收起')
-			li_par.find('.items').removeClass('pack').addClass('expand');
+			li_par.removeClass('pack').addClass('expand');
 		}
 	})
 	$('.plans-list li').click(function(){
