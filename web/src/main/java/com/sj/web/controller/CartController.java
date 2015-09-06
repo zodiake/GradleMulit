@@ -80,7 +80,8 @@ public class CartController {
 
 	@RequestMapping(value = "/ajax/carts", method = RequestMethod.POST)
 	@ResponseBody
-	private String addCartLines(@RequestParam("productIds") String[] productIds,HttpSession session) {
+	private String addCartLines(
+			@RequestParam("productIds") String[] productIds, HttpSession session) {
 		if (!userContext.isLogin())
 			return "{\"data\":\"login\"}";
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
@@ -115,6 +116,7 @@ public class CartController {
 		session.setAttribute("cartLines", lines);
 		return convertJSONString(lines);
 	}
+
 	private String convertJSONString(Set<CartLine> lines) {
 		JSONArray array = new JSONArray();
 		for (CartLine cartLine : lines) {
@@ -170,15 +172,23 @@ public class CartController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/user/cart/all", method = RequestMethod.PUT, params = "check")
+	@RequestMapping(value = "/user/cart/all/{check}", method = RequestMethod.PUT, params = "check")
 	@ResponseBody
-	private String updateAllCartLineCheck() {
+	private String updateAllCartLineCheck(@PathVariable("check") String check) {
 		if (!userContext.isLogin())
 			return "fail";
 		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lines = cartLineService.findByUser(user.getId());
-		for (CartLine cartLine : lines) {
-			cartLineService.updateCheck(user.getId(), cartLine.getId(), "true");
+		if ("1".equals(check)) {
+			for (CartLine cartLine : lines) {
+				cartLineService.updateCheck(user.getId(), cartLine.getId(),
+						"true");
+			}
+		} else {
+			for (CartLine cartLine : lines) {
+				cartLineService.updateCheck(user.getId(), cartLine.getId(),
+						"false");
+			}
 		}
 		return "success";
 	}

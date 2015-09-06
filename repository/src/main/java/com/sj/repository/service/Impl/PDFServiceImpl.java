@@ -40,6 +40,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.sj.model.model.BuyProduct;
 import com.sj.model.model.BuyRecord;
 import com.sj.model.model.Product;
+import com.sj.model.model.Provider;
 import com.sj.model.type.PlaceEnum;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.PDFService;
@@ -206,7 +207,9 @@ public class PDFServiceImpl implements PDFService {
 	
 	private PdfPTable getProductsTable(Product product,Font fontChinese) throws MalformedURLException, IOException, DocumentException{
 			PdfPTable table = new PdfPTable(2);
-			Path basePath = Paths.get("").resolve(providerPath + product.getCreatedBy().getId()+"/"+product.getCoverImg());
+			System.out.println(providerPath);
+			Provider p = product.getCreatedBy();
+			Path basePath = Paths.get("").resolve(providerPath + p.getId()+"/"+product.getCoverImg());
 			Image image = Image.getInstance(basePath.toString());
 			image.setAlignment(Element.ALIGN_CENTER);
 			PdfPCell imageCell = new PdfPCell();

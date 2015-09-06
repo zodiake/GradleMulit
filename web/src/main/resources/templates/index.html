@@ -272,7 +272,7 @@
 			<div class="global-box topic-box">
 				<ul>
 					<li th:each="subject:${subjects}"><a>
-							<div class="title ft16" th:text="name">生物芯片扫描仪</div>
+							<div class="title ft16" th:text="${subject.name}">生物芯片扫描仪</div>
 							<div class="spe-pic">
 								<img alt="" th:src="@{/img/list1.jpg}" width="230" height="130" />
 							</div>
