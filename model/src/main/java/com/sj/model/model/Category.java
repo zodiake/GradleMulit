@@ -1,5 +1,6 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import com.sj.model.type.ActivateEnum;
 @Table(name = "category")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "category_type", discriminatorType = DiscriminatorType.STRING)
-public abstract class Category {
+public abstract class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
@@ -61,7 +62,7 @@ public abstract class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public ActivateEnum getActivate() {
 		return activate;
 	}

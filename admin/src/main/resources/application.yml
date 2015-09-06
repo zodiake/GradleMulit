@@ -1,5 +1,5 @@
 spring:
-  profiles.active: prod
+  profiles.active: dev
   thymeleaf.cache: false
   data.jpa.repositories.enabled: true
   http.encoding.charset: UTF-8
