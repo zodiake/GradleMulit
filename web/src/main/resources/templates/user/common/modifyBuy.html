@@ -24,7 +24,7 @@
 </head>
 <body>
 	<div class="header">
-		<div th:include="/head/head"></div>
+		<div th:include="head/head :: head">Head</div>
 	</div>
 	<!-- header -->
 	<div class="wrapper">
@@ -59,9 +59,11 @@
 								</div>
 								<div class="form-group">
 									<label>经费类别</label><input type="text" class="w635" th:field="*{fundCategory}"/>
+									<i class="error" th:if="${#fields.hasErrors('fundCategory')}" th:errors="*{fundCategory}">必填</i>
 								</div>
 								<div class="form-group">
 									<label>项目名称</label><input type="text" class="w635" th:field="*{name}" />
+									<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
 								</div>
 								<table width="90%" class="mauto">
 									<thead>
@@ -69,7 +71,6 @@
 											<th>序号</th>
 											<th>名称</th>
 											<th>型号</th>
-											<th>单位</th>
 											<th>数量</th>
 											<th>小计（元）</th>
 											<th>产地</th>
@@ -81,7 +82,6 @@
 											<td th:text="${product.product.name}">Lorem ipsum dolor
 												sit amet</td>
 											<td th:text="${product.product.model}">LoremLorem</td>
-											<td th:text="${product.product.specifications}">Lorem</td>
 											<td th:text="${product.number}">1</td>
 											<td th:text="${product.number * product.product.price}">1222.00</td>
 											<td th:if="${product.product.placeOfProduction.toString()=='DOMESTIC'}" th:text="国产"></td>
@@ -100,8 +100,9 @@
 								</div>
 								<div class="form-group">
 									<label>期望到货日期</label> 
-									<input class="form-control datepicker" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}" id="arrivalTime" name="arrivalTime" type="text"/>
-								</div>
+									<input th:if="${buy.arrivalTime!=null}" class="form-control datepicker" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}" id="arrivalTime" name="arrivaTime" type="text" />
+									<input th:unless="${buy.arrivalTime!=null}" class="form-control datepicker" id="arrivalTime" name="arrivaTime" type="text" />
+									</div>
 								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 								<button class="btn green mauto">保存</button>
 								<a href="/user/buyRecords">

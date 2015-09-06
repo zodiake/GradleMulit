@@ -65,7 +65,7 @@ public class PDFServiceImpl implements PDFService {
 	}
 	private PdfPCell getProductCell(String content, int colspan, Font fontChinese) {
 		PdfPCell c = new PdfPCell(new Paragraph(content, fontChinese));
-		c.setFixedHeight(55);
+		c.setFixedHeight(38);
 		c.setPaddingLeft(10);
 		c.setPaddingRight(10);
 		c.setColspan(colspan);
@@ -123,7 +123,7 @@ public class PDFServiceImpl implements PDFService {
 		
 		int num = 0;
 		for (BuyProduct buyProduct: buyRecord.getProducts()) {
-			if(num==2){
+			if(num==3){
 				document.newPage();
 				num=0;
 			}

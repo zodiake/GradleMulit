@@ -135,13 +135,12 @@ create table brand(
 	created_time timestamp,
 	activate smallint default 1,
 	cover_img varchar(52),
-	primary key(id),
+	primary key(id)
 );
 
 create table product(
 	id bigint not null auto_increment,
 	name varchar(40) not null,
-	name_english varchar(64),
 	model varchar(20),
 	place_of_production smallint,
 	status smallint,

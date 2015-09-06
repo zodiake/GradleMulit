@@ -176,7 +176,6 @@ public class ProviderController extends BaseController<Provider> {
 			uiModel.addAttribute("product", instrument);
 			return "user/provider/release";
 		}
-		instrument.setCoverImg("/img/111.jpg");
 		instrument.setCreatedBy(new Provider(user.getId()));
 		instrument.setCreatedTime(Calendar.getInstance());
 		instrument.setStatus(ProductStatusEnum.EXAMINE);
@@ -216,7 +215,6 @@ public class ProviderController extends BaseController<Provider> {
 			uiModel.addAttribute("product", consumable);
 			return "user/provider/release";
 		}
-		consumable.setCoverImg("/img/111.jpg");
 		consumable.setCreatedBy(new Provider(user.getId()));
 		consumable.setCreatedTime(Calendar.getInstance());
 		consumable.setStatus(ProductStatusEnum.EXAMINE);
@@ -255,7 +253,6 @@ public class ProviderController extends BaseController<Provider> {
 			uiModel.addAttribute("product", reagents);
 			return "user/provider/release";
 		}
-		reagents.setCoverImg("/img/111.jpg");
 		reagents.setCreatedBy(new Provider(user.getId()));
 		reagents.setCreatedTime(Calendar.getInstance());
 		reagents.setStatus(ProductStatusEnum.EXAMINE);
@@ -294,7 +291,6 @@ public class ProviderController extends BaseController<Provider> {
 			uiModel.addAttribute("product", service);
 			return "user/provider/release";
 		}
-		service.setCoverImg("/img/111.jpg");
 		service.setCreatedBy(new Provider(user.getId()));
 		service.setCreatedTime(Calendar.getInstance());
 		service.setStatus(ProductStatusEnum.EXAMINE);

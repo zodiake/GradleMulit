@@ -90,8 +90,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
 	@Override
 	public Advertisement save(Advertisement advertisement) {
-		System.out.println("----" + advertisement.getCategory());
-		System.out.println("===" + advertisement.getActivate());
 		return repository.save(advertisement);
 	}
 

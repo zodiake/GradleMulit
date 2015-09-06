@@ -24,7 +24,7 @@
 </head>
 <body>
 	<div class="header">
-		<div th:include="@{/head/head}"></div>
+		<div th:include="head/head :: head">Head</div>
 	</div>
 	<!-- header -->
 	<div class="wrapper">
@@ -33,14 +33,14 @@
 			<div class="mainwrapper clearfix">
 				<div class="aside fl">
 					<a class="active">个人资料</a>
-					<a href="/provider/products?form">发布商品</a>
-					<a href="/provider/products">商品维护</a>
-					<a href="/provider/count">商品信息统计</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products?form">发布商品</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products">商品维护</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/count">商品信息统计</a>
 				</div>
 				<div class="mainpanel fr">
 					<div class="tabs-nav info-tabs bodr">
 						<a class="active">基本资料</a>
-						<a href="/provider/changePw">修改密码</a>
+						<a href="/supplier/changePw">修改密码</a>
 					</div>
 					<div class="tab-conts tab-con basic-info">
 						<div class="tab-panel form-control company-group">
@@ -50,12 +50,12 @@
 									<div class="fl">
 										<div class="form-group">
 											<label>企业名称（中文）</label>
-											<input type="text" th:field="*{companyNameChina}" disabled="disabled" />	
+											<input type="text" th:field="*{companyNameChina}" readonly="readonly"/>	
 										</div>
 										<div class="form-group">
 											<div class="fl">
 											<label>企业名称（英文）</label>
-											<input type="text" th:field="*{companyNameEnglish}" disabled="disabled"/>									
+											<input type="text" th:field="*{companyNameEnglish}" readonly="readonly"/>									
 											</div>
 										</div>
 										<div class="form-group">
@@ -174,19 +174,19 @@
 										<div class="form-group">
 											<div class="fl">
 											<label>注册邮箱</label>
-											<input type="text" th:field="*{email}" disabled="disabled"/>
+											<input type="text" th:field="*{email}" readonly="readonly"/>
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="fl">
 											<label>注册用户名</label>
-											<input type="text" th:field="*{name}" disabled="disabled"/>
+											<input type="text" th:field="*{name}" readonly="readonly"/>
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="fl">
 											<label>手机号</label>
-											<input type="text" th:field="*{phone}" disabled="disabled"/>	
+											<input type="text" th:field="*{phone}" readonly="readonly"/>	
 											</div>
 										</div>
 										<div class="form-group">

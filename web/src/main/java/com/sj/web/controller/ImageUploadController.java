@@ -36,8 +36,7 @@ public class ImageUploadController {
 			HttpServletResponse response) {
 		String userFold = userContext.getCurrentUser().getId().toString();
 		Path userDir = Paths.get(userFold);
-		Path basePath = Paths.get("").resolve(
-				"src/main/resources/static/upload");
+		Path basePath = Paths.get("").resolve("src/main/resources/static/upload");
 		Calendar c = Calendar.getInstance();
 		String fileName = String.valueOf(c.hashCode())
 				+ StringUtils.trimAllWhitespace(file.getOriginalFilename());

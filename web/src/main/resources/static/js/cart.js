@@ -1,12 +1,5 @@
 $(function() {
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-			$(document).ajaxSend(function(e, xhr, options) {
-				xhr.setRequestHeader(header, token);
-			});
-			
 			getCount();
-			
 			$(".delete").click(function(){
 				var product = $(this);
 				var productId = product.attr("data-id");
@@ -15,7 +8,10 @@ $(function() {
 					url : "/user/cart/"+productId,
 					success : function(data){
 						if(data=="success"){
-							$("#"+productId).html("");
+							$("#"+productId).remove();
+							getCount();
+							var listSize =$("#listSize");
+							listSize.html(parseInt(listSize.html())-1);
 						}
 					},
 					error : function(data){ 
@@ -23,6 +19,8 @@ $(function() {
 					}
 				});
 			});
+			
+			
 			$(".minus").click(function(){
 				var i = $(this);
 				var productId = i.attr("data-id");
@@ -123,6 +121,19 @@ $(function() {
 					},
 					error : function(data){ 
 						alert(data);
+					}
+				});
+			});
+			$("#checkAll").click(function(){
+				var obj = $(this);
+				var checks = $(".check");
+				$.ajax({
+					type : 'put',
+					url : '/user/cart/all?check',
+					success : function(data){
+						checks.attr("checked",true);
+					},error : function(data){
+						alert(error);
 					}
 				});
 			});

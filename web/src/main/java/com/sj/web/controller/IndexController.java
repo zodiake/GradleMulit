@@ -69,4 +69,8 @@ public class IndexController {
 		uiModel.addAttribute("images", scrollImages);
 		return "index";
 	}
+	@RequestMapping(value = "/head",method = RequestMethod.GET)
+	public String getHead(){
+		return "/head/head";
+	}
 }

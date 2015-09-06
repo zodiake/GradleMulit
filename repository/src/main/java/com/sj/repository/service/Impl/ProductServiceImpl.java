@@ -54,37 +54,6 @@ public class ProductServiceImpl implements ProductService {
 			ProductStatusEnum status) {
 		Page<Product> pages = repository.findByCreatedByAndStatus(user,
 				pageable, status);
-		List<Product> lists = pages.getContent();
-		lists.stream().forEach(
-				l -> {
-					String count = template.opsForValue().get(
-							VIEWCOUNT + l.getId().toString());
-					if (count != null)
-						l.setViewCount(Long.valueOf(count));
-					else
-						l.setViewCount(0l);
-
-					String review = template.opsForValue().get(
-							REVIEWCOUNT + l.getId().toString());
-					if (review != null)
-						l.setReviewCount(Long.valueOf(review));
-					else
-						l.setReviewCount(0l);
-
-					String buy = template.opsForValue().get(
-							BUYCOUNT + l.getId().toString());
-					if (buy != null)
-						l.setBuyCount(Long.valueOf(buy));
-					else
-						l.setBuyCount(0l);
-
-					String collection = template.opsForValue().get(
-							COLLECTIONCOUNT + l.getId().toString());
-					if (collection != null)
-						l.setCollectionCount(Long.valueOf(collection));
-					else
-						l.setCollectionCount(0l);
-				});
 		return pages;
 	}
 

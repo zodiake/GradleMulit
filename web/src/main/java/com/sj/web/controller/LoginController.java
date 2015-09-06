@@ -1,6 +1,8 @@
 package com.sj.web.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
+import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
@@ -107,8 +110,8 @@ public class LoginController {
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
 		userContext.setCurrentUser(user);
 		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
-			// Set<CartLine> lines = cartLineService.findByUser(user.getId());
-			// httpSession.setAttribute("cartLines", lines);
+			 Set<CartLine> lines = cartLineService.findByUser(user.getId());
+			 httpSession.setAttribute("cartLines", lines);
 		}
 		return "redirect:/index";
 	}
@@ -122,7 +125,7 @@ public class LoginController {
 	@ResponseBody
 	public String ajaxLogin(
 			@RequestParam(value = "name", required = true) String name,
-			@RequestParam(value = "password", required = true) String password) {
+			@RequestParam(value = "password", required = true) String password,HttpSession httpSession) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				name, password);
 		try {
@@ -132,6 +135,10 @@ public class LoginController {
 		}
 		SiteUser user = (SiteUser) userDetailsService.loadUserByUsername(name);
 		userContext.setCurrentUser(user);
+		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
+			 Set<CartLine> lines = cartLineService.findByUser(user.getId());
+			 httpSession.setAttribute("cartLines", lines);
+		}
 		return "success";
 	}
 
@@ -163,6 +170,7 @@ public class LoginController {
 		user.setPassword(encoder.encodePassword(user.getPassword(), null));
 		SiteUser siteUser = commonUserService.create(user);
 		userContext.setCurrentUser(siteUser);
+		session.setAttribute("cartLines", new HashSet<CartLine>());
 		return "redirect:/";
 	}
 
@@ -180,7 +188,6 @@ public class LoginController {
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult providerResult, Model uiModel) {
-		System.out.println(provider.getComponyType().toString());
 		if (providerResult.hasErrors()) {
 			provider.setPassword(null);
 			uiModel.addAttribute("provinces", provinceService.findAll());
@@ -195,6 +202,7 @@ public class LoginController {
 		provider.setPassword(encoder.encodePassword(provider.getPassword(),
 				null));
 		provider = providerService.create(provider);
+		userContext.setCurrentUser(provider);
 		return "redirect:/";
 	}
 
@@ -219,7 +227,7 @@ public class LoginController {
 	}
 
 	/* user change password feature */
-	@RequestMapping(value = "/provider/changePw", method = RequestMethod.GET)
+	@RequestMapping(value = "/supplier/changePw", method = RequestMethod.GET)
 	public String editProviderPassword(Model uiModel,
 			@SecurityUser SiteUser user) {
 		uiModel.addAttribute("form", new ChangePasswordForm());
@@ -232,7 +240,7 @@ public class LoginController {
 		return "user/common/changePassword";
 	}
 
-	@RequestMapping(value = "/provider/changePw", method = RequestMethod.POST)
+	@RequestMapping(value = "/supplier/changePw", method = RequestMethod.POST)
 	public String processProviderPassword(
 			@Valid @ModelAttribute("form") ChangePasswordForm form,
 			BindingResult result, Model uiModel, @SecurityUser SiteUser user) {
@@ -248,7 +256,7 @@ public class LoginController {
 		SiteUser u = userService.updatePassword(user.getId(),
 				form.getNewPassword());
 		userContext.setCurrentUser(u);
-		return "redirect:/provider/detail";
+		return "redirect:/supplier/detail";
 	}
 
 	@RequestMapping(value = "/user/changePw", method = RequestMethod.POST)

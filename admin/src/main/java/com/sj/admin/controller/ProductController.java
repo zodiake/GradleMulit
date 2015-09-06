@@ -120,34 +120,29 @@ public class ProductController {
 				XSSFRow hssfRow = sheet.getRow(i);
 				Product product = new Product();
 				product.setName(hssfRow.getCell(1).getStringCellValue());
-				XSSFCell nameEnglish = hssfRow.getCell(2);
-				if (nameEnglish != null) {
-					product.setNameEnglish(nameEnglish.getStringCellValue());
-				}
-				product.setModel(hssfRow.getCell(3).getStringCellValue());
-				product.setSpecifications(hssfRow.getCell(4)
+				product.setModel(hssfRow.getCell(2).getStringCellValue());
+				product.setSpecifications(hssfRow.getCell(3)
 						.getStringCellValue());
 				product.setBrand(new Brand(1l));
 				product.setPlaceOfProduction(PlaceEnum.formString(hssfRow
-						.getCell(6).getStringCellValue()));
-				product.setPrice((float) hssfRow.getCell(7)
+						.getCell(4).getStringCellValue()));
+				product.setPrice((float) hssfRow.getCell(5)
 						.getNumericCellValue());
 				product.setFirstCategory(productCategoryService.findByName(
-						hssfRow.getCell(8).getStringCellValue(),
+						hssfRow.getCell(6).getStringCellValue(),
 						ActivateEnum.ACTIVATE));
 				product.setSecondCategory(productCategoryService.findByName(
-						hssfRow.getCell(9).getStringCellValue(),
+						hssfRow.getCell(7).getStringCellValue(),
 						ActivateEnum.ACTIVATE));
 				product.setThirdCategory(productCategoryService.findByName(
-						hssfRow.getCell(10).getStringCellValue(),
+						hssfRow.getCell(8).getStringCellValue(),
 						ActivateEnum.ACTIVATE));
-				product.setLabel(hssfRow.getCell(11).getStringCellValue());
-				String text = hssfRow.getCell(12).getStringCellValue();
-				if (text != null && text.length() != 0) {
-					Content content = new Content();
-					content.setContent(text);
-					product.setContent(content);
-				}
+//				product.setLabel(hssfRow.getCell(9).getStringCellValue());
+//				if (text != null && text.length() != 0) {
+//					Content content = new Content();
+//					content.setContent(text);
+//					product.setContent(content);
+//				}
 				product.setCreatedBy(p);
 				product.setCreatedTime(Calendar.getInstance());
 

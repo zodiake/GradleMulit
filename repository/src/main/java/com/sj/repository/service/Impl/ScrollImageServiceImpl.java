@@ -26,7 +26,6 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 	@Override
 	@Cacheable(value = "scrollImageCache", key = "#type")
 	public List<ScrollImage> findAll(ScrollImageType type, Pageable pageable) {
-		System.out.println(type.toString());
 		return repository.findByScrollType(type, pageable);
 	}
 

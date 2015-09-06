@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -38,9 +39,8 @@ public class Product {
 	protected Long id;
 
 	@NotBlank(message = "商品名称不能为空")
+	@Size(max=40,message="商品名字最长为20个中文")
 	protected String name;
-
-	protected String nameEnglish;
 
 	@NotBlank(message = "型号不能为空")
 	protected String model;
@@ -53,7 +53,6 @@ public class Product {
 
 	protected ProductStatusEnum status;
 
-	@NotBlank(message = "商品标签不能为空")
 	protected String label;
 
 	@Column(name = "cover_img")
@@ -114,10 +113,10 @@ public class Product {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "authenticated_time")
-	private Calendar authenticatedTime;
+	protected Calendar authenticatedTime;
 
 	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
-	private List<Solution> solutions;
+	protected List<Solution> solutions;
 
 	public Product() {
 		super();
@@ -238,14 +237,6 @@ public class Product {
 
 	public void setSerialNO(String serialNO) {
 		this.serialNO = serialNO;
-	}
-
-	public String getNameEnglish() {
-		return nameEnglish;
-	}
-
-	public void setNameEnglish(String nameEnglish) {
-		this.nameEnglish = nameEnglish;
 	}
 
 	public String getModel() {

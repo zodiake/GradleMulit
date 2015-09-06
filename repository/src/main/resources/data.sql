@@ -112,24 +112,24 @@ values(7,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider
 
 --test product
 --tom product
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type) 
-values(1,'instrument1','/img/banner1.jpg',10.0,'/product/1',1,10,13,1,1,'instrument1English','HD300',1,'10支',1,1,systimestamp,'i');
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(2,'product2','/img/banner1.jpg',10.0,'/product/2',1,11,13,1,2,'product2English','HD302',1,'10支',1,1,systimestamp,'c');
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(3,'product3','/img/banner1.jpg',10.0,'/product/3',1,10,13,1,3,'product3English','HD303',1,'10支',1,1,systimestamp,'i');
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(4,'product4','/img/banner1.jpg',10.0,'/product/4',4,10,13,1,4,'product3English','HD303',1,'10支',1,1,systimestamp,'s');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type) 
+values(1,'instrument1','/img/banner1.jpg',10.0,'/product/1',1,10,13,1,1,'HD300',1,'10支',1,1,systimestamp,'i');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(2,'product2','/img/banner1.jpg',10.0,'/product/2',1,11,13,1,2,'HD302',1,'10支',1,1,systimestamp,'c');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(3,'product3','/img/banner1.jpg',10.0,'/product/3',1,10,13,1,3,'HD303',1,'10支',1,1,systimestamp,'i');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(4,'product4','/img/banner1.jpg',10.0,'/product/4',4,10,13,1,4,'HD303',1,'10支',1,1,systimestamp,'s');
 
 --mary2 product
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(5,'product5','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,5,'product3English','HD303',1,'10支',1,0,systimestamp,'i');
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(6,'product6','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'product3English','HD303',1,'10支',1,1,systimestamp,'i');
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(7,'product7','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'product3English','HD303',1,'10支',1,2,systimestamp,'i');
-insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,name_english,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,11,13,2,8,'product3English','HD303',1,'10支',1,3,systimestamp,'i');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(5,'product5','/img/banner1.jpg',10.0,'/product/1',1,10,13,2,5,'HD303',1,'10支',1,0,systimestamp,'i');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(6,'product6','/img/banner1.jpg',10.0,'/product/2',1,10,13,2,6,'HD303',1,'10支',1,1,systimestamp,'i');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(7,'product7','/img/banner1.jpg',10.0,'/product/3',1,10,13,2,7,'HD303',1,'10支',1,2,systimestamp,'i');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(8,'product8','/img/banner1.jpg',10.0,'/product/4',1,11,13,2,8,'HD303',1,'10支',1,3,systimestamp,'i');
 
 --test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');
@@ -138,16 +138,16 @@ insert into prefer_products(user_id,product_id,created_time) values(15,2,'2014-1
 insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-1');
 
 --test subject 专题
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (1,'subject1',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (2,'subject2',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (3,'subject3',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (4,'subject4',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (5,'subject5',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (6,'subject6',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (7,'subject7',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (8,'subject8',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (9,'subject9',1,1,'上海申捷卫生科技',systimestamp,1);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id) values (10,'subject10',1,1,'上海申捷卫生科技',systimestamp,1);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (1,'subject1',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (2,'subject2',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (3,'subject3',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (4,'subject4',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (5,'subject5',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (6,'subject6',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (7,'subject7',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (8,'subject8',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (9,'subject9',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (10,'subject10',1,1,'上海申捷卫生科技',systimestamp,1,'/img/banner1.jpg');
 
 insert into solution(id,name,subject_id) values(1,'solution1',1);
 insert into solution(id,name,subject_id) values(2,'solution2',1);

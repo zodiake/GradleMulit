@@ -12,6 +12,10 @@ buildscript {
 }
 
 apply plugin: 'spring-boot'
+apply plugin: 'war'
+configurations {
+    providedRuntime
+} 
         
 dependencies{
     compile("org.springframework.boot:spring-boot-starter-web")
@@ -22,5 +26,6 @@ dependencies{
     compile('com.itextpdf:itextpdf:5.5.5')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.mockito:mockito-all:1.9.5')
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 	compile project(':repository')
 }

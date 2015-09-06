@@ -39,6 +39,9 @@ public class PreferProductController {
 		if (!userContext.isLogin())
 			return "login";
 		SiteUser user = userContext.getCurrentUser();
+		if(!"ROLE_COMMONUSER".equals(user.getSiteAuthority())){
+			return "no authority";
+		}
 		Product product = productService.findOne(id);
 		if (product == null)
 			throw new ProductNotFoundException();

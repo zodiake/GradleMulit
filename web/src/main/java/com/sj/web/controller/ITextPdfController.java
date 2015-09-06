@@ -45,8 +45,6 @@ public class ITextPdfController {
 				try {
 					OutputStream out = response.getOutputStream();
 					byte[] bytes = pDFService.getBuyRecordPdf(buyRecord,out);
-					System.out.println(bytes.length);
-					
 					response.setContentType("application/pdf");
 					out = response.getOutputStream();
 					HttpHeaders header = new HttpHeaders();

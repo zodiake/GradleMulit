@@ -1,5 +1,6 @@
-	<div class="header">
+	<div th:fragment="head" class="header" >
 		<div class="head-box clearfix">
+		<script type="text/javascript" th:src="@{/js/script.js}"></script>
 			<a href="/" class="logo"><img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/></a>
 			<div class="head-search">
 				<span class="searched">商品</span>
@@ -19,31 +20,32 @@
 				<a href="/signup?user">注册</a>
 			</div>
 			<div class="head-dorpdown" th:unless="${session.SPRING_SECURITY_CONTEXT==null}">
+			<script type="text/javascript" th:src="@{/js/headCart.js}"></script>
 				<div class="head-cart" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-					<div class="ct-cart">购物车</div>
+					<div class="ct-cart">购物车(<i th:if="${session.cartLines==null}" th:text="0" id="allNum"></i><i th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="allNum"></i>)</div>
 					<div class="ct-cart-wrap bodr hide" >
 						<h3><b class="gray-deeply" >最近加入的商品</b></h3>
 						<div class="ct-cart-list"  >
-							<ul>
-								<li  th:each="cartline:${session.cartLines}">
+							<ul id="cartUl">
+								<li th:each="cartline:${session.cartLines}" th:id="'cart'+${cartline.productId}">
 									<div class="fl ct-img">
-										<a><img th:src="@{${cartline.image}}" width="50" height="50"/></a>
+										<a th:href="'/products/'+${cartline.productId}"><img th:src="@{${cartline.image}}" width="50" height="50"/></a>
 									</div>
 									<div class="fl ct-name">										
-										<a th:text="${cartline.name}">友臣 肉松饼898克 热销装</a>
+										<a th:text="${cartline.name}" th:href="'/products/'+${cartline.productId}"></a>
 									</div>
 									<div class="fr ct-detail">
 										<span class="ct-price">
-											<b th:text="${cartline.price}"></b>×<i th:text="${cartline.number}"></i>
+											<b th:text="${cartline.price}"></b>×<i th:id="'cartNumber'+${cartline.productId}" th:text="${cartline.number}"></i>
 										</span>
 										<br/>
-										<a class="fr">删除</a>
+										<a class="fr cartRemove"  th:attr="data-id=${cartline.productId}">删除</a>
 									</div>
 								</li>
 							</ul>
 						</div>
 						<div class="ct-total">
-							共<b th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}"></b>件商品
+						共<b th:if="${session.cartLines==null}" th:text="0" id="totalNum"></b><b th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="totalNum"></b>种商品
 							<a class="go-cart" href="/user/cart">去购物车</a>
 						</div>
 					</div>

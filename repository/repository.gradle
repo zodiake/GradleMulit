@@ -22,5 +22,6 @@ dependencies {
    	compile("org.hibernate:hibernate-validator")
     compile('org.json:json:20141113')
     compile('net.sf.ehcache:ehcache:2.10.0')
+    compile('mysql:mysql-connector-java:5.1.6')
    	compile project(":model")
 }

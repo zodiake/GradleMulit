@@ -72,8 +72,6 @@ public class InstrumentServiceImpl implements InstrumentService {
 	@Override
 	public Instrument updateNoPublisher(Instrument instrument) {
 		Instrument source = repository.findById(instrument.getId());
-		System.out.println(source==null);
-		System.out.println(source.getStatus().toString());
 		if(source.getStatus().toString().equals(ProductStatusEnum.UP.toString()))
 			source.setStatus(ProductStatusEnum.EXAMINE);
 		Instrument result = repository
@@ -94,7 +92,6 @@ public class InstrumentServiceImpl implements InstrumentService {
 		old.setCoverImg(newTarget.getCoverImg());
 		old.setContent(null);
 		old.setContent(newTarget.getContent());
-		old.setNameEnglish(newTarget.getNameEnglish());
 		return old;
 	}
 }

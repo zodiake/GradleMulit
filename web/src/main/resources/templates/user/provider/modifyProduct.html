@@ -95,7 +95,7 @@
 </head>
 <body>
 	<div class="header">
-		<div th:include="@{/head/head}"></div>
+		<div th:include="head/head :: head">Head</div>
 	</div>
 	<!-- header -->
 	<div class="wrapper">
@@ -103,7 +103,7 @@
 			<div class="gray-hd"><a class="blue">个人中心</a></div>
 			<div class="mainwrapper clearfix">
 				<div class="aside fl">
-					<a href="/provider/detail">个人资料</a>
+					<a href="/supplier/detail">个人资料</a>
 					<a href="/provider/products?form">发布商品</a>
 					<a class="active" href="/provider/products">商品维护</a>
 					<a href="/provider/count">商品信息统计</a>
@@ -118,24 +118,17 @@
 							<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
 							</div>
 							<div class="fl">
-							<label>产品英文名</label>
-							<input type="text" th:field="*{nameEnglish}"/>
-							<i class="error" th:if="${#fields.hasErrors('nameEnglish')}" th:errors="*{nameEnglish}"></i>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="fl">
 							<label><i>*</i>产品型号</label>
 							<input type="text" th:field="*{model}"/>
 							<i class="error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></i>
 							</div>
+						</div>
+						<div class="form-group">
 							<div class="fl">
 							<label><i>*</i>产品规格/单位</label>
 							<input type="text" th:field="*{specifications}"/>
 							<i class="error" th:if="${#fields.hasErrors('specifications')}" th:errors="*{specifications}"></i>
 							</div>
-						</div>
-						<div class="form-group">
 							<div class="fl">
 							<label><i>*</i>品牌</label>
 							<select class="w235" th:field="*{brand}">
@@ -144,6 +137,8 @@
 							</select>
 							<i class="error" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></i>
 							</div>
+						</div>
+						<div class="form-group">
 							<div class="fl">
 							<label><i>*</i>产地</label>
 							<select class="w235" th:field="*{placeOfProduction}">
@@ -153,10 +148,8 @@
 							</select>
 							<i class="error" th:if="${#fields.hasErrors('placeOfProduction')}" th:errors="*{placeOfProduction}"></i>
 							</div>
-						</div>
-						<div class="form-group">
 							<div class="fl">
-							<label><i>*</i>参考报价</label>
+							<label><i>*</i>价格</label>
 							<input type="text" th:field="*{price}" />
 							<i class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></i>
 							</div>
@@ -164,9 +157,9 @@
 						<div class="form-group">
 							<div class="fl">
 							<label><i>*</i>产品分类</label>
-							<input type="text" th:value="*{firstCategory.name}" id="firstCategory" disabled="disabled"/>
+							<input style="width: 200px;" type="text" th:value="*{firstCategory.name}" id="firstCategory" disabled="disabled"/>
 							</div>
-							<div class="fl">
+							<div class="fl" style="padding-left: 13px;">
 							<select class="w200" th:field="*{secondCategory}">
 							<option value="">请选择</option>
 								<option th:each="category:${seconds}" th:value="${category.id}" th:text="${category.name}"></option>
@@ -183,7 +176,7 @@
 						</div>
 						<div class="form-group">
 							<div class="fl">
-							<label><i>*</i>标签</label>							
+							<label>标签</label>							
 							<input type="text" class="w630" th:field="*{label}"/>
 							<i class="error" th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
 							</div>

@@ -1,6 +1,5 @@
 package com.sj.repository.service.Impl;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +20,6 @@ import com.sj.repository.repository.BuyProductRepository;
 import com.sj.repository.repository.BuyRecordRepository;
 import com.sj.repository.service.BuyRecordService;
 import com.sj.repository.service.CartLineService;
-import com.sj.repository.service.CartService;
 
 @Service
 @Transactional
@@ -35,9 +33,7 @@ public class BuyRecordServiceImpl implements BuyRecordService {
 
 	@Override
 	public BuyRecord save(BuyRecord buyRecord, Set<CartLine> lines) {
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		buyRecord.setNoId(sdf.format(calendar.getTime()));
+		buyRecord.setNoId(Calendar.getInstance().getTime().getTime()+buyRecord.getUser().getId()+"");
 		buyRecord.setCreateTime(Calendar.getInstance());
 		buyRecord.setArrivalTime(Calendar.getInstance());
 		Set<BuyProduct> products = new HashSet<BuyProduct>();

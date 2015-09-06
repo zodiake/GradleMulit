@@ -1,21 +1,19 @@
 spring:
-  profiles.active: dev
+  profiles.active: prod
   thymeleaf.cache: false
-  jpa.hibernate.ddl-auto: ""
   data.jpa.repositories.enabled: true
-  jpa.show-sql: true
   http.encoding.charset: UTF-8
+  jpa:
+    show-sql: true
+    hibernate:
+      dll-auto: none
+
 
 security:
   basic.enabled: false
 
 server:
   tomcat.uri-encoding: UTF-8
-  port: 8090
-
-multipart:
-        maxFileSize: -1
-        maxRequestSize: -1
 
 login:
   passwordError: 两次密码输入不一致
@@ -25,14 +23,27 @@ login:
 ---
 spring:
   profiles: dev
+  redis.host: 192.168.1.137
+  redis.port: 6379
+  data.elasticsearch.cluster-nodes: 192.168.1.137:9300
 
 logging:
   level.org.springframework.web: INFO
-  level.org.springframework.security: INFO
-  level.org.hibernate.type: TRACE
+  level.org.springframework.security: DEBUG
+  level.org.hibernate.type: INFO
 ---
 spring:
    profiles: prod
+   datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/sj
+        username: root
+        password: root
+        initialize: false
+   jpa:
+     properties:
+       hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
 
 logging:
   level.org.springframework.web: INFO

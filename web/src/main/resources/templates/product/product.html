@@ -42,37 +42,16 @@
                         }
                     }
                 });
-                $('#addCart').click(function() {
-                    var id = $(this);
-                    var product = id.attr("data-id");
-                    var number = $("#num").val();
-                    if (number == 0) {
-                        alert("数量不能为空");
-                    } else {
-                        $.ajax({
-                            type : 'POST',
-                            url : "/ajax/cart",
-                            data : {
-                                'productId' : product,
-                                'number' : number
-                            },
-                            success : function(data) {
-                                if (data == "success") {
-                                    alert("success");
-                                } else if (data == "login") {
-                                    window.location.href = "/login";
-                                } else if(data == "exists"){
-                                    alert("已加入购物车");
-                                }else{
-                                	alert("没有权限");
-                                }
-                            },
-                            error : function(data) {
-                                alert(data);
-                            }
-                        });
-                    }
-                });
+                $('#addCart').click(function(){
+                	  var id = $(this);
+                      var product = id.attr("data-id");
+                      var number = $("#num").val();
+                      if (number == 0) {
+                          alert("数量不能为空");
+                      } else {
+                    	  createCart(number,product);
+                      }
+                }); 
                 $("#collection").click(function() {
                     var coll = $(this);
                     var productId = coll.attr("data-id");
@@ -91,12 +70,22 @@
                         }
                     });
                 });
+                $(".amount-increase").click(function(){
+                	var numVal = $("#num").val();
+                	$("#num").val(parseInt(numVal)+1);
+                });
+                $(".amount-decrease").click(function(){
+                	var numVal = $("#num").val();
+                	if(numVal>0){
+                		$("#num").val(parseInt(numVal)-1);
+                	}
+                });
             });
 		</script>
 	</head>
 	<body>
 		<div id="includeHeader">
-			<div th:include="@{/head/head}"></div>
+			<div th:include="head/head :: head">Head</div>
 		</div>
 		<!-- header -->
 		<div id="loginForm"></div>
@@ -174,7 +163,7 @@
 			</div>
 			<div class="layout">
 				<div class="tabs-nav detail-nav bodr">
-					<a class="active">商品详情</a><a>相关专题() </a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
+					<a class="active">商品详情</a><a>相关专题</a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
 					id="reviewNum"></i>) </a>
 				</div>
 				<div class="tab-conts detail-con bodr">
@@ -182,15 +171,15 @@
 					th:text="${product.content.content}"></div>
 					<div class="tab-panel global-box topic-box hide">
 						<ul class="ml-20">
-							<!-- <li th:each="subject:${product.getSubjects()}">
+							 <li th:each="subject:${subjects}">
 								<a th:href="'/subjects/'+${subject.id}">
 								<div class="title">
 									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
 								</div>
 								<div class="spe-pic">
-									<img th:src="@{/img/list1.jpg}" width="210" height="175" />
+									<img th:src="@{${subject.image}}" width="210" height="175" />
 								</div> <div class="topic-detail" th:text="${subject.content.content}"></div> </a>
-							</li> -->
+							</li>
 						</ul>
 					</div>
 					<div class="tab-panel global-box comments hide">

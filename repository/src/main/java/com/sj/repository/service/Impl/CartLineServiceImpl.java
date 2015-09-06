@@ -65,7 +65,6 @@ public class CartLineServiceImpl implements CartLineService {
 		return ids
 				.stream()
 				.map(i -> {
-					System.out.println(i);
 					String price = (String) template.opsForHash().get(
 							redisCartlineId + i, "price");
 					String tempId = (String) template.opsForHash().get(
