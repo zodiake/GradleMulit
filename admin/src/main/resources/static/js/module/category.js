@@ -13,12 +13,18 @@ category.service('CategoryService', ['$http',
 category.controller('CategoryController', ['$scope', 'CategoryService',
     function($scope, CategoryService) {
         function init(option) {
-            CategoryService.findAll(option).success(function(data) {
-                $scope.yq = data.content;
-                $scope.sj = data.content;
-            }).error(function(err) {
+            CategoryService
+                .findAll(option)
+                .success(function(data) {
+                	console.log(data);
+                    $scope.yq = data;
+                    $scope.sj = data;
+                })
+                .error(function(err) {
 
-            });
+                });
         }
+
+        init();
     }
 ]);

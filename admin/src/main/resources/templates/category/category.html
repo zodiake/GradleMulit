@@ -17,7 +17,7 @@
             <tbody>
                 <tr ng-repeat="item in yq">
                     <td ng-click="view(item)">{{$index+1}}</td>
-                    <td>{{item.title}}</td>
+                    <td>{{item.name}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
                        			修改
@@ -38,7 +38,7 @@
             <tbody>
                 <tr ng-repeat="item in sj">
                     <td ng-click="view(item)">{{$index+1}}</td>
-                    <td>{{item.title}}</td>
+                    <td>{{item.name}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
                        			修改

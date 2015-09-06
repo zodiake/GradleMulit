@@ -833,3 +833,20 @@ select{
 .push-good .form-group i.error{
     margin-left: 165px;
 }
+.ul-list ul{
+	width:805px;
+	overflow:hidden;
+	padding:0;
+	border-bottom:1px solid #becad6;
+	border-right:1px solid #becad6;
+}
+.ul-list ul li{
+	float:left;
+	width:25%;
+	text-align:center;
+	line-height:25px;
+	list-style:none;
+	border:1px solid #becad6;
+	border-bottom:none;
+	border-right:none;
+}
