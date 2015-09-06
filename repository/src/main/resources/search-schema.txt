@@ -1,0 +1,48 @@
+PUT /sj
+{
+  "mappings": {
+    "product":{
+      "properties": {
+        "title":{
+          "type":"string",
+          "analyzer": "standard"
+        },
+        "secondCategory":{
+          "type": "string",
+          "index":"not_analyzed"
+        },
+        "thirdCategory":{
+          "type":"string",
+          "index":"not_analyzed"
+        },
+        "price":{
+          "type":"float"
+        },
+        "brand":{
+          "type":"string",
+          "index": "not_analyzed"
+        },
+        "imgurl":{
+          "type":"string",
+          "index": "not_analyzed"
+        },
+        "model":{
+          "type":"string",
+          "index":"not_analyzed"
+        },
+        "url":{
+          "type":"string",
+          "index": "not_analyzed"
+        },
+        "original":{
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "tag":{
+          "type":"string",
+          "analyzer":"standard"
+        }
+      }
+    }
+  }
+}

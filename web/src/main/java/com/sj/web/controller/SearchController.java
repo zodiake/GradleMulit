@@ -1,6 +1,5 @@
 package com.sj.web.controller;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sj.model.model.Brand;
-import com.sj.model.model.ProductCategory;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.model.ProductSearchOption;
 import com.sj.repository.search.service.ProductSearchService;
@@ -31,7 +29,7 @@ public class SearchController extends BaseController<ProductSearch> {
 	@Autowired
 	private BrandService brandService;
 
-	private final String SEARCHLIST = "search/testSearch";
+	private final String SEARCHLIST = "search/products";
 
 	@ModelAttribute("brands")
 	public List<Brand> brands() {
@@ -43,19 +41,15 @@ public class SearchController extends BaseController<ProductSearch> {
 			@PageableDefault(page = 0, size = 15) Pageable pageable,
 			Model uiModel) {
 		buildOption(option);
-		Page<ProductSearch> results = service.findByOption(option, pageable);
-		Map<String, String> map = service.buildMap(option);
 
-		// findAll thirdCategory
-		Collection<ProductCategory> thirdCategories;
-		if (option.getSecondCategory() != null) {
-			long id = Long.parseLong(option.getSecondCategory());
-			thirdCategories = categoryService.findOne(id).getCategories();
+		Page<ProductSearch> results;
+		if (option.getModel() != null) {
+			results = service.findByModel(option.getModel(), pageable);
 		} else {
-			long id = Long.parseLong(option.getThirdCategory());
-			ProductCategory sc = new ProductCategory(id);
-			thirdCategories = categoryService.findSiblings(sc);
+			results = service.findByOption(option, pageable);
 		}
+
+		Map<String, String> map = service.buildMap(option);
 
 		ViewPage viewpage = caculatePage(results);
 		viewpage.setOption(map);
@@ -64,7 +58,6 @@ public class SearchController extends BaseController<ProductSearch> {
 		uiModel.addAttribute("products", results);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
-		uiModel.addAttribute("categories", thirdCategories);
 		return SEARCHLIST;
 	}
 

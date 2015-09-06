@@ -10,6 +10,7 @@
 		<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
 		<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/script.js}"></script>
+		<script th:src="@{/js/searchForm.js}"></script>
 		<script type="text/javascript">
             $(function() {
                 var token = $("meta[name='_csrf']").attr("content");
@@ -74,8 +75,25 @@
                     var productId = obj.attr("data-id");
                     nocoll(productId);
                 });
-                
-                
+
+                $('input[type="radio"]').click(function() {
+                    $('form').submit();
+                });
+
+                $(':checked').each(function(n, target) {
+                    var source = $(target);
+                    var template = $('<a class="sel-tag"/>');
+                    template.text(source.attr('data-label') + "："+source.siblings('label').text());
+                    template.append('<span class="icon-del" data-target="' + source.attr('id') + '"></span>');
+                    $('div.selected').append(template);
+                });
+
+                $('a.sel-tag span').click(function(event) {
+                    var source = $(event.target);
+                    $('#' + source.attr('data-target')).prop('checked', false);
+                    $('form').submit();
+                });
+
             });
 		</script>
 	</head>
@@ -95,161 +113,53 @@
 			</div>
 			<div class="gray-hd">
 				<a class="blue ft14">生物芯片</a>
-				<span>筛选商品 共<i>1222</i>件商品</span>
+				<span>筛选商品 共<i th:text="${products.totalElements}">1222</i>件商品</span>
 			</div>
 			<div class="sort-group">
 				<div class="selected">
 					<label><b>筛选：</b></label>
-					<a class="sel-tag"> 类型：生物芯片 <span class="icon-del"></span> </a>
-					<a class="sel-tag"> 品牌：生物芯片 <span class="icon-del"></span> </a>
 				</div>
-				<form>
-					<div class="search-select">					
-						<label><b>类型：</b></label>
-						<ul class="list-inline">
-							<li class="active">
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>		
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>	
-												
-						</ul>
-						<div class="more-items">
-	                         <a>更多</a>
-	                         <i class="expand-btn"></i>
-	                     </div>
-					</div>
-					<div class="search-select">					
+				<form th:object="${option}">
+					<div class="search-select">
 						<label><b>品牌：</b></label>
 						<ul class="list-inline">
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
+							<li th:each="brand : ${brands}">
+								<input type="radio" th:field="*{brand}" th:value="${brand.name}" th:attr="data-label='生物芯片'"/>
+								<label th:text="${brand.name}" th:attr="for=${brand.name}">生物芯片</label>
 							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li class="active">
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>		
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>生物芯片</label>
-							</li>						
 						</ul>
 					</div>
-					<div class="search-select">					
+					<div class="search-select">
 						<label><b>产地：</b></label>
 						<ul class="list-inline pack">
 							<li>
-								<input type="radio" name="radio" />
-								<label>进口</label>
+								<input type="radio" th:field="*{original}" value="1" data-label="产地"/>
+								<label for="original1">进口</label>
 							</li>
 							<li>
-								<input type="radio" name="radio" />
-								<label>中国</label>
-							</li>				
+								<input th:field="*{original}" type="radio" value="0" data-label="产地"/>
+								<label for="original2">中国</label>
+							</li>
 						</ul>
 					</div>
-					<div class="search-select">					
+					<div class="search-select">
 						<label><b>价格：</b></label>
 						<ul class="list-inline pack">
 							<li>
-								<input type="radio" name="radio" />
-								<label>1-3万</label>
+								<input th:field="*{priceRange}" type="radio" name="radio" data-label="价格" value="1"/>
+								<label for="priceRange1">1-3万</label>
 							</li>
 							<li>
-								<input type="radio" name="radio" />
-								<label>3-5万</label>
+								<input th:field="*{priceRange}" type="radio" name="radio" data-label="价格" value="2"/>
+								<label for="priceRange2">3-5万</label>
 							</li>
 							<li>
-								<input type="radio" name="radio" />
-								<label>5-8万</label>
+								<input th:field="*{priceRange}" type="radio" name="radio" data-label="价格" value="3"/>
+								<label for="priceRange3">5-8万</label>
 							</li>
-							<li>
-								<input type="radio" name="radio" />
-								<label>8-15万</label>
-							</li>						
 						</ul>
 					</div>
-					
+
 				</form>
 			</div>
 			<div class="items-search">
@@ -267,9 +177,7 @@
 			<div class="items-list pro-list">
 				<ul>
 					<li class="bodr product" th:each="product:${products.content}" >
-						<a th:href="@{'/products/'+${product.id}}"> 
-							<img th:src="@{${product.imgurl}}" width="210" height="175"/>
-						</a>
+						<a th:href="@{'/products/'+${product.id}}"> <img th:src="@{${product.imgurl}}" width="210" height="175"/> </a>
 						<div class="pic-box">
 							<div class="pic-row refer">
 								<label>参考报价</label>
@@ -288,13 +196,12 @@
 								<label>型号：</label>
 								<span th:text="${product.model}"></span>
 							</div>
-							<div class="pic-row comment">
-							</div>
+							<div class="pic-row comment"></div>
 							<div class="pic-row bodr" th:id="'coll'+${product.id}">
 								<a class="btn-cancel coll" th:attr="data-id=${product.id}">加入收藏</a>
 								<a class="btn-cart addCart" th:attr="data-id=${product.id}">加入购物车</a>
 							</div>
-						</div> 
+						</div>
 					</li>
 				</ul>
 			</div>

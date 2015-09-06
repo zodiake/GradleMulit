@@ -2,6 +2,7 @@ package com.sj.repository.search.service.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.FilteredQueryBuilder;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
@@ -77,7 +79,8 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 		MatchQueryBuilder queryBuilder = null;
 		SearchQuery query = null;
 		BoolFilterBuilder boolFilterBuilder = new BoolFilterBuilder();
-		String title = null;
+		List<MatchQueryBuilder> mustClauses = new ArrayList<>();
+		String v = null;
 		for (Field f : fields) {
 			Object value = f.get(option);
 			if (!Modifier.isPublic(f.getModifiers())) {
@@ -95,7 +98,6 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 				boolFilterBuilder.must(fromRange);
 				break;
 			case "brand":
-			case "secondCategory":
 			case "thirdCategory":
 				TermFilterBuilder brandTerm = new TermFilterBuilder(
 						f.getName(), (String) value);
@@ -107,9 +109,16 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 				boolFilterBuilder.must(originalTerm);
 				break;
 			case "title":
-				title = (String) value;
-				queryBuilder = new MatchQueryBuilder("title", title);
+				v = (String) value;
+				queryBuilder = new MatchQueryBuilder("title", v);
 				queryBuilder.operator(Operator.AND);
+				mustClauses.add(queryBuilder);
+				break;
+			case "tag":
+				v = (String) value;
+				queryBuilder = new MatchQueryBuilder("tag", v);
+				queryBuilder.operator(Operator.AND);
+				mustClauses.add(queryBuilder);
 				break;
 			}
 		}
@@ -126,8 +135,8 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 			query.setPageable(pageable);
 			return query;
 		} else if (queryBuilder != null && !boolFilterBuilder.hasClauses()) {
-			MatchQueryBuilder builder = new MatchQueryBuilder("title", title);
-			builder.operator(Operator.AND);
+			BoolQueryBuilder builder = new BoolQueryBuilder();
+			mustClauses.forEach(i -> builder.must(i));
 			query = new NativeSearchQuery(builder);
 			query.setPageable(pageable);
 			return query;
@@ -162,5 +171,15 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 	@Override
 	public Long count(SearchQuery query) {
 		return searchTemplate.count(query);
+	}
+
+	@Override
+	public Page<ProductSearch> findByModel(String model, Pageable pageable) {
+		return repository.findByModel(model, pageable);
+	}
+
+	@Override
+	public Page<ProductSearch> findByBrand(String brand, Pageable pageable) {
+		return repository.findByBrand(brand, pageable);
 	}
 }

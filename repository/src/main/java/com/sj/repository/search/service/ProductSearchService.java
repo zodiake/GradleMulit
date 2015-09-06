@@ -18,4 +18,8 @@ public interface ProductSearchService {
 	public Long count(SearchQuery query);
 
 	public Map<String, String> buildMap(ProductSearchOption option);
+
+	public Page<ProductSearch> findByModel(String model, Pageable pageable);
+
+	public Page<ProductSearch> findByBrand(String brand, Pageable pageable);
 }
