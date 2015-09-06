@@ -10,4 +10,8 @@ import com.sj.repository.search.model.ProductSearch;
 public interface ProductSearchRepository extends
 		ElasticsearchCrudRepository<ProductSearch, Long> {
 	public Page<Product> findByTitle(String name, Pageable pageable);
+
+	public Page<ProductSearch> findByModel(String model, Pageable pageable);
+
+	public Page<ProductSearch> findByBrand(String brand, Pageable pageable);
 }

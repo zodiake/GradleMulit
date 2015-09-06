@@ -9,6 +9,8 @@ public class ProductSearchOption {
 	private Float to;
 	private String priceRange;
 	private String original;
+	private String model;
+	private String tag;
 
 	public String getTitle() {
 		return title;
@@ -74,4 +76,19 @@ public class ProductSearchOption {
 		this.original = original;
 	}
 
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 }

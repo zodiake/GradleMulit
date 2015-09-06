@@ -12,11 +12,8 @@ import com.sj.model.type.PlaceEnum;
 @Document(indexName = "sj", type = "product")
 public class ProductSearch {
 	@Id
+	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
 	private Long id;
-
-	// 二级分类
-	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
-	private String secondCategory;
 
 	// 三级分类
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
@@ -41,10 +38,6 @@ public class ProductSearch {
 	// 类型 搜索通过类型区分
 	private String type;
 
-	// 产品编号
-	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
-	private String serialNo;
-
 	// 商品url
 	private String url;
 
@@ -54,19 +47,24 @@ public class ProductSearch {
 	@Field(type = FieldType.String)
 	private String tag;
 
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+	private String model;
+
+	public ProductSearch() {
+	}
+
 	public ProductSearch(Product i) {
 		this.id = i.getId();
 		this.brand = i.getBrand().getName();
 		this.title = i.getName();
-		this.secondCategory = i.getSecondCategory().getName();
 		this.thirdCategory = i.getThirdCategory().getName();
 		this.price = i.getPrice();
 		this.imgurl = i.getCoverImg();
-		this.serialNo = i.getSerialNO();
 		this.url = i.getUrl();
 		this.original = i.getPlaceOfProduction().equals(PlaceEnum.DOMESTIC) ? 1
 				: 0;
 		this.tag = i.getLabel();
+		this.model = i.getModel();
 	}
 
 	public Long getId() {
@@ -75,14 +73,6 @@ public class ProductSearch {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getSecondCategory() {
-		return secondCategory;
-	}
-
-	public void setSecondCategory(String secondCategory) {
-		this.secondCategory = secondCategory;
 	}
 
 	public String getThirdCategory() {
@@ -133,14 +123,6 @@ public class ProductSearch {
 		this.type = type;
 	}
 
-	public String getSerialNo() {
-		return serialNo;
-	}
-
-	public void setSerialNo(String serialNo) {
-		this.serialNo = serialNo;
-	}
-
 	public String getUrl() {
 		return url;
 	}
@@ -163,6 +145,14 @@ public class ProductSearch {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	@Override
