@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sj.model.model.Brand;
 import com.sj.model.model.Information;
-import com.sj.model.model.InformationCategory;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.ScrollImage;
 import com.sj.model.model.Subject;
@@ -68,9 +67,5 @@ public class IndexController {
 		List<ScrollImage> scrollImages = scrollImageService.findAll(ScrollImageType.INDEX, new PageRequest(0, 4));
 		uiModel.addAttribute("images", scrollImages);
 		return "index";
-	}
-	@RequestMapping(value = "/head",method = RequestMethod.GET)
-	public String getHead(){
-		return "/head/head";
 	}
 }

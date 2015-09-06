@@ -107,7 +107,7 @@ public class ProductCategoryController {
 		List<ProductCategory> categories = pcService.findByParentAndActivate(pc, ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pc", pc);
 		uiModel.addAttribute("categories", categories);
-		return "/productcategory/productCategorys";
+		return "productcategory/productCategorys";
 	}
 	@RequestMapping(value = "/ajaxProductCategory/{id}", method = RequestMethod.GET)
 	@ResponseBody

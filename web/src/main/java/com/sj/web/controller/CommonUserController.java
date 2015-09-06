@@ -27,7 +27,6 @@ import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
-import com.sj.model.model.Provider;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.BuyProductService;
 import com.sj.repository.service.BuyRecordService;
@@ -76,9 +75,8 @@ public class CommonUserController {
 		uiModel.addAttribute("user", commonUser);
 		uiModel.addAttribute("provinces", provinceService.findAll());
 		uiModel.addAttribute("industryInfos", userIndustryInfoService.findAll());
-		uiModel.addAttribute("citys",
-				cityService.findByProvince(commonUser.getProvince()));
-		return "/user/common/detail";
+		uiModel.addAttribute("citys",cityService.findByProvince(commonUser.getProvince()));
+		return "user/common/detail";
 	}
 
 	@RequestMapping(value = "/user/detail", method = RequestMethod.PUT)
@@ -88,11 +86,9 @@ public class CommonUserController {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", commonUser);
 			uiModel.addAttribute("provinces", provinceService.findAll());
-			uiModel.addAttribute("industryInfos",
-					userIndustryInfoService.findAll());
-			uiModel.addAttribute("citys",
-					cityService.findByProvince(commonUser.getProvince()));
-			return "/user/common/detail";
+			uiModel.addAttribute("industryInfos",userIndustryInfoService.findAll());
+			uiModel.addAttribute("citys",cityService.findByProvince(commonUser.getProvince()));
+			return "user/common/detail";
 		}
 		SiteUser siteUser = userContext.getCurrentUser();
 		commonUser.setId(siteUser.getId());
@@ -109,7 +105,7 @@ public class CommonUserController {
 		Page<PreferProduct> pages = preferService.findByUser(user,
 				new PageRequest(page - 1, size));
 		uiModel.addAttribute("pages", pages);
-		return "/user/common/collection";
+		return "user/common/collection";
 	}
 
 	@RequestMapping(value = "/user/collection", method = RequestMethod.POST)
@@ -146,8 +142,7 @@ public class CommonUserController {
 	}
 
 	@RequestMapping(value = "/user/buyRecords/{id}", method = RequestMethod.GET)
-	public String findOne(@PathVariable("id") Long id, Model uiModel,
-			@SecurityUser SiteUser user) {
+	public String findOne(@PathVariable("id") Long id, Model uiModel,@SecurityUser SiteUser user) {
 		BuyRecord buyRecord = buyRecordService.findOne(id,
 				new CommonUser(user.getId()));
 		if (buyRecord == null)

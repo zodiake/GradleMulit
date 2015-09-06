@@ -43,9 +43,9 @@
 		</script>
 	</head>
 	<body>
-		<div class="header">
-			<div th:include="head/head :: head">Head</div>
-		</div>
+	<div class="head">
+		<div th:include="head/head"></div>
+	</div>
 		<!-- header -->
 		<div class="wrapper">
 			<div class="self-wrap">
@@ -79,7 +79,7 @@
 										<div class="pic-row">
 											<label>产地：</label>
 											<span th:if="${prefer.product.placeOfProduction.toString()=='DOMESTIC'}" th:text="国产"></span>
-											<span th:if="${prefer.product.placeOfProduction.toString()=='IMPORTED'}" th:text="国产"></span>
+											<span th:if="${prefer.product.placeOfProduction.toString()=='IMPORTED'}" th:text="进口"></span>
 										</div>
 										<div class="pic-row">
 											<label>型号：</label>

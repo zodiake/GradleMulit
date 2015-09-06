@@ -31,10 +31,10 @@ logging:
   level.org.hibernate.type: INFO
 ---
 spring:
+   profiles: prod
    redis.host: localhost
    redis.port: 6379
    data.elasticsearch.cluster-nodes: localhost:9300
-   profiles: prod
    datasource:
         driverClassName: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/sj
