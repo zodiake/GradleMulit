@@ -36,6 +36,7 @@ i{
 }
 a{
 	text-decoration: none;
+	color:#868fa7;
 }
 a:hover{
 	cursor: pointer;
@@ -1061,7 +1062,7 @@ a.minus:hover, a.plus:hover {
 }
 .search-select>label{
 	float: left;
-	padding-left:20px;
+	padding-left:11px;
 	line-height:22px;
 }
 .search-select li{
