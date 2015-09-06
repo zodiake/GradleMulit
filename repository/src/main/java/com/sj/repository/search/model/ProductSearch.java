@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import com.sj.model.model.Product;
+import com.sj.model.type.PlaceEnum;
 
 @Document(indexName = "sj", type = "product")
 public class ProductSearch {
@@ -47,8 +48,8 @@ public class ProductSearch {
 	// 商品url
 	private String url;
 
-	@Field(type = FieldType.String)
-	private String original;
+	@Field(type = FieldType.Integer)
+	private int original;
 
 	@Field(type = FieldType.String)
 	private String tag;
@@ -63,7 +64,8 @@ public class ProductSearch {
 		this.imgurl = i.getCoverImg();
 		this.serialNo = i.getSerialNO();
 		this.url = i.getUrl();
-		this.original = i.getPlaceOfProduction().toString();
+		this.original = i.getPlaceOfProduction().equals(PlaceEnum.DOMESTIC) ? 1
+				: 0;
 		this.tag = i.getLabel();
 	}
 
@@ -147,11 +149,11 @@ public class ProductSearch {
 		this.url = url;
 	}
 
-	public String getOriginal() {
+	public int getOriginal() {
 		return original;
 	}
 
-	public void setOriginal(String original) {
+	public void setOriginal(int original) {
 		this.original = original;
 	}
 

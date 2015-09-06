@@ -3,11 +3,12 @@ package com.sj.repository.search.model;
 public class ProductSearchOption {
 	private String title;
 	private String brand;
-	private String firstCategory;
 	private String secondCategory;
 	private String thirdCategory;
 	private Float from;
 	private Float to;
+	private String priceRange;
+	private String original;
 
 	public String getTitle() {
 		return title;
@@ -57,11 +58,20 @@ public class ProductSearchOption {
 		this.to = to;
 	}
 
-	public String getFirstCategory() {
-		return firstCategory;
+	public String getPriceRange() {
+		return priceRange;
 	}
 
-	public void setFirstCategory(String firstCategory) {
-		this.firstCategory = firstCategory;
+	public void setPriceRange(String priceRange) {
+		this.priceRange = priceRange;
 	}
+
+	public String getOriginal() {
+		return original;
+	}
+
+	public void setOriginal(String original) {
+		this.original = original;
+	}
+
 }

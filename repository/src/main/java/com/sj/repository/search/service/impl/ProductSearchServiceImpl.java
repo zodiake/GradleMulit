@@ -101,6 +101,11 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 						f.getName(), (String) value);
 				boolFilterBuilder.must(brandTerm);
 				break;
+			case "original":
+				TermFilterBuilder originalTerm = new TermFilterBuilder(
+						f.getName(), (String) value);
+				boolFilterBuilder.must(originalTerm);
+				break;
 			case "title":
 				title = (String) value;
 				queryBuilder = new MatchQueryBuilder("title", title);
