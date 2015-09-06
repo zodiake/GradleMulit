@@ -52,4 +52,6 @@ public interface ProductCategoryService {
 	public List<ProductCategoryJson> findByParentJson(ProductCategory pc);
 
 	public List<ProductCategoryDetailJson> findAllDetail();
+
+	public List<ProductCategory> findSiblings(ProductCategory category);
 }
