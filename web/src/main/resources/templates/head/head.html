@@ -46,7 +46,7 @@
 						</div>
 						<div class="ct-total">
 						共<b th:if="${session.cartLines==null}" th:text="0" id="totalNum"></b><b th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="totalNum"></b>种商品
-							<a class="go-cart" href="/user/cart">去购物车</a>
+							<a class="go-cart" href="/user/carts">去购物车</a>
 						</div>
 					</div>
 				</div>
@@ -64,7 +64,7 @@
 								<a href="/user/collection">收藏夹</a>
 							</li>
 							<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-								<a href="/user/cart">我的购物车</a>
+								<a href="/user/carts">我的购物车</a>
 							</li>
 							<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
 								<a href="/user/buyRecords">我的采购申请</a>

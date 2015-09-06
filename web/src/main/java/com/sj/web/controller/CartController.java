@@ -42,7 +42,7 @@ public class CartController {
 
 	private final String LIST = "user/common/cart";
 
-	@RequestMapping(value = "/ajax/cart", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/carts", method = RequestMethod.POST)
 	@ResponseBody
 	private String addCartLine(@ModelAttribute CartLine cartLine,
 			HttpSession httpSession, @SecurityUser SiteUser user) {
@@ -78,10 +78,9 @@ public class CartController {
 				+ p.getName() + "\",\"price\":\"" + p.getPrice() + "\"}";
 	}
 
-	@RequestMapping(value = "/ajax/carts", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/carts", method = RequestMethod.POST,params="multiple")
 	@ResponseBody
-	private String addCartLines(
-			@RequestParam("productIds") String[] productIds, HttpSession session) {
+	private String addCartLines(@RequestParam("productIds") String[] productIds, HttpSession session) {
 		if (!userContext.isLogin())
 			return "{\"data\":\"login\"}";
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
@@ -131,12 +130,11 @@ public class CartController {
 		return array.toString();
 	}
 
-	@RequestMapping(value = "/user/cart/{productId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/user/carts/{productId}", method = RequestMethod.DELETE)
 	@ResponseBody
 	private String removeCartLine(@PathVariable("productId") Long productId,
 			HttpSession session, @SecurityUser SiteUser user) {
-		@SuppressWarnings("unchecked")
-		Set<CartLine> lines = (Set<CartLine>) session.getAttribute("cartLines");
+		Set<CartLine> lines = cartLineService.findByUser(user.getId());
 		for (CartLine cartLine : lines) {
 			if (cartLine.getProductId().equals(productId)) {
 				cartLineService.remove(user.getId(), cartLine.getId());
@@ -147,8 +145,25 @@ public class CartController {
 		session.setAttribute("cartLines", lines);
 		return "success";
 	}
+	@RequestMapping(value = "/user/carts", method = RequestMethod.DELETE)
+	@ResponseBody
+	private String removeCartLines(@RequestParam("productIds") String[] productIds,
+			HttpSession session, @SecurityUser SiteUser user) {
+		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		for (int i = 0; i < productIds.length; i++) {
+			for (CartLine cartLine : lines) {
+				if (productIds[i].equals(cartLine.getId())) {
+					cartLineService.remove(user.getId(), cartLine.getId());
+					lines.remove(cartLine);
+					break;
+				}
+			}
+		}
+		session.setAttribute("cartLines", lines);
+		return "success";
+	}
 
-	@RequestMapping(value = "/user/cart/{cartLineId}/{number}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/user/carts/{cartLineId}/{number}", method = RequestMethod.PUT)
 	@ResponseBody
 	private String updateCartLineNumber(
 			@PathVariable(value = "cartLineId") Long cartLineId,
@@ -160,7 +175,7 @@ public class CartController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/user/cart/{cartLineId}/{check}", method = RequestMethod.PUT, params = "check")
+	@RequestMapping(value = "/user/carts/{cartLineId}/{check}", method = RequestMethod.PUT, params = "check")
 	@ResponseBody
 	private String updateCartLineCheck(
 			@PathVariable(value = "cartLineId") Long cartLineId,
@@ -172,7 +187,7 @@ public class CartController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/user/cart/all/{check}", method = RequestMethod.PUT, params = "check")
+	@RequestMapping(value = "/user/carts/all/{check}", method = RequestMethod.PUT, params = "check")
 	@ResponseBody
 	private String updateAllCartLineCheck(@PathVariable("check") String check) {
 		if (!userContext.isLogin())
@@ -193,7 +208,7 @@ public class CartController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/user/cart", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/carts", method = RequestMethod.GET)
 	private String list(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lists = cartLineService.findByUser(user.getId());

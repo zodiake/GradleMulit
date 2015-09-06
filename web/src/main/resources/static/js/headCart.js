@@ -1,7 +1,7 @@
     function cartRemove(productId){
     	$.ajax({
     		type:"delete",
-    		url :'/user/cart/'+productId,
+    		url :'/user/carts/'+productId,
     		success:function(data){
     			$("#cart"+productId).remove();
     			var allNum = $("#allNum");
@@ -16,7 +16,7 @@
     function createCart(number,product){
     	 $.ajax({
              type : 'POST',
-             url : '/ajax/cart',
+             url : '/ajax/carts',
              dataType: 'json',
              data : {
                  'productId' : product,

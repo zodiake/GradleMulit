@@ -5,7 +5,7 @@ $(function() {
 		var productId = product.attr("data-id");
 		$.ajax({
 			type : 'DELETE',
-			url : "/user/cart/" + productId,
+			url : "/user/carts/" + productId,
 			success : function(data) {
 				if (data == "success") {
 					$("#" + productId).remove();
@@ -32,7 +32,7 @@ $(function() {
 			number = parseFloat(number) - 1;
 			$.ajax({
 				type : 'PUT',
-				url : '/user/cart/' + cartId + '/' + number,
+				url : '/user/carts/' + cartId + '/' + number,
 				success : function(data) {
 					if (data == "success") {
 						product.val(number);
@@ -58,7 +58,7 @@ $(function() {
 		number = parseFloat(number) + 1;
 		$.ajax({
 			type : 'PUT',
-			url : '/user/cart/' + cartId + '/' + number,
+			url : '/user/carts/' + cartId + '/' + number,
 			success : function(data) {
 				if (data != "error") {
 					product.val(number);
@@ -79,7 +79,7 @@ $(function() {
 			check.removeAttr("checked");
 			$.ajax({
 				type : "PUT",
-				url : '/user/cart/' + cartId + '/0?check',
+				url : '/user/carts/' + cartId + '/0?check',
 				success : function(data) {
 					alert(data);
 				},
@@ -90,7 +90,7 @@ $(function() {
 		} else {
 			$.ajax({
 				type : "PUT",
-				url : '/user/cart/' + cartId + '/1?check',
+				url : '/user/carts/' + cartId + '/1?check',
 				success : function(data) {
 					alert(data);
 				},
@@ -112,7 +112,7 @@ $(function() {
 		var product = $("#num" + productId);
 		$.ajax({
 			type : 'PUT',
-			url : '/user/cart/' + cartId + '/' + number,
+			url : '/user/carts/' + cartId + '/' + number,
 			success : function(data) {
 				if (data == "success") {
 					product.val(number);
@@ -130,9 +130,9 @@ $(function() {
 				if ($(this).is(':checked')) {
 					$.ajax({
 						type : 'put',
-						url : '/user/cart/all/1?check',
+						url : '/user/carts/all/1?check',
 						success : function(data) {
-							var checkboxs = $('tr').find('input[name="products"]');
+							var checkboxs = $('tr').find('input[name="carts"]');
 							checkboxs.prop('checked', true);
 							checkboxs.attr('checked', true);
 							getCount();
@@ -144,9 +144,9 @@ $(function() {
 				} else {
 					$.ajax({
 						type : 'put',
-						url : '/user/cart/all/0?check',
+						url : '/user/carts/all/0?check',
 						success : function(data) {
-							var checkboxs = $('tr').find('input[name="products"]');
+							var checkboxs = $('tr').find('input[name="carts"]');
 							checkboxs.prop('checked', false);
 							checkboxs.attr('checked', false);
 							getCount();
@@ -158,19 +158,34 @@ $(function() {
 				}
 
 			});
+	$(".delete").click(function(){
+		var obj = $(this);
+		var productId = obj.attr('data-id');
+    	$.ajax({
+    		type:"delete",
+    		url :'/user/carts/'+productId,
+    		success:function(data){
+    			$("#cart"+productId).remove();
+    			var allNum = $("#allNum");
+            	allNum.html(parseInt(allNum.html())-1);
+            	var totalNum =$("#totalNum");
+            	totalNum.html(parseInt(totalNum.html())-1);
+            	$("#"+productId).remove();
+    		},error:function(data){
+    			alert("error");
+    		}
+    	});
+	});
 });
 function getCount() {
 	var checks = $(".check[checked='checked']");
 	var countNum = checks.length;
-	console.log(countNum);
 	$("#num").html(countNum);
 	var count = 0;
 	for (var i = 0; countNum > i; i++) {
-		console.log(i);
 		var id = $(checks[i]).attr('data-id');
 		var j = $("#small" + id).html();
 		count = count + parseFloat(j);
 	}
-	console.log(count);
 	$("#count").html(count.toFixed(1));
 }
