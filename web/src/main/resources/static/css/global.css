@@ -1071,8 +1071,13 @@ a.minus:hover, a.plus:hover {
 	zoom:1;
 	position: relative;
 }
+.search-select li.active{
+	background: #27bff8;
+	color:#fff;
+}
 .search-select li label{
 	display:block;
+	cursor:pointer;
 }
 .search-select li input[type=radio]{
 	top:-2px;
