@@ -169,4 +169,10 @@ public class IndexController extends UploadController {
 	public String productDetail(Model uiModel) {
 		return "product/detail";
 	}
+	
+	@RequestMapping(value = "/category")
+	public String category(Model uiModel) {
+		return "category/category";
+	}
+	
 }

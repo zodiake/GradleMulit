@@ -1,196 +1,187 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="description" content=""/>
-  <title>仪器商品列表</title>
-  	<meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-  <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
-  <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
-  <script type="text/javascript" th:src="@{/js/script.js}"></script>
-  <script type="text/javascript">
-  $(function() {
-	 	var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader(header, token);
-		});
-		
-		$('.addCart').click(function() {
-			var obj = $(this);
-			var product = obj.attr("data-id");
-			createCart(1,product);
-		});
-		function coll(productId){
-			$.ajax({
-				type : 'post',
-				url : '/ajax/preferProduct/'+productId,
-				success: function(data){
-					if(data=="success"){
-						var coll = $("#coll"+productId);
-						coll.empty();
-						var str = '<a class="btn-cancel nocoll" data-id="'+productId+'">取消收藏</a><a class="btn-cart addCart" data-id="'+productId+'">加入购物车</a>';
-						coll.append(str);
-					}else{
-						alert(data);
-					}
-				},error : function(data){
-					alert("error")
-				}
-			});
-		}
-		function nocoll(productId){
-			$.ajax({
-				type : 'delete',
-				url : '/ajax/preferProduct/'+productId,
-				success : function(data){
-					if(data=="success"){
-						var coll = $("#coll"+productId);
-						coll.empty();
-						var str = '<a class="btn-cancel coll" data-id="'+productId+'">加入收藏</a><a class="btn-cart addCart" data-id="'+productId+'">加入购物车</a>';
-						coll.append(str);
-					}else{
-						alert(data);
-					}
-				},error : function(data){
-					alert("error");
-				}
-			});
-		}
-		$(".product").on("click",".coll",function(){
-			var obj = $(this);
-			var productId = obj.attr("data-id");
-			coll(productId);
-		});
-		$(".product").on("click",".nocoll",function(){
-			var obj = $(this);
-			var productId = obj.attr("data-id");
-			nocoll(productId);
-		});
-	});
-  </script>
-</head>
-<body>
+	<head lang="en">
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="description" content=""/>
+		<title>仪器商品列表</title>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
+		<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/script.js}"></script>
+		<script type="text/javascript">
+            $(function() {
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                $(document).ajaxSend(function(e, xhr, options) {
+                    xhr.setRequestHeader(header, token);
+                });
 
-	<div>
-		<div th:include="head/head :: head">Head</div>
-	</div>
-	<!-- header -->
-	<div class="wrapper">
-		<div class="crumb">
-			<a href="/index">首页</a>
-			<i>></i>
-			<a th:text="${pc.name}" th:href="@{'/productCategory/'+${pc.name}}"></a>
-			<i>></i>
-			<a th:text="${second.name}"></a>
-			<i th:if="${child!=null}"><i>></i>
-			<a th:text="${child.name}"></a>
-			</i>
+                $('.addCart').click(function() {
+                    var obj = $(this);
+                    var product = obj.attr("data-id");
+                    createCart(1, product);
+                });
+                function coll(productId) {
+                    $.ajax({
+                        type : 'post',
+                        url : '/ajax/preferProduct/' + productId,
+                        success : function(data) {
+                            if (data == "success") {
+                                var coll = $("#coll" + productId);
+                                coll.empty();
+                                var str = '<a class="btn-cancel nocoll" data-id="' + productId + '">取消收藏</a><a class="btn-cart addCart" data-id="' + productId + '">加入购物车</a>';
+                                coll.append(str);
+                            } else {
+                                alert(data);
+                            }
+                        },
+                        error : function(data) {
+                            alert("error")
+                        }
+                    });
+                }
+
+                function nocoll(productId) {
+                    $.ajax({
+                        type : 'delete',
+                        url : '/ajax/preferProduct/' + productId,
+                        success : function(data) {
+                            if (data == "success") {
+                                var coll = $("#coll" + productId);
+                                coll.empty();
+                                var str = '<a class="btn-cancel coll" data-id="' + productId + '">加入收藏</a><a class="btn-cart addCart" data-id="' + productId + '">加入购物车</a>';
+                                coll.append(str);
+                            } else {
+                                alert(data);
+                            }
+                        },
+                        error : function(data) {
+                            alert("error");
+                        }
+                    });
+                }
+
+
+                $(".product").on("click", ".coll", function() {
+                    var obj = $(this);
+                    var productId = obj.attr("data-id");
+                    coll(productId);
+                });
+                $(".product").on("click", ".nocoll", function() {
+                    var obj = $(this);
+                    var productId = obj.attr("data-id");
+                    nocoll(productId);
+                });
+            });
+		</script>
+	</head>
+	<body>
+
+		<div>
+			<div th:include="head/head :: head">
+				Head
+			</div>
 		</div>
-		<div class="gray-hd">
-			<a class="blue ft14">生物芯片</a>			
-			<span>筛选商品 共<i>1222</i>件商品</span>
-		</div>
-		<div class="sort-group">	
-			<div class="selected">
+		<!-- header -->
+		<div class="wrapper">
+			<div class="crumb">
+				<a href="/index">首页</a>
+				<i>></i>
+				<a th:text="${pc.name}" th:href="@{'/productCategory/'+${pc.name}}"></a>
+				<i>></i>
+				<a th:text="${second.name}"></a>
+				<i th:if="${child!=null}"><i>></i> <a th:text="${child.name}"></a> </i>
+			</div>
+			<div class="gray-hd">
+				<a class="blue ft14">生物芯片</a>
+				<span>筛选商品 共<i>1222</i>件商品</span>
+			</div>
+			<div class="sort-group">
+				<div class="selected">
 					<label>筛选：</label>
-					<a class="sel-tag">
-						类型：生物芯片
-						<span class="icon-del"></span>
-					</a>
-					<a class="sel-tag">
-						品牌：生物芯片
-						<span class="icon-del"></span>
-					</a>
-			</div>		
-			<ul>
-				<li>
-					<label><b>类型：</b></label>
-					<div class="items pack">
-						<a>生物芯片</a>
-						<a>芯描仪</a>
-						<a>生片</a>
-						<a>芯片扫描仪</a>
-						<a>生物芯片</a>
-						<a>描仪</a>
-						<a>生物芯片</a>
-						<a>描仪</a>
-						<a>生物芯片</a>
-						<a>扫描仪</a>
-						<a>生物芯片</a>
-						<a>芯片扫描仪</a>
-						<a>生物芯片</a>
-						<a>描仪</a>
-						<a>生物芯片</a>
-						<a>芯仪</a>
-						<a>生物芯片</a>
-						<a>扫描仪</a>
-					</div>
-					<div class="more-items">
-						<a>
-							更多
-						</a>						
-						<i class="expand-btn"></i>
-					</div>
-				</li>
-				<li>
-					<label><b>品牌：</b></label>
-					<div class="items">
-						<a>生物芯片</a>
-						<a>芯片扫描仪</a>
-						<a>生物芯片</a>
-						<a>芯片扫描仪</a>
-						<a>生物芯片</a>
-						<a>芯片扫描仪</a>
-					</div>					
-				</li>
-				<li>
-					<label><b>产地：</b></label>
-					<div class="items">
-						<a>生物芯片</a>
-						<a>芯片扫描仪</a>
-						<a>生物芯片</a>
-						<a>芯片扫描仪</a>
-						<a>生物芯片</a>
-						<a>芯片扫描仪</a>
-					</div>
-				</li>
-				<li>
-					<label><b>价格：</b></label>
-					<div class="items">
-						<a>1-3万</a>
-						<a>5-7万</a>
-						<a>1-3万</a>
-						<a>5-7万</a>
-						<a>1-30万</a>
-						<a>5-7万</a>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<div class="items-search">
-			<label><b>标签：</b></label>
-			<input type="text" class="bodr"/>
-			<button>搜索</button>
-		</div>		
-		<div class="filter">
-			<a class="price">价格<i></i></a>
-			<a>评论数</a>
-			<a>上架时间</a>
-		</div>	
-		<div class="items-list pro-list">
-			<ul>
-				<li class="bodr product" th:each="product:${page.getContent()}" >
-					<a th:href="@{'/products/'+${product.id}}">
-						<img th:src="@{${product.coverImg}}" width="210" height="175"/>
+					<a class="sel-tag"> 类型：生物芯片 <span class="icon-del"></span> </a>
+					<a class="sel-tag"> 品牌：生物芯片 <span class="icon-del"></span> </a>
+				</div>
+				<ul>
+					<li>
+						<label><b>类型：</b></label>
+						<div class="items pack">
+							<a>生物芯片</a>
+							<a>芯描仪</a>
+							<a>生片</a>
+							<a>芯片扫描仪</a>
+							<a>生物芯片</a>
+							<a>描仪</a>
+							<a>生物芯片</a>
+							<a>描仪</a>
+							<a>生物芯片</a>
+							<a>扫描仪</a>
+							<a>生物芯片</a>
+							<a>芯片扫描仪</a>
+							<a>生物芯片</a>
+							<a>描仪</a>
+							<a>生物芯片</a>
+							<a>芯仪</a>
+							<a>生物芯片</a>
+							<a>扫描仪</a>
+						</div>
+						<div class="more-items">
+							<a> 更多 </a>
+							<i class="expand-btn"></i>
+						</div>
+					</li>
+					<li>
+						<label><b>品牌：</b></label>
+						<div class="items">
+							<a th:each="brand:${brands}" th:text="${brand.name}">生物芯片</a>
+						</div>
+					</li>
+					<li>
+						<label><b>产地：</b></label>
+						<div class="items">
+							<a>生物芯片</a>
+							<a>芯片扫描仪</a>
+							<a>生物芯片</a>
+							<a>芯片扫描仪</a>
+							<a>生物芯片</a>
+							<a>芯片扫描仪</a>
+						</div>
+					</li>
+					<li>
+						<label><b>价格：</b></label>
+						<div class="items">
+							<a>1-3万</a>
+							<a>5-7万</a>
+							<a>1-3万</a>
+							<a>5-7万</a>
+							<a>1-30万</a>
+							<a>5-7万</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="items-search">
+				<label><b>标签：</b></label>
+				<input type="text" class="bodr"/>
+				<button>
+					搜索
+				</button>
+			</div>
+			<div class="filter">
+				<a class="price">价格<i></i></a>
+				<a>评论数</a>
+				<a>上架时间</a>
+			</div>
+			<div class="items-list pro-list">
+				<ul>
+					<li class="bodr product" th:each="product:${page.getContent()}" >
+						<a th:href="@{'/products/'+${product.id}}"> <img th:src="@{${product.coverImg}}" width="210" height="175"/>
 						<div class="pic-box">
 							<div class="pic-row refer">
 								<label>参考报价</label>
-								<span>
-									<b class="red ft14">￥<i th:text="${product.price}"></i></b>
-								</span>
+								<span> <b class="red ft14">￥<i th:text="${product.price}"></i></b> </span>
 							</div>
 							<div class="pic-row tit" th:text="${product.name}"></div>
 							<div class="pic-row">
@@ -214,51 +205,54 @@
 								<a class="btn-cancel coll" th:unless="${product.isCollection()==true}" th:attr="data-id=${product.id}">加入收藏</a>
 								<a class="btn-cart addCart" th:attr="data-id=${product.id}">加入购物车</a>
 							</div>
-						</div>
-					</a>
-				</li>
-			</ul>
-		</div>	
-		<div class="pagination">
-			<div class="l-pagination">
-				<ul>
-					<li>
-						<a href="">首页</a>
-					</li>
-					<li>
-						<a href="">1</a>
-					</li>
-					<li class="active">
-						<a href="">2</a>
-					</li>
-					<li>
-						<a href="">3</a>
-					</li>
-					<li>
-						<a href="">4</a>
-					</li>
-					<li>……</li>
-					<li>
-						<a href="">40</a>
-					</li>
-					<li>
-						<a href="">尾页</a>
+						</div> </a>
 					</li>
 				</ul>
-				<div class="page-total">
-					共40页
-				</div>
-				<div class="page-from">
-					<span>到第</span>
-					<input type="text" class="page-input" />
-					<span>页</span>
-					<button>确定</button>
+			</div>
+			<div class="pagination">
+				<div class="l-pagination">
+					<ul>
+						<li>
+							<a href="">首页</a>
+						</li>
+						<li>
+							<a href="">1</a>
+						</li>
+						<li class="active">
+							<a href="">2</a>
+						</li>
+						<li>
+							<a href="">3</a>
+						</li>
+						<li>
+							<a href="">4</a>
+						</li>
+						<li>
+							……
+						</li>
+						<li>
+							<a href="">40</a>
+						</li>
+						<li>
+							<a href="">尾页</a>
+						</li>
+					</ul>
+					<div class="page-total">
+						共40页
+					</div>
+					<div class="page-from">
+						<span>到第</span>
+						<input type="text" class="page-input" />
+						<span>页</span>
+						<button>
+							确定
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="footer">
-		© 1998 - 2015 SJ Inc. All Rights Reserved
-	</div>
-</body>
-</html>	
+		<div class="footer">
+			© 1998 - 2015 SJ Inc. All Rights Reserved
+		</div>
+	</body>
+</html>

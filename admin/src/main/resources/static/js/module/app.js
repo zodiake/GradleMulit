@@ -12,7 +12,8 @@ var app = angular.module('app', [
     'Advertise',
     'Info',
     'Subject',
-    'Product'
+    'Product',
+    'Category'
 ]);
 
 app.config([
@@ -84,6 +85,11 @@ app.config([
                 url: '/consumable',
                 templateUrl: '/admin/templates/products',
                 controller: 'ProductController'
+            })
+            .state('category', {
+                url: '/category',
+                templateUrl: '/admin/category',
+                controller: 'CategoryController'
             });
     }
 ]);

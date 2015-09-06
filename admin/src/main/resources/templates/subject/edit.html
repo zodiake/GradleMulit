@@ -28,9 +28,21 @@
                         <input type="text" />
                     </div>
                 </div>
+                <div class="ul-list">
+                	<ul>
+                		<li>111222</li>
+                		<li>3232323</li>
+                		<li>111222</li>
+                		<li>3232323</li>
+                		<li>111222</li>
+                		<li>3232323</li>
+                		<li>111222</li>
+                		<li>3232323</li>
+                	</ul>
+                </div>
                 <div class="modal-footer">
                     <input type="submit" id="submit" class="btn btn-primary" value="提交" />
-                    <button ng-click="addSolution()">add</button>
+                    <button ng-click="addSolution()" class="btn btn-primary">添加</button>
                 </div>
                 <a th:attr="href=@{#/subject/__${id}__/solutions}">link</a>
             </form>
