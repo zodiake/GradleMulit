@@ -150,7 +150,7 @@ create table product(
 	second_category_id bigint,
 	third_category_id bigint,
 	price float,
-	label varchar(50),
+	label varchar(150),
 	url varchar(50),
 	brand_id bigint,
 	created_by bigint,

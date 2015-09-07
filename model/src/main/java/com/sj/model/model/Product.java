@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -53,6 +54,7 @@ public class Product {
 
 	protected ProductStatusEnum status;
 
+	@Size(max=150,message="标签最长为150个字符")
 	protected String label;
 
 	@Column(name = "cover_img")
