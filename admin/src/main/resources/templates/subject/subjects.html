@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="item in items">
-                <td><a href="#/subjectDetail/{{item.id}}">{{$index+1}}</a></td>
+                <td ng-click="view(item)">{{$index+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.img}}</td>
             </tr>

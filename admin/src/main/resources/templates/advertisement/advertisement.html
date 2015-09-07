@@ -28,7 +28,7 @@
                 <td ng-click="view(item)">{{$index+1}}</td>
                 <td>{{item.categoryName}}</td>
                 <td>{{item.url}}</td>
-                <td>{{item.state}}</td>
+                <td>{{item.state|activeFilter}}</td>
                 <td>{{item.updatedTime}}</td>
                 <td>
                     <a class="btn btn-primary btn-sm">发布</a>

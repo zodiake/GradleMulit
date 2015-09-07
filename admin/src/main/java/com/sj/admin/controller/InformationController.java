@@ -1,5 +1,6 @@
 package com.sj.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,17 +66,14 @@ public class InformationController {
 		return "";
 	}
 
-	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.GET, params = "edit")
-	public String edit(Model uiModel, @PathVariable("id") Long id) {
-		Information info = informationService.findOne(id);
-		uiModel.addAttribute("informaiton", info);
-		return null;
-	}
-
-	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.PUT, params = "edit")
-	public String editProcess(Model uiModel,
-			@Valid @ModelAttribute("information") Information info) {
-		return null;
+	@RequestMapping(value = "/admin/informaitons/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateState(@PathVariable("id") Long id,
+			HttpServletRequest request) {
+		ActivateEnum state = ActivateEnum.fromString(request
+				.getParameter("state"));
+		informationService.updateState(id, state);
+		return "";
 	}
 
 	@RequestMapping(value = "/admin/informaitons/{id}", method = RequestMethod.PUT, params = "status")

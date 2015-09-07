@@ -36,7 +36,6 @@ import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.exception.BatchException;
 import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
-import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
@@ -75,8 +74,7 @@ public class ProductController {
 	private String updateProductState(@PathVariable("id") Long id,
 			ProductStatusEnum state) {
 		Product p = productService.updateState(id, state);
-		searchService.save(new ProductSearch(p));
-		return "";
+		return "\"success\"";
 	}
 
 	@RequestMapping(value = "/admin/products/{id}/solutions", method = RequestMethod.POST)

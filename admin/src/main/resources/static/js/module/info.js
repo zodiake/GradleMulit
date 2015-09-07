@@ -49,6 +49,19 @@ infoModule.service('InfoService', ['$http', function ($http) {
             headers: header
         });
     };
+    
+    this.updateState=function(item){
+        var state=item.state=='activate'?'deactivate':'activate';
+        return $http({
+            method: 'POST',
+            url: '/admin/informations/' + item.id+'/state',
+            transformRequest: transform,
+            data: {
+                state:state
+            },
+            headers: header
+        }); 
+    };
 }]);
 
 infoModule.controller('InfoController', ['$scope',
@@ -105,6 +118,11 @@ infoModule.controller('InfoController', ['$scope',
                 .error(function (err) {
 
                 });
+        };
+        
+        $scope.updateState=function(item){
+            InfoService
+                .  
         };
     }
 ]);

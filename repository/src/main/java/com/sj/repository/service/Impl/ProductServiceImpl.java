@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
@@ -55,6 +56,8 @@ import com.sj.repository.repository.ProductCategoryRepository;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.repository.ReagentsRepository;
 import com.sj.repository.repository.ServiceRepository;
+import com.sj.repository.search.model.ProductSearch;
+import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.ProductService;
 
 @Service
@@ -70,6 +73,8 @@ public class ProductServiceImpl implements ProductService {
 	private BrandRepository brandRepository;
 	@Autowired
 	private EntityManager em;
+	@Autowired
+	private ProductSearchService searchService;
 	@Autowired
 	private ConsumableRepository consumableRepository;
 	@Autowired
@@ -215,19 +220,20 @@ public class ProductServiceImpl implements ProductService {
 
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		cq.select(cb.count(cq.from(Product.class)));
+		List<Predicate> criteria = new ArrayList<>();
 
 		if (fc != null) {
-			c.where(cb.equal(product.get("firstCategory"), fc));
-			cq.where(cb.equal(product.get("firstCategory"), fc));
+			criteria.add(cb.equal(product.get("firstCategory"), fc));
 		}
 		if (sc != null) {
-			c.where(cb.equal(product.get("secondCategory"), sc));
-			cq.where(cb.equal(product.get("secondCategory"), sc));
+			criteria.add(cb.equal(product.get("secondCategory"), sc));
 		}
 		if (status != null) {
-			c.where(cb.equal(product.get("status"), status));
-			cq.where(cb.equal(product.get("status"), status));
+			criteria.add(cb.equal(product.get("status"), status));
 		}
+		c.where(criteria.toArray(new Predicate[0]));
+		cq.where(criteria.toArray(new Predicate[0]));
+
 		List<Product> lists = em
 				.createQuery(c)
 				.setFirstResult(
@@ -251,7 +257,10 @@ public class ProductServiceImpl implements ProductService {
 	public Product updateState(Long id, ProductStatusEnum state) {
 		Product p = repository.findOne(id);
 		if (state.equals(ProductStatusEnum.UP)) {
+			searchService.save(new ProductSearch(p));
 			p.setStatus(ProductStatusEnum.UP);
+		} else {
+			p.setStatus(ProductStatusEnum.NOT);
 		}
 		return p;
 	}
@@ -288,10 +297,11 @@ public class ProductServiceImpl implements ProductService {
 			product.setName(name);
 			String model = getStringCellValue(xssfRow, i, 1);
 			product.setModel(model);
-			
+
 			product.setSpecifications(getStringCellValue(xssfRow, i, 2));
 			String brandName = getStringCellValue(xssfRow, i, 3);
-			Brand brand = brandRepository.findByNameAndActivate(brandName,ActivateEnum.ACTIVATE);
+			Brand brand = brandRepository.findByNameAndActivate(brandName,
+					ActivateEnum.ACTIVATE);
 			if (brand == null)
 				throw new BatchException("第" + (i + 1) + "行品牌找不到");
 			else
@@ -305,23 +315,28 @@ public class ProductServiceImpl implements ProductService {
 				throw new BatchException("第" + (i + 1) + "行产地输入错误");
 			float price = getNumericCellValue(xssfRow, i, 5);
 			product.setPrice(price);
-			
+
 			String firstCategoryName = getStringCellValue(xssfRow, i, 6);
-			ProductCategory firstCategory = pcRepository.findByNameAndActivate(firstCategoryName,ActivateEnum.ACTIVATE);
+			ProductCategory firstCategory = pcRepository.findByNameAndActivate(
+					firstCategoryName, ActivateEnum.ACTIVATE);
 			if (firstCategory == null)
 				throw new BatchException("第" + (i + 1) + "行大类不存在");
 			else
 				product.setFirstCategory(firstCategory);
-			
+
 			String secondCategoryName = getStringCellValue(xssfRow, i, 7);
-			ProductCategory secondCategory = pcRepository.findByNameAndParentAndActivate(secondCategoryName, firstCategory,ActivateEnum.ACTIVATE);
+			ProductCategory secondCategory = pcRepository
+					.findByNameAndParentAndActivate(secondCategoryName,
+							firstCategory, ActivateEnum.ACTIVATE);
 			if (secondCategory == null)
 				throw new BatchException("第" + (i + 1) + "行一级分类不存在");
 			else
 				product.setSecondCategory(secondCategory);
-			
+
 			String thirdCategoryName = getStringCellValue(xssfRow, i, 8);
-			ProductCategory thirdCategory = pcRepository.findByNameAndParentAndActivate(thirdCategoryName, secondCategory,ActivateEnum.ACTIVATE);
+			ProductCategory thirdCategory = pcRepository
+					.findByNameAndParentAndActivate(thirdCategoryName,
+							secondCategory, ActivateEnum.ACTIVATE);
 			if (thirdCategory == null)
 				throw new BatchException("第" + (i + 1) + "行二级分类不存在");
 			else
@@ -343,7 +358,7 @@ public class ProductServiceImpl implements ProductService {
 
 	private String getStringCellValue(XSSFRow xssfRow, int line, int column)throws BatchException {
 		String value = "";
-		try{
+		try {
 			value = xssfRow.getCell(column).getStringCellValue();
 			if(value==null || value.length()==0)
 				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据为空");
@@ -352,10 +367,11 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return value;
 	}
-	
-	private float getNumericCellValue(XSSFRow xssfRow, int line, int column) throws BatchException{
+
+	private float getNumericCellValue(XSSFRow xssfRow, int line, int column)
+			throws BatchException {
 		float price = 0f;
-		try{
+		try {
 			price = (float) xssfRow.getCell(column).getNumericCellValue();
 			if(price==0f)
 				throw new BatchException("第" + (line + 1) + "行价格不能为0或者为空");
@@ -375,7 +391,7 @@ public class ProductServiceImpl implements ProductService {
 		is.close();
 		for (Product product : products) {
 			String category = product.getFirstCategory().getName();
-			switch(category){
+			switch (category) {
 			case "仪器":
 				Instrument i = new Instrument(product);
 				i = instrumentRepository.save(i);
@@ -389,7 +405,8 @@ public class ProductServiceImpl implements ProductService {
 				consumableRepository.save(c);
 				continue;
 			case "服务":
-				com.sj.model.model.Service s = new  com.sj.model.model.Service(product);
+				com.sj.model.model.Service s = new com.sj.model.model.Service(
+						product);
 				serviceRepository.save(s);
 				continue;
 			}

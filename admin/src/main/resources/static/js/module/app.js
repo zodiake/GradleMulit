@@ -5,6 +5,7 @@ var app = angular.module('app', [
     'ui.router',
     'ui.bootstrap',
     'ui.router.tabs',
+    'filterModel',
     'upload',
     'ngCkeditor',
     'User',

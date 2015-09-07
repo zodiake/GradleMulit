@@ -20,6 +20,10 @@ subjectModule.service('SubjectService', ['$http',
             });
         };
 
+        this.findOne = function (item) {
+            return $http.get('/admin/subjects/' + item.id);
+        };
+
         this.save = function (item) {
             var solutions = item.solutions.map(function (d) {
                 return d.name;
@@ -36,10 +40,25 @@ subjectModule.service('SubjectService', ['$http',
                 headers: header
             });
         };
+
+        this.update = function (item) {
+            return $http({
+                method: 'POST',
+                url: '/admin/subjects/' + item.id,
+                transformRequest: transform,
+                headers: header,
+                data: {
+                    name: item.name,
+                    content: item.content,
+                }
+            });
+        };
     }
 ]);
 
-subjectModule.controller('SubjectController', ['$scope', 'SubjectService',
+subjectModule.controller('SubjectController', ['$scope',
+    'SubjectService',
+    '$modal',
     function ($scope, SubjectService, $modal) {
         $scope.page = 1;
         $scope.size = 15;
@@ -65,6 +84,24 @@ subjectModule.controller('SubjectController', ['$scope', 'SubjectService',
                 size: $scope.size
             });
         };
+
+        $scope.view = function (item) {
+            SubjectService
+                .findOne(item)
+                .success(function (item) {
+                    $modal.open({
+                        templateUrl: '/admin/templates/subject',
+                        size: 'lg',
+                        controller: 'SubjectEditController',
+                        resolve: {
+                            item: function () {
+                                return item;
+                            }
+                        },
+                        scope: $scope
+                    });
+                });
+        };
     }
 ]);
 
@@ -78,7 +115,7 @@ subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService',
             uiColor: '#000000',
             filebrowserBrowseUrl: '/upload',
             filebrowserUploadUrl: '/admin/editor/img/upload',
-            width: 895,
+            width: 795,
             height: 300
         };
 
@@ -109,13 +146,27 @@ subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService',
 
 subjectModule.controller('SubjectEditController', ['$scope',
     'SubjectService',
-    function ($scope, SubjectService) {
+    'item',
+    function ($scope, SubjectService, item) {
+        $scope.item = item;
+
         $scope.editorOptions = {
             uiColor: '#000000',
             filebrowserBrowseUrl: '/upload',
             filebrowserUploadUrl: '/admin/editor/img/upload',
-            width: 895,
+            width: 700,
             height: 300
+        };
+
+        $scope.submit = function () {
+            SubjectService
+                .update($scope.item)
+                .success(function () {
+
+                })
+                .error(function (err) {
+
+                });
         };
     }
 ]);

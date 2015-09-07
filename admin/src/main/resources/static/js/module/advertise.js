@@ -62,7 +62,7 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
     function ($scope, AdvertiseService, $modal) {
         $scope.page = 1;
         $scope.size = 15;
-        $scope.state
+        $scope.state;
 
         function init(opt) {
             AdvertiseService.findAll(opt).success(function (data) {
