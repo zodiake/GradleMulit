@@ -54,6 +54,24 @@ values(16,'thirdCategory3-8',11,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(17,'thirdCategory3-9',11,1,'2012-1-1','tom','pc');
 
+-- test
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(21,'常用生化试剂',2,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(22,'EDTA',21,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(23,'DTT',21,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(24,'Tris',21,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(25,'SDS',21,1,'2012-1-1','tom','pc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(26,'MOPS',21,1,'2012-1-1','tom','pc');
+
+insert into brand(id,name,activate,cover_img,created_time) values(5,'AMRESCO',1,'/img/brand1.jpg','2012-1-1');
+
+
+
 --test advertise category
 insert into category(id,name,category_type,activate,url) values(7,'行业要闻','ic',1,'HYYW');
 insert into category(id,name,category_type,activate,url) values(8,'新品成果','ic',1,'XPCG');

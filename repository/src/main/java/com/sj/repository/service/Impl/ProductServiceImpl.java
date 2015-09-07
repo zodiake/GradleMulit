@@ -5,8 +5,10 @@ import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
 import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
 import static com.sj.repository.util.RedisConstant.VIEWCOUNT;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -19,10 +21,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.h2.engine.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -324,7 +327,7 @@ public class ProductServiceImpl implements ProductService {
 			else
 				product.setThirdCategory(thirdCategory);
 			
-			String label = getStringCellValue(xssfRow, i, 9);
+			String label = xssfRow.getCell(9).getStringCellValue();
 			product.setLabel(label);
 			product.setCreatedBy(p);
 			product.setCreatedTime(Calendar.getInstance());
@@ -338,13 +341,14 @@ public class ProductServiceImpl implements ProductService {
 		return products;
 	}
 
-	private String getStringCellValue(XSSFRow xssfRow, int line, int column)
-			throws BatchException {
+	private String getStringCellValue(XSSFRow xssfRow, int line, int column)throws BatchException {
 		String value = "";
 		try{
 			value = xssfRow.getCell(column).getStringCellValue();
+			if(value==null || value.length()==0)
+				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据为空");
 		}catch(Exception e){
-			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据为空");
+			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据错误");
 		}
 		return value;
 	}
@@ -353,6 +357,8 @@ public class ProductServiceImpl implements ProductService {
 		float price = 0f;
 		try{
 			price = (float) xssfRow.getCell(column).getNumericCellValue();
+			if(price==0f)
+				throw new BatchException("第" + (line + 1) + "行价格不能为0或者为空");
 		}catch(Exception e){
 			throw new BatchException("第" + (line + 1) + "行价格输入有误");
 		}
@@ -389,5 +395,63 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return "success";
+	}
+
+	@Override
+	public XSSFWorkbook getModel() throws InvalidFormatException, IOException {
+		File file = Paths.get("").resolve("src/main/resources/static/excel/model.xlsx").toFile();
+		XSSFWorkbook wb = new XSSFWorkbook(file);
+		int num = wb.getNumberOfSheets();
+		if (num != 1) {
+			for (int i = 1; i < num; i++) {
+				wb.removeSheetAt(i);
+			}
+		}
+		XSSFSheet brandAndPlaceSheet = wb.createSheet("品牌和产地");
+		
+		List<Brand> brands = brandRepository.findByActivate(ActivateEnum.ACTIVATE);
+		for (int i = 0; i < brands.size(); i++) {
+			XSSFRow brandRow = brandAndPlaceSheet.createRow(i);
+			XSSFCell brandCell = brandRow.createCell(0);
+			brandCell.setCellValue(brands.get(i).getName());
+		}
+		XSSFRow domesticRow = brandAndPlaceSheet.getRow(0);
+		XSSFCell domesticCell = domesticRow.createCell(1);
+		domesticCell.setCellValue("国产");
+		XSSFRow importedRow = brandAndPlaceSheet.getRow(1);
+		XSSFCell importedRowCell = importedRow.createCell(1);
+		importedRowCell.setCellValue("进口");
+		
+		XSSFSheet categorySheet = wb.createSheet("分类");
+		List<ProductCategory> firstCategories = pcRepository.findByParentIsNullAndActivate(ActivateEnum.ACTIVATE);
+		XSSFRow firstCategoryRow =categorySheet.createRow(0);
+		for (int i = 0; i < firstCategories.size(); i++) {
+			XSSFCell firstCategoryCell = firstCategoryRow.createCell(i);
+			firstCategoryCell.setCellValue(firstCategories.get(i).getName());	
+		}
+		
+		int secondRowNum = 6;
+		for (int i = 0; i < firstCategories.size(); i++) {
+			XSSFRow secondRow =categorySheet.createRow(i+2);
+			XSSFCell secondCategoryHeadCell = secondRow.createCell(0);
+			secondCategoryHeadCell.setCellValue(firstCategories.get(i).getName());
+			List<ProductCategory> secondCategories = pcRepository.findByParentAndActivate(firstCategories.get(i), ActivateEnum.ACTIVATE);
+			
+			for (int j = 0; j < secondCategories.size(); j++) {
+				XSSFCell secondCell = secondRow.createCell(j+1);
+				secondCell.setCellValue(secondCategories.get(j).getName());
+				
+				secondRowNum= secondRowNum+1;
+				XSSFRow thirdRow = categorySheet.createRow(secondRowNum);
+				XSSFCell thirdCategoryHeadCell = thirdRow.createCell(0);
+				thirdCategoryHeadCell.setCellValue(secondCategories.get(j).getName());
+				List<ProductCategory> thirdCategories =  pcRepository.findByParentAndActivate(secondCategories.get(j), ActivateEnum.ACTIVATE);
+				for (int k = 0; k < thirdCategories.size(); k++) {
+					XSSFCell thirdCell = thirdRow.createCell(k+1);
+					thirdCell.setCellValue(thirdCategories.get(k).getName());
+				}
+			}
+		}
+		return wb;
 	}
 }

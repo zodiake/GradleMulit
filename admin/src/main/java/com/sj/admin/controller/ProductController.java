@@ -108,7 +108,7 @@ public class ProductController {
 			throws InvalidFormatException, IOException {
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		getModel().write(out);
+		productService.getModel().write(out);
 		byte[] b = out.toByteArray();
 
 		response.reset();
@@ -119,22 +119,4 @@ public class ProductController {
 		return new ResponseEntity<byte[]>(b, header, HttpStatus.CREATED);
 	}
 
-	private XSSFWorkbook getModel() throws InvalidFormatException, IOException {
-		File file = Paths.get("")
-				.resolve("src/main/resources/static/excel/model.xlsx").toFile();
-		XSSFWorkbook wb = new XSSFWorkbook(file);
-		int num = wb.getNumberOfSheets();
-		if (num != 1) {
-			for (int i = 1; i < num; i++) {
-				wb.removeSheetAt(i);
-			}
-		}
-		XSSFSheet sheet = wb.createSheet("品牌");
-		for (int i = 0; i < 20; i++) {
-			XSSFRow row = sheet.createRow(i);
-			XSSFCell cell = row.createCell(0);
-			cell.setCellValue("哈哈3");
-		}
-		return wb;
-	}
 }

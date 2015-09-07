@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,4 +66,7 @@ public interface ProductService {
 	public String batchSaveProduct(InputStream is) throws IOException, BatchException;
 	
 	public List<Product> findDataForBatch(XSSFWorkbook wb) throws BatchException;
+	
+	public XSSFWorkbook getModel() throws InvalidFormatException, IOException;
+	
 }
