@@ -24,6 +24,7 @@ import com.sj.admin.exception.SubjectNotFoundException;
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
 import com.sj.repository.model.SolutionJson;
+import com.sj.repository.model.SubjectDetailJson;
 import com.sj.repository.model.SubjectJson;
 import com.sj.repository.service.SubjectService;
 
@@ -63,10 +64,10 @@ public class SubjectController {
 	}
 
 	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.GET)
-	public String edit(@PathVariable("id") Long id, Model uiModel) {
+	@ResponseBody
+	public SubjectDetailJson edit(@PathVariable("id") Long id, Model uiModel) {
 		Subject subject = subjectService.findOne(id);
-		uiModel.addAttribute("subject", subject);
-		return "subject/edit";
+		return new SubjectDetailJson(subject);
 	}
 
 	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.POST)

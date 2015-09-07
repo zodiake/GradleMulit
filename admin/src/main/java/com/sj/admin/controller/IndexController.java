@@ -145,6 +145,13 @@ public class IndexController extends UploadController {
 		return "subject/subjects";
 	}
 
+	// subject detail
+	@RequestMapping(value = "/templates/subject")
+	public String subjectView() {
+		return "subject/edit";
+	}
+
+	// create a subject
 	@RequestMapping(value = "/subject/create")
 	public String subjectCreate() {
 		return "subject/create";
@@ -169,15 +176,17 @@ public class IndexController extends UploadController {
 	public String productDetail(Model uiModel) {
 		return "product/detail";
 	}
-	
+
 	@RequestMapping(value = "/category")
 	public String category(Model uiModel) {
 		return "category/category";
 	}
+
 	@RequestMapping(value = "/category/categoryAdd")
 	public String categoryAdd() {
 		return "category/categoryAdd";
 	}
+
 	@RequestMapping(value = "/category/category2")
 	public String category2() {
 		return "category/category2";
