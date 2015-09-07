@@ -98,6 +98,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 				boolFilterBuilder.must(fromRange);
 				break;
 			case "brand":
+			case "secondCategory":
 			case "thirdCategory":
 				TermFilterBuilder brandTerm = new TermFilterBuilder(
 						f.getName(), (String) value);

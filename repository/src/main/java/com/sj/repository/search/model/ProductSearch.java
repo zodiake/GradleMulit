@@ -15,9 +15,19 @@ public class ProductSearch {
 	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
 	private Long id;
 
+	// 二级分类
+	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
+	private Long secondCategory;
+
 	// 三级分类
+	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
+	private Long thirdCategory;
+
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
-	private String thirdCategory;
+	private String secondCategoryName;
+
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+	private String thirdCategoryName;
 
 	// 价格
 	@Field(type = FieldType.Double)
@@ -57,7 +67,10 @@ public class ProductSearch {
 		this.id = i.getId();
 		this.brand = i.getBrand().getName();
 		this.title = i.getName();
-		this.thirdCategory = i.getThirdCategory().getName();
+		this.secondCategory = i.getSecondCategory().getId();
+		this.secondCategoryName = i.getSecondCategory().getName();
+		this.thirdCategory = i.getThirdCategory().getId();
+		this.thirdCategoryName = i.getThirdCategory().getName();
 		this.price = i.getPrice();
 		this.imgurl = i.getCoverImg();
 		this.url = i.getUrl();
@@ -73,14 +86,6 @@ public class ProductSearch {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getThirdCategory() {
-		return thirdCategory;
-	}
-
-	public void setThirdCategory(String thirdCategory) {
-		this.thirdCategory = thirdCategory;
 	}
 
 	public Float getPrice() {

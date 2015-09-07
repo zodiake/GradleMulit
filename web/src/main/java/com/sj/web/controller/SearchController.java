@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,5 +80,9 @@ public class SearchController extends BaseController<ProductSearch> {
 				break;
 			}
 		}
+		if (StringUtils.isEmpty(option.getSecondCategory()))
+			option.setSecondCategory(null);
+		if (StringUtils.isEmpty(option.getTag()))
+			option.setTag(null);
 	}
 }
