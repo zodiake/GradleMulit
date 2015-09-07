@@ -243,10 +243,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void updateState(Long id, ProductStatusEnum state) {
-		em.createQuery("update Product p set p.status=:state where p.id=:id")
-				.setParameter("state", state).setParameter("id", id)
-				.executeUpdate();
+	public Product updateState(Long id, ProductStatusEnum state) {
+		Product p = repository.findOne(id);
+		if (state.equals(ProductStatusEnum.UP)) {
+			p.setStatus(ProductStatusEnum.UP);
+		}
+		return p;
 	}
 
 	@Override

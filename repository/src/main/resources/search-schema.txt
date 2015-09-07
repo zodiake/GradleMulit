@@ -8,12 +8,18 @@ PUT /sj
           "analyzer": "standard"
         },
         "secondCategory":{
-          "type": "string",
-          "index":"not_analyzed"
+          "type": "long"
+        },
+        "secondCategoryName":{
+			    "type":"string",
+			    "index":"not_analyzed"
         },
         "thirdCategory":{
-          "type":"string",
-          "index":"not_analyzed"
+          "type":"long"
+        },
+        "thirdCategoryName":{
+			    "type":"string",
+			    "index":"not_analyzed"
         },
         "price":{
           "type":"float"
@@ -41,6 +47,9 @@ PUT /sj
         "tag":{
           "type":"string",
           "analyzer":"standard"
+        },
+        "id":{
+          "type":"long"
         }
       }
     }

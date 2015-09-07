@@ -83,7 +83,7 @@
                 $(':checked').each(function(n, target) {
                     var source = $(target);
                     var template = $('<a class="sel-tag"/>');
-                    template.text(source.attr('data-label') + "："+source.siblings('label').text());
+                    template.text(source.attr('data-label') + "：" + source.siblings('label').text());
                     template.append('<span class="icon-del" data-target="' + source.attr('id') + '"></span>');
                     $('div.selected').append(template);
                 });
@@ -94,6 +94,9 @@
                     $('form').submit();
                 });
 
+                $('#tagSearch').click(function() {
+                    $('form').submit();
+                });
             });
 		</script>
 	</head>
@@ -158,16 +161,16 @@
 								<label for="priceRange3">5-8万</label>
 							</li>
 						</ul>
+						<input type="hidden" th:field="*{secondCategory}"/>
 					</div>
-
+					<div class="items-search">
+						<label><b>标签：</b></label>
+						<input type="text" class="bodr" th:field="*{tag}"/>
+						<button id="tagSearch">
+							搜索
+						</button>
+					</div>
 				</form>
-			</div>
-			<div class="items-search">
-				<label><b>标签：</b></label>
-				<input type="text" class="bodr"/>
-				<button>
-					搜索
-				</button>
 			</div>
 			<div class="filter">
 				<a class="price">价格<i></i></a>

@@ -72,7 +72,8 @@ public class InstrumentServiceImpl implements InstrumentService {
 	@Override
 	public Instrument updateNoPublisher(Instrument instrument) {
 		Instrument source = repository.findById(instrument.getId());
-		if(source.getStatus().toString().equals(ProductStatusEnum.UP.toString()))
+		if (source.getStatus().toString()
+				.equals(ProductStatusEnum.UP.toString()))
 			source.setStatus(ProductStatusEnum.EXAMINE);
 		Instrument result = repository
 				.save(bindNoPublisher(source, instrument));

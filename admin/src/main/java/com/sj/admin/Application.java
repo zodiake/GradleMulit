@@ -2,13 +2,12 @@ package com.sj.admin;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
@@ -35,9 +34,8 @@ import com.sj.repository.converter.StringToProductConverter;
 import com.sj.repository.converter.StringToProductStatusEnumConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
 
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan
+@EnableConfigurationProperties
+@SpringBootApplication
 @Import(value = { com.sj.repository.Application.class,
 		com.sj.model.Application.class })
 public class Application extends WebMvcConfigurerAdapter {
@@ -49,7 +47,7 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Configuration
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 	protected static class SecurityConfig extends WebSecurityConfigurerAdapter {
-		@Resource
+		@Autowired
 		private UserDetailsService service;
 
 		@Override

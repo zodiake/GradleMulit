@@ -49,24 +49,30 @@
 					<div class="tab-panel news-list">
 						<ul>
 							<li th:each="infor:${industryNews}">
+								<a th:href="'/informations/'+${infor.id}">
 								<h4 class="gray-deeply" th:text="${infor.title}"></h4>
 								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
+								</a>
 							</li>
 						</ul>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
 							<li th:each="infor:${newResults}">
+								<a th:href="'/informations/'+${infor.id}">
 								<h4 th:text="${infor.title}"></h4>
 								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
+								</a>
 							</li>
 						</ul>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
 							<li th:each="infor:${vendorDynamics}">
+								<a th:href="'/informations/'+${infor.id}">
 								<h4 th:text="${infor.title}"></h4>
 								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -271,7 +277,7 @@
 			</div>
 			<div class="global-box topic-box">
 				<ul>
-					<li th:each="subject:${subjects}"><a>
+					<li th:each="subject:${subjects}"><a th:href="'/subjects/'+${subject.id}">
 							<div class="title ft16" th:text="${subject.name}">生物芯片扫描仪</div>
 							<div class="spe-pic">
 								<img alt="" th:src="@{/img/list1.jpg}" width="230" height="130" />
