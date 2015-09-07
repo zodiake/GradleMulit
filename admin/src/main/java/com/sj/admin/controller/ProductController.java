@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,13 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.admin.model.ProductOption;
 import com.sj.admin.security.SiteUserContext;
-import com.sj.model.model.Brand;
-import com.sj.model.model.Content;
-import com.sj.model.model.Product;
-import com.sj.model.model.Provider;
-import com.sj.model.type.ActivateEnum;
-import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.exception.BatchException;
 import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
 import com.sj.repository.service.ProductCategoryService;
@@ -90,69 +82,19 @@ public class ProductController {
 		return "";
 	}
 
-	@RequestMapping(value = "/admin/product", method = RequestMethod.GET, params = "batch")
-	public String createBatch() {
-
-		return "create";
-	}
-
-	@RequestMapping(value = "/admin/product", method = RequestMethod.POST, params = "batch")
+	@RequestMapping(value = "/admin/products", method = RequestMethod.POST, params = "batch")
 	@ResponseBody
-	public String createBatchProcess(@RequestParam("file") MultipartFile mf)
-			throws IOException, InvalidFormatException {
+	public String createBatchProcess(@RequestParam("file") MultipartFile mf) throws IOException, InvalidFormatException {
 		InputStream is = mf.getInputStream();
-		List<Product> products = getData(is);
-		List<String> strs = productService.saveProducts(products);
-		return strs.toString();
-	}
-
-	private List<Product> getData(InputStream is)
-			throws InvalidFormatException, IOException {
-		XSSFWorkbook wb = new XSSFWorkbook(is);
-
-		XSSFSheet sheet = wb.getSheetAt(0);
-		int irLength = sheet.getLastRowNum();
-		List<Product> products = new ArrayList<Product>();
-		Provider p = new Provider(1l);
-
-		for (int i = 3; i <= irLength; i++) {
-			try {
-				XSSFRow hssfRow = sheet.getRow(i);
-				Product product = new Product();
-				product.setName(hssfRow.getCell(1).getStringCellValue());
-				product.setModel(hssfRow.getCell(2).getStringCellValue());
-				product.setSpecifications(hssfRow.getCell(3)
-						.getStringCellValue());
-				product.setBrand(new Brand(1l));
-				product.setPlaceOfProduction(PlaceEnum.formString(hssfRow
-						.getCell(4).getStringCellValue()));
-				product.setPrice((float) hssfRow.getCell(5)
-						.getNumericCellValue());
-				product.setFirstCategory(productCategoryService.findByName(
-						hssfRow.getCell(6).getStringCellValue(),
-						ActivateEnum.ACTIVATE));
-				product.setSecondCategory(productCategoryService.findByName(
-						hssfRow.getCell(7).getStringCellValue(),
-						ActivateEnum.ACTIVATE));
-				product.setThirdCategory(productCategoryService.findByName(
-						hssfRow.getCell(8).getStringCellValue(),
-						ActivateEnum.ACTIVATE));
-//				product.setLabel(hssfRow.getCell(9).getStringCellValue());
-//				if (text != null && text.length() != 0) {
-//					Content content = new Content();
-//					content.setContent(text);
-//					product.setContent(content);
-//				}
-				product.setCreatedBy(p);
-				product.setCreatedTime(Calendar.getInstance());
-
-				products.add(product);
-			} catch (Exception e) {
-				System.out.println(i + 1);
-			}
+		String result = "";
+		try {
+			result = productService.batchSaveProduct(is);
+		} catch (IOException e) {
+			return e.getMessage();
+		} catch (BatchException e) {
+			return e.getMessage();
 		}
-		wb.close();
-		return products;
+		return result;
 	}
 
 	@RequestMapping(value = "/getModel", method = RequestMethod.GET)

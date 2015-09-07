@@ -126,6 +126,26 @@ public class Product {
 		super();
 		this.id = id;
 	}
+	
+	public Product(Product product){
+		super();
+		this.name = product.getName();
+		this.model = product.getModel();
+		this.placeOfProduction= product.getPlaceOfProduction();
+		this.specifications = product.getSpecifications();
+		this.status = product.getStatus();
+		this.label = product.getLabel();
+		this.coverImg = product.getCoverImg();
+		this.price = product.getPrice();
+		this.firstCategory = product.getFirstCategory();
+		this.secondCategory = product.getSecondCategory();
+		this.thirdCategory = product.getThirdCategory();
+		this.brand = product.getBrand();
+		this.createdBy = product.getCreatedBy();
+		this.createdTime = product.getCreatedTime();
+		this.authenticatedTime = product.getAuthenticatedTime();
+		this.content = product.getContent();
+	}
 
 	public Long getId() {
 		return id;

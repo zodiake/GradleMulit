@@ -53,8 +53,10 @@
                 }
             });
             var formObj = $('form');
+            var modify = $('#modify');
+            console.log(formObj);
             var category = $("#firstCategory").val();
-            var productId = formObj.attr("data-id");
+            var productId = modify.attr("data-id");
             switch(category){
     		case '仪器':
     			formObj.attr("action","/provider/instruments/"+productId+"?edit");
@@ -108,8 +110,8 @@
 					<a class="active" href="/provider/products">商品维护</a>
 					<a href="/provider/count">商品信息统计</a>
 				</div>
-				<div class="mainpanel bodr basic-info push-good fr">
-					<form th:object="${product}" th:method="put" th:attr="data-id=${product.id}">	
+				<div class="mainpanel bodr basic-info push-good fr" id="modify" th:attr="data-id=${product.id.toString()}">
+					<form th:object="${product}" th:method="put" >	
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 		
 						<div class="form-group">
 							<div class="fl">

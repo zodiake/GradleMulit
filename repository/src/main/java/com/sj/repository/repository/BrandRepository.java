@@ -18,5 +18,7 @@ public interface BrandRepository extends
 	public Page<Brand> findByActivate(Pageable pageable, ActivateEnum activate);
 
 	public Brand findByName(String name);
+	
+	public Brand findByNameAndActivate(String name,ActivateEnum activate);
 
 }

@@ -1,7 +1,10 @@
 package com.sj.repository.service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -11,6 +14,7 @@ import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.exception.BatchException;
 import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
 
@@ -39,8 +43,6 @@ public interface ProductService {
 
 	public Product updateStatus(Product product, ProductStatusEnum status);
 
-	public List<String> saveProducts(List<Product> products);
-
 	public Product saveOne(Product product);
 
 	public Page<Product> findCount(Provider user, Pageable pageable);
@@ -59,4 +61,8 @@ public interface ProductService {
 	public void updateState(Long id, ProductStatusEnum state);
 
 	public void updateSolution(Long id, String lists);
+	
+	public String batchSaveProduct(InputStream is) throws IOException, BatchException;
+	
+	public List<Product> findDataForBatch(XSSFWorkbook wb) throws BatchException;
 }
