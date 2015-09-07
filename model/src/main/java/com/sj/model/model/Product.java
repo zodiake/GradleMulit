@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,7 +40,7 @@ public class Product {
 	protected Long id;
 
 	@NotBlank(message = "商品名称不能为空")
-	@Size(max=40,message="商品名字最长为20个中文")
+	@Size(max = 40, message = "商品名字最长为20个中文")
 	protected String name;
 
 	@NotBlank(message = "型号不能为空")
@@ -51,6 +52,7 @@ public class Product {
 	@NotBlank(message = "规格不能为空")
 	protected String specifications;
 
+	@Enumerated
 	protected ProductStatusEnum status;
 
 	protected String label;

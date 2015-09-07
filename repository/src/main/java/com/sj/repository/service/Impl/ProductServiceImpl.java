@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
@@ -37,6 +38,8 @@ import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
 import com.sj.repository.repository.ProductRepository;
+import com.sj.repository.search.model.ProductSearch;
+import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.ProductService;
 
 @Service
@@ -48,6 +51,8 @@ public class ProductServiceImpl implements ProductService {
 	private StringRedisTemplate template;
 	@Autowired
 	private EntityManager em;
+	@Autowired
+	private ProductSearchService searchService;
 
 	@Override
 	public Page<Product> findByUsers(Provider user, Pageable pageable,
@@ -210,19 +215,20 @@ public class ProductServiceImpl implements ProductService {
 
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		cq.select(cb.count(cq.from(Product.class)));
+		List<Predicate> criteria = new ArrayList<>();
 
 		if (fc != null) {
-			c.where(cb.equal(product.get("firstCategory"), fc));
-			cq.where(cb.equal(product.get("firstCategory"), fc));
+			criteria.add(cb.equal(product.get("firstCategory"), fc));
 		}
 		if (sc != null) {
-			c.where(cb.equal(product.get("secondCategory"), sc));
-			cq.where(cb.equal(product.get("secondCategory"), sc));
+			criteria.add(cb.equal(product.get("secondCategory"), sc));
 		}
 		if (status != null) {
-			c.where(cb.equal(product.get("status"), status));
-			cq.where(cb.equal(product.get("status"), status));
+			criteria.add(cb.equal(product.get("status"), status));
 		}
+		c.where(criteria.toArray(new Predicate[0]));
+		cq.where(criteria.toArray(new Predicate[0]));
+
 		List<Product> lists = em
 				.createQuery(c)
 				.setFirstResult(
@@ -246,7 +252,10 @@ public class ProductServiceImpl implements ProductService {
 	public Product updateState(Long id, ProductStatusEnum state) {
 		Product p = repository.findOne(id);
 		if (state.equals(ProductStatusEnum.UP)) {
+			searchService.save(new ProductSearch(p));
 			p.setStatus(ProductStatusEnum.UP);
+		} else {
+			p.setStatus(ProductStatusEnum.NOT);
 		}
 		return p;
 	}
