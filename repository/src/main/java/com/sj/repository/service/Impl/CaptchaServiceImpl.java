@@ -9,21 +9,18 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.code.kaptcha.Producer;
+
 import com.sj.repository.service.CaptchaService;
 import com.sj.repository.util.TextCaptcha;
 
 @Service
 @Transactional
 public class CaptchaServiceImpl implements CaptchaService {
-	@Autowired
-	private Producer producer;
+
 
 	@Override
 	public TextCaptcha createImgCaptcha() {
-		String capText = producer.createText();
-		BufferedImage bi = producer.createImage(capText);
-		return new TextCaptcha(capText,bi);
+		return null;
 	}
 
 	@Override

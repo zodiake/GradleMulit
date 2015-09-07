@@ -27,6 +27,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+	
 	@Bean
 	public DefaultKaptcha captchaProducer() {
 		DefaultKaptcha kaptcha = new DefaultKaptcha();

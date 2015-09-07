@@ -163,6 +163,9 @@ table{
 	width: 990px;
 	margin:0 auto 20px;
 }
+.wrapper{
+	margin-top:20px;
+}
 .head-box{
 	margin-bottom: 30px;
 }

@@ -2,11 +2,11 @@
     <form class="form-inline">
         <div class="form-group company-select">
             <select ng-model="auth" name="state">
-                <option value="">全部状态</option>
-                <option value="ROLE_PROVIDER">已审核</option>
-                <option value="ROLE_UNAUTH">未审核</option>
+                <option value="">请选择</option>
+                <option value="ROLE_PROVIDER">货主</option>
+                <option value="ROLE_UNAUTH">司机</option>
             </select>
-            <button ng-click="search()">搜索</button>
+            <button ng-click="search()" class="btn btn-primary btn-sm">搜索</button>
         </div>
     </form>
     <table class="table table-bordered mb30">
@@ -18,9 +18,9 @@
                 <th>手机号</th>
                 <th>邮箱</th>
                 <th>城市</th>
-                <th>单位</th>
+                <th>公司</th>
                 <th>状态</th>
-                <th>注册日期</th>
+                <th>创建日期</th>
             </tr>
         </thead>
         <tbody>
