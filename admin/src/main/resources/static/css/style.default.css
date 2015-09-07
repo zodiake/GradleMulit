@@ -34,7 +34,19 @@ a{
     color:#43505d;
 }
 
-
+.ml10{
+	margin-left:10px;
+}
+.mt20{
+	margin-top:20px;
+}
+input.w160{
+	width:160px;
+	margin:auto;
+}
+.sm-ml .btn-sm{
+	margin:0 5px;
+}
 
 /********** 3. HEADER STYLES **********/
 /**************************************/
@@ -849,4 +861,13 @@ select{
 	border:1px solid #becad6;
 	border-bottom:none;
 	border-right:none;
+}
+.upload-modal{
+	position: fixed;
+	top: 40%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 307px
 }

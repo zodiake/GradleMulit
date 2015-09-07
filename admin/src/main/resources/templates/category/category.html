@@ -1,11 +1,11 @@
 <div class="mainpanel">
-    <div class="contentpanel">
+    <div class="contentpanel">    	
         <form class="form-inline">
             <div class="form-group">
-                <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#brandModal" ng-click="create()">添加</a>
+                <a class="btn btn-success btn-sm" ui-sref="categoryAdd">添加</a>
             </div>
         </form>
-        <h3>仪器</h3>
+        <h4>仪器</h4>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -16,19 +16,19 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in yq">
-                    <td ng-click="view(item)">{{$index+1}}</td>
+                    <td ng-click="view(item)"><a href="#/category2/{{item.id}}">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                       			修改
+                            修改
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-   		<h3>试剂</h3>
+        <h4>试剂</h4>
         <table class="table table-bordered">
-            <thead>
+            <thead>	
                 <tr>
                     <th>序号</th>
                     <th>商品名称</th>
@@ -41,13 +41,62 @@
                     <td>{{item.name}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                       			修改
+                            修改
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <h4>耗材</h4>
+        <table class="table table-bordered">
+            <thead>	
+                <tr>
+                    <th>序号</th>
+                    <th>商品名称</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in hc">
+                    <td ng-click="view(item)">{{$index+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                            修改
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>服务</h4>
+        <table class="table table-bordered">
+            <thead>	
+                <tr>
+                    <th>序号</th>
+                    <th>商品名称</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in fw">
+                    <td ng-click="view(item)">{{$index+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                            修改
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="pagenumQu">
+	        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
+	    </div>
     </div>
+</div>
+
+<div class="upload-modal">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
 <!--  
 
