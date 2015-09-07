@@ -58,7 +58,7 @@ public interface ProductService {
 
 	public Product findOneAdmin(Long id);
 
-	public void updateState(Long id, ProductStatusEnum state);
+	public Product updateState(Long id, ProductStatusEnum state);
 
 	public void updateSolution(Long id, String lists);
 	

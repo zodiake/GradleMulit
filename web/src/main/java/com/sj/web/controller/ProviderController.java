@@ -180,8 +180,8 @@ public class ProviderController extends BaseController<Provider> {
 		instrument.setCreatedTime(Calendar.getInstance());
 		instrument.setStatus(ProductStatusEnum.EXAMINE);
 
-		instrumentService.saveNoPublisher(instrument);
-		return "redirect:/provider/products";
+		Instrument i =instrumentService.saveNoPublisher(instrument);
+		return "redirect:/products/"+i.getId();
 	}
 
 	@RequestMapping(value = "/provider/consumables", method = RequestMethod.POST, params = "form")
@@ -219,8 +219,8 @@ public class ProviderController extends BaseController<Provider> {
 		consumable.setCreatedTime(Calendar.getInstance());
 		consumable.setStatus(ProductStatusEnum.EXAMINE);
 
-		consumableService.saveNoPublisher(consumable);
-		return "redirect:/provider/products";
+		Consumable c = consumableService.saveNoPublisher(consumable);
+		return "redirect:/products/"+c.getId();
 	}
 
 	@RequestMapping(value = "/provider/reagents", method = RequestMethod.POST, params = "form")
@@ -257,8 +257,8 @@ public class ProviderController extends BaseController<Provider> {
 		reagents.setCreatedTime(Calendar.getInstance());
 		reagents.setStatus(ProductStatusEnum.EXAMINE);
 
-		reagentsService.saveNoPublisher(reagents);
-		return "redirect:/provider/products";
+		Reagents r = reagentsService.saveNoPublisher(reagents);
+		return "redirect:/products/"+r.getId();
 	}
 
 	@RequestMapping(value = "/provider/services", method = RequestMethod.POST, params = "form")
@@ -295,8 +295,8 @@ public class ProviderController extends BaseController<Provider> {
 		service.setCreatedTime(Calendar.getInstance());
 		service.setStatus(ProductStatusEnum.EXAMINE);
 
-		serviceService.saveNoPublisher(service);
-		return "redirect:/provider/products";
+		Service s = serviceService.saveNoPublisher(service);
+		return "redirect:/products/"+s.getId();
 	}
 
 	/* 商品发布 end */
@@ -341,7 +341,7 @@ public class ProviderController extends BaseController<Provider> {
 		instrument.setId(id);
 		instrument = instrumentService.updateNoPublisher(instrument);
 		uiModel.addAttribute("product", instrument);
-		return "redirect:/provider/products";
+		return "redirect:/products/"+id;
 	}
 
 	@RequestMapping(value = "/provider/consumables/{id}", method = RequestMethod.PUT, params = "edit")
@@ -366,7 +366,7 @@ public class ProviderController extends BaseController<Provider> {
 		consumable.setId(id);
 		consumable = consumableService.updateNoPublisher(consumable);
 		uiModel.addAttribute("product", consumable);
-		return "redirect:/provider/products";
+		return "redirect:/products/"+id;
 	}
 
 	@RequestMapping(value = "/provider/services/{id}", method = RequestMethod.PUT, params = "edit")
@@ -391,7 +391,7 @@ public class ProviderController extends BaseController<Provider> {
 		service.setId(id);
 		service = serviceService.updateNoPublisher(service);
 		uiModel.addAttribute("product", service);
-		return "redirect:/provider/products";
+		return "redirect:/products/"+id;
 	}
 
 	@RequestMapping(value = "/provider/reagents/{id}", method = RequestMethod.PUT, params = "edit")
@@ -421,7 +421,7 @@ public class ProviderController extends BaseController<Provider> {
 		reagents.setId(id);
 		reagents = reagentsService.updateNoPublisher(reagents);
 		uiModel.addAttribute("product", reagents);
-		return "redirect:/provider/products";
+		return "redirect:/products/"+id;
 	}
 
 	/* 商品修改 end */

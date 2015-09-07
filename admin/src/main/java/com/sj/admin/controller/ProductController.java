@@ -31,10 +31,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.admin.model.ProductOption;
 import com.sj.admin.security.SiteUserContext;
+import com.sj.model.model.Product;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.exception.BatchException;
 import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
+import com.sj.repository.search.model.ProductSearch;
+import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 
@@ -46,6 +49,8 @@ public class ProductController {
 	private SiteUserContext context;
 	@Autowired
 	private ProductCategoryService productCategoryService;
+	@Autowired
+	private ProductSearchService searchService;
 
 	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
 	@ResponseBody
@@ -69,7 +74,8 @@ public class ProductController {
 	@ResponseBody
 	private String updateProductState(@PathVariable("id") Long id,
 			ProductStatusEnum state) {
-		productService.updateState(id, state);
+		Product p = productService.updateState(id, state);
+		searchService.save(new ProductSearch(p));
 		return "";
 	}
 

@@ -13,7 +13,7 @@ var app = angular.module('app', [
     'Info',
     'Subject',
     'Product',
-    'Category'
+    'Category',
 ]);
 
 app.config([
@@ -90,6 +90,16 @@ app.config([
                 url: '/category',
                 templateUrl: '/admin/category',
                 controller: 'CategoryController'
+            })
+            .state('categoryAdd', {
+                url: '/categoryAdd',
+                templateUrl: '/admin/category/categoryAdd',
+                controller: 'CategoryAddController'
+            })
+            .state('category2', {
+                url: '/category2/:id',
+                templateUrl: '/admin/category/category2',
+                controller: 'Category2Controller'
             });
     }
 ]);
