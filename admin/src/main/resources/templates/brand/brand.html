@@ -1,17 +1,17 @@
 <div class="contentpanel">
     <form class="form-inline">
         <div class="form-group">
-            <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#brandModal" ng-click="create()">娣诲姞</a>
+            <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#brandModal" ng-click="create()">添加</a>
         </div>
     </form>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>搴忓彿</th>
-                <th>鍝佺墝鍚嶇О</th>
+                <th>序号</th>
+                <th>品牌名称</th>
                 <th>logo</th>
-                <th>鐘舵��</th>
-                <th>鎿嶄綔</th>
+                <th>状态</th>
+                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
                 <td>{{item.state}}</td>
                 <td>
                     <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                        鍒犻櫎
+                        删除
                     </button>
                 </td>
             </tr>
