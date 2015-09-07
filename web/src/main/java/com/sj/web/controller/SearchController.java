@@ -51,6 +51,7 @@ public class SearchController extends BaseController<ProductSearch> {
 		}
 
 		Map<String, String> map = service.buildMap(option);
+		service.save(new ProductSearch());
 
 		ViewPage viewpage = caculatePage(results);
 		viewpage.setOption(map);

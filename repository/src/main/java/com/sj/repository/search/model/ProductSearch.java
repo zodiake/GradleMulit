@@ -16,11 +16,11 @@ public class ProductSearch {
 	private Long id;
 
 	// 二级分类
-	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
+	@Field(type = FieldType.Long)
 	private Long secondCategory;
 
 	// 三级分类
-	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
+	@Field(type = FieldType.Long)
 	private Long thirdCategory;
 
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
@@ -44,9 +44,6 @@ public class ProductSearch {
 	// 标题
 	@Field(type = FieldType.String)
 	private String title;
-
-	// 类型 搜索通过类型区分
-	private String type;
 
 	// 商品url
 	private String url;
@@ -120,14 +117,6 @@ public class ProductSearch {
 		this.title = title;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public String getUrl() {
 		return url;
 	}
@@ -158,6 +147,38 @@ public class ProductSearch {
 
 	public void setModel(String model) {
 		this.model = model;
+	}
+
+	public Long getSecondCategory() {
+		return secondCategory;
+	}
+
+	public void setSecondCategory(Long secondCategory) {
+		this.secondCategory = secondCategory;
+	}
+
+	public Long getThirdCategory() {
+		return thirdCategory;
+	}
+
+	public void setThirdCategory(Long thirdCategory) {
+		this.thirdCategory = thirdCategory;
+	}
+
+	public String getSecondCategoryName() {
+		return secondCategoryName;
+	}
+
+	public void setSecondCategoryName(String secondCategoryName) {
+		this.secondCategoryName = secondCategoryName;
+	}
+
+	public String getThirdCategoryName() {
+		return thirdCategoryName;
+	}
+
+	public void setThirdCategoryName(String thirdCategoryName) {
+		this.thirdCategoryName = thirdCategoryName;
 	}
 
 	@Override

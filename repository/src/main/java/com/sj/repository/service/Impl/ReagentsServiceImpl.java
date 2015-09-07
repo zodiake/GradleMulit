@@ -21,14 +21,16 @@ public class ReagentsServiceImpl implements ReagentsService {
 		// TODO Auto-generated method stub
 		return repository.save(reagents);
 	}
+
 	@Override
 	public Reagents updateNoPublisher(Reagents reagents) {
 		Reagents source = repository.findOne(reagents.getId());
-		if(source.getStatus()==ProductStatusEnum.UP)
+		if (source.getStatus() == ProductStatusEnum.UP)
 			source.setStatus(ProductStatusEnum.EXAMINE);
 		Reagents result = repository.save(bindNoPublisher(source, reagents));
 		return repository.save(result);
 	}
+
 	private Reagents bindNoPublisher(Reagents old, Reagents newTarget) {
 		old.setCoverImg(newTarget.getCoverImg());
 		old.setModel(newTarget.getModel());
