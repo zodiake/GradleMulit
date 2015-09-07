@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -55,6 +56,7 @@ public class Product {
 	@Enumerated
 	protected ProductStatusEnum status;
 
+	@Size(max=150,message="标签最长为150个字符")
 	protected String label;
 
 	@Column(name = "cover_img")
@@ -127,6 +129,26 @@ public class Product {
 	public Product(Long id) {
 		super();
 		this.id = id;
+	}
+	
+	public Product(Product product){
+		super();
+		this.name = product.getName();
+		this.model = product.getModel();
+		this.placeOfProduction= product.getPlaceOfProduction();
+		this.specifications = product.getSpecifications();
+		this.status = product.getStatus();
+		this.label = product.getLabel();
+		this.coverImg = product.getCoverImg();
+		this.price = product.getPrice();
+		this.firstCategory = product.getFirstCategory();
+		this.secondCategory = product.getSecondCategory();
+		this.thirdCategory = product.getThirdCategory();
+		this.brand = product.getBrand();
+		this.createdBy = product.getCreatedBy();
+		this.createdTime = product.getCreatedTime();
+		this.authenticatedTime = product.getAuthenticatedTime();
+		this.content = product.getContent();
 	}
 
 	public Long getId() {

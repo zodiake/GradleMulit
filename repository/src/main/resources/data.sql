@@ -205,4 +205,3 @@ insert into buy_product(id,buy_id,product_id,number)values(2,2,1,10);
 insert into buy_product(id,buy_id,product_id,number)values(3,1,2,10);
 insert into buy_product(id,buy_id,product_id,number)values(4,1,3,10);
 insert into buy_product(id,buy_id,product_id,number)values(5,1,4,10);
-

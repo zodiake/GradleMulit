@@ -23,7 +23,7 @@
 			<div class="mainwrapper clearfix">
 				<div class="aside fl">
 					<a href="/supplier/detail">个人资料</a>
-					<a href="/provider/products?form">发布商品</a>
+					<a href="/provider/products?form" target="_blank">发布商品</a>
 					<a class="active">商品维护</a>
 					<a href="/provider/count">商品信息统计</a>
 				</div>
@@ -70,13 +70,13 @@
 													<a class="blue revoke">撤销</a>
 											</td>
 											<td  th:attr="data-id=${product.id}" th:case="${'UP'}">
-													<a class="blue down">下架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'">修改</a>
+													<a class="blue down">下架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'" target="_blank">修改</a>
 											</td>
 											<td  th:attr="data-id=${product.id}" th:case="${'DOWN'}">
-													<a class="blue up">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'">修改</a>
+													<a class="blue up">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'" target="_blank">修改</a>
 											</td>
 											<td  th:attr="data-id=${product.id}" th:case="${'NOT'}">
-													<a class="blue up">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'">修改</a>
+													<a class="blue up">上架</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="blue modify" th:href="'/provider/products/'+${product.id}+'?edit'" target="_blank">修改</a>
 											</td>
 									</tr>
 								</tbody>

@@ -5,11 +5,12 @@ import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
 import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
 import static com.sj.repository.util.RedisConstant.VIEWCOUNT;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -18,10 +19,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 
-import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,13 +32,26 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Brand;
+import com.sj.model.model.Consumable;
+import com.sj.model.model.Content;
+import com.sj.model.model.Instrument;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
+import com.sj.model.model.Reagents;
+import com.sj.model.type.ActivateEnum;
+import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.exception.BatchException;
 import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
+import com.sj.repository.repository.BrandRepository;
+import com.sj.repository.repository.ConsumableRepository;
+import com.sj.repository.repository.InstrumentRepository;
+import com.sj.repository.repository.ProductCategoryRepository;
 import com.sj.repository.repository.ProductRepository;
+import com.sj.repository.repository.ReagentsRepository;
+import com.sj.repository.repository.ServiceRepository;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.ProductService;
@@ -50,9 +64,21 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private StringRedisTemplate template;
 	@Autowired
+	private ProductCategoryRepository pcRepository;
+	@Autowired
+	private BrandRepository brandRepository;
+	@Autowired
 	private EntityManager em;
 	@Autowired
 	private ProductSearchService searchService;
+	@Autowired
+	private ConsumableRepository consumableRepository;
+	@Autowired
+	private InstrumentRepository instrumentRepository;
+	@Autowired
+	private ReagentsRepository reagentsRepository;
+	@Autowired
+	private ServiceRepository serviceRepository;
 
 	@Override
 	public Page<Product> findByUsers(Provider user, Pageable pageable,
@@ -122,31 +148,6 @@ public class ProductServiceImpl implements ProductService {
 	public Product updateStatus(Product product, ProductStatusEnum status) {
 		product.setStatus(status);
 		return repository.save(product);
-	}
-
-	@Override
-	public List<String> saveProducts(List<Product> products) {
-		List<String> strs = new ArrayList<String>();
-		Validator validator = javax.validation.Validation
-				.buildDefaultValidatorFactory().getValidator();
-		Set<ConstraintViolation<Product>> vs = null;
-		for (int i = 0; i < products.size(); i++) {
-			vs = validator.validate(products.get(i));
-			if (!vs.isEmpty()) {
-				String str = "第" + (i + 1) + "个商品出错，出错原因：";
-				for (int j = 0; j < vs.size(); j++) {
-					ConstraintViolationImpl<Product> p = (ConstraintViolationImpl<Product>) vs
-							.toArray()[j];
-					str = str + p.getPropertyPath() + p.getMessage() + ";";
-				}
-				strs.add(str);
-			}
-			vs.clear();
-		}
-		if (strs.size() == 0) {
-			repository.save(products);
-		}
-		return strs;
 	}
 
 	@Override
@@ -276,5 +277,134 @@ public class ProductServiceImpl implements ProductService {
 									.executeUpdate();
 						});
 
+	}
+
+	@Override
+	public List<Product> findDataForBatch(XSSFWorkbook wb)
+			throws BatchException {
+		List<Product> products = new ArrayList<Product>();
+		XSSFSheet sheet = wb.getSheetAt(0);
+		int irLength = sheet.getLastRowNum();
+		Provider p = new Provider(1l);
+		for (int i = 3; i <= irLength; i++) {
+			XSSFRow xssfRow = sheet.getRow(i);
+			Product product = new Product();
+			String name = getStringCellValue(xssfRow, i, 0);
+			product.setName(name);
+			String model = getStringCellValue(xssfRow, i, 1);
+			product.setModel(model);
+
+			product.setSpecifications(getStringCellValue(xssfRow, i, 2));
+			String brandName = getStringCellValue(xssfRow, i, 3);
+			Brand brand = brandRepository.findByNameAndActivate(brandName,
+					ActivateEnum.ACTIVATE);
+			if (brand == null)
+				throw new BatchException("第" + (i + 1) + "行品牌找不到");
+			else
+				product.setBrand(brand);
+			String place = getStringCellValue(xssfRow, i, 4);
+			if ("国产".equals(place))
+				product.setPlaceOfProduction(PlaceEnum.DOMESTIC);
+			else if ("进口".equals(place))
+				product.setPlaceOfProduction(PlaceEnum.IMPORTED);
+			else
+				throw new BatchException("第" + (i + 1) + "行产地输入错误");
+			float price = getNumericCellValue(xssfRow, i, 5);
+			product.setPrice(price);
+
+			String firstCategoryName = getStringCellValue(xssfRow, i, 6);
+			ProductCategory firstCategory = pcRepository.findByNameAndActivate(
+					firstCategoryName, ActivateEnum.ACTIVATE);
+			if (firstCategory == null)
+				throw new BatchException("第" + (i + 1) + "行大类不存在");
+			else
+				product.setFirstCategory(firstCategory);
+
+			String secondCategoryName = getStringCellValue(xssfRow, i, 7);
+			ProductCategory secondCategory = pcRepository
+					.findByNameAndParentAndActivate(secondCategoryName,
+							firstCategory, ActivateEnum.ACTIVATE);
+			if (secondCategory == null)
+				throw new BatchException("第" + (i + 1) + "行一级分类不存在");
+			else
+				product.setSecondCategory(secondCategory);
+
+			String thirdCategoryName = getStringCellValue(xssfRow, i, 8);
+			ProductCategory thirdCategory = pcRepository
+					.findByNameAndParentAndActivate(thirdCategoryName,
+							secondCategory, ActivateEnum.ACTIVATE);
+			if (thirdCategory == null)
+				throw new BatchException("第" + (i + 1) + "行二级分类不存在");
+			else
+				product.setThirdCategory(thirdCategory);
+
+			String label = getStringCellValue(xssfRow, i, 9);
+			product.setLabel(label);
+			product.setCreatedBy(p);
+			product.setCreatedTime(Calendar.getInstance());
+			product.setAuthenticatedTime(Calendar.getInstance());
+			product.setStatus(ProductStatusEnum.UP);
+			product.setCoverImg("/");
+			product.setContent(new Content());
+
+			products.add(product);
+		}
+		return products;
+	}
+
+	private String getStringCellValue(XSSFRow xssfRow, int line, int column)
+			throws BatchException {
+		String value = "";
+		try {
+			value = xssfRow.getCell(column).getStringCellValue();
+		} catch (Exception e) {
+			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1)
+					+ "列数据为空");
+		}
+		return value;
+	}
+
+	private float getNumericCellValue(XSSFRow xssfRow, int line, int column)
+			throws BatchException {
+		float price = 0f;
+		try {
+			price = (float) xssfRow.getCell(column).getNumericCellValue();
+		} catch (Exception e) {
+			throw new BatchException("第" + (line + 1) + "行价格输入有误");
+		}
+		return price;
+	}
+
+	@Override
+	public String batchSaveProduct(InputStream is) throws IOException,
+			BatchException {
+		XSSFWorkbook wb = null;
+		wb = new XSSFWorkbook(is);
+		List<Product> products = findDataForBatch(wb);
+		wb.close();
+		is.close();
+		for (Product product : products) {
+			String category = product.getFirstCategory().getName();
+			switch (category) {
+			case "仪器":
+				Instrument i = new Instrument(product);
+				i = instrumentRepository.save(i);
+				continue;
+			case "试剂":
+				Reagents r = new Reagents(product);
+				reagentsRepository.save(r);
+				continue;
+			case "耗材":
+				Consumable c = new Consumable(product);
+				consumableRepository.save(c);
+				continue;
+			case "服务":
+				com.sj.model.model.Service s = new com.sj.model.model.Service(
+						product);
+				serviceRepository.save(s);
+				continue;
+			}
+		}
+		return "success";
 	}
 }
