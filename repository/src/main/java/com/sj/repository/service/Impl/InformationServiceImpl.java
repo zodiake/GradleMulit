@@ -103,4 +103,10 @@ public class InformationServiceImpl implements InformationService {
 		return new PageImpl<InformationJson>(lists, pageable,
 				pages.getTotalElements());
 	}
+
+	@Override
+	public void updateState(Long id, ActivateEnum state) {
+		Information info = repository.findOne(id);
+		info.setActivate(state);
+	}
 }

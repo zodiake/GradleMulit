@@ -1,7 +1,7 @@
 var filterModel = angular.module('filterModel', []);
 
-filterModel.filter('stateFilter', function () {
-    return function (state) {
+filterModel.filter('stateFilter', function() {
+    return function(state) {
         if (state == 'UP') {
             return '已上架';
         } else if (state == 'EXAMINE') {
@@ -11,5 +11,17 @@ filterModel.filter('stateFilter', function () {
         } else if (state == 'NOT') {
             return '已拒绝';
         }
+    };
+});
+
+filterModel.filter('activeFilter', function() {
+    return function(state) {
+        return state == 'ACTIVATE' ? '有效' : '无效';
+    };
+});
+
+filterModel.filter('reverseActiveFilter', function() {
+    return function(state) {
+        return state == 'ACTIVATE' ? '无效':'有效' ;
     };
 });
