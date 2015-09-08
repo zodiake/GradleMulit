@@ -30,6 +30,7 @@
 							<tr>
 								<th>上架日期</th>
 								<th>产品名称</th>
+								<th>浏览次数</th>
 								<th>收藏次数</th>
 								<th>评论次数</th>
 								<th>申购次数</th>
@@ -37,8 +38,9 @@
 						</thead>
 						<tbody class="bodr">
 							<tr th:each="product:${products}">
-								<td th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd HH-mm-ss')}">2015年01月11日 10:39</td>
+								<td th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015年01月11日 10:39</td>
 								<td><a th:text="${product.name}" th:href="'/products/'+${product.id}">名称名称</a></td>
+								<td th:text="${product.viewCount}">11111</td>
 								<td th:text="${product.collectionCount}">11111</td>
 								<td th:text="${product.reviewCount}">2222</td>
 								<td th:text="${product.buyCount}">3333</td>

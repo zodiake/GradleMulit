@@ -49,7 +49,7 @@
 								<div class="clearfix">
 									<div class="fl">
 										<div class="form-group">
-											<label>企业名称（中文）</label>
+											<label><i>*</i>企业名称（中文）</label>
 											<input type="text" th:field="*{companyNameChina}" readonly="readonly"/>	
 										</div>
 										<div class="form-group">
@@ -67,7 +67,14 @@
 										</div>
 										<div class="form-group">
 											<div class="fl">
-											<label>企业性质</label>
+											<label>注册资本</label>
+											<input type="text" th:field="*{registeredCapital}"/>万
+											<i class="error ml143" th:if="${#fields.hasErrors('registeredCapital')}" th:errors="*{registeredCapital}"></i>								
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="fl">
+											<label><i>*</i>企业性质</label>
 											<select class="w228" th:field="*{componyType}">
 												<option value="FOREIGNOWNED">外商独资</option>
 												<option value="JOINTVENTURE">合资企业</option>
@@ -77,13 +84,6 @@
 												<option value="INVESTIGATION">刑侦机关</option>
 											</select>
 											<i class="error ml143" th:if="${#fields.hasErrors('componyType')}" th:errors="*{componyType}"></i>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="fl">
-											<label>注册资本</label>
-											<input type="text" th:field="*{registeredCapital}"/>万
-											<i class="error ml143" th:if="${#fields.hasErrors('registeredCapital')}" th:errors="*{registeredCapital}"></i>								
 											</div>
 										</div>
 										<div class="form-group">
@@ -173,19 +173,19 @@
 									<div class="fr">
 										<div class="form-group">
 											<div class="fl">
-											<label>注册邮箱</label>
+											<label><i>*</i>注册邮箱</label>
 											<input type="text" th:field="*{email}" readonly="readonly"/>
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="fl">
-											<label>注册用户名</label>
+											<label><i>*</i>注册用户名</label>
 											<input type="text" th:field="*{name}" readonly="readonly"/>
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="fl">
-											<label>手机号</label>
+											<label><i>*</i>手机号</label>
 											<input type="text" th:field="*{phone}" readonly="readonly"/>	
 											</div>
 										</div>
@@ -205,7 +205,7 @@
 										</div>
 										<div class="form-group" >
 											<div class="fl">
-											<label>性别</label>
+											<label><i>*</i>性别</label>
 											<input type="radio" th:field="*{sex}" value="MALE"/>男
 											<input type="radio" th:field="*{sex}" value="FEMALE"/>女
 											<i class="error ml143" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></i>

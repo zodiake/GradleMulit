@@ -446,9 +446,8 @@ public class ProviderController extends BaseController<Provider> {
 	public String findCount(Model uiModel, @SecurityUser SiteUser user,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		Page<Product> products = productService.findByUsers(
-				new Provider(user.getId()), new PageRequest(page - 1, size,
-						Direction.DESC, "createdTime"));
+		Page<Product> products = productService.findCount(new Provider(user.getId()), new PageRequest(page - 1, size,
+				Direction.DESC, "createdTime"));
 		uiModel.addAttribute("products", products);
 		return "user/provider/count";
 	}

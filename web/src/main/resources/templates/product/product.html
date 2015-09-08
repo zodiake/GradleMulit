@@ -57,12 +57,15 @@
                     var productId = coll.attr("data-id");
                     $.ajax({
                         type : 'post',
-                        url : '/ajax/preferProduct/' + productId,
+                        url : '/ajax/preferProduct',
+                        data : {'id':productId},
                         success : function(data) {
                             if (data == "success") {
                                 var num = $("#number");
                                 var number = num.text() * 1 + 1;
                                 num.text(number);
+                            }else{
+                            	alert(data);
                             }
                         },
                         error : function(data) {

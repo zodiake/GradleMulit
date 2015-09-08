@@ -109,9 +109,8 @@ public class CommonUserController {
 	}
 
 	@RequestMapping(value = "/user/collection", method = RequestMethod.POST)
-	public String addCollection(@SecurityUser SiteUser user,
-			@RequestParam("id") Long id) {
-		Product p = productServise.findOne(id);
+	public String addCollection(@SecurityUser SiteUser user,@RequestParam("id") Long productId) {
+		Product p = productServise.findOne(productId);
 		if (p == null)
 			throw new ProductNotFoundException();
 		PreferProduct prefer = new PreferProduct(new CommonUser(user.getId()),

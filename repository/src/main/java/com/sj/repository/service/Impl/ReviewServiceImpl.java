@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import static com.sj.repository.util.RedisConstant.SUBJECTCOUNT;
+
 import java.util.Calendar;
 
 import javax.transaction.Transactional;
@@ -7,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Product;
@@ -19,6 +22,8 @@ import com.sj.repository.service.ReviewService;
 public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private ReviewRepository repository;
+	@Autowired
+	private StringRedisTemplate template;
 
 	@Override
 	public Page<Review> findByProduct(Product product, Pageable pageable) {
@@ -28,7 +33,9 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public Review save(Review review) {
 		review.setCreatedTime(Calendar.getInstance());
-		return repository.save(review);
+		review = repository.save(review);
+		template.opsForValue().increment(SUBJECTCOUNT + review.getProduct().getId(), 1);
+		return review;
 	}
 
 }

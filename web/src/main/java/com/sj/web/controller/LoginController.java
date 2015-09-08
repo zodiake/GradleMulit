@@ -108,6 +108,7 @@ public class LoginController {
 			return LOGIN;
 		}
 		user = (SiteUser) userDetailsService.loadUserByUsername(user.getName());
+		httpSession.removeAttribute("cartLines");
 		userContext.setCurrentUser(user);
 		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
 			 Set<CartLine> lines = cartLineService.findByUser(user.getId());

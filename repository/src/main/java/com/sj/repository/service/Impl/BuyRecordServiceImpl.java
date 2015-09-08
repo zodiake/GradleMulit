@@ -1,5 +1,8 @@
 package com.sj.repository.service.Impl;
 
+import static com.sj.repository.util.RedisConstant.BUYCOUNT;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +12,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.BuyProduct;
@@ -30,10 +34,14 @@ public class BuyRecordServiceImpl implements BuyRecordService {
 	private BuyProductRepository buyProductRepository;
 	@Autowired
 	private CartLineService cartLineService;
+	@Autowired
+	private StringRedisTemplate template;
 
 	@Override
 	public BuyRecord save(BuyRecord buyRecord, Set<CartLine> lines) {
-		buyRecord.setNoId(Calendar.getInstance().getTime().getTime()+buyRecord.getUser().getId()+"");
+		SimpleDateFormat sdf =new SimpleDateFormat("yyyyMMddHHmmss");
+		String str = sdf.format(Calendar.getInstance().getTime());
+		buyRecord.setNoId(str + buyRecord.getUser().getId());
 		buyRecord.setCreateTime(Calendar.getInstance());
 		buyRecord.setArrivalTime(Calendar.getInstance());
 		Set<BuyProduct> products = new HashSet<BuyProduct>();
@@ -45,11 +53,17 @@ public class BuyRecordServiceImpl implements BuyRecordService {
 			buyProduct.setProduct(new Product(cartLine.getProductId()));
 			products.add(buyProduct);
 			totalPrice = totalPrice + cartLine.getPrice()* cartLine.getNumber();
-			cartLineService.remove(buyRecord.getUser().getId(), cartLine.getId());
 		}
 		buyRecord.setProducts(products);
 		buyRecord.setPrice(totalPrice);
-		return buyRecordRepository.save(buyRecord);
+		buyRecord = buyRecordRepository.save(buyRecord);
+		
+		for (CartLine cartLine : lines) {
+			cartLineService.remove(buyRecord.getUser().getId(), cartLine.getId());
+			template.opsForValue().increment(BUYCOUNT + cartLine.getProductId(), 1);
+		}
+		
+		return buyRecord;
 	}
 
 	@Override

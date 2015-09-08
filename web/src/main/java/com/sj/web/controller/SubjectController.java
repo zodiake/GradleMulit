@@ -1,10 +1,13 @@
 package com.sj.web.controller;
 
 
+import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +27,8 @@ public class SubjectController {
 	private SubjectService subjectService;
 	@Autowired
 	private SubjectCategoryService subjectCategoryService;
+	@Autowired
+	private StringRedisTemplate template;
 
 	@RequestMapping(value = "/subjects", method = RequestMethod.GET)
 	public String findSubjects(
@@ -43,6 +48,9 @@ public class SubjectController {
 		Subject subject = subjectService.findOne(id);
 		if (subject == null)
 			throw new SubjectNotFoundException();
+		
+		Long subjectCount = template.opsForValue().increment(REVIEWCOUNT + id, 1);
+		subject.setViewCount(subjectCount);
 		uiModel.addAttribute("subject", subject);
 		uiModel.addAttribute("pc", subjectCategoryService.findOne(6l));
 		return "subject/subject";

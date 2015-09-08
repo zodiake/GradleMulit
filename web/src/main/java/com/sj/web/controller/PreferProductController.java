@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.CommonUser;
@@ -33,20 +34,19 @@ public class PreferProductController {
 
 	private final String PREFEREPRODUCTS = "user/prefereProducts";
 
-	@RequestMapping(value = "/ajax/preferProduct/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/ajax/preferProduct", method = RequestMethod.POST)
 	@ResponseBody
-	public String addPrefer(@PathVariable("id") Long id) {
+	public String addPrefer(@RequestParam("id") Long productId) {
 		if (!userContext.isLogin())
 			return "login";
 		SiteUser user = userContext.getCurrentUser();
 		if(!"ROLE_COMMONUSER".equals(user.getSiteAuthority())){
 			return "no authority";
 		}
-		Product product = productService.findOne(id);
+		Product product = productService.findOne(productId);
 		if (product == null)
 			throw new ProductNotFoundException();
-		if (preferProductService.isDuplicateProduct(
-				new CommonUser(user.getId()), product))
+		if (preferProductService.isDuplicateProduct(new CommonUser(user.getId()), product))
 			return "duplicate";
 		CommonUser u = new CommonUser(user.getId());
 		PreferProduct preferProduct = new PreferProduct(u, product);

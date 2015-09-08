@@ -22,7 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -98,7 +97,7 @@ public class Product {
 	protected Long viewCount;
 
 	@Transient
-	private Long reviewCount = 0l;
+	private Long reviewCount;
 
 	@Transient
 	protected Long collectionCount;
