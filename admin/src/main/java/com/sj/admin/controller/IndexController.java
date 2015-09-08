@@ -181,14 +181,12 @@ public class IndexController extends UploadController {
 	public String category(Model uiModel) {
 		return "category/category";
 	}
-
 	@RequestMapping(value = "/category/categoryAdd")
 	public String categoryAdd() {
 		return "category/categoryAdd";
 	}
-
-	@RequestMapping(value = "/category/category2")
-	public String category2() {
-		return "category/category2";
+	@RequestMapping(value = "/childCategory")
+	public String childCategory() {
+		return "category/childCategory";
 	}
 }
