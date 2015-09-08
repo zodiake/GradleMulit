@@ -199,12 +199,12 @@
 									th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
 							</div>
 						</div>
-						<div class="form-group files">
+						<div class="form-group files files-res">
 							<label><i>*</i>商品图片</label> <img width="100" height="100" th:src="*{coverImg}"/>
 							<input type="hidden" th:field="*{coverImg}"/>
-							<button id="uploadImg">
+							<span id="uploadImg">
 								<input type='file' name='file' th:attr="data-url=@{/provider/productImage}" /> <a href="#">选择文件</a>
-							</button>
+							</span>
 							<i class="error" th:if="${#fields.hasErrors('coverImg')}" th:errors="*{coverImg}"></i>
 						</div>
 						<div class="form-group clearfix" style="height: 400px;">

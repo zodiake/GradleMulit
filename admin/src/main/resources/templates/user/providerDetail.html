@@ -172,8 +172,11 @@
                 </div>
             </form>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer  files_tab ">
             <button type="button" class="btn btn-primary" ng-click="authenticate(item)">
-                通过审核
+              	  通过审核
             </button>
+            <span id="uploadImg">
+				<input type='file' name='file' th:attr="data-url=@{/provider/productImage}" /> <a href="#">选择文件</a>
+			</span>
         </div>
