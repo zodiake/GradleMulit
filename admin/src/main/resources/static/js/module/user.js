@@ -88,7 +88,7 @@ userModule.controller('CommonUserController', ['$scope',
                 .success(function (data) {
                     $modal.open({
                         templateUrl: '/admin/commonUserDetail',
-                        size: 'lg',
+                        size: 'sm',
                         controller: 'CommonUserDetailController',
                         scope: $scope,
                         resolve: {
