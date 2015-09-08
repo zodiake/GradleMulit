@@ -196,4 +196,9 @@ public class IndexController extends UploadController {
 	public String scrollImg() {
 		return "scroll/list";
 	}
+
+	@RequestMapping(value = "/templates/scrollImg/detail")
+	public String scrollImgDetail() {
+		return "scroll/detail";
+	}
 }

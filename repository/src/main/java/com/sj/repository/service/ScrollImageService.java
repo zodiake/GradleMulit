@@ -12,6 +12,8 @@ public interface ScrollImageService {
 
 	public ScrollImage update(ScrollImage image);
 
+	public ScrollImage update(Long id, ScrollImage image);
+
 	public void freshCache(ScrollImageType type);
 
 	public List<ScrollImage> findAll();

@@ -39,7 +39,16 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 		ScrollImage img = repository.findOne(image.getId());
 		img.setImageUrl(image.getImageUrl());
 		img.setHref(image.getHref());
-		return repository.save(img);
+		repository.save(img);
+		return img;
+	}
+
+	@Override
+	public ScrollImage update(Long id, ScrollImage image) {
+		ScrollImage img = repository.findOne(id);
+		img.setImageUrl(image.getImageUrl());
+		img.setHref(image.getHref());
+		return img;
 	}
 
 	@Override

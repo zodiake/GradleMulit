@@ -1,34 +1,21 @@
 package com.sj.admin.controller;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.model.model.ScrollImage;
-import com.sj.model.model.UploadResult;
-import com.sj.model.type.ScrollImageType;
 import com.sj.repository.service.ScrollImageService;
 
 @Controller
 public class ScrollImageController extends UploadController {
 	@Autowired
 	private ScrollImageService service;
-
-	private final String LISTS = "scroll/list";
-	private final String TYPES = "scroll/types";
 
 	@RequestMapping(value = "/admin/scrollImages", method = RequestMethod.GET)
 	@ResponseBody
@@ -37,42 +24,10 @@ public class ScrollImageController extends UploadController {
 		return lists;
 	}
 
-	@RequestMapping(value = "/admin/scrollImages/types", method = RequestMethod.GET)
-	public String types(Model uiModel) {
-		uiModel.addAttribute("types", ScrollImageType.values());
-		return TYPES;
-	}
-
-	@RequestMapping(value = "/admin/{type}/scrollImages", method = RequestMethod.GET)
-	public String lists(Model uiModel,
-			@PathVariable(value = "type") ScrollImageType type) {
-		List<ScrollImage> result = service.findAll(type, new PageRequest(0, 6,
-				Direction.DESC, "sortNumber"));
-		uiModel.addAttribute("lists", result);
-		uiModel.addAttribute("type", type.toString());
-		return LISTS;
-	}
-
-	/*-----------------------------------upload image-----------------------------------*/
-	@RequestMapping(value = "/admin/scrollImages/{type}/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/scrollImages/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public UploadResult upload(MultipartFile file, HttpServletRequest request,
-			@PathVariable(value = "id") Long id) {
-		UploadResult result = super.upload(file);
-		List<String> url = result.getFiles().stream().map(f -> f.getUrl())
-				.collect(toList());
-		String href = request.getParameter("url");
-		ScrollImage scroll = new ScrollImage(id);
-		scroll.setImageUrl(url.get(0));
-		scroll.setHref(href);
-		service.update(scroll);
-		return result;
+	public String save(ScrollImage image, @PathVariable("id") Long id) {
+		service.update(id, image);
+		return "";
 	}
-
-	@RequestMapping(value = "/admin/{type}/scrollImages", method = RequestMethod.PUT)
-	@ResponseBody
-	public void freshCache(@PathVariable(value = "type") ScrollImageType type) {
-		service.freshCache(type);
-	}
-
 }
