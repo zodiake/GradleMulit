@@ -138,6 +138,7 @@ productModule.controller('ProductDetailController', ['$scope',
     'solutions',
     function ($scope, productId, $sce, ProductService, solutions) {
         $scope.solutions = solutions.data;
+        $scope.alerts = [];
 
         function init() {
             ProductService
@@ -155,15 +156,55 @@ productModule.controller('ProductDetailController', ['$scope',
         init();
 
         $scope.authenticate = function () {
-            ProductService.authenticate($scope.item.id);
+            ProductService
+                .authenticate($scope.item.id)
+                .success(function () {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '上架成功',
+                    });
+                })
+                .error(function (err) {
+                    $scope.alerts.push({
+                        msg: '上架失败',
+                    });
+                });
         };
 
         $scope.refuse = function () {
-            ProductService.refuse($scope.item.id);
+            ProductService
+                .refuse($scope.item.id)
+                .success(function () {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '已拒绝',
+                    });
+                })
+                .error(function (err) {
+                    $scope.alerts.push({
+                        msg: '失败',
+                    });
+                });
         };
 
         $scope.addSolution = function () {
-            ProductService.addSolution($scope.item.id, $scope.item.fake);
+            ProductService
+                .addSolution($scope.item.id, $scope.item.fake)
+                .success(function () {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '已关联',
+                    });
+                })
+                .error(function (err) {
+                    $scope.alerts.push({
+                        msg: '关联失败',
+                    });
+                });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);

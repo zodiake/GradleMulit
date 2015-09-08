@@ -11,13 +11,12 @@
         <tbody>
             <tr ng-repeat="item in items">
                 <td ng-click="view(item)">{{$index+1}}</td>
-                <td>{{item.imgUrl}}</td>
+                <td>
+                	<img ng-src="{{item.imageUrl}}" width="120" height="120" />
+                </td>
                 <td>{{item.href}}</td>
                 <td>{{item.updatedTime}}</td>
             </tr>
         </tbody>
     </table>
-    <div class="pagenumQu">
-        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
-    </div>
 </div>

@@ -1,6 +1,6 @@
 
 <div class="modal-body pl100">
-      <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000">{{alert.msg}}</alert>
+      <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">{{alert.msg}}</alert>
       <form class="form-horizontal w400">
           <div class="row">
               <div class="form-group">
