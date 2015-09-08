@@ -28,6 +28,7 @@ category.service('CategoryService', ['$http',
                 },
                 headers: header
             });
+
         };
 
     }
@@ -98,3 +99,4 @@ category.controller('CategoryAddController', [
     	  
       }
   ]);
+

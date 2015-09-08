@@ -67,6 +67,7 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
         function init(opt) {
             AdvertiseService.findAll(opt).success(function (data) {
                 $scope.items = data.content;
+                $scope.total = data.totalElements;
             }).error(function () {
 
             });

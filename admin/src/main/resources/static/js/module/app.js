@@ -50,16 +50,6 @@ app.config([
                 templateUrl: '/admin/info',
                 controller: 'InfoController'
             })
-            .state('infoCreate', {
-                url: '/newInfo',
-                templateUrl: '/admin/info?form',
-                controller: 'InfoCreateController',
-                resolve: {
-                    categories: ['$http', function ($http) {
-                        return $http.get('/admin/info/category');
-                    }]
-                }
-            })
             .state('subject', {
                 url: '/subject',
                 templateUrl: '/admin/subject',

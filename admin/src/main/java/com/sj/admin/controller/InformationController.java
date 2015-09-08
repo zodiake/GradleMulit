@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Information;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.InformationDetailJson;
 import com.sj.repository.model.InformationJson;
 import com.sj.repository.service.InformationService;
 
@@ -38,14 +39,24 @@ public class InformationController {
 				Direction.DESC, "createdTime"), activate);
 	}
 
+	@RequestMapping(value = "/admin/info/{id}/state", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateState(@PathVariable("id") Long id,
+			HttpServletRequest request) {
+		ActivateEnum state = ActivateEnum.fromString(request
+				.getParameter("state"));
+		informationService.updateState(id, state);
+		return "\"success\"";
+	}
+
 	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public InformationJson findOne(Model uiModel, @PathVariable("id") Long id) {
 		Information info = informationService.findOne(id);
-		return new InformationJson(info);
+		return new InformationDetailJson(info);
 	}
 
-	@RequestMapping(value = "/admin/informations", method = RequestMethod.POST, params = "form")
+	@RequestMapping(value = "/admin/informations", method = RequestMethod.POST)
 	@ResponseBody
 	public String createProcess(
 			@Valid @ModelAttribute("information") Information info,
@@ -66,25 +77,4 @@ public class InformationController {
 		return "";
 	}
 
-	@RequestMapping(value = "/admin/informaitons/{id}", method = RequestMethod.POST)
-	@ResponseBody
-	public String updateState(@PathVariable("id") Long id,
-			HttpServletRequest request) {
-		ActivateEnum state = ActivateEnum.fromString(request
-				.getParameter("state"));
-		informationService.updateState(id, state);
-		return "";
-	}
-
-	@RequestMapping(value = "/admin/informaitons/{id}", method = RequestMethod.PUT, params = "status")
-	@ResponseBody
-	public String editActivate(@PathVariable("id") Long id,
-			@RequestParam("status") String status) {
-		Information info = informationService.findOne(id);
-		if (info == null)
-			return "error";
-		info.setActivate(ActivateEnum.valueOf(status));
-		informationService.save(info);
-		return "success";
-	}
 }
