@@ -11,4 +11,6 @@ import com.sj.model.type.ScrollImageType;
 public interface ScrollImageRepository extends
 		PagingAndSortingRepository<ScrollImage, Long> {
 	List<ScrollImage> findByScrollType(ScrollImageType type, Pageable pageable);
+
+	List<ScrollImage> findAllByOrderBySortNumberDesc();
 }
