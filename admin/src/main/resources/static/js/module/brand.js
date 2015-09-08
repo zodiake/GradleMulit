@@ -89,6 +89,7 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
         function init(opt) {
             BrandService.findAll(opt).success(function (data) {
                 $scope.items = data.content;
+                $scope.total = data.totalElements;
             }).error(function (err) {
 
             });
@@ -100,13 +101,15 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
         });
 
         $scope.delete = function (item) {
-            BrandService.delete(item).success(function (data) {
-                if (data.data == 'success') {
-                    item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
-                }
-            }).error(function (err) {
+            BrandService
+                .delete(item)
+                .success(function (data) {
+                    if (data.data == 'success') {
+                        item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                    }
+                }).error(function (err) {
 
-            });
+                });
         };
     }
 ]);
@@ -139,10 +142,10 @@ brandModule.controller('BrandDetailController', ['$scope',
             BrandService
                 .save($scope.item)
                 .success(function () {
-
+                	
                 })
                 .error(function (err) {
-
+                	
                 });
         };
     }

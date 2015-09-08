@@ -81,6 +81,7 @@ public class InformationServiceImpl implements InformationService {
 
 	@Override
 	public Information save(Information advertisement) {
+		advertisement.setUpdatedTime(Calendar.getInstance());
 		return repository.save(advertisement);
 	}
 

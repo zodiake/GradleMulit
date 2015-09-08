@@ -1,7 +1,7 @@
 var filterModel = angular.module('filterModel', []);
 
-filterModel.filter('stateFilter', function() {
-    return function(state) {
+filterModel.filter('stateFilter', function () {
+    return function (state) {
         if (state == 'UP') {
             return '已上架';
         } else if (state == 'EXAMINE') {
@@ -14,14 +14,20 @@ filterModel.filter('stateFilter', function() {
     };
 });
 
-filterModel.filter('activeFilter', function() {
-    return function(state) {
+filterModel.filter('activeFilter', function () {
+    return function (state) {
         return state == 'ACTIVATE' ? '有效' : '无效';
     };
 });
 
-filterModel.filter('reverseActiveFilter', function() {
-    return function(state) {
-        return state == 'ACTIVATE' ? '无效':'有效' ;
+filterModel.filter('reverseActiveFilter', function () {
+    return function (state) {
+        return state == 'ACTIVATE' ? '无效' : '有效';
+    };
+});
+
+filterModel.filter('originalFilter', function () {
+    return function (original) {
+        return original == 'IMPORTED' ? '国产' : '进口';
     };
 });

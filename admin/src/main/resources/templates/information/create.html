@@ -1,30 +1,34 @@
 <div class="contentpanel">
-    <form class="form-horizontal">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000">
+        {{alert.msg}}
+    </alert>
+    <form class="form-horizontal" name="infoForm" ng-submit="submit()" novalidate="true">
         <div class="row">
             <div class="form-group">
                 <label class="control-label col-sm-1">标题</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" ng-model="item.title"/>
+                    <input type="text" class="form-control" name="title" ng-model="item.title" ng-required="true" />
+                    <span ng-show="infoForm.title.$error.required" class="error">请输入商品名称</span>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1">分类</label>
                 <div class="col-sm-3">
-                    <select ng-model="item.category" ng-options="c.id as c.name for c in categories" class="form-control">
+                    <select ng-model="item.category" name="category" ng-options="c.id as c.name for c in categories" class="form-control" ng-required="true">
                     </select>
+                    <span ng-show="infoForm.category.$error.required" class="error">请输入商品分类</span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-1">图片</label>
+                <label class="control-label col-sm-1">内容</label>
                 <div class="col-sm-10">
-                    <textarea ckeditor="editorOptions" ng-model="item.content"></textarea>
+                    <textarea name="content" ckeditor="editorOptions" ng-model="item.content" ng-required="true"></textarea>
+                    <span ng-show="infoForm.content.$error.required" class="error">请输入内容</span>
                 </div>
             </div>
         </div>
         <div class="panel-footer">
-            <button type="button" class="btn btn-primary col-xs-offset-4 " ng-click="submit()">
-               	 提交
-            </button>
+        	<input type="submit"  class="btn btn-primary col-xs-offset-4" value="提交"/>
         </div>
     </form>
 </div>

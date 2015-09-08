@@ -50,16 +50,6 @@ app.config([
                 templateUrl: '/admin/info',
                 controller: 'InfoController'
             })
-            .state('infoCreate', {
-                url: '/newInfo',
-                templateUrl: '/admin/info?form',
-                controller: 'InfoCreateController',
-                resolve: {
-                    categories: ['$http', function ($http) {
-                        return $http.get('/admin/info/category');
-                    }]
-                }
-            })
             .state('subject', {
                 url: '/subject',
                 templateUrl: '/admin/subject',
@@ -92,15 +82,10 @@ app.config([
                 templateUrl: '/admin/category',
                 controller: 'CategoryController'
             })
-            .state('categoryAdd', {
-                url: '/categoryAdd',
-                templateUrl: '/admin/category/categoryAdd',
-                controller: 'CategoryAddController'
-            })
-            .state('category2', {
-                url: '/category2/:id',
-                templateUrl: '/admin/category/category2',
-                controller: 'Category2Controller'
+            .state('childCategory', {
+                url: '/:id/categories',
+                templateUrl: '/admin/childCategory',
+                controller: 'ChildCategoryController'
             });
     }
 ]);
