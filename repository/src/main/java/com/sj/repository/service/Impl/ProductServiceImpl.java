@@ -138,9 +138,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findByCategory(ProductCategory category,
 			Pageable pageable) {
-
-		return repository.findByThirdCategoryAndStatus(category, pageable,
-				ProductStatusEnum.UP);
+		Page<Product> products = repository.findByThirdCategoryAndStatus(category, pageable,ProductStatusEnum.UP);
+		for (Product product : products.getContent()) {
+			String reviewCount = template.opsForValue().get(REVIEWCOUNT +product.getId());
+			if(reviewCount==null)
+				product.setReviewCount(0l);
+			else
+				product.setReviewCount(Long.valueOf(reviewCount));
+		}
+		return products;
 	}
 
 	@Override
@@ -200,6 +206,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findBySecondCategory(ProductCategory second,
 			Pageable pageable) {
+		Page<Product> products = repository.findBySecondCategory(second, pageable);
+		for (Product product : products.getContent()) {
+			String reviewCount = template.opsForValue().get(REVIEWCOUNT +product.getId());
+			if(reviewCount==null)
+				product.setReviewCount(0l);
+			else
+				product.setReviewCount(Long.valueOf(reviewCount));
+				
+		}
 		return repository.findBySecondCategory(second, pageable);
 	}
 

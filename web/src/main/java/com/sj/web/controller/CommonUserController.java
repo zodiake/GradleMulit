@@ -1,8 +1,6 @@
 package com.sj.web.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +32,6 @@ import com.sj.repository.service.CityService;
 import com.sj.repository.service.CommonUserService;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductService;
-import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.UserIndustryInfoService;
 import com.sj.web.annotation.SecurityUser;

@@ -48,16 +48,21 @@
 		<div class="hd resg-hd">
 			<span>找回密码</span>
 		</div>
-		<div class="w600 mauto find-password">
+		<div class="w600 mauto find-password logo-wrap">
 			<form th:object="${form}" th:method = "post">
 			<div class="form-group">
+				<div class="fl">
 				<label><i>*</i>手机号码</label>
-				<input type="text" th:field="*{phone}"/>				
-				<button class="tel-code">获取验证码</button>
+					<input type="text" th:field="*{phone}"/>				
+					<button class="tel-code">获取验证码</button>
+					<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></i>
+				</div>
 			</div>
 			<div class="form-group">
+				<div class="fl">
 				<label>验证码</label>
 				<input type="password" th:field="*{code}"/>
+				</div>
 			</div>
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			<button class="btn orange">下一步</button>		

@@ -32,8 +32,6 @@ public class InstrumentController {
 	@Autowired
 	private ProductCategoryService categoryService;
 
-	private final String VIEW = "instrument/view";
-
 	@RequestMapping(value = "/instruments/{id}", method = RequestMethod.GET)
 	public String view(Model uiModel, @PathVariable(value = "id") Long id) {
 		Instrument instrument = instrumentService.findOne(id);

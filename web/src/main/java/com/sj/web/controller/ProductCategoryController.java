@@ -38,10 +38,8 @@ public class ProductCategoryController {
 	private SiteUserContext userContext;
 
 	@RequestMapping(value = "/productCategory/{parent}/{second}/{third}", method = RequestMethod.GET)
-	public String findByThird(@PathVariable("third") String third,
-			Model uiModel, @PathVariable("parent") String parent,
-			@PathVariable("second") String second,
-			@RequestParam(value = "page", defaultValue = "1") int page,
+	public String findByThird(@PathVariable("third") String third,Model uiModel, @PathVariable("parent") String parent,
+			@PathVariable("second") String second,@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
 		ProductCategory thirdCategory = pcService.findByName(third,
 				ActivateEnum.ACTIVATE);
