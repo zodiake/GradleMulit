@@ -1731,7 +1731,6 @@ button.default{
 .files img{
     width:100px;
     height:100px;
-    border:1px solid #8491af;
 }
 .files #uploadImg{ 
 	position: absolute;
