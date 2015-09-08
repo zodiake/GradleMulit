@@ -37,7 +37,7 @@ public class InformationController {
 				ic, new PageRequest(page - 1, size));
 		uiModel.addAttribute("informations", informations);
 		uiModel.addAttribute("category", ic);
-		uiModel.addAttribute("pc", informationCategoryService.findOne(6l));
+		uiModel.addAttribute("pc", informationCategoryService.findOne(5l));
 		return "information/informations";
 	}
 
@@ -45,7 +45,7 @@ public class InformationController {
 	public String findOne(@PathVariable(value = "id") Long id, Model uiModel) {
 		Information information = informationService.findOne(id);
 		uiModel.addAttribute("information", information);
-		uiModel.addAttribute("pc", informationCategoryService.findOne(6l));
+		uiModel.addAttribute("pc", informationCategoryService.findOne(5l));
 		return "information/information";
 	}
 }

@@ -1,8 +1,5 @@
 package com.sj.web.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sj.model.model.Product;
-import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
-import com.sj.repository.service.ProductCategoryService;
+import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
 import com.sj.web.exception.SubjectNotFoundException;
 
@@ -28,7 +23,7 @@ public class SubjectController {
 	@Autowired
 	private SubjectService subjectService;
 	@Autowired
-	private ProductCategoryService productCategoryService;
+	private SubjectCategoryService subjectCategoryService;
 
 	@RequestMapping(value = "/subjects", method = RequestMethod.GET)
 	public String findSubjects(
@@ -39,7 +34,7 @@ public class SubjectController {
 				new PageRequest(page - 1, size, Direction.DESC, "createdTime"),
 				ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("subjects", subjects);
-		uiModel.addAttribute("pc", productCategoryService.findOne(5l));
+		uiModel.addAttribute("pc", subjectCategoryService.findOne(6l));
 		return "subject/subjects";
 	}
 
@@ -49,7 +44,7 @@ public class SubjectController {
 		if (subject == null)
 			throw new SubjectNotFoundException();
 		uiModel.addAttribute("subject", subject);
-		uiModel.addAttribute("pc", productCategoryService.findOne(5l));
+		uiModel.addAttribute("pc", subjectCategoryService.findOne(6l));
 		return "subject/subject";
 	}
 }
