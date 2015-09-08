@@ -1,88 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head lang="en">
-  	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-  	<meta name="description" content=""/>
-  	<title>企业注册</title>
- 	<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-	<meta charset="UTF-8" />
-	<meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-	
-	<script type="text/javascript"  th:src="@{/js/jquery-1.11.2.min.js}"></script>
-	<script type="text/javascript"  th:src="@{/js/jquery.ui.widget.js}"></script>
-	<script type="text/javascript"  th:src="@{/js/jquery.iframe-transport.js}"></script>
-	<script type="text/javascript"  th:src="@{/js/jquery.fileupload.js}"></script>
-	<script type="text/javascript" th:src="@{/js/province.js}"></script>
-	<script type="text/javascript" th:src="@{/js/validata_signup.js}"></script>
-	<script type="text/javascript" th:src="@{/js/script.js}"></script>
-	
-	<script type="text/javascript">
-		$(function() {
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-	
-			$(document).ajaxSend(function(e, xhr, options) {
-				xhr.setRequestHeader(header, token);
-			});
-			$('#province').change(function(){
-				var obj = $(this);
-				var id = obj.val();
-				$.ajax({
-					type : 'get',
-					url : '/provinces/'+id,
-					success : function(data){
-						$('#city').empty();
-						var str = '<option value="">选择城市</option>';
-						$.each(data,function(key,val){
-							str = str+'<option value="'+val.id+'">'+val.name+'</option>';
-						});
-						$('#city').append(str);
-					},error : function(data){
-						alert("error");
-					}
-				});
-			});
-			var all = false;
-			var agreementCheck = false;
-			$("#agreement").click(function(){
-				if(agreementCheck==true)
-					agreementCheck=false;
-				else
-					agreementCheck=true;
-				if(agreementCheck){
-					$("#regirect").removeAttr("disabled");
-				}else{
-					$("#regirect").attr("disabled","disabled");
-				}
-			});
-			$("#name").change(function(){
-				var obj = $(this);
-				$.ajax({
-					type : 'POST',
-					url : '/name?valid',
-					data : {'name':obj.val()},
-					success : function(data){
-						if(data=="true"){
-							$("#nameerror").remove();
-						}else{
-							if($("#nameerror").text()){
-							}else{
-								obj.after('<i class="error" id="nameerror">用户名已存在</i>');
-							}
-						}
-					},error : function(data){
-					}
-				});
-			});
-			var ajaxUrl = "";
-			  $('input[type="file"]').bind('fileuploadsubmit', function(e, data) {
-                  var self = $(this);
-                  ajaxUrl = self.attr('data-url');
-                  data.formData = {
-                      url : self.prev('input').val()
-                  };
-              });
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <title>企业注册</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
+    <meta charset="UTF-8" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.ui.widget.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.iframe-transport.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.fileupload.js}"></script>
+    <script type="text/javascript" th:src="@{/js/province.js}"></script>
+    <script type="text/javascript" th:src="@{/js/validata_signup.js}"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+    <script type="text/javascript">
+    $(function() {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
 
               $('input[type="file"]').fileupload({
                   dataType : 'json',
@@ -101,248 +38,324 @@
                   progressall : function(e, data) {
                   }
               });
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+        $('#province').change(function() {
+            var obj = $(this);
+            var id = obj.val();
+            $.ajax({
+                type: 'get',
+                url: '/provinces/' + id,
+                success: function(data) {
+                    $('#city').empty();
+                    var str = '<option value="">选择城市</option>';
+                    $.each(data, function(key, val) {
+                        str = str + '<option value="' + val.id + '">' + val.name + '</option>';
+                    });
+                    $('#city').append(str);
+                },
+                error: function(data) {
+                    alert("error");
+                }
+            });
+        });
+        var all = false;
+        var agreementCheck = false;
+        $("#agreement").click(function() {
+            if (agreementCheck == true)
+                agreementCheck = false;
+            else
+                agreementCheck = true;
+            if (agreementCheck) {
+                $("#regirect").removeAttr("disabled");
+            } else {
+                $("#regirect").attr("disabled", "disabled");
+            }
+        });
+        $("#name").change(function() {
+            var obj = $(this);
+            $.ajax({
+                type: 'POST',
+                url: '/name?valid',
+                data: {
+                    'name': obj.val()
+                },
+                success: function(data) {
+                    if (data == "true") {
+                        $("#nameerror").remove();
+                    } else {
+                        if ($("#nameerror").text()) {} else {
+                            obj.after('<i class="error" id="nameerror">用户名已存在</i>');
+                        }
+                    }
+                },
+                error: function(data) {}
+            });
+        });
+        var ajaxUrl = "";
+        $('input[type="file"]').bind('fileuploadsubmit', function(e, data) {
+            var self = $(this);
+            ajaxUrl = self.attr('data-url');
+            data.formData = {
+                url: self.prev('input').val()
+            };
+        });
 
-		});
-	</script>
+        $('input[type="file"]').fileupload({
+            dataType: 'json',
+            add: function(e, data) {
+                data.submit();
+            },
+            done: function(e, data) {
+                $("#" + ajaxUrl).val(data.result.files[0].url);
+                $(this).parent().parent().find("img").attr("src", data.result.files[0].url);
+            },
+            progressall: function(e, data) {}
+        });
+
+    });
+    </script>
 </head>
+
 <body>
-	<div class="resg-header">		
-		<div class="head-nav">
-			<div class="nav-box">
-				<a href="/productCategory/仪器">仪器</a>
-				<i>|</i>
-				<a href="/productCategory/试剂">试剂</a>
-				<i>|</i>
-				<a href="/productCategory/耗材">耗材</a>
-				<i>|</i>
-				<a href="/productCategory/服务">服务</a>
-				<i>|</i>
-				<a href="/subjects">专题</a>
-			</div>
-		</div>
-		<div class="head-box clearfix">
-			<a href="/" class="logo"><img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/></a>
-			<div class="head-menu-btn resg-company">
-				<a href="/signup?user" class="self-btn"></a>
-				<a class="company-btn"></a>
-			</div>
-			<div class="head-menu">
-				<a href="/login">已有账号？马上登录</a>
-			</div>
-		</div>
-	</div>
-	<!-- header -->
-	<div class="wrapper">
-		<form class="resg-form" enctype="multipart/form-data" th:object="${user}" method="post">
-			<div class="hd resg-hd">
-				<span>注册信息</span>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>手机号</label>
-				<input type="text" th:field="*{phone}"/>
-				<button class="tel-code">获取验证码</button>
-				<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>验证码</label>
-				<input type="text" />
-			</div>
-			<div class="form-group">
-				<label><i>*</i>用户名</label>
-				<input type="text" th:field="*{name}"/>
-				<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>密码</label>
-				<input type="password" th:field="*{password}"/>
-				<i class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>邮箱</label>
-				<input type="text" th:field="*{email}"/>
-				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">必填</i>
-			</div>
-			<div class="hd resg-hd">
-				<span>企业信息</span>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>企业名称（中文）</label>
-				<input type="text" th:field="*{companyNameChina}"/>
-				<i class="error" th:if="${#fields.hasErrors('companyNameChina')}" th:errors="*{companyNameChina}">必填</i>
-			</div>
-			<div class="form-group">
-				<label>企业名称（英文）</label>
-				<input type="text" th:field="*{companyNameEnglish}"/>
-			</div>
-			<div class="form-group">
-				<label>法人代表</label>
-				<input type="text" th:field="*{legalPerson}"/>
-				<i class="error" th:if="${#fields.hasErrors('legalPerson')}" th:errors="*{legalPerson}">必填</i>
-			</div>
-			<div class="form-group">
-				<label>注册资本</label>
-				<input type="text" th:field="*{registeredCapital}"/>万
-				<i class="error" th:if="${#fields.hasErrors('registeredCapital')}" th:errors="*{registeredCapital}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>企业性质</label>
-				<select class="w228" th:field="*{componyType}">
-					<option value="">请选择</option>
-					<option value="FOREIGNOWNED">外商独资</option>
-					<option value="JOINTVENTURE">合资企业</option>
-					<option value="PRIVATE">民营企业</option>
-					<option value="STATEOWNED">国有企业</option>
-					<option value="UNIVERSITIES">高等院校</option>
-					<option value="INVESTIGATION">刑侦机关</option>
-				</select>
-				<i class="error" th:if="${#fields.hasErrors('componyType')}" th:errors="*{componyType}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>主营产品/服务</label>
-				<input type="text" th:field="*{mainProduct}"/>				
-				<i class="error" th:if="${#fields.hasErrors('mainProduct')}" th:errors="*{mainProduct}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>业务类型</label>
-				<input type="radio" th:field="*{businessType}" value="PRODUCTION"/>生产型
-				<input type="radio" th:field="*{businessType}" value="TRADE"/>贸易型
-				<input type="radio" th:field="*{businessType}" value="SERVICE"/>服务型
-				<input type="radio" th:field="*{businessType}" value="GOVERNMENT"/>政府机关
-				<input type="radio" th:field="*{businessType}" value="OTHER"/>其它
-				<i class="error" th:if="${#fields.hasErrors('businessType')}" th:errors="*{businessType}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>企业规模</label>
-				<select class="w228" th:field="*{scale}">
-					<option value="">请选择</option>
-					<option value="FIFTY">五十人以下</option>
-					<option value="ONEHUNDRED">五十到一百人</option>
-					<option value="FIVEHUNDRED">一百到五百</option>
-					<option value="OTHER">超过五百</option>
-				</select>
-				<i class="error" th:if="${#fields.hasErrors('scale')}" th:errors="*{scale}">必填</i>
-			</div>
-			<div class="form-group" >
-				<label><i>*</i>年产值</label>
-				<select class="w228" th:field="*{output}">
-					<option value="">请选择</option>
-					<option value="FIVEMILLION">五百万以下</option>
-					<option value="TWENTYMILLION">五百万至两千万</option>
-					<option value="FIFTYMILLION">两千万至五千万</option>
-					<option value="ONEHUNDREDM">五千万至一亿</option>
-					<option value="FIVEHUNDREDM">一亿至五亿</option>
-					<option value="OTHER">五亿以上</option>
-				</select>
-				<i class="error" th:if="${#fields.hasErrors('output')}" th:errors="*{output}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>企业简介</label>
-				<textarea rows="6" th:field="*{content}"></textarea>			
-				<i class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">必填</i>
-			</div>
-			<div class="form-group files">
-				<label><i>*</i>企业营业执照上传</label>
-				<img th:src="*{businessLicenseUrl}" width="100" height="100"/>
-				<span id="uploadImg" >
-                    <input type='file' name='file' th:attr="data-url=@{businessLicenseUrl}"/>
-                    <a href="#">选择文件</a>
-                </span>	
-                	<input type="hidden" th:field="*{businessLicenseUrl}"/>
-                <i class="error" th:if="${#fields.hasErrors('businessLicenseUrl')}" th:errors="*{businessLicenseUrl}">必填</i>	
-			</div>
-			<div class="form-group files">
-				<label><i>*</i>税务登记证上传</label>
-				<img th:src="*{taxRegistrationUrl}" width="100" height="100"/>
-				<span id="uploadImg" type="button">
+    <div class="resg-header">
+        <div class="head-nav">
+            <div class="nav-box">
+                <a href="/productCategory/仪器">仪器</a>
+                <i>|</i>
+                <a href="/productCategory/试剂">试剂</a>
+                <i>|</i>
+                <a href="/productCategory/耗材">耗材</a>
+                <i>|</i>
+                <a href="/productCategory/服务">服务</a>
+                <i>|</i>
+                <a href="/subjects">专题</a>
+            </div>
+        </div>
+        <div class="head-box clearfix">
+            <a href="/" class="logo"><img th:src="@{/img/logo.png}" alt="logo" width="165" height="30" /></a>
+            <div class="head-menu-btn resg-company">
+                <a href="/signup?user" class="self-btn"></a>
+                <a class="company-btn"></a>
+            </div>
+            <div class="head-menu">
+                <a href="/login">已有账号？马上登录</a>
+            </div>
+        </div>
+    </div>
+    <!-- header -->
+    <div class="wrapper">
+        <form class="resg-form" enctype="multipart/form-data" th:object="${user}" method="post">
+            <div class="hd resg-hd">
+                <span>注册信息</span>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>手机号</label>
+                <input type="text" th:field="*{phone}" />
+                <button class="tel-code">获取验证码</button>
+                <i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>验证码</label>
+                <input type="text" />
+            </div>
+            <div class="form-group">
+                <label><i>*</i>用户名</label>
+                <input type="text" th:field="*{name}" />
+                <i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>密码</label>
+                <input type="password" th:field="*{password}" />
+                <i class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>邮箱</label>
+                <input type="text" th:field="*{email}" />
+                <i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">必填</i>
+            </div>
+            <div class="hd resg-hd">
+                <span>企业信息</span>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>企业名称（中文）</label>
+                <input type="text" th:field="*{companyNameChina}" />
+                <i class="error" th:if="${#fields.hasErrors('companyNameChina')}" th:errors="*{companyNameChina}">必填</i>
+            </div>
+            <div class="form-group">
+                <label>企业名称（英文）</label>
+                <input type="text" th:field="*{companyNameEnglish}" />
+            </div>
+            <div class="form-group">
+                <label>法人代表</label>
+                <input type="text" th:field="*{legalPerson}" />
+                <i class="error" th:if="${#fields.hasErrors('legalPerson')}" th:errors="*{legalPerson}">必填</i>
+            </div>
+            <div class="form-group">
+                <label>注册资本</label>
+                <input type="text" th:field="*{registeredCapital}" />万
+                <i class="error" th:if="${#fields.hasErrors('registeredCapital')}" th:errors="*{registeredCapital}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>企业性质</label>
+                <select class="w228" th:field="*{componyType}">
+                    <option value="">请选择</option>
+                    <option value="FOREIGNOWNED">外商独资</option>
+                    <option value="JOINTVENTURE">合资企业</option>
+                    <option value="PRIVATE">民营企业</option>
+                    <option value="STATEOWNED">国有企业</option>
+                    <option value="UNIVERSITIES">高等院校</option>
+                    <option value="INVESTIGATION">刑侦机关</option>
+                </select>
+                <i class="error" th:if="${#fields.hasErrors('componyType')}" th:errors="*{componyType}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>主营产品/服务</label>
+                <input type="text" th:field="*{mainProduct}" />
+                <i class="error" th:if="${#fields.hasErrors('mainProduct')}" th:errors="*{mainProduct}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>业务类型</label>
+                <input type="radio" th:field="*{businessType}" value="PRODUCTION" />生产型
+                <input type="radio" th:field="*{businessType}" value="TRADE" />贸易型
+                <input type="radio" th:field="*{businessType}" value="SERVICE" />服务型
+                <input type="radio" th:field="*{businessType}" value="GOVERNMENT" />政府机关
+                <input type="radio" th:field="*{businessType}" value="OTHER" />其它
+                <i class="error" th:if="${#fields.hasErrors('businessType')}" th:errors="*{businessType}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>企业规模</label>
+                <select class="w228" th:field="*{scale}">
+                    <option value="">请选择</option>
+                    <option value="FIFTY">五十人以下</option>
+                    <option value="ONEHUNDRED">五十到一百人</option>
+                    <option value="FIVEHUNDRED">一百到五百</option>
+                    <option value="OTHER">超过五百</option>
+                </select>
+                <i class="error" th:if="${#fields.hasErrors('scale')}" th:errors="*{scale}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>年产值</label>
+                <select class="w228" th:field="*{output}">
+                    <option value="">请选择</option>
+                    <option value="FIVEMILLION">五百万以下</option>
+                    <option value="TWENTYMILLION">五百万至两千万</option>
+                    <option value="FIFTYMILLION">两千万至五千万</option>
+                    <option value="ONEHUNDREDM">五千万至一亿</option>
+                    <option value="FIVEHUNDREDM">一亿至五亿</option>
+                    <option value="OTHER">五亿以上</option>
+                </select>
+                <i class="error" th:if="${#fields.hasErrors('output')}" th:errors="*{output}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>企业简介</label>
+                <textarea rows="6" th:field="*{content}"></textarea>
+                <i class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">必填</i>
+            </div>
+            <div class="form-group files">
+                <label><i>*</i>企业营业执照上传</label>
+                <img th:src="*{businessLicenseUrl}" width="100" height="100" />
+                <span id="uploadImg">
+                <input type='file' name='file' th:attr="data-url=@{businessLicenseUrl}"/>
+                <a href="#">选择文件</a>
+                </span>
+                <input type="hidden" th:field="*{businessLicenseUrl}" />
+                <i class="error" th:if="${#fields.hasErrors('businessLicenseUrl')}" th:errors="*{businessLicenseUrl}">必填</i>
+            </div>
+            <div class="form-group files">
+                <label><i>*</i>税务登记证上传</label>
+                <img th:src="*{taxRegistrationUrl}" width="100" height="100" />
+                <span id="uploadImg" type="button">
                     <input type='file' name='file' th:attr="data-url=@{taxRegistrationUrl}"/>
                     <a href="#">选择文件</a>
-                </span>				
-                <input type="hidden" th:field="*{taxRegistrationUrl}"/>
+                </span>
+                <input type="hidden" th:field="*{taxRegistrationUrl}" />
                 <i class="error" th:if="${#fields.hasErrors('taxRegistrationUrl')}" th:errors="*{taxRegistrationUrl}">必填</i>
-			</div>
-			<div class="form-group files">
-				<label><i>*</i>组织结构代码证上传</label>
-				<img th:src="*{structureCodeUrl}" width="100" height="100"/>
-				<span id="uploadImg" type="button">
+            </div>
+            <div class="form-group files">
+                <label><i>*</i>组织结构代码证上传</label>
+                <img th:src="*{structureCodeUrl}" width="100" height="100" />
+                <span id="uploadImg" type="button">
                     <input type='file' name='file' th:attr="data-url=@{structureCodeUrl}"/>
                     <a href="#">选择文件</a>
-                </span>		
-                <input type="hidden" th:field="*{structureCodeUrl}"/>
-                <i class="error" th:if="${#fields.hasErrors('structureCodeUrl')}" th:errors="*{structureCodeUrl}">必填</i>		
-			</div>
-			<div class="hd resg-hd">
-				<span>联系信息</span>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>联系人姓名</label>
-				<input type="text" th:field="*{realName}"/>	
-				<i class="error" th:if="${#fields.hasErrors('realName')}" th:errors="*{realName}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>性别</label>
-				<input type="radio" th:field="*{sex}" value="MALE"/>男
-				<input type="radio" th:field="*{sex}" value="FEMALE"/>女
-				<i class="error" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>职位</label>
-				<input type="text" th:field="*{position}"/>
-				<i class="error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>企业电话</label>
-				<input type="text" th:field="*{providerPhone}"/>
-				<i class="error" th:if="${#fields.hasErrors('providerPhone')}" th:errors="*{providerPhone}">必填</i>
-			</div>
-			<div class="form-group">
-				<label>传真</label>
-				<input type="text" th:field="*{fax}"/>
-			</div>
-				<div class="form-group">
-				<label><i>*</i>省/市</label>
-				<select th:field="*{province}">
-					<option value="">选择省份/市</option>
-					<option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
-				</select>
-				<select th:field="*{city}">
-					<option value="">选择城市</option>
-					<option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
-				</select>
-				<i class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>详细地址</label>
-				<input type="text" th:field="*{address}"/>
-				<i class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>邮政编码</label>
-				<input type="text" th:field="*{code}"/>
-				<i class="error" th:if="${#fields.hasErrors('code')}" th:errors="*{code}">必填</i>
-			</div>
-			<div class="form-group">
-				<label>公司网址</label>
-				<input type="text" th:field="*{website}"/>
-			</div>
-			<div class="hd resg-hd">
-				<span>行业信息</span>
-				<i class="error" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}" style="color: red;">必填</i>
-			</div>
-			<div class="form-group">
-				<ul>
-					<li th:each="info:${infos}" >
-						<input type="radio" th:field="*{industryInfo}" th:value="${info.id}"/><i th:text="${info.name}"></i>
-					</li>
-				</ul>
-			</div>
-			<div class="accept-btn">
-				<input type="checkbox" checked="checked" id="agreement"/>我已阅读并接受《服务协议》
-			</div>
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-			<div class="resg-btn">
-				<button>注册</button>
-			</div>
-		</form>
-	</div>
+                </span>
+                <input type="hidden" th:field="*{structureCodeUrl}" />
+                <i class="error" th:if="${#fields.hasErrors('structureCodeUrl')}" th:errors="*{structureCodeUrl}">必填</i>
+            </div>
+            <div class="hd resg-hd">
+                <span>联系信息</span>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>联系人姓名</label>
+                <input type="text" th:field="*{realName}" />
+                <i class="error" th:if="${#fields.hasErrors('realName')}" th:errors="*{realName}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>性别</label>
+                <input type="radio" th:field="*{sex}" value="MALE" />男
+                <input type="radio" th:field="*{sex}" value="FEMALE" />女
+                <i class="error" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>职位</label>
+                <input type="text" th:field="*{position}" />
+                <i class="error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>企业电话</label>
+                <input type="text" th:field="*{providerPhone}" />
+                <i class="error" th:if="${#fields.hasErrors('providerPhone')}" th:errors="*{providerPhone}">必填</i>
+            </div>
+            <div class="form-group">
+                <label>传真</label>
+                <input type="text" th:field="*{fax}" />
+            </div>
+            <div class="form-group">
+                <label><i>*</i>省/市</label>
+                <select th:field="*{province}">
+                    <option value="">选择省份/市</option>
+                    <option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
+                </select>
+                <select th:field="*{city}">
+                    <option value="">选择城市</option>
+                    <option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
+                </select>
+                <i class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>详细地址</label>
+                <input type="text" th:field="*{address}" />
+                <i class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>邮政编码</label>
+                <input type="text" th:field="*{code}" />
+                <i class="error" th:if="${#fields.hasErrors('code')}" th:errors="*{code}">必填</i>
+            </div>
+            <div class="form-group">
+                <label>公司网址</label>
+                <input type="text" th:field="*{website}" />
+            </div>
+            <div class="hd resg-hd">
+                <span>行业信息</span>
+                <i class="error" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}" style="color: red;">必填</i>
+            </div>
+            <div class="form-group">
+                <ul>
+                    <li th:each="info:${infos}">
+                        <input type="radio" th:field="*{industryInfo}" th:value="${info.id}" /><i th:text="${info.name}"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="accept-btn">
+                <input type="checkbox" checked="checked" id="agreement" />我已阅读并接受《服务协议》
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div class="resg-btn">
+                <button>注册</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

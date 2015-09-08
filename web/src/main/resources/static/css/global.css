@@ -1721,11 +1721,6 @@ button.default{
 .basic-info .form-group i.error.ml143{
 	margin-left:143px;
 }
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-	li div.topic-detail{
-		max-height: 100px;
-	}
-}
 .files{
 	position: relative;
 }
@@ -1766,6 +1761,12 @@ button.default{
     filter:alpha(opacity=0); 
     margin-top:-4px;
 }
+.files.files-res #uploadImg{
+	left:34%;
+}
+.files.files-res input[type=file]{
+	left:-4%;
+}
 .push-good .form-group i.error{
     margin-left: 165px;
 }
@@ -1797,6 +1798,14 @@ input[type=radio]:checked + label{
 }
 
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	li div.topic-detail{
+		max-height: 100px;
+	}
+	.files img{
+		border:none;
+	}
+}
 @media screen and (max-width: 640px) {
     .head-box .head-search input { 
 	  height:24px;     
