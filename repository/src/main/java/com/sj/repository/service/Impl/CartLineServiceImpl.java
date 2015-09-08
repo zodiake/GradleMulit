@@ -85,8 +85,7 @@ public class CartLineServiceImpl implements CartLineService {
 							redisCartlineId + i, "name");
 					String check = (String) template.opsForHash().get(
 							redisCartlineId + i, "check");
-					return new CartLine(tempId, name, price, number,
-							image, brandName, model, place, productId, check);
+					return new CartLine(tempId, name, price, number,image, brandName, model, place, productId, check);
 				}).collect(Collectors.toSet());
 	}
 

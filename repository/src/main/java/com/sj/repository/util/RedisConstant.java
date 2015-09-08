@@ -8,4 +8,6 @@ public class RedisConstant {
 	public static String COLLECTIONCOUNT="collectionCount:";
 	public static String COLLECTION = "collection";
 	public static String BUYCOUNT = "buyCount:";
+	public static String SUBJECTCOUNT="subjectCount:";
+	public static String INFORMATIONCOUNT = "informationCount:";
 }

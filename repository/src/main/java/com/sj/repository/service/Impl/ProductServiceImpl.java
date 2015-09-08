@@ -169,37 +169,31 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findCount(Provider user, Pageable pageable) {
 		Page<Product> pages = repository.findByCreatedBy(user, pageable);
-		List<Product> lists = pages.getContent();
-		lists.stream().forEach(
-				l -> {
-					String count = template.opsForValue().get(
-							VIEWCOUNT + l.getId().toString());
-					if (count != null)
-						l.setViewCount(Long.valueOf(count));
-					else
-						l.setViewCount(0l);
-
-					String review = template.opsForValue().get(
-							REVIEWCOUNT + l.getId().toString());
-					if (review != null)
-						l.setReviewCount(Long.valueOf(review));
-					else
-						l.setReviewCount(0l);
-
-					String buy = template.opsForValue().get(
-							BUYCOUNT + l.getId().toString());
-					if (buy != null)
-						l.setBuyCount(Long.valueOf(buy));
-					else
-						l.setBuyCount(0l);
-
-					String collection = template.opsForValue().get(
-							COLLECTIONCOUNT + l.getId().toString());
-					if (collection != null)
-						l.setCollectionCount(Long.valueOf(collection));
-					else
-						l.setCollectionCount(0l);
-				});
+		for (Product product : pages.getContent()) {
+			String viewCount = template.opsForValue().get(VIEWCOUNT + product.getId().toString());
+			if(viewCount==null)
+				product.setViewCount(0l);
+			else
+				product.setViewCount(Long.valueOf(viewCount));
+			
+			String collectionCount = template.opsForValue().get(COLLECTIONCOUNT+product.getId().toString());
+			if(collectionCount==null)
+				product.setCollectionCount(0l);
+			else
+				product.setCollectionCount(Long.valueOf(collectionCount));
+			
+			String reviewCount = template.opsForValue().get(REVIEWCOUNT+product.getId().toString());
+			if(reviewCount==null)
+				product.setReviewCount(0l);
+			else
+				product.setReviewCount(Long.valueOf(reviewCount));
+			
+			String buyCount = template.opsForValue().get(BUYCOUNT+product.getId().toString());
+			if(buyCount==null)
+				product.setBuyCount(0l);
+			else
+				product.setBuyCount(Long.valueOf(buyCount));
+		}
 		return pages;
 	}
 

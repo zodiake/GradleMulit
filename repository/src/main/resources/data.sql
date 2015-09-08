@@ -27,8 +27,8 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(4,'服务',null,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(5,'资讯',null,1,'2012-1-1','tom','ic');
-insert into category(id,name,parent_id,activate,created_Time,created_By)
-values(6,'专题',null,1,'2012-1-1','tom');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(6,'专题',null,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(20,'广告位1',null,1,'2012-1-1','tom','ac');
 

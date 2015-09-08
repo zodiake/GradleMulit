@@ -26,7 +26,8 @@
                 function coll(productId) {
                     $.ajax({
                         type : 'post',
-                        url : '/ajax/preferProduct/' + productId,
+                        url : '/ajax/preferProduct',
+                        data : {'id':productId},
                         success : function(data) {
                             if (data == "success") {
                                 var coll = $("#coll" + productId);

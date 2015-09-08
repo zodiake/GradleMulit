@@ -1,5 +1,6 @@
 package com.sj.repository.service.Impl;
 
+import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
 import java.util.Calendar;
 import java.util.List;
 
@@ -36,21 +37,11 @@ public class PreferProductServiceImpl implements PreferProductService {
 	}
 
 	@Override
-	public PreferProduct save(PreferProduct product) {
-		product.setCreatedTime(Calendar.getInstance());
-
-		String count = (String) template.opsForHash().get(
-				"prefer:" + product.getProduct().getId(), "count");
-		template.opsForSet().add("prefer:",
-				product.getProduct().getId().toString());
-		if (count == null) {
-			template.opsForHash().put(
-					"prefer:" + product.getProduct().getId().toString(),"count", "0");
-		}else{
-			template.opsForHash().put(
-					"prefer:" + product.getProduct().getId().toString(),"count", (Long.valueOf(count) + 1)+"");
-		}
-		return repository.save(product);
+	public PreferProduct save(PreferProduct preferProduct) {
+		preferProduct.setCreatedTime(Calendar.getInstance());
+		preferProduct = repository.save(preferProduct);
+		template.opsForValue().increment(COLLECTIONCOUNT + preferProduct.getProduct().getId(), 1);
+		return preferProduct;
 	}
 
 	@Override
@@ -65,17 +56,7 @@ public class PreferProductServiceImpl implements PreferProductService {
 
 	@Override
 	public void deleteByUserAndProduct(CommonUser user, Product product) {
-		String count = (String) template.opsForHash().get(
-				"prefer:" + product.getId(), "count");
-		template.opsForSet().add("prefer:",
-				product.getId().toString());
-		if (count == null) {
-			template.opsForHash().put(
-					"prefer:" + product.getId().toString(),"count", "0");
-		}else{
-			template.opsForHash().put(
-					"prefer:" + product.getId().toString(),"count", (Long.valueOf(count) - 1)+"");
-		}
+		template.opsForValue().increment(COLLECTIONCOUNT + product.getId(), -1);
 		repository.deleteByUserAndProduct(user, product);
 	}
 
