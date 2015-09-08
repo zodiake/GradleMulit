@@ -51,6 +51,6 @@ public class CommonUserController {
 			@PathVariable(value = "id") Long id) {
 		int score = Integer.parseInt(request.getParameter("score"));
 		userService.updateScore(id, score);
-		return "success";
+		return "\"success\"";
 	}
 }

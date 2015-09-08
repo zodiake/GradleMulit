@@ -866,3 +866,6 @@ select{
 .paddnone{
 	padding:0;
 }
+.table > tbody tr:hover{
+    background: #ddd;
+}

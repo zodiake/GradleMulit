@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -39,7 +41,7 @@ public class Product {
 	protected Long id;
 
 	@NotBlank(message = "商品名称不能为空")
-	@Size(max=40,message="商品名字最长为20个中文")
+	@Size(max = 40, message = "商品名字最长为20个中文")
 	protected String name;
 
 	@NotBlank(message = "型号不能为空")
@@ -51,8 +53,10 @@ public class Product {
 	@NotBlank(message = "规格不能为空")
 	protected String specifications;
 
+	@Enumerated
 	protected ProductStatusEnum status;
 
+	@Size(max=150,message="标签最长为150个字符")
 	protected String label;
 
 	@Column(name = "cover_img")
@@ -125,6 +129,26 @@ public class Product {
 	public Product(Long id) {
 		super();
 		this.id = id;
+	}
+	
+	public Product(Product product){
+		super();
+		this.name = product.getName();
+		this.model = product.getModel();
+		this.placeOfProduction= product.getPlaceOfProduction();
+		this.specifications = product.getSpecifications();
+		this.status = product.getStatus();
+		this.label = product.getLabel();
+		this.coverImg = product.getCoverImg();
+		this.price = product.getPrice();
+		this.firstCategory = product.getFirstCategory();
+		this.secondCategory = product.getSecondCategory();
+		this.thirdCategory = product.getThirdCategory();
+		this.brand = product.getBrand();
+		this.createdBy = product.getCreatedBy();
+		this.createdTime = product.getCreatedTime();
+		this.authenticatedTime = product.getAuthenticatedTime();
+		this.content = product.getContent();
 	}
 
 	public Long getId() {

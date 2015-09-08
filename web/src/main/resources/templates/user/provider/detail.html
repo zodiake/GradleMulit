@@ -33,7 +33,7 @@
 			<div class="mainwrapper clearfix">
 				<div class="aside fl">
 					<a class="active">个人资料</a>
-					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products?form">发布商品</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products?form" target="_blank">发布商品</a>
 					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products">商品维护</a>
 					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/count">商品信息统计</a>
 				</div>

@@ -7,4 +7,13 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("c")
 public class Consumable extends Product {
+	public Consumable(){
+		
+	}
+	public Consumable(Long id){
+		super(id);
+	}
+	public Consumable(Product product){
+		super(product);
+	}
 }

@@ -1,6 +1,7 @@
 <div class="modal-dialog w700" role="document">
     <div class="modal-content">
         <div class="modal-body mt20">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000">{{alert.msg}}</alert>
             <form class="form-horizontal">
                 <div class="row">
                     <div class="col-sm-6">

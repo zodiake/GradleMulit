@@ -65,7 +65,7 @@
 							<a href="/user/collection">收藏夹</a>
 						</li>
 						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/cart">我的购物车</a>
+							<a href="/user/carts">我的购物车</a>
 						</li>
 						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
 							<a href="/user/buyRecords">我的采购申请</a>

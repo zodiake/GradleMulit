@@ -25,7 +25,7 @@ spring:
 logging:
   level.org.springframework.web: INFO
   level.org.springframework.security: INFO
-  level.org.hibernate.type: INFO
+  level.org.hibernate.type: TRACE
 ---
 spring:
    profiles: prod

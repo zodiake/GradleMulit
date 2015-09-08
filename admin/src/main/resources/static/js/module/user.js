@@ -90,6 +90,7 @@ userModule.controller('CommonUserController', ['$scope',
                         templateUrl: '/admin/commonUserDetail',
                         size: 'lg',
                         controller: 'CommonUserDetailController',
+                        scope: $scope,
                         resolve: {
                             item: function () {
                                 return data;
@@ -100,6 +101,10 @@ userModule.controller('CommonUserController', ['$scope',
 
                 });
         };
+
+        $scope.$on('success', function () {
+            console.log(22);
+        });
     }
 ]);
 
@@ -141,6 +146,7 @@ userModule.controller('ProviderController', ['$scope',
                         templateUrl: '/admin/providerDetail',
                         controller: 'ProviderDetailController',
                         size: 'lg',
+                        scope: $scope,
                         resolve: {
                             item: function () {
                                 return data;
@@ -160,15 +166,22 @@ userModule.controller('CommonUserDetailController', ['$scope',
     'CommonUserService',
     function ($scope, item, CommonUserService) {
         $scope.item = item;
+        $scope.alerts = [];
 
         $scope.updateScore = function (item) {
             CommonUserService
                 .updateScore(item)
                 .success(function () {
-
+                    $scope.$emit('success', item);
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
                 })
                 .error(function () {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
         };
     }
@@ -179,12 +192,21 @@ userModule.controller('ProviderDetailController', ['$scope',
     'ProviderService',
     function ($scope, item, ProviderService) {
         $scope.item = item;
+        $scope.alerts = [];
+
         $scope.authenticate = function (item) {
             ProviderService
                 .authenticate(item)
-                .success(function (data) {})
+                .success(function (data) {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
+                })
                 .error(function (err) {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
         };
     }

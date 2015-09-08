@@ -34,7 +34,9 @@ import com.sj.repository.converter.StringToAcitvateEnumConverter;
 import com.sj.repository.converter.StringToAdvertiseCategoryConverter;
 import com.sj.repository.converter.StringToAdvertisementConverter;
 import com.sj.repository.converter.StringToBusinessTypeEnumConverter;
+import com.sj.repository.converter.StringToCalendarConverter;
 import com.sj.repository.converter.StringToComponyTypeEnumConverter;
+import com.sj.repository.converter.StringToFloatConverter;
 import com.sj.repository.converter.StringToOutputEnumConverter;
 import com.sj.repository.converter.StringToPositionInformationEnumConverter;
 import com.sj.repository.converter.StringToProductConverter;
@@ -152,8 +154,20 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToSexEnumConverter());
 		formatterRegistry.addConverter(stringToTitleEnumConverter());
 		formatterRegistry.addConverter(longToBrandConverter());
+		formatterRegistry.addConverter(stringToCalendarConverter());
+		formatterRegistry.addConverter(stringToFloatConverter());
 	}
 
+	@Bean
+	public StringToCalendarConverter stringToCalendarConverter(){
+		return new StringToCalendarConverter();
+	}
+	
+	@Bean
+	public StringToFloatConverter stringToFloatConverter(){
+		return new StringToFloatConverter();
+	}
+	
 	@Bean
 	public StringToAcitvateEnumConverter stringToAcitvateEnumConverter() {
 		return new StringToAcitvateEnumConverter();

@@ -36,4 +36,6 @@ public interface InformationService {
 
 	public Page<InformationJson> findAllJson(Pageable pageable,
 			ActivateEnum activate);
+
+	public void updateState(Long id, ActivateEnum state);
 }
