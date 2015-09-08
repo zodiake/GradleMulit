@@ -188,4 +188,9 @@ function getCount() {
 		count = count + parseFloat(j);
 	}
 	$("#count").html(count.toFixed(1));
+	if(countNum==0){
+		$('#createButton').attr('disabled','disabled');
+	}else{
+		$('#createButton').removeAttr("disabled");
+	}
 }

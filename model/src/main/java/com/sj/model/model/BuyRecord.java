@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -50,6 +51,7 @@ public class BuyRecord implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "arrival_time")
+	@NotNull(message="请选择到货时间")
 	private Calendar arrivalTime;
 
 	private float price;

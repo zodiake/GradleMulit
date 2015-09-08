@@ -243,6 +243,7 @@ table{
 	margin: 0 10px;
 }
 .head-nav{
+	min-width:1000px;
 	height: 40px;
 	background: #27bff8;
 }
@@ -365,6 +366,7 @@ table{
 /** footer **/
 .footer{
 	width: 100%;
+	min-width:1000px;
 	color: #fff;
 	text-align: center;
 	line-height: 40px;
@@ -1785,3 +1787,11 @@ input[readonly]{cursor:not-allowed;}
 input[type=radio]:checked + label{
 	color:#27bff8;
 }
+
+
+@media screen and (max-width: 640px) {
+    .head-box .head-search input { 
+	  height:24px;     
+	  border-radius:0;
+    }
+  }
