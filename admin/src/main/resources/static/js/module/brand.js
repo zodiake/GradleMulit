@@ -89,6 +89,7 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
         function init(opt) {
             BrandService.findAll(opt).success(function (data) {
                 $scope.items = data.content;
+                $scope.total = data.totalElements;
             }).error(function (err) {
 
             });

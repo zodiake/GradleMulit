@@ -86,6 +86,7 @@ productModule.controller('ProductController', ['$scope',
                 .findAll(opt)
                 .success(function (data) {
                     $scope.items = data.content;
+                    $scope.total = data.totalElements;
                 });
             ProductCategoryService
                 .findAll()
@@ -143,6 +144,7 @@ productModule.controller('ProductDetailController', ['$scope',
                 .findOne(productId)
                 .success(function (data) {
                     $scope.item = data;
+                    $scope.content = $sce.trustAsHtml($scope.item.content);
                     $scope.item.fake = {};
                     $scope.item.solutions.forEach(function (s) {
                         $scope.item.fake[s.id] = true;

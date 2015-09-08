@@ -68,6 +68,7 @@ subjectModule.controller('SubjectController', ['$scope',
                 .findAll(opt)
                 .success(function (data) {
                     $scope.items = data.content;
+                    $scope.total = data.totalElements;
                 }).error(function (err) {
 
                 });

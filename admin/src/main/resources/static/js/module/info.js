@@ -75,7 +75,7 @@ infoModule.controller('InfoController', ['$scope', 'InfoService', '$modal',
         function init(opt) {
             InfoService.findAll(opt).success(function (data) {
                 $scope.items = data.content;
-                $scope.total=data.totalElements;
+                $scope.total = data.totalElements;
             }).error(function (err) {
 
             });
