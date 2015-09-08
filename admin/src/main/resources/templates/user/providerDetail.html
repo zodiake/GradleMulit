@@ -1,5 +1,5 @@
-        <div class="modal-body mt20">
-            <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000">{{alert.msg}}</alert>
+   <div class="modal-body mt20">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">{{alert.msg}}</alert>
             <form class="form-horizontal">
                 <div class="row">
                     <div class="col-sm-6">

@@ -1,10 +1,13 @@
 package com.sj.web.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,11 +18,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.model.model.Product;
+import com.sj.model.model.Provider;
 import com.sj.model.model.Review;
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
+import com.sj.repository.exception.BatchException;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductCategoryService;
@@ -79,4 +86,18 @@ public class ProductController {
 		return null;
 	}
 
+	@RequestMapping(value = "/products/{providerId}", method = RequestMethod.POST, params = "batch")
+	@ResponseBody
+	public String createBatchProcess(@RequestParam("file") MultipartFile mf,@PathVariable("providerId")Long providerId) throws IOException, InvalidFormatException {
+		InputStream is = mf.getInputStream();
+		String result = "";
+		try {
+			result = productService.batchSaveProduct(is,new Provider(providerId));
+		} catch (IOException e) {
+			return e.getMessage();
+		} catch (BatchException e) {
+			return e.getMessage();
+		}
+		return result;
+	}
 }

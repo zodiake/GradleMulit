@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sj.admin.model.ProductOption;
 import com.sj.admin.security.SiteUserContext;
 import com.sj.model.model.Product;
+import com.sj.model.model.Provider;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.exception.BatchException;
 import com.sj.repository.model.ProductDetailJson;
@@ -86,13 +87,13 @@ public class ProductController {
 		return "";
 	}
 
-	@RequestMapping(value = "/admin/products", method = RequestMethod.POST, params = "batch")
+	@RequestMapping(value = "/admin/products/{providerId}", method = RequestMethod.POST, params = "batch")
 	@ResponseBody
-	public String createBatchProcess(@RequestParam("file") MultipartFile mf) throws IOException, InvalidFormatException {
+	public String createBatchProcess(@RequestParam("file") MultipartFile mf,@PathVariable("providerId")Long id) throws IOException, InvalidFormatException {
 		InputStream is = mf.getInputStream();
 		String result = "";
 		try {
-			result = productService.batchSaveProduct(is);
+			result = productService.batchSaveProduct(is,new Provider(id));
 		} catch (IOException e) {
 			return e.getMessage();
 		} catch (BatchException e) {

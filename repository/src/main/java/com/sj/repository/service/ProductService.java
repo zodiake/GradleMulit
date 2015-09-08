@@ -63,9 +63,9 @@ public interface ProductService {
 
 	public void updateSolution(Long id, String lists);
 	
-	public String batchSaveProduct(InputStream is) throws IOException, BatchException;
+	public String batchSaveProduct(InputStream is,Provider provider) throws IOException, BatchException;
 	
-	public List<Product> findDataForBatch(XSSFWorkbook wb) throws BatchException;
+	public List<Product> findDataForBatch(XSSFWorkbook wb,Provider provider) throws BatchException;
 	
 	public XSSFWorkbook getModel() throws InvalidFormatException, IOException;
 	

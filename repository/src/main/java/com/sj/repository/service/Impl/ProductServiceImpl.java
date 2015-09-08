@@ -293,12 +293,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findDataForBatch(XSSFWorkbook wb)
+	public List<Product> findDataForBatch(XSSFWorkbook wb,Provider provider)
 			throws BatchException {
 		List<Product> products = new ArrayList<Product>();
 		XSSFSheet sheet = wb.getSheetAt(0);
 		int irLength = sheet.getLastRowNum();
-		Provider p = new Provider(1l);
 		for (int i = 3; i <= irLength; i++) {
 			XSSFRow xssfRow = sheet.getRow(i);
 			Product product = new Product();
@@ -355,7 +354,7 @@ public class ProductServiceImpl implements ProductService {
 			if(label!=null && label.length()>150)
 				throw new BatchException("第" + (i + 1) + "行标签过长");
 			product.setLabel(label);
-			product.setCreatedBy(p);
+			product.setCreatedBy(provider);
 			product.setCreatedTime(Calendar.getInstance());
 			product.setAuthenticatedTime(Calendar.getInstance());
 			product.setStatus(ProductStatusEnum.UP);
@@ -406,11 +405,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public String batchSaveProduct(InputStream is) throws IOException,
+	public String batchSaveProduct(InputStream is,Provider provider) throws IOException,
 			BatchException {
 		XSSFWorkbook wb = null;
 		wb = new XSSFWorkbook(is);
-		List<Product> products = findDataForBatch(wb);
+		List<Product> products = findDataForBatch(wb, provider);
 		wb.close();
 		is.close();
 		for (Product product : products) {
