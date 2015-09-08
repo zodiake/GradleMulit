@@ -868,4 +868,5 @@ select{
 }
 .table > tbody tr:hover{
     background: #ddd;
+    cursor: pointer;
 }
