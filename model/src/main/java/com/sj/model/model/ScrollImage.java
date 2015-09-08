@@ -24,6 +24,7 @@ public class ScrollImage {
 	@Column(name = "image_url")
 	private String imageUrl;
 
+	@Column(name = "created_time")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar createdTime;
 
@@ -36,6 +37,10 @@ public class ScrollImage {
 
 	@Column
 	private String href;
+
+	@Column(name = "updated_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar updatedTime;
 
 	public ScrollImage() {
 		super();
@@ -92,6 +97,14 @@ public class ScrollImage {
 
 	public void setHref(String href) {
 		this.href = href;
+	}
+
+	public Calendar getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Calendar updatedTime) {
+		this.updatedTime = updatedTime;
 	}
 
 	@Override

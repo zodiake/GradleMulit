@@ -200,8 +200,9 @@ create table scroll_image(
 	id bigint not null AUTO_INCREMENT,
 	image_url varchar(100),
 	created_time timestamp,
+	updated_time timestamp,
 	sort_number int,
-	scroll_type varchar(10),
+	scroll_type int,
 	href varchar(225),
 	primary key(id)
 );

@@ -181,10 +181,12 @@ public class IndexController extends UploadController {
 	public String category(Model uiModel) {
 		return "category/category";
 	}
+
 	@RequestMapping(value = "/categoryAdd")
 	public String categoryAdd() {
 		return "category/categoryAdd";
 	}
+
 	@RequestMapping(value = "/childCategory")
 	public String childCategory() {
 		return "category/childCategory";
@@ -192,5 +194,9 @@ public class IndexController extends UploadController {
 	@RequestMapping(value = "/categoryEdit")
 	public String categoryEdit() {
 		return "category/categoryEdit";
+	}
+	@RequestMapping(value = "/templates/scrollImg")
+	public String scrollImg() {
+		return "scroll/list";
 	}
 }

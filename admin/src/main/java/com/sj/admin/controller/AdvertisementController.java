@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.admin.exception.AdvertisementNotFoundException;
 import com.sj.model.model.Advertisement;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.AdvertisementJson;
@@ -62,35 +61,10 @@ public class AdvertisementController {
 				Direction.DESC, "activate"), activate);
 	}
 
-	@RequestMapping(value = "/admin/advertisements/{status}", method = RequestMethod.GET, params = "status")
-	public String Search(Model uiModel,
-			@RequestParam(defaultValue = "1", value = "page") int page,
-			@RequestParam(defaultValue = "15", value = "size") int size,
-			@PathVariable("status") String status) {
-		Page<Advertisement> advs = advertisementService.findByActivate(
-				new PageRequest(page - 1, size), ActivateEnum.valueOf(status));
-		uiModel.addAttribute("advertisements", advs);
-		return null;
-	}
-
-	@RequestMapping(value = "/admin/advertisements/{id}", method = RequestMethod.GET)
-	public String update(@PathVariable("id") Long id, Model uiModel) {
-		Advertisement adv = advertisementService.findOne(id);
-		if (adv == null)
-			throw new AdvertisementNotFoundException();
-		uiModel.addAttribute("advertisement", adv);
-		return null;
-	}
-
-	@RequestMapping(value = "/admin/advertisements/{id}", method = RequestMethod.PUT, params = "status")
+	@RequestMapping(value = "/admin/advertisements/{id}/state", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateStatus(@PathVariable("id") Long id,
-			@RequestParam("status") int status) {
-		Advertisement adv = advertisementService.findOne(id);
-		if (adv == null)
-			return "error";
-		adv.setActivate(ActivateEnum.values()[status]);
-		advertisementService.updateStatus(adv);
-		return "success";
+	public String updateState(@PathVariable("id") Long id, ActivateEnum state) {
+		advertisementService.updateStatus(id, state);
+		return "";
 	}
 }

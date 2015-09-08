@@ -15,6 +15,7 @@ var app = angular.module('app', [
     'Subject',
     'Product',
     'Category',
+    'scroll'
 ]);
 
 app.config([
@@ -86,6 +87,11 @@ app.config([
                 url: '/:id/categories',
                 templateUrl: '/admin/childCategory',
                 controller: 'ChildCategoryController'
+            })
+            .state('scrollImg', {
+                url: '/scrollImg',
+                templateUrl: '/admin/templates/scrollImg',
+                controller: 'ScrollImgController'
             });
     }
 ]);

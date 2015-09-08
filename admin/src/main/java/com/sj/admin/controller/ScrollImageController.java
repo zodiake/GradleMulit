@@ -30,6 +30,13 @@ public class ScrollImageController extends UploadController {
 	private final String LISTS = "scroll/list";
 	private final String TYPES = "scroll/types";
 
+	@RequestMapping(value = "/admin/scrollImages", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ScrollImage> list() {
+		List<ScrollImage> lists = service.findAll();
+		return lists;
+	}
+
 	@RequestMapping(value = "/admin/scrollImages/types", method = RequestMethod.GET)
 	public String types(Model uiModel) {
 		uiModel.addAttribute("types", ScrollImageType.values());
@@ -54,7 +61,7 @@ public class ScrollImageController extends UploadController {
 		UploadResult result = super.upload(file);
 		List<String> url = result.getFiles().stream().map(f -> f.getUrl())
 				.collect(toList());
-		String href = (String) request.getParameter("url");
+		String href = request.getParameter("url");
 		ScrollImage scroll = new ScrollImage(id);
 		scroll.setImageUrl(url.get(0));
 		scroll.setHref(href);
