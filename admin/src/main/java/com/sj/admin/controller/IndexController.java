@@ -189,4 +189,8 @@ public class IndexController extends UploadController {
 	public String childCategory() {
 		return "category/childCategory";
 	}
+	@RequestMapping(value = "/categoryEdit")
+	public String categoryEdit() {
+		return "category/categoryEdit";
+	}
 }

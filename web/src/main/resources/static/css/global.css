@@ -620,6 +620,9 @@ table{
 	float: left;
 	margin-top: 20px;
 }
+.resg-header .head-menu-btn.regs{
+	float:right;
+}
 .resg-header .head-menu-btn a{
 	display: inline-block;
 	width: 72px;
@@ -631,6 +634,10 @@ table{
 }
 .resg-header .resg-company a{
 	background: url('../img/icon-resg2.png') no-repeat;
+}
+.resg-header .resg-company.regs a.company-btn{
+	background: url('../img/icon-resg.png') no-repeat;
+	background-position: -79px 0;
 }
 .resg-header .resg-self a.company-btn,
 .resg-header .resg-company a.self-btn{
@@ -1729,6 +1736,7 @@ button.default{
 .files img{
     width:100px;
     height:100px;
+    border:1px solid #8491af;
 }
 .files #uploadImg{ 
 	position: absolute;
