@@ -15,8 +15,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in yq">
-                    <td ng-click="view(item)"><a href="#/subjectDetail/{{item.id}}">{{$index+1}}</a></td>
+                <tr ng-repeat="item in items">
+                    <td>{{$index+1}}</td>
                     <td>{{item.name}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
@@ -25,70 +25,7 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
-        <h4>试剂</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>商品名称</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in sj">
-                    <td ng-click="view(item)">{{$index+1}}</td>
-                    <td>{{item.name}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                            修改
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <h4>耗材</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>商品名称</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in hc">
-                    <td ng-click="view(item)">{{$index+1}}</td>
-                    <td>{{item.name}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                            修改
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <h4>服务</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>商品名称</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in fw">
-                    <td ng-click="view(item)">{{$index+1}}</td>
-                    <td>{{item.name}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                            修改
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        </table>        
     </div>
 </div>
 <div class="upload-modal">

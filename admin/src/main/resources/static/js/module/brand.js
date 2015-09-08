@@ -139,10 +139,10 @@ brandModule.controller('BrandDetailController', ['$scope',
             BrandService
                 .save($scope.item)
                 .success(function () {
-
+                	
                 })
                 .error(function (err) {
-
+                	
                 });
         };
     }

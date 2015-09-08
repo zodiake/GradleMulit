@@ -2,6 +2,8 @@ package com.sj.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -10,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.admin.security.SiteUserContext;
 import com.sj.model.model.ProductCategory;
+import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.AdvertisementCategoryJson;
 import com.sj.repository.model.InformationCategoryJson;
 import com.sj.repository.model.ProductCategoryDetailJson;
@@ -28,8 +30,6 @@ public class CategroyController {
 	private AdvertisementCategoryService advertisementCategoryService;
 	@Autowired
 	private InformationCategoryService informationCategoryService;
-	@Autowired
-	private SiteUserContext userContext;
 
 	@RequestMapping(value = "/admin/advertise/category", method = RequestMethod.GET)
 	@ResponseBody
@@ -62,4 +62,17 @@ public class CategroyController {
 	public List<ProductCategoryDetailJson> findProductCategoryAndChildren() {
 		return productCategoryService.findAllDetail();
 	}
+	
+	@RequestMapping(value = "/admin/product/category/{id}/categories", method = RequestMethod.POST)
+	@ResponseBody
+	public String addProductCategory(@PathVariable("id")Long id,HttpServletRequest request){
+		String name=request.getParameter("name");
+		
+		ProductCategory pc=new ProductCategory();
+		pc.setName(name);
+		pc.setParent(new ProductCategory(id));
+		pc.setActivate(ActivateEnum.ACTIVATE);
+		productCategoryService.save(pc);
+		return null;
+	}	
 }

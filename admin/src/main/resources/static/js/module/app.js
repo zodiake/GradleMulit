@@ -91,15 +91,10 @@ app.config([
                 templateUrl: '/admin/category',
                 controller: 'CategoryController'
             })
-            .state('categoryAdd', {
-                url: '/categoryAdd',
-                templateUrl: '/admin/category/categoryAdd',
-                controller: 'CategoryAddController'
-            })
-            .state('category2', {
-                url: '/category2/:id',
-                templateUrl: '/admin/category/category2',
-                controller: 'Category2Controller'
+            .state('childCategory', {
+                url: '/:id/categories',
+                templateUrl: '/admin/childCategory',
+                controller: 'ChildCategoryController'
             });
     }
 ]);
