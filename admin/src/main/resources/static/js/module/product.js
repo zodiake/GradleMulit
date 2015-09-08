@@ -182,13 +182,25 @@ productModule.controller('ProductDetailController', ['$scope',
                 })
                 .error(function (err) {
                     $scope.alerts.push({
-                        msg: '上架失败',
+                        msg: '失败',
                     });
                 });
         };
 
         $scope.addSolution = function () {
-            ProductService.addSolution($scope.item.id, $scope.item.fake);
+            ProductService
+                .addSolution($scope.item.id, $scope.item.fake)
+                .success(function () {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '已关联',
+                    });
+                })
+                .error(function (err) {
+                    $scope.alerts.push({
+                        msg: '关联失败',
+                    });
+                });
         };
 
         $scope.closeAlert = function (index) {
