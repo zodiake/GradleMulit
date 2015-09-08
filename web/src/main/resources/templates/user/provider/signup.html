@@ -243,30 +243,30 @@
 			<div class="form-group files">
 				<label><i>*</i>企业营业执照上传</label>
 				<img th:src="*{businessLicenseUrl}" width="100" height="100"/>
-				<button id="uploadImg" >
+				<span id="uploadImg" >
                     <input type='file' name='file' th:attr="data-url=@{businessLicenseUrl}"/>
                     <a href="#">选择文件</a>
-                </button>	
+                </span>	
                 	<input type="hidden" th:field="*{businessLicenseUrl}"/>
                 <i class="error" th:if="${#fields.hasErrors('businessLicenseUrl')}" th:errors="*{businessLicenseUrl}">必填</i>	
 			</div>
 			<div class="form-group files">
 				<label><i>*</i>税务登记证上传</label>
 				<img th:src="*{taxRegistrationUrl}" width="100" height="100"/>
-				<button id="uploadImg" type="button">
+				<span id="uploadImg" type="button">
                     <input type='file' name='file' th:attr="data-url=@{taxRegistrationUrl}"/>
                     <a href="#">选择文件</a>
-                </button>				
+                </span>				
                 <input type="hidden" th:field="*{taxRegistrationUrl}"/>
                 <i class="error" th:if="${#fields.hasErrors('taxRegistrationUrl')}" th:errors="*{taxRegistrationUrl}">必填</i>
 			</div>
 			<div class="form-group files">
 				<label><i>*</i>组织结构代码证上传</label>
 				<img th:src="*{structureCodeUrl}" width="100" height="100"/>
-				<button id="uploadImg" type="button">
+				<span id="uploadImg" type="button">
                     <input type='file' name='file' th:attr="data-url=@{structureCodeUrl}"/>
                     <a href="#">选择文件</a>
-                </button>		
+                </span>		
                 <input type="hidden" th:field="*{structureCodeUrl}"/>
                 <i class="error" th:if="${#fields.hasErrors('structureCodeUrl')}" th:errors="*{structureCodeUrl}">必填</i>		
 			</div>

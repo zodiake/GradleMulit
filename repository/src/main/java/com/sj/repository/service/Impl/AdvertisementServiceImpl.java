@@ -73,19 +73,10 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	}
 
 	@Override
-	public Advertisement updateStatus(Advertisement adv) {
-		if (adv.getActivate() == ActivateEnum.ACTIVATE) {
-			List<Advertisement> advs = repository.findByActivateAndCategory(
-					ActivateEnum.ACTIVATE, adv.getCategory());
-			if (advs == null || advs.size() == 0) {
-			} else {
-				for (Advertisement advertisement : advs) {
-					advertisement.setActivate(ActivateEnum.DEACTIVATE);
-					repository.save(advertisement);
-				}
-			}
-		}
-		return repository.save(adv);
+	public Advertisement updateStatus(Long id, ActivateEnum state) {
+		Advertisement adv = repository.findOne(id);
+		adv.setActivate(state);
+		return adv;
 	}
 
 	@Override

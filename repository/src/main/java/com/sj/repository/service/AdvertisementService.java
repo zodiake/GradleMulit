@@ -22,7 +22,7 @@ public interface AdvertisementService {
 
 	public void update(Advertisement advertisement);
 
-	public Advertisement updateStatus(Advertisement adv);
+	public Advertisement updateStatus(Long id, ActivateEnum state);
 
 	public Advertisement save(Advertisement advertisement);
 

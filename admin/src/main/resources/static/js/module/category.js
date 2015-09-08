@@ -55,6 +55,13 @@ category.controller('CategoryController', [
 	                  controller: 'CategoryAddController'
 	              });
 	          };
+	          $scope.edit = function () {
+	              $modal.open({
+	                  templateUrl: '/admin/categoryEdit',
+	                  size: 'sm',
+	                  controller: 'CategoryEditController'
+	              });
+	          };
     	  
       	}
  ]);
@@ -99,4 +106,13 @@ category.controller('CategoryAddController', [
     	  
       }
   ]);
+
+category.controller('CategoryEditController', [
+	  '$scope',
+	  'CategoryService',
+	      function($scope, CategoryService) {
+	    	     
+	    	  
+	      }
+	  ]);
 

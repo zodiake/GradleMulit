@@ -30,6 +30,11 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 	}
 
 	@Override
+	public List<ScrollImage> findAll() {
+		return repository.findAllByOrderBySortNumberDesc();
+	}
+
+	@Override
 	public ScrollImage update(ScrollImage image) {
 		ScrollImage img = repository.findOne(image.getId());
 		img.setImageUrl(image.getImageUrl());

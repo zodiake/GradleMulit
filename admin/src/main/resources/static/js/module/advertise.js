@@ -47,6 +47,19 @@ advertiseModule.service('AdvertiseService', ['$http',
                 headers: header
             });
         };
+        
+        this.updateState=function(item){
+            var state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+            return $http({
+                method: 'POST',
+                url: '/admin/advertisements/' + item.id + '/state',
+                transformRequest: transform,
+                data: {
+                    state: state
+                },
+                headers: header
+            }); 
+        };
     }
 ]);
 
@@ -116,6 +129,18 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
                 }
             });
         };
+        
+        $scope.updateState=function(item){
+            
+            AdvertiseService
+                .updateState(item)
+                .success(function (data) {
+                        item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                }).error(function (err) {
+
+                });
+        };
+
     }
 ]);
 
@@ -174,7 +199,7 @@ advertiseModule.controller('AdvertiseDetailController', ['$scope',
                 },
                 transformRequest: angular.identity
             }).success(function (data) {
-                $scope.item.coverImg = data[0];
+                $scope.item.cover = data[0];
             });
         };
 
