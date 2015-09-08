@@ -184,6 +184,10 @@ userModule.controller('CommonUserDetailController', ['$scope',
                     });
                 });
         };
+        
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
     }
 ]);
 
@@ -208,6 +212,10 @@ userModule.controller('ProviderDetailController', ['$scope',
                         msg: '保存失败',
                     });
                 });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);

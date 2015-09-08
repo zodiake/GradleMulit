@@ -39,7 +39,7 @@ brandModule.service('BrandService', ['$http',
                 transformRequest: transform,
                 data: {
                     name: item.title,
-                    coverImg: item.src
+                    coverImg: item.cover
                 },
                 headers: header
             });
@@ -111,6 +111,13 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
 
                 });
         };
+        
+        $scope.search=function(){
+           init({
+                page: $scope.page,
+                size: $scope.size,
+            }); 
+        };
     }
 ]);
 
@@ -119,6 +126,7 @@ brandModule.controller('BrandDetailController', ['$scope',
     'BrandService',
     function ($scope, $http, BrandService) {
         $scope.item = {};
+        $scope.alerts = [];
 
         $scope.upload = function (event) {
             var file = event.target.files[0];
@@ -134,7 +142,7 @@ brandModule.controller('BrandDetailController', ['$scope',
                 },
                 transformRequest: angular.identity
             }).success(function (data) {
-                $scope.item.src = data[0];
+                $scope.item.cover = data[0];
             });
         };
 
@@ -142,11 +150,20 @@ brandModule.controller('BrandDetailController', ['$scope',
             BrandService
                 .save($scope.item)
                 .success(function () {
-                	
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
                 })
                 .error(function (err) {
-                	
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);
@@ -157,6 +174,7 @@ brandModule.controller('BrandViewController', ['$scope',
     '$http',
     function ($scope, BrandService, item, $http) {
         $scope.item = item;
+        $scope.alerts = [];
 
         $scope.upload = function (event) {
             var file = event.target.files[0];
@@ -180,11 +198,20 @@ brandModule.controller('BrandViewController', ['$scope',
             BrandService
                 .update($scope.item)
                 .success(function () {
-
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
                 })
                 .error(function (err) {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);

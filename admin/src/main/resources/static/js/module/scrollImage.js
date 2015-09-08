@@ -68,6 +68,7 @@ module.controller('ScrollImgDetailController', ['$scope',
     'ScrollService',
     function ($scope, item, $http, ScrollService) {
         $scope.item = item;
+        $scope.alerts = [];
 
         $scope.upload = function (event) {
             var file = event.target.files[0];
@@ -91,11 +92,20 @@ module.controller('ScrollImgDetailController', ['$scope',
             ScrollService
                 .update($scope.item)
                 .success(function () {
-
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
                 })
                 .error(function (err) {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);
