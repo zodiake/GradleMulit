@@ -174,7 +174,7 @@ advertiseModule.controller('AdvertiseDetailController', ['$scope',
                 },
                 transformRequest: angular.identity
             }).success(function (data) {
-                $scope.item.coverImg = data[0];
+                $scope.item.cover = data[0];
             });
         };
 
