@@ -2,7 +2,7 @@
     <div class="contentpanel">    	
         <form class="form-inline">
             <div class="form-group">
-                <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#brandModal" ng-click="create()">添加</a>
+                <a class="btn btn-success btn-sm" data-toggle="modal" ng-click="create()">添加</a>
             </div>
         </form>
         <h4>仪器</h4>
@@ -19,8 +19,8 @@
                     <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                            修改
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
+                           		 修改
                         </button>
                     </td>
                 </tr>
