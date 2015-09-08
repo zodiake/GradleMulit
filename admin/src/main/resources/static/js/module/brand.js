@@ -100,13 +100,15 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
         });
 
         $scope.delete = function (item) {
-            BrandService.delete(item).success(function (data) {
-                if (data.data == 'success') {
-                    item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
-                }
-            }).error(function (err) {
+            BrandService
+                .delete(item)
+                .success(function (data) {
+                    if (data.data == 'success') {
+                        item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                    }
+                }).error(function (err) {
 
-            });
+                });
         };
     }
 ]);
