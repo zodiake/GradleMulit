@@ -191,7 +191,10 @@ public class IndexController extends UploadController {
 	public String childCategory() {
 		return "category/childCategory";
 	}
-
+	@RequestMapping(value = "/categoryEdit")
+	public String categoryEdit() {
+		return "category/categoryEdit";
+	}
 	@RequestMapping(value = "/templates/scrollImg")
 	public String scrollImg() {
 		return "scroll/list";
