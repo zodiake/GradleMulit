@@ -11,7 +11,7 @@ public class StringToFloatConverter implements
 		try {
 			return Float.valueOf(source);
 		} catch (Exception e) {
-			return null;
+			return 0f;
 		}
 	}
 }

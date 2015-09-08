@@ -173,16 +173,7 @@ public class CommonUserController {
 	public String updateProcess(
 			@Valid @ModelAttribute("buy") BuyRecord buyRecord,
 			BindingResult result, @PathVariable("id") Long id, Model uiModel,
-			@SecurityUser SiteUser user,@RequestParam("arrivaTime")String arrivalTime) throws ParseException {
-		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
-		Calendar calendar = null;
-		if(arrivalTime==null || arrivalTime.length()==0)
-			result.addError(new FieldError("buy", "arrivalTime", "请选择到货时间"));
-		else{
-			calendar = Calendar.getInstance();
-			calendar.setTime(sdf.parse(arrivalTime));
-			buyRecord.setArrivalTime(calendar);
-		}
+			@SecurityUser SiteUser user) throws ParseException {
 		if(result.hasErrors()){
 			BuyRecord newBuy = buyRecordService.findOne(id, new CommonUser(user.getId()));
 			buyRecord.setProducts(newBuy.getProducts());
@@ -190,12 +181,9 @@ public class CommonUserController {
 			buyRecord.setId(id);
 			CommonUser common = commonUserService.findOne(user.getId());
 			buyRecord.setUser(common);
-			buyRecord.setArrivalTime(calendar);
 			uiModel.addAttribute("buy", buyRecord);
 			return "user/common/modifyBuy";
 		}
-		calendar.setTime(sdf.parse(arrivalTime));
-		buyRecord.setArrivalTime(calendar);
 		buyRecord = buyRecordService.update(new CommonUser(user.getId()),buyRecord);
 		uiModel.addAttribute("buy", buyRecord);
 		return "redirect:/user/buyRecords/" + id ;
@@ -220,16 +208,7 @@ public class CommonUserController {
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.POST, params = "form")
 	public String createBuyRecordProcess(
 			@Valid @ModelAttribute("buy") BuyRecord buyRecord,BindingResult result, Model uiModel,
-			@SecurityUser SiteUser user,HttpSession session,@RequestParam("arrivaTime")String arrivalTime) throws ParseException {
-		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
-		Calendar calendar = null;
-		if(arrivalTime==null || arrivalTime.length()==0)
-			result.addError(new FieldError("buy", "arrivalTime", "请选择到货时间"));
-		else{
-			calendar = Calendar.getInstance();
-			calendar.setTime(sdf.parse(arrivalTime));
-			buyRecord.setArrivalTime(calendar);
-		}
+			@SecurityUser SiteUser user,HttpSession session) throws ParseException {
 		if(result.hasErrors()){
 			CommonUser common = commonUserService.findOne(user.getId());
 			buyRecord.setUser(common);
