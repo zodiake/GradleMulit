@@ -293,20 +293,20 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 3; i <= irLength; i++) {
 			XSSFRow xssfRow = sheet.getRow(i);
 			Product product = new Product();
-			String name = getStringCellValue(xssfRow, i, 0);
+			String name = getStringCellValue(xssfRow, i, 0,40);
 			product.setName(name);
-			String model = getStringCellValue(xssfRow, i, 1);
+			String model = getStringCellValue(xssfRow, i, 1,20);
 			product.setModel(model);
 
-			product.setSpecifications(getStringCellValue(xssfRow, i, 2));
-			String brandName = getStringCellValue(xssfRow, i, 3);
+			product.setSpecifications(getStringCellValue(xssfRow, i, 2,20));
+			String brandName = getStringCellValue(xssfRow, i, 3,50);
 			Brand brand = brandRepository.findByNameAndActivate(brandName,
 					ActivateEnum.ACTIVATE);
 			if (brand == null)
 				throw new BatchException("第" + (i + 1) + "行品牌找不到");
 			else
 				product.setBrand(brand);
-			String place = getStringCellValue(xssfRow, i, 4);
+			String place = getStringCellValue(xssfRow, i, 4,2);
 			if ("国产".equals(place))
 				product.setPlaceOfProduction(PlaceEnum.DOMESTIC);
 			else if ("进口".equals(place))
@@ -343,6 +343,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setThirdCategory(thirdCategory);
 			
 			String label = xssfRow.getCell(9).getStringCellValue();
+			if(label!=null && label.length()>150)
+				throw new BatchException("第" + (i + 1) + "行标签过长");
 			product.setLabel(label);
 			product.setCreatedBy(p);
 			product.setCreatedTime(Calendar.getInstance());
@@ -356,15 +358,28 @@ public class ProductServiceImpl implements ProductService {
 		return products;
 	}
 
+	private String getStringCellValue(XSSFRow xssfRow, int line, int column,int length)throws BatchException {
+		String value = "";
+		try {
+			value = xssfRow.getCell(column).getStringCellValue();
+			}catch(Exception e){
+				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据错误");
+			}
+			if(value==null || value.length()==0)
+				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据为空");
+			if(value.length()>length)
+				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据过长");
+		return value;
+	}
 	private String getStringCellValue(XSSFRow xssfRow, int line, int column)throws BatchException {
 		String value = "";
 		try {
 			value = xssfRow.getCell(column).getStringCellValue();
-			if(value==null || value.length()==0)
-				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据为空");
 		}catch(Exception e){
 			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据错误");
 		}
+		if(value==null || value.length()==0)
+			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据为空");
 		return value;
 	}
 
@@ -373,11 +388,11 @@ public class ProductServiceImpl implements ProductService {
 		float price = 0f;
 		try {
 			price = (float) xssfRow.getCell(column).getNumericCellValue();
-			if(price==0f)
-				throw new BatchException("第" + (line + 1) + "行价格不能为0或者为空");
 		}catch(Exception e){
 			throw new BatchException("第" + (line + 1) + "行价格输入有误");
 		}
+		if(price==0f)
+			throw new BatchException("第" + (line + 1) + "行价格不能为0或者为空");
 		return price;
 	}
 
