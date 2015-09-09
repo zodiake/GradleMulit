@@ -62,25 +62,23 @@
 	                 'number' : $("#num").val()
 	             },
 	             success : function(data) {
-	            	 console.log(data.data);
-	            	 var product = $(this).attr("data-id");
+	            	 var productId = $("#addCart").attr("data-id");
 	            	 var num = $("#num").val();
 	                 if (data.data == "no authority") {
-	                 	alert(data.data);
+	                 	alert("对不起您没有权限"");
 	                 } else if(data.data == "addone"){
-	                 	var cartNumber = $("#cartNumber"+product);
+	                 	var cartNumber = $("#cartNumber6");
 	                 	var numberVal = cartNumber.html();
-	                 	cartNumber.html(parseInt(numberVal)+parseInt(number));
+	                 	cartNumber.html(parseInt(numberVal)+parseInt(num));
 	                 }else{
-	                 	var str = '<li id="cart'+product+'"><div class="fl ct-img"><a href="/products/'+product+'"><img width="50" height="50" src="'+data.image+'"/></a></div><div class="fl ct-name"><a href="/products/'+product+'">'+data.name+'</a>'+
-							'</div><div class="fr ct-detail"><span class="ct-price"><b>'+data.price+'</b>×<i id="cartNumber'+product+'">'+num+'</i></span><br/><a class="fr cartRemove" data-id="'+product+'">删除</a></div></li>';
+	                 	var str = '<li id="cart'+productId+'"><div class="fl ct-img"><a href="/products/'+productId+'"><img width="50" height="50" src="'+data.image+'"/></a></div><div class="fl ct-name"><a href="/products/'+productId+'">'+data.name+'</a>'+
+							'</div><div class="fr ct-detail"><span class="ct-price"><b>'+data.price+'</b>×<i id="cartNumber'+productId+'">'+num+'</i></span><br/><a class="fr cartRemove" data-id="'+productId+'">删除</a></div></li>';
 	                 	$("#cartUl").append(str);
 	                 	var allNum = $("#allNum");
 	                 	allNum.html(parseInt(allNum.html())+1);
 	                 	var totalNum =$("#totalNum");
 	                 	totalNum.html(parseInt(totalNum.html())+1);
 	                 }
-	                 console.log("1");
 	             },
 	             error : function(data) {
 	                 alert(data);

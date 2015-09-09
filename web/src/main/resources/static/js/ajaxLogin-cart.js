@@ -68,7 +68,6 @@
 						} else if (data.data == "no authority") {
 							alert("对不起您没有权限");
 						} else if (data.data == "addone") {
-							console.log(data.data);
 							var cartNumber = $("#cartNumber"+ productId);
 							var numberVal = cartNumber.html();
 							cartNumber.html(parseInt(numberVal)+ parseInt(num));
@@ -84,7 +83,6 @@
 							var totalNum = $("#totalNum");
 							totalNum.html(parseInt(totalNum.html()) + 1);
 						}
-						console.log(data);
 					},
 					error : function(data) {
 						alert(data);
