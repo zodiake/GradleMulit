@@ -847,6 +847,17 @@ select{
 .files_tab .lhg .col-sm-6{
     line-height: 95px;
 }
+.files_tab.pos{
+	position: absolute;
+	left: 34%;
+	bottom: 15px;
+}
+.files_tab.pos #uploadImg{
+	padding:7px 12px;
+}
+.files_tab.pos a{
+	font-size:16px;
+}
 .push-good .form-group i.error{
     margin-left: 165px;
 }
