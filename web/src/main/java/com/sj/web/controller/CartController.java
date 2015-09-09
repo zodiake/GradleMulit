@@ -44,13 +44,12 @@ public class CartController {
 
 	@RequestMapping(value = "/ajax/carts", method = RequestMethod.POST)
 	@ResponseBody
-	private String addCartLine(@ModelAttribute CartLine cartLine,
-			HttpSession httpSession, @SecurityUser SiteUser user) {
+	private String addCartLine(@ModelAttribute CartLine cartLine,HttpSession httpSession) {
 		if (!userContext.isLogin())
 			return "{\"data\":\"login\"}";
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
 			return "{\"data\":\"no authority\"}";
-
+		SiteUser user = userContext.getCurrentUser();
 		Set<CartLine> lines = cartLineService.findByUser(user.getId());
 		if (lines != null) {
 			for (CartLine cart : lines) {

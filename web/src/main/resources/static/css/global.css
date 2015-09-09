@@ -1548,18 +1548,16 @@ li div.topic-detail{
 }
 .hide-wrap,
 .hide-wrap-small{
-	width:350px;
-	height:90px;
 	display: none;
 	padding: 30px;
 	text-align: center;
 	background:#fff;
 	position: fixed;
-	left: 0;
-	top:0;
-	right:0;
-	bottom:0;
-	margin:auto;
+	left: 40%;
+	top:40%;
+}
+.logo-small label {
+width: 50px;
 }
 .hide-wrap h2{
 	margin-bottom: 20px;

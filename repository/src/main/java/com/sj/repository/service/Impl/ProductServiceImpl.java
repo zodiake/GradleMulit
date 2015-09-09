@@ -95,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findOne(Long id) {
 		Product p = repository.findOne(id);
-		String count = template.opsForValue().get(VIEWCOUNT + id.toString());
+		String count = template.opsForValue().get(COLLECTIONCOUNT + id.toString());
 		if (count == null)
 			p.setCollectionCount(0l);
 		else

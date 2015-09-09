@@ -1,277 +1,296 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head lang="en">
-		<meta charset="UTF-8" />
-		<title>仪器商品详情</title>
-		<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
-		<meta name="_csrf" th:content="${_csrf.token}" />
-		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
-		<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
-		<script type="text/javascript" th:src="@{/js/ajaxLogin-review.js}"></script>
-		<script type="text/javascript" th:src="@{/js/script.js}"></script>
-		<script type="text/javascript">
-            $(function() {
-                var token = $("meta[name='_csrf']").attr("content");
-                var header = $("meta[name='_csrf_header']").attr("content");
-                var id = $("meta[name='id']").attr("content");
+<head lang="en">
+<meta charset="UTF-8" />
+<title>仪器商品详情</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
+<script type="text/javascript" th:src="@{/js/ajaxLogin-review.js}"></script>
+<script type="text/javascript" th:src="@{/js/ajaxLogin-cart.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript" th:src="@{/js/ajaxLogin-collection-product.js}"></script>
+<script type="text/javascript">
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var id = $("meta[name='id']").attr("content");
+		var ajaxStatus = "";
 
-                $(document).ajaxSend(function(e, xhr, options) {
-                    xhr.setRequestHeader(header, token);
-                });
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
 
-                $('#reviewForm').loginBeforeAjax({
-                    url : '/products/' + $('#reviewForm').attr('data_id') + '/reviews',
-                    div : 'reviews',
-                    data : $(this).serialize(),
-                    success : function(res) {
-                        if (res == "content is null") {
-                            alert("content is null");
-                        } else {
-                            var username = $('#username').text();
-                            var str = '<li><div class="member-info fl"><img th:src="@{/img/member.png}" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">' + res + '</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>' + $("#content").val() + '</p></div></div></li>';
-                            var ul = $('#reviewUl');
-                            var num = $('#reviewNum').text();
-                            if (num >= 10) {
-                                var li = $('#reviewUl li');
-                                li[9].remove();
-                            }
-                            ul.prepend(str);
-                            $('#reviewNum').text(parseInt(num) + 1);
-                            $("#content").val("");
-                        }
-                    }
-                });
-                $('#addCart').click(function(){
-                	  var id = $(this);
-                      var product = id.attr("data-id");
-                      var number = $("#num").val();
-                      if (number == 0) {
-                          alert("数量不能为空");
-                      } else {
-                    	  createCart(number,product);
-                      }
-                }); 
-                $("#collection").click(function() {
-                    var coll = $(this);
-                    var productId = coll.attr("data-id");
-                    $.ajax({
-                        type : 'post',
-                        url : '/ajax/preferProduct',
-                        data : {'id':productId},
-                        success : function(data) {
-                            if (data == "success") {
-                                var num = $("#number");
-                                var number = num.text() * 1 + 1;
-                                num.text(number);
-                            }else{
-                            	alert(data);
-                            }
-                        },
-                        error : function(data) {
-                            alert("error");
-                        }
-                    });
-                });
-                $(".amount-increase").click(function(){
-                	var numVal = $("#num").val();
-                	$("#num").val(parseInt(numVal)+1);
-                });
-                $(".amount-decrease").click(function(){
-                	var numVal = $("#num").val();
-                	if(numVal>0){
-                		$("#num").val(parseInt(numVal)-1);
-                	}
-                });
-            });
-		</script>
-	</head>
-	<body>
-		<div id="includeHeader">
-			<div th:include="head/head :: head">Head</div>
-		</div>
-		<!-- header -->
-		<div id="loginForm"></div>
-		<div class="wrapper" th:object="${product}">
-			<div class="crumb">
-				<a href="/">首页</a><i>></i><a
+		$('#reviewForm')
+				.loginBeforeAjaxReview(
+						{
+							url : '/products/'
+									+ $('#reviewForm').attr('data_id')
+									+ '/reviews',
+							div : 'reviews',
+							data : $(this).serialize(),
+							success : function(res) {
+								if (res == "content is null") {
+									alert("content is null");
+								} else {
+									var username = $('#username').text();
+									var str = '<li><div class="member-info fl"><img th:src="@{/img/member.png}" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">'
+											+ res
+											+ '</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>'
+											+ $("#content").val()
+											+ '</p></div></div></li>';
+									var ul = $('#reviewUl');
+									var num = $('#reviewNum').text();
+									if (num >= 10) {
+										var li = $('#reviewUl li');
+										li[9].remove();
+									}
+									ul.prepend(str);
+									$('#reviewNum').text(parseInt(num) + 1);
+									$("#content").val("");
+								}
+							}
+						});
+		$("#addCart").loginBeforeAjaxCart({
+	             type : 'POST',
+	             url : '/ajax/carts',
+	             dataType: 'json',
+	             data : {
+	                 'productId' : $(this).attr("data-id"),
+	                 'number' : $("#num").val()
+	             },
+	             success : function(data) {
+	            	 console.log(data.data);
+	            	 var product = $(this).attr("data-id");
+	            	 var num = $("#num").val();
+	                 if (data.data == "no authority") {
+	                 	alert(data.data);
+	                 } else if(data.data == "addone"){
+	                 	var cartNumber = $("#cartNumber"+product);
+	                 	var numberVal = cartNumber.html();
+	                 	cartNumber.html(parseInt(numberVal)+parseInt(number));
+	                 }else{
+	                 	var str = '<li id="cart'+product+'"><div class="fl ct-img"><a href="/products/'+product+'"><img width="50" height="50" src="'+data.image+'"/></a></div><div class="fl ct-name"><a href="/products/'+product+'">'+data.name+'</a>'+
+							'</div><div class="fr ct-detail"><span class="ct-price"><b>'+data.price+'</b>×<i id="cartNumber'+product+'">'+num+'</i></span><br/><a class="fr cartRemove" data-id="'+product+'">删除</a></div></li>';
+	                 	$("#cartUl").append(str);
+	                 	var allNum = $("#allNum");
+	                 	allNum.html(parseInt(allNum.html())+1);
+	                 	var totalNum =$("#totalNum");
+	                 	totalNum.html(parseInt(totalNum.html())+1);
+	                 }
+	                 console.log("1");
+	             },
+	             error : function(data) {
+	                 alert(data);
+	             }
+		});
+		$("#collection").loginBeforeAjaxCollection({
+			type : 'post',
+			url : '/ajax/preferProduct',
+			data : {
+				'id' : $(this).attr("data-id")
+			},
+			success : function(data) {
+				if (data == "no authority") {
+					alert("对不起您没有权限");
+				} else if (data == "duplicate") {
+					alert("您已加入了收藏");
+				} else if (data == "success") {
+					alert("添加收藏成功");
+					var collectionNum = $("#number");
+					collectionNum.html(parseInt(collectionNum.html()) + 1);
+				}
+			},
+			error : function(data) {
+				alert("error");
+			}
+		});
+		$(".amount-increase").click(function() {
+			var numVal = $("#num").val();
+			$("#num").val(parseInt(numVal) + 1);
+		});
+		$(".amount-decrease").click(function() {
+			var numVal = $("#num").val();
+			if (numVal > 1) {
+				$("#num").val(parseInt(numVal) - 1);
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="includeHeader">
+		<div th:include="head/head :: head">Head</div>
+	</div>
+	<!-- header -->
+	<div id="loginForm"></div>
+	<div class="wrapper" th:object="${product}">
+		<div class="crumb">
+			<a href="/">首页</a><i>></i> <a
 				th:text="${product.firstCategory.name}"
 				th:href="@{'/productCategory/'+${product.firstCategory.name}}"></a>
-				<i>></i><a th:text="${product.thirdCategory.name}"></a><i>></i><a
+			<i>></i><a th:text="${product.thirdCategory.name}"></a><i>></i> <a
 				th:text="${product.name}"></a>
+		</div>
+		<div class="goods-property bodr clearfix">
+			<div class="fl pro-big">
+				<img th:src="*{coverImg}" width="420" height="350" />
 			</div>
-			<div class="goods-property bodr clearfix">
-				<div class="fl pro-big">
-					<img th:src="*{coverImg}" width="420" height="350" />
-				</div>
-				<div class="fl pro-info">
-					<div class="panel global-panel clearfix">
-						<h3 class="ft16 tit" th:text="${product.name}">GenePix 4100
+			<div class="fl pro-info">
+				<div class="panel global-panel clearfix">
+					<h3 class="ft16 tit" th:text="${product.name}">GenePix 4100
 						A生物芯片扫描仪</h3>
-						<div
-						th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">
-							<div class="collect-num" id="collection"
-							th:attr="data-id=${product.id}">
-								收藏
-							</div>
-							<div class="number" id="number" th:text="${product.collectionCount}">
-								121
-							</div>
-						</div>
+					<div>
+						<div class="collect-num" id="collection"
+							th:attr="data-id=${product.id}">收藏</div>
+						<div class="number" id="number"
+							th:text="${product.collectionCount}">121</div>
 					</div>
-					<div class="panel panel-price">
-						<label>价格：</label><span><b class="ft22 red"
-							th:text="${product.price}">￥1500</b></span>
-					</div>
-					<div class="panel">
-						<label>类型</label><span th:text="${product.thirdCategory.name}">芯片扫描仪</span>
-					</div>
-					<div class="panel">
-						<label>型号：</label><span th:text="${product.model}">GenePix
-							4100 A</span>
-					</div>
-					<div class="panel">
-						<label>品牌：</label><span th:text="${product.brand.name}">GenePix
-							4100 A</span>
-					</div>
-					<div class="panel">
-						<label>产地：</label>
-						<span th:if="${product.placeOfProduction.toString()=='DOMESTIC'}" th:text="国产"></span>
-						<span th:if="${product.placeOfProduction.toString()=='IMPORTED'}" th:text="进口"></span>
-					</div>
-					<div class="panel">
-						<label>产品规格：</label><span th:text="${product.specifications}">中国</span>
-					</div>
-					<div class="panel panel-tag">
-						<label>标签：</label><span th:text="${product.label}">生物芯片</span>
-					</div>
-					<div class="panel">
-						<label>上架时间：</label><span
+				</div>
+				<div class="panel panel-price">
+					<label>价格：</label><span><b class="ft22 red"
+						th:text="${product.price}">￥1500</b></span>
+				</div>
+				<div class="panel">
+					<label>类型</label><span th:text="${product.thirdCategory.name}">芯片扫描仪</span>
+				</div>
+				<div class="panel">
+					<label>型号：</label><span th:text="${product.model}">GenePix
+						4100 A</span>
+				</div>
+				<div class="panel">
+					<label>品牌：</label><span th:text="${product.brand.name}">GenePix
+						4100 A</span>
+				</div>
+				<div class="panel">
+					<label>产地：</label> <span
+						th:if="${product.placeOfProduction.toString()=='DOMESTIC'}"
+						th:text="国产"></span> <span
+						th:if="${product.placeOfProduction.toString()=='IMPORTED'}"
+						th:text="进口"></span>
+				</div>
+				<div class="panel">
+					<label>产品规格：</label><span th:text="${product.specifications}">中国</span>
+				</div>
+				<div class="panel panel-tag">
+					<label>标签：</label><span th:text="${product.label}">生物芯片</span>
+				</div>
+				<div class="panel">
+					<label>上架时间：</label><span
 						th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015-05-18
-							17:25</span>
-					</div>
-					<div class="panel" th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">
-						<label>数量：</label>
-						<span class="mu-amount">
-							<input type="text" class="amount-input" id="num" value="1"/>
-							<span class="amount-btn"> 
-								<span class="amount-increase">+</span> 
-								<span class="amount-decrease">-</span> 
-							</span> 
-						</span>
-						<a class="add-cart ft16" id="addCart" th:attr="data-id=${product.id}"
-						th:if="${session.SPRING_SECURITY_CONTEXT!=null and  session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">加入购物车</a>
-					</div>
+						17:25</span>
+				</div>
+				<div class="panel">
+					<label>数量：</label> <span class="mu-amount"> 
+					<input type="text" class="amount-input" id="num" value="1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /> 
+					<span class="amount-btn"> 
+						<span class="amount-increase">+</span>
+						<span class="amount-decrease">-</span>
+					</span>
+					</span><a class="add-cart ft16" id="addCart" th:attr="data-id=${product.id}">加入购物车</a>
 				</div>
 			</div>
-			<div class="layout">
-				<div class="tabs-nav detail-nav bodr">
-					<a class="active">商品详情</a><a>相关专题</a><a>评论(<i th:text="${reviewPage.getTotalElements()}"
-					id="reviewNum"></i>) </a>
-				</div>
-				<div class="tab-conts detail-con bodr">
-					<div class="tab-panel global-box goods-detail"
+		</div>
+		<div class="layout">
+			<div class="tabs-nav detail-nav bodr">
+				<a class="active">商品详情</a><a>相关专题</a><a>评论(<i
+					th:text="${reviewPage.getTotalElements()}" id="reviewNum"></i>)
+				</a>
+			</div>
+			<div class="tab-conts detail-con bodr">
+				<div class="tab-panel global-box goods-detail"
 					th:text="${product.content.content}"></div>
-					<div class="tab-panel global-box topic-box hide">
-						<ul class="ml-20">
-							 <li th:each="subject:${subjects}">
-								<a th:href="'/subjects/'+${subject.id}">
+				<div class="tab-panel global-box topic-box hide">
+					<ul class="ml-20">
+						<li th:each="subject:${subjects}"><a
+							th:href="'/subjects/'+${subject.id}">
 								<div class="title">
 									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
 								</div>
 								<div class="spe-pic">
 									<img th:src="@{${subject.image}}" width="210" height="175" />
-								</div> <div class="topic-detail" th:text="${subject.content.content}"></div> </a>
+								</div>
+								<div class="topic-detail" th:text="${subject.content.content}"></div>
+						</a></li>
+					</ul>
+				</div>
+				<div class="tab-panel global-box comments hide">
+					<div class="area-box">
+						<div id="reviews"></div>
+						<div class="info-area bodr clearfix">
+							<div class="info fl">
+								<img th:src="@{/img/member.png}" width="60" height="60" />
+							</div>
+							<form id="reviewForm" th:attr="data_id=${product.id}">
+								<div class="text-area fl">
+									<textarea class="bodr" id="content" name="content"></textarea>
+								</div>
+								<button class="btn green fr" id="reviewButton" type="submit">评论</button>
+							</form>
+						</div>
+					</div>
+					<div class="comment-list">
+						<ul id="reviewUl">
+							<li th:each="review:${reviewPage.getContent()}">
+								<div class="member-info fl">
+									<img th:src="@{/img/member.png}" width="60" height="60" />
+								</div>
+								<div class="member-global fr">
+									<div class="member-msg clearfix"
+										th:with="date=${nowTime-review.createdTime.getTime().getTime()}">
+										<span class="me-name fl" th:text="${review.createdBy.name}"></span>
+										<span class="evt-time fr"><i
+											th:if="${date/(1000*60) lt 1 }" th:text="${date/(1000)}+'秒前'"></i></span>
+										<span class="evt-time fr"><i
+											th:if="${1 lt (date/(1000*60)) and (date/(1000*60)) lt 60 }"
+											th:text="${date/(1000*60)}+'分钟前'"></i></span> <span
+											class="evt-time fr"><i
+											th:if="${1 lt (date/(1000*3600)) and (date/(1000*3600)) lt 24}"
+											th:text="${(date/(1000*3600))}+'小时前'"></i></span> <span
+											class="evt-time fr"><i
+											th:if="${24 lt (date/(1000*3600)) and (date/(1000*3600*24))==1}"
+											th:text="昨天"></i></span> <span class="evt-time fr"><i
+											th:if="${1 lt (date/(1000*3600*24)) and (date/(1000*3600*24)) lt 10}"
+											th:text="${(date/(1000*3600*24))}+'天前'"></i></span> <span
+											class="evt-time fr"><i
+											th:if="${10 lt (date/(1000*3600*24))}"
+											th:text="${#dates.format(review.createdTime, 'yyyy-MM-dd')}"></i></span>
+									</div>
+									<div class="msg">
+										<p th:text="${review.content}"></p>
+									</div>
+								</div>
 							</li>
 						</ul>
 					</div>
-					<div class="tab-panel global-box comments hide">
-						<div class="area-box">
-							<div id="reviews"></div>
-							<div class="info-area bodr clearfix">
-								<div class="info fl">
-									<img th:src="@{/img/member.png}" width="60" height="60" />
-								</div>
-								<form id="reviewForm" th:attr="data_id=${product.id}">
-									<div class="text-area fl">
-										<textarea class="bodr" id="content" name="content"></textarea>
-									</div>
-									<button class="btn green fr" id="reviewButton" type="submit">评论</button>
-								</form>
-							</div>
-						</div>
-						<div class="comment-list">
-							<ul id="reviewUl">
-								<li th:each="review:${reviewPage.getContent()}">
-									<div class="member-info fl">
-										<img th:src="@{/img/member.png}" width="60" height="60" />
-									</div>
-									<div class="member-global fr">
-										<div class="member-msg clearfix"
-										th:with="date=${nowTime-review.createdTime.getTime().getTime()}">
-											<span class="me-name fl" th:text="${review.createdBy.name}"></span>
-											<span class="evt-time fr"><i th:if="${date/(1000*60) lt 1 }" th:text="${date/(1000)}+'秒前'"></i></span>
-											<span class="evt-time fr"><i th:if="${1 lt (date/(1000*60)) and (date/(1000*60)) lt 60 }" th:text="${date/(1000*60)}+'分钟前'"></i></span>
-											<span class="evt-time fr"><i th:if="${1 lt (date/(1000*3600)) and (date/(1000*3600)) lt 24}" th:text="${(date/(1000*3600))}+'小时前'"></i></span>
-											<span class="evt-time fr"><i th:if="${24 lt (date/(1000*3600)) and (date/(1000*3600*24))==1}" th:text="昨天"></i></span>
-											<span class="evt-time fr"><i th:if="${1 lt (date/(1000*3600*24)) and (date/(1000*3600*24)) lt 10}" th:text="${(date/(1000*3600*24))}+'天前'"></i></span>
-											<span class="evt-time fr"><i th:if="${10 lt (date/(1000*3600*24))}" th:text="${#dates.format(review.createdTime, 'yyyy-MM-dd')}"></i></span>
-										</div>
-										<div class="msg">
-											<p th:text="${review.content}"></p>
-										</div>
-									</div>
-								</li>
+					<div class="pagination">
+						<div class="l-pagination">
+							<ul>
+								<li><a href="">首页</a></li>
+								<li><a href="">1</a></li>
+								<li class="active"><a href="">2</a></li>
+								<li><a href="">3</a></li>
+								<li><a href="">4</a></li>
+								<li>……</li>
+								<li><a href="">40</a></li>
+								<li><a href="">尾页</a></li>
 							</ul>
-						</div>
-						<div class="pagination">
-							<div class="l-pagination">
-								<ul>
-									<li>
-										<a href="">首页</a>
-									</li>
-									<li>
-										<a href="">1</a>
-									</li>
-									<li class="active">
-										<a href="">2</a>
-									</li>
-									<li>
-										<a href="">3</a>
-									</li>
-									<li>
-										<a href="">4</a>
-									</li>
-									<li>
-										……
-									</li>
-									<li>
-										<a href="">40</a>
-									</li>
-									<li>
-										<a href="">尾页</a>
-									</li>
-								</ul>
-								<div class="page-total">
-									共40页
-								</div>
-								<div class="page-from">
-									<span>到第</span>
-									<input type="text" class="page-input" />
-									<span>页</span>
-									<button>
-										确定
-									</button>
-								</div>
+							<div class="page-total">共40页</div>
+							<div class="page-from">
+								<span>到第</span> <input type="text" class="page-input" /> <span>页</span>
+								<button>确定</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="footer">
-			© 1998 - 2015 SJ Inc. All Rights Reserved
-		</div>
-		<script></script>
-	</body>
+	</div>
+	<div class="footer">© 1998 - 2015 SJ Inc. All Rights Reserved</div>
+	<script></script>
+	<div class="fixed"></div>
+	<div class="hide-wrap logo-small bodr"></div>
+</body>
 </html>

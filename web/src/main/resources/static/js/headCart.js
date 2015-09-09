@@ -23,9 +23,7 @@
                  'number' : number
              },
              success : function(data) {
-                 if (data.data == "login") {
-                     window.location.href = "/login";
-                 } else if (data.data == "no authority") {
+                 if (data.data == "no authority") {
                  	alert(data.data);
                  } else if(data.data == "addone"){
                  	var cartNumber = $("#cartNumber"+product);
