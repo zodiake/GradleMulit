@@ -405,13 +405,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public String batchSaveProduct(InputStream is,Provider provider) throws IOException,
-			BatchException {
+	public String batchSaveProduct(InputStream is,Provider provider) throws BatchException,
+			Exception {
 		XSSFWorkbook wb = null;
 		wb = new XSSFWorkbook(is);
+		is.close();
 		List<Product> products = findDataForBatch(wb, provider);
 		wb.close();
-		is.close();
 		for (Product product : products) {
 			String category = product.getFirstCategory().getName();
 			switch (category) {

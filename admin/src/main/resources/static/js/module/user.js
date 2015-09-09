@@ -193,8 +193,8 @@ userModule.controller('CommonUserDetailController', ['$scope',
 
 userModule.controller('ProviderDetailController', ['$scope',
     'item',
-    'ProviderService',
-    function ($scope, item, ProviderService) {
+    'ProviderService','$http',
+    function ($scope, item, ProviderService,$http) {
         $scope.item = item;
         $scope.alerts = [];
 
@@ -216,6 +216,25 @@ userModule.controller('ProviderDetailController', ['$scope',
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
+        };
+        
+        $scope.batchProducts = function(event){
+            var file = event.target.files[0];
+            var fd = new FormData();
+            var reader = new FileReader();
+            var providerId = $(this).attr("data-id");
+            
+            fd.append('file', file);
+            
+            $http.post('/admin/providers/'+providerId+'/products?batch', fd, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': undefined
+                },
+                transformRequest: angular.identity
+            }).success(function (data) {
+            	console.log(data);
+            });
         };
     }
 ]);

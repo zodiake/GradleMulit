@@ -1,19 +1,13 @@
 package com.sj.admin.controller;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -86,20 +80,23 @@ public class ProductController {
 		productService.updateSolution(id, solutions);
 		return "";
 	}
-
-	@RequestMapping(value = "/admin/products/{providerId}", method = RequestMethod.POST, params = "batch")
+	
+	
+	@RequestMapping(value = "/admin/providers/{providerId}/products", method = RequestMethod.POST, params = "batch")
 	@ResponseBody
 	public String createBatchProcess(@RequestParam("file") MultipartFile mf,@PathVariable("providerId")Long id) throws IOException, InvalidFormatException {
+		System.out.println("mf.size" + mf.getSize());
 		InputStream is = mf.getInputStream();
 		String result = "";
-		try {
-			result = productService.batchSaveProduct(is,new Provider(id));
-		} catch (IOException e) {
-			return e.getMessage();
-		} catch (BatchException e) {
-			return e.getMessage();
-		}
-		return result;
+			try {
+				result = productService.batchSaveProduct(is,new Provider(id));
+			}catch (BatchException e) {
+				return "\""+e.getMessage()+"\"";
+			} 
+			catch (Exception e) {
+				return "\"error\"";
+			}
+		return "\""+result+"\"";
 	}
 
 	@RequestMapping(value = "/getModel", method = RequestMethod.GET)
