@@ -1,5 +1,5 @@
 <div class="contentpanel">
-    <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">
         {{alert.msg}}
     </alert>
     <form class="form-horizontal" name="infoForm" ng-submit="submit()" novalidate="true">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="panel-footer">
-        	<input type="submit"  class="btn btn-primary col-xs-offset-4" value="提交"/>
+        	<input type="submit" ng-disabled="disabled" class="btn btn-primary col-xs-offset-4" value="提交"/>
         </div>
     </form>
 </div>
