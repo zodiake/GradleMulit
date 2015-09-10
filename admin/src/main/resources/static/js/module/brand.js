@@ -57,6 +57,13 @@ brandModule.service('BrandService', ['$http',
                 headers: header
             });
         };
+
+        this.saveOrUpdate=function(item){
+            if(item.id)  
+                return this.update(item);
+            else
+                return this.save(item);
+        };
     }
 ]);
 
@@ -147,9 +154,13 @@ brandModule.controller('BrandDetailController', ['$scope',
         };
 
         $scope.submit = function () {
+            $scope.disable=true;
             BrandService
-                .save($scope.item)
-                .success(function () {
+                .saveOrUpdate($scope.item)
+                .success(function (data) {
+                    $scope.disable=false;
+                    $scope.item.id=data.id;
+                    console.log($scope.item);
                     $scope.alerts.push({
                         type: 'success',
                         msg: '保存成功',
