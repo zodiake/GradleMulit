@@ -58,14 +58,13 @@
 					$('.fixed').fadeIn();
 					$('.hide-wrap').fadeIn();
 				}
-				else if(response == "no authority"){
-					alert("对不起您没有权限");
-				}
-				else if(response == "duplicate"){
-					alert("该商品已经加入收藏");
-				}else if(response == "success"){
-					alert("商品添加成功");
-				}
+				else if(response=="no authority")
+      				alert("对不起您没有权限");
+      			else if(response=="duplicate")
+      				alert("该商品已被您收藏");
+      			else if(response == "success"){
+      				alert("添加收藏成功");
+      			}
 			});
 			return false;
 		});

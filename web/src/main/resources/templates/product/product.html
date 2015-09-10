@@ -108,9 +108,7 @@
 </script>
 </head>
 <body>
-	<div id="includeHeader">
-		<div th:include="head/head :: head">Head</div>
-	</div>
+	<div id="includeHeader" th:include="head/head">Head</div>
 	<!-- header -->
 	<div id="loginForm"></div>
 	<div class="wrapper" th:object="${product}">

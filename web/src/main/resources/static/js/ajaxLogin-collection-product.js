@@ -64,7 +64,7 @@
 				else if(response == "duplicate"){
 					alert("该商品已经加入收藏");
 				}else if(response == "success"){
-					var collectionNum = $("#number").
+					var collectionNum = $("#number");
 					collectionNum.html(parseInt(collectionNum.html())+1);
 				}
 			});

@@ -14,6 +14,7 @@ import com.sj.model.model.Brand;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
+import com.sj.model.model.SiteUser;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.exception.BatchException;
 import com.sj.repository.model.ProductDetailJson;
@@ -26,6 +27,8 @@ public interface ProductService {
 	public Page<Product> findByUsers(Provider user, Pageable pageable);
 
 	public Product findOne(Long id);
+	
+	public Product findOneUserIsLogin(Long id,SiteUser user);
 
 	public void addViewCount(Long id);
 

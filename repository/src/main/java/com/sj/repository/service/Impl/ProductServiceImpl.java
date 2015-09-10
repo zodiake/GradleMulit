@@ -36,13 +36,16 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Brand;
+import com.sj.model.model.CommonUser;
 import com.sj.model.model.Consumable;
 import com.sj.model.model.Content;
 import com.sj.model.model.Instrument;
+import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.model.Reagents;
+import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.PlaceEnum;
 import com.sj.model.type.ProductStatusEnum;
@@ -58,6 +61,7 @@ import com.sj.repository.repository.ReagentsRepository;
 import com.sj.repository.repository.ServiceRepository;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.service.ProductSearchService;
+import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductService;
 
 @Service
@@ -83,10 +87,11 @@ public class ProductServiceImpl implements ProductService {
 	private ReagentsRepository reagentsRepository;
 	@Autowired
 	private ServiceRepository serviceRepository;
+	@Autowired
+	private PreferProductService preferProductService;
 
 	@Override
-	public Page<Product> findByUsers(Provider user, Pageable pageable,
-			ProductStatusEnum status) {
+	public Page<Product> findByUsers(Provider user, Pageable pageable, ProductStatusEnum status) {
 		Page<Product> pages = repository.findByCreatedByAndStatus(user,
 				pageable, status);
 		return pages;
@@ -95,11 +100,33 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findOne(Long id) {
 		Product p = repository.findOne(id);
-		String count = template.opsForValue().get(COLLECTIONCOUNT + id.toString());
-		if (count == null)
-			p.setCollectionCount(0l);
-		else
-			p.setCollectionCount(Long.valueOf(count));
+		if(p != null){
+			String count = template.opsForValue().get(COLLECTIONCOUNT + p.getId().toString());
+			if (count == null)
+				p.setCollectionCount(0l);
+			else
+				p.setCollectionCount(Long.valueOf(count));
+		}
+		return p;
+	}
+	
+	@Override
+	public Product findOneUserIsLogin(Long id,SiteUser user) {
+		Product p = repository.findOne(id);
+		if(p != null){
+			String count = template.opsForValue().get(COLLECTIONCOUNT + p.getId().toString());
+			if (count == null)
+				p.setCollectionCount(0l);
+			else
+				p.setCollectionCount(Long.valueOf(count));
+			List<PreferProduct> prefers = preferProductService.findByUser(new CommonUser(user.getId()));
+			for (PreferProduct preferProduct : prefers) {
+				if(p.getId() == preferProduct.getProduct().getId()){
+					p.setCollection(true);
+					break;
+				}
+			}
+		}
 		return p;
 	}
 
@@ -136,8 +163,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> findByCategory(ProductCategory category,
-			Pageable pageable) {
+	public Page<Product> findByCategory(ProductCategory category, Pageable pageable) {
 		Page<Product> products = repository.findByThirdCategoryAndStatus(category, pageable,ProductStatusEnum.UP);
 		for (Product product : products.getContent()) {
 			String reviewCount = template.opsForValue().get(REVIEWCOUNT +product.getId());
@@ -494,4 +520,5 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return wb;
 	}
+
 }

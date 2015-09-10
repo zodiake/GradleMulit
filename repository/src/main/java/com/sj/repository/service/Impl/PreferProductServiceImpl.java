@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
-import com.sj.model.model.SiteUser;
 import com.sj.repository.repository.PreferProductRepository;
 import com.sj.repository.service.PreferProductService;
 
@@ -28,7 +27,7 @@ public class PreferProductServiceImpl implements PreferProductService {
 	private StringRedisTemplate template;
 
 	@Override
-	public Page<PreferProduct> findByUser(SiteUser user, Pageable pageable) {
+	public Page<PreferProduct> findByUser(CommonUser user, Pageable pageable) {
 		CommonUser jpaUser = new CommonUser(user.getId());
 		Page<PreferProduct> preferProducts = repository.findByUser(jpaUser,
 				pageable);
@@ -61,7 +60,7 @@ public class PreferProductServiceImpl implements PreferProductService {
 	}
 
 	@Override
-	public List<PreferProduct> findByUser(SiteUser user) {
+	public List<PreferProduct> findByUser(CommonUser user) {
 		return repository.findByUser(user);
 	}
 }

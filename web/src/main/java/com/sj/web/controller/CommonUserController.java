@@ -98,8 +98,7 @@ public class CommonUserController {
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
 		SiteUser user = userContext.getCurrentUser();
-		Page<PreferProduct> pages = preferService.findByUser(user,
-				new PageRequest(page - 1, size));
+		Page<PreferProduct> pages = preferService.findByUser(new CommonUser(user.getId()), new PageRequest(page - 1, size));
 		uiModel.addAttribute("pages", pages);
 		return "user/common/collection";
 	}
