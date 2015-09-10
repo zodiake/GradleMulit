@@ -1,5 +1,5 @@
 (function($) {
-	$.fn.loginBeforeAjaxReview = function(options) {
+	$.fn.loginBeforeAjaxCart = function(options) {
 		var self = $(this);
 
 		var settings = $.extend({
@@ -35,49 +35,50 @@
 
 		var ajaxPost = function() {
 			$.ajax({
-				data : data,
+				data : {"productId":data,'number':1},
 				url : settings.url,
+				dataType : 'json',
 				type : 'post'
 			}).success(function(response) {
 				settings.success(response);
 			}).fail(function(res) {
-				alert(data);
 				settings.fail(res);
 			});
 		};
 
-		this.submit(function(event) {
-			data = $(this).serialize();
+		this.click(function(event) {
+			data = $(this).attr("data-id");
 			$.ajax({
 				url : settings.url,
-				data : data,
+				data : {
+					'productId' : data,
+					'number' : 1
+				},
+				dataType : 'json',
 				type : 'post'
-			}).success(function(response) {
-				if (response == 'login'){
+			}).success(function(res) {
+				if (res.data == "login") {
 					$('.hide-wrap').empty();
 					$('.hide-wrap').append(loginForm$);
 					$('.fixed').fadeIn();
 					$('.hide-wrap').fadeIn();
-				}
-				else if(response == "content is null"){
-					alert("content is null");
-				}
-				else{
-					var username = $('#username').text();
-					var str = '<li><div class="member-info fl"><img src="/img/member.png" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">'
-																+ response
-																	+ '</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>'
-																	+ $("#content").val()
-																	+ '</p></div></div></li>';
-					var ul = $('#reviewUl');
-					var num = $('#reviewNum').text();
-					if (num >= 10) {
-						var li = $('#reviewUl li');
-						li[9].remove();
-					}
-					ul.prepend(str);
-						$('#reviewNum').text(parseInt(num) + 1);
-						$("#content").val("");
+				} else if (res.data == "no authority") {
+					alert("对不起您没有权限");
+				} else if (res.data == "addone") {
+					var cartNumber = $("#cartNumber"+ data);
+					var numberVal = cartNumber.html();
+					cartNumber.html(parseInt(numberVal)+1);
+				} else {
+					var str = '<li id="cart'+ data+ '"><div class="fl ct-img"><a href="/products/'+ data
+					+ '"><img width="50" height="50" src="'+ res.image+ '"/></a></div><div class="fl ct-name"><a href="/products/'
+					+ data+ '">'+ res.name+ '</a>'+ '</div><div class="fr ct-detail"><span class="ct-price"><b>'+ res.price
+					+ '</b>×<i id="cartNumber'+ data+ '">'+ 1+ '</i></span><br/><a class="fr cartRemove" data-id="'+ data
+					+ '">删除</a></div></li>';
+					$("#cartUl").append(str);
+					var allNum = $("#allNum");
+					allNum.html(parseInt(allNum.html()) + 1);
+					var totalNum = $("#totalNum");
+					totalNum.html(parseInt(totalNum.html()) + 1);
 				}
 			});
 			return false;
