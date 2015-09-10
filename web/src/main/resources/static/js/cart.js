@@ -178,6 +178,7 @@ $(function() {
 	});
 });
 function getCount() {
+	var checksAll = $(".check").length;
 	var checks = $(".check[checked='checked']");
 	var countNum = checks.length;
 	$("#num").html(countNum);
@@ -192,5 +193,12 @@ function getCount() {
 		$('#createButton').attr('disabled','disabled');
 	}else{
 		$('#createButton').removeAttr("disabled");
+	}
+	if(countNum!=0 && checksAll==countNum){
+		$('#checkAll').prop('checked', true);
+		$('#checkAll').attr('checked', true);
+	}else{
+		$('#checkAll').prop('checked', false);
+		$('#checkAll').attr('checked', false);
 	}
 }

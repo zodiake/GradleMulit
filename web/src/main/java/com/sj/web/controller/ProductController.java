@@ -63,15 +63,19 @@ public class ProductController {
 		
 		if (product == null)
 			throw new ProductNotFoundException();
-		template.opsForValue().get(COLLECTIONCOUNT + id.toString());
+		
+		product.setCollectionCount(Long.valueOf(template.opsForValue().get(COLLECTIONCOUNT + id.toString())));
 		productService.addViewCount(id);
+		
 		Set<Subject> subjects = new HashSet<Subject>(); 
 		List<Solution> solutions = product.getSolutions();
 		for (Solution solution : solutions) {
 			subjects.add(solution.getSubject());
 		}
 		product.setSolutions(null);
+		
 		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
+		
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("product", product);
 		uiModel.addAttribute("reviewPage", reviewPage);
@@ -79,7 +83,7 @@ public class ProductController {
 		uiModel.addAttribute("pc", product.getFirstCategory());
 		return DETAIL;
 	}
-
+	
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
 	public void addCount(@PathVariable(value = "id") Long id) {
 		productService.addViewCount(id);

@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
   <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/ajaxLogin-subject.js}"></script>
   <script th:src="@{/js/silderBox.js}"></script>
   <script th:src="@{/js/script.js}"></script>
   		<script type="text/javascript">
@@ -21,49 +22,38 @@
                 $(document).ajaxSend(function(e, xhr, options) {
                     xhr.setRequestHeader(header, token);
                 });
-                $("#addCart").click(function(){
-                	var checksVal = [];
-                	$('input[name="checks"]:checked').each(function(){
-                		checksVal.push($(this).val());
-                	});
-                	if(checksVal.length!=0){
-                	$.ajax({
-                		url : "/ajax/carts?multiple",
-                		type : "post",
-                		traditional:true,
-                		dataType:"json",
-                		data : {"productIds":checksVal},
-                		success:function(data){
-                			if(data.data=="login"){
-                				alert(login);
-                			}else if(data.data=="no authority"){
-                				alert(data.data);
-                			}else{
-                			var strs = "";
-                			var num =0;
-                			$(data).each(function(key,val){
-                         	var str = '<li id="cart'+val.productId+'"><div class="fl ct-img"><a href="/products/'+val.productId+'"><img width="50" height="50" src="'+val.image+'"/></a></div><div class="fl ct-name"><a href="/products/'+val.productId+'">'+val.name+'</a>'+
-    						'</div><div class="fr ct-detail"><span class="ct-price"><b>'+val.price+'</b>×<i id="cartNumber'+val.productId+'">'+val.num+'</i></span><br/><a class="fr cartRemove" data-id="'+val.productId+'">删除</a></div></li>';
-    						strs= strs+str;
-    						num++;
-                			});
-                			var cartUl = $("#cartUl");
-                			cartUl.empty();
-                			cartUl.append(strs);
-                			console.log(num);
-                        	var allNum = $("#allNum");
-                         	allNum.html(num);
-                         	var totalNum =$("#totalNum");
-                         	totalNum.html(num);
-                			}
-                		},error:function(data){
-                			console.log(data);
-                		}
-                	});
-                }else{
-                	alert("请选择要加入购物车的商品");
-                }
+                $("#addCart").loginBeforeAjaxSubject({
+                	url : "/ajax/carts?multiple",
+                	type : "post",
+                	traditional:true,
+                	dataType:"json",
+                	success:function(data){
+            			if(data.data=="login"){
+            				alert("login");
+            			}else if(data.data=="no authority"){
+            				alert(data.data);
+            			}else{
+            			var strs = "";
+            			var num =0;
+            			$(data).each(function(key,val){
+                     	var str = '<li id="cart'+val.productId+'"><div class="fl ct-img"><a href="/products/'+val.productId+'"><img width="50" height="50" src="'+val.image+'"/></a></div><div class="fl ct-name"><a href="/products/'+val.productId+'">'+val.name+'</a>'+
+						'</div><div class="fr ct-detail"><span class="ct-price"><b>'+val.price+'</b>×<i id="cartNumber'+val.productId+'">'+val.num+'</i></span><br/><a class="fr cartRemove" data-id="'+val.productId+'">删除</a></div></li>';
+						strs= strs+str;
+						num++;
+            			});
+            			var cartUl = $("#cartUl");
+            			cartUl.empty();
+            			cartUl.append(strs);
+                    	var allNum = $("#allNum");
+                     	allNum.html(num);
+                     	var totalNum =$("#totalNum");
+                     	totalNum.html(num);
+            			}
+            		},error:function(data){
+            			console.log(data);
+            		}
                 });
+                
             });
 </script>
 </head>
@@ -122,14 +112,6 @@
 		© 1998 - 2015 SJ Inc. All Rights Reserved
 	</div>
 	<div class="fixed"></div>
-	<div class="hide-wrap bodr">
-		<div class="hide-con cart-con">
-			<h2 class="cart-hd">商品已成功加入购物车!</h2>
-			<div class="foot-btn">
-				<a class="add-cart ft14">去购物车生成订单</a>
-				<a class="blue cancel">继续购物</a>
-			</div>
-		</div>
-	</div>
+	<div class="hide-wrap logo-small bodr"></div>
 </body>
 </html>

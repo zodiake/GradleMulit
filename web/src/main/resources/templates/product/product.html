@@ -62,8 +62,6 @@
 	                 'number' : $("#num").val()
 	             },
 	             success : function(data) {
-	            	 //var productId = $("#addCart").attr("data-id");
-	            	// var num = $("#num").val();
 	                 if (data.data == "no authority") {
 	                 	alert("对不起您没有权限");
 	                 }
@@ -84,10 +82,13 @@
 					alert("对不起您没有权限");
 				} else if (data == "duplicate") {
 					alert("您已加入了收藏");
+					$('.collect-num').html("已收藏");
+					$('.collect-num').removeAttr("id");
 				} else if (data == "success") {
-					alert("添加收藏成功");
 					var collectionNum = $("#number");
 					collectionNum.html(parseInt(collectionNum.html()) + 1);
+					$('.collect-num').html("已收藏");
+					$('.collect-num').removeAttr("id");
 				}
 			},
 			error : function(data) {
@@ -128,15 +129,14 @@
 					<h3 class="ft16 tit" th:text="${product.name}">GenePix 4100
 						A生物芯片扫描仪</h3>
 					<div>
-						<div class="collect-num" id="collection"
-							th:attr="data-id=${product.id}">收藏</div>
-						<div class="number" id="number"
-							th:text="${product.collectionCount}">121</div>
+						<div class="collect-num" th:if="${product.isCollection==true}" th:attr="data-id=${product.id}">已收藏</div>
+						<div class="collect-num" id="collection" th:unless="${product.isCollection==true}" th:attr="data-id=${product.id}">收藏</div>
+						<div class="number" id="number" th:text="${product.collectionCount}">121</div>
 					</div>
 				</div>
 				<div class="panel panel-price">
-					<label>价格：</label><span><b class="ft22 red"
-						th:text="${product.price}">￥1500</b></span>
+					<label>价格：</label><span>
+					<b class="ft22 red" th:text="${product.price}">￥1500</b></span>
 				</div>
 				<div class="panel">
 					<label>类型</label><span th:text="${product.thirdCategory.name}">芯片扫描仪</span>
@@ -150,11 +150,9 @@
 						4100 A</span>
 				</div>
 				<div class="panel">
-					<label>产地：</label> <span
-						th:if="${product.placeOfProduction.toString()=='DOMESTIC'}"
-						th:text="国产"></span> <span
-						th:if="${product.placeOfProduction.toString()=='IMPORTED'}"
-						th:text="进口"></span>
+					<label>产地：</label> 
+					<span th:if="${product.placeOfProduction.toString()=='DOMESTIC'}" th:text="国产"></span> 
+					<span th:if="${product.placeOfProduction.toString()=='IMPORTED'}" th:text="进口"></span>
 				</div>
 				<div class="panel">
 					<label>产品规格：</label><span th:text="${product.specifications}">中国</span>
@@ -163,9 +161,8 @@
 					<label>标签：</label><span th:text="${product.label}">生物芯片</span>
 				</div>
 				<div class="panel">
-					<label>上架时间：</label><span
-						th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015-05-18
-						17:25</span>
+					<label>上架时间：</label>
+					<span th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015-05-18 17:25</span>
 				</div>
 				<div class="panel">
 					<label>数量：</label> <span class="mu-amount"> 
@@ -180,17 +177,15 @@
 		</div>
 		<div class="layout">
 			<div class="tabs-nav detail-nav bodr">
-				<a class="active">商品详情</a><a>相关专题</a><a>评论(<i
-					th:text="${reviewPage.getTotalElements()}" id="reviewNum"></i>)
+				<a class="active">商品详情</a><a>相关专题</a><a>评论(<i th:text="${reviewPage.getTotalElements()}" id="reviewNum"></i>)
 				</a>
 			</div>
 			<div class="tab-conts detail-con bodr">
-				<div class="tab-panel global-box goods-detail"
-					th:text="${product.content.content}"></div>
+				<div class="tab-panel global-box goods-detail" th:text="${product.content.content}"></div>
 				<div class="tab-panel global-box topic-box hide">
 					<ul class="ml-20">
-						<li th:each="subject:${subjects}"><a
-							th:href="'/subjects/'+${subject.id}">
+						<li th:each="subject:${subjects}">
+						<a th:href="'/subjects/'+${subject.id}">
 								<div class="title">
 									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
 								</div>

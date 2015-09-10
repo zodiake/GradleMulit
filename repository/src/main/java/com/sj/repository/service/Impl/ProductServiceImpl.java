@@ -122,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
 			List<PreferProduct> prefers = preferProductService.findByUser(new CommonUser(user.getId()));
 			for (PreferProduct preferProduct : prefers) {
 				if(p.getId() == preferProduct.getProduct().getId()){
-					p.setCollection(true);
+					p.setIsCollection(true);
 					break;
 				}
 			}
