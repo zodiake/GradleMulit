@@ -160,7 +160,6 @@ brandModule.controller('BrandDetailController', ['$scope',
                 .success(function (data) {
                     $scope.disable=false;
                     $scope.item.id=data.id;
-                    console.log($scope.item);
                     $scope.alerts.push({
                         type: 'success',
                         msg: '保存成功',

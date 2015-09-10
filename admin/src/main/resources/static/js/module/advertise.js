@@ -48,6 +48,13 @@ advertiseModule.service('AdvertiseService', ['$http',
             });
         };
         
+        this.saveOrUpdate=function(item){
+            if(item.id)  
+                return this.update(item);
+            else
+                return this.save(item);
+        };
+        
         this.updateState=function(item){
             var state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
             return $http({
@@ -85,7 +92,6 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
 
             });
         }
-
 
         $scope.search = function () {
             init({
@@ -131,7 +137,6 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
         };
         
         $scope.updateState=function(item){
-            
             AdvertiseService
                 .updateState(item)
                 .success(function (data) {
@@ -148,13 +153,25 @@ advertiseModule.controller('CreateAdvertiseController', ['$scope', 'category', '
     function ($scope, category, AdvertiseService, $http) {
         $scope.categories = category.data;
         $scope.item = {};
+        $scope.alerts=[];
 
         $scope.submit = function () {
-            AdvertiseService.save($scope.item).success(function () {
-
-            }).error(function () {
-
-            });
+            $scope.disabled=true;
+            AdvertiseService
+                .saveOrUpdate($scope.item)
+                .success(function (data) {
+                    $scope.disabled=false;
+                    $scope.item.id=data.id;
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
+                })
+                .error(function () {
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
+                });
         };
 
         $scope.upload = function (event) {
@@ -171,8 +188,12 @@ advertiseModule.controller('CreateAdvertiseController', ['$scope', 'category', '
                 },
                 transformRequest: angular.identity
             }).success(function (data) {
-                $scope.item.coverImg = data[0];
+                $scope.item.cover= data[0];
             });
+        };
+        
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);

@@ -37,8 +37,7 @@ public class AdvertisementController {
 		}
 		advertisement.setActivate(ActivateEnum.ACTIVATE);
 		Advertisement adv = advertisementService.save(advertisement);
-		System.out.println(adv.getActivate());
-		return "\"success\"";
+		return "{\"id\":\"" + adv.getId() + "\"}";
 	}
 
 	@RequestMapping(value = "/admin/advertisements/{id}", method = RequestMethod.POST)
@@ -47,7 +46,7 @@ public class AdvertisementController {
 			Advertisement advertisement) {
 		advertisement.setId(id);
 		advertisementService.update(advertisement);
-		return "\"success\"";
+		return "{\"id\":\"" + id + "\"}";
 	}
 
 	@RequestMapping(value = "/admin/advertisements", method = RequestMethod.GET)
