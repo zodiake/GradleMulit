@@ -24,7 +24,6 @@
 				if(response=="success"){
 					$('.fixed').fadeOut();
 					$('.hide-wrap').fadeOut();
-					$('#includeHeader').load('/head');
 					self.remove();
 					ajaxPost();
 				}else if(response = "fail"){
