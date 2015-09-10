@@ -1,5 +1,7 @@
 package com.sj.web.controller;
 
+import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +45,8 @@ public class ProductController {
 	private SiteUserContext userContext;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private StringRedisTemplate template;
 
 	private final String DETAIL = "product/product";
 
@@ -49,17 +54,28 @@ public class ProductController {
 	public String view(Model uiModel, @PathVariable(value = "id") Long id,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-		Product product = productService.findOne(id);
+		Product product = new Product();
+		if(userContext.isLogin()){
+			 product = productService.findOneUserIsLogin(id, userContext.getCurrentUser());
+		}else{
+			 product = productService.findOne(id);
+		}
+		
 		if (product == null)
 			throw new ProductNotFoundException();
+		
+		product.setCollectionCount(Long.valueOf(template.opsForValue().get(COLLECTIONCOUNT + id.toString())));
 		productService.addViewCount(id);
+		
 		Set<Subject> subjects = new HashSet<Subject>(); 
 		List<Solution> solutions = product.getSolutions();
 		for (Solution solution : solutions) {
 			subjects.add(solution.getSubject());
 		}
 		product.setSolutions(null);
+		
 		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
+		
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("product", product);
 		uiModel.addAttribute("reviewPage", reviewPage);
@@ -67,7 +83,7 @@ public class ProductController {
 		uiModel.addAttribute("pc", product.getFirstCategory());
 		return DETAIL;
 	}
-
+	
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
 	public void addCount(@PathVariable(value = "id") Long id) {
 		productService.addViewCount(id);

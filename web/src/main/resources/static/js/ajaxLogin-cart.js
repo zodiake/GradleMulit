@@ -11,7 +11,7 @@
 		}, options || {});
 
 		var loginTemplate = '<form id="ajaxForm"><div class="form-group"><label>用户名</label><input type="text" name="name" placeholder="用户名"/></div><div class="form-group"><label>密码</label><input type="password" name="password"/><i class="pass"></i></div>'
-			+ '<div class="clearfix"><button class="btn orange" type="submit">登录</button><a class="fr blue">忘记密码？</a></div></form>';
+			+ '<div class="clearfix"><button class="btn orange" type="submit">登录</button><a class="fr blue" href="/forgetPw">忘记密码？</a></div></form>';
 		var num = "";
 		var productId = "";
 		var loginForm$ = $(loginTemplate).on('submit', function(event) {

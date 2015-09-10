@@ -302,11 +302,11 @@ public class Product {
 		this.specifications = specifications;
 	}
 
-	public boolean isCollection() {
+	public boolean getIsCollection() {
 		return isCollection;
 	}
 
-	public void setCollection(boolean isCollection) {
+	public void setIsCollection(boolean isCollection) {
 		this.isCollection = isCollection;
 	}
 

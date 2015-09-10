@@ -94,9 +94,10 @@
 							<div class="tab-panel products-detail">
 								<div class="fl list-mode">
 									<ul>
-										<li th:each="productCategory:${yqs}"><a th:text="${productCategory.name}" th:href="@{'/productCategory/仪器/'+${productCategory.name}}"></a>
+									
+										<li th:each="productCategory:${yqs}"><a th:text="${productCategory.name}" th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"></a>
 											<div>
-												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/productCategory/仪器/'+${productCategory.name}+'/'+${child.name}}"></a><i>|</i></i>
+												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><i>|</i></i>
 											</div></li>
 									</ul>
 								</div>

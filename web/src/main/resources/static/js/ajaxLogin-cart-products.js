@@ -1,5 +1,5 @@
 (function($) {
-	$.fn.loginBeforeAjaxCollection = function(options) {
+	$.fn.loginBeforeAjaxCart = function(options) {
 		var self = $(this);
 
 		var settings = $.extend({
@@ -35,8 +35,9 @@
 
 		var ajaxPost = function() {
 			$.ajax({
-				data : {"id":data},
+				data : {"productId":data,'number':1},
 				url : settings.url,
+				dataType : 'json',
 				type : 'post'
 			}).success(function(response) {
 				settings.success(response);
@@ -49,26 +50,35 @@
 			data = $(this).attr("data-id");
 			$.ajax({
 				url : settings.url,
-				data : {"id":data},
+				data : {
+					'productId' : data,
+					'number' : 1
+				},
+				dataType : 'json',
 				type : 'post'
-			}).success(function(response) {
-				console.log(response);
-				if (response == 'login'){
+			}).success(function(res) {
+				if (res.data == "login") {
 					$('.hide-wrap').empty();
 					$('.hide-wrap').append(loginForm$);
 					$('.fixed').fadeIn();
 					$('.hide-wrap').fadeIn();
-				}else if(response == "no authority"){
+				} else if (res.data == "no authority") {
 					alert("对不起您没有权限");
-				}else if(response == "duplicate"){
-					alert("该商品已经加入收藏");
-					$('.collect-num').html("已收藏");
-					$('.collect-num').removeAttr("id");
-				}else if(response == "success"){
-					var collectionNum = $("#number");
-					collectionNum.html(parseInt(collectionNum.html())+1);
-					$('.collect-num').html("已收藏");
-					$('.collect-num').removeAttr("id");
+				} else if (res.data == "addone") {
+					var cartNumber = $("#cartNumber"+ data);
+					var numberVal = cartNumber.html();
+					cartNumber.html(parseInt(numberVal)+1);
+				} else {
+					var str = '<li id="cart'+ data+ '"><div class="fl ct-img"><a href="/products/'+ data
+					+ '"><img width="50" height="50" src="'+ res.image+ '"/></a></div><div class="fl ct-name"><a href="/products/'
+					+ data+ '">'+ res.name+ '</a>'+ '</div><div class="fr ct-detail"><span class="ct-price"><b>'+ res.price
+					+ '</b>×<i id="cartNumber'+ data+ '">'+ 1+ '</i></span><br/><a class="fr cartRemove" data-id="'+ data
+					+ '">删除</a></div></li>';
+					$("#cartUl").append(str);
+					var allNum = $("#allNum");
+					allNum.html(parseInt(allNum.html()) + 1);
+					var totalNum = $("#totalNum");
+					totalNum.html(parseInt(totalNum.html()) + 1);
 				}
 			});
 			return false;

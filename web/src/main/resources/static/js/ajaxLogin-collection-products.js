@@ -52,24 +52,19 @@
 				data : {"id":data},
 				type : 'post'
 			}).success(function(response) {
-				console.log(response);
 				if (response == 'login'){
 					$('.hide-wrap').empty();
 					$('.hide-wrap').append(loginForm$);
 					$('.fixed').fadeIn();
 					$('.hide-wrap').fadeIn();
-				}else if(response == "no authority"){
-					alert("对不起您没有权限");
-				}else if(response == "duplicate"){
-					alert("该商品已经加入收藏");
-					$('.collect-num').html("已收藏");
-					$('.collect-num').removeAttr("id");
-				}else if(response == "success"){
-					var collectionNum = $("#number");
-					collectionNum.html(parseInt(collectionNum.html())+1);
-					$('.collect-num').html("已收藏");
-					$('.collect-num').removeAttr("id");
 				}
+				else if(response=="no authority")
+      				alert("对不起您没有权限");
+      			else if(response=="duplicate")
+      				alert("该商品已被您收藏");
+      			else if(response == "success"){
+      				alert("添加收藏成功");
+      			}
 			});
 			return false;
 		});

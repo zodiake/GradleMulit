@@ -10,6 +10,8 @@
 		<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
 		<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/script.js}"></script>
+		<script type="text/javascript" th:src="@{/js/ajaxLogin-collection-products.js}"></script>
+		<script type="text/javascript" th:src="@{/js/ajaxLogin-cart-products.js}"></script>
 		<script th:src="@{/js/searchForm.js}"></script>
 		<script type="text/javascript">
             $(function() {
@@ -18,52 +20,42 @@
                 $(document).ajaxSend(function(e, xhr, options) {
                     xhr.setRequestHeader(header, token);
                 });
-
-                $('.addCart').click(function() {
-                    var obj = $(this);
-                    var product = obj.attr("data-id");
-                    createCart(1, product);
+                $('.addCart').loginBeforeAjaxCart({
+                	url : '/ajax/carts',
+                	data : {
+                		'productId' : $(this).attr("data-id"),
+   	                 	'number' : "1"
+   	                 },
+                	type : 'post',
+                	dataType : 'json',
+                	success : function(data){
+    	                 $('#includeHeader').load('/head');
+                		if (data.data == "no authority") {
+    	                 	alert("对不起您没有权限");
+    	                 }
+                	},
+                	error : function(data){
+                		alert("系统异常");
+                	}
                 });
-                function coll(productId) {
-                    $.ajax({
-                        type : 'post',
-                        url : '/ajax/preferProduct/' + productId,
-                        success : function(data) {
-                            if (data == "success") {
-                                var coll = $("#coll" + productId);
-                                coll.empty();
-                                var str = '<a class="btn-cancel nocoll" data-id="' + productId + '">取消收藏</a><a class="btn-cart addCart" data-id="' + productId + '">加入购物车</a>';
-                                coll.append(str);
-                            } else {
-                                alert(data);
-                            }
-                        },
-                        error : function(data) {
-                            alert("error")
-                        }
-                    });
-                }
-
-                function nocoll(productId) {
-                    $.ajax({
-                        type : 'delete',
-                        url : '/ajax/preferProduct/' + productId,
-                        success : function(data) {
-                            if (data == "success") {
-                                var coll = $("#coll" + productId);
-                                coll.empty();
-                                var str = '<a class="btn-cancel coll" data-id="' + productId + '">加入收藏</a><a class="btn-cart addCart" data-id="' + productId + '">加入购物车</a>';
-                                coll.append(str);
-                            } else {
-                                alert(data);
-                            }
-                        },
-                        error : function(data) {
-                            alert("error");
-                        }
-                    });
-                }
-
+              	$('.coll').loginBeforeAjaxCollection({
+              		url : '/ajax/preferProduct',
+              		data : {'id' : $(this).attr("data-id")},
+              		type : 'post',
+              		success:function(data){
+              			console.log(data);
+              			 $('#includeHeader').load('/head');
+              			if(data=="no authority")
+              				alert("对不起您没有权限");
+              			else if(data=="duplicate")
+              				alert("该商品已被您收藏");
+              			else if(data == "success")
+              				alert("添加收藏成功");
+              		},
+              		error:function(data){
+              			alert("系统异常");
+              		}
+              	});
 
                 $(".product").on("click", ".coll", function() {
                     var obj = $(this);
@@ -102,11 +94,9 @@
 	</head>
 	<body>
 
-		<div>
-			<div th:include="head/head :: head">
+			<div id="includeHeader" th:include="head/head">
 				Head
 			</div>
-		</div>
 		<!-- header -->
 		<div class="wrapper">
 			<div class="crumb">
@@ -199,7 +189,6 @@
 								<label>型号：</label>
 								<span th:text="${product.model}"></span>
 							</div>
-							<div class="pic-row comment"></div>
 							<div class="pic-row bodr" th:id="'coll'+${product.id}">
 								<a class="btn-cancel coll" th:attr="data-id=${product.id}">加入收藏</a>
 								<a class="btn-cart addCart" th:attr="data-id=${product.id}">加入购物车</a>
@@ -253,5 +242,7 @@
 		<div class="footer">
 			© 1998 - 2015 SJ Inc. All Rights Reserved
 		</div>
+		<div class="fixed"></div>
+		<div class="hide-wrap logo-small bodr"></div>
 	</body>
 </html>

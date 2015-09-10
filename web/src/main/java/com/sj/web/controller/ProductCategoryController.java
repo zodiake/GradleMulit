@@ -88,7 +88,7 @@ public class ProductCategoryController {
 				Long productId = product.getId();
 				for (int i = 0; i < prefer.size(); i++) {
 					if (productId.equals(prefer.get(i).getProduct().getId())) {
-						product.setCollection(true);
+						product.setIsCollection(true);
 						break;
 					}
 				}
