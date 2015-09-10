@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -19,26 +20,28 @@ import com.sj.repository.util.FileUtil;
 
 @Service
 public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
-	private final String imgPath = "src/main/resources/static/upload/img/";
+	private final String imgPath = "/home/yagamai/Documents/pic/public/";
 	private final String audioPath = "src/main/resources/static/upload/audio/";
 
 	private final String imgUrl = "/upload/img/";
 	private final String audioUrl = "/upload/audio/";
 
 	@Override
-	public UploadResult writeToFile(MultipartFile file) {
+	public String writeToFile(MultipartFile file) {
 		InputStream stream;
 		String fileName = FileUtil.getFileName(file.getContentType());
 		try {
 			stream = file.getInputStream();
-			Path basePath = Paths.get("").resolve(imgPath + fileName);
+			String year = Calendar.getInstance().get(1) + "";
+			String month = Calendar.getInstance().get(2) + "";
+			Path basePath = Paths.get(imgPath, year, month, fileName);
 			Files.copy(stream, basePath);
 			stream.close();
-
+			return year + "/" + month + "/" + fileName;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return getResult(file, fileName, true);
+		return null;
 	}
 
 	@Override

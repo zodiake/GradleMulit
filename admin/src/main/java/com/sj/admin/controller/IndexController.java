@@ -5,9 +5,9 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sj.model.model.UploadResult;
-
 @Controller
 @RequestMapping(value = "/admin")
 public class IndexController extends UploadController {
@@ -29,10 +27,12 @@ public class IndexController extends UploadController {
 	@RequestMapping(value = "/img/upload", method = RequestMethod.POST)
 	@ResponseBody
 	public List<String> uploadImage(MultipartFile file) {
-		UploadResult result = super.upload(file);
-		List<String> url = result.getFiles().stream().map(f -> f.getUrl())
-				.collect(Collectors.toList());
-		return url;
+		String result = super.upload(file);
+		ArrayList<String> list = new ArrayList<>();
+		list.add("http://localhost:8000/" + result);
+		if (result != null)
+			return list;
+		return null;
 	}
 
 	@RequestMapping(value = "/editor/img/upload", method = RequestMethod.POST)
@@ -191,10 +191,12 @@ public class IndexController extends UploadController {
 	public String childCategory() {
 		return "category/childCategory";
 	}
+
 	@RequestMapping(value = "/categoryEdit")
 	public String categoryEdit() {
 		return "category/categoryEdit";
 	}
+
 	@RequestMapping(value = "/templates/scrollImg")
 	public String scrollImg() {
 		return "scroll/list";

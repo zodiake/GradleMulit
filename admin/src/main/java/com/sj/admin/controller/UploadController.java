@@ -10,7 +10,7 @@ public class UploadController {
 	@Autowired
 	protected AsyncWriteFileService writeFileService;
 
-	public UploadResult upload(MultipartFile file) {
+	public String upload(MultipartFile file) {
 		return writeFileService.writeToFile(file);
 	}
 

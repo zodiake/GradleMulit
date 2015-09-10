@@ -36,8 +36,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in items">
-                <td ng-click="view(item)">{{$index+1}}</td>
+            <tr ng-repeat="item in items" ng-click="view(item)">
+                <td>{{$index+1}}</td>
                 <td>{{item.firstCategoryName}}</td>
                 <td>{{item.secondCategoryName}}</td>
                 <td>{{item.name}}</td>
