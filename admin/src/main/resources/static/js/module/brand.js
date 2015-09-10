@@ -58,8 +58,8 @@ brandModule.service('BrandService', ['$http',
             });
         };
 
-        this.saveOrUpdate=function(item){
-            if(item.id)  
+        this.saveOrUpdate = function (item) {
+            if (item.id)
                 return this.update(item);
             else
                 return this.save(item);
@@ -108,22 +108,51 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
         });
 
         $scope.delete = function (item) {
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
+            });
+            /*
+             */
+        };
+
+        $scope.search = function () {
+            init({
+                page: $scope.page,
+                size: $scope.size,
+            });
+        };
+    }
+]);
+
+brandModule.controller('ModalInstanceCtrl', [
+    '$scope',
+    '$modalInstance',
+    'item',
+    'BrandService',
+    function ($scope, $modalInstance, item, BrandService) {
+        $scope.item = item;
+        $scope.ok = function () {
             BrandService
                 .delete(item)
                 .success(function (data) {
                     if (data.data == 'success') {
                         item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
                     }
+                    $modalInstance.dismiss();
                 }).error(function (err) {
 
                 });
         };
-        
-        $scope.search=function(){
-           init({
-                page: $scope.page,
-                size: $scope.size,
-            }); 
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
         };
     }
 ]);
@@ -154,12 +183,12 @@ brandModule.controller('BrandDetailController', ['$scope',
         };
 
         $scope.submit = function () {
-            $scope.disable=true;
+            $scope.disable = true;
             BrandService
                 .saveOrUpdate($scope.item)
                 .success(function (data) {
-                    $scope.disable=false;
-                    $scope.item.id=data.id;
+                    $scope.disable = false;
+                    $scope.item.id = data.id;
                     $scope.alerts.push({
                         type: 'success',
                         msg: '保存成功',
