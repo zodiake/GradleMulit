@@ -7,5 +7,5 @@ import com.sj.model.model.UploadResult;
 public interface AsyncWriteFileService {
 	public UploadResult writeBigToFile(MultipartFile file);
 
-	public UploadResult writeToFile(MultipartFile file);
+	public String writeToFile(MultipartFile file);
 }
