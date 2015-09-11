@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in items" ng-click="view(item)">
+            <tr ng-repeat="item in items" >
                 <td>{{$index+1}}</td>
                 <td>{{item.categoryName}}</td>
                 <td>{{item.url}}</td>
@@ -32,6 +32,7 @@
                 <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>
                     <a class="btn btn-primary btn-sm" ng-click="updateState(item)">{{item.state|reverseActiveFilter}}</a>
+                    <a class="btn btn-primary btn-sm" ng-click="view(item)">修改</a>
                 </td>
             </tr>
         </tbody>
