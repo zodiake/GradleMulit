@@ -2,8 +2,6 @@ package com.sj.admin.async;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,7 +35,11 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 			String year = Calendar.getInstance().get(1) + "";
 			String month = Calendar.getInstance().get(2) + "";
 			Path basePath = Paths.get("D:", "web", "imgServer", "pic",
-					"public", year, month,fileName);
+					"public", year, month);
+			if (Files.notExists(basePath)) {
+				Files.createDirectories(basePath);
+			}
+			basePath.resolve(fileName);
 			Files.copy(stream, basePath.toAbsolutePath());
 			stream.close();
 			return year + "/" + month + "/" + fileName;
