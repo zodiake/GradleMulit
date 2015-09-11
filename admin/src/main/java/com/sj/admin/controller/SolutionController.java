@@ -24,7 +24,7 @@ public class SolutionController {
 	@ResponseBody
 	public String updateByName(@PathVariable("id") Long id, Solution solution) {
 		solutionService.updateName(id, solution.getName());
-		return "";
+		return "{\"id\":\"" + id + "\"}";
 	}
 
 	@RequestMapping(value = "/solutions/{id}", method = RequestMethod.DELETE)
@@ -37,8 +37,8 @@ public class SolutionController {
 	@ResponseBody
 	public String addSolution(@PathVariable("id") Long id, Solution solution) {
 		solution.setSubject(new Subject(id));
-		solutionService.save(solution);
-		return "\"success\"";
+		Solution solu = solutionService.save(solution);
+		return "{\"id\":\"" + solu.getId() + "\"}";
 	}
 
 	@RequestMapping(value = "/solutions", method = RequestMethod.GET)

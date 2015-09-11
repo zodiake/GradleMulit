@@ -74,7 +74,6 @@ public class SubjectController {
 	@ResponseBody
 	public String update(@PathVariable("id") Long id, Subject subject) {
 		subject.setId(id);
-		System.out.println(subject.getSummary());
 		subjectService.update(subject);
 		return "";
 	}
