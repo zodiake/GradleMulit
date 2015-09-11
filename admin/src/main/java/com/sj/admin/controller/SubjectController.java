@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sj.admin.exception.SubjectNotFoundException;
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
+import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.SolutionJson;
 import com.sj.repository.model.SubjectDetailJson;
 import com.sj.repository.model.SubjectJson;
@@ -50,6 +51,7 @@ public class SubjectController {
 		List<Solution> solutions = convertStringToSolution(solution);
 		solutions.forEach(c -> c.setSubject(subject));
 		subject.setSolutions(solutions);
+		subject.setActivate(ActivateEnum.ACTIVATE);
 		subjectService.save(subject);
 		return "\"success\"";
 	}

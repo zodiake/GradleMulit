@@ -35,7 +35,8 @@ subjectModule.service('SubjectService', ['$http',
                 data: {
                     name: item.title,
                     content: item.content,
-                    solution: solutions
+                    solution: solutions,
+                    cover:item.cover
                 },
                 headers: header
             });
@@ -50,8 +51,16 @@ subjectModule.service('SubjectService', ['$http',
                 data: {
                     name: item.name,
                     content: item.content,
+                    cover:item.cover
                 }
             });
+        };
+        
+        this.saveOrUpdate=function(item){
+           if(item.id)
+            return this.update(item);
+            else
+            return this.save(item); 
         };
     }
 ]);
@@ -106,8 +115,8 @@ subjectModule.controller('SubjectController', ['$scope',
     }
 ]);
 
-subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal',
-    function ($scope, SubjectService, $modal) {
+subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal','$http',
+    function ($scope, SubjectService, $modal,$http) {
         $scope.item = {
             solutions: []
         };
@@ -133,8 +142,26 @@ subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService',
             });
         };
 
+        $scope.upload = function (event) {
+            var file = event.target.files[0];
+            var fd = new FormData();
+            var reader = new FileReader();
+
+            fd.append('file', file);
+
+            $http.post('/admin/img/upload', fd, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': undefined
+                },
+                transformRequest: angular.identity
+            }).success(function (data) {
+                $scope.item.cover = data[0];
+            });
+        };
+
         $scope.deleteSolution = function (index) {
-            $scope.item.solutions.splice(index);
+            $scope.item.solutions=$scope.item.solutions.splice(index);
         };
 
         $scope.submit = function () {

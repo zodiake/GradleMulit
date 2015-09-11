@@ -20,7 +20,7 @@ import com.sj.repository.util.FileUtil;
 
 @Service
 public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
-	private final String imgPath = "/home/yagamai/Documents/pic/public/";
+	private final String imgPath = "﻿D:/web/imgServer/pic/public";
 	private final String audioPath = "src/main/resources/static/upload/audio/";
 
 	private final String imgUrl = "/upload/img/";
@@ -34,7 +34,8 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 			stream = file.getInputStream();
 			String year = Calendar.getInstance().get(1) + "";
 			String month = Calendar.getInstance().get(2) + "";
-			Path basePath = Paths.get(imgPath, year, month, fileName);
+			Path basePath = Paths.get("D:", "web", "imgServer", "pic",
+					"public", year, month, fileName);
 			Files.copy(stream, basePath);
 			stream.close();
 			return year + "/" + month + "/" + fileName;

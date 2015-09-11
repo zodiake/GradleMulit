@@ -43,7 +43,7 @@
 					<span>浏览<i th:text="${information.viewCount}">1212</i>次</span>	
 					<span> 来源 : <i th:text="${information.createBy}"></i></span>
 				</div>
-				<div class="dtl-txt" th:text="${information.content.content}">
+				<div class="dtl-txt" th:utext="${information.content.content}">
 				</div>
 			</div>
 			
