@@ -32,7 +32,7 @@ infoModule.service('InfoService', ['$http',
                     title: item.title,
                     category: item.category,
                     content: item.content,
-                    summary:item.summary
+                    summary: item.summary
                 },
                 headers: header
             });
@@ -47,7 +47,7 @@ infoModule.service('InfoService', ['$http',
                     title: item.title,
                     category: item.category,
                     content: item.content,
-                    summary:item.summary
+                    summary: item.summary
                 },
                 headers: header
             });
@@ -182,7 +182,6 @@ infoModule.controller('InfoCreateController', ['$scope', 'categories', 'InfoServ
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
-
     }
 ]);
 
@@ -197,13 +196,25 @@ infoModule.controller('InfoDetailController', ['$scope', 'item', 'categories', '
         };
         $scope.item = item;
         $scope.categories = categories.data.content;
+        $scope.alerts = [];
 
         $scope.submit = function () {
-            InfoService.update($scope.item).success(function () {
+            InfoService
+                .update($scope.item)
+                .success(function () {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
+                }).error(function (err) {
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
+                });
+        };
 
-            }).error(function (err) {
-
-            });
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);
