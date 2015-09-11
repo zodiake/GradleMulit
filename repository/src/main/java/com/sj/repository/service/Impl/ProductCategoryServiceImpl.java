@@ -62,6 +62,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		ProductCategory memory = repository.findOne(category.getId());
 		memory.setName(category.getName());
 		memory.setActivate(category.getActivate());
+		memory.setParent(category.getParent());
 		memory.setUpdatedBy(category.getUpdatedBy());
 		memory.setUpdatedTime(Calendar.getInstance());
 		return repository.save(memory);
