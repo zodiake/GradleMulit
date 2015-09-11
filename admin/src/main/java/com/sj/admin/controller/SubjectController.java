@@ -13,14 +13,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.admin.exception.SubjectNotFoundException;
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
@@ -76,6 +74,7 @@ public class SubjectController {
 	@ResponseBody
 	public String update(@PathVariable("id") Long id, Subject subject) {
 		subject.setId(id);
+		System.out.println(subject.getSummary());
 		subjectService.update(subject);
 		return "";
 	}
@@ -86,19 +85,5 @@ public class SubjectController {
 		Subject s = subjectService.findOne(id);
 		return s.getSolutions().stream().map(p -> new SolutionJson(p))
 				.collect(Collectors.toList());
-	}
-
-	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.PUT)
-	public String editProcess(@PathVariable("id") Long id, Model uiModel,
-			@ModelAttribute("subject") Subject subject,
-			BindingResult bindingResult) {
-		Subject oldSubject = subjectService.findOne(id);
-		if (oldSubject == null)
-			throw new SubjectNotFoundException();
-		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute("subject", subject);
-			return null;
-		}
-		return null;
 	}
 }

@@ -45,6 +45,7 @@ public class InformationServiceImpl implements InformationService {
 		info.setTitle(information.getTitle());
 		info.setContent(information.getContent());
 		info.setCategory(information.getCategory());
+		info.setSummary(information.getSummary());
 		return info;
 	}
 

@@ -31,7 +31,8 @@ infoModule.service('InfoService', ['$http',
                 data: {
                     title: item.title,
                     category: item.category,
-                    content: item.content
+                    content: item.content,
+                    summary:item.summary
                 },
                 headers: header
             });
@@ -45,7 +46,8 @@ infoModule.service('InfoService', ['$http',
                 data: {
                     title: item.title,
                     category: item.category,
-                    content: item.content
+                    content: item.content,
+                    summary:item.summary
                 },
                 headers: header
             });
