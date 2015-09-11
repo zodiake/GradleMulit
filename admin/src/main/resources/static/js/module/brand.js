@@ -118,8 +118,6 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
                     }
                 }
             });
-            /*
-             */
         };
 
         $scope.search = function () {

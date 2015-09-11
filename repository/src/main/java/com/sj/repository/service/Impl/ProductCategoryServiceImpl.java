@@ -47,9 +47,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	public ProductCategory save(ProductCategory category) {
-		category.setActivate(ActivateEnum.ACTIVATE);
-		category.setCreatedTime(Calendar.getInstance());
-		return repository.save(category);
+		ProductCategory pc = new ProductCategory();
+		pc.setName(category.getName());
+		pc.setParent(category.getParent());
+		pc.setActivate(ActivateEnum.ACTIVATE);
+		pc.setCreatedTime(Calendar.getInstance());
+		return repository.save(pc);
 	}
 
 	@Override
@@ -61,7 +64,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	public ProductCategory update(ProductCategory category) {
 		ProductCategory memory = repository.findOne(category.getId());
 		memory.setName(category.getName());
-		memory.setActivate(category.getActivate());
+		memory.setActivate(ActivateEnum.ACTIVATE);
 		memory.setParent(category.getParent());
 		memory.setUpdatedBy(category.getUpdatedBy());
 		memory.setUpdatedTime(Calendar.getInstance());
@@ -199,5 +202,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		ProductCategory c = repository.findOne(category.getId());
 		return Lists.newArrayList(repository.findOne(c.getParent().getId())
 				.getCategories());
+	}
+
+	@Override
+	public ProductCategory updateState(Long id, ActivateEnum activate) {
+		ProductCategory pc = repository.findOne(id);
+		pc.setActivate(activate);
+		pc.setUpdatedTime(Calendar.getInstance());
+		return pc;
 	}
 }

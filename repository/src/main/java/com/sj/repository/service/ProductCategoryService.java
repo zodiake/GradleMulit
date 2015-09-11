@@ -54,4 +54,6 @@ public interface ProductCategoryService {
 	public List<ProductCategoryDetailJson> findAllDetail();
 
 	public List<ProductCategory> findSiblings(ProductCategory category);
+
+	public ProductCategory updateState(Long id, ActivateEnum activate);
 }

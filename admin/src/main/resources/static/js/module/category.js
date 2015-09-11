@@ -22,10 +22,11 @@ category.service('CategoryService', ['$http',
         this.save = function (item) {
             return $http({
                 method: 'POST',
-                url: '/admin/product/category/' + item.category + '/categories',
+                url: '/admin/product/category/' + item.parent + '/categories',
                 transformRequest: transform,
                 data: {
-                    name: item.name
+                    name: item.name,
+                    parent: item.parent
                 },
                 headers: header
             });
@@ -34,15 +35,27 @@ category.service('CategoryService', ['$http',
         this.update = function (item) {
             return $http({
                 method: 'POST',
-                url: '/admin/product/category/' + item.category,
+                url: '/admin/product/category/' + item.id,
                 transformRequest: transform,
                 data: {
-                    name: item.name
+                    name: item.name,
+                    parent:item.parent
                 },
                 headers: header
             });
         };
-
+        
+        this.delete=function(item){
+            return $http({
+                method: 'POST',
+                url: '/admin/product/categories/' + item.id+'/state',
+                transformRequest: transform,
+                data: {
+                    activate:item.activate=='ACTIVATE'?'DEACTIVE':'ACTIVATE'
+                },
+                headers: header
+            });
+        };
     }
 ]);
 
@@ -97,6 +110,16 @@ category.controller('CategoryController', [
             });
         };
 
+        $scope.delete=function(item){
+            CategoryService
+                .delete(item)    
+                .success(function(){
+                    
+                })
+                .error(function(){
+                    
+                });
+        };
     }
 ]);
 
@@ -111,7 +134,7 @@ category.controller('ChildCategoryController', [
             CategoryService
                 .findByParent($stateParams.id)
                 .then(function (data) {
-                    $scope.items=data.data;
+                    $scope.items = data.data;
                 });
         }
 
@@ -132,6 +155,8 @@ category.controller('CategoryAddController', [
     '$scope',
     'CategoryService',
     function ($scope, CategoryService) {
+        $scope.item = {};
+
         $scope.submit = function () {
             CategoryService
                 .save($scope.item)
@@ -154,16 +179,21 @@ category.controller('CategoryEditController', [
     function ($scope, CategoryService, item, categories) {
         $scope.item = item;
         $scope.alerts = [];
-        console.log(item.parent);
         $scope.categories = categories;
-        $scope.submit = function () {
-            Category
-                .save($scope.item)
-                .success(function () {
 
+        $scope.submit = function () {
+            CategoryService
+                .update($scope.item)
+                .success(function () {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
                 })
                 .error(function () {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
         };
 

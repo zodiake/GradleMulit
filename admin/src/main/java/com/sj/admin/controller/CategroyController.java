@@ -66,14 +66,9 @@ public class CategroyController {
 	@RequestMapping(value = "/admin/product/category/{id}/categories", method = RequestMethod.POST)
 	@ResponseBody
 	public String addProductCategory(@PathVariable("id") Long id,
-			HttpServletRequest request) {
-		String name = request.getParameter("name");
-		ProductCategory pc = new ProductCategory();
-		pc.setName(name);
-		pc.setParent(new ProductCategory(id));
-		pc.setActivate(ActivateEnum.ACTIVATE);
-		productCategoryService.save(pc);
-		return null;
+			ProductCategory category) {
+		ProductCategory pc = productCategoryService.save(category);
+		return "{\"id\":\"" + pc.getId() + "\"}";
 	}
 
 	@RequestMapping(value = "/admin/product/category/{id}", method = RequestMethod.POST)
@@ -82,6 +77,16 @@ public class CategroyController {
 			ProductCategory pc) {
 		pc.setId(id);
 		productCategoryService.update(pc);
+		return "";
+	}
+
+	@RequestMapping(value = "/admin/product/categories/{id}/state", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateProductCategoryState(@PathVariable("id") Long id,
+			HttpServletRequest request) {
+		ActivateEnum activate = ActivateEnum.fromString(request
+				.getParameter("activate"));
+		productCategoryService.updateState(id, activate);
 		return "";
 	}
 
