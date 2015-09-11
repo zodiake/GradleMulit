@@ -39,8 +39,9 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 			if (Files.notExists(basePath)) {
 				Files.createDirectories(basePath);
 			}
-			basePath.resolve(fileName);
-			Files.copy(stream, basePath.toAbsolutePath());
+			
+			Path filePath=Paths.get(basePath.toString(), fileName);
+			Files.copy(stream, filePath);
 			stream.close();
 			return year + "/" + month + "/" + fileName;
 		} catch (IOException e) {
