@@ -2,18 +2,13 @@ package com.sj.admin.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,41 +36,22 @@ public class IndexController extends UploadController {
 			@RequestParam(value = "upload", required = false) MultipartFile file,
 			@RequestParam("CKEditorFuncNum") String num,
 			HttpServletResponse response) {
-
-		String userFold = "admin";
-		Path userDir = Paths.get(userFold);
-		Path basePath = Paths.get("").resolve(
-				"src/main/resources/static/upload");
-		Calendar c = Calendar.getInstance();
-		String fileName = String.valueOf(c.hashCode())
-				+ StringUtils.trimAllWhitespace(file.getOriginalFilename());
-
+		String fileName = super.upload(file);
 		try {
-			Path uploadFilePath = getUploadDir(basePath, userDir, fileName);
-			byte[] bytes = file.getBytes();
-			Files.write(uploadFilePath, bytes);
-			sendScript(response, num, userFold, fileName);
+			sendScript(response, num, fileName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private Path getUploadDir(Path baseDir, Path userDir, String fileName)
-			throws IOException {
-		Path temp = baseDir.resolve(userDir);
-		if (!Files.exists(temp))
-			Files.createDirectories(temp);
-		return Paths.get(temp.toString() + "/" + fileName);
-	}
-
 	private void sendScript(HttpServletResponse response, String num,
-			String foldName, String imageFile) throws IOException {
+			String file) throws IOException {
 		PrintWriter writer = response.getWriter();
 		writer = response.getWriter();
 		response.setContentType("text/html");
 		writer.write("<script type=\"text/javascript\">");
-		writer.write("window.parent.CKEDITOR.tools.callFunction(" + num + ",'"
-				+ "/upload/" + foldName + "/" + imageFile + "','')");
+		writer.write("window.parent.CKEDITOR.tools.callFunction(" + num
+				+ ",'http://localhost:8000/" + file + "','')");
 		writer.write("</script>");
 		writer.close();
 	}
