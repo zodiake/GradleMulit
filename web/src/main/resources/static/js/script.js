@@ -24,16 +24,12 @@ $(function(){
 		$('.fixed').fadeIn();
 	})
 	/**头部购物车**/
-	$('.head-cart,.head-user,.searched,.news-down').mouseenter(function(){
-		$(this).find('.ct-cart-wrap,.user-menu').slideDown();
+	$('.head-cart,.hide-menu,.searched').mouseenter(function(){
+		$(this).find('.ct-cart-wrap,.show-menu').slideDown();
 		$(this).parent().find('.search-sort').slideDown();
-		$(this).find('.news-sort').slideDown();
 	})
-	$('.head-cart,.head-user').mouseleave(function(){
-		$(this).find('.ct-cart-wrap,.user-menu').slideUp();
-	})
-	$('.news-sort').mouseleave(function(){
-		$(this).slideUp();
+	$('.head-cart,.hide-menu').mouseleave(function(){
+		$(this).find('.ct-cart-wrap,.show-menu').slideUp();
 	})
 	$('.head-search').mouseleave(function(){
 		$(this).find('.search-sort').slideUp();

@@ -34,6 +34,7 @@
 				<a href="/productCategory/服务">服务</a>
 				<i>|</i>
 				<a href="/subjects">专题</a>
+				<a href="/" class="fr">返回首页</a>
 			</div>
 		</div>
 		<div class="head-box clearfix">
@@ -54,6 +55,15 @@
 				<span>注册信息</span>
 			</div>
 			<div class="form-group">
+				<label><i>*</i>用户名</label>
+				<input type="text" th:field="*{name}"/>
+				<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>密码</label>
+				<input type="password" th:field="*{password}"/>
+			</div>
+			<div class="form-group">
 				<label><i>*</i>手机号</label>
 				<input type="text" th:field="*{phone}"/>
 				<button class="tel-code">获取验证码</button>
@@ -62,15 +72,6 @@
 			<div class="form-group">
 				<label><i>*</i>验证码</label>
 				<input type="text" th:field="*{captcha}"/>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>用户名</label>
-				<input type="text" th:field="*{name}"/>
-				<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
-			</div>
-			<div class="form-group">
-				<label><i>*</i>密码</label>
-				<input type="password" th:field="*{password}"/>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>邮箱</label>
@@ -98,8 +99,24 @@
 				<i class="error" th:if="${#fields.hasErrors('company')}" th:errors="*{company}">必填</i>
 			</div>
 			<div class="form-group">
-				<label>部门</label>
+				<label><i>*</i>部门</label>
 				<input type="text" th:field="*{department}"/>
+			</div>
+			<div class="form-group">
+				<label><i>*</i>职务</label>
+				<input type="text" />
+			</div>
+			<div class="form-group">
+				<label><i>*</i>省/市</label>
+				<select th:field="*{province}">
+					<option value="">选择省份/市</option>
+					<option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
+				</select>
+				<select th:field="*{city}">
+					<option value="">选择城市</option>
+					<option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
+				</select>
+				<i class="error">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>企业电话</label>
