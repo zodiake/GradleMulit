@@ -1,5 +1,6 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ import com.sj.model.type.ActivateEnum;
 
 @Entity
 @Table(name = "information")
-public class Information {
+public class Information implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -50,6 +51,8 @@ public class Information {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private InformationCategory category;
+
+	private String summary;
 
 	@Transient
 	private Long viewCount = 0l;
@@ -131,6 +134,14 @@ public class Information {
 
 	public void setUpdatedTime(Calendar updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	@Override

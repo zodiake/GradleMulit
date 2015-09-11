@@ -54,6 +54,8 @@ public class Subject implements Serializable {
 
 	private String image;
 
+	private String summary;
+
 	@Transient
 	private Long viewCount = 0l;
 
@@ -144,6 +146,14 @@ public class Subject implements Serializable {
 
 	public void setSolutions(List<Solution> solutions) {
 		this.solutions = solutions;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	@Override

@@ -13,6 +13,7 @@ public class SubjectDetailJson {
 	private Calendar createdTime;
 	private String content;
 	private List<SolutionDetailJson> solutions;
+	private String summary;
 
 	public SubjectDetailJson(Subject s) {
 		this.id = s.getId();
@@ -23,6 +24,7 @@ public class SubjectDetailJson {
 		this.solutions = s.getSolutions().stream()
 				.map(c -> new SolutionDetailJson(c))
 				.collect(Collectors.toList());
+		this.summary = s.getSummary();
 	}
 
 	public Long getId() {
@@ -71,5 +73,13 @@ public class SubjectDetailJson {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 }

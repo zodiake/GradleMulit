@@ -36,7 +36,8 @@ subjectModule.service('SubjectService', ['$http',
                     name: item.title,
                     content: item.content,
                     solution: solutions,
-                    cover:item.cover
+                    cover:item.cover,
+                    summary:item.summary
                 },
                 headers: header
             });
@@ -51,7 +52,8 @@ subjectModule.service('SubjectService', ['$http',
                 data: {
                     name: item.name,
                     content: item.content,
-                    cover:item.cover
+                    cover:item.cover,
+                    summary:item.summary
                 }
             });
         };
