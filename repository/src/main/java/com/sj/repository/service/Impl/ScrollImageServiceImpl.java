@@ -1,5 +1,6 @@
 package com.sj.repository.service.Impl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -48,6 +49,7 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 		ScrollImage img = repository.findOne(id);
 		img.setImageUrl(image.getImageUrl());
 		img.setHref(image.getHref());
+		img.setUpdatedTime(Calendar.getInstance());
 		return img;
 	}
 

@@ -42,8 +42,8 @@ public class BrandController {
 	public String create(Brand brand) {
 		brand.setActivate(ActivateEnum.ACTIVATE);
 		brand.setCreatedTime(Calendar.getInstance());
-		brandService.save(brand);
-		return "";
+		Brand b = brandService.save(brand);
+		return "{\"id\":\"" + b.getId() + "\"}";
 	}
 
 	@RequestMapping(value = "/admin/brands/{id}/activate", method = RequestMethod.POST)
@@ -62,7 +62,7 @@ public class BrandController {
 			@PathVariable(value = "id") Long id) {
 		brand.setId(id);
 		brandService.update(brand);
-		return "\"success\"";
+		return "{\"id\":\"" + id + "\"}";
 	}
 
 }

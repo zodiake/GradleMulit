@@ -11,6 +11,8 @@
                 <tr>
                     <th>序号</th>
                     <th>商品名称</th>
+                    <th>状态</th>
+                    <th>更新时间</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -18,9 +20,14 @@
                 <tr ng-repeat="item in yq">
                     <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
+                    <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{item.activate|activeFilter}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
                            		 修改
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                           		无效 
                         </button>
                     </td>
                 </tr>
@@ -40,7 +47,7 @@
                     <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
                             修改
                         </button>
                     </td>
@@ -61,7 +68,7 @@
                     <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
                             修改
                         </button>
                     </td>
@@ -82,301 +89,12 @@
                     <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
                             修改
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="pagenumQu">
-	        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
-	    </div>
     </div>
 </div>
-
-<div class="upload-modal">
-    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-</div>
-<!--  
-
-<div class="mainpanel">
-	<div class="contentpanel manage-dl">
-		<ul class="nav nav-tabs">
-			<li class="active">
-				<a data-toggle="tab" href="#t1">仪器</a>
-			</li>
-			<li>
-				<a data-toggle="tab" href="#t2">试剂</a>
-			</li>
-			<li>
-				<a data-toggle="tab" href="#t3">耗材</a>
-			</li>
-			<li>
-				<a data-toggle="tab" href="#t4">服务</a>
-			</li>
-		</ul>
-		<div class="tab-content sort-list clearfix">						
-			<div id="t1" class="tab-pane active">
-	            <ul>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text"/></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text" /></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            </ul>
-	        </div>
-	        <div id="t2" class="tab-pane">
-	            <ul>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text" /></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text" /></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            </ul>
-	        </div>
-	        <div id="t3" class="tab-pane">
-	            <ul>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text" /></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            </ul>
-	        </div>
-	        <div id="t4" class="tab-pane">
-	            <ul>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text" /></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text" /></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text" /></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            	<li>
-	            		<div class="clearfix">
-		            		<i></i>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<div class="floor-two">
-		            		<div class="line"></div>
-		            		<div class="pull-left">Lorem ipsum dolor sit amet</div>
-		            		<button class="btn btn-primary btn-sm pull-right">删除</button>
-						</div>
-						<button class="btn btn-success btn-sm add">添加</button>
-						<div class="save-group">
-		            		<div class="pull-left"><input type="text" /></div>
-		            		<button class="btn btn-success btn-sm pull-right save">保存</button>
-						</div>
-	            	</li>
-	            </ul>
-	        </div>
-		</div>
-	</div>
-</div>
--->

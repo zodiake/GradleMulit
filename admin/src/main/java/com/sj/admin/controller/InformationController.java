@@ -66,7 +66,7 @@ public class InformationController {
 			return "\"fail\"";
 		}
 		info = informationService.save(info);
-		return "\"success\"";
+		return "{\"id\":\"" + info.getId() + "\"}";
 	}
 
 	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.POST)
@@ -74,7 +74,7 @@ public class InformationController {
 	public String update(@PathVariable("id") Long id, Information information) {
 		information.setId(id);
 		informationService.update(information);
-		return "";
+		return "{\"id\":\"" + id + "\"}";
 	}
 
 }

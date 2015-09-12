@@ -17,5 +17,8 @@ public interface InformationRepository extends
 
 	Information findByIdAndCategory(Long id, AdvertiseCategoryEnum category);
 
-	Page<Information> findByActivate(Pageable pageable, ActivateEnum activate);
+	Page<Information> findByActivateOrderByUpdatedTimeDesc(Pageable pageable,
+			ActivateEnum activate);
+
+	Page<Information> findByOrderByUpdatedTimeDesc(Pageable pageable);
 }

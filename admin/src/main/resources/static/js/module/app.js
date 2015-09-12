@@ -63,9 +63,7 @@ app.config([
             })
             .state('subjectDetail', {
                 url: '/subjectDetail/:id',
-                templateUrl: function (stateParams) {
-                    return '/admin/subjects/' + stateParams.id;
-                },
+                templateUrl:  '/admin/templates/subject',
                 controller: 'SubjectEditController'
             })
             .state('solutions', {

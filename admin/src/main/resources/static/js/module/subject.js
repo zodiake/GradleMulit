@@ -20,8 +20,8 @@ subjectModule.service('SubjectService', ['$http',
             });
         };
 
-        this.findOne = function (item) {
-            return $http.get('/admin/subjects/' + item.id);
+        this.findOne = function (id) {
+            return $http.get('/admin/subjects/' + id);
         };
 
         this.save = function (item) {
@@ -35,7 +35,9 @@ subjectModule.service('SubjectService', ['$http',
                 data: {
                     name: item.title,
                     content: item.content,
-                    solution: solutions
+                    solution: solutions,
+                    cover:item.cover,
+                    summary:item.summary
                 },
                 headers: header
             });
@@ -50,8 +52,17 @@ subjectModule.service('SubjectService', ['$http',
                 data: {
                     name: item.name,
                     content: item.content,
+                    cover:item.cover,
+                    summary:item.summary
                 }
             });
+        };
+        
+        this.saveOrUpdate=function(item){
+           if(item.id)
+            return this.update(item);
+            else
+            return this.save(item); 
         };
     }
 ]);
@@ -87,27 +98,12 @@ subjectModule.controller('SubjectController', ['$scope',
         };
 
         $scope.view = function (item) {
-            SubjectService
-                .findOne(item)
-                .success(function (item) {
-                    $modal.open({
-                        templateUrl: '/admin/templates/subject',
-                        size: 'lg',
-                        controller: 'SubjectEditController',
-                        resolve: {
-                            item: function () {
-                                return item;
-                            }
-                        },
-                        scope: $scope
-                    });
-                });
         };
     }
 ]);
 
-subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal',
-    function ($scope, SubjectService, $modal) {
+subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal','$http',
+    function ($scope, SubjectService, $modal,$http) {
         $scope.item = {
             solutions: []
         };
@@ -133,8 +129,26 @@ subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService',
             });
         };
 
+        $scope.upload = function (event) {
+            var file = event.target.files[0];
+            var fd = new FormData();
+            var reader = new FileReader();
+
+            fd.append('file', file);
+
+            $http.post('/admin/img/upload', fd, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': undefined
+                },
+                transformRequest: angular.identity
+            }).success(function (data) {
+                $scope.item.cover = data[0];
+            });
+        };
+
         $scope.deleteSolution = function (index) {
-            $scope.item.solutions.splice(index);
+            $scope.item.solutions.splice(index,1);
         };
 
         $scope.submit = function () {
@@ -147,9 +161,18 @@ subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService',
 
 subjectModule.controller('SubjectEditController', ['$scope',
     'SubjectService',
-    'item',
-    function ($scope, SubjectService, item) {
-        $scope.item = item;
+    '$stateParams',
+    function ($scope, SubjectService,$stateParams) {
+        
+        function init(){
+            SubjectService
+                .findOne($stateParams.id)
+                .success(function (item) {
+                    $scope.item=item;
+                });
+        }
+        
+        init();
 
         $scope.editorOptions = {
             uiColor: '#000000',
@@ -208,7 +231,7 @@ subjectModule.controller('SolutionController', ['$scope',
 
         function init() {
             SolutionService
-                .findAll(id)
+                .findBySubject(id)
                 .success(function (data) {
                     $scope.items = data;
                 })
@@ -222,9 +245,10 @@ subjectModule.controller('SolutionController', ['$scope',
         $scope.add = function (s) {
             SolutionService
                 .save($scope.solution)
-                .success(function () {
+                .success(function (data) {
                     $scope.items.push({
-                        name: $scope.solution.name
+                        name: $scope.solution.name,
+                        id:data.id
                     });
                 })
                 .error(function (err) {

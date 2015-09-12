@@ -7,13 +7,13 @@ import com.sj.model.model.Subject;
 public class SubjectJson {
 	private Long id;
 	private String name;
-	private String img;
+	private String cover;
 	private Calendar createdTime;
 
 	public SubjectJson(Subject s) {
 		this.id = s.getId();
 		this.name = s.getName();
-		this.img = s.getImage();
+		this.cover = s.getImage();
 		this.createdTime = s.getCreatedTime();
 	}
 
@@ -33,12 +33,12 @@ public class SubjectJson {
 		this.name = name;
 	}
 
-	public String getImg() {
-		return img;
+	public String getCover() {
+		return cover;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
 
 	public Calendar getCreatedTime() {

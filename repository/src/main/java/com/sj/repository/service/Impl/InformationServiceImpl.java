@@ -45,6 +45,7 @@ public class InformationServiceImpl implements InformationService {
 		info.setTitle(information.getTitle());
 		info.setContent(information.getContent());
 		info.setCategory(information.getCategory());
+		info.setSummary(information.getSummary());
 		return info;
 	}
 
@@ -88,7 +89,8 @@ public class InformationServiceImpl implements InformationService {
 	@Override
 	public Page<Information> findByActivate(Pageable pageable,
 			ActivateEnum activate) {
-		return repository.findByActivate(pageable, activate);
+		return repository.findByActivateOrderByUpdatedTimeDesc(pageable,
+				activate);
 	}
 
 	@Override
@@ -96,7 +98,7 @@ public class InformationServiceImpl implements InformationService {
 			ActivateEnum activate) {
 		Page<Information> pages;
 		if (activate == null)
-			pages = findAll(pageable);
+			pages = repository.findByOrderByUpdatedTimeDesc(pageable);
 		else
 			pages = findByActivate(pageable, activate);
 		List<InformationJson> lists = pages.getContent().stream()

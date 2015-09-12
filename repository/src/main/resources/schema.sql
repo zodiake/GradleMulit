@@ -42,7 +42,8 @@ create table subject(
 	created_time timestamp,
 	created_by varchar(64),
 	content_id bigint,
-	image varchar(64),
+	image varchar(69),
+	summary varchar(200),
 	primary key(id),
 	foreign key (content_id) references content(id)
 );
@@ -222,11 +223,12 @@ create table information(
 	updated_time timestamp,
 	create_by varchar(50),
 	category_id bigint,
+	summary varchar(200),
 	primary key(id),
 	foreign key(content_id) references information_content(id),
 	foreign key(category_id) references category(id)
 );
---广告
+-- 广告
 create table advertisement_content(
 	id bigint not null AUTO_INCREMENT,
 	content varchar(5000),
@@ -245,7 +247,7 @@ create table advertisement(
 	primary key(id),
 	foreign key(category_id) references category(id)
 );
---采购申请
+-- 采购申请
 create table buy_record(
 	id bigint not null AUTO_INCREMENT,
 	name varchar(100),

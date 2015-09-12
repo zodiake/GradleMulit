@@ -13,16 +13,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.admin.exception.SubjectNotFoundException;
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
+import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.SolutionJson;
 import com.sj.repository.model.SubjectDetailJson;
 import com.sj.repository.model.SubjectJson;
@@ -50,6 +49,7 @@ public class SubjectController {
 		List<Solution> solutions = convertStringToSolution(solution);
 		solutions.forEach(c -> c.setSubject(subject));
 		subject.setSolutions(solutions);
+		subject.setActivate(ActivateEnum.ACTIVATE);
 		subjectService.save(subject);
 		return "\"success\"";
 	}
@@ -84,19 +84,5 @@ public class SubjectController {
 		Subject s = subjectService.findOne(id);
 		return s.getSolutions().stream().map(p -> new SolutionJson(p))
 				.collect(Collectors.toList());
-	}
-
-	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.PUT)
-	public String editProcess(@PathVariable("id") Long id, Model uiModel,
-			@ModelAttribute("subject") Subject subject,
-			BindingResult bindingResult) {
-		Subject oldSubject = subjectService.findOne(id);
-		if (oldSubject == null)
-			throw new SubjectNotFoundException();
-		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute("subject", subject);
-			return null;
-		}
-		return null;
 	}
 }

@@ -31,7 +31,8 @@ infoModule.service('InfoService', ['$http',
                 data: {
                     title: item.title,
                     category: item.category,
-                    content: item.content
+                    content: item.content,
+                    summary: item.summary
                 },
                 headers: header
             });
@@ -45,10 +46,18 @@ infoModule.service('InfoService', ['$http',
                 data: {
                     title: item.title,
                     category: item.category,
-                    content: item.content
+                    content: item.content,
+                    summary: item.summary
                 },
                 headers: header
             });
+        };
+
+        this.saveOrUpdate = function (item) {
+            if (item.id)
+                return this.update(item);
+            else
+                return this.save(item);
         };
 
         this.updateState = function (item) {
@@ -153,18 +162,26 @@ infoModule.controller('InfoCreateController', ['$scope', 'categories', 'InfoServ
         };
 
         $scope.submit = function () {
-            InfoService.save($scope.item).success(function () {
-                $scope.alerts.push({
-                    type: 'success',
-                    msg: '保存成功',
+            $scope.disabled = true;
+            InfoService
+                .saveOrUpdate($scope.item)
+                .success(function (data) {
+                    $scope.disabled = false;
+                    $scope.item.id = data.id;
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
+                }).error(function (err) {
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
-            }).error(function (err) {
-                $scope.alerts.push({
-                    msg: '保存失败',
-                });
-            });
         };
 
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
     }
 ]);
 
@@ -179,13 +196,25 @@ infoModule.controller('InfoDetailController', ['$scope', 'item', 'categories', '
         };
         $scope.item = item;
         $scope.categories = categories.data.content;
+        $scope.alerts = [];
 
         $scope.submit = function () {
-            InfoService.update($scope.item).success(function () {
+            InfoService
+                .update($scope.item)
+                .success(function () {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
+                }).error(function (err) {
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
+                });
+        };
 
-            }).error(function (err) {
-
-            });
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);

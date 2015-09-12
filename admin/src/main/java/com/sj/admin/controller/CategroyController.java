@@ -7,15 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.model.model.Brand;
 import com.sj.model.model.ProductCategory;
-import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.AdvertisementCategoryJson;
 import com.sj.repository.model.InformationCategoryJson;
@@ -65,18 +62,32 @@ public class CategroyController {
 	public List<ProductCategoryDetailJson> findProductCategoryAndChildren() {
 		return productCategoryService.findAllDetail();
 	}
-	
+
 	@RequestMapping(value = "/admin/product/category/{id}/categories", method = RequestMethod.POST)
 	@ResponseBody
-	public String addProductCategory(@PathVariable("id")Long id,HttpServletRequest request){
-		String name=request.getParameter("name");
-		
-		ProductCategory pc=new ProductCategory();
-		pc.setName(name);
-		pc.setParent(new ProductCategory(id));
-		pc.setActivate(ActivateEnum.ACTIVATE);
-		productCategoryService.save(pc);
-		return null;
-	}	
-}    
-            
+	public String addProductCategory(@PathVariable("id") Long id,
+			ProductCategory category) {
+		ProductCategory pc = productCategoryService.save(category);
+		return "{\"id\":\"" + pc.getId() + "\"}";
+	}
+
+	@RequestMapping(value = "/admin/product/category/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateProductCategory(@PathVariable("id") Long id,
+			ProductCategory pc) {
+		pc.setId(id);
+		productCategoryService.update(pc);
+		return "";
+	}
+
+	@RequestMapping(value = "/admin/product/categories/{id}/state", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateProductCategoryState(@PathVariable("id") Long id,
+			HttpServletRequest request) {
+		ActivateEnum activate = ActivateEnum.fromString(request
+				.getParameter("activate"));
+		productCategoryService.updateState(id, activate);
+		return "";
+	}
+
+}

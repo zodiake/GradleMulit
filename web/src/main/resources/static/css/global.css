@@ -380,6 +380,7 @@ table{
 	background: #27bff8;
 }
 .news{
+	position:relative;
 	width: 370px; 
 	padding: 0 10px;
 	border:1px solid #cdcdcd;
@@ -401,8 +402,16 @@ table{
 .news .news-nav a.nobor{
 	border-right: none;
 }
+.news .news-list{
+	height:258px;
+}
+.news .news-list a.more{
+	position:absolute;
+	right:15px;
+	bottom:10px;
+}
 .news .news-list li{
-	padding: 20px 0 15px;
+	padding:13px 0;
 }
 .news .news-list p,
 .news .news-list h4{
@@ -640,15 +649,15 @@ table{
 	background: url('../img/icon-resg.png') no-repeat;
 }
 .resg-header .resg-company a{
+	width:80px;
 	background: url('../img/icon-resg2.png') no-repeat;
 }
-.resg-header .resg-company.regs a.company-btn{
-	background: url('../img/icon-resg.png') no-repeat;
-	background-position: -79px 0;
+.resg-header .resg-self a.company-btn{
+	background-position: -80px 0;
+	width:87px;
 }
-.resg-header .resg-self a.company-btn,
 .resg-header .resg-company a.self-btn{
-	background-position: -79px 0;
+	background-position: -83px 0;
 }
 .resg-header .head-menu{
 	margin-top: 30px;
@@ -659,7 +668,7 @@ table{
 }
 .resg-hd span{
 	width: 150px;
-	background-position: 0 -45px;
+	background-position: 0 -48px;
 }
 .resg-form{
 	font-size: 14px;
@@ -1695,12 +1704,14 @@ button.default{
 	background-position: 2px -17px;
 }
 .news-sort{
+	display:none;
 	position: absolute;
+	z-index:2;
 	right: 10px;
-	top: 45px;
+	top: 39px;
 	width: 286px;
 	height: 53px;
-	background: url('../img/news-bg.png') no-repeat #fff;
+	background: url('../img/news-bg.png') no-repeat;
 }
 .news-sort a{
 	font-size: 14px;

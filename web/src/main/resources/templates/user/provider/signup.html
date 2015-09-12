@@ -116,6 +116,7 @@
                 <a href="/productCategory/服务">服务</a>
                 <i>|</i>
                 <a href="/subjects">专题</a>
+                <a href="/" class="fr">返回首页</a>
             </div>
         </div>
         <div class="head-box clearfix">
@@ -136,16 +137,6 @@
                 <span>注册信息</span>
             </div>
             <div class="form-group">
-                <label><i>*</i>手机号</label>
-                <input type="text" th:field="*{phone}" />
-                <button class="tel-code">获取验证码</button>
-                <i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
-            </div>
-            <div class="form-group">
-                <label><i>*</i>验证码</label>
-                <input type="text" />
-            </div>
-            <div class="form-group">
                 <label><i>*</i>用户名</label>
                 <input type="text" th:field="*{name}" />
                 <i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
@@ -154,6 +145,16 @@
                 <label><i>*</i>密码</label>
                 <input type="password" th:field="*{password}" />
                 <i class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>手机号</label>
+                <input type="text" th:field="*{phone}" />
+                <button class="tel-code">获取验证码</button>
+                <i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>验证码</label>
+                <input type="text" />
             </div>
             <div class="form-group">
                 <label><i>*</i>邮箱</label>
@@ -205,7 +206,7 @@
                 <input type="radio" th:field="*{businessType}" value="PRODUCTION" />生产型
                 <input type="radio" th:field="*{businessType}" value="TRADE" />贸易型
                 <input type="radio" th:field="*{businessType}" value="SERVICE" />服务型
-                <input type="radio" th:field="*{businessType}" value="GOVERNMENT" />政府机关
+                <!-- <input type="radio" th:field="*{businessType}" value="GOVERNMENT" />政府机关 -->
                 <input type="radio" th:field="*{businessType}" value="OTHER" />其它
                 <i class="error" th:if="${#fields.hasErrors('businessType')}" th:errors="*{businessType}">必填</i>
             </div>
@@ -233,7 +234,7 @@
                 </select>
                 <i class="error" th:if="${#fields.hasErrors('output')}" th:errors="*{output}">必填</i>
             </div>
-            <div class="form-group">
+            <div class="form-group files">
                 <label><i>*</i>企业简介</label>
                 <textarea rows="6" th:field="*{content}"></textarea>
                 <i class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">必填</i>
@@ -259,7 +260,7 @@
                 <i class="error" th:if="${#fields.hasErrors('taxRegistrationUrl')}" th:errors="*{taxRegistrationUrl}">必填</i>
             </div>
             <div class="form-group files">
-                <label><i>*</i>组织结构代码证上传</label>
+                <label><i>*</i>组织机构代码证上传</label>
                 <img th:src="*{structureCodeUrl}" width="100" height="100" />
                 <span id="uploadImg" type="button">
                     <input type='file' name='file' th:attr="data-url=@{structureCodeUrl}"/>
@@ -283,7 +284,12 @@
                 <i class="error" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">必填</i>
             </div>
             <div class="form-group">
-                <label><i>*</i>职位</label>
+                <label><i>*</i>部门</label>
+                <input type="text" />
+                <i class="error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">必填</i>
+            </div>
+            <div class="form-group">
+                <label><i>*</i>职务</label>
                 <input type="text" th:field="*{position}" />
                 <i class="error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">必填</i>
             </div>

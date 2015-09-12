@@ -36,8 +36,11 @@ public class SolutionServiceImpl implements SolutionService {
 	}
 
 	@Override
-	public void save(Solution s) {
-		repository.save(s);
+	public Solution save(Solution s) {
+		Solution so = new Solution();
+		so.setName(s.getName());
+		so.setSubject(s.getSubject());
+		return repository.save(so);
 	}
 
 	@Override

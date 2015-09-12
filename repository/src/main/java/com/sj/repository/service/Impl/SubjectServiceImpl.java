@@ -82,6 +82,7 @@ public class SubjectServiceImpl implements SubjectService {
 		Subject s = repository.findOne(subject.getId());
 		s.setContent(subject.getContent());
 		s.setName(subject.getName());
+		s.setSummary(subject.getSummary());
 		return s;
 	}
 

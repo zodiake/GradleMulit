@@ -10,7 +10,7 @@ public interface SolutionService {
 
 	public void updateName(Long id, String name);
 
-	public void save(Solution s);
+	public Solution save(Solution s);
 
 	public List<SolutionJson> findAll();
 }

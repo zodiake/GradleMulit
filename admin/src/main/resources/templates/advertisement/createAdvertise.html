@@ -1,4 +1,5 @@
 <div class="contentpanel files_tab">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">{{alert.msg}}</alert>
     <form class="form-horizontal w400" ng-submit="submit()">
         <div class="row">
             <div class="form-group">
@@ -27,10 +28,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <input type="submit" class="btn btn-primary" value="提交" />
-            <button type="button" class="btn btn-defalut" data-dismiss="modal">
-                取消
-            </button>
+            <input type="submit" ng-disabled="disabled" class="btn btn-primary" value="提交" />
         </div>
     </form>
 </div>

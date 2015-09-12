@@ -15,16 +15,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in items" ng-click="view(item)">
-                <td>{{$index+1}}</td>
+            <tr ng-repeat="item in items" >
+                <td >{{$index+1}}</td>
                 <td>{{item.title}}</td>
                 <td>
-                	<img ng-src="{{item.cover}}" width="120" height="120" />
+                    <img ng-src="{{item.cover}}" width="120" height="120" />
                 </td>
                 <td>{{item.state|activeFilter}}</td>
                 <td>
                     <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                    	{{item.state|reverseActiveFilter}}
+                        {{item.state|reverseActiveFilter}}
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="view(item)">
+                    	修改
                     </button>
                 </td>
             </tr>
@@ -33,4 +36,16 @@
     <div class="pagenumQu">
         <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
     </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            是否冻结/解冻
+        </div>
+        <div class="modal-body">
+            {{item.name}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 </div>
