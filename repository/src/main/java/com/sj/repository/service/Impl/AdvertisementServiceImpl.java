@@ -44,9 +44,10 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 			ActivateEnum activate) {
 		Page<Advertisement> pages;
 		if (activate != null)
-			pages = findByActivate(pageable, activate);
+			pages = repository.findByActivateOrderByUpdatedTimeDesc(pageable,
+					activate);
 		else
-			pages = findAll(pageable);
+			pages = repository.findByOrderByUpdatedTimeDesc(pageable);
 		List<AdvertisementJson> lists = pages.getContent().stream()
 				.map(c -> new AdvertisementJson(c))
 				.collect(Collectors.toList());
@@ -81,6 +82,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
 	@Override
 	public Advertisement save(Advertisement advertisement) {
+		advertisement.setUpdatedTime(Calendar.getInstance());
+		advertisement.setCreatedTime(Calendar.getInstance());
 		return repository.save(advertisement);
 	}
 
