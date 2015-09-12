@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,7 +71,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public List<ProductCategory> findByParentAndActivate(ProductCategory category, ActivateEnum activate) {
+	public List<ProductCategory> findByParentAndActivate(
+			ProductCategory category, ActivateEnum activate) {
 		return repository.findByParentAndActivate(category, activate);
 	}
 
@@ -90,8 +88,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	@Cacheable(value = "secondProductCategoryCache", key = "#category.id")
-	public List<ProductCategory> findSecondCategory(ProductCategory category,Pageable pageable) {
-		return repository.findByParentAndActivate(category,ActivateEnum.ACTIVATE,pageable);
+	public List<ProductCategory> findSecondCategory(ProductCategory category,
+			Pageable pageable) {
+		return repository.findByParentAndActivate(category,
+				ActivateEnum.ACTIVATE, pageable);
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	public List<ProductCategoryJson> findByParentJson(ProductCategory pc) {
-		return repository.findByParent(pc).stream()
+		return repository.findByParentOrderByNameAsc(pc).stream()
 				.map(m -> new ProductCategoryJson(m))
 				.collect(Collectors.toList());
 	}
@@ -185,7 +185,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Override
 	public List<ProductCategoryDetailJson> findAllDetail() {
 		List<ProductCategory> lists = Lists.newArrayList(repository
-				.findByParent(null));
+				.findByParentOrderByNameAsc(null));
 		return lists.stream().map(p -> new ProductCategoryDetailJson(p))
 				.collect(Collectors.toList());
 	}
@@ -207,6 +207,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	public ProductCategory findByIdAndParent(Long id) {
-		return repository.findByIdAndActivateAndParentIsNull(id, ActivateEnum.ACTIVATE);
+		return repository.findByIdAndActivateAndParentIsNull(id,
+				ActivateEnum.ACTIVATE);
 	}
 }
