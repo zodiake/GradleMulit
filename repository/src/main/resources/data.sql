@@ -10,10 +10,108 @@ insert into city(id,name,province_id) values(4,'福州市','2');
 insert into city(id,name,province_id) values(5,'泉州市','2');
 
 --test brand
-insert into brand(id,name,activate,cover_img,created_time) values(1,'brand1',1,'/img/brand1.jpg','2012-1-1');
-insert into brand(id,name,activate,cover_img,created_time) values(2,'brand2',1,'/img/brand1.jpg','2012-1-1');
-insert into brand(id,name,activate,cover_img,created_time) values(3,'brand3',1,'/img/brand1.jpg','2012-1-1');
-insert into brand(id,name,activate,cover_img,created_time) values(4,'brand4',1,'/img/brand1.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(1,'Thermo Fisher Scientific',1,'/2015/9/Thermo Fisher Scientific.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(2,'3M',1,'/2015/9/3M.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(3,'AccuStandard',1,'/2015/9/AccuStandard.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(4,'Acros',1,'/2015/9/Acros.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(5,'AGILENT',1,'/2015/9/AGILENT.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(6,'ALDRICH Fisher Scientific',1,'/2015/9/ALDRICH.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(7,'Alexis',1,'/2015/9/Alexis.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(8,'Alfa Aesar',1,'/2015/9/Alfa Aesar.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(9,'ALLTECH',1,'/2015/9/ALLTECH.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(10,'ANPEL',1,'/2015/9/ANPEL.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(11,'APSC',1,'/2015/9/APSC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(12,'Beacon',1,'/2015/9/Beacon.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(13,'BRAND',1,'/2015/9/BRAND.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(14,'CDN Isotopes',1,'/2015/9/CDN Isotopes.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(15,'CAMBRIDGE ISOTOP',1,'/2015/9/CAMBRIDGE ISOTOP.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(16,'Camsco',1,'/2015/9/Camsco.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(17,'CaroteNature GmbH',1,'/2015/9/CaroteNature GmbH.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(18,'Cerilliant',1,'/2015/9/Cerilliant.jpg','2012-1-1');
+
+insert into brand(id,name,activate,cover_img,created_time) values(19,'Chemservice',1,'/2015/9/Chemservice.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(20,'Chiron',1,'/2015/9/Chiron.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(21,'ChromaDex',1,'/2015/9/ChromaDex.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(22,'CNW',1,'/2015/9/CNW.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(23,'Cole Parmer',1,'/2015/9/Cole Parmer.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(24,'COWIE',1,'/2015/9/COWIE.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(25,'Dr',1,'/2015/9/Dr.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(26,'FAPAS',1,'/2015/9/FAPAS.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(27,'FLUKA',1,'/2015/9/FLUKA.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(28,'GL',1,'/2015/9/GL.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(29,'Hamilton',1,'/2015/9/Hamilton.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(30,'Icon Isotope',1,'/2015/9/Icon Isotope.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(31,'IDEX',1,'/2015/9/IDEX.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(32,'IRMM',1,'/2015/9/IRMM.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(33,'ISMATEC',1,'/2015/9/ISMATEC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(34,'JUN-AIR',1,'/2015/9/JUN-AIR.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(35,'KARTELL',1,'/2015/9/KARTELL.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(36,'KNF',1,'/2015/9/KNF.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(37,'KROMASIL',1,'/2015/9/KROMASIL.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(38,'Larodan',1,'/2015/9/Larodan.jpg','2012-1-1');
+
+insert into brand(id,name,activate,cover_img,created_time) values(39,'LC LAB',1,'/2015/9/LC LAB.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(40,'LGC',1,'/2015/9/LGC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(41,'Matreya LLC',1,'/2015/9/Matreya LLC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(42,'Medical Isotope',1,'/2015/9/Medical Isotope.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(43,'Megazyme',1,'/2015/9/Megazyme.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(44,'MERCK',1,'/2015/9/MERCK.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(45,'METROHM',1,'/2015/9/METROHM.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(46,'METTLER',1,'/2015/9/METTLER.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(47,'MN',1,'/2015/9/MN.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(48,'MRI',1,'/2015/9/MRI.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(49,'NIST',1,'/2015/9/NIST.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(50,'NSI',1,'/2015/9/NSI.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(51,'NU-CHEK',1,'/2015/9/NU-CHEK.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(52,'o2si',1,'/2015/9/o2si.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(53,'ORION',1,'/2015/9/ORION.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(54,'OLChemIm',1,'/2015/9/OLChemIm.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(55,'PALL',1,'/2015/9/PALL.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(56,'PE',1,'/2015/9/PE.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(57,'PHENOMENEX',1,'/2015/9/PHENOMENEX.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(58,'Phytolab',1,'/2015/9/Phytolab.jpg','2012-1-1');
+
+insert into brand(id,name,activate,cover_img,created_time) values(59,'PSS',1,'/2015/9/PSS.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(60,'RDH',1,'/2015/9/RDH.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(61,'REGIS',1,'/2015/9/REGIS.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(62,'RESTEK',1,'/2015/9/RESTEK.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(63,'RTC',1,'/2015/9/RTC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(64,'Schott',1,'/2015/9/Schott.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(65,'SGE',1,'/2015/9/SGE.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(66,'Shodex',1,'/2015/9/Shodex.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(67,'SIGMA',1,'/2015/9/SIGMA.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(68,'Silicycle',1,'/2015/9/Silicycle.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(69,'SPEX',1,'/2015/9/SPEX.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(70,'SUPELCO',1,'/2015/9/SUPELCO.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(71,'SWAGELOK',1,'/2015/9/SWAGELOK.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(72,'talboys',1,'/2015/9/talboys.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(73,'TLC',1,'/2015/9/TLC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(74,'TRANSGENOMIC',1,'/2015/9/TRANSGENOMIC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(75,'TRC',1,'/2015/9/TRC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(76,'TSK',1,'/2015/9/TSK.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(77,'Varian',1,'/2015/9/Varian.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(78,'VITLAB',1,'/2015/9/VITLAB.jpg','2012-1-1');
+
+insert into brand(id,name,activate,cover_img,created_time) values(79,'WATERS',1,'/2015/9/WATERS.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(80,'Wellington',1,'/2015/9/Wellington.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(81,'WHATMAN',1,'/2015/9/WHATMAN.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(82,'witeg',1,'/2015/9/witeg.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(83,'WITEGA Laboratorien',1,'/2015/9/WITEGA Laboratorien.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(84,'艾德姆 ADAM',1,'/2015/9/艾德姆 ADAM.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(85,'岛津',1,'/2015/9/岛津.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(86,'东京理化',1,'/2015/9/东京理化.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(87,'弗鲁克(FLUKO)',1,'/2015/9/弗鲁克(FLUKO).jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(88,'梯希爱(TCI)',1,'/2015/9/梯希爱(TCI).jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(89,'一恒',1,'/2015/9/一恒.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(90,'MEDSON',1,'/2015/9/MEDSON.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(91,'TOYOBO',1,'/2015/9/TOYOBO.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(92,'CDRC',1,'/2015/9/CDRC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(93,'BIOMERIEUX',1,'/2015/9/BIOMERIEUX.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(94,'康百德',1,'/2015/9/康百德.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(95,'TBC',1,'/2015/9/TBC.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(96,'REACON',1,'/2015/9/REACON.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(97,'中科美菱',1,'/2015/9/中科美菱.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(98,'Roche',1,'/2015/9/Roche.jpg','2012-1-1');
 
 --test category
 --first category
@@ -32,41 +130,6 @@ values(6,'专题',null,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(20,'广告位1',null,1,'2012-1-1','tom','ac');
 
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type) 
---values(10,'secondCategory1-2',1,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(11,'secondCategory1-3',1,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(18,'secondCategory2-1',2,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(19,'secondCategory18-19',18,1,'2012-1-1','tom','pc');
---
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(12,'thirdCategory2-4',11,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(13,'thirdCategory2-5',10,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(14,'thirdCategory3-6',10,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(15,'thirdCategory3-7',10,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(16,'thirdCategory3-8',11,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(17,'thirdCategory3-9',11,1,'2012-1-1','tom','pc');
---
----- test
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(21,'常用生化试剂',2,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(22,'EDTA',21,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(23,'DTT',21,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(24,'Tris',21,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(25,'SDS',21,1,'2012-1-1','tom','pc');
---insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
---values(26,'MOPS',21,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(31,'生物芯片',1,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(32,'芯片扫描仪',31,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(33,'芯片点样仪',31,1,'2012-1-1','admin','pc','2015-1-1','admin');
@@ -96,10 +159,6 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(893, '冷链物流', 889,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(894, '技术转让', 889,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(895, '其它', 889,1,'2012-1-1','admin','pc','2015-1-1','admin');
-
-insert into brand(id,name,activate,cover_img,created_time) values(5,'AMRESCO',1,'/img/brand1.jpg','2012-1-1');
-
-
 
 -- test advertise category
 insert into category(id,name,category_type,activate,url) values(7,'行业要闻','ic',1,'HYYW');
