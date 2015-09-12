@@ -41,6 +41,7 @@ create table subject(
 	activate smallint,
 	created_time timestamp DEFAULT CURRENT_TIMESTAMP,
 	created_by varchar(64),
+	updated_time timestamp DEFAULT CURRENT_TIMESTAMP,
 	content_id bigint,
 	image varchar(69),
 	summary varchar(200),

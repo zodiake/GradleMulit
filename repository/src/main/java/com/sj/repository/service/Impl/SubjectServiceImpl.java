@@ -1,5 +1,6 @@
 package com.sj.repository.service.Impl;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public Subject save(Subject s) {
+		s.setUpdatedTime(Calendar.getInstance());
 		return repository.save(s);
 	}
 
@@ -70,7 +72,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public Page<SubjectJson> findAllJson(Pageable pageable) {
-		Page<Subject> page = findAll(pageable);
+		Page<Subject> page = repository.findByOrderByUpdatedTimeDesc(pageable);
 		List<SubjectJson> list = page.getContent().stream()
 				.map(c -> new SubjectJson(c)).collect(Collectors.toList());
 		return new PageImpl<SubjectJson>(list, pageable,
