@@ -21,23 +21,6 @@
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
 
-              $('input[type="file"]').fileupload({
-                  dataType : 'json',
-                  add : function(e, data) {
-                	  if(1048576 > data.files[0].size ){
-                     	 data.submit();
-                	  }
-                	  else{
-                		  alert("文件过大,请上传1M以下的图片");
-                	  }
-                  },
-                  done : function(e, data) {
-                	  $("#"+ajaxUrl).val(data.result.files[0].url);
-                	  $(this).parent().parent().find("img").attr("src",data.result.files[0].url);
-                  },
-                  progressall : function(e, data) {
-                  }
-              });
         $(document).ajaxSend(function(e, xhr, options) {
             xhr.setRequestHeader(header, token);
         });
@@ -108,10 +91,12 @@
                 data.submit();
             },
             done: function(e, data) {
-                $("#" + ajaxUrl).val(data.result.files[0].url);
-                $(this).parent().parent().find("img").attr("src", data.result.files[0].url);
+               	$("#" + ajaxUrl).val(data.result);
+                $(this).parent().parent().find("img").attr("src", data.result);
             },
-            progressall: function(e, data) {}
+            progressall: function(e, data) {
+            }
+            
         });
 
     });
@@ -122,17 +107,18 @@
     <div class="resg-header">
         <div class="head-nav">
             <div class="nav-box">
-                <a href="/productCategory/仪器">仪器</a>
-                <i>|</i>
-                <a href="/productCategory/试剂">试剂</a>
-                <i>|</i>
-                <a href="/productCategory/耗材">耗材</a>
-                <i>|</i>
-                <a href="/productCategory/服务">服务</a>
-                <i>|</i>
-                <a href="/subjects">专题</a>
-                <a href="/" class="fr">返回首页</a>
-            </div>
+				<a href="/">首页</a>
+				<i>|</i>
+				<a href="/productCategory/1">仪器</a>
+				<i>|</i>
+				<a href="/productCategory/2">试剂</a>
+				<i>|</i>
+				<a href="/productCategory/3">耗材</a>
+				<i>|</i>
+				<a href="/productCategory/4">服务</a>
+				<i>|</i>
+				<a href="/subjects">专题</a>
+			</div>
         </div>
         <div class="head-box clearfix">
             <a href="/" class="logo"><img th:src="@{/img/logo.png}" alt="logo" width="165" height="30" /></a>
@@ -278,7 +264,7 @@
                 <label><i>*</i>组织机构代码证上传</label>
                 <img th:src="*{structureCodeUrl}" width="100" height="100" />
                 <span id="uploadImg" type="button">
-                    <input type='file' name='file' th:attr="data-url=@{products/1?batch}"/>
+                    <input type='file' name='file' th:attr="data-url=@{structureCodeUrl}"/>
                     <a href="#">选择文件</a>
                 </span>
                 <input type="hidden" th:field="*{structureCodeUrl}" />

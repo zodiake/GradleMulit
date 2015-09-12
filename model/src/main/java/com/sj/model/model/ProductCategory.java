@@ -1,5 +1,7 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
@@ -11,10 +13,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("pc")
-public class ProductCategory extends Category {
+public class ProductCategory extends Category{
 
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-	private Set<ProductCategory> categories;
+	private List<ProductCategory> categories;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
@@ -34,11 +36,11 @@ public class ProductCategory extends Category {
 		this.name = name;
 	}
 
-	public Set<ProductCategory> getCategories() {
+	public List<ProductCategory> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<ProductCategory> categories) {
+	public void setCategories(List<ProductCategory> categories) {
 		this.categories = categories;
 	}
 

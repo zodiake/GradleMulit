@@ -11,7 +11,9 @@ import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,8 +74,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public List<ProductCategory> findByParentAndActivate(
-			ProductCategory category, ActivateEnum activate) {
+	public List<ProductCategory> findByParentAndActivate(ProductCategory category, ActivateEnum activate) {
 		return repository.findByParentAndActivate(category, activate);
 	}
 
@@ -89,16 +90,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	@Cacheable(value = "secondProductCategoryCache", key = "#category.id")
-	public List<ProductCategory> findSecondCategory(ProductCategory category) {
-		return repository.findByParentAndActivate(category,
-				ActivateEnum.ACTIVATE);
-	}
-
-	@Override
-	public List<ProductCategory> findByYQ() {
-
-		return repository.findByParentAndActivate(new ProductCategory(1l),
-				ActivateEnum.ACTIVATE);
+	public List<ProductCategory> findSecondCategory(ProductCategory category,Pageable pageable) {
+		return repository.findByParentAndActivate(category,ActivateEnum.ACTIVATE,pageable);
 	}
 
 	@Override
@@ -107,7 +100,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		if (pc.getCategories() == null || pc.getCategories().size() == 0) {
 
 		} else {
-			Set<ProductCategory> pcs = pc.getCategories();
+			List<ProductCategory> pcs = pc.getCategories();
 			for (ProductCategory productCategory : pcs) {
 				repository.delete(productCategory);
 			}
@@ -210,5 +203,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		pc.setActivate(activate);
 		pc.setUpdatedTime(Calendar.getInstance());
 		return pc;
+	}
+
+	@Override
+	public ProductCategory findByIdAndParent(Long id) {
+		return repository.findByIdAndActivateAndParentIsNull(id, ActivateEnum.ACTIVATE);
 	}
 }

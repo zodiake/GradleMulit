@@ -15,23 +15,23 @@ import com.sj.web.annotation.SecurityUser;
 public class ImageController extends UploadController {
 	@RequestMapping(value = "/businessLicenseUrl", method = RequestMethod.POST)
 	@ResponseBody
-	public UploadResult businessLicenseUpload(MultipartFile file) {
-		UploadResult result = super.upload(file);
-		return result;
+	public String businessLicenseUpload(MultipartFile file) {
+		String result = super.upload(file);
+		return "\""+result+"\"";
 	}
 
 	@RequestMapping(value = "/taxRegistrationUrl", method = RequestMethod.POST)
 	@ResponseBody
-	public UploadResult taxRegistrationUpload(MultipartFile file) {
-		UploadResult result = super.upload(file);
-		return result;
+	public String taxRegistrationUpload(MultipartFile file) {
+		String result = super.upload(file);
+		return "\""+result+"\"";
 	}
 
 	@RequestMapping(value = "/structureCodeUrl", method = RequestMethod.POST)
 	@ResponseBody
-	public UploadResult structureCodeUpload(MultipartFile file) {
-		UploadResult result = super.upload(file);
-		return result;
+	public String structureCodeUpload(MultipartFile file) {
+		String result = super.upload(file);
+		return "\""+result+"\"";
 	}
 
 	@RequestMapping(value = "/provider/productImage", method = RequestMethod.POST)

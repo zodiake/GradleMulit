@@ -24,8 +24,7 @@ public interface ProductCategoryService {
 	public Page<ProductCategory> findByParent(Pageable pageable,
 			ProductCategory category);
 
-	public List<ProductCategory> findByParentAndActivate(
-			ProductCategory category, ActivateEnum activate);
+	public List<ProductCategory> findByParentAndActivate(ProductCategory category, ActivateEnum activate);
 
 	public List<ProductCategory> findAllSecondCategory(ActivateEnum activate);
 
@@ -35,9 +34,7 @@ public interface ProductCategoryService {
 
 	public ProductCategory update(ProductCategory category);
 
-	public List<ProductCategory> findSecondCategory(ProductCategory category);
-
-	public List<ProductCategory> findByYQ();
+	public List<ProductCategory> findSecondCategory(ProductCategory category,Pageable pageable);
 
 	public void delete(Long id);
 
@@ -56,4 +53,6 @@ public interface ProductCategoryService {
 	public List<ProductCategory> findSiblings(ProductCategory category);
 
 	public ProductCategory updateState(Long id, ActivateEnum activate);
+	
+	public ProductCategory findByIdAndParent(Long id);
 }

@@ -51,33 +51,33 @@
 							<li th:each="infor:${industryNews}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 class="gray-deeply" th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
+								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue">more>></a>
+						<a class="more blue" href="/informationCategorys/行业要闻">more>></a>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
 							<li th:each="infor:${newResults}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
+								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue">more>></a>
+						<a class="more blue" href="/informationCategorys/新品成果">more>></a>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
 							<li th:each="infor:${vendorDynamics}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.content.content,59)}"></p>
+								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue">more>></a>
+						<a class="more blue" href="/informationCategorys/厂商动态">more>></a>
 					</div>
 				</div>
 			</div>
@@ -97,54 +97,17 @@
 							<div class="tab-panel products-detail">
 								<div class="fl list-mode">
 									<ul>
-									
-										<li th:each="productCategory:${yqs}"><a th:text="${productCategory.name}" th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"></a>
+										<li th:each="productCategory,categoryStat:${yqs}" th:if="${categoryStat.index lt 5}"><a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 											<div>
-												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><i>|</i></i>
+												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 											</div></li>
 									</ul>
 								</div>
 								<div class="fr list-mode">
 									<ul>
-										<li><label>生物芯片</label>
+									<li th:each="productCategory,categoryStat:${yqs}" th:unless="${categoryStat.index lt 5}"><a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-											</div></li>
-										<li><label>生物芯片</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
-											</div></li>
-										<li><label>影像系统</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
-											</div></li>
-										<li><label>测读系统</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
-											</div></li>
-										<li><label>光谱系统</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
-											</div></li>
-										<li><label>细胞培养仪</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
-											</div></li>
-										<li><label>细胞培养仪</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
+												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 											</div></li>
 									</ul>
 								</div>
@@ -152,37 +115,21 @@
 							<div class="tab-panel products-detail hide">
 								<div class="fl list-mode">
 									<ul>
-										<li th:each="productCategory:${sjs}"><label
+										<li th:each="productCategory,categoryStat:${sjs}"  th:if="${categoryStat.index lt 4}"><label
 											th:text="${productCategory.name}"></label>
 											<div>
-												<i th:each="child:${productCategory.categories}"><a
-													th:text="${child.name}"></a><i>|</i></i>
-											</div></li>
-									</ul>
-									<ul>
-										<li><label>试剂</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a>
-											</div></li>
-										<li><label>细胞培养仪</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
-											</div></li>
-										<li><label>储存保存设备</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
+												<i th:each="child:${productCategory.categories}">
+												<a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
 											</div></li>
 									</ul>
 								</div>
 								<div class="fr list-mode">
 									<ul>
-										<li><label>生物芯片</label>
+										<li th:each="productCategory,categoryStat:${sjs}"  th:unless="${categoryStat.index lt 4}"><label
+											th:text="${productCategory.name}"></label>
 											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
+												<i th:each="child:${productCategory.categories}">
+												<a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
 											</div></li>
 									</ul>
 								</div>
@@ -190,37 +137,19 @@
 							<div class="tab-panel products-detail hide">
 								<div class="fl list-mode">
 									<ul>
-										<li th:each="productCategory:${hcs}"><label
-											th:text="${productCategory.name}"></label>
+										<li th:each="productCategory,categoryStat:${hcs}" th:if="${categoryStat.index lt 6}">
+										<label th:text="${productCategory.name}"></label>
 											<div>
-												<i th:each="child:${productCategory.categories}"><a
-													th:text="${child.name}"></a><i>|</i></i>
-											</div></li>
-									</ul>
-									<ul>
-										<li><label>耗材</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a>
-											</div></li>
-										<li><label>细胞培养仪</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
-											</div></li>
-										<li><label>储存保存设备</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
+												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
 											</div></li>
 									</ul>
 								</div>
 								<div class="fr list-mode">
 									<ul>
-										<li><label>生物芯片</label>
+										<li th:each="productCategory,categoryStat:${hcs}" th:unless="${categoryStat.index lt 6}">
+										<label th:text="${productCategory.name}"></label>
 											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
+												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
 											</div></li>
 									</ul>
 								</div>
@@ -228,37 +157,19 @@
 							<div class="tab-panel products-detail hide">
 								<div class="fl list-mode">
 									<ul>
-										<li th:each="productCategory:${fws}"><label
-											th:text="${productCategory.name}"></label>
+										<li th:each="productCategory,categoryStat:${fws}" th:if="${categoryStat.index lt 7}">
+										<label th:text="${productCategory.name}"></label>
 											<div>
-												<i th:each="child:${productCategory.categories}"><a
-													th:text="${child.name}"></a><i>|</i></i>
-											</div></li>
-									</ul>
-									<ul>
-										<li><label>服务</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a>
-											</div></li>
-										<li><label>细胞培养仪</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
-											</div></li>
-										<li><label>储存保存设备</label>
-											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>芯片点样仪 </a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
-												<a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a> <i>|</i> <a>生物芯片系统</a>
-												<i>|</i>
+												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
 											</div></li>
 									</ul>
 								</div>
 								<div class="fr list-mode">
 									<ul>
-										<li><label>生物芯片</label>
+										<li th:each="productCategory,categoryStat:${fws}" th:unless="${categoryStat.index lt 7}">
+										<label th:text="${productCategory.name}"></label>
 											<div>
-												<a>芯片扫描仪</a> <i>|</i> <a>生物芯片系统</a> <i>|</i>
+												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
 											</div></li>
 									</ul>
 								</div>
@@ -286,7 +197,7 @@
 							<div class="spe-pic">
 								<img alt="" th:src="@{/img/list1.jpg}" width="230" height="130" />
 							</div>
-							<div class="topic-detail" th:text="${subject.content.content}">
+							<div class="topic-detail" th:text="${subject.summary}">
 							</div>
 					</a></li>
 				</ul>
