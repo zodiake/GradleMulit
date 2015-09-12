@@ -38,8 +38,8 @@
 					<ul >
 						<li th:each="info:${informations}">
 							<h3><a class="ft16 gray-deeply" th:text="${info.title}" th:href="'/informations/'+${info.id}"></a></h3>
-							<div class="news-dtl" th:with="content=${info.content.content}">
-								<p th:text="${#strings.abbreviate(content,100)}">
+							<div class="news-dtl">
+								<p th:text="${info.summary}">
 								</p>
 							</div>
 							<div class="news-global clearfix">

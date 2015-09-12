@@ -16,7 +16,6 @@ import com.sj.model.model.ProductCategory;
 import com.sj.model.model.ScrollImage;
 import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
-import com.sj.model.type.ScrollImageType;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.InformationService;
@@ -62,9 +61,9 @@ public class IndexController {
 		uiModel.addAttribute("newResults", newResults);
 		uiModel.addAttribute("vendorDynamics", vendorDynamics);
 		
-		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 6));
+		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 5));
 		uiModel.addAttribute("brands", brands);
-		List<ScrollImage> scrollImages = scrollImageService.findAll(ScrollImageType.INDEX, new PageRequest(0, 4));
+		List<ScrollImage> scrollImages = scrollImageService.findAll();
 		uiModel.addAttribute("images", scrollImages);
 		return "index";
 	}

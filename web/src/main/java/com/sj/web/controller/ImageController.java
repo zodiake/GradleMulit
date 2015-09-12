@@ -1,5 +1,11 @@
 package com.sj.web.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,32 +21,56 @@ import com.sj.web.annotation.SecurityUser;
 public class ImageController extends UploadController {
 	@RequestMapping(value = "/businessLicenseUrl", method = RequestMethod.POST)
 	@ResponseBody
-	public String businessLicenseUpload(MultipartFile file) {
+	public ArrayList<String> businessLicenseUpload(MultipartFile file) {
 		String result = super.upload(file);
-		return "\""+result+"\"";
+		ArrayList<String> list = new ArrayList<>();
+		list.add("http://localhost:8000/" + result);
+		if (result != null)
+			return list;
+		return null;
 	}
 
 	@RequestMapping(value = "/taxRegistrationUrl", method = RequestMethod.POST)
 	@ResponseBody
-	public String taxRegistrationUpload(MultipartFile file) {
+	public ArrayList<String> taxRegistrationUpload(MultipartFile file) {
 		String result = super.upload(file);
-		return "\""+result+"\"";
+		ArrayList<String> list = new ArrayList<>();
+		list.add("http://localhost:8000/" + result);
+		if (result != null)
+			return list;
+		return null;
 	}
 
 	@RequestMapping(value = "/structureCodeUrl", method = RequestMethod.POST)
 	@ResponseBody
-	public String structureCodeUpload(MultipartFile file) {
+	public ArrayList<String> structureCodeUpload(MultipartFile file) {
 		String result = super.upload(file);
-		return "\""+result+"\"";
+		ArrayList<String> list = new ArrayList<>();
+		list.add("http://localhost:8000/" + result);
+		if (result != null)
+			return list;
+		return null;
 	}
 
 	@RequestMapping(value = "/provider/productImage", method = RequestMethod.POST)
 	@ResponseBody
-	public UploadResult productUpload(MultipartFile file,
-			@SecurityUser SiteUser user) {
-		UploadResult result = super.uploadProduct(file,
-				new Provider(user.getId()));
-		return result;
+	public ArrayList<String> productUpload(MultipartFile file) {
+		String result = super.upload(file);
+		ArrayList<String> list = new ArrayList<>();
+		list.add("http://localhost:8000/" + result);
+		if (result != null)
+			return list;
+		return null;
 	}
-
+	private void sendScript(HttpServletResponse response, String num,
+			String file) throws IOException {
+		PrintWriter writer = response.getWriter();
+		writer = response.getWriter();
+		response.setContentType("text/html");
+		writer.write("<script type=\"text/javascript\">");
+		writer.write("window.parent.CKEDITOR.tools.callFunction(" + num
+				+ ",'http://localhost:8000/" + file + "','')");
+		writer.write("</script>");
+		writer.close();
+	}
 }

@@ -52,8 +52,8 @@
              	  }
               },
               done : function(e, data) {
-                  $(this).parent().parent().find("img").attr("src",data.result.files[0].url);
-                  $('#coverImg').val(data.result.files[0].url);
+                  $(this).parent().parent().find("img").attr("src",data.result[0]);
+                  $('#coverImg').val(data.result[0]);
               },
               progressall : function(e, data) {
               }

@@ -22,34 +22,36 @@ import com.sj.repository.util.FileUtil;
 
 @Service
 public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
-	//private final String imgPath = "﻿D:/web/imgServer/pic/public";
-	private final String audioPath = "src/main/resources/static/upload/audio/";
+	// private final String imgPath = "﻿D:/web/imgServer/pic/public";
+		private final String audioPath = "src/main/resources/static/upload/audio/";
 
-	private final String imgUrl = "/upload/img/";
-	private final String audioUrl = "/upload/audio/";
+		private final String imgUrl = "/upload/img/";
+		private final String audioUrl = "/upload/audio/";
 
-	@Override
-	public String writeToFile(MultipartFile file) {
-		InputStream stream;
-		String fileName = FileUtil.getFileName(file.getContentType());
-		try {
-			stream = file.getInputStream();
-			String year = Calendar.getInstance().get(1) + "";
-			String month = Calendar.getInstance().get(2) + "";
-			Path basePath = Paths.get("D:", "web", "imgServer", "pic",
-					"public", year, month);
-			if (Files.notExists(basePath)) {
-				Files.createDirectories(basePath);
+		@Override
+		public String writeToFile(MultipartFile file) {
+			InputStream stream;
+			String fileName = FileUtil.getFileName(file.getContentType());
+			try {
+				stream = file.getInputStream();
+				String year = Calendar.getInstance().get(1) + "";
+				String month = Calendar.getInstance().get(2) + "";
+				Path basePath = Paths.get("D:", "web", "imgServer", "pic",
+						"public", year, month);
+				if (Files.notExists(basePath)) {
+					Files.createDirectories(basePath);
+				}
+
+				Path filePath = Paths.get(basePath.toString(), fileName);
+				Files.copy(stream, filePath);
+				stream.close();
+				return year + "/" + month + "/" + fileName;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			basePath.resolve(fileName);
-			Files.copy(stream, basePath.toAbsolutePath());
-			stream.close();
-			return year + "/" + month + "/" + fileName;
-		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
-		return null;
-	}
+
 
 	@Override
 	@Async
