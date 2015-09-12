@@ -1,5 +1,6 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import com.sj.model.type.ScrollImageType;
 
 @Entity
 @Table(name = "scroll_image")
-public class ScrollImage {
+public class ScrollImage implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

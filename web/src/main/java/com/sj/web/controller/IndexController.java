@@ -42,13 +42,13 @@ public class IndexController {
 	
 	@RequestMapping(value = { "/", "/index" },method = RequestMethod.GET)
 	public String index(Model uiModel) {
-		List<ProductCategory> yqs = productCategoryService.findSecondCategory(new ProductCategory(1l));
+		List<ProductCategory> yqs = productCategoryService.findSecondCategory(new ProductCategory(1l),new PageRequest(0, 9));
 		uiModel.addAttribute("yqs", yqs);
-		List<ProductCategory> sjs = productCategoryService.findSecondCategory(new ProductCategory(2l));
+		List<ProductCategory> sjs = productCategoryService.findSecondCategory(new ProductCategory(2l),new PageRequest(0, 8));
 		uiModel.addAttribute("sjs", sjs);
-		List<ProductCategory> hcs = productCategoryService.findSecondCategory(new ProductCategory(3l));
+		List<ProductCategory> hcs = productCategoryService.findSecondCategory(new ProductCategory(3l),new PageRequest(0, 12));
 		uiModel.addAttribute("hcs", hcs);
-		List<ProductCategory> fws = productCategoryService.findSecondCategory(new ProductCategory(4l));
+		List<ProductCategory> fws = productCategoryService.findSecondCategory(new ProductCategory(4l),new PageRequest(0, 14));
 		uiModel.addAttribute("fws", fws);
 		uiModel.addAttribute("pc", new ProductCategory());
 		

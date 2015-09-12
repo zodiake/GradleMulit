@@ -97,9 +97,9 @@ public class ProductCategoryController {
 		return products;
 	}
 
-	@RequestMapping(value = "/productCategory/{name}", method = RequestMethod.GET)
-	public String findByParent(@PathVariable("name") String name, Model uiModel) {
-		ProductCategory pc = pcService.findByName(name, ActivateEnum.ACTIVATE);
+	@RequestMapping(value = "/productCategory/{id}", method = RequestMethod.GET)
+	public String findByParent(@PathVariable("id") Long id, Model uiModel) {
+		ProductCategory pc = pcService.findByIdAndParent(id);
 		if (pc == null)
 			throw new CategoryNotFoundException();
 		List<ProductCategory> categories = pcService.findByParentAndActivate(pc, ActivateEnum.ACTIVATE);

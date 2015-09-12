@@ -28,128 +28,20 @@
 		<div class="products">
 			<div class="sort-wrap clearfix">
 				<div class="sort-box fl">	
-					<div class="sort-list" th:each="category:${categories}">
+					<div class="sort-list" th:each="category,categoryStat:${categories}" th:if="${(categoryStat.index*2) lt categories.size()}">
 						<div class="sort-hd gray-hd"><a th:text="${category.name}"  th:href="@{'/products/_search?secondCategory='+${category.id}}"></a></div>
 						<div class="sort-detail bodr">
-							<i th:each="child:${category.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><i>|</i></i>
+							<i th:each="child:${category.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 						</div>
 					</div>
-					<div class="sort-list">					
-						<div class="sort-hd gray-hd"><b>生物芯片</b></div>
-						<div class="sort-detail bodr">
-							<a>芯片扫描仪</a>
-							<i>|</i>
-							<a>芯片点仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>芯片点样仪仪 </a>
-							<i>|</i>
-							<a>片系统</a>
-							<i>|</i>
-							<a>芯片点样仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>芯片点仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>芯片点样仪仪 </a>
-							<i>|</i>
-							<a>片系统</a>
-							<i>|</i>
-							<a>芯片点样仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>其他</a>
-						</div>
-					</div>	
-					<div class="sort-list">					
-						<div class="gray-hd"><b>生物芯片</b></div>
-						<div class="sort-detail bodr">
-							<a>芯片扫描仪</a>
-							<i>|</i>
-							<a>芯片点仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>芯片点样仪仪 </a>
-							<i>|</i>
-							<a>片系统</a>
-							<i>|</i>
-							<a>芯片点样仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>其他</a>
-						</div>
-					</div>
-					<div class="sort-list">					
-						<div class="gray-hd"><b>生物芯片</b></div>
-						<div class="sort-detail bodr">
-							<a>芯片扫描仪</a>
-							<i>|</i>
-							<a>芯片点仪 </a>
-							<a>其他</a>
-						</div>
-					</div>	
 				</div>
 				<div class="sort-box fl">						
-					<div class="sort-list">					
-						<div class="gray-hd"><b>生物芯片</b></div>
+					<div class="sort-list" th:each="category,categoryStat:${categories}" th:if="${categories.size()lt (categoryStat.index*2) }">
+						<div class="sort-hd gray-hd"><a th:text="${category.name}"  th:href="@{'/products/_search?secondCategory='+${category.id}}"></a></div>
 						<div class="sort-detail bodr">
-							<a>芯片扫描仪</a>
-							<i>|</i>
-							<a>芯片点仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>芯片点样仪仪 </a>
-							<i>|</i>
-							<a>片系统</a>
-							<i>|</i>
-							<a>芯片点样仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>其他</a>
+							<i th:each="child:${category.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 						</div>
-					</div>
-					<div class="sort-list">					
-						<div class="gray-hd"><b>生物芯片</b></div>
-						<div class="sort-detail bodr">
-							<a>芯片扫描仪</a>
-							<i>|</i>
-							<a>芯片点仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>芯片点样仪仪 </a>
-							<i>|</i>
-							<a>片系统</a>
-							<i>|</i>
-							<a>芯片点样仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>芯片点仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>芯片点样仪仪 </a>
-							<i>|</i>
-							<a>片系统</a>
-							<i>|</i>
-							<a>芯片点样仪 </a>
-							<i>|</i>
-							<a>生物芯片系统</a>
-							<i>|</i>
-							<a>其他</a>
-						</div>
-					</div>	
-				</div>
+					</div>				</div>
 				
 			</div>
 		</div>
