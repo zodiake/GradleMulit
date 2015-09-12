@@ -12,7 +12,13 @@ import com.sj.model.type.ActivateEnum;
 
 public interface AdvertisementRepository extends
 		PagingAndSortingRepository<Advertisement, Long> {
-	Page<Advertisement> findByActivate(Pageable pageable,ActivateEnum activate);
-	
-	List<Advertisement> findByActivateAndCategory(ActivateEnum activate,AdvertisementCategory category);
+	Page<Advertisement> findByActivate(Pageable pageable, ActivateEnum activate);
+
+	List<Advertisement> findByActivateAndCategory(ActivateEnum activate,
+			AdvertisementCategory category);
+
+	Page<Advertisement> findByActivateOrderByUpdatedTimeDesc(Pageable pageable,
+			ActivateEnum activate);
+
+	Page<Advertisement> findByOrderByUpdatedTimeDesc(Pageable pageable);
 }

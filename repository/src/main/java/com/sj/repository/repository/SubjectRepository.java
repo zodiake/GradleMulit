@@ -16,4 +16,6 @@ public interface SubjectRepository extends
 
 	List<Subject> findByShowOnIndex(ActivateEnum activate);
 
+	Page<Subject> findByOrderByUpdatedTimeDesc(Pageable pageable);
+
 }

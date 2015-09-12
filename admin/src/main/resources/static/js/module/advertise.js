@@ -28,7 +28,7 @@ advertiseModule.service('AdvertiseService', ['$http',
                 data: {
                     category: item.category,
                     url: item.url,
-                    coverImg: item.coverImg
+                    coverImg: item.cover
                 },
                 headers: header
             });
@@ -42,7 +42,7 @@ advertiseModule.service('AdvertiseService', ['$http',
                 data: {
                     category: item.category,
                     url: item.url,
-                    coverImg: item.coverImg
+                    coverImg: item.cover
                 },
                 headers: header
             });

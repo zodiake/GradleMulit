@@ -63,8 +63,11 @@ public class ProductController {
 		
 		if (product == null)
 			throw new ProductNotFoundException();
-		
-		product.setCollectionCount(Long.valueOf(template.opsForValue().get(COLLECTIONCOUNT + id.toString())));
+		String collectionCount = template.opsForValue().get(COLLECTIONCOUNT + id.toString());
+		if(collectionCount!=null)
+			product.setCollectionCount(Long.valueOf(template.opsForValue().get(COLLECTIONCOUNT + id.toString())));
+		else
+			product.setCollectionCount(0l);
 		productService.addViewCount(id);
 		
 		Set<Subject> subjects = new HashSet<Subject>(); 

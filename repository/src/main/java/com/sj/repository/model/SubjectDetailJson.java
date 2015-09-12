@@ -9,7 +9,7 @@ import com.sj.model.model.Subject;
 public class SubjectDetailJson {
 	private Long id;
 	private String name;
-	private String img;
+	private String cover;
 	private Calendar createdTime;
 	private String content;
 	private List<SolutionDetailJson> solutions;
@@ -18,7 +18,7 @@ public class SubjectDetailJson {
 	public SubjectDetailJson(Subject s) {
 		this.id = s.getId();
 		this.name = s.getName();
-		this.img = s.getImage();
+		this.cover = s.getImage();
 		this.createdTime = s.getCreatedTime();
 		this.content = s.getContent().getContent();
 		this.solutions = s.getSolutions().stream()
@@ -43,12 +43,12 @@ public class SubjectDetailJson {
 		this.name = name;
 	}
 
-	public String getImg() {
-		return img;
+	public String getCover() {
+		return cover;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
 
 	public Calendar getCreatedTime() {

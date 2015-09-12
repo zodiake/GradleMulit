@@ -9,6 +9,7 @@ public class InformationDetailJson extends InformationJson {
 	public InformationDetailJson(Information info) {
 		super(info);
 		this.content = info.getContent().getContent();
+		this.summary = info.getSummary();
 	}
 
 	public String getContent() {

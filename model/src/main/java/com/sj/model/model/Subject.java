@@ -45,6 +45,10 @@ public class Subject implements Serializable {
 	@Column(name = "created_by")
 	private String createdBy;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_time")
+	private Calendar updatedTime;
+
 	@JoinColumn(name = "content_id")
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Content content;
@@ -154,6 +158,14 @@ public class Subject implements Serializable {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+
+	public Calendar getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Calendar updatedTime) {
+		this.updatedTime = updatedTime;
 	}
 
 	@Override

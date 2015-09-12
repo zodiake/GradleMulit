@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,7 +37,6 @@ public class SubjectController {
 	@ResponseBody
 	public Page<SubjectJson> lists(Model uiModel,
 			@PageableDefault(page = 0, size = 15) Pageable pageable) {
-
 		return subjectService.findAllJson(new PageRequest(pageable
 				.getPageNumber() - 1, pageable.getPageSize()));
 	}
@@ -47,20 +47,25 @@ public class SubjectController {
 			HttpServletRequest request) {
 		String solution = request.getParameter("solution");
 		List<Solution> solutions = convertStringToSolution(solution);
-		solutions.forEach(c -> c.setSubject(subject));
-		subject.setSolutions(solutions);
+		if (solutions != null) {
+			solutions.forEach(c -> c.setSubject(subject));
+			subject.setSolutions(solutions);
+		}
 		subject.setActivate(ActivateEnum.ACTIVATE);
-		subjectService.save(subject);
-		return "\"success\"";
+		Subject s = subjectService.save(subject);
+		return "{\"id\":\"" + s.getId() + "\"}";
 	}
 
 	private List<Solution> convertStringToSolution(String solution) {
-		String[] strings = solution.split(",");
-		List<Solution> solutions = new ArrayList<>();
-		for (int i = 0; i < strings.length; i++) {
-			solutions.add(new Solution(solution));
+		if (StringUtils.isNotEmpty(solution)) {
+			String[] strings = solution.split(",");
+			List<Solution> solutions = new ArrayList<>();
+			for (int i = 0; i < strings.length; i++) {
+				solutions.add(new Solution(solution));
+			}
+			return solutions;
 		}
-		return solutions;
+		return null;
 	}
 
 	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.GET)
@@ -72,10 +77,11 @@ public class SubjectController {
 
 	@RequestMapping(value = "/admin/subjects/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public String update(@PathVariable("id") Long id, Subject subject) {
+	public String update(@PathVariable("id") Long id, Subject subject,
+			HttpServletRequest request) {
 		subject.setId(id);
-		subjectService.update(subject);
-		return "";
+		Subject s = subjectService.update(subject);
+		return "{\"id\":\"" + s.getId() + "\"}";
 	}
 
 	@RequestMapping(value = "/admin/subjects/{id}/solutions", method = RequestMethod.GET)
