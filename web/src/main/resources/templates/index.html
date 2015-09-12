@@ -95,7 +95,7 @@
 								<div class="fl list-mode">
 									<ul>
 									
-										<li th:each="productCategory:${yqs}"><a th:text="${productCategory.name}" th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"></a>
+										<li th:each="productCategory:${yqs}"><lable><a th:text="${productCategory.name}" th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"></a></lable>
 											<div>
 												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><i>|</i></i>
 											</div></li>

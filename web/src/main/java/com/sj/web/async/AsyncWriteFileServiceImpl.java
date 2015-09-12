@@ -22,27 +22,31 @@ import com.sj.repository.util.FileUtil;
 
 @Service
 public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
-	private final String imgPath = "src/main/resources/static/upload/img/";
+	private final String imgPath = "d:/public/";
 	private final String audioPath = "src/main/resources/static/upload/audio/";
 
 	private final String imgUrl = "/upload/img/";
-	private final String productUrl = "/upload/";
 	private final String audioUrl = "/upload/audio/";
 
 	@Override
-	public UploadResult writeToFile(MultipartFile file) {
+	public String writeToFile(MultipartFile file) {
 		InputStream stream;
 		String fileName = FileUtil.getFileName(file.getContentType());
 		try {
 			stream = file.getInputStream();
-			Path basePath = Paths.get("").resolve(imgPath + fileName);
+			String year = Calendar.getInstance().get(1) + "";
+			String month = Calendar.getInstance().get(2) + "";
+			Path basePath = Paths.get(imgPath, year, month, fileName);
+			if(!Files.exists(Paths.get(imgPath,year,month))){
+				Files.createDirectories(Paths.get(imgPath,year,month));
+			}
 			Files.copy(stream, basePath);
 			stream.close();
-
+			return year + "/" + month + "/" + fileName;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return getResult(file, fileName, true);
+		return null;
 	}
 
 	@Override
@@ -76,6 +80,60 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 		result.setFiles(files);
 		return result;
 	}
+//	private final String imgPath = "src/main/resources/static/upload/img/";
+//	private final String audioPath = "src/main/resources/static/upload/audio/";
+//
+//	private final String imgUrl = "/upload/img/";
+	private final String productUrl = "/upload/";
+//	private final String audioUrl = "/upload/audio/";
+//
+//	@Override
+//	public UploadResult writeToFile(MultipartFile file) {
+//		InputStream stream;
+//		String fileName = FileUtil.getFileName(file.getContentType());
+//		try {
+//			stream = file.getInputStream();
+//			Path basePath = Paths.get("").resolve(imgPath + fileName);
+//			Files.copy(stream, basePath);
+//			stream.close();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return getResult(file, fileName, true);
+//	}
+//
+//	@Override
+//	@Async
+//	public UploadResult writeBigToFile(MultipartFile file) {
+//		InputStream stream;
+//		String fileName = FileUtil.getFileName(file.getContentType());
+//		try {
+//			stream = file.getInputStream();
+//			Path basePath = Paths.get("").resolve(audioPath + fileName);
+//			IOUtils.copyLarge(stream, Files.newOutputStream(basePath));
+//			stream.close();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return getResult(file, fileName, true);
+//	}
+//
+//	private UploadResult getResult(MultipartFile file, String fileName,
+//			boolean isImage) {
+//		UploadResult result = new UploadResult();
+//		List<UploadResultDetail> files = new ArrayList<>();
+//		if (isImage)
+//			files.add(new UploadResultDetail(file.getOriginalFilename(), file
+//					.getSize(), imgUrl + fileName, "asd", "delete"));
+//		else
+//			files.add(new UploadResultDetail(file.getOriginalFilename(), file
+//					.getSize(), audioUrl + fileName, "asd", "delete"));
+//
+//		result.setFiles(files);
+//		return result;
+//	}
 
 	@Override
 	public UploadResult writeProductToProviderFile(MultipartFile file,Provider provider) {
