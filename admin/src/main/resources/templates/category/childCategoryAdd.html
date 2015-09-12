@@ -1,0 +1,22 @@
+<div class="modal-dialog files_tab" role="document">
+	<div class="modal-content">
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">
+			{{alert.msg}}
+		</alert>
+		<div class="modal-body">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">商品名称</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" ng-model="item.name" />
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" ng-click="submit()">
+				提交
+			</button>
+		</div>
+	</div>
+</div>

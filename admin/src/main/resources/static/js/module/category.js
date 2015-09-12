@@ -39,22 +39,29 @@ category.service('CategoryService', ['$http',
                 transformRequest: transform,
                 data: {
                     name: item.name,
-                    parent:item.parent
+                    parent: item.parent
                 },
                 headers: header
             });
         };
-        
-        this.delete=function(item){
+
+        this.delete = function (item) {
             return $http({
                 method: 'POST',
-                url: '/admin/product/categories/' + item.id+'/state',
+                url: '/admin/product/categories/' + item.id + '/state',
                 transformRequest: transform,
                 data: {
-                    activate:item.activate=='ACTIVATE'?'DEACTIVE':'ACTIVATE'
+                    activate: item.activate == 'ACTIVATE' ? 'DEACTIVE' : 'ACTIVATE'
                 },
                 headers: header
             });
+        };
+
+        this.saveOrUpdate = function (item) {
+            if (!item.id)
+                return this.save(item);
+            else
+                return this.update(item);
         };
     }
 ]);
@@ -110,14 +117,14 @@ category.controller('CategoryController', [
             });
         };
 
-        $scope.delete=function(item){
+        $scope.delete = function (item) {
             CategoryService
-                .delete(item)    
-                .success(function(){
-                    
+                .delete(item)
+                .success(function () {
+
                 })
-                .error(function(){
-                    
+                .error(function () {
+
                 });
         };
     }
@@ -129,6 +136,16 @@ category.controller('ChildCategoryController', [
     '$modal',
     '$stateParams',
     function ($scope, CategoryService, $modal, $stateParams) {
+        $scope.edit = function (item) {
+            CategoryService
+                .update(item)
+                .success(function () {
+
+                })
+                .error(function () {
+
+                });
+        };
 
         function init() {
             CategoryService
@@ -142,12 +159,54 @@ category.controller('ChildCategoryController', [
 
         $scope.create = function () {
             $modal.open({
-                templateUrl: '/admin/categoryAdd',
+                templateUrl: '/admin/childCategoryAdd',
                 size: 'sm',
-                controller: 'CategoryAddController'
+                controller: 'CategoryChildAddController',
+                scope: $scope
             });
         };
 
+    }
+]);
+
+category.controller('CategoryChildAddController', ['$scope',
+    '$stateParams',
+    'CategoryService',
+    function ($scope, $stateParams, CategoryService) {
+        $scope.item = {};
+        $scope.alerts=[];
+
+        $scope.submit = function () {
+            $scope.item.parent = $stateParams.id;
+            CategoryService
+                .saveOrUpdate($scope.item)
+                .success(function (data) {
+                    $scope.item.id = data.id;
+                    var flag=false;
+                    for(var i=0;i<$scope.items.length;i++){
+                        if($scope.items[i].id==data.id){
+                            flag=true;
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        $scope.items.push($scope.item);
+                    }
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
+                })
+                .error(function () {
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
+                });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
     }
 ]);
 

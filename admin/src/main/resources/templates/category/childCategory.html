@@ -1,33 +1,31 @@
 <div class="mainpanel">
-    <div class="contentpanel">
-        <form class="form-inline">
-            <div class="form-group">
-                <a class="btn btn-success btn-sm" ui-sref="categoryAdd">添加</a>
-            </div>
-        </form>
-        <h4>仪器</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>商品名称</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in items">
-                    <td>{{$index+1}}</td>
-                    <td>{{item.name}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                            修改
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>        
-    </div>
-</div>
-<div class="upload-modal">
-    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	<div class="contentpanel">
+		<form class="form-inline">
+			<div class="form-group">
+				<a class="btn btn-success btn-sm" ng-click="create()">添加</a>
+			</div>
+		</form>
+		<h4>仪器</h4>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>商品名称</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in items">
+					<td>{{$index+1}}</td>
+					<td>
+					<input type="text" ng-model="item.name"/>
+					</td>
+					<td>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
+						修改
+					</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
