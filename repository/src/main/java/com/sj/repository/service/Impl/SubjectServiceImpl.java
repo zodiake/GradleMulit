@@ -85,6 +85,7 @@ public class SubjectServiceImpl implements SubjectService {
 		s.setContent(subject.getContent());
 		s.setName(subject.getName());
 		s.setSummary(subject.getSummary());
+		s.setImage(subject.getImage());
 		return s;
 	}
 
