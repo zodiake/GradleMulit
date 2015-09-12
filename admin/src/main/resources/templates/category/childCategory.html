@@ -11,19 +11,30 @@
 				<tr>
 					<th>序号</th>
 					<th>商品名称</th>
+					<th>修改时间</th>
+					<th>状态</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="item in items">
-					<td>{{$index+1}}</td>
 					<td>
-					<input type="text" ng-model="item.name"/>
+						{{$index+1}}
 					</td>
 					<td>
-					<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
+						<input type="text" ng-model="item.name"/>
+					</td>
+					<td>
+						{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}
+					</td>
+					<td>
+						{{item.activate|activeFilter}}
+					</td>
+					<td>
+						<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
 						修改
-					</button></td>
+						</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
