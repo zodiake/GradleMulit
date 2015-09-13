@@ -198,6 +198,21 @@
 				</ul>
 			</div>
 			<div class="pagination">
+				<div class="l-pagination" th:object="${viewpage}">
+					<ul>
+						<li>
+							<a href="">首页</a>
+						</li>
+						<li>
+							<a href="" th:text="*{begin}"></a>
+						</li>
+						<li>
+							<a href="" th:text="*{end}"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="pagination">
 				<div class="l-pagination">
 					<ul>
 						<li>
