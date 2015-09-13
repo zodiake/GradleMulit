@@ -27,12 +27,13 @@ public interface ProductCategoryRepository extends
 			ActivateEnum activate);
 
 	ProductCategory findByNameAndActivate(String name, ActivateEnum activate);
+	
+	ProductCategory findByNameAndActivateAndParentIsNull(String name,ActivateEnum activate);
 
 	ProductCategory findByNameAndParentAndActivate(String name,
 			ProductCategory category, ActivateEnum activate);
 
-	ProductCategory findByIdAndActivateAndParentIsNull(Long id,
-			ActivateEnum activate);
+	ProductCategory findByIdAndActivateAndParentIsNull(Long id,ActivateEnum activate);
 
 	List<ProductCategory> findByParentAndActivate(ProductCategory category,
 			ActivateEnum activate, Pageable pageable);

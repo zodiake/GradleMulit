@@ -109,7 +109,7 @@
 </script>
 </head>
 <body>
-	<div id="includeHeader" th:include="head/head">Head</div>
+	<div id="includeHeader" class="header" th:include="head/head">Head</div>
 	<!-- header -->
 	<div id="loginForm"></div>
 	<div class="wrapper" th:object="${product}">
@@ -181,7 +181,7 @@
 				</a>
 			</div>
 			<div class="tab-conts detail-con bodr">
-				<div class="tab-panel global-box goods-detail" th:text="${product.content.content}"></div>
+				<div class="tab-panel global-box goods-detail" th:utext="${product.content.content}"></div>
 				<div class="tab-panel global-box topic-box hide">
 					<ul class="ml-20">
 						<li th:each="subject:${subjects}">
@@ -246,23 +246,7 @@
 						</ul>
 					</div>
 					<div class="pagination">
-						<div class="l-pagination">
-							<ul>
-								<li><a href="">首页</a></li>
-								<li><a href="">1</a></li>
-								<li class="active"><a href="">2</a></li>
-								<li><a href="">3</a></li>
-								<li><a href="">4</a></li>
-								<li>……</li>
-								<li><a href="">40</a></li>
-								<li><a href="">尾页</a></li>
-							</ul>
-							<div class="page-total">共40页</div>
-							<div class="page-from">
-								<span>到第</span> <input type="text" class="page-input" /> <span>页</span>
-								<button>确定</button>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>

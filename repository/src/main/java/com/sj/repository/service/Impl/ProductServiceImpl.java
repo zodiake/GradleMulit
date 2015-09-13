@@ -333,9 +333,8 @@ public class ProductServiceImpl implements ProductService {
 			product.setModel(model);
 
 			product.setSpecifications(getStringCellValue(xssfRow, i, 2,20));
-			String brandName = getStringCellValue(xssfRow, i, 3,50);
-			Brand brand = brandRepository.findByNameAndActivate(brandName,
-					ActivateEnum.ACTIVATE);
+			String brandName = getStringCellValue(xssfRow, i, 3);
+			Brand brand = brandRepository.findByNameAndActivate(brandName,ActivateEnum.ACTIVATE);
 			if (brand == null)
 				throw new BatchException("第" + (i + 1) + "行品牌找不到");
 			else
@@ -351,8 +350,7 @@ public class ProductServiceImpl implements ProductService {
 			product.setPrice(price);
 
 			String firstCategoryName = getStringCellValue(xssfRow, i, 6);
-			ProductCategory firstCategory = pcRepository.findByNameAndActivate(
-					firstCategoryName, ActivateEnum.ACTIVATE);
+			ProductCategory firstCategory = pcRepository.findByNameAndActivateAndParentIsNull(firstCategoryName, ActivateEnum.ACTIVATE);
 			if (firstCategory == null)
 				throw new BatchException("第" + (i + 1) + "行大类不存在");
 			else

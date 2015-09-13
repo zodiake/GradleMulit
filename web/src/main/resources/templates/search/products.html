@@ -94,16 +94,11 @@
 		</script>
 	</head>
 	<body>
-		<div id="includeHeader" th:include="head/head">
+		<div id="includeHeader" class="header" th:include="head/head">
 			Head
 		</div>
 		<!-- header -->
 		<div class="wrapper">
-			<div class="crumb">
-				<a href="/index">首页</a>
-				<i>></i>
-				<i>></i>
-			</div>
 			<div class="gray-hd">
 				<span>筛选商品 共<i th:text="${products.totalElements}">1222</i>件商品</span>
 			</div>
