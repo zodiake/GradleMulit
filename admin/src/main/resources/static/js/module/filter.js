@@ -31,3 +31,9 @@ filterModel.filter('originalFilter', function () {
         return original == 'IMPORTED' ? '国产' : '进口';
     };
 });
+
+filterModel.filter('roleFilter',function(){
+	return function(role){
+		return role==1?'未审核':'已审核';
+	};
+});
