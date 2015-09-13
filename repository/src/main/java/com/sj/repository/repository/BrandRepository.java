@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.sj.model.model.Brand;
@@ -20,5 +21,7 @@ public interface BrandRepository extends
 	public Brand findByName(String name);
 	
 	public Brand findByNameAndActivate(String name,ActivateEnum activate);
+	
+	public List<Brand> findAll(Sort sort);
 
 }

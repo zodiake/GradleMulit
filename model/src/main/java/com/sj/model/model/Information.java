@@ -30,7 +30,7 @@ public class Information implements Serializable {
 
 	private String title;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinColumn(name = "content_id")
 	private InformationContent content;
 

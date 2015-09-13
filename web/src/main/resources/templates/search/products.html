@@ -12,6 +12,7 @@
 		<script type="text/javascript" th:src="@{/js/script.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajaxLogin-collection-products.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajaxLogin-cart-products.js}"></script>
+		<script type="text/javascript" th:src="@{/js/searchBrandContraction.js}"></script>
 		<script th:src="@{/js/searchForm.js}"></script>
 		<script type="text/javascript">
             $(function() {
@@ -93,10 +94,9 @@
 		</script>
 	</head>
 	<body>
-
-			<div id="includeHeader" th:include="head/head">
-				Head
-			</div>
+		<div id="includeHeader" th:include="head/head">
+			Head
+		</div>
 		<!-- header -->
 		<div class="wrapper">
 			<div class="crumb">
@@ -105,7 +105,6 @@
 				<i>></i>
 			</div>
 			<div class="gray-hd">
-				<a class="blue ft14">生物芯片</a>
 				<span>筛选商品 共<i th:text="${products.totalElements}">1222</i>件商品</span>
 			</div>
 			<div class="sort-group">
@@ -113,14 +112,16 @@
 					<label><b>筛选：</b></label>
 				</div>
 				<form th:object="${option}">
-					<div class="search-select">
+					<div id="brandSearch" class="search-select" style="height: 40px;">
 						<label><b>品牌：</b></label>
 						<ul class="list-inline">
 							<li th:each="brand : ${brands}">
-								<input type="radio" th:field="*{brand}" th:value="${brand.name}" th:attr="data-label='生物芯片'"/>
+								<input type="radio" th:field="*{brand}" th:value="${brand.name}" th:attr="data-label='品牌'"/>
 								<label th:text="${brand.name}" th:attr="for=${brand.name}">生物芯片</label>
 							</li>
 						</ul>
+						<div id="more" style="right: 20px;bottom: 5px;position: absolute;"><a type="button" class="blue">↓</a></div>
+						<div id="contraction" style="right: 20px;bottom: 10px;position: absolute; display: none;"><a class="blue" type="button">↑</a></div>
 					</div>
 					<div class="search-select">
 						<label><b>产地：</b></label>

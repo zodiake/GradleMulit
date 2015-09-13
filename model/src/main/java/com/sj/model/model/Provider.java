@@ -84,8 +84,8 @@ public class Provider extends SiteUser {
 	@NotBlank(message = "请上传图片")
 	private String structureCodeUrl; // 组织结构图片地址*
 
-	@NotBlank(message = "联系人职位不能为空")
-	private String position; // 联系人职位*
+	@NotBlank(message = "联系人职务不能为空")
+	private String position; // 联系人职务*
 
 	@Column(name = "provider_phone")
 	@NotBlank(message = "联系人电话不能为空")

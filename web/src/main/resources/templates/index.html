@@ -51,33 +51,33 @@
 							<li th:each="infor:${industryNews}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 class="gray-deeply" th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
+								<p class="dd" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue" href="/informationCategorys/行业要闻">more>></a>
+						<a class="more blue" href="/informationCategorys/7">more>></a>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
 							<li th:each="infor:${newResults}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
+								<p class="dd" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue" href="/informationCategorys/新品成果">more>></a>
+						<a class="more blue" href="/informationCategorys/8">more>></a>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
 							<li th:each="infor:${vendorDynamics}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
+								<p class="dd" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue" href="/informationCategorys/厂商动态">more>></a>
+						<a class="more blue" href="/informationCategorys/9">more>></a>
 					</div>
 				</div>
 			</div>

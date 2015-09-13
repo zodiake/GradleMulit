@@ -10,7 +10,7 @@ insert into city(id,name,province_id) values(4,'福州市','2');
 insert into city(id,name,province_id) values(5,'泉州市','2');
 
 --test brand
-insert into brand(id,name,activate,cover_img,created_time) values(1,'Thermo Fisher Scientific',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time) values(1,'brand1',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1');
 insert into brand(id,name,activate,cover_img,created_time) values(2,'3M',1,'http://localhost:8000/2015/9/3M.jpg','2012-1-1');
 insert into brand(id,name,activate,cover_img,created_time) values(3,'AccuStandard',1,'http://localhost:8000/2015/9/AccuStandard.jpg','2012-1-1');
 insert into brand(id,name,activate,cover_img,created_time) values(4,'Acros',1,'http://localhost:8000/2015/9/Acros.jpg','2012-1-1');
@@ -190,12 +190,12 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone,real_n
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,'2012-12-12 12:23:32');
 
 -- test industry_info
-insert into industry_info(id,name,industry_type) values(1,'a1','p');
-insert into industry_info(id,name,industry_type) values(2,'a2','p');
-insert into industry_info(id,name,industry_type) values(3,'a3','u');
-insert into industry_info(id,name,industry_type) values(4,'a4','u');
-insert into industry_info(id,name,industry_type) values(5,'a5','u');
-insert into industry_info(id,name,industry_type) values(6,'a6','u');
+insert into industry_info(id,name,industry_type) values(1,'生物科学','p');
+insert into industry_info(id,name,industry_type) values(2,'药品采集','p');
+insert into industry_info(id,name,industry_type) values(3,'学校','u');
+insert into industry_info(id,name,industry_type) values(4,'科学研究所','u');
+insert into industry_info(id,name,industry_type) values(5,'实验室','u');
+insert into industry_info(id,name,industry_type) values(6,'医院s','u');
 
 -- test common user
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
@@ -244,16 +244,16 @@ insert into prefer_products(user_id,product_id,created_time) values(15,2,'2014-1
 insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-1');
 
 -- test subject 专题
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (1,'subject1',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (2,'subject2',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (3,'subject3',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (4,'subject4',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (5,'subject5',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (6,'subject6',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (7,'subject7',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (8,'subject8',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (9,'subject9',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image) values (10,'subject10',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (1,'subject1',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (2,'subject2',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (3,'subject3',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (4,'subject4',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (5,'subject5',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (6,'subject6',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (7,'subject7',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (8,'subject8',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (9,'subject9',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary) values (10,'subject10',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject');
 
 insert into solution(id,name,subject_id) values(1,'solution1',1);
 insert into solution(id,name,subject_id) values(2,'solution2',1);
