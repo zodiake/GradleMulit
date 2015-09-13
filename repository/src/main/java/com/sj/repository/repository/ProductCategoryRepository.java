@@ -14,7 +14,7 @@ public interface ProductCategoryRepository extends
 
 	ProductCategory findByIdAndActivate(Long id, ActivateEnum activate);
 
-	List<ProductCategory> findByParent(ProductCategory category);
+	List<ProductCategory> findByParentOrderByNameAsc(ProductCategory category);
 
 	Page<ProductCategory> findByParent(Pageable pageable,
 			ProductCategory category);
@@ -23,14 +23,17 @@ public interface ProductCategoryRepository extends
 
 	ProductCategory findByIdAndParent(Long id, ProductCategory category);
 
-	List<ProductCategory> findByParentAndActivate(ProductCategory category,ActivateEnum activate);
+	List<ProductCategory> findByParentAndActivate(ProductCategory category,
+			ActivateEnum activate);
 
 	ProductCategory findByNameAndActivate(String name, ActivateEnum activate);
 
 	ProductCategory findByNameAndParentAndActivate(String name,
 			ProductCategory category, ActivateEnum activate);
-	
-	ProductCategory findByIdAndActivateAndParentIsNull(Long id, ActivateEnum activate);
-	
-	List<ProductCategory> findByParentAndActivate(ProductCategory category,ActivateEnum activate,Pageable pageable);
+
+	ProductCategory findByIdAndActivateAndParentIsNull(Long id,
+			ActivateEnum activate);
+
+	List<ProductCategory> findByParentAndActivate(ProductCategory category,
+			ActivateEnum activate, Pageable pageable);
 }

@@ -16,7 +16,8 @@ public class ProductCategoryJson implements Serializable {
 	public ProductCategoryJson(ProductCategory p) {
 		this.id = p.getId();
 		this.name = p.getName();
-		this.parent = p.getParent().getId();
+		if (p.getParent() != null)
+			this.parent = p.getParent().getId();
 		this.updatedTime = p.getUpdatedTime();
 		this.activate = p.getActivate();
 	}

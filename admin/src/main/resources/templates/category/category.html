@@ -11,8 +11,8 @@
                 <tr>
                     <th>序号</th>
                     <th>商品名称</th>
-                    <th>状态</th>
                     <th>更新时间</th>
+                    <th>状态</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -35,10 +35,12 @@
         </table>
         <h4>试剂</h4>
         <table class="table table-bordered">
-            <thead>	
+            <thead>
                 <tr>
                     <th>序号</th>
                     <th>商品名称</th>
+                    <th>更新时间</th>
+                    <th>状态</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -46,9 +48,14 @@
                 <tr ng-repeat="item in sj">
                     <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
+                    <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{item.activate|activeFilter}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
-                            修改
+                           		 修改
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                           		无效 
                         </button>
                     </td>
                 </tr>
@@ -56,10 +63,12 @@
         </table>
         <h4>耗材</h4>
         <table class="table table-bordered">
-            <thead>	
+            <thead>
                 <tr>
                     <th>序号</th>
                     <th>商品名称</th>
+                    <th>更新时间</th>
+                    <th>状态</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -67,9 +76,14 @@
                 <tr ng-repeat="item in hc">
                     <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
+                    <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{item.activate|activeFilter}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
-                            修改
+                           		 修改
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                           		无效 
                         </button>
                     </td>
                 </tr>
@@ -77,10 +91,12 @@
         </table>
         <h4>服务</h4>
         <table class="table table-bordered">
-            <thead>	
+            <thead>
                 <tr>
                     <th>序号</th>
                     <th>商品名称</th>
+                    <th>更新时间</th>
+                    <th>状态</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -88,9 +104,14 @@
                 <tr ng-repeat="item in fw">
                     <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
                     <td>{{item.name}}</td>
+                    <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{item.activate|activeFilter}}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
-                            修改
+                           		 修改
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                           		无效 
                         </button>
                     </td>
                 </tr>
