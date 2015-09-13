@@ -24,7 +24,7 @@ public class ProviderJson {
 		this.email = user.getEmail();
 		this.city = user.getCity().getName();
 		this.company = user.getCompanyNameChina();
-		this.state = user.getIsAuthenticated();
+		this.state = user.getSiteAuthority().equals("ROLE_UNAUTH") ? 1 : 0;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		if (user.getCreateTime() != null)
 			this.createTime = format.format(user.getCreateTime().getTime());
