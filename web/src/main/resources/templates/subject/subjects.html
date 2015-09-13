@@ -35,7 +35,7 @@
 					<a th:href="@{'/subjects/'+${subject.id}}">
 						<div class="title ft16" th:text="${subject.name}">生物芯片扫描仪</div>
 						<div class="spe-pic">
-							<img th:src="@{/img/topic1.jpg}" width="210" height="175"/>
+							<img th:src="@{${subject.image}}" width="210" height="175"/>
 						</div>
 						<div class="topic-detail dd" draggable="false" th:text="${subject.summary}">
 						</div>
