@@ -28,11 +28,12 @@ import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ReviewService;
+import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.SiteUserContext;
 
 @Controller
-public class ProductController {
+public class ProductController extends BaseController<Review>{
 	@Autowired
 	private ProductService productService;
 	@Autowired
@@ -78,6 +79,9 @@ public class ProductController {
 		product.setSolutions(null);
 		
 		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
+		ViewPage viewpage = caculatePage(reviewPage);
+		viewpage.setHref("/products/"+id);
+		uiModel.addAttribute("viewpage", viewpage);
 		
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("product", product);

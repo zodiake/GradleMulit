@@ -22,7 +22,7 @@ import com.sj.repository.service.SubjectService;
 import com.sj.web.exception.SubjectNotFoundException;
 
 @Controller
-public class SubjectController {
+public class SubjectController extends BaseController<Subject>{
 	@Autowired
 	private SubjectService subjectService;
 	@Autowired
@@ -33,12 +33,15 @@ public class SubjectController {
 	@RequestMapping(value = "/subjects", method = RequestMethod.GET)
 	public String findSubjects(
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size,
+			@RequestParam(value = "size", defaultValue = "12") int size,
 			Model uiModel) {
 		Page<Subject> subjects = subjectService.findByActivated(
 				new PageRequest(page - 1, size, Direction.DESC, "createdTime"),
 				ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("subjects", subjects);
+		ViewPage viewpage = caculatePage(subjects);
+		viewpage.setHref("/subjects");
+		uiModel.addAttribute("viewpage", viewpage);
 		uiModel.addAttribute("pc", subjectCategoryService.findOne(6l));
 		return "subject/subjects";
 	}

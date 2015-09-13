@@ -193,62 +193,18 @@
 					</li>
 				</ul>
 			</div>
-			<div class="pagination">
-				<div class="l-pagination" th:object="${viewpage}">
+		<div class="pagination">
+			<div class="l-pagination">
 					<ul>
-						<li>
-							<a href="">首页</a>
-						</li>
-						<li>
-							<a href="" th:text="*{begin}"></a>
-						</li>
-						<li>
-							<a href="" th:text="*{end}"></a>
-						</li>
+						<li><a th:href="@{${viewpage.href}(page=1,size=12,__${viewpage.option}__)}">首页</a></li>
+							<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i==viewpage.current}?active" >
+								<a th:href="@{${viewpage.href}(page=${i},size=12,__${viewpage.option}__)}" th:text="${i}"></a>
+							</li>
+						<li><a th:href="@{${viewpage.href}(page=${viewpage.end},size=12,__${viewpage.option}__)}">末页</a></li>
 					</ul>
-				</div>
 			</div>
-			<div class="pagination">
-				<div class="l-pagination">
-					<ul>
-						<li>
-							<a href="">首页</a>
-						</li>
-						<li>
-							<a href="">1</a>
-						</li>
-						<li class="active">
-							<a href="">2</a>
-						</li>
-						<li>
-							<a href="">3</a>
-						</li>
-						<li>
-							<a href="">4</a>
-						</li>
-						<li>
-							……
-						</li>
-						<li>
-							<a href="">40</a>
-						</li>
-						<li>
-							<a href="">尾页</a>
-						</li>
-					</ul>
-					<div class="page-total">
-						共40页
-					</div>
-					<div class="page-from">
-						<span>到第</span>
-						<input type="text" class="page-input" />
-						<span>页</span>
-						<button>
-							确定
-						</button>
-					</div>
-				</div>
-			</div>
+		</div>
+			
 		</div>
 		<div class="footer">
 			© 1998 - 2015 SJ Inc. All Rights Reserved

@@ -12,22 +12,25 @@ public class BaseController<T> {
 	ViewPage caculatePage(Page<T> page) {
 		int current = page.getNumber();
 		int pages = page.getTotalPages();
+		if (pages == 0) {
+			return new ViewPage(1, 1, 1);
+		}
 		if (pages <= 7) {
 			// return begin and total pages;
-			return new ViewPage(1, pages);
+			return new ViewPage(1, pages, current + 1);
 		} else {
 			if (current <= 4) {
 				int end = pages >= 7 ? 7 : pages;
-				return new ViewPage(1, end);
+				return new ViewPage(1, end, current + 1);
 			} else if (current >= pages - 3 && current <= pages) {
 				int begin = pages - 7;
 				int end = pages;
 				// return begin end
-				return new ViewPage(begin, end);
+				return new ViewPage(begin, end, current + 1);
 			} else {
 				int begin = current - 3;
 				int end = current + 3 >= pages ? pages : current + 3;
-				return new ViewPage(begin, end);
+				return new ViewPage(begin, end, current + 1);
 			}
 		}
 	}
@@ -35,12 +38,14 @@ public class BaseController<T> {
 	protected class ViewPage {
 		private int begin;
 		private int end;
+		private int current;
 		private String option = "";
 		private String href;
 
-		public ViewPage(int begin, int end) {
+		public ViewPage(int begin, int end, int current) {
 			this.begin = begin;
 			this.end = end;
+			this.current = current;
 		}
 
 		public int getBegin() {
@@ -80,6 +85,14 @@ public class BaseController<T> {
 
 		public void setHref(String href) {
 			this.href = href;
+		}
+
+		public int getCurrent() {
+			return current;
+		}
+
+		public void setCurrent(int current) {
+			this.current = current;
 		}
 	}
 

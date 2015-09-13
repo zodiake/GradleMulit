@@ -93,7 +93,7 @@ public class LoginController {
 		uiModel.addAttribute("user", new SiteUser());
 		return LOGIN;
 	}
-
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@ModelAttribute("user") SiteUser user,
 			BindingResult bindingResult, Model uiModel, HttpSession httpSession) {
@@ -162,8 +162,7 @@ public class LoginController {
 			uiModel.addAttribute("provinces", provinceService.findAll());
 			uiModel.addAttribute("infos", userIndustryInfoService.findAll());
 			if (user.getProvince() != null) {
-				uiModel.addAttribute("citys",
-						cityService.findByProvince(user.getProvince()));
+				uiModel.addAttribute("citys",cityService.findByProvince(user.getProvince()));
 			}
 			uiModel.addAttribute("user", user);
 			return COMMONSIGNUP;
@@ -200,8 +199,7 @@ public class LoginController {
 			uiModel.addAttribute("user", provider);
 			return PSIGNUP;
 		}
-		provider.setPassword(encoder.encodePassword(provider.getPassword(),
-				null));
+		provider.setPassword(encoder.encodePassword(provider.getPassword(),null));
 		provider = providerService.create(provider);
 		userContext.setCurrentUser(provider);
 		return "redirect:/";
