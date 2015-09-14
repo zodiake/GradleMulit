@@ -114,11 +114,12 @@
 	<div id="loginForm"></div>
 	<div class="wrapper" th:object="${product}">
 		<div class="crumb">
-			<a href="/">首页</a><i>></i> <a
-				th:text="${product.firstCategory.name}"
-				th:href="@{'/productCategory/'+${product.firstCategory.name}}"></a>
-			<i>></i><a th:text="${product.thirdCategory.name}"></a><i>></i> <a
-				th:text="${product.name}"></a>
+			<a href="/">首页</a>
+			<i>></i> 
+			<a th:text="${product.firstCategory.name}" th:href="@{'/productCategory/'+${product.firstCategory.id}}"></a>
+			<i>></i>
+			<a th:href="@{'/products/_search?thirdCategory='+${product.thirdCategory.id}}" th:text="${product.thirdCategory.name}"></a><i>></i> 
+			<a th:text="${product.name}"></a>
 		</div>
 		<div class="goods-property bodr clearfix">
 			<div class="fl pro-big">
@@ -187,12 +188,12 @@
 						<li th:each="subject:${subjects}">
 						<a th:href="'/subjects/'+${subject.id}">
 								<div class="title">
-									<b class="ft16" th:text="${subject.name}">生物芯片扫描仪</b>
+									<b class="ft16 text210" th:text="${subject.name}">生物芯片扫描仪</b>
 								</div>
 								<div class="spe-pic">
 									<img th:src="@{${subject.image}}" width="210" height="175" />
 								</div>
-								<div class="topic-detail" th:text="${subject.content.content}"></div>
+								<div class="topic-detail" th:text="${subject.summary}"></div>
 						</a></li>
 					</ul>
 				</div>

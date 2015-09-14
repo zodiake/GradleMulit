@@ -50,8 +50,8 @@
 						<ul>
 							<li th:each="infor:${industryNews}">
 								<a th:href="'/informations/'+${infor.id}">
-								<h4 class="gray-deeply" th:text="${infor.title}"></h4>
-								<p class="dd" th:text="${infor.summary}"></p>
+								<h4 class="gray-deeply text350" th:text="${infor.title}"></h4>
+								<p class="text350" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
@@ -61,8 +61,8 @@
 						<ul>
 							<li th:each="infor:${newResults}">
 								<a th:href="'/informations/'+${infor.id}">
-								<h4 th:text="${infor.title}"></h4>
-								<p class="dd" th:text="${infor.summary}"></p>
+								<h4 class="gray-deeply text350" th:text="${infor.title}"></h4>
+								<p class="text350" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
@@ -72,8 +72,8 @@
 						<ul>
 							<li th:each="infor:${vendorDynamics}">
 								<a th:href="'/informations/'+${infor.id}">
-								<h4 th:text="${infor.title}"></h4>
-								<p class="dd" th:text="${infor.summary}"></p>
+								<h4 class="gray-deeply text350" th:text="${infor.title}"></h4>
+								<p class="text350" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
@@ -197,7 +197,7 @@
 			<div class="global-box topic-box">
 				<ul>
 					<li th:each="subject:${subjects}"><a th:href="'/subjects/'+${subject.id}">
-							<div class="title ft16" th:text="${subject.name}">生物芯片扫描仪</div>
+							<div class="title ft16 text210" th:text="${subject.name}">生物芯片扫描仪</div>
 							<div class="spe-pic">
 								<img alt="" th:src="@{${subject.image}}" width="230" height="130" />
 							</div>

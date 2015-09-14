@@ -95,10 +95,8 @@ public class ProviderController extends BaseController<Provider> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", provider);
 			uiModel.addAttribute("provinces", provinceService.findAll());
-			uiModel.addAttribute("industryInfos",
-					providerIndustryInfoService.findAll());
-			uiModel.addAttribute("citys",
-					cityService.findByProvince(provider.getProvince()));
+			uiModel.addAttribute("industryInfos",providerIndustryInfoService.findAll());
+			uiModel.addAttribute("citys",cityService.findByProvince(provider.getProvince()));
 			return "user/provider/detail";
 		}
 		SiteUser user = userContext.getCurrentUser();

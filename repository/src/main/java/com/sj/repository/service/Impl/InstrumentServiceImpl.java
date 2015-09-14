@@ -75,8 +75,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 		if (source.getStatus().toString()
 				.equals(ProductStatusEnum.UP.toString()))
 			source.setStatus(ProductStatusEnum.EXAMINE);
-		Instrument result = repository
-				.save(bindNoPublisher(source, instrument));
+		Instrument result = repository.save(bindNoPublisher(source, instrument));
 		return repository.save(result);
 	}
 

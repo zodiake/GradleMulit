@@ -61,9 +61,6 @@ public class ProviderServiceImpl implements ProviderService {
 	@Override
 	public Provider updateProvider(Provider provider) {
 		Provider p = repository.findById(provider.getId());
-		if("ROLE_UNAUTH".equals(p.getSiteAuthority())){
-			p.setEnabled(ActivateEnum.AUDIT);
-		}
 		p.setLegalPerson(provider.getLegalPerson());
 		p.setComponyType(provider.getComponyType());
 		p.setRegisteredCapital(provider.getRegisteredCapital());

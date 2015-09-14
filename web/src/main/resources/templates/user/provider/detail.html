@@ -195,7 +195,7 @@
 										</div>
 										<div class="form-group">
 											<div class="fl">
-											<label><i>*</i>职位</label>
+											<label><i>*</i>职务</label>
 											<input type="text" th:field="*{position}"/>	
 											<i class="error ml143" th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></i>								
 											</div>
@@ -206,13 +206,6 @@
 											<input type="radio" th:field="*{sex}" value="MALE"/>男
 											<input type="radio" th:field="*{sex}" value="FEMALE"/>女
 											<i class="error ml143" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></i>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="fl">
-											<label class="top"><i>*</i>企业简介</label>
-											<textarea rows="8" th:field="*{content}" style="width: 229px;"></textarea>
-											<i class="error ml143" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></i>
 											</div>
 										</div>
 										<div class="form-group">
@@ -232,6 +225,13 @@
 											<div class="fl">
 											<label>公司网址</label>
 											<input type="text" th:field="*{website}"/>		
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="fl">
+											<label class="top"><i>*</i>企业简介</label>
+											<textarea rows="12" th:field="*{content}" style="width: 229px;"></textarea>
+											<i class="error ml143" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></i>
 											</div>
 										</div>
 										
