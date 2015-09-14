@@ -9,12 +9,14 @@ public class SubjectJson {
 	private String name;
 	private String cover;
 	private Calendar createdTime;
+	private Calendar updatedTime;
 
 	public SubjectJson(Subject s) {
 		this.id = s.getId();
 		this.name = s.getName();
 		this.cover = s.getImage();
 		this.createdTime = s.getCreatedTime();
+		this.updatedTime = s.getUpdatedTime();
 	}
 
 	public Long getId() {
@@ -47,5 +49,13 @@ public class SubjectJson {
 
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	public Calendar getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Calendar updatedTime) {
+		this.updatedTime = updatedTime;
 	}
 }

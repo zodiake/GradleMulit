@@ -11,6 +11,7 @@ public class SubjectDetailJson {
 	private String name;
 	private String cover;
 	private Calendar createdTime;
+	private Calendar updatedTime;
 	private String content;
 	private List<SolutionDetailJson> solutions;
 	private String summary;
@@ -20,6 +21,7 @@ public class SubjectDetailJson {
 		this.name = s.getName();
 		this.cover = s.getImage();
 		this.createdTime = s.getCreatedTime();
+		this.updatedTime = s.getUpdatedTime();
 		this.content = s.getContent().getContent();
 		this.solutions = s.getSolutions().stream()
 				.map(c -> new SolutionDetailJson(c))
@@ -81,5 +83,13 @@ public class SubjectDetailJson {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+
+	public Calendar getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Calendar updatedTime) {
+		this.updatedTime = updatedTime;
 	}
 }

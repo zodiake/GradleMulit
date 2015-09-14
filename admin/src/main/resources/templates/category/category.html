@@ -27,7 +27,7 @@
                            		 修改
                         </button>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                           		无效 
+                           		{{item.activate|reverseActiveFilter}}
                         </button>
                     </td>
                 </tr>
