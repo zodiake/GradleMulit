@@ -3,6 +3,7 @@ package com.sj.web.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +32,7 @@ public class SubjectSearchController extends BaseController<SubjectSearch> {
 	public String infoSearch(SubjectSearchOption option,
 			@PageableDefault(page = 0, size = 15) Pageable pageable,
 			Model uiModel) {
+		buildOption(option);
 
 		Page<SubjectSearch> pages = service.findByOption(option, pageable);
 		Map<String, String> map = service.buildMap(option);
@@ -38,7 +40,7 @@ public class SubjectSearchController extends BaseController<SubjectSearch> {
 
 		ViewPage viewpage = caculatePage(pages);
 		viewpage.setOption(map);
-		viewpage.setHref("/info/_search");
+		viewpage.setHref("/subject/_search");
 		viewpage.setCurrent(pageable.getPageNumber());
 
 		uiModel.addAttribute("subjects", pages);
@@ -46,6 +48,11 @@ public class SubjectSearchController extends BaseController<SubjectSearch> {
 		uiModel.addAttribute("viewpage", viewpage);
 		uiModel.addAttribute("categories", categories);
 		return SEARCH_LIST;
+	}
+
+	private void buildOption(SubjectSearchOption option) {
+		if (StringUtils.isEmpty(option.getTitle()))
+			option.setTitle(null);
 	}
 
 }

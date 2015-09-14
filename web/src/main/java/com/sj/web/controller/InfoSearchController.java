@@ -2,6 +2,7 @@ package com.sj.web.controller;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ public class InfoSearchController extends BaseController<InfoSearch> {
 	public String infoSearch(InfoSearchOption option,
 			@PageableDefault(page = 0, size = 15) Pageable pageable,
 			Model uiModel) {
+		buildOption(option);
 
 		Page<InfoSearch> pages = infoSearchService.findByOption(option,
 				pageable);
@@ -40,5 +42,10 @@ public class InfoSearchController extends BaseController<InfoSearch> {
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
 		return INFO_SEARCH_LIST;
+	}
+
+	private void buildOption(InfoSearchOption option) {
+		if (StringUtils.isEmpty(option.getTitle()))
+			option.setTitle(null);
 	}
 }
