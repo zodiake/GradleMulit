@@ -52,6 +52,50 @@ PUT /sj
           "type":"long"
         }
       }
+    },
+    "info":{
+      "properties": {
+        "id":{
+          "type":"long"
+        },
+        "title":{
+          "type":"string",
+          "analyzer": "standard"
+        },
+        "createdTime":{
+        	"type":"date"
+        },
+        "summary":{
+        	"type":"string",
+        	"index":"not_analyzed"
+        }
+      }
+    },
+    "subject":{
+      "properties": {
+        "id":{
+          "type":"long"
+        },
+        "title":{
+          "type":"string",
+          "analyzer": "standard"
+        },
+        "category":{
+        	"type":"string",
+        	"index":"not_analyzed"
+        },
+        "summary":{
+        	"type":"string",
+        	"index":"not_analyzed"
+        },
+        "image":{
+        	"type":"string",
+        	"index":"not_analyzed"
+        },
+        "createdTime":{
+        	"type":"date"
+        }
+      }
     }
   }
 }

@@ -220,21 +220,31 @@ userModule.controller('ProviderDetailController', ['$scope',
         
         $scope.batchProducts = function(event){
             var file = event.target.files[0];
-            var fd = new FormData();
-            var reader = new FileReader();
-            var providerId = $(this).attr("data-id");
-            
-            fd.append('file', file);
-            
-            $http.post('/admin/providers/'+providerId+'/products?batch', fd, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': undefined
-                },
-                transformRequest: angular.identity
-            }).success(function (data) {
-            	console.log(data);
-            });
+            console.log(file.size);
+            if(file.size<1048576){
+	            var fd = new FormData();
+	            var reader = new FileReader();
+	            var providerId = $(this).attr("data-id");
+	            
+	            fd.append('file', file);
+	            
+	            $http.post('/admin/providers/'+providerId+'/products?batch', fd, {
+	                withCredentials: true,
+	                headers: {
+	                    'Content-Type': undefined
+	                },
+	                transformRequest: angular.identity
+	            }).success(function (data) {
+	            	$scope.alerts.push({
+	            		type: 'success',
+	                    msg: data,
+	                });
+	            });
+            }else{
+            	$scope.alerts.push({
+                    msg: "文件过大",
+                });
+            }
         };
     }
 ]);

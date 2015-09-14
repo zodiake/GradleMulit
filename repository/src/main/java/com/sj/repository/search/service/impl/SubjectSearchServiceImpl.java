@@ -15,7 +15,6 @@ import org.elasticsearch.index.query.FilteredQueryBuilder;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
-import org.elasticsearch.index.query.RangeFilterBuilder;
 import org.elasticsearch.index.query.TermFilterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,21 +24,25 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-import com.sj.repository.repository.ProductSearchRepository;
-import com.sj.repository.search.model.ProductSearch;
-import com.sj.repository.search.model.ProductSearchOption;
-import com.sj.repository.search.service.ProductSearchService;
+import com.sj.repository.repository.SubjectSearchRepository;
+import com.sj.repository.search.model.SubjectSearch;
+import com.sj.repository.search.model.SubjectSearchOption;
+import com.sj.repository.search.service.SubjectSearchService;
 
 @Service
-public class ProductSearchServiceImpl implements ProductSearchService {
+public class SubjectSearchServiceImpl implements SubjectSearchService {
+	@Autowired
+	private SubjectSearchRepository repository;
 	@Autowired
 	protected ElasticsearchTemplate searchTemplate;
 
-	@Autowired
-	protected ProductSearchRepository repository;
+	@Override
+	public void save(SubjectSearch search) {
+		repository.save(search);
+	}
 
 	@Override
-	public Page<ProductSearch> findByOption(ProductSearchOption option,
+	public Page<SubjectSearch> findByOption(SubjectSearchOption option,
 			Pageable pageable) {
 		Field[] fields = option.getClass().getDeclaredFields();
 		List<Field> options = filterNullValue(option, fields);
@@ -48,7 +51,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 			SearchQuery query;
 			try {
 				query = buidSearchQuery(option, options, pageable);
-				return searchTemplate.queryForPage(query, ProductSearch.class);
+				return searchTemplate.queryForPage(query, SubjectSearch.class);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
@@ -57,7 +60,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 	}
 
 	@Override
-	public Map<String, String> buildMap(ProductSearchOption option) {
+	public Map<String, String> buildMap(SubjectSearchOption option) {
 		Field[] fields = option.getClass().getDeclaredFields();
 		List<Field> options = filterNullValue(option, fields);
 		Map<String, String> map = new HashMap<>();
@@ -65,10 +68,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 			Object value;
 			try {
 				value = f.get(option);
-				if (!f.getName().equals("brand")
-						&& !f.getName().equals("title")
-						&& !f.getName().equals("tag"))
-					map.put(f.getName(), String.valueOf(value));
+				map.put(f.getName(), String.valueOf(value));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
@@ -76,7 +76,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 		return map;
 	}
 
-	public SearchQuery buidSearchQuery(ProductSearchOption option,
+	public SearchQuery buidSearchQuery(SubjectSearchOption option,
 			List<Field> fields, Pageable pageable)
 			throws IllegalArgumentException, IllegalAccessException {
 		MatchQueryBuilder queryBuilder = null;
@@ -90,41 +90,14 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 				f.setAccessible(true);
 			}
 			switch (f.getName()) {
-			case "to":
-				RangeFilterBuilder toRange = new RangeFilterBuilder("price");
-				toRange.lte(value);
-				boolFilterBuilder.must(toRange);
-				break;
-			case "from":
-				RangeFilterBuilder fromRange = new RangeFilterBuilder("price");
-				fromRange.gte(value);
-				boolFilterBuilder.must(fromRange);
-				break;
-			case "secondCategory":
-			case "thirdCategory":
+			case "category":
 				TermFilterBuilder categoryTerm = new TermFilterBuilder(
-						f.getName(), value);
+						"category", value);
 				boolFilterBuilder.must(categoryTerm);
-				break;
-			case "brand":
-				TermFilterBuilder brandTerm = new TermFilterBuilder(
-						f.getName(), (String) value);
-				boolFilterBuilder.must(brandTerm);
-				break;
-			case "original":
-				TermFilterBuilder originalTerm = new TermFilterBuilder(
-						f.getName(), (String) value);
-				boolFilterBuilder.must(originalTerm);
 				break;
 			case "title":
 				v = (String) value;
 				queryBuilder = new MatchQueryBuilder("title", v);
-				queryBuilder.operator(Operator.AND);
-				mustClauses.add(queryBuilder);
-				break;
-			case "tag":
-				v = (String) value;
-				queryBuilder = new MatchQueryBuilder("tag", v);
 				queryBuilder.operator(Operator.AND);
 				mustClauses.add(queryBuilder);
 				break;
@@ -156,7 +129,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 		return query;
 	}
 
-	public List<Field> filterNullValue(ProductSearchOption option,
+	public List<Field> filterNullValue(SubjectSearchOption option,
 			Field[] fields) {
 		return Arrays.stream(fields).filter(f -> {
 			if (!Modifier.isPublic(f.getModifiers())) {
@@ -169,25 +142,5 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 			}
 			return false;
 		}).collect(Collectors.toList());
-	}
-
-	@Override
-	public void save(ProductSearch product) {
-		repository.save(product);
-	}
-
-	@Override
-	public Long count(SearchQuery query) {
-		return searchTemplate.count(query);
-	}
-
-	@Override
-	public Page<ProductSearch> findByModel(String model, Pageable pageable) {
-		return repository.findByModel(model, pageable);
-	}
-
-	@Override
-	public Page<ProductSearch> findByBrand(String brand, Pageable pageable) {
-		return repository.findByBrand(brand, pageable);
 	}
 }

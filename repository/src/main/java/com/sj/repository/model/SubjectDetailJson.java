@@ -11,20 +11,24 @@ public class SubjectDetailJson {
 	private String name;
 	private String cover;
 	private Calendar createdTime;
+	private Calendar updatedTime;
 	private String content;
 	private List<SolutionDetailJson> solutions;
 	private String summary;
+	private Long category;
 
 	public SubjectDetailJson(Subject s) {
 		this.id = s.getId();
 		this.name = s.getName();
 		this.cover = s.getImage();
 		this.createdTime = s.getCreatedTime();
+		this.updatedTime = s.getUpdatedTime();
 		this.content = s.getContent().getContent();
 		this.solutions = s.getSolutions().stream()
 				.map(c -> new SolutionDetailJson(c))
 				.collect(Collectors.toList());
 		this.summary = s.getSummary();
+		this.category = s.getCategory().getId();
 	}
 
 	public Long getId() {
@@ -81,5 +85,21 @@ public class SubjectDetailJson {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+
+	public Calendar getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Calendar updatedTime) {
+		this.updatedTime = updatedTime;
+	}
+
+	public Long getCategory() {
+		return category;
+	}
+
+	public void setCategory(Long category) {
+		this.category = category;
 	}
 }

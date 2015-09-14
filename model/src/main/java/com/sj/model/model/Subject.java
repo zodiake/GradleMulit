@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -59,6 +60,10 @@ public class Subject implements Serializable {
 	private String image;
 
 	private String summary;
+
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private SubjectCategory category;
 
 	@Transient
 	private Long viewCount = 0l;
@@ -166,6 +171,14 @@ public class Subject implements Serializable {
 
 	public void setUpdatedTime(Calendar updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	public SubjectCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(SubjectCategory category) {
+		this.category = category;
 	}
 
 	@Override

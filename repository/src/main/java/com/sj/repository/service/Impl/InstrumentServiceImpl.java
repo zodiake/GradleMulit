@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import com.sj.model.model.Instrument;
 import com.sj.model.model.Solution;
 import com.sj.model.type.ProductStatusEnum;
-import com.sj.repository.publisher.ProductSavedEventPublisher;
-import com.sj.repository.publisher.ProductUpdateEventPublisher;
 import com.sj.repository.repository.InstrumentRepository;
-import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.service.InstrumentService;
 
 @Service
@@ -24,10 +21,6 @@ import com.sj.repository.service.InstrumentService;
 public class InstrumentServiceImpl implements InstrumentService {
 	@Autowired
 	private InstrumentRepository repository;
-	@Autowired
-	private ProductSavedEventPublisher publisher;
-	@Autowired
-	private ProductUpdateEventPublisher updatePublisher;
 
 	@Override
 	public Instrument findOne(Long id) {
@@ -38,8 +31,6 @@ public class InstrumentServiceImpl implements InstrumentService {
 	@Override
 	public Instrument save(Instrument instrument) {
 		Instrument result = repository.save(instrument);
-		ProductSearch p = new ProductSearch(result);
-		publisher.publish(p);
 		return result;
 	}
 
@@ -47,8 +38,6 @@ public class InstrumentServiceImpl implements InstrumentService {
 	public Instrument update(Instrument instrument) {
 		Instrument source = repository.findOne(instrument.getId());
 		Instrument result = repository.save(bind(source, instrument));
-		ProductSearch p = new ProductSearch(result);
-		publisher.publish(p);
 		return result;
 	}
 

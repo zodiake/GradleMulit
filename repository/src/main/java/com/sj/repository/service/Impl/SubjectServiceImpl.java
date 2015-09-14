@@ -18,6 +18,8 @@ import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.SubjectDetailJson;
 import com.sj.repository.model.SubjectJson;
 import com.sj.repository.repository.SubjectRepository;
+import com.sj.repository.search.model.SubjectSearch;
+import com.sj.repository.search.service.SubjectSearchService;
 import com.sj.repository.service.SubjectService;
 
 @Service
@@ -25,6 +27,8 @@ import com.sj.repository.service.SubjectService;
 public class SubjectServiceImpl implements SubjectService {
 	@Autowired
 	private SubjectRepository repository;
+	@Autowired
+	private SubjectSearchService service;
 
 	@Override
 	public Page<Subject> findAll(Pageable pageable) {
@@ -51,7 +55,10 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Subject save(Subject s) {
 		s.setUpdatedTime(Calendar.getInstance());
-		return repository.save(s);
+		s.setCreatedTime(Calendar.getInstance());
+		Subject sub = repository.save(s);
+		service.save(new SubjectSearch(sub));
+		return sub;
 	}
 
 	@Override

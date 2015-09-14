@@ -1,213 +1,226 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="" />
-<title>首页</title>
-	<meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
-<script th:src="@{/js/jquery-1.11.2.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/script.js}"></script>
-<script type="text/javascript">
-	$(function() {
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader(header, token);
-		});
-	});
-</script>
-</head>
-<body>
-	<div th:include="head/head">Head</div>
-	<!-- header -->
-	<div class="wrapper">
-		<div class="screen-one clearfix">
-			<div class="J-banner fl">
-				<div id="J-banner-carousel" class="carousel slide"
+	<head lang="en">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<title>首页</title>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
+		<script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/script.js}"></script>
+		<script type="text/javascript">
+            $(function() {
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                $(document).ajaxSend(function(e, xhr, options) {
+                    xhr.setRequestHeader(header, token);
+                });
+            });
+		</script>
+	</head>
+	<body>
+		<div th:include="head/head">
+			Head
+		</div>
+		<!-- header -->
+		<div class="wrapper">
+			<div class="screen-one clearfix">
+				<div class="J-banner fl">
+					<div id="J-banner-carousel" class="carousel slide"
 					data-ride="carousel">
-					<ol class="carousel-indicators">
+						<ol class="carousel-indicators">
 							<li data-target="#J-banner-carousel" data-slide-to="0" class="active"></li>
 							<li th:each="image,imageStat:${images}" th:unless="${imageStat.index}==0" data-target="#J-banner-carousel" th:attr="data-slide-to=${imageStat.index}"></li>
-					</ol>
-					<div class="carousel-inner" role="listbox">
+						</ol>
+						<div class="carousel-inner" role="listbox">
 							<div  class="item active" th:style="'background-image: url('+${images.get(0).getImageUrl()}+')'"></div>
 							<div th:each="image,imageStat:${images}" th:unless="${imageStat.index}==0"  class="item" th:style="'background-image: url('+${image.imageUrl}+')'"></div>
-					</div>
-				</div>
-			</div>
-			<!-- j-banner -->
-			<div class="news fr">
-				<div class="tabs-nav news-nav">
-					<a class="active">行业要闻</a> <a>新品成果</a> <a class="nobor">厂商动态</a>
-				</div>
-				<div class="tab-conts news-box">
-					<div class="tab-panel news-list">
-						<ul>
-							<li th:each="infor:${industryNews}">
-								<a th:href="'/informations/'+${infor.id}">
-								<h4 class="gray-deeply text350" th:text="${infor.title}"></h4>
-								<p class="text350" th:text="${infor.summary}"></p>
-								</a>
-							</li>
-						</ul>
-						<a class="more blue" href="/informationCategorys/7">more>></a>
-					</div>
-					<div class="tab-panel news-list hide">
-						<ul>
-							<li th:each="infor:${newResults}">
-								<a th:href="'/informations/'+${infor.id}">
-								<h4 class="gray-deeply text350" th:text="${infor.title}"></h4>
-								<p class="text350" th:text="${infor.summary}"></p>
-								</a>
-							</li>
-						</ul>
-						<a class="more blue" href="/informationCategorys/8">more>></a>
-					</div>
-					<div class="tab-panel news-list hide">
-						<ul>
-							<li th:each="infor:${vendorDynamics}">
-								<a th:href="'/informations/'+${infor.id}">
-								<h4 class="gray-deeply text350" th:text="${infor.title}"></h4>
-								<p class="text350" th:text="${infor.summary}"></p>
-								</a>
-							</li>
-						</ul>
-						<a class="more blue" href="/informationCategorys/9">more>></a>
-					</div>
-				</div>
-			</div>
-			<!--news-->
-		</div>
-		<div class="products">
-			<div class="hd">
-				<span>产品库</span>
-			</div>
-			<div class="product-list">
-				<div class="product-wrap clearfix">
-					<div class="product-box fl clearfix">
-						<div class="tabs-nav product-nav">
-							<a class="active">仪器</a> <a>试剂</a> <a>耗材</a> <a class="nobor">服务</a>
-						</div>
-						<div class="tab-conts products-con">
-							<div class="tab-panel products-detail">
-								<div class="fl list-mode">
-									<ul>
-										<li th:each="productCategory,categoryStat:${yqs}" th:if="${categoryStat.index lt 5}"><a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-											<div>
-												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-											</div></li>
-									</ul>
-								</div>
-								<div class="fr list-mode">
-									<div style="float: right;padding-right: 10px; padding-top: 10px;" ><a href="/productCategory/1" class="more blue">more>></a></div>
-									<ul>
-									<li th:each="productCategory,categoryStat:${yqs}" th:unless="${categoryStat.index lt 5}"><a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-											<div>
-												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-											</div></li>
-									</ul>
-								</div>
-								
-							</div>
-							<div class="tab-panel products-detail hide">
-								<div class="fl list-mode">
-									<ul>
-										<li th:each="productCategory,categoryStat:${sjs}"  th:if="${categoryStat.index lt 4}"><label
-											th:text="${productCategory.name}"></label>
-											<div>
-												<i th:each="child:${productCategory.categories}">
-												<a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
-											</div></li>
-									</ul>
-								</div>
-								<div class="fr list-mode">
-								<div style="float: right;padding-right: 10px; padding-top: 10px;" ><a href="/productCategory/2" class="more blue">more>></a></div>
-									<ul>
-										<li th:each="productCategory,categoryStat:${sjs}"  th:unless="${categoryStat.index lt 4}"><label
-											th:text="${productCategory.name}"></label>
-											<div>
-												<i th:each="child:${productCategory.categories}">
-												<a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
-											</div></li>
-									</ul>
-								</div>
-							</div>
-							<div class="tab-panel products-detail hide">
-								<div class="fl list-mode">
-									<ul>
-										<li th:each="productCategory,categoryStat:${hcs}" th:if="${categoryStat.index lt 6}">
-										<label th:text="${productCategory.name}"></label>
-											<div>
-												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
-											</div></li>
-									</ul>
-								</div>
-								<div class="fr list-mode">
-								<div style="float: right;padding-right: 10px; padding-top: 10px;" ><a href="/productCategory/3" class="more blue">more>></a></div>
-									<ul>
-										<li th:each="productCategory,categoryStat:${hcs}" th:unless="${categoryStat.index lt 6}">
-										<label th:text="${productCategory.name}"></label>
-											<div>
-												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
-											</div></li>
-									</ul>
-								</div>
-							</div>
-							<div class="tab-panel products-detail hide">
-								<div class="fl list-mode">
-									<ul>
-										<li th:each="productCategory,categoryStat:${fws}" th:if="${categoryStat.index lt 7}">
-										<label th:text="${productCategory.name}"></label>
-											<div>
-												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
-											</div></li>
-									</ul>
-								</div>
-								<div class="fr list-mode">
-								<div style="float: right;padding-right: 10px; padding-top: 10px;" ><a href="/productCategory/4" class="more blue">more>></a></div>
-									<ul>
-										<li th:each="productCategory,categoryStat:${fws}" th:unless="${categoryStat.index lt 7}">
-										<label th:text="${productCategory.name}"></label>
-											<div>
-												<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
-											</div></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="brand fr">
-						<h3>品牌</h3>
-						<div class="brand-box">
-							<a th:each="brand:${brands}" th:href="@{'/products/_search?brand='+${brand.name}}"><img th:src="@{${brand.coverImg}}" th:href="'/brand/'+${brand.id}" /></a>
 						</div>
 					</div>
 				</div>
+				<!-- j-banner -->
+				<div class="news fr">
+					<div class="tabs-nav news-nav">
+						<a class="active">行业要闻</a><a>新品成果</a><a class="nobor">厂商动态</a>
+					</div>
+					<div class="tab-conts news-box">
+						<div class="tab-panel news-list">
+							<ul>
+								<li th:each="infor:${industryNews}">
+									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
+								</li>
+							</ul>
+							<a class="more blue" href="/informationCategorys/7">more>></a>
+						</div>
+						<div class="tab-panel news-list hide">
+							<ul>
+								<li th:each="infor:${newResults}">
+									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
+								</li>
+							</ul>
+							<a class="more blue" href="/informationCategorys/8">more>></a>
+						</div>
+						<div class="tab-panel news-list hide">
+							<ul>
+								<li th:each="infor:${vendorDynamics}">
+									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
+								</li>
+							</ul>
+							<a class="more blue" href="/informationCategorys/9">more>></a>
+						</div>
+					</div>
+				</div>
+				<!--news-->
 			</div>
-		</div>
-		<div class="topic">
-			<div class="hd">
-				<span>专题</span>
+			<div class="products">
+				<div class="hd">
+					<span>产品库</span>
+				</div>
+				<div class="product-list">
+					<div class="product-wrap clearfix">
+						<div class="product-box fl clearfix">
+							<div class="tabs-nav product-nav">
+								<a class="active">仪器</a><a>试剂</a><a>耗材</a><a class="nobor">服务</a>
+							</div>
+							<div class="tab-conts products-con">
+								<div class="tab-panel products-detail">
+									<div class="fl list-mode">
+										<ul>
+											<li th:each="productCategory,categoryStat:${yqs}" th:if="${categoryStat.index lt 5}">
+												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
+												<div>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="fr list-mode">
+										<div style="float: right;padding-right: 10px; padding-top: 10px;" >
+											<a href="/productCategory/1" class="more blue">more>></a>
+										</div>
+										<ul>
+											<li th:each="productCategory,categoryStat:${yqs}" th:unless="${categoryStat.index lt 5}">
+												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
+												<div>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
+												</div>
+											</li>
+										</ul>
+									</div>
+
+								</div>
+								<div class="tab-panel products-detail hide">
+									<div class="fl list-mode">
+										<ul>
+											<li th:each="productCategory,categoryStat:${sjs}"  th:if="${categoryStat.index lt 4}">
+												<label
+												th:text="${productCategory.name}"></label>
+												<div>
+													<i th:each="child:${productCategory.categories}"> <a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="fr list-mode">
+										<div style="float: right;padding-right: 10px; padding-top: 10px;" >
+											<a href="/productCategory/2" class="more blue">more>></a>
+										</div>
+										<ul>
+											<li th:each="productCategory,categoryStat:${sjs}"  th:unless="${categoryStat.index lt 4}">
+												<label
+												th:text="${productCategory.name}"></label>
+												<div>
+													<i th:each="child:${productCategory.categories}"> <a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="tab-panel products-detail hide">
+									<div class="fl list-mode">
+										<ul>
+											<li th:each="productCategory,categoryStat:${hcs}" th:if="${categoryStat.index lt 6}">
+												<label th:text="${productCategory.name}"></label>
+												<div>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="fr list-mode">
+										<div style="float: right;padding-right: 10px; padding-top: 10px;" >
+											<a href="/productCategory/3" class="more blue">more>></a>
+										</div>
+										<ul>
+											<li th:each="productCategory,categoryStat:${hcs}" th:unless="${categoryStat.index lt 6}">
+												<label th:text="${productCategory.name}"></label>
+												<div>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="tab-panel products-detail hide">
+									<div class="fl list-mode">
+										<ul>
+											<li th:each="productCategory,categoryStat:${fws}" th:if="${categoryStat.index lt 7}">
+												<label th:text="${productCategory.name}"></label>
+												<div>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="fr list-mode">
+										<div style="float: right;padding-right: 10px; padding-top: 10px;" >
+											<a href="/productCategory/4" class="more blue">more>></a>
+										</div>
+										<ul>
+											<li th:each="productCategory,categoryStat:${fws}" th:unless="${categoryStat.index lt 7}">
+												<label th:text="${productCategory.name}"></label>
+												<div>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="brand fr">
+							<h3>品牌</h3>
+							<div class="brand-box">
+								<a th:each="brand:${brands}" th:href="@{'/products/_search?brand='+${brand.name}}"><img th:src="@{${brand.coverImg}}" th:href="'/brand/'+${brand.id}" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="global-box topic-box">
-				<ul>
-					<li th:each="subject:${subjects}"><a th:href="'/subjects/'+${subject.id}">
-							<div class="title ft16 text210" th:text="${subject.name}">生物芯片扫描仪</div>
+			<div class="topic">
+				<div class="hd">
+					<span>专题</span>
+				</div>
+				<div class="global-box topic-box">
+					<ul>
+						<li th:each="subject:${subjects}">
+							<a th:href="'/subjects/'+${subject.id}">
+							<div class="title ft16 text210" th:text="${subject.name}">
+								生物芯片扫描仪
+							</div>
 							<div class="spe-pic">
-								<img alt="" th:src="@{${subject.image}}" width="210" height="130" />
-							</div>
-							<div class="topic-detail" th:text="${subject.summary}">
-							</div>
-					</a></li>
-				</ul>
+								<img alt="" th:src="@{${subject.image}}" width="230" height="130" />
+							</div> <div class="topic-detail" th:text="${subject.summary}"></div> </a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="footer">© 1998 - 2015 SJ Inc. All Rights Reserved</div>
-</body>
+		<div class="footer">
+			© 1998 - 2015 SJ Inc. All Rights Reserved
+		</div>
+	</body>
 </html>

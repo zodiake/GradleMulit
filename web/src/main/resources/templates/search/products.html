@@ -148,6 +148,7 @@
 							</li>
 						</ul>
 						<input type="hidden" th:field="*{secondCategory}"/>
+						<input type="hidden" th:field="*{title}"/>
 					</div>
 					<div class="items-search">
 						<label><b>标签：</b></label>
@@ -194,15 +195,7 @@
 				</ul>
 			</div>
 		<div class="pagination">
-			<div class="l-pagination">
-					<ul>
-						<li><a th:href="@{${viewpage.href}(page=1,size=12,__${viewpage.option}__)}">首页</a></li>
-							<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i==viewpage.current}?active" >
-								<a th:href="@{${viewpage.href}(page=${i},size=12,__${viewpage.option}__)}" th:text="${i}"></a>
-							</li>
-						<li><a th:href="@{${viewpage.href}(page=${viewpage.end},size=12,__${viewpage.option}__)}">末页</a></li>
-					</ul>
-			</div>
+			<div th:include="fragments/page::page(${viewpage})" class="l-pagination"></div>
 		</div>
 			
 		</div>

@@ -18,6 +18,7 @@ import com.sj.model.model.Brand;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.model.ProductSearchOption;
 import com.sj.repository.search.service.ProductSearchService;
+import com.sj.repository.search.service.SubjectSearchService;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.ProductCategoryService;
 
@@ -29,8 +30,11 @@ public class SearchController extends BaseController<ProductSearch> {
 	private ProductCategoryService categoryService;
 	@Autowired
 	private BrandService brandService;
+	@Autowired
+	private SubjectSearchService subjectSearchService;
 
 	private final String SEARCHLIST = "search/products";
+	private final String SUBJECT_SEARCH_LIST = "search/subject/subjects";
 
 	@ModelAttribute("brands")
 	public List<Brand> brands() {
@@ -51,15 +55,16 @@ public class SearchController extends BaseController<ProductSearch> {
 		}
 
 		Map<String, String> map = service.buildMap(option);
-		service.save(new ProductSearch());
 
 		ViewPage viewpage = caculatePage(results);
 		viewpage.setOption(map);
 		viewpage.setHref("/products/_search");
+		viewpage.setCurrent(pageable.getPageNumber());
 
 		uiModel.addAttribute("products", results);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
+		uiModel.addAttribute("brand", option.getBrand());
 		return SEARCHLIST;
 	}
 

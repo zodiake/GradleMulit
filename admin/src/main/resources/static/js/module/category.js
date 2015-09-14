@@ -120,8 +120,11 @@ category.controller('CategoryController', [
         $scope.delete = function (item) {
             CategoryService
                 .delete(item)
-                .success(function () {
-
+                .success(function (data) {
+                    if (data == 'success') {
+                        console.log(11);
+                        item.activate = item.activate == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                    }
                 })
                 .error(function () {
 

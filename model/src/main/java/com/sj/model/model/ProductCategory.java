@@ -1,8 +1,6 @@
 package com.sj.model.model;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -13,7 +11,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("pc")
-public class ProductCategory extends Category{
+public class ProductCategory extends Category {
 
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	private List<ProductCategory> categories;

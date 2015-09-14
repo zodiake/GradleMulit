@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head lang="en">
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="description" content=""/>
+		<title>检测应用</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script th:src="@{/js/jquery-min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/silderBox.js}"></script>
+		<script th:src="@{/js/script.js}"></script>
+		<script type="text/javascript">
+            $(function() {
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var id = $("meta[name='id']").attr("content");
+
+                $(document).ajaxSend(function(e, xhr, options) {
+                    xhr.setRequestHeader(header, token);
+                });
+                $('input[type="radio"]').click(function() {
+                    $('form').submit();
+                });
+
+                $(':checked').each(function(n, target) {
+                    var source = $(target);
+                    var template = $('<a class="sel-tag"/>');
+                    template.text(source.attr('data-label') + "：" + source.siblings('label').text());
+                    template.append('<span class="icon-del" data-target="' + source.attr('id') + '"></span>');
+                    $('div.selected').append(template);
+                });
+
+                $('a.sel-tag span').click(function(event) {
+                    var source = $(event.target);
+                    $('#' + source.attr('data-target')).prop('checked', false);
+                    $('form').submit();
+                });
+            });
+		</script>
+	</head>
+	<body>
+		<div th:include="head/head">
+			Head
+		</div>
+		<!-- header -->
+		<div class="wrapper">
+			<div class="sort-group">
+				<div class="selected">
+					<label><b>筛选：</b></label>
+				</div>
+				<form th:object="${option}">
+					<div id="brandSearch" class="search-select" style="height: 40px;">
+						<label><b>分类：</b></label>
+						<ul class="list-inline">
+							<li th:each="category : ${categories}">
+								<input type="radio" th:field="*{category}" th:value="${category.name}" th:attr="data-label='品牌'"/>
+								<label th:for="${#ids.prev('category')}" th:text="${category.name}">Heating</label>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="wrapper">
+			<div class="global-box topic-box">
+				<ul>
+					<li th:each="subject:${subjects}">
+						<div class="title ft16" th:text="${subject.title}">
+							生物芯片扫描仪
+						</div>
+						<div class="spe-pic">
+							<a th:href="@{'/subjects/'+${subject.id}}"> <img th:src="@{${subject.image}}" width="210" height="175"/> </a>
+						</div>
+						<div class="topic-detail dd" draggable="false" th:text="${subject.summary}"></div>
+					</li>
+				</ul>
+			</div>
+			<div class="pagination">
+				<div class="l-pagination">
+					<ul th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}">
+						<li th:class="${i-1==viewpage.current}?active">
+							<a th:href="@{${viewpage.href}(page=${i-1},size=12,__${viewpage.option}__,title=${option.title})}" th:text="${i}"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			© 1998 - 2015 SJ Inc. All Rights Reserved
+		</div>
+	</body>
+</html>

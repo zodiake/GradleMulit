@@ -13,6 +13,12 @@
                     <input type="text" class="form-control" name="summary" ng-model="item.summary"  />
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-1">分类</label>
+				<div class="col-sm-11">
+                    <select class="w300" ng-options="c.id as c.name for c in categories" ng-model="item.category" required="true"></select>
+				</div>
+			</div>
             <div class="form-group lhg">
                 <label class="control-label col-sm-1">图片</label>
                 <div class="col-sm-2">

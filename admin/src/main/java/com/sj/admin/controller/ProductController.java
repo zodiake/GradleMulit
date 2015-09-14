@@ -93,7 +93,6 @@ public class ProductController {
 				return "\""+e.getMessage()+"\"";
 			} 
 			catch (Exception e) {
-				System.out.println(e);
 				return "\"error\"";
 			}
 		return "\""+result+"\"";
