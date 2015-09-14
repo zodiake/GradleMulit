@@ -61,6 +61,11 @@ public class ProviderServiceImpl implements ProviderService {
 	@Override
 	public Provider updateProvider(Provider provider) {
 		Provider p = repository.findById(provider.getId());
+		if("ROLE_UNAUTH".equals(p.getSiteAuthority())){
+			p.setBusinessLicenseUrl(provider.getBusinessLicenseUrl());
+			p.setStructureCodeUrl(provider.getStructureCodeUrl());
+			p.setTaxRegistrationUrl(provider.getTaxRegistrationUrl());
+		}
 		p.setLegalPerson(provider.getLegalPerson());
 		p.setComponyType(provider.getComponyType());
 		p.setRegisteredCapital(provider.getRegisteredCapital());

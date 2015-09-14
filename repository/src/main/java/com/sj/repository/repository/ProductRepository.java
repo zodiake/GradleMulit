@@ -28,5 +28,7 @@ public interface ProductRepository extends
 	Product findByIdAndCreatedBy(Long id,Provider user);
 	
 	Page<Product> findBySecondCategory(ProductCategory category,Pageable pageable);
+	
+	Product findByIdAndStatus(Long id,ProductStatusEnum status);
 }
 

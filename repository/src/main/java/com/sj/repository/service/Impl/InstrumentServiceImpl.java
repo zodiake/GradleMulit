@@ -1,5 +1,8 @@
 package com.sj.repository.service.Impl;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Instrument;
+import com.sj.model.model.Solution;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.publisher.ProductSavedEventPublisher;
 import com.sj.repository.publisher.ProductUpdateEventPublisher;
@@ -66,6 +70,9 @@ public class InstrumentServiceImpl implements InstrumentService {
 
 	@Override
 	public Instrument saveNoPublisher(Instrument instrument) {
+		instrument.setCreatedTime(Calendar.getInstance());
+		instrument.setStatus(ProductStatusEnum.EXAMINE);
+		instrument.setSolutions(new ArrayList<Solution>());
 		return repository.save(instrument);
 	}
 
