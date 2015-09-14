@@ -17,7 +17,7 @@ $(function() {
 				}
 			},
 			error : function(data) {
-				alert(data);
+				alert("系统异常");
 			}
 		});
 	}
