@@ -70,7 +70,7 @@
 								<td>
 									<a class="blue delete" th:attr="data-id=${buy.id}">删除</a>|
 									<a class="blue" th:href="'/user/buyRecords/'+${buy.id}+'?edit'">修改</a>|
-									<a class="blue" th:href="'/user/buyRecords/'+${buy.id}+'?download'">下载</a>
+									<a class="blue" th:href="'/user/buyRecords/'+${buy.noId}+'.pdf'" target="_blank">下载</a>
 								</td>
 							</tr>
 						</tbody>

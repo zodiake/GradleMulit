@@ -12,4 +12,6 @@ public interface BuyRecordRepository extends PagingAndSortingRepository<BuyRecor
 	Page<BuyRecord> findByUser(CommonUser user,Pageable pageable);
 	
 	BuyRecord findByIdAndUser(Long id,CommonUser user);
+	
+	BuyRecord findByNoId(String noId);
 }

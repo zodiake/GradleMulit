@@ -19,4 +19,6 @@ public interface BuyRecordService {
 	public void deleteOne(Long id);
 	
 	public BuyRecord update(CommonUser user,BuyRecord buy);
+	
+	public BuyRecord findByNoId(String noId);
 }

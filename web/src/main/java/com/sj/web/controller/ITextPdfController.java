@@ -34,9 +34,9 @@ public class ITextPdfController {
 	@Autowired
 	private PDFService pDFService;
 
-	@RequestMapping(value = "/user/buyRecords/{id}", method = RequestMethod.GET,params="download")
-	public Callable<HttpEntity<byte[]>> exportPDF(@PathVariable("id")Long id,HttpServletResponse response,@SecurityUser SiteUser user) {
-		BuyRecord buyRecord = buyRecordService.findOne(id, new CommonUser(user.getId()));
+	@RequestMapping(value = "/user/buyRecords/{noid}.pdf", method = RequestMethod.GET)
+	public Callable<HttpEntity<byte[]>> exportPDF(@PathVariable("noid")String noId,HttpServletResponse response,@SecurityUser SiteUser user) {
+		BuyRecord buyRecord = buyRecordService.findByNoId(noId);
 		if(buyRecord==null)
 			throw new BuyRecordNotFoundException();
 		return new Callable<HttpEntity<byte[]>>() {
@@ -45,12 +45,10 @@ public class ITextPdfController {
 				try {
 					OutputStream out = response.getOutputStream();
 					byte[] bytes = pDFService.getBuyRecordPdf(buyRecord,out);
-					response.setContentType("application/pdf");
 					out = response.getOutputStream();
 					HttpHeaders header = new HttpHeaders();
-					header.setContentType(new MediaType("application", "pdf"));
-					header.set("Content-Disposition",
-							"attachment; filename="+buyRecord.getNoId()+".pdf");
+					header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+					header.setContentDispositionFormData("attachment", buyRecord.getNoId()+".pdf");
 					header.setContentLength(bytes.length);
 
 					return new HttpEntity<byte[]>(bytes, header);
@@ -62,16 +60,5 @@ public class ITextPdfController {
 				return null;
 			}
 		};
-	}
-
-	public List<Product> getProducts() {
-		List<Product> products = new ArrayList<Product>();
-		for (int i = 0; i < 18; i++) {
-			Product product = new Product();
-			product.setName("张三李四王五");
-			product.setPrice(74000.0f);
-			products.add(product);
-		}
-		return products;
 	}
 }
