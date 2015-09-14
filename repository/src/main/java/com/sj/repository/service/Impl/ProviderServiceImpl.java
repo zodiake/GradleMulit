@@ -30,6 +30,7 @@ public class ProviderServiceImpl implements ProviderService {
 
 	@Override
 	public Provider create(Provider provider) {
+		provider.setEnabled(ActivateEnum.ACTIVATE);
 		provider.setSiteAuthority("ROLE_UNAUTH");
 		Calendar c = Calendar.getInstance();
 		provider.setCreateTime(c);

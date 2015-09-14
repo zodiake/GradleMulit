@@ -17,11 +17,12 @@ import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.InformationService;
+import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.CategoryNotFoundException;
 import com.sj.web.exception.InformationNotFoundException;
 
 @Controller
-public class InformationController {
+public class InformationController extends BaseController<Information>{
 
 	@Autowired
 	private InformationService informationService;
@@ -31,19 +32,20 @@ public class InformationController {
 	private StringRedisTemplate template;
 
 
-	@RequestMapping(value = "/informationCategorys/{category}", method = RequestMethod.GET)
+	@RequestMapping(value = "/informationCategorys/{id}", method = RequestMethod.GET)
 	public String findByCategory(
-			@PathVariable(value = "category") String category, Model uiModel,
+			@PathVariable(value = "id") Long id, Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		InformationCategory ic = informationCategoryService.findByName(category.trim());
+		InformationCategory ic = informationCategoryService.findOne(id);
 		if(ic == null)
 			throw new CategoryNotFoundException();
-		Page<Information> informations = informationService.findByCategory(
-				ic, new PageRequest(page - 1, size));
+		Page<Information> informations = informationService.findByCategory(ic, new PageRequest(page - 1, size));
+		ViewPage viewpage = caculatePage(informations);
+		viewpage.setHref("/informationCategorys/"+id);
+		uiModel.addAttribute("viewpage", viewpage);
 		uiModel.addAttribute("informations", informations);
-		uiModel.addAttribute("category", ic);
-		uiModel.addAttribute("pc", informationCategoryService.findOne(5l));
+		uiModel.addAttribute("pc", ic);
 		return "information/informations";
 	}
 

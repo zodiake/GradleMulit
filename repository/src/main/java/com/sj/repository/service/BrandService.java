@@ -32,5 +32,7 @@ public interface BrandService {
 	public void deleteOne(Long id);
 
 	public void activate(Long id, ActivateEnum activate);
+	
+	public List<Brand> findAllOrderByName();
 
 }

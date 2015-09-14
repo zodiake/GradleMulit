@@ -51,7 +51,7 @@ $(function() {
 	});
 	$('.tab-conts').on('click','.down',function(){
 		var pass = $(this).parent();
-		$('#revoke').fadeIn();
+		$('#down').fadeIn();
 		$('.fixed').fadeIn();
 		id = pass.attr('data-id');
 	});

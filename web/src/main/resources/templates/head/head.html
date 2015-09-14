@@ -52,6 +52,7 @@
 				</div>
 			</div>
 			<div class="head-user hide-menu">
+				<script type="text/javascript" th:src="@{/js/logout.js}"></script>
 				<div class="user-name" id="username"  th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></div>
 				<div class="user-menu show-menu bodr">
 					<ul>
@@ -80,7 +81,7 @@
 							<a href="/provider/count">商品信息统计</a>
 						</li>
 						<li>
-							<a>退出登录</a>
+							<a type="button" id="logout">退出登录</a>
 						</li>
 					</ul>
 				</div>
@@ -120,35 +121,35 @@
 				<li th:unless="${pc.name=='专题'}">
 					<a href="/subjects">专题</a>
 				</li>
-				<li class="news-down hide-menu active nobor" th:if="${pc.name=='资讯'}">
+				<li class="news-down hide-menu active nobor" th:if="${pc.id == 7 or pc.id==8 or pc.id ==9}">
 					<a >资讯</a>
 					<div class="news-sort show-menu">
-						<a href="/informationCategorys/行业要闻">行业要闻</a>
-						<a href="/informationCategorys/新品成果">新品成果</a>
-						<a href="/informationCategorys/厂商动态">厂商动态</a>
+						<a href="/informationCategorys/7">行业要闻</a>
+						<a href="/informationCategorys/8">新品成果</a>
+						<a href="/informationCategorys/9">厂商动态</a>
 					</div>
 				</li>
-				<li class="news-down hide-menu" th:unless="${pc.name=='资讯'}">
+				<li class="news-down hide-menu" th:unless="${pc.id == 7 or pc.id==8 or pc.id ==9}">
 					<a >资讯</a>
 					<div class="news-sort show-menu">
-						<a href="/informationCategorys/行业要闻">行业要闻</a>
-						<a href="/informationCategorys/新品成果">新品成果</a>
-						<a href="/informationCategorys/厂商动态">厂商动态</a>
+						<a href="/informationCategorys/7">行业要闻</a>
+						<a href="/informationCategorys/8">新品成果</a>
+						<a href="/informationCategorys/9">厂商动态</a>
 					</div>
 				</li>
 			</ul>
 			<ul th:unless="${pc!=null}">
 				<li>
-					<a href="/productCategory/仪器">仪器</a>
+					<a href="/productCategory/1">仪器</a>
 				</li>
 				<li>
-					<a href="/productCategory/试剂">试剂</a>
+					<a href="/productCategory/2">试剂</a>
 				</li>
 				<li>
-					<a href="/productCategory/耗材">耗材</a>
+					<a href="/productCategory/2">耗材</a>
 				</li>
 				<li>
-					<a href="/productCategory/服务">服务</a>
+					<a href="/productCategory/3">服务</a>
 				</li>
 				<li>
 					<a href="/subjects">专题</a>
@@ -156,9 +157,9 @@
 				<li class="news-down hide-menu">
 					<a >资讯</a>
 					<div class="news-sort show-menu">
-						<a href="/informationCategorys/行业要闻">行业要闻</a>
-						<a href="/informationCategorys/新品成果">新品成果</a>
-						<a href="/informationCategorys/厂商动态">厂商动态</a>
+						<a href="/informationCategorys/7">行业要闻</a>
+						<a href="/informationCategorys/8">新品成果</a>
+						<a href="/informationCategorys/9">厂商动态</a>
 					</div>
 				</li>
 			</ul>

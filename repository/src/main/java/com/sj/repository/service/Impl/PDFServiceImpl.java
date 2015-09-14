@@ -208,9 +208,7 @@ public class PDFServiceImpl implements PDFService {
 	private PdfPTable getProductsTable(Product product,Font fontChinese) throws MalformedURLException, IOException, DocumentException{
 			PdfPTable table = new PdfPTable(2);
 			System.out.println(providerPath);
-			Provider p = product.getCreatedBy();
-			Path basePath = Paths.get("").resolve(providerPath + p.getId()+"/"+product.getCoverImg());
-			Image image = Image.getInstance(basePath.toString());
+			Image image = Image.getInstance(product.getCoverImg());
 			image.setAlignment(Element.ALIGN_CENTER);
 			PdfPCell imageCell = new PdfPCell();
 			imageCell.addElement(image);

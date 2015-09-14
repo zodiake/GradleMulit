@@ -10,36 +10,32 @@
   <script  th:src="@{/js/script.js}"></script>
 </head>
 <body>
-	<div>
-		<div th:include="head/head :: head">Head</div>
-	</div>
+	<div th:include="head/head">Head</div>
 	<!-- header -->
 	<div class="wrapper">
 		<div class="crumb news-crumb">
-			<a>首页</a>
+			<a href="/">首页</a>
 			<i>></i>
-			<a>资讯</a>
-			<i>></i>
-			<a th:if="${category.url == 'HYYW'}">行业要闻</a>
-			<a th:if="${category.url == 'XPCG'}">新品成果</a>
-			<a th:if="${category.url == 'CSDT'}">厂商动态</a>
+			<a th:if="${pc.url == 'HYYW'}">行业要闻</a>
+			<a th:if="${pc.url == 'XPCG'}">新品成果</a>
+			<a th:if="${pc.url == 'CSDT'}">厂商动态</a>
 		</div>	
 		<div class="mainwrapper clearfix">
 			<div class="aside fl">
-				<a th:if="${category.url =='HYYW'}" class="active">行业要闻</a>
-				<a th:unless="${category.url =='HYYW'}" href="/informationCategorys/行业要闻">行业要闻</a>
-				<a th:if="${category.url =='XPCG'}" class="active">新品成果</a>
-				<a th:unless="${category.url =='XPCG'}" href="/informationCategorys/新品成果">新品成果</a>
-				<a th:if="${category.url =='CSDT'}" class="active">厂商动态</a>
-				<a th:unless="${category.url =='CSDT'}" href="/informationCategorys/厂商动态">厂商动态</a>
+				<a th:if="${pc.url =='HYYW'}" class="active">行业要闻</a>
+				<a th:unless="${pc.url =='HYYW'}" href="/informationCategorys/7">行业要闻</a>
+				<a th:if="${pc.url =='XPCG'}" class="active">新品成果</a>
+				<a th:unless="${pc.url =='XPCG'}" href="/informationCategorys/8">新品成果</a>
+				<a th:if="${pc.url =='CSDT'}" class="active">厂商动态</a>
+				<a th:unless="${pc.url =='CSDT'}" href="/informationCategorys/9">厂商动态</a>
 			</div>
 			<div class="mainpanel fr">
 				<div class="news-wrap">
 					<ul >
 						<li th:each="info:${informations}">
 							<h3><a class="ft16 gray-deeply" th:text="${info.title}" th:href="'/informations/'+${info.id}"></a></h3>
-							<div class="news-dtl" th:with="content=${info.content.content}">
-								<p th:text="${#strings.abbreviate(content,100)}">
+							<div class="news-dtl">
+								<p th:text="${info.summary}">
 								</p>
 							</div>
 							<div class="news-global clearfix">
@@ -54,39 +50,13 @@
 		</div>
 		<div class="pagination">
 			<div class="l-pagination">
-				<ul>
-					<li>
-						<a href="">首页</a>
-					</li>
-					<li>
-						<a href="">1</a>
-					</li>
-					<li class="active">
-						<a href="">2</a>
-					</li>
-					<li>
-						<a href="">3</a>
-					</li>
-					<li>
-						<a href="">4</a>
-					</li>
-					<li>……</li>
-					<li>
-						<a href="">40</a>
-					</li>
-					<li>
-						<a href="">尾页</a>
-					</li>
-				</ul>
-				<div class="page-total">
-					共40页
-				</div>
-				<div class="page-from">
-					<span>到第</span>
-					<input type="text" class="page-input" />
-					<span>页</span>
-					<button>确定</button>
-				</div>
+					<ul>
+						<li><a th:href="@{${viewpage.href}(page=1,size=12}">首页</a></li>
+						<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i==viewpage.current}?active" >
+							<a th:href="@{${viewpage.href}(page=${i},size=12}" th:text="${i}"></a>
+						</li>
+						<li><a th:href="@{${viewpage.href}(page=${viewpage.end},size=12}">末页</a></li>
+					</ul>
 			</div>
 		</div>
 	</div>

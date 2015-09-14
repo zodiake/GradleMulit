@@ -13,6 +13,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Brand;
@@ -100,5 +103,10 @@ public class BrandServiceImpl implements BrandService {
 		em.createQuery("update Brand b set b.activate=:activate where b.id=:id")
 				.setParameter("activate", activate).setParameter("id", id)
 				.executeUpdate();
+	}
+
+	@Override
+	public List<Brand> findAllOrderByName() {
+		return repository.findAll(new Sort(new Order(Direction.ASC,"name")));
 	}
 }

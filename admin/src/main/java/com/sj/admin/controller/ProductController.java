@@ -85,7 +85,6 @@ public class ProductController {
 	@RequestMapping(value = "/admin/providers/{providerId}/products", method = RequestMethod.POST, params = "batch")
 	@ResponseBody
 	public String createBatchProcess(@RequestParam("file") MultipartFile mf,@PathVariable("providerId")Long id) throws IOException, InvalidFormatException {
-		System.out.println("mf.size" + mf.getSize());
 		InputStream is = mf.getInputStream();
 		String result = "";
 			try {
@@ -94,6 +93,7 @@ public class ProductController {
 				return "\""+e.getMessage()+"\"";
 			} 
 			catch (Exception e) {
+				System.out.println(e);
 				return "\"error\"";
 			}
 		return "\""+result+"\"";

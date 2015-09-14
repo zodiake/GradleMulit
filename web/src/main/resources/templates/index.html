@@ -51,33 +51,33 @@
 							<li th:each="infor:${industryNews}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 class="gray-deeply" th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
+								<p class="dd" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue" href="/informationCategorys/行业要闻">more>></a>
+						<a class="more blue" href="/informationCategorys/7">more>></a>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
 							<li th:each="infor:${newResults}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
+								<p class="dd" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue" href="/informationCategorys/新品成果">more>></a>
+						<a class="more blue" href="/informationCategorys/8">more>></a>
 					</div>
 					<div class="tab-panel news-list hide">
 						<ul>
 							<li th:each="infor:${vendorDynamics}">
 								<a th:href="'/informations/'+${infor.id}">
 								<h4 th:text="${infor.title}"></h4>
-								<p th:text="${#strings.abbreviate(infor.summary,59)}"></p>
+								<p class="dd" th:text="${infor.summary}"></p>
 								</a>
 							</li>
 						</ul>
-						<a class="more blue" href="/informationCategorys/厂商动态">more>></a>
+						<a class="more blue" href="/informationCategorys/9">more>></a>
 					</div>
 				</div>
 			</div>
@@ -104,6 +104,7 @@
 									</ul>
 								</div>
 								<div class="fr list-mode">
+									<div style="float: right;padding-right: 10px; padding-top: 10px;" ><a href="/productCategory/1" class="more blue">more>></a></div>
 									<ul>
 									<li th:each="productCategory,categoryStat:${yqs}" th:unless="${categoryStat.index lt 5}"><a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 											<div>
@@ -111,6 +112,7 @@
 											</div></li>
 									</ul>
 								</div>
+								
 							</div>
 							<div class="tab-panel products-detail hide">
 								<div class="fl list-mode">
@@ -124,6 +126,7 @@
 									</ul>
 								</div>
 								<div class="fr list-mode">
+								<div style="float: right;padding-right: 10px; padding-top: 10px;" ><a href="/productCategory/2" class="more blue">more>></a></div>
 									<ul>
 										<li th:each="productCategory,categoryStat:${sjs}"  th:unless="${categoryStat.index lt 4}"><label
 											th:text="${productCategory.name}"></label>
@@ -145,6 +148,7 @@
 									</ul>
 								</div>
 								<div class="fr list-mode">
+								<div style="float: right;padding-right: 10px; padding-top: 10px;" ><a href="/productCategory/3" class="more blue">more>></a></div>
 									<ul>
 										<li th:each="productCategory,categoryStat:${hcs}" th:unless="${categoryStat.index lt 6}">
 										<label th:text="${productCategory.name}"></label>
@@ -165,6 +169,7 @@
 									</ul>
 								</div>
 								<div class="fr list-mode">
+								<div style="float: right;padding-right: 10px; padding-top: 10px;" ><a href="/productCategory/4" class="more blue">more>></a></div>
 									<ul>
 										<li th:each="productCategory,categoryStat:${fws}" th:unless="${categoryStat.index lt 7}">
 										<label th:text="${productCategory.name}"></label>
@@ -179,8 +184,7 @@
 					<div class="brand fr">
 						<h3>品牌</h3>
 						<div class="brand-box">
-							<img th:each="brand:${brands}" th:src="@{${brand.coverImg}}"
-								th:href="'/brand/'+${brand.id}" />
+							<a th:each="brand:${brands}" th:href="@{'/products/_search?brand='+${brand.name}}"><img th:src="@{${brand.coverImg}}" th:href="'/brand/'+${brand.id}" /></a>
 						</div>
 					</div>
 				</div>
@@ -195,7 +199,7 @@
 					<li th:each="subject:${subjects}"><a th:href="'/subjects/'+${subject.id}">
 							<div class="title ft16" th:text="${subject.name}">生物芯片扫描仪</div>
 							<div class="spe-pic">
-								<img alt="" th:src="@{/img/list1.jpg}" width="230" height="130" />
+								<img alt="" th:src="@{${subject.image}}" width="230" height="130" />
 							</div>
 							<div class="topic-detail" th:text="${subject.summary}">
 							</div>

@@ -12,6 +12,7 @@
 		<script type="text/javascript" th:src="@{/js/script.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajaxLogin-collection-products.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajaxLogin-cart-products.js}"></script>
+		<script type="text/javascript" th:src="@{/js/searchBrandContraction.js}"></script>
 		<script th:src="@{/js/searchForm.js}"></script>
 		<script type="text/javascript">
             $(function() {
@@ -93,19 +94,12 @@
 		</script>
 	</head>
 	<body>
-
-			<div id="includeHeader" th:include="head/head">
-				Head
-			</div>
+		<div id="includeHeader" class="header" th:include="head/head">
+			Head
+		</div>
 		<!-- header -->
 		<div class="wrapper">
-			<div class="crumb">
-				<a href="/index">首页</a>
-				<i>></i>
-				<i>></i>
-			</div>
 			<div class="gray-hd">
-				<a class="blue ft14">生物芯片</a>
 				<span>筛选商品 共<i th:text="${products.totalElements}">1222</i>件商品</span>
 			</div>
 			<div class="sort-group">
@@ -113,14 +107,16 @@
 					<label><b>筛选：</b></label>
 				</div>
 				<form th:object="${option}">
-					<div class="search-select">
+					<div id="brandSearch" class="search-select" style="height: 40px;">
 						<label><b>品牌：</b></label>
 						<ul class="list-inline">
 							<li th:each="brand : ${brands}">
-								<input type="radio" th:field="*{brand}" th:value="${brand.name}" th:attr="data-label='生物芯片'"/>
-								<label th:text="${brand.name}" th:attr="for=${brand.name}">生物芯片</label>
+								<input type="radio" th:field="*{brand}" th:value="${brand.name}" th:attr="data-label='品牌'"/>
+								<label th:for="${#ids.prev('brand')}" th:text="${brand.name}">Heating</label>
 							</li>
 						</ul>
+						<div id="more" style="right: 20px;bottom: 5px;position: absolute;"><a type="button" class="blue">↓</a></div>
+						<div id="contraction" style="right: 20px;bottom: 10px;position: absolute; display: none;"><a class="blue" type="button">↑</a></div>
 					</div>
 					<div class="search-select">
 						<label><b>产地：</b></label>
@@ -197,47 +193,18 @@
 					</li>
 				</ul>
 			</div>
-			<div class="pagination">
-				<div class="l-pagination">
+		<div class="pagination">
+			<div class="l-pagination">
 					<ul>
-						<li>
-							<a href="">首页</a>
-						</li>
-						<li>
-							<a href="">1</a>
-						</li>
-						<li class="active">
-							<a href="">2</a>
-						</li>
-						<li>
-							<a href="">3</a>
-						</li>
-						<li>
-							<a href="">4</a>
-						</li>
-						<li>
-							……
-						</li>
-						<li>
-							<a href="">40</a>
-						</li>
-						<li>
-							<a href="">尾页</a>
-						</li>
+						<li><a th:href="@{${viewpage.href}(page=1,size=12,__${viewpage.option}__)}">首页</a></li>
+							<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i==viewpage.current}?active" >
+								<a th:href="@{${viewpage.href}(page=${i},size=12,__${viewpage.option}__)}" th:text="${i}"></a>
+							</li>
+						<li><a th:href="@{${viewpage.href}(page=${viewpage.end},size=12,__${viewpage.option}__)}">末页</a></li>
 					</ul>
-					<div class="page-total">
-						共40页
-					</div>
-					<div class="page-from">
-						<span>到第</span>
-						<input type="text" class="page-input" />
-						<span>页</span>
-						<button>
-							确定
-						</button>
-					</div>
-				</div>
 			</div>
+		</div>
+			
 		</div>
 		<div class="footer">
 			© 1998 - 2015 SJ Inc. All Rights Reserved

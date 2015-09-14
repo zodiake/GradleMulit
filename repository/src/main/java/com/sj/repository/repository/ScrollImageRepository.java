@@ -13,4 +13,5 @@ public interface ScrollImageRepository extends
 	List<ScrollImage> findByScrollType(ScrollImageType type, Pageable pageable);
 
 	List<ScrollImage> findAllByOrderBySortNumberDesc();
+	
 }

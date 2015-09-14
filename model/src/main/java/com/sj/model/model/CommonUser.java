@@ -26,8 +26,11 @@ import org.hibernate.validator.constraints.NotBlank;
 public class CommonUser extends SiteUser {
 	@NotBlank(message = "单位不能为空")
 	private String company; // 单位*
-
+	@NotBlank(message = "部门不能为空")
 	private String department; // 部门
+	
+	@NotBlank(message = "联系人职务不能为空")
+	private String position; // 联系人职务*
 
 	@Column(name = "company_phone")
 	@NotBlank(message = "企业电话不能为空")
@@ -176,5 +179,13 @@ public class CommonUser extends SiteUser {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
 	}
 }
