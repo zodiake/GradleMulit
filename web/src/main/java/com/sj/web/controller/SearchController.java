@@ -51,15 +51,16 @@ public class SearchController extends BaseController<ProductSearch> {
 		}
 
 		Map<String, String> map = service.buildMap(option);
-		service.save(new ProductSearch());
 
 		ViewPage viewpage = caculatePage(results);
 		viewpage.setOption(map);
 		viewpage.setHref("/products/_search");
+		viewpage.setCurrent(pageable.getPageNumber());
 
 		uiModel.addAttribute("products", results);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
+		uiModel.addAttribute("brand", option.getBrand());
 		return SEARCHLIST;
 	}
 

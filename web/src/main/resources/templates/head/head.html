@@ -5,14 +5,14 @@
 		<div class="head-search">
 			<form id="searchForm" action="/products/_search">
 				<span class="searched">商品</span>
-				<input type="text" name="title" id="searchText"/>
+				<input type="text" name="title" id="searchText" th:value="${option==null?null:option.title}"/>
 				<input class="icon-search" type="submit" value="" />
 				<div class="search-sort">
 					<a data-name="/products/_search" data-input="title">商品</a>
 					<a data-name="/products/_search" data-input="model">型号</a>
 					<a data-name="/products/_search" data-input="brand">品牌</a>
-					<a >专题</a>
-					<a >资讯</a>
+					<a data-name="/subjects/_search" data-input="title">专题</a>
+					<a data-name="/info/_search" data-input="title">资讯</a>
 				</div>
 			</form>
 		</div>

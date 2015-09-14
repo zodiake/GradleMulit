@@ -65,7 +65,10 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 			Object value;
 			try {
 				value = f.get(option);
-				map.put(f.getName(), String.valueOf(value));
+				if (!f.getName().equals("brand")
+						&& !f.getName().equals("title")
+						&& !f.getName().equals("tag"))
+					map.put(f.getName(), String.valueOf(value));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
@@ -97,9 +100,13 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 				fromRange.gte(value);
 				boolFilterBuilder.must(fromRange);
 				break;
-			case "brand":
 			case "secondCategory":
 			case "thirdCategory":
+				TermFilterBuilder categoryTerm = new TermFilterBuilder(
+						f.getName(), value);
+				boolFilterBuilder.must(categoryTerm);
+				break;
+			case "brand":
 				TermFilterBuilder brandTerm = new TermFilterBuilder(
 						f.getName(), (String) value);
 				boolFilterBuilder.must(brandTerm);
