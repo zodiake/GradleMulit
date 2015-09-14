@@ -36,7 +36,7 @@ public class InfoSearchController extends BaseController<InfoSearch> {
 		viewpage.setHref("/info/_search");
 		viewpage.setCurrent(pageable.getPageNumber());
 
-		uiModel.addAttribute("lists", pages);
+		uiModel.addAttribute("informations", pages);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
 		return INFO_SEARCH_LIST;

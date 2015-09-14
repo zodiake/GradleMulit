@@ -23,6 +23,9 @@ public class InfoSearch {
 	@Field(type = FieldType.Date)
 	private Calendar createdTime;
 
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+	private String summary;
+
 	public Long getId() {
 		return id;
 	}
@@ -53,5 +56,13 @@ public class InfoSearch {
 
 	public void setCreatedTime(Calendar createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 }

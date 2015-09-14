@@ -10,3 +10,22 @@
 { "title":"My fifth blog post","secondCategoryName":"试剂","thirdCategoryName":"试剂","secondCategory":"11","thirdCategory":"13","price":55000.0,"brand":"brand3","imgurl":"asdf","model":"ef","url":"http://baidu.com","original":"1","tag":"ee","id":"5"}
 { "create": { "_index": "sj", "_type": "product", "_id": "6" }}
 { "title":"My sixth blog post","secondCategoryName":"试剂","thirdCategoryName":"试剂","secondCategory":"11","thirdCategory":"13","price":65000.0,"brand":"brand2","imgurl":"asdf","model":"fg","url":"http://baidu.com","original":"1","tag":"ff","id":"6"}
+
+
+{ "create": { "_index": "sj", "_type": "subject", "_id": "1" }}
+{"title":"first subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","createdTime":"2012-12-31T12:23:33","id":1}
+{ "create": { "_index": "sj", "_type": "subject", "_id": "2" }}
+{"title":"second subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","createdTime":"2012-12-31T12:23:33","id":2}
+{ "create": { "_index": "sj", "_type": "subject", "_id": "3" }}
+{"title":"third subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","createdTime":"2012-12-31T12:23:33","id":3}
+{ "create": { "_index": "sj", "_type": "subject", "_id": "4" }}
+{"title":"fourth subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","createdTime":"2012-12-31T12:23:33","id":4}
+
+{ "create": { "_index": "sj", "_type": "info", "_id": "1" }}
+{"title":"first subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","category":"专题分类1","id":1}
+{ "create": { "_index": "sj", "_type": "info", "_id": "2" }}
+{"title":"second subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","category":"专题分类1","id":2}
+{ "create": { "_index": "sj", "_type": "info", "_id": "3" }}
+{"title":"third subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","category":"专题分类2","id":3}
+{ "create": { "_index": "sj", "_type": "info", "_id": "4" }}
+{"title":"fourth subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","category":"专题分类2","id":4}

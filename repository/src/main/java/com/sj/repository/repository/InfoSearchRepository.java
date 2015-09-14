@@ -10,4 +10,6 @@ public interface InfoSearchRepository extends
 		ElasticsearchCrudRepository<InfoSearch, Long> {
 	Page<InfoSearch> findByTitleOrderByCreatedTimeDesc(String title,
 			Pageable pageable);
+
+	Page<InfoSearch> findByOrderByCreatedTimeDesc(Pageable pageable);
 }

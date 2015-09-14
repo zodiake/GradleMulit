@@ -45,8 +45,10 @@ create table subject(
 	content_id bigint,
 	image varchar(69),
 	summary varchar(200),
+	category_id long,
 	primary key(id),
-	foreign key (content_id) references content(id)
+	foreign key (content_id) references content(id),
+	foreign key (category_id) references category(id)
 );
 
 create table solution(

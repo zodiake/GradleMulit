@@ -18,9 +18,11 @@ import com.sj.repository.model.AdvertisementCategoryJson;
 import com.sj.repository.model.InformationCategoryJson;
 import com.sj.repository.model.ProductCategoryDetailJson;
 import com.sj.repository.model.ProductCategoryJson;
+import com.sj.repository.model.SubjectCategoryJson;
 import com.sj.repository.service.AdvertisementCategoryService;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.ProductCategoryService;
+import com.sj.repository.service.SubjectCategoryService;
 
 @Controller
 public class CategroyController {
@@ -30,6 +32,8 @@ public class CategroyController {
 	private AdvertisementCategoryService advertisementCategoryService;
 	@Autowired
 	private InformationCategoryService informationCategoryService;
+	@Autowired
+	private SubjectCategoryService subjectCategoryService;
 
 	@RequestMapping(value = "/admin/advertise/category", method = RequestMethod.GET)
 	@ResponseBody
@@ -47,6 +51,12 @@ public class CategroyController {
 	@ResponseBody
 	public List<ProductCategoryJson> findProductCategory() {
 		return productCategoryService.findByParentJson(null);
+	}
+
+	@RequestMapping(value = "/admin/subject/category", method = RequestMethod.GET)
+	@ResponseBody
+	public List<SubjectCategoryJson> findSubjectCategory() {
+		return subjectCategoryService.findAllJson();
 	}
 
 	@RequestMapping(value = "/admin/product/category/{id}/categories", method = RequestMethod.GET)

@@ -1,125 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head lang="en">
-		<meta charset="UTF-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<meta name="description" content=""/>
-		<title>仪器商品列表</title>
-		<meta name="_csrf" th:content="${_csrf.token}" />
-		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-		<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
-		<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
-		<script type="text/javascript" th:src="@{/js/script.js}"></script>
-		<script type="text/javascript" th:src="@{/js/ajaxLogin-collection-products.js}"></script>
-		<script type="text/javascript" th:src="@{/js/ajaxLogin-cart-products.js}"></script>
-		<script type="text/javascript" th:src="@{/js/searchBrandContraction.js}"></script>
-		<script th:src="@{/js/searchForm.js}"></script>
-		<script type="text/javascript">
-            $(function() {
-                var token = $("meta[name='_csrf']").attr("content");
-                var header = $("meta[name='_csrf_header']").attr("content");
-                $(document).ajaxSend(function(e, xhr, options) {
-                    xhr.setRequestHeader(header, token);
-                });
-                $('.addCart').loginBeforeAjaxCart({
-                    url : '/ajax/carts',
-                    data : {
-                        'productId' : $(this).attr("data-id"),
-                        'number' : "1"
-                    },
-                    type : 'post',
-                    dataType : 'json',
-                    success : function(data) {
-                        $('#includeHeader').load('/head');
-                        if (data.data == "no authority") {
-                            alert("对不起您没有权限");
-                        }
-                    },
-                    error : function(data) {
-                        alert("系统异常");
-                    }
-                });
-                $('.coll').loginBeforeAjaxCollection({
-                    url : '/ajax/preferProduct',
-                    data : {
-                        'id' : $(this).attr("data-id")
-                    },
-                    type : 'post',
-                    success : function(data) {
-                        console.log(data);
-                        $('#includeHeader').load('/head');
-                        if (data == "no authority")
-                            alert("对不起您没有权限");
-                        else if (data == "duplicate")
-                            alert("该商品已被您收藏");
-                        else if (data == "success")
-                            alert("添加收藏成功");
-                    },
-                    error : function(data) {
-                        alert("系统异常");
-                    }
-                });
-
-                $(".product").on("click", ".coll", function() {
-                    var obj = $(this);
-                    var productId = obj.attr("data-id");
-                    coll(productId);
-                });
-                $(".product").on("click", ".nocoll", function() {
-                    var obj = $(this);
-                    var productId = obj.attr("data-id");
-                    nocoll(productId);
-                });
-
-                $('input[type="radio"]').click(function() {
-                    $('form').submit();
-                });
-
-                $(':checked').each(function(n, target) {
-                    var source = $(target);
-                    var template = $('<a class="sel-tag"/>');
-                    template.text(source.attr('data-label') + "：" + source.siblings('label').text());
-                    template.append('<span class="icon-del" data-target="' + source.attr('id') + '"></span>');
-                    $('div.selected').append(template);
-                });
-
-                $('a.sel-tag span').click(function(event) {
-                    var source = $(event.target);
-                    $('#' + source.attr('data-target')).prop('checked', false);
-                    $('form').submit();
-                });
-
-                $('#tagSearch').click(function() {
-                    $('form').submit();
-                });
-            });
-		</script>
-	</head>
-	<body>
-		<div id="includeHeader" class="header" th:include="head/head">
-			Head
-		</div>
-		<!-- header -->
-		<div class="wrapper">
-			<div class="items-list pro-list">
-				<ul>
-					<li class="bodr product" th:each="info:${lists.content}" >
-						<a th:href="@{'/info/'+${info.id}}"> <img th:src="@{${info.imgurl}}" width="210" height="175"/> </a>
-						<div class="pic-box">
-							<div class="pic-row refer">
-
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>行业要闻</title>
+  <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
+  <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
+  <script  th:src="@{/js/script.js}"></script>
+</head>
+<body>
+	<div th:include="head/head">Head</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="mainwrapper clearfix">
+			<div class="mainpanel fr">
+				<div class="news-wrap">
+					<ul >
+						<li th:each="info:${informations}">
+							<h3><a class="ft16 gray-deeply" th:text="${info.title}" th:href="'/informations/'+${info.id}"></a></h3>
+							<div class="news-dtl">
+								<p th:text="${info.summary}">
+								</p>
 							</div>
-						</div>
-					</li>
-				</ul>
+							<div class="news-global clearfix">
+								<div class="news-time fl">
+									<i th:text="${#dates.format(info.createdTime, 'yyyy-MM-dd HH-mm-ss')}"></i>发布
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
-			<div class="pagination"></div>
-
 		</div>
-		<div class="footer">
-			© 1998 - 2015 SJ Inc. All Rights Reserved
+		<div class="pagination">
+			
 		</div>
-		<div class="fixed"></div>
-		<div class="hide-wrap logo-small bodr"></div>
-	</body>
-</html>
+	</div>
+	<div class="footer">
+		© 1998 - 2015 SJ Inc. All Rights Reserved
+	</div>
+</body>
+</html>	

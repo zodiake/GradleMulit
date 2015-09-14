@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,8 +27,11 @@ public class InfoSearchServiceImpl implements InfoSearchService {
 	@Override
 	public Page<InfoSearch> findByOption(InfoSearchOption option,
 			Pageable pageable) {
-		return repository.findByTitleOrderByCreatedTimeDesc(option.getTitle(),
-				pageable);
+		if (StringUtils.isNotEmpty(option.getTitle()))
+			return repository.findByTitleOrderByCreatedTimeDesc(
+					option.getTitle(), pageable);
+		else
+			return repository.findAll(pageable);
 	}
 
 	@Override
