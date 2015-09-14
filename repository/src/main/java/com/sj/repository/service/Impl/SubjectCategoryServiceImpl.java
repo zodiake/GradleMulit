@@ -32,4 +32,9 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public List<SubjectCategory> findAll() {
+		return Lists.newArrayList(repository.findAll());
+	}
+
 }

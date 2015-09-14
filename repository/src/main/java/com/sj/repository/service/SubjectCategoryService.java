@@ -9,4 +9,6 @@ public interface SubjectCategoryService {
 	public SubjectCategory findOne(Long id);
 
 	public List<SubjectCategoryJson> findAllJson();
+
+	public List<SubjectCategory> findAll();
 }

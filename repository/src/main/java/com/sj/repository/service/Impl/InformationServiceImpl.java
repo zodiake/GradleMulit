@@ -22,6 +22,8 @@ import com.sj.model.type.AdvertiseCategoryEnum;
 import com.sj.repository.model.InformationJson;
 import com.sj.repository.repository.InformationCategoryRepository;
 import com.sj.repository.repository.InformationRepository;
+import com.sj.repository.search.model.InfoSearch;
+import com.sj.repository.search.service.InfoSearchService;
 import com.sj.repository.service.InformationService;
 
 @Service
@@ -31,6 +33,8 @@ public class InformationServiceImpl implements InformationService {
 	private InformationRepository repository;
 	@Autowired
 	private InformationCategoryRepository informationCategoryRrepository;
+	@Autowired
+	private InfoSearchService infoSearchService;
 
 	@Override
 	public Page<Information> findByCategory(InformationCategory category,
@@ -83,7 +87,10 @@ public class InformationServiceImpl implements InformationService {
 	@Override
 	public Information save(Information advertisement) {
 		advertisement.setUpdatedTime(Calendar.getInstance());
-		return repository.save(advertisement);
+		advertisement.setCreatedTime(Calendar.getInstance());
+		Information info = repository.save(advertisement);
+		infoSearchService.save(new InfoSearch(info));
+		return info;
 	}
 
 	@Override

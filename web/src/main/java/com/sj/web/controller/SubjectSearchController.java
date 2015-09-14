@@ -1,5 +1,6 @@
 package com.sj.web.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +12,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sj.model.model.SubjectCategory;
 import com.sj.repository.search.model.SubjectSearch;
 import com.sj.repository.search.model.SubjectSearchOption;
 import com.sj.repository.search.service.SubjectSearchService;
+import com.sj.repository.service.SubjectCategoryService;
 
 @Controller
 public class SubjectSearchController extends BaseController<SubjectSearch> {
 	@Autowired
 	private SubjectSearchService service;
+	@Autowired
+	private SubjectCategoryService categoryService;
 
 	private final String SEARCH_LIST = "search/subject/subjects";
 
@@ -29,6 +34,7 @@ public class SubjectSearchController extends BaseController<SubjectSearch> {
 
 		Page<SubjectSearch> pages = service.findByOption(option, pageable);
 		Map<String, String> map = service.buildMap(option);
+		List<SubjectCategory> categories = categoryService.findAll();
 
 		ViewPage viewpage = caculatePage(pages);
 		viewpage.setOption(map);
@@ -38,6 +44,7 @@ public class SubjectSearchController extends BaseController<SubjectSearch> {
 		uiModel.addAttribute("subjects", pages);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
+		uiModel.addAttribute("categories", categories);
 		return SEARCH_LIST;
 	}
 

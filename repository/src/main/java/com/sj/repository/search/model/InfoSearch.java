@@ -9,14 +9,13 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import com.sj.model.model.Information;
+
 @Document(indexName = "sj", type = "info")
 public class InfoSearch {
 	@Id
 	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
 	private Long id;
-
-	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
-	private String category;
 
 	private String title;
 
@@ -26,20 +25,22 @@ public class InfoSearch {
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 	private String summary;
 
+	public InfoSearch() {
+	}
+
+	public InfoSearch(Information info) {
+		this.id = info.getId();
+		this.title = info.getTitle();
+		this.createdTime = info.getCreatedTime();
+		this.summary = info.getSummary();
+	}
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	public String getTitle() {

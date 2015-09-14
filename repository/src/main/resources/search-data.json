@@ -13,19 +13,19 @@
 
 
 { "create": { "_index": "sj", "_type": "subject", "_id": "1" }}
-{"title":"first subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","createdTime":"2012-12-31T12:23:33","id":1}
+{"title":"first subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","category":"专题分类1","createdTime":"2012-12-31T12:23:33","id":1}
 { "create": { "_index": "sj", "_type": "subject", "_id": "2" }}
-{"title":"second subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","createdTime":"2012-12-31T12:23:33","id":2}
+{"title":"second subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","category":"专题分类1","createdTime":"2012-12-31T12:23:33","id":2}
 { "create": { "_index": "sj", "_type": "subject", "_id": "3" }}
-{"title":"third subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","createdTime":"2012-12-31T12:23:33","id":3}
+{"title":"third subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","category":"专题分类2","createdTime":"2012-12-31T12:23:33","id":3}
 { "create": { "_index": "sj", "_type": "subject", "_id": "4" }}
-{"title":"fourth subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","createdTime":"2012-12-31T12:23:33","id":4}
+{"title":"fourth subject","summary":"subject,summary","image":"http://localhost:8000/a.jpg","category":"专题分类2","createdTime":"2012-12-31T12:23:33","id":4}
 
 { "create": { "_index": "sj", "_type": "info", "_id": "1" }}
-{"title":"first subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","category":"专题分类1","id":1}
+{"title":"first subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","id":1}
 { "create": { "_index": "sj", "_type": "info", "_id": "2" }}
-{"title":"second subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","category":"专题分类1","id":2}
+{"title":"second subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","id":2}
 { "create": { "_index": "sj", "_type": "info", "_id": "3" }}
-{"title":"third subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","category":"专题分类2","id":3}
+{"title":"third subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","id":3}
 { "create": { "_index": "sj", "_type": "info", "_id": "4" }}
-{"title":"fourth subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","category":"专题分类2","id":4}
+{"title":"fourth subject","summary":"subject,summary","createdTime":"2012-12-31T12:23:33","id":4}

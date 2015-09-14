@@ -128,7 +128,7 @@ values(5,'资讯',null,1,'2012-1-1','tom','ic');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(6,'专题分类1',null,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(1000,'专题分类1',null,1,'2012-1-1','tom','sc');
+values(1000,'专题分类2',null,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(20,'广告位1',null,1,'2012-1-1','tom','ac');
 

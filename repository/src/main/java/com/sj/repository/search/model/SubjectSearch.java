@@ -28,6 +28,9 @@ public class SubjectSearch {
 	@Field(type = FieldType.Date)
 	private Calendar createdTime;
 
+	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+	private String category;
+
 	public SubjectSearch() {
 
 	}
@@ -37,6 +40,7 @@ public class SubjectSearch {
 		this.title = subject.getName();
 		this.image = subject.getImage();
 		this.createdTime = subject.getCreatedTime();
+		this.category = subject.getCategory().getName();
 	}
 
 	public Long getId() {
@@ -69,5 +73,21 @@ public class SubjectSearch {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public Calendar getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }
