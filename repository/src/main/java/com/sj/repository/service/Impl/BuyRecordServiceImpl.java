@@ -98,4 +98,9 @@ public class BuyRecordServiceImpl implements BuyRecordService {
 		return old;
 	}
 
+	@Override
+	public BuyRecord findByNoId(String noId) {
+		return buyRecordRepository.findByNoId(noId);
+	}
+
 }

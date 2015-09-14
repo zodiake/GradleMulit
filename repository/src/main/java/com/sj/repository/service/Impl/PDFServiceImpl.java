@@ -4,24 +4,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
-import javax.print.DocFlavor.URL;
 
-import org.elasticsearch.common.Table.Cell;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.remoting.support.UrlBasedRemoteAccessor;
 import org.springframework.stereotype.Service;
 
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -40,11 +30,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.sj.model.model.BuyProduct;
 import com.sj.model.model.BuyRecord;
 import com.sj.model.model.Product;
-import com.sj.model.model.Provider;
 import com.sj.model.type.PlaceEnum;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.service.PDFService;
-import com.sj.repository.service.ProductService;
 
 @Service
 public class PDFServiceImpl implements PDFService {
@@ -53,7 +41,6 @@ public class PDFServiceImpl implements PDFService {
 
 	private final static String TEXT = "上海申捷卫生科技";
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	private final String providerPath = "src/main/resources/static/upload/";
 
 	private PdfPCell getCell(String content, int colspan, Font fontChinese) {
 		PdfPCell c = new PdfPCell(new Paragraph(content, fontChinese));
@@ -207,7 +194,6 @@ public class PDFServiceImpl implements PDFService {
 	
 	private PdfPTable getProductsTable(Product product,Font fontChinese) throws MalformedURLException, IOException, DocumentException{
 			PdfPTable table = new PdfPTable(2);
-			System.out.println(providerPath);
 			Image image = Image.getInstance(product.getCoverImg());
 			image.setAlignment(Element.ALIGN_CENTER);
 			PdfPCell imageCell = new PdfPCell();

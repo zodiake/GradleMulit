@@ -431,8 +431,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public String batchSaveProduct(InputStream is,Provider provider) throws BatchException,
 			Exception {
-		XSSFWorkbook wb = null;
-		wb = new XSSFWorkbook(is);
+		XSSFWorkbook wb = new XSSFWorkbook(is);
 		is.close();
 		List<Product> products = findDataForBatch(wb, provider);
 		wb.close();
@@ -452,8 +451,7 @@ public class ProductServiceImpl implements ProductService {
 				consumableRepository.save(c);
 				continue;
 			case "服务":
-				com.sj.model.model.Service s = new com.sj.model.model.Service(
-						product);
+				com.sj.model.model.Service s = new com.sj.model.model.Service(product);
 				serviceRepository.save(s);
 				continue;
 			}
@@ -505,7 +503,7 @@ public class ProductServiceImpl implements ProductService {
 				XSSFCell secondCell = secondRow.createCell(j+1);
 				secondCell.setCellValue(secondCategories.get(j).getName());
 				
-				secondRowNum= secondRowNum+1;
+				secondRowNum= secondRowNum + 1;
 				XSSFRow thirdRow = categorySheet.createRow(secondRowNum);
 				XSSFCell thirdCategoryHeadCell = thirdRow.createCell(0);
 				thirdCategoryHeadCell.setCellValue(secondCategories.get(j).getName());
