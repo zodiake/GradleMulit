@@ -22,41 +22,43 @@
                     xhr.setRequestHeader(header, token);
                 });
                 $('.addCart').loginBeforeAjaxCart({
-                	url : '/ajax/carts',
-                	data : {
-                		'productId' : $(this).attr("data-id"),
-   	                 	'number' : "1"
-   	                 },
-                	type : 'post',
-                	dataType : 'json',
-                	success : function(data){
-    	                 $('#includeHeader').load('/head');
-                		if (data.data == "no authority") {
-    	                 	alert("对不起您没有权限");
-    	                 }
-                	},
-                	error : function(data){
-                		alert("系统异常");
-                	}
+                    url : '/ajax/carts',
+                    data : {
+                        'productId' : $(this).attr("data-id"),
+                        'number' : "1"
+                    },
+                    type : 'post',
+                    dataType : 'json',
+                    success : function(data) {
+                        $('#includeHeader').load('/head');
+                        if (data.data == "no authority") {
+                            alert("对不起您没有权限");
+                        }
+                    },
+                    error : function(data) {
+                        alert("系统异常");
+                    }
                 });
-              	$('.coll').loginBeforeAjaxCollection({
-              		url : '/ajax/preferProduct',
-              		data : {'id' : $(this).attr("data-id")},
-              		type : 'post',
-              		success:function(data){
-              			console.log(data);
-              			 $('#includeHeader').load('/head');
-              			if(data=="no authority")
-              				alert("对不起您没有权限");
-              			else if(data=="duplicate")
-              				alert("该商品已被您收藏");
-              			else if(data == "success")
-              				alert("添加收藏成功");
-              		},
-              		error:function(data){
-              			alert("系统异常");
-              		}
-              	});
+                $('.coll').loginBeforeAjaxCollection({
+                    url : '/ajax/preferProduct',
+                    data : {
+                        'id' : $(this).attr("data-id")
+                    },
+                    type : 'post',
+                    success : function(data) {
+                        console.log(data);
+                        $('#includeHeader').load('/head');
+                        if (data == "no authority")
+                            alert("对不起您没有权限");
+                        else if (data == "duplicate")
+                            alert("该商品已被您收藏");
+                        else if (data == "success")
+                            alert("添加收藏成功");
+                    },
+                    error : function(data) {
+                        alert("系统异常");
+                    }
+                });
 
                 $(".product").on("click", ".coll", function() {
                     var obj = $(this);
@@ -99,105 +101,20 @@
 		</div>
 		<!-- header -->
 		<div class="wrapper">
-			<div class="gray-hd">
-				<span>筛选商品 共<i th:text="${products.totalElements}">1222</i>件商品</span>
-			</div>
-			<div class="sort-group">
-				<div class="selected">
-					<label><b>筛选：</b></label>
-				</div>
-				<form th:object="${option}">
-					<div id="brandSearch" class="search-select" style="height: 40px;">
-						<label><b>品牌：</b></label>
-						<ul class="list-inline">
-							<li th:each="brand : ${brands}">
-								<input type="radio" th:field="*{brand}" th:value="${brand.name}" th:attr="data-label='品牌'"/>
-								<label th:for="${#ids.prev('brand')}" th:text="${brand.name}">Heating</label>
-							</li>
-						</ul>
-						<div id="more" style="right: 20px;bottom: 5px;position: absolute;"><a type="button" class="blue">↓</a></div>
-						<div id="contraction" style="right: 20px;bottom: 10px;position: absolute; display: none;"><a class="blue" type="button">↑</a></div>
-					</div>
-					<div class="search-select">
-						<label><b>产地：</b></label>
-						<ul class="list-inline pack">
-							<li>
-								<input type="radio" th:field="*{original}" value="1" data-label="产地"/>
-								<label for="original1">进口</label>
-							</li>
-							<li>
-								<input th:field="*{original}" type="radio" value="0" data-label="产地"/>
-								<label for="original2">中国</label>
-							</li>
-						</ul>
-					</div>
-					<div class="search-select">
-						<label><b>价格：</b></label>
-						<ul class="list-inline pack">
-							<li>
-								<input th:field="*{priceRange}" type="radio" name="radio" data-label="价格" value="1"/>
-								<label for="priceRange1">1-3万</label>
-							</li>
-							<li>
-								<input th:field="*{priceRange}" type="radio" name="radio" data-label="价格" value="2"/>
-								<label for="priceRange2">3-5万</label>
-							</li>
-							<li>
-								<input th:field="*{priceRange}" type="radio" name="radio" data-label="价格" value="3"/>
-								<label for="priceRange3">5-8万</label>
-							</li>
-						</ul>
-						<input type="hidden" th:field="*{secondCategory}"/>
-						<input type="hidden" th:field="*{title}"/>
-					</div>
-					<div class="items-search">
-						<label><b>标签：</b></label>
-						<input type="text" class="bodr" th:field="*{tag}"/>
-						<button id="tagSearch">
-							搜索
-						</button>
-					</div>
-				</form>
-			</div>
-			<div class="filter">
-				<a class="price">价格<i></i></a>
-				<a>评论数</a>
-				<a>上架时间</a>
-			</div>
 			<div class="items-list pro-list">
 				<ul>
-					<li class="bodr product" th:each="product:${products.content}" >
-						<a th:href="@{'/products/'+${product.id}}"> <img th:src="@{${product.imgurl}}" width="210" height="175"/> </a>
+					<li class="bodr product" th:each="info:${lists.content}" >
+						<a th:href="@{'/info/'+${info.id}}"> <img th:src="@{${info.imgurl}}" width="210" height="175"/> </a>
 						<div class="pic-box">
 							<div class="pic-row refer">
-								<label>参考报价</label>
-								<span> <b class="red ft14">￥<i th:text="${product.price}"></i></b> </span>
-							</div>
-							<div class="pic-row tit" th:text="${product.title}"></div>
-							<div class="pic-row">
-								<label>品牌：</label>
-								<span th:text="${product.brand}"></span>
-							</div>
-							<div class="pic-row">
-								<label >产地：</label>
-								<span th:text="${product.original}"></span>
-							</div>
-							<div class="pic-row">
-								<label>型号：</label>
-								<span th:text="${product.model}"></span>
-							</div>
-							<div class="pic-row bodr" th:id="'coll'+${product.id}">
-								<a class="btn-cancel coll" th:attr="data-id=${product.id}">加入收藏</a>
-								<a class="btn-cart addCart" th:attr="data-id=${product.id}">加入购物车</a>
+
 							</div>
 						</div>
 					</li>
 				</ul>
 			</div>
-		<div class="pagination">
-			<div th:include="fragments/page::page(${viewpage})" class="l-pagination"></div>
-		</div>
-			
+			<div class="pagination"></div>
+
 		</div>
 		<div class="footer">
 			© 1998 - 2015 SJ Inc. All Rights Reserved

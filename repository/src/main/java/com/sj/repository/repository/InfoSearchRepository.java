@@ -8,5 +8,6 @@ import com.sj.repository.search.model.InfoSearch;
 
 public interface InfoSearchRepository extends
 		ElasticsearchCrudRepository<InfoSearch, Long> {
-	Page<InfoSearch> findByTitle(String title, Pageable pageable);
+	Page<InfoSearch> findByTitleOrderByCreatedTimeDesc(String title,
+			Pageable pageable);
 }

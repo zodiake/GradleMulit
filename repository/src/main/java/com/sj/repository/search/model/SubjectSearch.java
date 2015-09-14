@@ -4,12 +4,14 @@ import java.util.Calendar;
 
 import javax.persistence.Id;
 
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldIndex;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import com.sj.model.model.Subject;
 
+@Document(indexName = "sj", type = "subject")
 public class SubjectSearch {
 	@Id
 	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
