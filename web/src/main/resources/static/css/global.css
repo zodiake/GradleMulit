@@ -328,7 +328,8 @@ img{
 	display: block;
 }
 .ct-cart-list .ct-name{
-	width: 120px;
+	width: 140px;
+	overflow-x: hidden;
 }
 .ct-total{
 	padding:0 15px;
@@ -959,7 +960,8 @@ table.save-table span.one-sort{
 	margin-left: 10px;
 }
 .mainpanel table td div.fl{
-	width: 250px;
+	max-width: 150px;
+	overflow: hidden;
 }
 .mainpanel table td div.fr{
 	padding-right: 30px;
