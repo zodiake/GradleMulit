@@ -1,29 +1,30 @@
-<div class="modal-dialog files_tab" role="document">
-    <div class="modal-content">
-        <div class="modal-body">
-            <form class="form-horizontal">
-	            <div class="form-group">
-	                <label class="col-sm-3 control-label">商品分类分类</label>
-	                <div class="col-sm-5">
-	                    <select name="category" ng-model="item.parent">
-	                        <option value="">--请选择--</option>
-	                        <option value="1">仪器</option>
-	                        <option value="2">试剂</option>
-	                        <option value="3">耗材</option>
-	                        <option value="4">服务</option>
-	                    </select>
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-3 control-label">商品名称</label>
-	                <div class="col-sm-5">
-	                    <input type="text" class="form-control" ng-model="item.name" />
-	                </div>                
-	            </div>
-       		 </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" ng-click="submit()">提交</button>
-        </div>
-    </div>
+<div class="modal-body">
+	<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">
+		{{alert.msg}}
+	</alert>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">商品分类分类</label>
+			<div class="col-sm-5">
+				<select name="category" ng-model="item.parent">
+					<option value="">--请选择--</option>
+					<option value="1">仪器</option>
+					<option value="2">试剂</option>
+					<option value="3">耗材</option>
+					<option value="4">服务</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">商品名称</label>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" ng-model="item.name" />
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="submit()">
+		提交
+	</button>
 </div>
