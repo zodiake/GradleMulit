@@ -3,16 +3,32 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title>Insert title here</title>
+		<link href="/css/style.default.css" rel="stylesheet"></link>
         <script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 	</head>
-	<body>
-	<div style="border: 1px solid black; width: 300px;height:100px;margin-left: auto;margin-right: auto;">
-		<form  th:method="post" th:object="${user}" style="text-align: center;padding-top: 10px;">
-			用户名：<input type="text" th:field = "*{name}"/><br/>
-			密&nbsp;&nbsp;码：<input type="password" th:field = "*{password}" /><br/>
-			<input type="submit" value="登录"/>
-		</form>
-		</div>
-	</body>
+	<body class="signin">
+    	<section>    		
+			<div class="panel panel-signin">
+				<div class="panel-body">
+					<form th:method="post" th:object="${user}">
+						<div class="form-group">
+							<label>用户名</label>
+							<div class="col-md-3">
+								<input class="form-control" type="text" th:field = "*{name}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>密码</label>
+							<div class="col-md-3">
+								<input class="form-control" type="password" th:field = "*{password}" />
+							</div>
+						</div>
+						<input type="submit" class="btn btn-success sub-btn" value="登录"/>
+						
+					</form>		
+				</div>
+			</div>
+    	</section>
+    </body>
 </html>

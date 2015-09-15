@@ -123,7 +123,7 @@
             冻结/解冻
         </div>
         <div class="modal-body">
-        	{{item.name}}
+        	是否{{item.state|reverseActiveFilter}}{{item.name}}
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="ok()">OK</button>
