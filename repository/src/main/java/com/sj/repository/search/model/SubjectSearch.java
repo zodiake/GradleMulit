@@ -40,6 +40,7 @@ public class SubjectSearch {
 		this.title = subject.getName();
 		this.image = subject.getImage();
 		this.createdTime = subject.getCreatedTime();
+		this.summary = subject.getSummary();
 		this.category = subject.getCategory().getName();
 	}
 

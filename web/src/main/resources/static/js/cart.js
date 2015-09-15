@@ -15,7 +15,7 @@ $(function() {
 				}
 			},
 			error : function(data) {
-				alert(data);
+				alert("系统异常");
 			}
 		});
 	});
@@ -41,7 +41,7 @@ $(function() {
 					}
 				},
 				error : function(data) {
-					alert(data);
+					alert("系统异常");
 				}
 			});
 		}
@@ -67,7 +67,7 @@ $(function() {
 				}
 			},
 			error : function(data) {
-				alert(data);
+				alert("系统异常");
 			}
 		});
 
@@ -81,7 +81,6 @@ $(function() {
 				type : "PUT",
 				url : '/user/carts/' + cartId + '/0?check',
 				success : function(data) {
-					alert(data);
 				},
 				error : function(data) {
 					alert('error');
@@ -92,7 +91,6 @@ $(function() {
 				type : "PUT",
 				url : '/user/carts/' + cartId + '/1?check',
 				success : function(data) {
-					alert(data);
 				},
 				error : function(data) {
 					alert('error');

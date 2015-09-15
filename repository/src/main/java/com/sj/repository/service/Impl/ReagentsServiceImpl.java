@@ -1,11 +1,15 @@
 package com.sj.repository.service.Impl;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Reagents;
+import com.sj.model.model.Solution;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.repository.ReagentsRepository;
 import com.sj.repository.service.ReagentsService;
@@ -18,7 +22,9 @@ public class ReagentsServiceImpl implements ReagentsService {
 
 	@Override
 	public Reagents saveNoPublisher(Reagents reagents) {
-		// TODO Auto-generated method stub
+		reagents.setCreatedTime(Calendar.getInstance());
+		reagents.setStatus(ProductStatusEnum.EXAMINE);
+		reagents.setSolutions(new ArrayList<Solution>());
 		return repository.save(reagents);
 	}
 

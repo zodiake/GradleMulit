@@ -37,7 +37,7 @@
 						<tbody class="bodr">
 							<tr th:each="product:${products}">
 								<td th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015年01月11日 10:39</td>
-								<td><a th:text="${product.name}" th:href="'/products/'+${product.id}">名称名称</a></td>
+								<td><a th:text="${product.name}" target="view_window" th:href="@{/provider/products/__${product.id}__?detail}">名称名称</a></td>
 								<td th:text="${product.viewCount}">11111</td>
 								<td th:text="${product.collectionCount}">11111</td>
 								<td th:text="${product.reviewCount}">2222</td>

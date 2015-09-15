@@ -25,10 +25,12 @@ public interface ProductService {
 			ProductStatusEnum status);
 
 	public Page<Product> findByUsers(Provider user, Pageable pageable);
-
-	public Product findOne(Long id);
 	
-	public Product findOneUserIsLogin(Long id,SiteUser user);
+	public Product findOne(Long id);
+
+	public Product findUpOne(Long id);
+	
+	public Product findUpOneUserIsLogin(Long id,SiteUser user);
 
 	public void addViewCount(Long id);
 

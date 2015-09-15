@@ -37,7 +37,8 @@ subjectModule.service('SubjectService', ['$http',
                     content: item.content,
                     solution: solutions,
                     image: item.cover,
-                    summary: item.summary
+                    summary: item.summary,
+                    category:item.category
                 },
                 headers: header
             });
@@ -101,8 +102,9 @@ subjectModule.controller('SubjectController', ['$scope',
     }
 ]);
 
-subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal', '$http',
-    function ($scope, SubjectService, $modal, $http) {
+subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal', '$http','categories',
+    function ($scope, SubjectService, $modal, $http,categories) {
+        $scope.categories=categories.data;
         $scope.item = {
             solutions: []
         };
@@ -174,7 +176,9 @@ subjectModule.controller('SubjectEditController', ['$scope',
     'SubjectService',
     '$stateParams',
     '$http',
-    function ($scope, SubjectService, $stateParams,$http) {
+    'categories',
+    function ($scope, SubjectService, $stateParams,$http,categories) {
+        $scope.categories=categories.data;
         $scope.alerts = [];
 
         function init() {

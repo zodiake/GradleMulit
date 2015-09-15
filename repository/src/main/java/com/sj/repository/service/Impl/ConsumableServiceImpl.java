@@ -1,5 +1,7 @@
 package com.sj.repository.service.Impl;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Consumable;
 import com.sj.model.model.ProductCategory;
+import com.sj.model.model.Solution;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.model.ProductJson;
 import com.sj.repository.repository.ConsumableRepository;
@@ -33,6 +36,9 @@ public class ConsumableServiceImpl implements ConsumableService {
 
 	@Override
 	public Consumable saveNoPublisher(Consumable consumable) {
+		consumable.setCreatedTime(Calendar.getInstance());
+		consumable.setStatus(ProductStatusEnum.EXAMINE);
+		consumable.setSolutions(new ArrayList<Solution>());
 		return repository.save(consumable);
 	}
 

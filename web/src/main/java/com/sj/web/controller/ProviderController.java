@@ -1,7 +1,9 @@
 package com.sj.web.controller;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -25,8 +27,11 @@ import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.model.Reagents;
+import com.sj.model.model.Review;
 import com.sj.model.model.Service;
 import com.sj.model.model.SiteUser;
+import com.sj.model.model.Solution;
+import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.service.BrandService;
@@ -42,6 +47,7 @@ import com.sj.repository.service.ReagentsService;
 import com.sj.repository.service.ServiceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.annotation.SecurityUser;
+import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.EnumNotFoundException;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.UserContext;
@@ -95,17 +101,15 @@ public class ProviderController extends BaseController<Provider> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", provider);
 			uiModel.addAttribute("provinces", provinceService.findAll());
-			uiModel.addAttribute("industryInfos",
-					providerIndustryInfoService.findAll());
-			uiModel.addAttribute("citys",
-					cityService.findByProvince(provider.getProvince()));
+			uiModel.addAttribute("industryInfos",providerIndustryInfoService.findAll());
+			uiModel.addAttribute("citys",cityService.findByProvince(provider.getProvince()));
 			return "user/provider/detail";
 		}
 		SiteUser user = userContext.getCurrentUser();
 		provider.setId(user.getId());
 		provider = providerService.updateProvider(provider);
 		uiModel.addAttribute("user", provider);
-		return "redirect:/provider/detail";
+		return "redirect:/supplier/detail";
 	}
 
 	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)
@@ -157,11 +161,9 @@ public class ProviderController extends BaseController<Provider> {
 		}
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
-			List<ProductCategory> pcs = productCategoryService
-					.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
 			if (instrument.getFirstCategory() != null) {
-				List<ProductCategory> secondCategory = productCategoryService
-						.findByParentAndActivate(instrument.getFirstCategory(),
+				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(instrument.getFirstCategory(),
 								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategory", secondCategory);
 			}
@@ -177,11 +179,9 @@ public class ProviderController extends BaseController<Provider> {
 			return "user/provider/release";
 		}
 		instrument.setCreatedBy(new Provider(user.getId()));
-		instrument.setCreatedTime(Calendar.getInstance());
-		instrument.setStatus(ProductStatusEnum.EXAMINE);
 
 		Instrument i =instrumentService.saveNoPublisher(instrument);
-		return "redirect:/products/"+i.getId();
+		return "redirect:/provider/products/"+i.getId()+"?detail";
 	}
 
 	@RequestMapping(value = "/provider/consumables", method = RequestMethod.POST, params = "form")
@@ -216,11 +216,9 @@ public class ProviderController extends BaseController<Provider> {
 			return "user/provider/release";
 		}
 		consumable.setCreatedBy(new Provider(user.getId()));
-		consumable.setCreatedTime(Calendar.getInstance());
-		consumable.setStatus(ProductStatusEnum.EXAMINE);
-
+		
 		Consumable c = consumableService.saveNoPublisher(consumable);
-		return "redirect:/products/"+c.getId();
+		return "redirect:/provider/products/"+c.getId()+"?detail";
 	}
 
 	@RequestMapping(value = "/provider/reagents", method = RequestMethod.POST, params = "form")
@@ -254,11 +252,9 @@ public class ProviderController extends BaseController<Provider> {
 			return "user/provider/release";
 		}
 		reagents.setCreatedBy(new Provider(user.getId()));
-		reagents.setCreatedTime(Calendar.getInstance());
-		reagents.setStatus(ProductStatusEnum.EXAMINE);
 
 		Reagents r = reagentsService.saveNoPublisher(reagents);
-		return "redirect:/products/"+r.getId();
+		return "redirect:/provider/products/"+r.getId()+"?detail";
 	}
 
 	@RequestMapping(value = "/provider/services", method = RequestMethod.POST, params = "form")
@@ -292,11 +288,9 @@ public class ProviderController extends BaseController<Provider> {
 			return "user/provider/release";
 		}
 		service.setCreatedBy(new Provider(user.getId()));
-		service.setCreatedTime(Calendar.getInstance());
-		service.setStatus(ProductStatusEnum.EXAMINE);
 
 		Service s = serviceService.saveNoPublisher(service);
-		return "redirect:/products/"+s.getId();
+		return "redirect:/provider/products/"+s.getId()+"?detail";
 	}
 
 	/* 商品发布 end */
@@ -341,7 +335,7 @@ public class ProviderController extends BaseController<Provider> {
 		instrument.setId(id);
 		instrument = instrumentService.updateNoPublisher(instrument);
 		uiModel.addAttribute("product", instrument);
-		return "redirect:/products/"+id;
+		return "redirect:/provider/products/"+id+"?detail";
 	}
 
 	@RequestMapping(value = "/provider/consumables/{id}", method = RequestMethod.PUT, params = "edit")
@@ -366,7 +360,7 @@ public class ProviderController extends BaseController<Provider> {
 		consumable.setId(id);
 		consumable = consumableService.updateNoPublisher(consumable);
 		uiModel.addAttribute("product", consumable);
-		return "redirect:/products/"+id;
+		return "redirect:/provider/products/"+id+"?detail";
 	}
 
 	@RequestMapping(value = "/provider/services/{id}", method = RequestMethod.PUT, params = "edit")
@@ -391,9 +385,9 @@ public class ProviderController extends BaseController<Provider> {
 		service.setId(id);
 		service = serviceService.updateNoPublisher(service);
 		uiModel.addAttribute("product", service);
-		return "redirect:/products/"+id;
+		return "redirect:/provider/products/"+id+"?detail";
 	}
-
+	
 	@RequestMapping(value = "/provider/reagents/{id}", method = RequestMethod.PUT, params = "edit")
 	public String editReagents(@PathVariable("id") Long id,
 			@Valid @ModelAttribute("product") Reagents reagents,
@@ -421,7 +415,7 @@ public class ProviderController extends BaseController<Provider> {
 		reagents.setId(id);
 		reagents = reagentsService.updateNoPublisher(reagents);
 		uiModel.addAttribute("product", reagents);
-		return "redirect:/products/"+id;
+		return "redirect:/provider/products/"+id+"?detail";
 	}
 
 	/* 商品修改 end */

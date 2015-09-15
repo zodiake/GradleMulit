@@ -15,6 +15,7 @@ public class SubjectDetailJson {
 	private String content;
 	private List<SolutionDetailJson> solutions;
 	private String summary;
+	private Long category;
 
 	public SubjectDetailJson(Subject s) {
 		this.id = s.getId();
@@ -27,6 +28,7 @@ public class SubjectDetailJson {
 				.map(c -> new SolutionDetailJson(c))
 				.collect(Collectors.toList());
 		this.summary = s.getSummary();
+		this.category = s.getCategory().getId();
 	}
 
 	public Long getId() {
@@ -91,5 +93,13 @@ public class SubjectDetailJson {
 
 	public void setUpdatedTime(Calendar updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	public Long getCategory() {
+		return category;
+	}
+
+	public void setCategory(Long category) {
+		this.category = category;
 	}
 }

@@ -1830,9 +1830,18 @@ input[type=radio]:checked + label{
 	  border-radius:0;
     }
   }
-.dd{
+.text350{
 	width:350px;
 	overflow: hidden;
+	position:relative;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	course:hand;
+}
+.text210{
+	width:210px;
+	overflow: hidden;
+	position:relative;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	course:hand;

@@ -98,8 +98,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product findOne(Long id) {
-		Product p = repository.findOne(id);
+	public Product findUpOne(Long id) {
+		Product p = repository.findByIdAndStatus(id, ProductStatusEnum.UP);
 		if(p != null){
 			String count = template.opsForValue().get(COLLECTIONCOUNT + p.getId().toString());
 			if (count == null)
@@ -111,8 +111,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public Product findOneUserIsLogin(Long id,SiteUser user) {
-		Product p = repository.findOne(id);
+	public Product findUpOneUserIsLogin(Long id,SiteUser user) {
+		Product p = repository.findByIdAndStatus(id,ProductStatusEnum.UP);
 		if(p != null){
 			String count = template.opsForValue().get(COLLECTIONCOUNT + p.getId().toString());
 			if (count == null)
@@ -515,6 +515,19 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return wb;
+	}
+
+	@Override
+	public Product findOne(Long id) {
+		Product p = repository.findOne(id);
+		if(p != null){
+			String count = template.opsForValue().get(COLLECTIONCOUNT + p.getId().toString());
+			if (count == null)
+				p.setCollectionCount(0l);
+			else
+				p.setCollectionCount(Long.valueOf(count));
+		}
+		return p;
 	}
 
 }

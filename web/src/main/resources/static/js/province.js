@@ -13,7 +13,7 @@ $(function() {
 				});
 				$('#city').append(str);
 			},error : function(data){
-				alert("error");
+				alert("系统异常请稍后再试");
 			}
 		});
 	});

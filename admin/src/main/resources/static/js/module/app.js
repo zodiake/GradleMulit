@@ -15,7 +15,8 @@ var app = angular.module('app', [
     'Subject',
     'Product',
     'Category',
-    'scroll'
+    'scroll',
+    'SubjectCategory'
 ]);
 
 app.config([
@@ -59,12 +60,22 @@ app.config([
             .state('subjectCreate', {
                 url: '/subjectCreate',
                 templateUrl: '/admin/subject/create',
-                controller: 'SubjectCreateController'
+                controller: 'SubjectCreateController',
+                resolve:{
+                    categories:function(SubjectCategoryService){
+                        return SubjectCategoryService.findAll();
+                    }
+                }
             })
             .state('subjectDetail', {
                 url: '/subjectDetail/:id',
                 templateUrl:  '/admin/templates/subject',
-                controller: 'SubjectEditController'
+                controller: 'SubjectEditController',
+                resolve:{
+                    categories:function(SubjectCategoryService){
+                        return SubjectCategoryService.findAll();
+                    }
+                }
             })
             .state('solutions', {
                 url: '/subject/:id/solutions',
