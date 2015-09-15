@@ -436,6 +436,7 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> products = findDataForBatch(wb, provider);
 		wb.close();
 		for (Product product : products) {
+			searchService.save(new ProductSearch(product));
 			String category = product.getFirstCategory().getName();
 			switch (category) {
 			case "仪器":
@@ -461,7 +462,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public XSSFWorkbook getModel() throws InvalidFormatException, IOException {
-		File file = Paths.get("").resolve("src/main/resources/static/excel/model.xlsx").toFile();
+		File file = Paths.get("").resolve("d:/model.xlsx").toFile();
 		XSSFWorkbook wb = new XSSFWorkbook(file);
 		int num = wb.getNumberOfSheets();
 		if (num != 1) {
