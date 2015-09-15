@@ -87,7 +87,7 @@ public class CategroyController {
 			ProductCategory pc) {
 		pc.setId(id);
 		productCategoryService.update(pc);
-		return "";
+		return "{\"id\":\"" + id + "\"}";
 	}
 
 	@RequestMapping(value = "/admin/product/categories/{id}/state", method = RequestMethod.POST)

@@ -88,9 +88,9 @@ category.controller('CategoryController', [
             .findByParent()
             .then(function (data) {
                 $scope.yq = data.data['0'].categories;
-                $scope.sj = data.data['1'].categories;
+                $scope.sj = data.data['3'].categories;
                 $scope.hc = data.data['2'].categories;
-                $scope.fw = data.data['3'].categories;
+                $scope.fw = data.data['1'].categories;
             });
 
         $scope.create = function () {
@@ -244,18 +244,28 @@ category.controller('CategoryAddController', [
     'CategoryService',
     function ($scope, CategoryService) {
         $scope.item = {};
+        $scope.alerts=[];
 
         $scope.submit = function () {
             CategoryService
-                .save($scope.item)
-                .success(function () {
-
+                .saveOrUpdate($scope.item)
+                .success(function (data) {
+                    $scope.item.id=data.id;
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
                 })
                 .error(function (err) {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
         };
 
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
     }
 ]);
 
