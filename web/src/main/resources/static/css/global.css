@@ -373,6 +373,9 @@ img{
 .head-user .user-menu li:hover{
 	color: #27bff8;
 }
+.hide-menu:hover .show-menu{
+	display:block;
+}
 /** footer **/
 .footer{
 	width: 100%;

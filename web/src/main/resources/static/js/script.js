@@ -24,12 +24,12 @@ $(function(){
 		$('.fixed').fadeIn();
 	})
 	/**头部购物车**/
-	$('.head-cart,.hide-menu,.searched').mouseenter(function(){
-		$(this).find('.ct-cart-wrap,.show-menu').show();
+	$('.head-cart,.searched').mouseenter(function(){
+		$(this).find('.ct-cart-wrap').show();
 		$(this).parent().find('.search-sort').show();
 	})
-	$('.head-cart,.hide-menu').mouseleave(function(){
-		$(this).find('.ct-cart-wrap,.show-menu').hide();
+	$('.head-cart').mouseleave(function(){
+		$(this).find('.ct-cart-wrap').hide();
 	})
 	$('.head-search').mouseleave(function(){
 		$(this).find('.search-sort').slideUp();
