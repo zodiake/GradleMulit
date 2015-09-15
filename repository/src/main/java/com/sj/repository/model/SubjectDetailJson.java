@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.sj.model.model.Subject;
+import com.sj.model.type.ActivateEnum;
 
 public class SubjectDetailJson {
 	private Long id;
@@ -16,6 +17,7 @@ public class SubjectDetailJson {
 	private List<SolutionDetailJson> solutions;
 	private String summary;
 	private Long category;
+	private ActivateEnum active;
 
 	public SubjectDetailJson(Subject s) {
 		this.id = s.getId();
@@ -29,6 +31,7 @@ public class SubjectDetailJson {
 				.collect(Collectors.toList());
 		this.summary = s.getSummary();
 		this.category = s.getCategory().getId();
+		this.active = s.getActivate();
 	}
 
 	public Long getId() {
@@ -101,5 +104,13 @@ public class SubjectDetailJson {
 
 	public void setCategory(Long category) {
 		this.category = category;
+	}
+
+	public ActivateEnum getActive() {
+		return active;
+	}
+
+	public void setActive(ActivateEnum active) {
+		this.active = active;
 	}
 }

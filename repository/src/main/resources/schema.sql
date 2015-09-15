@@ -55,6 +55,7 @@ create table solution(
 	id int not null auto_increment,
 	name varchar(40) not null,
 	subject_id bigint,
+	active smallint,
 	primary key(id),
 	foreign key (subject_id) references subject(id)
 );

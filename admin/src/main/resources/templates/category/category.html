@@ -118,4 +118,16 @@
             </tbody>
         </table>
     </div>
+    <script type="text/ng-template" id="productCategoryModal.html">
+        <div class="modal-header">
+            冻结/解冻
+        </div>
+        <div class="modal-body">
+        	{{item.name}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 </div>

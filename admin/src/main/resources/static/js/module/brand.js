@@ -110,8 +110,8 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
         $scope.delete = function (item) {
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
-                templateUrl: 'myModalContent.html',
-                controller: 'ModalInstanceCtrl',
+                templateUrl: 'brandModal.html',
+                controller: 'BrandModalCtrl',
                 resolve: {
                     item: function () {
                         return item;
@@ -129,7 +129,7 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
     }
 ]);
 
-brandModule.controller('ModalInstanceCtrl', [
+brandModule.controller('BrandModalCtrl', [
     '$scope',
     '$modalInstance',
     'item',
@@ -142,8 +142,8 @@ brandModule.controller('ModalInstanceCtrl', [
                 .success(function (data) {
                     if (data.data == 'success') {
                         item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                        $modalInstance.dismiss();
                     }
-                    $modalInstance.dismiss();
                 }).error(function (err) {
 
                 });

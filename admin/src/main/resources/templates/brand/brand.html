@@ -36,12 +36,12 @@
     <div class="pagenumQu">
         <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
     </div>
-    <script type="text/ng-template" id="myModalContent.html">
+    <script type="text/ng-template" id="brandModal.html">
         <div class="modal-header">
-            是否冻结/解冻
+            冻结/解冻
         </div>
         <div class="modal-body">
-            {{item.name}}
+        	{{item.name}}
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="ok()">OK</button>

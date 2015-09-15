@@ -125,10 +125,15 @@ infoModule.controller('InfoController', ['$scope', 'InfoService', '$modal',
         };
 
         $scope.updateState = function (item) {
-            InfoService.updateState(item).success(function () {
-                item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
-            }).error(function (err) {
-
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'infoModal.html',
+                controller: 'infoModalCtrl',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
             });
         };
 
@@ -143,6 +148,32 @@ infoModule.controller('InfoController', ['$scope', 'InfoService', '$modal',
                     }
                 }
             });
+        };
+    }
+]);
+
+infoModule.controller('infoModalCtrl', [
+    '$scope',
+    '$modalInstance',
+    'item',
+    'InfoService',
+    function ($scope, $modalInstance, item, InfoService) {
+        $scope.item = item;
+        $scope.ok = function () {
+            InfoService
+                .updateState(item)
+                .success(function (data) {
+                    if (data == 'success') {
+                        item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                        $modalInstance.dismiss();
+                    }
+                }).error(function (err) {
+
+                });
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
         };
     }
 ]);
