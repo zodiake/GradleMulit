@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -51,6 +52,7 @@ public class Provider extends SiteUser {
 
 	@Column(name = "compony_type")
 	@NotNull(message = "请选择企业性质")
+	@Enumerated
 	private ComponyTypeEnum componyType; // 企业性质
 
 	@Column(name = "main_product")
@@ -59,14 +61,17 @@ public class Provider extends SiteUser {
 
 	@Column(name = "business_type")
 	@NotNull(message = "请选择业务类型")
+	@Enumerated
 	private BusinessTypeEnum businessType;// 业务类型*
 
 	@Column(name = "scale")
 	@NotNull(message = "请选择企业规模")
+	@Enumerated
 	private ScaleEnum scale; // 企业规模
 
 	@Column(name = "output")
 	@NotNull(message = "请选择年产值")
+	@Enumerated
 	private OutputEnum output; // 年产值
 
 	@NotBlank(message = "企业介绍不能为空")

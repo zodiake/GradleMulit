@@ -17,10 +17,10 @@ public class ProviderDetailJson {
 	private String code;
 	private String address;
 	private String companyUrl;
+	private String companyType;
 	private String chineseCompanyName;
 	private String legalPerson;
 	private String registeredCapital;
-	private String componyType;
 	private String focus;
 	private String businessType;
 	private String scale;
@@ -49,11 +49,11 @@ public class ProviderDetailJson {
 		this.legalPerson = p.getLegalPerson();
 		this.registeredCapital = p.getRegisteredCapital();
 		if (p.getComponyType() != null)
-			this.componyType = p.getComponyType().toString();
+			this.companyType = p.getComponyType().getName();
 		this.focus = p.getMainProduct();
-		this.businessType = p.getBusinessType().toString();
-		this.scale = p.getScale().toString();
-		this.output = p.getOutput().toString();
+		this.businessType = p.getBusinessType().getName();
+		this.scale = p.getScale().getName();
+		this.output = p.getOutput().getName();
 		this.content = p.getContent();
 		this.businessLicenseUrl = p.getBusinessLicenseUrl();
 		this.taxRegistrationUrl = p.getTaxRegistrationUrl();
@@ -190,12 +190,12 @@ public class ProviderDetailJson {
 		this.registeredCapital = registeredCapital;
 	}
 
-	public String getComponyType() {
-		return componyType;
+	public String getCompanyType() {
+		return companyType;
 	}
 
-	public void setComponyType(String componyType) {
-		this.componyType = componyType;
+	public void setCompanyType(String companyType) {
+		this.companyType = companyType;
 	}
 
 	public String getFocus() {

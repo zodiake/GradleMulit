@@ -207,7 +207,6 @@
                 <input type="radio" th:field="*{businessType}" value="PRODUCTION" />生产型
                 <input type="radio" th:field="*{businessType}" value="TRADE" />贸易型
                 <input type="radio" th:field="*{businessType}" value="SERVICE" />服务型
-                <!-- <input type="radio" th:field="*{businessType}" value="GOVERNMENT" />政府机关 -->
                 <input type="radio" th:field="*{businessType}" value="OTHER" />其它
                 <i class="error" th:if="${#fields.hasErrors('businessType')}" th:errors="*{businessType}">必填</i>
             </div>
