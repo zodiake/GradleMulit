@@ -32,8 +32,8 @@ $(function(){
 		$(this).find('.ct-cart-wrap').hide();
 	})
 	$('.head-search').mouseleave(function(){
-		$(this).find('.search-sort').slideUp();
-	})
+		$(this).find('.search-sort').hide();
+	})	
 	$('.more-items a').click(function(){
 		var li_par=$(this).parents('.search-select').find('.list-inline');		
 		if($(this).text() =='收起'){
