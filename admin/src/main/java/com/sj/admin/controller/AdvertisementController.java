@@ -64,6 +64,6 @@ public class AdvertisementController {
 	@ResponseBody
 	public String updateState(@PathVariable("id") Long id, ActivateEnum state) {
 		advertisementService.updateStatus(id, state);
-		return "";
+		return "\"success\"";
 	}
 }

@@ -137,15 +137,44 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
         };
 
         $scope.updateState = function (item) {
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'AdvModal.html',
+                controller: 'AdvModalCtrl',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
+            });
+        };
+    }
+]);
+
+advertiseModule.controller('AdvModalCtrl', [
+    '$scope',
+    '$modalInstance',
+    'item',
+    'AdvertiseService',
+    function ($scope, $modalInstance, item,AdvertiseService ) {
+        $scope.item = item;
+        $scope.ok = function () {
             AdvertiseService
                 .updateState(item)
-                .success(function (data) {
-                    item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
-                }).error(function (err) {
-
+                .success(function(data){
+                    if (data == 'success') {
+                        item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                        $modalInstance.dismiss();
+                    }
+                })
+                .error(function(err){
+                    
                 });
         };
 
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
+        };
     }
 ]);
 
