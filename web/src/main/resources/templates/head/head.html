@@ -96,6 +96,12 @@
 		<div class="nav-box">
 			<ul th:if="${pc!=null}">
 				<li th:if="${pc.name=='仪器'}" class="active nobor">
+					<a href="/productCategory/1">首页</a>
+				</li>
+				<li th:unless="${pc.name=='仪器'}">
+					<a href="/productCategory/1">首页</a>
+				</li>
+				<li th:if="${pc.name=='仪器'}" class="active nobor">
 					<a href="/productCategory/1">仪器</a>
 				</li>
 				<li th:unless="${pc.name=='仪器'}">

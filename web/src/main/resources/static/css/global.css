@@ -269,7 +269,7 @@ img{
 }
 .head-nav .nav-box li>a{
 	display: inline-block;
-	width: 160px;	
+	width: 140px;	
 	color: #fff;
 	font-size: 14px;
 	text-align: center;
@@ -328,7 +328,8 @@ img{
 	display: block;
 }
 .ct-cart-list .ct-name{
-	width: 120px;
+	width: 140px;
+	overflow-x: hidden;
 }
 .ct-total{
 	padding:0 15px;
@@ -959,7 +960,8 @@ table.save-table span.one-sort{
 	margin-left: 10px;
 }
 .mainpanel table td div.fl{
-	width: 250px;
+	max-width: 150px;
+	overflow: hidden;
 }
 .mainpanel table td div.fr{
 	padding-right: 30px;
@@ -1044,14 +1046,11 @@ a.minus:hover, a.plus:hover {
 	padding-left: 15px;
 }
 .collect .items-list li{
-	height:355px;
 	margin-right: 30px;
 }
 .items-list li{
 	padding: 5px;
 	width: 210px;
-	height: 340px;
-	padding-bottom: 10px;
 	float: left;
 	margin-right: 28px;
 	margin-bottom: 28px;
@@ -1281,7 +1280,7 @@ a.minus:hover, a.plus:hover {
 	padding: 10px;
 }
 .goods-property .pro-big{
-	width: 400px;
+	width: 420px;
 	height: 350px;
 	overflow: hidden;
 }
@@ -1738,7 +1737,7 @@ button.default{
 	background: #27bff8;
 }
 .news-sort a{
-	width:160px;
+	width:140px;
 	display:block;
 	font-size: 14px;
 	line-height: 30px;
@@ -1846,7 +1845,14 @@ input[readonly]{cursor:not-allowed;}
 input[type=radio]:checked + label{
 	color:#27bff8;
 }
-
+.tip-box{
+	text-align:center;
+}
+.tip-box span{
+	 font-size: 18px;
+	 line-height: 300px;
+	 color: #ffbe26;
+}
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	li div.topic-detail{
