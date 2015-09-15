@@ -65,6 +65,7 @@ public class IndexController {
 		uiModel.addAttribute("brands", brands);
 		List<ScrollImage> scrollImages = scrollImageService.findAll();
 		uiModel.addAttribute("images", scrollImages);
+		uiModel.addAttribute("pc", new ProductCategory(0l));
 		return "index";
 	}
 	@RequestMapping(value = "/head",method = RequestMethod.GET)

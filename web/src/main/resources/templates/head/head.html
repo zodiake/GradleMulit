@@ -95,34 +95,22 @@
 	<div class="head-nav">
 		<div class="nav-box">
 			<ul th:if="${pc!=null}">
-				<li th:if="${pc.id==1}" class="active nobor">
+				<li th:class="${pc.id==0}?active">
+					<a href="/">首页</a>
+				</li>
+				<li th:class="${pc.id==1}?active">
 					<a href="/productCategory/1">仪器</a>
 				</li>
-				<li th:unless="${pc.id==1}">
-					<a href="/productCategory/1">仪器</a>
-				</li>
-				<li th:if="${pc.id==2}" class="active nobor">
+				<li th:class="${pc.id==2}?active">
 					<a href="/productCategory/2">试剂</a>
 				</li>
-				<li th:unless="${pc.id==2}">
-					<a href="/productCategory/2">试剂</a>
-				</li>
-				<li th:if="${pc.id==3}" class="active nobor">
+				<li th:class="${pc.id==3}?active">
 					<a href="/productCategory/3">耗材</a>
 				</li>
-				<li th:unless="${pc.id==3}">
-					<a href="/productCategory/3">耗材</a>
-				</li>
-				<li th:if="${pc.id==4}" class="active nobor">
+				<li th:class="${pc.id==4}?active">
 					<a href="/productCategory/4">服务</a>
 				</li>
-				<li th:unless="${pc.id==4}">
-					<a href="/productCategory/4">服务</a>
-				</li>
-				<li th:if="${pc.id==6}" class="active nobor">
-					<a href="/subjects">解决方案</a>
-				</li>
-				<li th:unless="${pc.id==6}">
+				<li th:class="${pc.id==6}?active">
 					<a href="/subjects">解决方案</a>
 				</li>
 				<li class="news-down hide-menu active nobor" th:if="${pc.id == 7 or pc.id==8 or pc.id ==9}">
@@ -143,6 +131,9 @@
 				</li>
 			</ul>
 			<ul th:unless="${pc!=null}">
+				<li>
+					<a href="/">首页</a>
+				</li>
 				<li>
 					<a href="/productCategory/1">仪器</a>
 				</li>

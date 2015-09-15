@@ -41,6 +41,8 @@ spring:
         username: root
         password: root
         initialize: false
+        testOnBorrow: true
+        validationQuery: SELECT 1
    jpa:
      properties:
        hibernate:

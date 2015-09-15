@@ -6,7 +6,6 @@ import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +35,7 @@ public class SubjectController extends BaseController<Subject>{
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "12") int size,
 			Model uiModel) {
-		Page<Subject> subjects = subjectService.findByActivated(
-				new PageRequest(page - 1, size, Direction.DESC, "createdTime"),
-				ActivateEnum.ACTIVATE);
+		Page<Subject> subjects = subjectService.findByActivated(new PageRequest(page - 1, size),ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("subjects", subjects);
 		ViewPage viewpage = caculatePage(subjects);
 		viewpage.setHref("/subjects");
