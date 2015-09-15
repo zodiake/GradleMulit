@@ -51,6 +51,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		pc.setParent(category.getParent());
 		pc.setActivate(ActivateEnum.ACTIVATE);
 		pc.setCreatedTime(Calendar.getInstance());
+		pc.setUpdatedTime(Calendar.getInstance());
 		return repository.save(pc);
 	}
 

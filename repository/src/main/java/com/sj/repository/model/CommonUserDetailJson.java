@@ -25,7 +25,7 @@ public class CommonUserDetailJson {
 		this.email = user.getEmail();
 		this.mobile = user.getPhone();
 		this.name = user.getName();
-		this.gender = user.getSex().equals(SexEnum.FEMALE) ? "男" : "女";
+		this.gender = user.getSex().equals(SexEnum.MALE) ? "男" : "女";
 		this.company = user.getCompany();
 		this.department = user.getDepartment();
 		this.phone = user.getCompanyPhone();
