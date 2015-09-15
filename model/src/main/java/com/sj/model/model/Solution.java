@@ -3,6 +3,7 @@ package com.sj.model.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.sj.model.type.ActivateEnum;
 
 @Entity
 @Table(name = "solution")
@@ -29,6 +32,9 @@ public class Solution {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "solution_product", joinColumns = @JoinColumn(name = "solution_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> products;
+
+	@Enumerated
+	private ActivateEnum active;
 
 	public Solution() {
 
@@ -72,6 +78,14 @@ public class Solution {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public ActivateEnum getActive() {
+		return active;
+	}
+
+	public void setActive(ActivateEnum active) {
+		this.active = active;
 	}
 
 	@Override

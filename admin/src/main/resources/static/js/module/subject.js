@@ -38,7 +38,7 @@ subjectModule.service('SubjectService', ['$http',
                     solution: solutions,
                     image: item.cover,
                     summary: item.summary,
-                    category:item.category
+                    category: item.category
                 },
                 headers: header
             });
@@ -64,6 +64,18 @@ subjectModule.service('SubjectService', ['$http',
                 return this.update(item);
             else
                 return this.save(item);
+        };
+
+        this.updateState = function (item) {
+            return $http({
+                method: 'POST',
+                url: '/admin/subject/' + item.id + '/state',
+                transformRequest: transform,
+                headers: header,
+                data: {
+                    active: item.active == 'ACTIVATE' ? 'deactivate' : 'activate'
+                }
+            });
         };
     }
 ]);
@@ -98,13 +110,50 @@ subjectModule.controller('SubjectController', ['$scope',
             });
         };
 
-        $scope.view = function (item) {};
+        $scope.updateState = function (item) {
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'subjectModal.html',
+                controller: 'SubjectModalCtrl',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
+            });
+        };
     }
 ]);
 
-subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal', '$http','categories',
-    function ($scope, SubjectService, $modal, $http,categories) {
-        $scope.categories=categories.data;
+subjectModule.controller('SubjectModalCtrl', [
+    '$scope',
+    '$modalInstance',
+    'item',
+    'SubjectService',
+    function ($scope, $modalInstance, item, SubjectService) {
+        $scope.item = item;
+        $scope.ok = function () {
+            SubjectService
+                .updateState(item)
+                .success(function (data) {
+                    if (data== 'success') {
+                        item.active = item.active == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                        $modalInstance.dismiss();
+                    }
+                }).error(function (err) {
+
+                });
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
+        };
+    }
+]);
+
+subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal', '$http', 'categories',
+    function ($scope, SubjectService, $modal, $http, categories) {
+        $scope.categories = categories.data;
         $scope.item = {
             solutions: []
         };
@@ -177,8 +226,8 @@ subjectModule.controller('SubjectEditController', ['$scope',
     '$stateParams',
     '$http',
     'categories',
-    function ($scope, SubjectService, $stateParams,$http,categories) {
-        $scope.categories=categories.data;
+    function ($scope, SubjectService, $stateParams, $http, categories) {
+        $scope.categories = categories.data;
         $scope.alerts = [];
 
         function init() {
@@ -198,7 +247,7 @@ subjectModule.controller('SubjectEditController', ['$scope',
             width: 700,
             height: 300
         };
-        
+
         $scope.upload = function (event) {
             var file = event.target.files[0];
             var fd = new FormData();

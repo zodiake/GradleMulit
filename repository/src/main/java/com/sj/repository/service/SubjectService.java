@@ -25,4 +25,6 @@ public interface SubjectService {
 	List<Subject> findByShowOnIndex();
 
 	Page<SubjectJson> findAllJson(Pageable pageable);
+
+	Subject updateState(Long id, ActivateEnum active);
 }
