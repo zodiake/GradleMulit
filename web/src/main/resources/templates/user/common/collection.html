@@ -92,10 +92,10 @@
 							</ul>
 						</div>
 					</div>
-					<div class="mainpanel bodr collect fr" th:unless="${pages.getContent()!=null and pages.getContent().size()!=0}" style="height: 422px;">
-							<div style="vertical-align: top;height: 422px; text-align: center;vertical-align:middle;">
-								<div style="float: left;line-height: 422px;"><img alt="" src="http://misc.360buyimg.com/user/myjd-2015/css/i/qjoy-icon.png" style="width: 55px; height=70px; line-height: 422px;"/></div>
-								<div style="float: left;font-size: 18px;line-height: 422px;color: #ff6c00;"><span>您还没有收藏任何商品哦</span></div>
+					<div class="mainpanel bodr collect fr" th:unless="${pages.getContent()!=null and pages.getContent().size()!=0}">
+							<div class="tip-box">
+								<img alt="" src="http://misc.360buyimg.com/user/myjd-2015/css/i/qjoy-icon.png" width="50" height="70"/>
+								<span>您还没有收藏任何商品哦</span>
 							</div>
 					</div>
 				</div>
