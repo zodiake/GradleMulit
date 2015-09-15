@@ -88,9 +88,9 @@ category.controller('CategoryController', [
             .findByParent()
             .then(function (data) {
                 $scope.yq = data.data['0'].categories;
-                $scope.sj = data.data['1'].categories;
+                $scope.sj = data.data['3'].categories;
                 $scope.hc = data.data['2'].categories;
-                $scope.fw = data.data['3'].categories;
+                $scope.fw = data.data['1'].categories;
             });
 
         $scope.create = function () {
