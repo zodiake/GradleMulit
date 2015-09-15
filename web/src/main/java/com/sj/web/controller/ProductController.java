@@ -57,9 +57,9 @@ public class ProductController extends BaseController<Review>{
 			@RequestParam(value = "size", defaultValue = "10") int size) {
 		Product product = new Product();
 		if(userContext.isLogin()){
-			 product = productService.findOneUserIsLogin(id, userContext.getCurrentUser());
+			 product = productService.findUpOneUserIsLogin(id, userContext.getCurrentUser());
 		}else{
-			 product = productService.findOne(id);
+			 product = productService.findUpOne(id);
 		}
 		
 		if (product == null)
@@ -73,8 +73,10 @@ public class ProductController extends BaseController<Review>{
 		
 		Set<Subject> subjects = new HashSet<Subject>(); 
 		List<Solution> solutions = product.getSolutions();
-		for (Solution solution : solutions) {
-			subjects.add(solution.getSubject());
+		if(solutions!=null){
+			for (Solution solution : solutions) {
+				subjects.add(solution.getSubject());
+			}
 		}
 		product.setSolutions(null);
 		
@@ -91,14 +93,37 @@ public class ProductController extends BaseController<Review>{
 		return DETAIL;
 	}
 	
+	@RequestMapping(value="/provider/products/{id}",method = RequestMethod.GET,params="detail")
+	public String findOne(@PathVariable("id")Long id,Model uiModel,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Product product = productService.findOne(id);
+		Set<Subject> subjects = new HashSet<Subject>(); 
+		List<Solution> solutions = product.getSolutions();
+		if(solutions!=null && solutions.size()!=0){
+			for (Solution solution : solutions) {
+				subjects.add(solution.getSubject());
+			}
+		}
+		product.setSolutions(null);
+		
+		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
+		ViewPage viewpage = caculatePage(reviewPage);
+		viewpage.setHref("/provider/products/"+id+"?detail");
+		uiModel.addAttribute("viewpage", viewpage);
+		
+		uiModel.addAttribute("subjects", subjects);
+		uiModel.addAttribute("product", product);
+		uiModel.addAttribute("reviewPage", reviewPage);
+		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());
+		uiModel.addAttribute("pc", product.getFirstCategory());
+		uiModel.addAttribute("product", product);
+		return "product/product";
+	}
+	
 	@RequestMapping(value = "/product/{id}", method = RequestMethod.POST)
 	public void addCount(@PathVariable(value = "id") Long id) {
 		productService.addViewCount(id);
 	}
 
-	@RequestMapping(value = "/product", method = RequestMethod.GET, params = "form")
-	public String create(Model uiModel) {
-		uiModel.addAttribute("product", new Product());
-		return null;
-	}
 }

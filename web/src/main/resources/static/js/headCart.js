@@ -24,7 +24,7 @@
              },
              success : function(data) {
                  if (data.data == "no authority") {
-                 	alert(data.data);
+                 	alert("对不起您没有权限");
                  } else if(data.data == "addone"){
                  	var cartNumber = $("#cartNumber"+product);
                  	var numberVal = cartNumber.html();
@@ -40,7 +40,7 @@
                  }
              },
              error : function(data) {
-                 alert(data);
+                 alert("系统异常");
              }
     });
     }

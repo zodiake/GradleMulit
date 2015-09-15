@@ -51,11 +51,11 @@
 		<div class="pagination">
 			<div class="l-pagination">
 					<ul>
-						<li><a th:href="@{${viewpage.href}(page=1,size=12}">首页</a></li>
+						<li><a th:href="@{${viewpage.href}(page=1,size=12)}">首页</a></li>
 						<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i==viewpage.current}?active" >
-							<a th:href="@{${viewpage.href}(page=${i},size=12}" th:text="${i}"></a>
+							<a th:href="@{${viewpage.href}(page=${i},size=12)}" th:text="${i}"></a>
 						</li>
-						<li><a th:href="@{${viewpage.href}(page=${viewpage.end},size=12}">末页</a></li>
+						<li><a th:href="@{${viewpage.href}(page=${viewpage.end},size=12)}">末页</a></li>
 					</ul>
 			</div>
 		</div>

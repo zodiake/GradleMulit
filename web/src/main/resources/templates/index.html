@@ -15,7 +15,6 @@
             $(function() {
                 var token = $("meta[name='_csrf']").attr("content");
                 var header = $("meta[name='_csrf_header']").attr("content");
-
                 $(document).ajaxSend(function(e, xhr, options) {
                     xhr.setRequestHeader(header, token);
                 });
@@ -51,7 +50,7 @@
 						<div class="tab-panel news-list">
 							<ul>
 								<li th:each="infor:${industryNews}">
-									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply" th:text="${infor.title}"></h4> <p class="dd" th:text="${infor.summary}"></p> </a>
+									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
 								</li>
 							</ul>
 							<a class="more blue" href="/informationCategorys/7">more>></a>
@@ -59,7 +58,7 @@
 						<div class="tab-panel news-list hide">
 							<ul>
 								<li th:each="infor:${newResults}">
-									<a th:href="'/informations/'+${infor.id}"> <h4 th:text="${infor.title}"></h4> <p class="dd" th:text="${infor.summary}"></p> </a>
+									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
 								</li>
 							</ul>
 							<a class="more blue" href="/informationCategorys/8">more>></a>
@@ -67,7 +66,7 @@
 						<div class="tab-panel news-list hide">
 							<ul>
 								<li th:each="infor:${vendorDynamics}">
-									<a th:href="'/informations/'+${infor.id}"> <h4 th:text="${infor.title}"></h4> <p class="dd" th:text="${infor.summary}"></p> </a>
+									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
 								</li>
 							</ul>
 							<a class="more blue" href="/informationCategorys/9">more>></a>
@@ -209,7 +208,7 @@
 					<ul>
 						<li th:each="subject:${subjects}">
 							<a th:href="'/subjects/'+${subject.id}">
-							<div class="title ft16" th:text="${subject.name}">
+							<div class="title ft16 text210" th:text="${subject.name}">
 								生物芯片扫描仪
 							</div>
 							<div class="spe-pic">

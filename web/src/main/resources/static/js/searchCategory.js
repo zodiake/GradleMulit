@@ -14,7 +14,7 @@
 				});
 				secondCategory.append(str);
 			},error:function(data){
-				alert("error");
+				alert("系统异常请稍后再试");
 			}
 		});
 	});
@@ -30,7 +30,7 @@
 				});
 				thirdCategory.append(str);
 			},error:function(data){
-				alert("error");
+				alert("系统异常请稍后再试");
 			}
 		});
 	});

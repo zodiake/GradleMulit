@@ -41,7 +41,6 @@
 			}).success(function(response) {
 				settings.success(response);
 			}).fail(function(res) {
-				alert(data);
 				settings.fail(res);
 			});
 		};
@@ -60,7 +59,7 @@
 					$('.hide-wrap').fadeIn();
 				}
 				else if(response == "content is null"){
-					alert("content is null");
+					alert("请填写评论内容");
 				}
 				else{
 					var username = $('#username').text();
