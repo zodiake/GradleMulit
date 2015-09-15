@@ -886,3 +886,34 @@ select{
     background: #ddd;
     cursor: pointer;
 }
+.signin {
+    background: #e4e7ea;
+    padding-top:300px;
+}
+.panel-signin {
+    background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    margin: auto;
+    width: 350px;
+}
+.panel-signin .panel-body {
+    padding: 20px 10px;
+}
+.panel-signin label {
+    float: left;
+    line-height: 30px;
+    text-align: right;
+    vertical-align: middle;
+    width: 55px;
+}
+.panel-signin input {
+    width: 250px;
+}
+.panel-signin input.sub-btn{
+	display:block;
+	padding:5px 0;
+	font-size:15px;
+	width:80px;
+	margin:auto;
+	letter-spacing: 4px;
+}
