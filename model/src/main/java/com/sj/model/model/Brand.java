@@ -35,6 +35,8 @@ public class Brand {
 
 	@Column(name = "cover_img")
 	private String coverImg;
+	
+	private String href;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
 	private Set<Product> products;
@@ -92,6 +94,14 @@ public class Brand {
 
 	public void setCoverImg(String coverImg) {
 		this.coverImg = coverImg;
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
 	}
 
 	@Override

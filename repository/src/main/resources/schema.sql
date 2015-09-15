@@ -141,6 +141,7 @@ create table brand(
 	created_time timestamp DEFAULT CURRENT_TIMESTAMP,
 	activate smallint default 1,
 	cover_img varchar(69),
+	href varchar(225),
 	primary key(id)
 );
 
