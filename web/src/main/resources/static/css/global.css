@@ -359,19 +359,25 @@ img{
 }
 .head-user .user-menu{
 	display: none;
-	width: 135px;
+	width: 155px;
 	position: absolute;
 	left: 0;
 	background: #fff;
 	z-index: 2
+}
+.head-user:hover .user-menu{
+	display: block;
 }
 .head-user .user-menu li{
 	line-height: 25px;
 	text-align: center;
 	border-bottom: 1px solid #dcdcdc;
 }
-.head-user .user-menu li:hover{
+.head-user .user-menu li a:hover{
 	color: #27bff8;
+}
+.head-user .user-menu li a{
+	padding:2px 40px;
 }
 .hide-menu:hover .show-menu{
 	display:block;
@@ -712,7 +718,7 @@ img{
 }
 .form-group input[type=text],
 .form-group input[type=password]{
-	width: 228px;
+	width: 225px;
 	height: 26px;
 	border:1px solid #8491af;
 }
@@ -1723,22 +1729,22 @@ button.default{
 	background-position: 2px -17px;
 }
 .news-sort{
+	text-align:center;
 	display:none;
 	position: absolute;
 	z-index:2;
-	right: 10px;
+	right: 0;
 	top: 39px;
-	width: 286px;
-	height: 53px;
-	background: url('../img/news-bg.png') no-repeat;
+	background: #27bff8;
 }
 .news-sort a{
+	width:160px;
+	display:block;
 	font-size: 14px;
-	line-height: 65px;
-	margin: 0 18px;
+	line-height: 30px;
+	color:#fff;
 }
 .news-sort a:hover{
-	color: #27bff8;
 }
 .orders-form .form-group label{
 	vertical-align: middle;
@@ -1763,6 +1769,10 @@ button.default{
 	vertical-align: top;
 	line-height: 95px;
 }
+.files.noline label{
+	padding-top:40px;
+	line-height: inherit;
+}
 .files img{
     width:100px;
     height:100px;
@@ -1777,6 +1787,9 @@ button.default{
     padding:3px 10px;
     background-color: #1ab3d0;
     border-color:#1ab3d0;
+}
+.files.noline #uploadImg{
+	left:33%;
 }
 .files #uploadImg a{
     color:#fff;
@@ -1794,6 +1807,9 @@ button.default{
     opacity:0;
     filter:alpha(opacity=0); 
     margin-top:-4px;
+}
+.files.noline input[type=file]{
+	left:0;
 }
 .files.files-res #uploadImg{
 	left:34%;
