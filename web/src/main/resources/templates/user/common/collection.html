@@ -57,7 +57,7 @@
 						<a href="/user/carts">购物车</a>
 						<a href="/user/buyRecords">采购申请</a>
 					</div>
-					<div class="mainpanel bodr collect fr">
+					<div class="mainpanel bodr collect fr" th:if="${pages.getContent()!=null and pages.getContent().size()!=0}">
 						<div class="items-list">
 							<ul>
 								<li class="bodr" th:each="prefer:${pages.getContent()}" th:id="'li'+${prefer.product.id}">
@@ -83,9 +83,6 @@
 											<label>型号：</label>
 											<span th:text="${prefer.product.model}"> Lorem ipsum</span>
 										</div>
-										<div class="pic-row comment">
-											已有<i class="blue" th:text="${prefer.product.reviewCount}">123</i>人评论
-										</div>
 										<div class="pic-row bodr">
 											<a class="btn-cancel" th:attr="data-id=${prefer.product.id}">取消收藏</a>
 											<a class="btn-cart" th:attr="data-id=${prefer.product.id}">加入购物车</a>
@@ -93,8 +90,13 @@
 									</div> </a>
 								</li>
 							</ul>
-							<div th:if="${pages.getContent()==null or pages.getContent().size()==0}">快去添加收藏吧</div>
 						</div>
+					</div>
+					<div class="mainpanel bodr collect fr" th:unless="${pages.getContent()!=null and pages.getContent().size()!=0}" style="height: 422px;">
+							<div style="vertical-align: top;height: 422px; text-align: center;vertical-align:middle;">
+								<div style="float: left;line-height: 422px;"><img alt="" src="http://misc.360buyimg.com/user/myjd-2015/css/i/qjoy-icon.png" style="width: 55px; height=70px; line-height: 422px;"/></div>
+								<div style="float: left;font-size: 18px;line-height: 422px;color: #ff6c00;"><span>您还没有收藏任何商品哦</span></div>
+							</div>
 					</div>
 				</div>
 			</div>
