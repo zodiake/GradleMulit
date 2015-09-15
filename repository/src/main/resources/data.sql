@@ -25,8 +25,8 @@ insert into brand(id,name,activate,cover_img,created_time,href) values(12,'Beaco
 insert into brand(id,name,activate,cover_img,created_time,href) values(13,'BRAND',1,'http://localhost:8000/2015/9/BRAND.jpg','2012-1-1','www.baidu.com');
 insert into brand(id,name,activate,cover_img,created_time,href) values(14,'CDN Isotopes',1,'http://localhost:8000/2015/9/CDN Isotopes.jpg','2012-1-1','www.baidu.com');
 insert into brand(id,name,activate,cover_img,created_time,href) values(15,'CAMBRIDGE ISOTOP',1,'http:/localhost:8000//2015/9/CAMBRIDGE ISOTOP.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(16,'Camsco',1,'http://localhost:8000/2015/9/Camsco.jpg','2012-1-1','www.baidu.com','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(17,'CaroteNature GmbH',1,'http:/localhost:8000//2015/9/CaroteNature GmbH.jpg','2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time,href) values(16,'Camsco',1,'http://localhost:8000/2015/9/Camsco.jpg','2012-1-1','www.baidu.com');
+insert into brand(id,name,activate,cover_img,created_time,href) values(17,'CaroteNature GmbH',1,'http:/localhost:8000//2015/9/CaroteNature GmbH.jpg','2012-1-1','www.baidu.com');
 insert into brand(id,name,activate,cover_img,created_time,href) values(18,'Cerilliant',1,'http://localhost:8000/2015/9/Cerilliant.jpg','2012-1-1','www.baidu.com');
 
 insert into brand(id,name,activate,cover_img,created_time,href) values(19,'Chemservice',1,'http://localhost:8000/2015/9/Chemservice.jpg','2012-1-1','www.baidu.com');

@@ -378,12 +378,25 @@ img{
 }
 /** footer **/
 .footer{
+	color:#fff;
 	width: 100%;
 	min-width:1000px;
-	color: #fff;
 	text-align: center;
-	line-height: 40px;
+}
+.footer a{
+	color:#fff;
+	margin:0 3px;
+}
+.footer .foot-hd{
+	line-height: 40px;	
 	background: #27bff8;
+}
+.footer .foot-bd,
+.footer .foot-bd a{
+	color:#868fa7;
+}
+.footer p{
+	margin:10px 0;
 }
 .news{
 	position:relative;
