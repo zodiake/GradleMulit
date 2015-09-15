@@ -436,24 +436,27 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> products = findDataForBatch(wb, provider);
 		wb.close();
 		for (Product product : products) {
-			searchService.save(new ProductSearch(product));
 			String category = product.getFirstCategory().getName();
 			switch (category) {
 			case "仪器":
 				Instrument i = new Instrument(product);
 				i = instrumentRepository.save(i);
+				searchService.save(new ProductSearch(i));
 				continue;
 			case "试剂":
 				Reagents r = new Reagents(product);
-				reagentsRepository.save(r);
+				r = reagentsRepository.save(r);
+				searchService.save(new ProductSearch(r));
 				continue;
 			case "耗材":
 				Consumable c = new Consumable(product);
-				consumableRepository.save(c);
+				c = consumableRepository.save(c);
+				searchService.save(new ProductSearch(c));
 				continue;
 			case "服务":
 				com.sj.model.model.Service s = new com.sj.model.model.Service(product);
-				serviceRepository.save(s);
+				s = serviceRepository.save(s);
+				searchService.save(new ProductSearch(s));
 				continue;
 			}
 		}

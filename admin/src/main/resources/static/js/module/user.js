@@ -220,7 +220,6 @@ userModule.controller('ProviderDetailController', ['$scope',
         
         $scope.batchProducts = function(event){
             var file = event.target.files[0];
-            console.log(file.size);
             if(file.size<1048576){
 	            var fd = new FormData();
 	            var reader = new FileReader();

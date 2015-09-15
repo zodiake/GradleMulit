@@ -98,7 +98,7 @@ public class ProductController {
 		return "\""+result+"\"";
 	}
 
-	@RequestMapping(value = "/getModel", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/getModel", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> downloadModel(HttpServletResponse response)
 			throws InvalidFormatException, IOException {
 
