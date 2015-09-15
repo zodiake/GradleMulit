@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Solution;
+import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.SolutionJson;
 import com.sj.repository.repository.SolutionRepository;
 import com.sj.repository.service.SolutionService;
@@ -45,7 +46,8 @@ public class SolutionServiceImpl implements SolutionService {
 
 	@Override
 	public List<SolutionJson> findAll() {
-		List<Solution> solutions = Lists.newArrayList(repository.findAll());
+		List<Solution> solutions = Lists.newArrayList(repository
+				.findByActive(ActivateEnum.ACTIVATE));
 		return solutions.stream().map(i -> new SolutionJson(i))
 				.collect(Collectors.toList());
 	}

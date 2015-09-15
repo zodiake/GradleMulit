@@ -3,6 +3,7 @@ package com.sj.repository.model;
 import java.util.Calendar;
 
 import com.sj.model.model.Subject;
+import com.sj.model.type.ActivateEnum;
 
 public class SubjectJson {
 	private Long id;
@@ -11,6 +12,7 @@ public class SubjectJson {
 	private Calendar createdTime;
 	private Calendar updatedTime;
 	private Long category;
+	private ActivateEnum active;
 
 	public SubjectJson(Subject s) {
 		this.id = s.getId();
@@ -19,6 +21,7 @@ public class SubjectJson {
 		this.createdTime = s.getCreatedTime();
 		this.updatedTime = s.getUpdatedTime();
 		this.category = s.getCategory().getId();
+		this.active = s.getActivate();
 	}
 
 	public Long getId() {
@@ -67,5 +70,13 @@ public class SubjectJson {
 
 	public void setCategory(Long category) {
 		this.category = category;
+	}
+
+	public ActivateEnum getActive() {
+		return active;
+	}
+
+	public void setActive(ActivateEnum active) {
+		this.active = active;
 	}
 }

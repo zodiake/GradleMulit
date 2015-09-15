@@ -84,6 +84,15 @@ public class SubjectController {
 		return "{\"id\":\"" + s.getId() + "\"}";
 	}
 
+	@RequestMapping(value = "/admin/subject/{id}/state", method = RequestMethod.POST)
+	@ResponseBody
+	public String update(@PathVariable("id") Long id, HttpServletRequest request) {
+		String active = request.getParameter("active");
+		ActivateEnum activeEnum = ActivateEnum.fromString(active);
+		subjectService.updateState(id, activeEnum);
+		return "\"success\"";
+	}
+
 	@RequestMapping(value = "/admin/subjects/{id}/solutions", method = RequestMethod.GET)
 	@ResponseBody
 	public List<SolutionJson> solution(@PathVariable("id") Long id) {

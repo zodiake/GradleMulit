@@ -118,17 +118,43 @@ category.controller('CategoryController', [
         };
 
         $scope.delete = function (item) {
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'productCategoryModal.html',
+                controller: 'ProductModalCtrl',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
+            });
+        };
+    }
+]);
+
+ category.controller('ProductModalCtrl', [
+    '$scope',
+    '$modalInstance',
+    'item',
+    'CategoryService',
+    function ($scope, $modalInstance, item, CategoryService) {
+        $scope.item = item;
+        $scope.ok = function () {
             CategoryService
                 .delete(item)
                 .success(function (data) {
                     if (data == 'success') {
-                        console.log(11);
                         item.activate = item.activate == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                        $modalInstance.dismiss();
                     }
                 })
                 .error(function () {
 
                 });
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
         };
     }
 ]);

@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class SubjectServiceImpl implements SubjectService {
 	private SubjectRepository repository;
 	@Autowired
 	private SubjectSearchService service;
+	@Autowired
+	private EntityManager em;
 
 	@Override
 	public Page<Subject> findAll(Pageable pageable) {
@@ -94,6 +97,17 @@ public class SubjectServiceImpl implements SubjectService {
 		s.setSummary(subject.getSummary());
 		s.setImage(subject.getImage());
 		return s;
+	}
+
+	@Override
+	public Subject updateState(Long id, ActivateEnum active) {
+		Subject subject = repository.findOne(id);
+		subject.setActivate(active);
+		em.createQuery(
+				"update Solution s set s.active=:active where s.subject=:subject")
+				.setParameter("active", active)
+				.setParameter("subject", subject).executeUpdate();
+		return subject;
 	}
 
 }
