@@ -11,8 +11,8 @@
 					<a data-name="/products/_search" data-input="title">商品</a>
 					<a data-name="/products/_search" data-input="model">型号</a>
 					<a data-name="/products/_search" data-input="brand">品牌</a>
-					<a >专题</a>
-					<a >资讯</a>
+					<a data-name="/subject/_search" data-input="title">解决方案</a>
+					<a data-name="/info/_search" data-input="title">资讯</a>
 				</div>
 			</form>
 		</div>
@@ -26,29 +26,6 @@
 			<div class="head-cart" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
 				<div class="ct-cart">
 					购物车(<i th:if="${session.cartLines==null}" th:text="0" id="allNum"></i><i th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="allNum"></i>)
-				</div>
-				<div class="ct-cart-wrap bodr hide" >
-					<h3><b class="gray-deeply" >购物车中的商品</b></h3>
-					<div class="ct-cart-list"  >
-						<ul id="cartUl">
-							<li th:each="cartline:${session.cartLines}" th:id="'cart'+${cartline.productId}">
-								<div class="fl ct-img">
-									<a th:href="'/products/'+${cartline.productId}"><img th:src="@{${cartline.image}}" width="50" height="50"/></a>
-								</div>
-								<div class="fl ct-name">
-									<a th:text="${cartline.name}" th:href="'/products/'+${cartline.productId}"></a>
-								</div>
-								<div class="fr ct-detail">
-									<span class="ct-price"> <b th:text="${cartline.price}"></b>×<i th:id="'cartNumber'+${cartline.productId}" th:text="${cartline.number}"></i> </span>
-									<br/>
-									<a class="fr cartRemove"  th:attr="data-id=${cartline.productId}">删除</a>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="ct-total">
-						共<b th:if="${session.cartLines==null}" th:text="0" id="totalNum"></b><b th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="totalNum"></b>种商品 <a class="go-cart" href="/user/carts">去购物车</a>
-					</div>
 				</div>
 			</div>
 			<div class="head-user">
@@ -81,76 +58,28 @@
 	</div>
 	<div class="head-nav">
 		<div class="nav-box">
-			<ul th:if="${pc!=null}">
-				<li th:if="${pc.name=='仪器'}" class="active nobor">
+			<ul>
+				<li>
 					<a href="/productCategory/1">仪器</a>
 				</li>
-				<li th:unless="${pc.name=='仪器'}">
-					<a href="/productCategory/1">仪器</a>
-				</li>
-				<li th:if="${pc.name=='试剂'}" class="active nobor">
+				<li>
 					<a href="/productCategory/2">试剂</a>
 				</li>
-				<li th:unless="${pc.name=='试剂'}">
-					<a href="/productCategory/2">试剂</a>
-				</li>
-				<li th:if="${pc.name=='耗材'}" class="active nobor">
+				<li>
 					<a href="/productCategory/3">耗材</a>
 				</li>
-				<li th:unless="${pc.name=='耗材'}">
-					<a href="/productCategory/3">耗材</a>
-				</li>
-				<li th:if="${pc.name=='服务'}" class="active nobor">
+				<li>
 					<a href="/productCategory/4">服务</a>
 				</li>
-				<li th:unless="${pc.name=='服务'}">
-					<a href="/productCategory/4">服务</a>
+				<li>
+					<a href="/subjects">解决方案</a>
 				</li>
-				<li th:if="${pc.name=='专题'}" class="active nobor">
-					<a href="/subjects">专题</a>
-				</li>
-				<li th:unless="${pc.name=='专题'}">
-					<a href="/subjects">专题</a>
-				</li>
-				<li class="news-down hide-menu active nobor" th:if="${pc.id == 7 or pc.id==8 or pc.id ==9}">
+				<li class="news-down hide-menu">
 					<a >资讯</a>
 					<div class="news-sort show-menu">
 						<a href="/informationCategorys/7">行业要闻</a>
 						<a href="/informationCategorys/8">新品成果</a>
 						<a href="/informationCategorys/9">厂商动态</a>
-					</div>
-				</li>
-				<li class="news-down hide-menu" th:unless="${pc.id == 7 or pc.id==8 or pc.id ==9}">
-					<a >资讯</a>
-					<div class="news-sort show-menu">
-						<a href="/informationCategorys/7">行业要闻</a>
-						<a href="/informationCategorys/8">新品成果</a>
-						<a href="/informationCategorys/9">厂商动态</a>
-					</div>
-				</li>
-			</ul>
-			<ul th:unless="${pc!=null}">
-				<li>
-					<a href="/productCategory/仪器">仪器</a>
-				</li>
-				<li>
-					<a href="/productCategory/试剂">试剂</a>
-				</li>
-				<li>
-					<a href="/productCategory/耗材">耗材</a>
-				</li>
-				<li>
-					<a href="/productCategory/服务">服务</a>
-				</li>
-				<li>
-					<a href="/subjects">专题</a>
-				</li>
-				<li class="news-down">
-					<a >资讯</a>
-					<div class="news-sort hide">
-						<a href="/informationCategorys/行业要闻">行业要闻</a>
-						<a href="/informationCategorys/新品成果">新品成果</a>
-						<a href="/informationCategorys/厂商动态">厂商动态</a>
 					</div>
 				</li>
 			</ul>

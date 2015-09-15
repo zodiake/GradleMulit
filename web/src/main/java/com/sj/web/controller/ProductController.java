@@ -28,7 +28,6 @@ import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ReviewService;
-import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.SiteUserContext;
 

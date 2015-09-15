@@ -29,13 +29,18 @@
 	<div th:include="head/head">Head</div>
 	<!-- header -->
 	<div class="wrapper">		
+	<div class="crumb news-crumb">
+			<a href="/">首页</a>
+			<i>></i>
+			<a>解决方案</a>
+		</div>	
 		<div class="global-box topic-box">
 		    <ul>
 		    	 <li th:each="subject:${subjects}">
 					<a th:href="@{'/subjects/'+${subject.id}}">
 						<div class="title ft16 text210" th:text="${subject.name}">生物芯片扫描仪</div>
 						<div class="spe-pic">
-							<img th:src="@{${subject.image}}" width="210" height="130"/>
+							<img th:src="@{${subject.image}}" width="210" height="175"/>
 						</div>
 						<div class="topic-detail dd" draggable="false" th:text="${subject.summary}">
 						</div>

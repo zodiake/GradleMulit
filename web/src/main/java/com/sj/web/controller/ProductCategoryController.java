@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.model.model.CommonUser;
-import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
-import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductCategoryService;
@@ -65,10 +62,8 @@ public class ProductCategoryController {
 			Model uiModel, @PathVariable("parent") String parent,
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		ProductCategory secondCategory = pcService.findByName(second,
-				ActivateEnum.ACTIVATE);
-		if (secondCategory == null || secondCategory == null
-				|| !secondCategory.getParent().getName().equals(parent))
+		ProductCategory secondCategory = pcService.findByName(second,ActivateEnum.ACTIVATE);
+		if (secondCategory == null || secondCategory == null || !secondCategory.getParent().getName().equals(parent))
 			throw new CategoryNotFoundException();
 		Page<Product> pages = productService.findBySecondCategory(
 				secondCategory, new PageRequest(page - 1, size));
@@ -77,24 +72,6 @@ public class ProductCategoryController {
 		uiModel.addAttribute("pc", secondCategory.getParent());
 		uiModel.addAttribute("page", pages);
 		return "product/products";
-	}
-
-	private List<Product> setColl(List<Product> products) {
-		SiteUser user = userContext.getCurrentUser();
-		List<PreferProduct> prefer = preferProductService
-				.findByUser(new CommonUser(user.getId()));
-		if (prefer != null && prefer.size() != 0) {
-			for (Product product : products) {
-				Long productId = product.getId();
-				for (int i = 0; i < prefer.size(); i++) {
-					if (productId.equals(prefer.get(i).getProduct().getId())) {
-						product.setIsCollection(true);
-						break;
-					}
-				}
-			}
-		}
-		return products;
 	}
 
 	@RequestMapping(value = "/productCategory/{id}", method = RequestMethod.GET)

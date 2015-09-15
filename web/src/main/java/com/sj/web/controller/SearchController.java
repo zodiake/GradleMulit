@@ -53,7 +53,7 @@ public class SearchController extends BaseController<ProductSearch> {
 		} else {
 			results = service.findByOption(option, pageable);
 		}
-
+		
 		Map<String, String> map = service.buildMap(option);
 
 		ViewPage viewpage = caculatePage(results);

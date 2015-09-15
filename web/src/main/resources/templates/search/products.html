@@ -166,7 +166,7 @@
 			</div>
 			<div class="items-list pro-list">
 				<ul>
-					<li class="bodr product" th:each="product:${products.content}" >
+					<li class="bodr product" th:each="product:${products.getContent()}" >
 						<a th:href="@{'/products/'+${product.id}}"> <img th:src="@{${product.imgurl}}" width="210" height="175"/> </a>
 						<div class="pic-box">
 							<div class="pic-row refer">
@@ -180,7 +180,8 @@
 							</div>
 							<div class="pic-row">
 								<label >产地：</label>
-								<span th:text="${product.original}"></span>
+								<span th:if="${product.original==0}" th:text="进口"></span>
+								<span th:if="${product.original==1}" th:text="国产"></span>
 							</div>
 							<div class="pic-row">
 								<label>型号：</label>

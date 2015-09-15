@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sj.model.model.Subject;
+import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
@@ -42,7 +43,7 @@ public class SubjectController extends BaseController<Subject>{
 		ViewPage viewpage = caculatePage(subjects);
 		viewpage.setHref("/subjects");
 		uiModel.addAttribute("viewpage", viewpage);
-		uiModel.addAttribute("pc", subjectCategoryService.findOne(6l));
+		uiModel.addAttribute("pc", new SubjectCategory(6l));
 		return "subject/subjects";
 	}
 
@@ -55,7 +56,7 @@ public class SubjectController extends BaseController<Subject>{
 		Long subjectCount = template.opsForValue().increment(REVIEWCOUNT + id, 1);
 		subject.setViewCount(subjectCount);
 		uiModel.addAttribute("subject", subject);
-		uiModel.addAttribute("pc", subjectCategoryService.findOne(6l));
+		uiModel.addAttribute("pc", new SubjectCategory(6l));
 		return "subject/subject";
 	}
 }

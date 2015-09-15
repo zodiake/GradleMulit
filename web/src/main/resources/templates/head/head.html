@@ -12,7 +12,7 @@
 					<a data-name="/products/_search" data-input="title">商品</a>
 					<a data-name="/products/_search" data-input="model">型号</a>
 					<a data-name="/products/_search" data-input="brand">品牌</a>
-					<a data-name="/subject/_search" data-input="title">专题</a>
+					<a data-name="/subject/_search" data-input="title">解决方案</a>
 					<a data-name="/info/_search" data-input="title">资讯</a>
 				</div>
 			</form>
@@ -95,35 +95,35 @@
 	<div class="head-nav">
 		<div class="nav-box">
 			<ul th:if="${pc!=null}">
-				<li th:if="${pc.name=='仪器'}" class="active nobor">
+				<li th:if="${pc.id==1}" class="active nobor">
 					<a href="/productCategory/1">仪器</a>
 				</li>
-				<li th:unless="${pc.name=='仪器'}">
+				<li th:unless="${pc.id==1}">
 					<a href="/productCategory/1">仪器</a>
 				</li>
-				<li th:if="${pc.name=='试剂'}" class="active nobor">
+				<li th:if="${pc.id==2}" class="active nobor">
 					<a href="/productCategory/2">试剂</a>
 				</li>
-				<li th:unless="${pc.name=='试剂'}">
+				<li th:unless="${pc.id==2}">
 					<a href="/productCategory/2">试剂</a>
 				</li>
-				<li th:if="${pc.name=='耗材'}" class="active nobor">
+				<li th:if="${pc.id==3}" class="active nobor">
 					<a href="/productCategory/3">耗材</a>
 				</li>
-				<li th:unless="${pc.name=='耗材'}">
+				<li th:unless="${pc.id==3}">
 					<a href="/productCategory/3">耗材</a>
 				</li>
-				<li th:if="${pc.name=='服务'}" class="active nobor">
+				<li th:if="${pc.id==4}" class="active nobor">
 					<a href="/productCategory/4">服务</a>
 				</li>
-				<li th:unless="${pc.name=='服务'}">
+				<li th:unless="${pc.id==4}">
 					<a href="/productCategory/4">服务</a>
 				</li>
-				<li th:if="${pc.name=='专题'}" class="active nobor">
-					<a href="/subjects">专题</a>
+				<li th:if="${pc.id==6}" class="active nobor">
+					<a href="/subjects">解决方案</a>
 				</li>
-				<li th:unless="${pc.name=='专题'}">
-					<a href="/subjects">专题</a>
+				<li th:unless="${pc.id==6}">
+					<a href="/subjects">解决方案</a>
 				</li>
 				<li class="news-down hide-menu active nobor" th:if="${pc.id == 7 or pc.id==8 or pc.id ==9}">
 					<a >资讯</a>
@@ -150,13 +150,13 @@
 					<a href="/productCategory/2">试剂</a>
 				</li>
 				<li>
-					<a href="/productCategory/2">耗材</a>
+					<a href="/productCategory/3">耗材</a>
 				</li>
 				<li>
-					<a href="/productCategory/3">服务</a>
+					<a href="/productCategory/4">服务</a>
 				</li>
 				<li>
-					<a href="/subjects">专题</a>
+					<a href="/subjects">解决方案</a>
 				</li>
 				<li class="news-down hide-menu">
 					<a >资讯</a>
