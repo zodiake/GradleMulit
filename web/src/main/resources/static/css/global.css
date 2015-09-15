@@ -143,6 +143,9 @@ td{
 table{
 	border-collapse: collapse; 
 }
+img{ 
+	border: none\9; 
+}
 .hd{
 	height: 40px;
 	margin: 10px 0;
@@ -369,6 +372,9 @@ table{
 }
 .head-user .user-menu li:hover{
 	color: #27bff8;
+}
+.hide-menu:hover .show-menu{
+	display:block;
 }
 /** footer **/
 .footer{
