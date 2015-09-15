@@ -52,6 +52,7 @@
              	  }
               },
               done : function(e, data) {
+            	  console.log(data);
                   $(this).parent().parent().find("img").attr("src",data.result[0]);
                   $('#coverImg').val(data.result[0]);
               },
@@ -181,17 +182,20 @@
 								<label><i>*</i>产品分类</label> 
 								<select class="w200" th:field="*{firstCategory}">
 									<option value="">请选择</option>
-									<option th:each="category:${pcs}" th:value="${category.id}"
-										th:text="${category.name}"></option>
+									<option th:each="category:${pcs}" th:value="${category.id}" th:text="${category.name}"></option>
 								</select>
 								<i class="error" th:if="${#fields.hasErrors('thirdCategory')}" th:errors="*{thirdCategory}"></i>
 							</div>
 							<div class="fl">
 								<select class="w200" th:field="*{secondCategory}">
+									<option value="">请选择</option>
+									<option th:each="category:${secondCategories}" th:value="${category.id}" th:text="${category.name}"></option>
 								</select>
 							</div>
 							<div class="fl">
 								<select class="w200" th:field="*{thirdCategory}">
+								<option value="">请选择</option>
+									<option th:each="category:${thirdCategories}" th:value="${category.id}" th:text="${category.name}"></option>
 								</select> 
 							</div>
 						</div>

@@ -12,10 +12,8 @@ import java.util.List;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sj.model.model.Provider;
 import com.sj.model.model.UploadResult;
 import com.sj.model.model.UploadResultDetail;
 import com.sj.repository.util.FileUtil;
@@ -37,6 +35,9 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 			String year = Calendar.getInstance().get(1) + "";
 			String month = Calendar.getInstance().get(2) + "";
 			Path basePath = Paths.get(imgPath, year, month, fileName);
+			if (Files.notExists(basePath)) {
+				Files.createDirectories(basePath);
+			}
 			Files.copy(stream, basePath);
 			stream.close();
 			return year + "/" + month + "/" + fileName;

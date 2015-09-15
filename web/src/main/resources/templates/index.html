@@ -194,7 +194,7 @@
 						<div class="brand fr">
 							<h3>品牌</h3>
 							<div class="brand-box">
-								<a th:each="brand:${brands}" th:href="@{'/products/_search?brand='+${brand.name}}"><img th:src="@{${brand.coverImg}}" th:href="'/brand/'+${brand.id}" /></a>
+								<a th:each="brand:${brands}" th:with="href=${brand.href}" th:href="@{'http://'+${href}}"><img th:src="@{${brand.coverImg}}"/></a>
 							</div>
 						</div>
 					</div>

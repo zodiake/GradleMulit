@@ -1,9 +1,6 @@
 package com.sj.web.controller;
 
-import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -27,11 +24,8 @@ import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.Provider;
 import com.sj.model.model.Reagents;
-import com.sj.model.model.Review;
 import com.sj.model.model.Service;
 import com.sj.model.model.SiteUser;
-import com.sj.model.model.Solution;
-import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.service.BrandService;
@@ -47,13 +41,12 @@ import com.sj.repository.service.ReagentsService;
 import com.sj.repository.service.ServiceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.annotation.SecurityUser;
-import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.EnumNotFoundException;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.UserContext;
 
 @Controller
-public class ProviderController extends BaseController<Provider> {
+public class ProviderController extends BaseController<Product> {
 	@Autowired
 	private SiteUserService userService;
 	@Autowired
@@ -115,11 +108,16 @@ public class ProviderController extends BaseController<Provider> {
 	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)
 	public String findAllProductByProvider(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size,
+			@RequestParam(value = "size", defaultValue = "10") int size,
 			@SecurityUser SiteUser user) {
 		Page<Product> products = productService.findByUsers(
 				new Provider(user.getId()), new PageRequest(page - 1, size,
 						Direction.DESC, "createdTime"));
+		
+		ViewPage viewpage = caculatePage(products);
+		viewpage.setHref("/provider/products");
+		uiModel.addAttribute("viewpage", viewpage);
+		
 		uiModel.addAttribute("lists", products);
 		return "user/provider/maintain";
 	}
@@ -127,12 +125,17 @@ public class ProviderController extends BaseController<Provider> {
 	@RequestMapping(value = "/provider/products/{status}", method = RequestMethod.GET)
 	public String findAllProductByProviderAndStatus(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size,
+			@RequestParam(value = "size", defaultValue = "10") int size,
 			@SecurityUser SiteUser user, @PathVariable("status") String status) {
 		Page<Product> products = productService.findByUsers(
 				new Provider(user.getId()), new PageRequest(page - 1, size,
 						Direction.DESC, "createdTime"), ProductStatusEnum
 						.valueOf(status));
+		
+		ViewPage viewpage = caculatePage(products);
+		viewpage.setHref("/provider/products/"+status);
+		uiModel.addAttribute("viewpage", viewpage);
+		
 		uiModel.addAttribute("lists", products);
 		uiModel.addAttribute("status", ProductStatusEnum.valueOf(status));
 		return "user/provider/maintain";
@@ -165,14 +168,12 @@ public class ProviderController extends BaseController<Provider> {
 			if (instrument.getFirstCategory() != null) {
 				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(instrument.getFirstCategory(),
 								ActivateEnum.ACTIVATE);
-				uiModel.addAttribute("secondCategory", secondCategory);
+				uiModel.addAttribute("secondCategories", secondCategory);
 			}
 			if (instrument.getSecondCategory() != null) {
-				List<ProductCategory> thirdCategory = productCategoryService
-						.findByParentAndActivate(
-								instrument.getSecondCategory(),
-								ActivateEnum.ACTIVATE);
-				uiModel.addAttribute("thirdCategory", thirdCategory);
+				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(
+								instrument.getSecondCategory(),ActivateEnum.ACTIVATE);
+				uiModel.addAttribute("thirdCategories", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
 			uiModel.addAttribute("product", instrument);
@@ -202,14 +203,14 @@ public class ProviderController extends BaseController<Provider> {
 				List<ProductCategory> secondCategory = productCategoryService
 						.findByParentAndActivate(consumable.getFirstCategory(),
 								ActivateEnum.ACTIVATE);
-				uiModel.addAttribute("secondCategory", secondCategory);
+				uiModel.addAttribute("secondCategories", secondCategory);
 			}
 			if (consumable.getSecondCategory() != null) {
 				List<ProductCategory> thirdCategory = productCategoryService
 						.findByParentAndActivate(
 								consumable.getSecondCategory(),
 								ActivateEnum.ACTIVATE);
-				uiModel.addAttribute("thirdCategory", thirdCategory);
+				uiModel.addAttribute("thirdCategories", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
 			uiModel.addAttribute("product", consumable);
@@ -239,13 +240,13 @@ public class ProviderController extends BaseController<Provider> {
 				List<ProductCategory> secondCategory = productCategoryService
 						.findByParentAndActivate(reagents.getFirstCategory(),
 								ActivateEnum.ACTIVATE);
-				uiModel.addAttribute("secondCategory", secondCategory);
+				uiModel.addAttribute("secondCategories", secondCategory);
 			}
 			if (reagents.getSecondCategory() != null) {
 				List<ProductCategory> thirdCategory = productCategoryService
 						.findByParentAndActivate(reagents.getSecondCategory(),
 								ActivateEnum.ACTIVATE);
-				uiModel.addAttribute("thirdCategory", thirdCategory);
+				uiModel.addAttribute("thirdCategories", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
 			uiModel.addAttribute("product", reagents);
@@ -275,13 +276,13 @@ public class ProviderController extends BaseController<Provider> {
 				List<ProductCategory> secondCategory = productCategoryService
 						.findByParentAndActivate(service.getFirstCategory(),
 								ActivateEnum.ACTIVATE);
-				uiModel.addAttribute("secondCategory", secondCategory);
+				uiModel.addAttribute("secondCategories", secondCategory);
 			}
 			if (service.getSecondCategory() != null) {
 				List<ProductCategory> thirdCategory = productCategoryService
 						.findByParentAndActivate(service.getSecondCategory(),
 								ActivateEnum.ACTIVATE);
-				uiModel.addAttribute("thirdCategory", thirdCategory);
+				uiModel.addAttribute("thirdCategories", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
 			uiModel.addAttribute("product", service);
@@ -439,9 +440,13 @@ public class ProviderController extends BaseController<Provider> {
 	@RequestMapping(value = "/provider/count", method = RequestMethod.GET)
 	public String findCount(Model uiModel, @SecurityUser SiteUser user,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
+			@RequestParam(value = "size", defaultValue = "10") int size) {
 		Page<Product> products = productService.findCount(new Provider(user.getId()), new PageRequest(page - 1, size,
 				Direction.DESC, "createdTime"));
+		ViewPage viewpage = caculatePage(products);
+		viewpage.setHref("/provider/count");
+		uiModel.addAttribute("viewpage", viewpage);
+		
 		uiModel.addAttribute("products", products);
 		return "user/provider/count";
 	}
