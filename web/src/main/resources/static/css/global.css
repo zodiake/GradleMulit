@@ -143,6 +143,9 @@ td{
 table{
 	border-collapse: collapse; 
 }
+img{ 
+	border: none\9; 
+}
 .hd{
 	height: 40px;
 	margin: 10px 0;

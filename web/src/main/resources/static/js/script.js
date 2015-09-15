@@ -25,11 +25,11 @@ $(function(){
 	})
 	/**头部购物车**/
 	$('.head-cart,.hide-menu,.searched').mouseenter(function(){
-		$(this).find('.ct-cart-wrap,.show-menu').slideDown();
-		$(this).parent().find('.search-sort').slideDown();
+		$(this).find('.ct-cart-wrap,.show-menu').show();
+		$(this).parent().find('.search-sort').show();
 	})
 	$('.head-cart,.hide-menu').mouseleave(function(){
-		$(this).find('.ct-cart-wrap,.show-menu').slideUp();
+		$(this).find('.ct-cart-wrap,.show-menu').hide();
 	})
 	$('.head-search').mouseleave(function(){
 		$(this).find('.search-sort').slideUp();
