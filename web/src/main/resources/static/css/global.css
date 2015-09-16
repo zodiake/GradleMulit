@@ -184,8 +184,6 @@ img{
 }
 .head-box a.logo{
 	float: left;
-	width: 165px;
-	height: 30px;
 	margin-top: 20px;
 }
 .head-box .head-search{
@@ -194,7 +192,7 @@ img{
 	width: 330px;
 	height: 28px;
 	padding:3px 10px;
-	margin-left: 150px;
+	margin-left: 100px;
 	margin-top: 20px;
 	background: #fff;
 	border:1px solid #949493;
@@ -1927,4 +1925,14 @@ input[type=radio]:checked + label{
 }
 .basic-info .form-group.readonly-group{
 	position:relative;
+}
+.logo-hd{
+	vertical-align: top;
+	line-height:30px;
+	padding-left:15px;
+	margin-left:15px;
+	display:inline-block;
+	font-family: "Arial";
+	font-size:13px;
+	border-left:1px solid #868fa7;
 }
