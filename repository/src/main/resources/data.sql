@@ -1,15 +1,15 @@
---test province
+-- test province
 insert into province(id,name) values(1,'浙江省');
 insert into province(id,name) values(2,'福建省');
 
---test city
+-- test city
 insert into city(id,name,province_id) values(1,'杭州市','1');
 insert into city(id,name,province_id) values(2,'绍兴市','1');
 insert into city(id,name,province_id) values(3,'台州市','1');
 insert into city(id,name,province_id) values(4,'福州市','2');
 insert into city(id,name,province_id) values(5,'泉州市','2');
 
---test brand
+-- test brand
 insert into brand(id,name,activate,cover_img,created_time,href) values(1,'Thermo Fisher Scientific',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1','www.baidu.com');
 insert into brand(id,name,activate,cover_img,created_time,href) values(2,'3M',1,'http://localhost:8000/2015/9/3M.jpg','2012-1-1','www.baidu.com');
 insert into brand(id,name,activate,cover_img,created_time,href) values(3,'AccuStandard',1,'http://localhost:8000/2015/9/AccuStandard.jpg','2012-1-1','www.baidu.com');

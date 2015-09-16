@@ -1764,6 +1764,7 @@ button.default{
 	vertical-align: middle;
 }
 .basic-info .form-group{
+	position:relative;
 	overflow: hidden;
 }
 .basic-info .form-group i.error{
@@ -1908,4 +1909,14 @@ input[type=radio]:checked + label{
 }
 .userShow{
 	display: block;
+}
+.readonly{
+	width: 232px;
+	height: 30px;
+	background: #bfbfb3;
+	position: absolute;
+	left: 143px;
+	top:0;
+	opacity: 0.3; 
+	filter:alpha(opacity=30);  
 }
