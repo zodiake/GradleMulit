@@ -26,6 +26,9 @@
 				url : '/user/buyRecords/'+id,
 				success : function(data){
 					$('#tr'+id).remove();
+					if($('tbody tr').length==0){
+						$('#noBuys').show();
+					}
 				},error : function(data){
 					alert("error");
 				}
@@ -49,7 +52,7 @@
 				</div>
 				<div class="mainpanel purchase fr">
 					<table class="change-color" style="width: 100%;">
-						<thead>
+						<thead class="bodr">
 							<tr>
 								<th>编号</th>
 								<th>提交日期</th>
@@ -75,6 +78,11 @@
 							</tr>
 						</tbody>
 					</table>
+					<div id="noBuys" th:class="${pages.getContent().size()==0}?userShow:userHide" >
+						<div class="tip-box bodr" style="line-height: 300px;">
+							<span>您还没有任何采购记录，快去采购吧！</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
