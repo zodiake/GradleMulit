@@ -84,7 +84,6 @@
 	    				totalNum.html(num);
 	    			}
 	    		}).error(function(data){
-	    			console.log(data);
 	    		});
         	}else{
         		alert("请选择要加入购物车的商品");

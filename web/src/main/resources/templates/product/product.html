@@ -118,8 +118,7 @@
 			<i>></i> 
 			<a th:text="${product.firstCategory.name}" th:href="@{'/productCategory/'+${product.firstCategory.id}}"></a>
 			<i>></i>
-			<a th:href="@{'/products/_search?thirdCategory='+${product.thirdCategory.id}}" th:text="${product.thirdCategory.name}"></a><i>></i> 
-			<a th:text="${product.name}"></a>
+			<a th:href="@{'/products/_search?thirdCategory='+${product.thirdCategory.id}}" th:text="${product.thirdCategory.name}"></a>
 		</div>
 		<div class="goods-property bodr clearfix">
 			<div class="fl pro-big">
@@ -127,8 +126,7 @@
 			</div>
 			<div class="fl pro-info">
 				<div class="panel global-panel clearfix">
-					<h3 class="ft16 tit" th:text="${product.name}">GenePix 4100
-						A生物芯片扫描仪</h3>
+					<h3 class="ft16 tit" th:text="${product.name}" style="max-width: 350px;text-overflow: ellipsis;overflow: hidden;">GenePix 4100A生物芯片扫描仪</h3>
 					<div>
 						<div class="collect-num" th:if="${product.isCollection==true}" th:attr="data-id=${product.id}">已收藏</div>
 						<div class="collect-num" id="collection" th:unless="${product.isCollection==true}" th:attr="data-id=${product.id}">收藏</div>

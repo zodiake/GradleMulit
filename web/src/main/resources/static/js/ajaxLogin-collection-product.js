@@ -52,7 +52,6 @@
 				data : {"id":data},
 				type : 'post'
 			}).success(function(response) {
-				console.log(response);
 				if (response == 'login'){
 					$('.hide-wrap').empty();
 					$('.hide-wrap').append(loginForm$);

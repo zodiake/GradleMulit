@@ -29,8 +29,8 @@
 					购物车(<i th:if="${session.cartLines==null}" th:text="0" id="allNum"></i><i th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="allNum"></i>)
 				</div>
 				<div class="ct-cart-wrap bodr hide" >
-					<h3><b class="gray-deeply" >购物车中的商品</b></h3>
-					<div class="ct-cart-list"  >
+					<h3><b class="gray-deeply">购物车中的商品</b></h3>
+					<div class="ct-cart-list">
 						<ul id="cartUl">
 							<li th:each="cartline:${session.cartLines}" th:id="'cart'+${cartline.productId}">
 								<div class="fl ct-img">
@@ -79,7 +79,7 @@
 							<a target="_blank" href="/provider/products">商品维护</a>
 						</li>
 						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
-							<a  href="/provider/count">商品信息统计</a>
+							<a href="/provider/count">商品信息统计</a>
 						</li>
 						<li>
 							<form id="logoutForm" action="/logout" method="post">

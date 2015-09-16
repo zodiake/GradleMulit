@@ -9,6 +9,4 @@ public interface AsyncWriteFileService {
 
 	public String writeToFile(MultipartFile file);
 	
-//	public UploadResult writeProductToProviderFile(MultipartFile file,Provider provider);
-	
 }
