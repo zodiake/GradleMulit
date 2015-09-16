@@ -778,6 +778,7 @@ img{
 }
 .form-group textarea{
 	width: 400px;
+	resize: none;
 	border:1px solid #8491af;
 }
 .resg-form .accept-btn,
@@ -1910,4 +1911,11 @@ input[type=radio]:checked + label{
 	top:0;
 	opacity: 0.3; 
 	filter:alpha(opacity=30);  
+}
+.cate-hd{
+	margin:10px 10px 0;
+	padding:5px;
+	font-size:14px;
+	background:#eee;
+	border-left:3px solid #27bff8;
 }
