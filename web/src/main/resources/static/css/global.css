@@ -1765,7 +1765,6 @@ button.default{
 	vertical-align: middle;
 }
 .basic-info .form-group{
-	position:relative;
 	overflow: hidden;
 }
 .basic-info .form-group i.error{
