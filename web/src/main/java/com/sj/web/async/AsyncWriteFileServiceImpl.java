@@ -20,7 +20,6 @@ import com.sj.repository.util.FileUtil;
 
 @Service
 public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
-	private final String imgPath = "/home/yagamai/Documents/pic/public/";
 	private final String audioPath = "src/main/resources/static/upload/audio/";
 
 	private final String imgUrl = "/upload/img/";

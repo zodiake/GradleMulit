@@ -39,8 +39,8 @@ public class InformationServiceImpl implements InformationService {
 	@Override
 	public Page<Information> findByCategory(InformationCategory category,
 			Pageable pageable) {
-
-		return repository.findByCategory(category, pageable);
+		
+		return repository.findByCategoryAndActivate(category, pageable,ActivateEnum.ACTIVATE);
 	}
 
 	@Override
@@ -74,8 +74,8 @@ public class InformationServiceImpl implements InformationService {
 	@Cacheable(value = "informationCache", key = "#category.id")
 	public List<Information> findByCategoryAndShowOnIndex(
 			InformationCategory category) {
-		Page<Information> infoPage = repository.findByCategory(category,
-				new PageRequest(0, 3, Direction.DESC, "createdTime"));
+		Page<Information> infoPage = repository.findByCategoryAndActivate(category,
+				new PageRequest(0, 3, Direction.DESC, "createdTime"),ActivateEnum.ACTIVATE);
 		return infoPage.getContent();
 	}
 

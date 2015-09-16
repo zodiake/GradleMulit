@@ -21,7 +21,7 @@ public class ImageController extends UploadController {
 	public ArrayList<String> businessLicenseUpload(MultipartFile file) {
 		String result = super.upload(file);
 		ArrayList<String> list = new ArrayList<>();
-		list.add("http://http://139.196.30.55:8000/" + result);
+		list.add("http://139.196.30.55:8000/" + result);
 		if (result != null)
 			return list;
 		return null;
