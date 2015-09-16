@@ -26,7 +26,6 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 	private final String imgUrl = "/upload/img/";
 	private final String audioUrl = "/upload/audio/";
 
-	@Override
 	public String writeToFile(MultipartFile file) {
 		InputStream stream;
 		String fileName = FileUtil.getFileName(file.getContentType());
@@ -34,11 +33,13 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 			stream = file.getInputStream();
 			String year = Calendar.getInstance().get(1) + "";
 			String month = Calendar.getInstance().get(2) + "";
-			Path basePath = Paths.get(imgPath, year, month, fileName);
+			Path basePath = Paths.get("D:", "web", "imgServer", "pic",
+					"public", year, month);
 			if (Files.notExists(basePath)) {
 				Files.createDirectories(basePath);
 			}
-			Files.copy(stream, basePath);
+			Path filePath = Paths.get(basePath.toString(), fileName);
+			Files.copy(stream, filePath);
 			stream.close();
 			return year + "/" + month + "/" + fileName;
 		} catch (IOException e) {
@@ -46,7 +47,6 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 		}
 		return null;
 	}
-
 	@Override
 	@Async
 	public UploadResult writeBigToFile(MultipartFile file) {
@@ -78,32 +78,4 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 		result.setFiles(files);
 		return result;
 	}
-//
-//	@Override
-//	public UploadResult writeProductToProviderFile(MultipartFile file,Provider provider) {
-//		String userFold = provider.getId().toString();
-//		Path userDir = Paths.get(userFold+"/");
-//		Path basePath = Paths.get("").resolve("src/main/resources/static/upload/");
-//		Calendar c = Calendar.getInstance();
-//		String fileName = String.valueOf(c.hashCode()) + StringUtils.trimAllWhitespace(file.getOriginalFilename());
-//		try {
-//			Path uploadFilePath = getUploadDir(basePath, userDir, fileName);
-//			byte[] bytes = file.getBytes();
-//			Files.write(uploadFilePath, bytes);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		UploadResult result = new UploadResult();
-//		List<UploadResultDetail> files = new ArrayList<>();
-//		files.add(new UploadResultDetail(file.getOriginalFilename(), file.getSize(), imgUrl + fileName + fileName, "asd", "delete"));
-//		result.setFiles(files);
-//		return result;
-//	}
-//	private Path getUploadDir(Path baseDir, Path userDir, String fileName)
-//			throws IOException {
-//		Path temp = baseDir.resolve(userDir);
-//		if (!Files.exists(temp))
-//			Files.createDirectories(temp);
-//		return Paths.get(temp.toString() + "/" + fileName);
-//	}
 }
