@@ -20,7 +20,7 @@ import com.sj.repository.util.FileUtil;
 
 @Service
 public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
-	private final String imgPath = "/home/yagamai/Documents/pic/public/";
+	private final String imgPath = "﻿D:/web/imgServer/pic/public";
 	private final String audioPath = "src/main/resources/static/upload/audio/";
 
 	private final String imgUrl = "/upload/img/";
@@ -78,32 +78,36 @@ public class AsyncWriteFileServiceImpl implements AsyncWriteFileService {
 		result.setFiles(files);
 		return result;
 	}
-//
-//	@Override
-//	public UploadResult writeProductToProviderFile(MultipartFile file,Provider provider) {
-//		String userFold = provider.getId().toString();
-//		Path userDir = Paths.get(userFold+"/");
-//		Path basePath = Paths.get("").resolve("src/main/resources/static/upload/");
-//		Calendar c = Calendar.getInstance();
-//		String fileName = String.valueOf(c.hashCode()) + StringUtils.trimAllWhitespace(file.getOriginalFilename());
-//		try {
-//			Path uploadFilePath = getUploadDir(basePath, userDir, fileName);
-//			byte[] bytes = file.getBytes();
-//			Files.write(uploadFilePath, bytes);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		UploadResult result = new UploadResult();
-//		List<UploadResultDetail> files = new ArrayList<>();
-//		files.add(new UploadResultDetail(file.getOriginalFilename(), file.getSize(), imgUrl + fileName + fileName, "asd", "delete"));
-//		result.setFiles(files);
-//		return result;
-//	}
-//	private Path getUploadDir(Path baseDir, Path userDir, String fileName)
-//			throws IOException {
-//		Path temp = baseDir.resolve(userDir);
-//		if (!Files.exists(temp))
-//			Files.createDirectories(temp);
-//		return Paths.get(temp.toString() + "/" + fileName);
-//	}
+	//
+	// @Override
+	// public UploadResult writeProductToProviderFile(MultipartFile
+	// file,Provider provider) {
+	// String userFold = provider.getId().toString();
+	// Path userDir = Paths.get(userFold+"/");
+	// Path basePath =
+	// Paths.get("").resolve("src/main/resources/static/upload/");
+	// Calendar c = Calendar.getInstance();
+	// String fileName = String.valueOf(c.hashCode()) +
+	// StringUtils.trimAllWhitespace(file.getOriginalFilename());
+	// try {
+	// Path uploadFilePath = getUploadDir(basePath, userDir, fileName);
+	// byte[] bytes = file.getBytes();
+	// Files.write(uploadFilePath, bytes);
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// }
+	// UploadResult result = new UploadResult();
+	// List<UploadResultDetail> files = new ArrayList<>();
+	// files.add(new UploadResultDetail(file.getOriginalFilename(),
+	// file.getSize(), imgUrl + fileName + fileName, "asd", "delete"));
+	// result.setFiles(files);
+	// return result;
+	// }
+	// private Path getUploadDir(Path baseDir, Path userDir, String fileName)
+	// throws IOException {
+	// Path temp = baseDir.resolve(userDir);
+	// if (!Files.exists(temp))
+	// Files.createDirectories(temp);
+	// return Paths.get(temp.toString() + "/" + fileName);
+	// }
 }

@@ -24,7 +24,7 @@ public class IndexController extends UploadController {
 	public List<String> uploadImage(MultipartFile file) {
 		String result = super.upload(file);
 		ArrayList<String> list = new ArrayList<>();
-		list.add("http://localhost:8000/" + result);
+		list.add("http://127.0.0.1:8000/" + result);
 		if (result != null)
 			return list;
 		return null;

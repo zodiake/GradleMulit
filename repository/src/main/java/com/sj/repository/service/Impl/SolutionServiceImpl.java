@@ -41,6 +41,7 @@ public class SolutionServiceImpl implements SolutionService {
 		Solution so = new Solution();
 		so.setName(s.getName());
 		so.setSubject(s.getSubject());
+		so.setActive(ActivateEnum.ACTIVATE);
 		return repository.save(so);
 	}
 
