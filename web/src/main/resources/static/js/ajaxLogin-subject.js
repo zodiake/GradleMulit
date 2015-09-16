@@ -10,7 +10,7 @@
 			fail : null
 		}, options || {});
 
-		var loginTemplate = '<form id="ajaxForm"><div class="form-group"><label>用户名</label><input type="text" name="name" placeholder="用户名"/></div><div class="form-group"><label>密码</label><input type="password" name="password"/><i class="pass"></i></div>'
+		var loginTemplate = '<form id="ajaxForm"><div class="form-group"><label>用户名</label><input type="text" name="name" placeholder="用户名"/></div><div class="form-group"><label>密码</label><input type="password" name="password"/><i class="error block pass">ggg</i></div>'
 			+ '<div class="clearfix"><button class="btn orange" type="submit">登录</button><a class="fr blue" href="/forgetPw">忘记密码？</a></div></form>';
     	var checksVal = [];
 		var loginForm$ = $(loginTemplate).on('submit', function(event) {
@@ -84,6 +84,7 @@
 	    				totalNum.html(num);
 	    			}
 	    		}).error(function(data){
+	    			console.log(data);
 	    		});
         	}else{
         		alert("请选择要加入购物车的商品");

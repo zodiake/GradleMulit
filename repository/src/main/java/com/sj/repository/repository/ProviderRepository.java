@@ -7,8 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ActivateEnum;
 
-public interface ProviderRepository extends
-		PagingAndSortingRepository<Provider, Long> {
+public interface ProviderRepository extends PagingAndSortingRepository<Provider, Long> {
 	Provider findByName(String name);
 
 	Provider findById(Long id);
