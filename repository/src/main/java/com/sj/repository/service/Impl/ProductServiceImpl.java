@@ -382,7 +382,7 @@ public class ProductServiceImpl implements ProductService {
 			product.setCreatedTime(Calendar.getInstance());
 			product.setAuthenticatedTime(Calendar.getInstance());
 			product.setStatus(ProductStatusEnum.UP);
-			product.setCoverImg("/");
+			product.setCoverImg("http://139.196.30.55:8000/2015/9/noImage.jpg");
 			product.setContent(new Content());
 
 			products.add(product);
