@@ -109,6 +109,9 @@ button{
 	line-height: 35px;
 	padding-left: 20px;	
 }
+.gray-hd a{
+	color: #27bff8;
+}
 .ft14{
 	font-size: 14px;
 }
@@ -1901,6 +1904,12 @@ input[type=radio]:checked + label{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	course:hand;
+}
+.userHide{
+	display: none;
+}
+.userShow{
+	display: block;
 }
 .readonly{
 	width: 232px;

@@ -1,6 +1,6 @@
 $(function() {
 	getCount();
-	$(".delete").click(function() {
+	$(".deleteCart").click(function() {
 		var product = $(this);
 		var productId = product.attr("data-id");
 		$.ajax({
@@ -12,6 +12,9 @@ $(function() {
 					getCount();
 					var listSize = $("#listSize");
 					listSize.html(parseInt(listSize.html()) - 1);
+					if($(".check").length==0){
+						$("#noProduct").show();
+					}
 				}
 			},
 			error : function(data) {

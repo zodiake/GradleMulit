@@ -65,35 +65,47 @@
       	$('#firstCategory').change(function(){
       		secondCategory.empty();
       		thirdCategory.empty();
-      		$.ajax({
-      			type : 'get',
-      			url : '/ajaxProductCategory/'+firstCategory.val(),
-      			success:function(data){
-      				var str = '<option value="">请选择</option>';
-      				$.each(data,function(key,val){
-      					str = str+'<option value="'+val.id+'">'+val.name+'</option>';
-      				});
-      				secondCategory.append(str);
-      			},error:function(data){
-      				alert("error");
-      			}
-      		});
+      		if(firstCategory.val()!=""){
+	      		$.ajax({
+	      			type : 'get',
+	      			url : '/ajaxProductCategory/'+firstCategory.val(),
+	      			success:function(data){
+	      				var str = '<option value="">请选择</option>';
+	      				thirdCategory.append(str);
+	      				$.each(data,function(key,val){
+	      					str = str+'<option value="'+val.id+'">'+val.name+'</option>';
+	      				});
+	      				secondCategory.append(str);
+	      			},error:function(data){
+	      				alert("error");
+	      			}
+	      		});
+      		}else{
+      			var str = '<option value="">请选择</option>';
+      			secondCategory.append(str);
+      			thirdCategory.append(str);
+      		}
       	});
       	$('#secondCategory').change(function(){
       		thirdCategory.empty();
-      		$.ajax({
-      			type : 'get',
-      			url : '/ajaxProductCategory/'+secondCategory.val(),
-      			success:function(data){
-      				var str = '<option value="">请选择</option>';
-      				$.each(data,function(key,val){
-      					str = str+'<option value="'+val.id+'">'+val.name+'</option>';
-      				});
-      				thirdCategory.append(str);
-      			},error:function(data){
-      				alert("error");
-      			}
-      		});
+      		if(secondCategory.val()!=""){
+	      		$.ajax({
+	      			type : 'get',
+	      			url : '/ajaxProductCategory/'+secondCategory.val(),
+	      			success:function(data){
+	      				var str = '<option value="">请选择</option>';
+	      				$.each(data,function(key,val){
+	      					str = str+'<option value="'+val.id+'">'+val.name+'</option>';
+	      				});
+	      				thirdCategory.append(str);
+	      			},error:function(data){
+	      				alert("error");
+	      			}
+	      		});
+      		}else{
+      			var str = '<option value="">请选择</option>';
+      			thirdCategory.append(str);
+      		}
       	});
     	var formObj = $('form');
     	$('#firstCategory').change(function(){
@@ -212,7 +224,7 @@
 							<span id="uploadImg">
 								<input type='file' name='file' th:attr="data-url=@{/provider/productImage}" /> <a href="#">选择文件</a>
 							</span>
-							<i class="error error-abs" th:if="${#fields.hasErrors('coverImg')}" th:errors="*{coverImg}"></i>
+							<i class="error" style="top: 64%;left: 14.5%;" th:if="${#fields.hasErrors('coverImg')}" th:errors="*{coverImg}"></i>
 						</div>
 						<div class="form-group clearfix" style="height: 400px;">
 							<label class="fl">产品介绍</label>

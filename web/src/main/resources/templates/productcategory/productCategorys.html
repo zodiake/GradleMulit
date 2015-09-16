@@ -31,7 +31,7 @@
 					<div class="sort-list" th:each="category,categoryStat:${categories}" th:if="${(categoryStat.index*2) lt categories.size()}">
 						<div class="sort-hd gray-hd"><a th:text="${category.name}"  th:href="@{'/products/_search?secondCategory='+${category.id}}"></a></div>
 						<div class="sort-detail bodr">
-							<i th:each="child:${category.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
+							<i th:each="child:${category.categories}"><a th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><label  th:text="${child.name}"></label><span>&nbsp;|&nbsp;</span></i>
 						</div>
 					</div>
 				</div>
@@ -41,11 +41,10 @@
 						<div class="sort-detail bodr">
 							<i th:each="child:${category.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 						</div>
-					</div>				</div>
-				
+					</div>				
+				</div>
 			</div>
 		</div>
-		
 	</div>
 	<div th:include="footer/footer"></div>
 </body>

@@ -37,9 +37,6 @@
         <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
     </div>
     <script type="text/ng-template" id="brandModal.html">
-        <div class="modal-header">
-            冻结/解冻
-        </div>
         <div class="modal-body">
         	是否{{item.state|reverseActiveFilter}}{{item.title}}
         </div>

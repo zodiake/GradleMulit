@@ -10,16 +10,16 @@
   <meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <script th:src="@{/js/jquery-min.js}"></script>
   <script th:src="@{/js/noCart.js}"></script>
-  	<script type="text/javascript" th:src="@{/js/cart.js}"></script>
-  		<script type="text/javascript">
-		$(function() {
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-			$(document).ajaxSend(function(e, xhr, options) {
-				xhr.setRequestHeader(header, token);
-			});
+  <script type="text/javascript" th:src="@{/js/cart.js}"></script>
+  <script type="text/javascript">
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
 		});
-	</script>
+	});
+  </script>
 </head>
 <body>
 	<div class="header" th:include="head/headCart">Head</div>
@@ -86,13 +86,15 @@
 									</td>
 									<td><b class="red" th:id="'small'+${cart.id}" th:text="${cart.price*cart.number}" th:attr="price=${cart.price}">1235.0</b></td>
 									<td>
-										<a class="delete" th:attr="data-id=${cart.productId}">删除</a>
+										<a class="deleteCart" th:attr="data-id=${cart.productId}">删除</a>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="tip-box">
-							<span>购物车中还没有商品，赶紧选购吧!</span>
+						<div th:class="${list==null}?userShow:userHide" id="noProduct">
+							<div class="tip-box bodr ">
+								<span>购物车中还没有商品，赶紧选购吧！</span>
+							</div>
 						</div>
 						<div class="cart-foot">
 							<div class="clearfix">
