@@ -1927,3 +1927,6 @@ input[type=radio]:checked + label{
 	background:#eee;
 	border-left:3px solid #27bff8;
 }
+.basic-info .form-group.readonly-group{
+	position:relative;
+}
