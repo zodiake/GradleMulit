@@ -11,6 +11,8 @@
     	<section>    		
 			<div class="panel panel-signin">
 				<div class="panel-body">
+					<div class="text-center"><img src="img/logo.png" /></div>
+					<h4 class="text-center">申捷后台管理系统</h4>
 					<form th:method="post" th:object="${user}">
 						<div class="form-group">
 							<label>用户名</label>
@@ -24,10 +26,10 @@
 								<input class="form-control" type="password" th:field = "*{password}" />
 							</div>
 						</div>
-						<input type="submit" class="btn btn-success sub-btn" value="登录"/>
-						
+						<input type="submit" class="btn btn-success sub-btn" value="登录"/>						
 					</form>		
 				</div>
+				<div class="copyright text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;© 2014-2015 shsj.com 版权所有 ICP证</div>
 			</div>
     	</section>
     </body>

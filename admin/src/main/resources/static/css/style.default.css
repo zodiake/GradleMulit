@@ -886,18 +886,26 @@ select{
     background: #ddd;
     cursor: pointer;
 }
-.signin {
-    background: #e4e7ea;
-    padding-top:300px;
+.signin form{
+	margin-top:35px;
 }
 .panel-signin {
-    background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0;
-    border: 1px solid #ccc;
+	position:fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	padding:50px 0 30px;
     margin: auto;
-    width: 350px;
+    width: 400px;
+    height:400px;
+    background: #e4e7ea;
+    border: 1px solid #ccc;
+    border-radius:4px;
 }
 .panel-signin .panel-body {
-    padding: 20px 10px;
+    width:350px;
+    margin:auto;
 }
 .panel-signin label {
     float: left;
@@ -913,7 +921,9 @@ select{
 	display:block;
 	padding:5px 0;
 	font-size:15px;
-	width:80px;
-	margin:auto;
+	margin-left:65px;
 	letter-spacing: 4px;
+}
+.panel-signin .copyright{
+	margin-top:40px;
 }
