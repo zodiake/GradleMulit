@@ -33,6 +33,9 @@
                             if (data == "success") {
                                 $("#li" + product).remove();
                             }
+                            if($("#preferUl li").length==0){
+                            	$("#noCollection").show();
+                            }
                         },
                         error : function(data) {
                             alert(data);
@@ -57,9 +60,9 @@
 						<a href="/user/carts">购物车</a>
 						<a href="/user/buyRecords">采购申请</a>
 					</div>
-					<div class="mainpanel bodr collect fr" th:if="${pages.getContent()!=null and pages.getContent().size()!=0}">
-						<div class="items-list">
-							<ul>
+					<div class="mainpanel bodr collect fr" >
+						<div class="items-list" th:if="${pages.getContent()!=null and pages.getContent().size()!=0}">
+							<ul id="preferUl">
 								<li class="bodr" th:each="prefer:${pages.getContent()}" th:id="'li'+${prefer.product.id}">
 									<a th:href="@{'/products/'+${prefer.product.id}}" target="_blank"><img th:src="@{${prefer.product.coverImg}}" width="210" height="175"/>
 									<div class="pic-box">
@@ -91,12 +94,11 @@
 								</li>
 							</ul>
 						</div>
+					<div id="noCollection" th:class="${pages.getContent()==null || pages.getContent().size()==0}?userShow:userHide">
+						<div  class="tip-box mainpanel collect fr" style="line-height: 300px;">
+							<span>您还没有收藏任何商品，赶紧收藏吧！</span>
+						</div>
 					</div>
-					<div class="mainpanel bodr collect fr" th:unless="${pages.getContent()!=null and pages.getContent().size()!=0}">
-							<div class="tip-box">
-								<img alt="" src="http://misc.360buyimg.com/user/myjd-2015/css/i/qjoy-icon.png" width="50" height="70"/>
-								<span>您还没有收藏任何商品哦</span>
-							</div>
 					</div>
 				</div>
 			</div>

@@ -12,8 +12,8 @@ import com.sj.model.type.AdvertiseCategoryEnum;
 public interface InformationRepository extends
 		PagingAndSortingRepository<Information, Long> {
 
-	Page<Information> findByCategory(InformationCategory category,
-			Pageable pageable);
+	Page<Information> findByCategoryAndActivate(InformationCategory category,
+			Pageable pageable,ActivateEnum activate);
 
 	Information findByIdAndCategory(Long id, AdvertiseCategoryEnum category);
 

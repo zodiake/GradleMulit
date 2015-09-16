@@ -109,6 +109,9 @@ button{
 	line-height: 35px;
 	padding-left: 20px;	
 }
+.gray-hd a{
+	color: #27bff8;
+}
 .ft14{
 	font-size: 14px;
 }
@@ -351,7 +354,7 @@ img{
 	margin-left: 30px;
 }
 .head-user .user-name{
-	width: 60px;
+	padding:0 15px;
 	text-align: center;
 	line-height: 28px;
 	color: #fff;
@@ -677,6 +680,18 @@ img{
 .resg-header .resg-company a{
 	width:80px;
 	background: url('../img/icon-resg2.png') no-repeat;
+}
+.resg-header .login-resg{
+	float:right;
+}
+.login-resg a{
+	display: inline-block;
+	width:80px;
+	background: url('../img/icon-login-resg.png') no-repeat;
+}
+.resg-header .login-resg a.company-btn{
+	background-position: -76px 0;
+	width:87px;
 }
 .resg-header .resg-self a.company-btn{
 	background-position: -80px 0;
@@ -1749,6 +1764,7 @@ button.default{
 	vertical-align: middle;
 }
 .basic-info .form-group{
+	position:relative;
 	overflow: hidden;
 }
 .basic-info .form-group i.error{
@@ -1887,4 +1903,20 @@ input[type=radio]:checked + label{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	course:hand;
+}
+.userHide{
+	display: none;
+}
+.userShow{
+	display: block;
+}
+.readonly{
+	width: 232px;
+	height: 30px;
+	background: #bfbfb3;
+	position: absolute;
+	left: 143px;
+	top:0;
+	opacity: 0.3; 
+	filter:alpha(opacity=30);  
 }

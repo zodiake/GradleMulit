@@ -1,6 +1,6 @@
 package com.sj.repository.service.Impl;
 
-import static com.sj.repository.util.RedisConstant.SUBJECTCOUNT;
+import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
 
 import java.util.Calendar;
 
@@ -34,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public Review save(Review review) {
 		review.setCreatedTime(Calendar.getInstance());
 		review = repository.save(review);
-		template.opsForValue().increment(SUBJECTCOUNT + review.getProduct().getId(), 1);
+		template.opsForValue().increment(REVIEWCOUNT + review.getProduct().getId(), 1);
 		return review;
 	}
 

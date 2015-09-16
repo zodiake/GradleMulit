@@ -21,7 +21,7 @@ public class ImageController extends UploadController {
 	public ArrayList<String> businessLicenseUpload(MultipartFile file) {
 		String result = super.upload(file);
 		ArrayList<String> list = new ArrayList<>();
-		list.add("http://localhost:8000/" + result);
+		list.add("http://139.196.30.55:8000/" + result);
 		if (result != null)
 			return list;
 		return null;
@@ -32,7 +32,7 @@ public class ImageController extends UploadController {
 	public ArrayList<String> taxRegistrationUpload(MultipartFile file) {
 		String result = super.upload(file);
 		ArrayList<String> list = new ArrayList<>();
-		list.add("http://localhost:8000/" + result);
+		list.add("http://139.196.30.55:8000/" + result);
 		if (result != null)
 			return list;
 		return null;
@@ -43,7 +43,7 @@ public class ImageController extends UploadController {
 	public ArrayList<String> structureCodeUpload(MultipartFile file) {
 		String result = super.upload(file);
 		ArrayList<String> list = new ArrayList<>();
-		list.add("http://localhost:8000/" + result);
+		list.add("http://139.196.30.55:8000/" + result);
 		if (result != null)
 			return list;
 		return null;
@@ -54,7 +54,7 @@ public class ImageController extends UploadController {
 	public ArrayList<String> productUpload(MultipartFile file) {
 		String result = super.upload(file);
 		ArrayList<String> list = new ArrayList<>();
-		list.add("http://localhost:8000/" + result);
+		list.add("http://139.196.30.55:8000/" + result);
 		if (result != null)
 			return list;
 		return null;
@@ -80,7 +80,7 @@ public class ImageController extends UploadController {
 		response.setContentType("text/html");
 		writer.write("<script type=\"text/javascript\">");
 		writer.write("window.parent.CKEDITOR.tools.callFunction(" + num
-				+ ",'http://localhost:8000/" + file + "','')");
+				+ ",'http://139.196.30.55:8000/" + file + "','')");
 		writer.write("</script>");
 		writer.close();
 	}

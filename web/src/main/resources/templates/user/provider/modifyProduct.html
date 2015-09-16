@@ -80,19 +80,24 @@
           	var thirdCategory = $('#thirdCategory');
           	secondCategory.change(function(){
           		thirdCategory.empty();
-          		$.ajax({
-          			type : 'get',
-          			url : '/ajaxProductCategory/'+secondCategory.val(),
-          			success:function(data){
-          				var str = '<option value="">请选择</option>';
-          				$.each(data,function(key,val){
-          					str = str+'<option value="'+val.id+'">'+val.name+'</option>';
-          				});
-          				thirdCategory.append(str);
-          			},error:function(data){
-          				alert("error");
-          			}
-          		});
+          		if(secondCategory.val()!=""){
+	          		$.ajax({
+	          			type : 'get',
+	          			url : '/ajaxProductCategory/'+secondCategory.val(),
+	          			success:function(data){
+	          				var str = '<option value="">请选择</option>';
+	          				$.each(data,function(key,val){
+	          					str = str+'<option value="'+val.id+'">'+val.name+'</option>';
+	          				});
+	          				thirdCategory.append(str);
+	          			},error:function(data){
+	          				alert("error");
+	          			}
+	          		});
+          		}else{
+          			var str = '<option value="">请选择</option>';
+          			thirdCategory.append(str);
+          		}
           	});
           	$("#cancel").click(function(){
           		window.location.href="/provider/products";
@@ -163,6 +168,7 @@
 							<div class="fl">
 							<label><i>*</i>产品分类</label>
 							<input style="width: 200px;" type="text" th:value="*{firstCategory.name}" id="firstCategory" disabled="disabled"/>
+							<i class="error" th:if="${#fields.hasErrors('thirdCategory')}" th:errors="*{thirdCategory}"></i>
 							</div>
 							<div class="fl" style="padding-left: 13px;">
 							<select class="w200" th:field="*{secondCategory}">
@@ -176,7 +182,6 @@
 							<option value="">请选择</option>
 								<option th:each="category:${thirds}" th:value="${category.id}" th:text="${category.name}"></option>
 							</select>
-							<i class="error" th:if="${#fields.hasErrors('thirdCategory')}" th:errors="*{thirdCategory}"></i>
 							</div>
 						</div>
 						<div class="form-group">

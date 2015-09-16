@@ -11,4 +11,13 @@ $(function(){
 	$('.head-search').mouseleave(function(){
 		$(this).find('.search-sort').hide();
 	})	
+	$('.make-orders').click(function(){
+		$('.temp-wrap').fadeIn();		
+		$('.fixed').fadeIn();
+	})
+	$(".cancel").click(function(){
+		  $(".hide-wrap").fadeOut();
+		  $(".hide-wrap-small").fadeOut();
+		  $(".fixed").fadeOut();
+	 })
 })
