@@ -52,7 +52,6 @@
              	  }
               },
               done : function(e, data) {
-            	  console.log(data);
                   $(this).parent().parent().find("img").attr("src",data.result[0]);
                   $('#coverImg').val(data.result[0]);
               },
@@ -146,47 +145,44 @@
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 						<div class="form-group">
 							<div class="fl">
-								<label><i>*</i>产品名称</label> <input type="text"
-									th:field="*{name}" /> <i class="error"
-									th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
+								<label><i>*</i>产品名称</label> 
+								<input type="text" th:field="*{name}" /> 
+								<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
 							</div>
 								<div class="fl">
-								<label><i>*</i>产品型号</label> <input type="text"
-									th:field="*{model}" /> <i class="error"
-									th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></i>
+								<label><i>*</i>产品型号</label> 
+								<input type="text" th:field="*{model}" /> 
+								<i class="error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></i>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="fl">
-								<label><i>*</i>品牌</label> <select class="w235"
-									th:field="*{brand}">
+								<label><i>*</i>品牌</label> 
+								<select class="w235" th:field="*{brand}">
 									<option value="">请选择</option>
-									<option th:each="brand:${brands}" th:text="${brand.name}"
-										th:value="${brand.id}"></option>
-								</select> <i class="error" th:if="${#fields.hasErrors('brand')}"
-									th:errors="*{brand}"></i>
+									<option th:each="brand:${brands}" th:text="${brand.name}" th:value="${brand.id}"></option>
+								</select> 
+								<i class="error" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></i>
 							</div>
 							<div class="fl">
-								<label><i>*</i>产品规格/单位</label> <input type="text"
-									th:field="*{specifications}" /> <i class="error"
-									th:if="${#fields.hasErrors('specifications')}"
-									th:errors="*{specifications}"></i>
+								<label><i>*</i>产品规格/单位</label> 
+								<input type="text" th:field="*{specifications}" /> 
+								<i class="error" th:if="${#fields.hasErrors('specifications')}" th:errors="*{specifications}"></i>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="fl">
-								<label><i>*</i>产地</label> <select class="w235" th:field="*{placeOfProduction}">
+								<label><i>*</i>产地</label> 
+								<select class="w235" th:field="*{placeOfProduction}">
 									<option value="">请选择</option>
 									<option th:value="DOMESTIC">国产</option>
 									<option th:value="IMPORTED">进口</option>
 								</select> 
-									<i class="error" th:if="${#fields.hasErrors('placeOfProduction')}"
-									th:errors="*{placeOfProduction}"></i>
+								<i class="error" th:if="${#fields.hasErrors('placeOfProduction')}" th:errors="*{placeOfProduction}"></i>
 							</div>
 							<div class="fl">
-								<label><i>*</i>价格</label> <input type="text"
-									th:field="*{price}" /> <i class="error"
-									th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></i>
+								<label><i>*</i>价格</label> <input type="text" th:field="*{price}" /> 
+								<i class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></i>
 							</div>
 						</div>
 						<div class="form-group">
@@ -206,16 +202,16 @@
 							</div>
 							<div class="fl">
 								<select class="w200" th:field="*{thirdCategory}">
-								<option value="">请选择</option>
+									<option value="">请选择</option>
 									<option th:each="category:${thirdCategories}" th:value="${category.id}" th:text="${category.name}"></option>
 								</select> 
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="fl">
-								<label>标签</label> <input type="text" class="w630"
-									th:field="*{label}" /> <i class="error"
-									th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
+								<label>标签</label> 
+								<input type="text" class="w630" th:field="*{label}" /> 
+								<i class="error" th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
 							</div>
 						</div>
 						<div class="form-group files files-res">

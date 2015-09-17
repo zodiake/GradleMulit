@@ -9,9 +9,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.stereotype.Service;
 
 import com.sj.repository.repository.InfoSearchRepository;
@@ -23,15 +27,27 @@ import com.sj.repository.search.service.InfoSearchService;
 public class InfoSearchServiceImpl implements InfoSearchService {
 	@Autowired
 	private InfoSearchRepository repository;
+	@Autowired
+	protected ElasticsearchTemplate searchTemplate;
 
 	@Override
 	public Page<InfoSearch> findByOption(InfoSearchOption option,
 			Pageable pageable) {
-		if (StringUtils.isNotEmpty(option.getTitle()))
-			return repository.findByTitleOrderByCreatedTimeDesc(
-					option.getTitle(), pageable);
-		else
+		if (StringUtils.isNotEmpty(option.getTitle())) {
+			return searchByTitle(option, pageable);
+		} else {
 			return repository.findAll(pageable);
+		}
+	}
+
+	private Page<InfoSearch> searchByTitle(InfoSearchOption option,
+			Pageable pageable) {
+		MatchQueryBuilder queryBuilder = new MatchQueryBuilder("title",
+				option.getTitle());
+		queryBuilder.operator(Operator.AND);
+		NativeSearchQuery query = new NativeSearchQuery(queryBuilder);
+		query.setPageable(pageable);
+		return searchTemplate.queryForPage(query, InfoSearch.class);
 	}
 
 	@Override

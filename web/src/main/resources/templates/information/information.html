@@ -27,11 +27,11 @@
 	<!-- header -->
 	<div class="wrapper">
 		<div class="crumb news-crumb">
-			<a>首页</a>
+			<a href="/">首页</a>
 			<i>></i>
-			<a>资讯</a>
-			<i>></i>
-			<a>行业要闻</a>
+			<a href="/informationCategorys/7" th:if="${pc.id}==7">行业要闻</a>
+			<a href="/informationCategorys/8" th:if="${pc.id}==8">新品成果</a>
+			<a href="/informationCategorys/9" th:if="${pc.id}==9">厂商动态</a>
 		</div>	
 		<div class="mainwrapper clearfix">
 			<div class="news-dtl-wrap">
@@ -47,8 +47,6 @@
 			
 		</div>
 	</div>
-	<div class="footer">
-		© 1998 - 2015 SJ Inc. All Rights Reserved
-	</div>
+	<div th:include="footer/footer"></div>
 </body>
 </html>	

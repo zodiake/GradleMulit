@@ -69,61 +69,67 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<div class="fl" style="width: 355px;">
+										<label><i>*</i>性别</label>
+										<input type="radio" th:field="*{sex}" value="MALE" style="width: 65px;"/>男
+										<input type="radio" th:field="*{sex}" value="FEMALE" style="width: 65px;"/>女
+										<i class="error" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">必填</i>
+									</div>
 									<div class="fl">
 										<label><i>*</i>单位</label> <input type="text" th:field="*{company}" /> 
 										<i class="error" th:if="${#fields.hasErrors('company')}" th:errors="*{company}"></i>
 									</div>
+								</div>
+								<div class="form-group">
 									<div class="fl">
 										<label><i>*</i>行业</label>
-										<select class="w228" th:field="*{industryInfo}">
+										<select class="w228" th:field="*{industryInfo}" style="width: 232px;">
 											<option th:each="info : ${industryInfos}" th:value="${info.id}" th:text="${info.name}">brand</option>
 										</select> 
 										<i class="error" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}"></i>
 									</div>
-								</div>
-								<div class="form-group">
 									<div class="fl">
 										<label><i>*</i>部门</label> 
 										<input type="text" th:field="*{department}" />
 										<i class="error" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></i>
 									</div>
+								</div>
+								<div class="form-group">
 									<div class="fl">
 										<label><i>*</i>职务</label> 
 										<input type="text" th:field="*{position}" />
 										<i class="error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></i>
 									</div>
-								</div>
-								<div class="form-group">
 									<div class="fl">
 										<label><i>*</i>电话</label> 
 										<input type="text" th:field="*{companyPhone}" />
 										<i class="error" th:if="${#fields.hasErrors('companyPhone')}" th:errors="*{companyPhone}"></i>
 									</div>
+								</div>
+								<div class="form-group">
 									<div class="fl">
 										<label>传真</label> <input type="text" th:field="*{fax}" />
 										<i class="error" th:if="${#fields.hasErrors('fax')}" th:errors="*{fax}"></i>
 									</div>
-								</div>
-								<div class="form-group">
 									<div class="fl">
 										<label><i>*</i>邮政编码</label> 
 										<input type="text" th:field="*{code}" />
 										<i class="error" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></i>
 									</div>
+								</div>
+								<div class="form-group">
 									<div class="fl">
 										<label><i>*</i>省/市</label> 
-										<select class="w115" th:field="*{province}">
+										<select class="w115" th:field="*{province}" style="width: 111px;">
 											<option value="">选择省份/市</option>
 											<option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
 										</select> 
-										<select class="w115" th:field="*{city}">
+										<select class="w115" th:field="*{city}" style="width: 111px;">
 											<option value="">选择城市</option>
 											<option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
 										</select>
 										<i class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></i>
 									</div>
-								</div>
-								<div class="form-group">
 									<div class="fl">
 										<label><i>*</i>详细地址</label> 
 										<input type="text" th:field="*{address}" />

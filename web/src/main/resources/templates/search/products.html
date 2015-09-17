@@ -44,7 +44,6 @@
               		data : {'id' : $(this).attr("data-id")},
               		type : 'post',
               		success:function(data){
-              			console.log(data);
               			 $('#includeHeader').load('/head');
               			if(data=="no authority")
               				alert("对不起您没有权限");

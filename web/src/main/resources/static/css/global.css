@@ -976,6 +976,7 @@ table.save-table span.one-sort{
 .mainpanel table td div.fl{
 	max-width: 148px;
 	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .mainpanel table td div.fr{
 	padding-right: 30px;
@@ -1806,7 +1807,7 @@ button.default{
     border-color:#1ab3d0;
 }
 .files.noline #uploadImg{
-	left:33%;
+	left:70%;
 }
 .files #uploadImg a{
     color:#fff;
@@ -1818,7 +1819,7 @@ button.default{
     width: 65px;
     overflow: hidden;
     position:absolute; 
-    left:27%;
+    left:0;
     z-index:100; 
     font-size:16px;
     opacity:0;
@@ -1833,9 +1834,6 @@ button.default{
 }
 .files.files-res input[type=file]{
 	left:-4%;
-}
-.push-good .form-group i.error{
-    margin-left: 165px;
 }
 .push-good .form-group i.error.error-abs{
 	top:40%;

@@ -294,8 +294,10 @@ public class ProductServiceImpl implements ProductService {
 		if (state.equals(ProductStatusEnum.UP)) {
 			searchService.save(new ProductSearch(p));
 			p.setStatus(ProductStatusEnum.UP);
+			repository.save(p);
 		} else {
 			p.setStatus(ProductStatusEnum.NOT);
+			repository.save(p);
 		}
 		return p;
 	}

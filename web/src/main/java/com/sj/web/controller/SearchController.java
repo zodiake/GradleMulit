@@ -34,7 +34,6 @@ public class SearchController extends BaseController<ProductSearch> {
 	private SubjectSearchService subjectSearchService;
 
 	private final String SEARCHLIST = "search/products";
-	private final String SUBJECT_SEARCH_LIST = "search/subject/subjects";
 
 	@ModelAttribute("brands")
 	public List<Brand> brands() {
@@ -43,7 +42,7 @@ public class SearchController extends BaseController<ProductSearch> {
 
 	@RequestMapping(value = "/products/_search", method = RequestMethod.GET)
 	public String productSearch(@ModelAttribute ProductSearchOption option,
-			@PageableDefault(page = 0, size = 15) Pageable pageable,
+			@PageableDefault(page = 0, size = 12) Pageable pageable,
 			Model uiModel) {
 		buildOption(option);
 
@@ -53,7 +52,7 @@ public class SearchController extends BaseController<ProductSearch> {
 		} else {
 			results = service.findByOption(option, pageable);
 		}
-		
+
 		Map<String, String> map = service.buildMap(option);
 
 		ViewPage viewpage = caculatePage(results);
@@ -92,5 +91,7 @@ public class SearchController extends BaseController<ProductSearch> {
 			option.setTag(null);
 		if (StringUtils.isEmpty(option.getTitle()))
 			option.setTitle(null);
+		if (StringUtils.isEmpty(option.getBrand()))
+			option.setBrand(null);
 	}
 }

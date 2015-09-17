@@ -57,7 +57,7 @@ public class InformationController extends BaseController<Information>{
 		Long inforCount = template.opsForValue().increment(INFORMATIONCOUNT + id, 1);
 		information.setViewCount(inforCount);
 		uiModel.addAttribute("information", information);
-		uiModel.addAttribute("pc", informationCategoryService.findOne(5l));
+		uiModel.addAttribute("pc", information.getCategory());
 		return "information/information";
 	}
 }
