@@ -146,7 +146,6 @@
 			</div>
 			<div class="hd resg-hd">
 				<span>行业信息</span>
-				<i class="error" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}" style="color: red;">必填</i>
 			</div>
 			<div class="form-group">
 				<ul>
@@ -154,6 +153,7 @@
 						<input type="radio" th:field="*{industryInfo}" th:value="${info.id}"/><i th:text="${info.name}"></i>
 					</li>
 				</ul>
+				<i class="error" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}" style="margin-left: 155px;">必填</i>
 			</div>
 			<div class="accept-btn">
 				<input type="checkbox" id="agreement" checked="checked"/>我已阅读并接受《服务协议》

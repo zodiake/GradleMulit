@@ -90,7 +90,8 @@
 											<a class="btn-cancel" th:attr="data-id=${prefer.product.id}">取消收藏</a>
 											<a class="btn-cart" th:attr="data-id=${prefer.product.id}">加入购物车</a>
 										</div>
-									</div> </a>
+									</div> 
+									</a>
 								</li>
 							</ul>
 						</div>
@@ -102,13 +103,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div th:fragment="page(viewpage)">
-			<ul th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}">
-				<li th:class="${i-1==viewpage.current}?active">
-					<a th:href="@{${viewpage.href}(page=${i-1},size=8)}" th:text="${i}"></a>
-				</li>
-			</ul>
 		</div>
 	</body>
 </html>

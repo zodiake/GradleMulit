@@ -66,6 +66,7 @@ public class ProviderServiceImpl implements ProviderService {
 			p.setStructureCodeUrl(provider.getStructureCodeUrl());
 			p.setTaxRegistrationUrl(provider.getTaxRegistrationUrl());
 		}
+		p.setName(provider.getName());
 		p.setLegalPerson(provider.getLegalPerson());
 		p.setComponyType(provider.getComponyType());
 		p.setRegisteredCapital(provider.getRegisteredCapital());
@@ -78,7 +79,7 @@ public class ProviderServiceImpl implements ProviderService {
 		p.setCity(provider.getCity());
 		p.setAddress(provider.getAddress());
 		p.setCode(provider.getCode());
-		p.setRealName(p.getRealName());
+		p.setRealName(provider.getRealName());
 		p.setPosition(provider.getPosition());
 		p.setSex(provider.getSex());
 		p.setContent(provider.getContent());
