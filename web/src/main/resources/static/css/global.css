@@ -104,6 +104,9 @@ button{
 .ml-20{
 	margin: 0 -20px;
 }
+.ml40{
+	margin-left:40px;
+}
 .gray-hd{
 	background: #eee;
 	line-height: 35px;
@@ -715,7 +718,7 @@ img{
 .form-group{
 	margin: 20px 0;
 }
-.form-group i{
+.form-group i.error{
 	color: #eb6100;
 }
 .push-good .form-group{
@@ -1934,14 +1937,20 @@ input[type=radio]:checked + label{
 	position:relative;
 }
 .logo-hd{
+	position: relative;
+	height:32px;
 	vertical-align: top;
-	line-height:30px;
-	padding-left:15px;
-	margin-left:15px;
+	margin-right:70px;
+	margin-left: 12px;
 	display:inline-block;
 	font-family: "Arial";
 	font-size:13px;
 	border-left:1px solid #868fa7;
+}
+.logo-hd img{
+	position: absolute;
+	top: 5px;
+	left: 5px;
 }
 i.ml115{
 	margin-left:115px;
@@ -1957,4 +1966,21 @@ i.ml115{
 .brand-bd span{
 	float:left;
 	width:140px;
+}
+.orders-form .form-group label.top{
+	vertical-align: top;
+}
+a.fff{
+	color:#fff;
+}
+#more{
+	right: 20px;
+	bottom: 5px;
+	position: absolute;
+}
+#contraction{
+	right: 20px;
+	bottom: 10px;
+	position: absolute; 
+	display: none;
 }

@@ -20,4 +20,9 @@ $(function(){
 		  $(".hide-wrap-small").fadeOut();
 		  $(".fixed").fadeOut();
 	 })
+	$(".fixed:not(.hide-wrap)").click(function(){
+		  $(".hide-wrap").fadeOut();
+		  $(".hide-wrap-small").fadeOut();
+		  $(".fixed").fadeOut();
+	 })
 })
