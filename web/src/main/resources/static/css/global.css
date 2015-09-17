@@ -1803,7 +1803,7 @@ button.default{
     border-color:#1ab3d0;
 }
 .files.noline #uploadImg{
-	left:33%;
+	left:70%;
 }
 .files #uploadImg a{
     color:#fff;
@@ -1815,7 +1815,7 @@ button.default{
     width: 65px;
     overflow: hidden;
     position:absolute; 
-    left:27%;
+    left:0;
     z-index:100; 
     font-size:16px;
     opacity:0;
