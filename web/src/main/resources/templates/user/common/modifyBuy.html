@@ -37,7 +37,7 @@
 				</div>
 				<div class="mainpanel bodr fr">
 				<div class="pdf " th:object="${buy}">
-						<h2>
+						<h2 class="center">
 							<i th:text="${buy.user.company}"></i>采购方单位-物资(外包服务)申购单
 						</h2>
 						<div>
@@ -93,8 +93,9 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label><i>*</i>申请理由</label>
+									<label class="top"><i>*</i>申请理由</label>
 									<textarea class="w635" rows="5" th:field="*{reason}"></textarea>
+									<i class="error ml115" th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}">必填</i>
 								</div>
 								<div class="form-group">
 									<label><i>*</i>期望到货日期</label> 

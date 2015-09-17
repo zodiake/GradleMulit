@@ -25,8 +25,8 @@
 				</div>
 				<div class="mainpanel bodr fr">
 				<div class="pdf ">
-					<h2><i th:text="${buy.user.company}"></i>采购方单位-物资(外包服务)申购单</h2>
-					<div>编号 : <i th:text="${buy.noId}"></i></div>
+					<h2 class="center"><i th:text="${buy.user.company}"></i>采购方单位-物资(外包服务)申购单</h2>
+					<div class="ml40">编号 : <i th:text="${buy.noId}"></i></div>
 					<div class="orders-form">
 					<form th:object="${buy}">
 						<div class="form-group">
@@ -38,7 +38,7 @@
 							<label>申请人</label><input type="text" disabled="disabled" th:field="*{user.realName}" style="width: 236px;"/>
 						</div>
 						<div class="form-group">
-							<label>经费类别</label><input type="text" class="w635" th:field="*{fundCategory}" disabled="disabled"/>
+							<label>费类别</label><input type="text" class="w635" th:field="*{fundCategory}" disabled="disabled"/>
 						</div>
 						<div class="form-group">
 							<label>项目名称</label><input type="text" class="w635" th:field="*{name}" disabled="disabled"/>
@@ -73,7 +73,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="w95">申请理由</label>
+							<label class="w95 top">申请理由</label>
 							<textarea class="w635" rows="5" th:field="*{reason}" disabled="disabled"></textarea>
 						</div>
 						<div class="form-group clearfix">
