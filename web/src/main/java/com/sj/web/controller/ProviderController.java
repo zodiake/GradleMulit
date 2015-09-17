@@ -108,7 +108,7 @@ public class ProviderController extends BaseController<Product> {
 	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)
 	public String findAllProductByProvider(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size,
+			@RequestParam(value = "size", defaultValue = "15") int size,
 			@SecurityUser SiteUser user) {
 		Page<Product> products = productService.findByUsers(
 				new Provider(user.getId()), new PageRequest(page - 1, size,
@@ -125,7 +125,7 @@ public class ProviderController extends BaseController<Product> {
 	@RequestMapping(value = "/provider/products/{status}", method = RequestMethod.GET)
 	public String findAllProductByProviderAndStatus(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size,
+			@RequestParam(value = "size", defaultValue = "15") int size,
 			@SecurityUser SiteUser user, @PathVariable("status") String status) {
 		Page<Product> products = productService.findByUsers(
 				new Provider(user.getId()), new PageRequest(page - 1, size,
@@ -440,7 +440,7 @@ public class ProviderController extends BaseController<Product> {
 	@RequestMapping(value = "/provider/count", method = RequestMethod.GET)
 	public String findCount(Model uiModel, @SecurityUser SiteUser user,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size) {
+			@RequestParam(value = "size", defaultValue = "15") int size) {
 		Page<Product> products = productService.findCount(new Provider(user.getId()), new PageRequest(page - 1, size,
 				Direction.DESC, "createdTime"));
 		ViewPage viewpage = caculatePage(products);

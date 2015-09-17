@@ -96,7 +96,7 @@ public class CommonUserController {
 	@RequestMapping(value = "/user/collection", method = RequestMethod.GET)
 	public String getCollectionByUser(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
+			@RequestParam(value = "size", defaultValue = "8") int size) {
 		SiteUser user = userContext.getCurrentUser();
 		Page<PreferProduct> pages = preferService.findByUser(new CommonUser(user.getId()), new PageRequest(page - 1, size));
 		uiModel.addAttribute("pages", pages);
@@ -127,7 +127,7 @@ public class CommonUserController {
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.GET)
 	public String findAll(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
+			@RequestParam(value = "size", defaultValue = "20") int size) {
 		SiteUser user = siteUserContext.getCurrentUser();
 		Page<BuyRecord> pages = buyRecordService.findPage(
 				new CommonUser(user.getId()), new PageRequest(page - 1, size));
