@@ -146,7 +146,11 @@ section{
 	background-color:#f7fafc;
 	border-bottom: 1px solid #ebeff0;
 }
-
+.leftpanel .nav > li > a.active,
+.leftpanel .nav .children li a.active{
+	background-color: #1caf9a;
+	color:#fff;
+}
 .leftpanel .nav > li > a i {
     width: 16px;
     margin-right: 5px;
