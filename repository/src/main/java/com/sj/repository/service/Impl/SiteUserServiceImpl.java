@@ -1,9 +1,12 @@
 package com.sj.repository.service.Impl;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,9 +86,20 @@ public class SiteUserServiceImpl implements SiteUserService {
 	}
 
 	@Override
-	public Page<SiteUserJson> findBySiteAuthority(String authority) {
+	public Page<SiteUserJson> findBySiteAuthority(String authority,
+			Pageable pageable) {
+		Page<SiteUser> pages = repository.findBySiteAuthority(authority,
+				pageable);
+		List<SiteUserJson> results = pages.getContent().stream()
+				.map(p -> new SiteUserJson(p)).collect(Collectors.toList());
+		return new PageImpl<SiteUserJson>(results, pageable,
+				pages.getTotalElements());
+	}
 
-		return null;
+	@Override
+	public SiteUser save(SiteUser user) {
+		user.setSiteAuthority("ROLE_ADMIN");
+		return repository.save(user);
 	}
 
 }

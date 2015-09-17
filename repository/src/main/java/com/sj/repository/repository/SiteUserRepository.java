@@ -36,5 +36,6 @@ public interface SiteUserRepository extends
 	public SiteUser findByNameAndEnabledAndSiteAuthority(String name,
 			ActivateEnum activate, String siteAuthority);
 
-	public Page<SiteUser> findBySiteAuthority(String authority);
+	public Page<SiteUser> findBySiteAuthority(String authority,
+			Pageable pageable);
 }

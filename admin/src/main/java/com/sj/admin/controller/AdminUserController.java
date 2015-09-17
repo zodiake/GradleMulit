@@ -1,16 +1,18 @@
 package com.sj.admin.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.SiteUser;
+import com.sj.repository.model.SiteUserJson;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.SiteUserService;
 
@@ -22,13 +24,21 @@ public class AdminUserController {
 	@Autowired
 	private ProviderService providerService;
 
-	@RequestMapping(value = "/admin/users")
+	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	@ResponseBody
-	public List<SiteUser> userList(
+	public Page<SiteUserJson> userList(
 			@RequestParam(defaultValue = "1", value = "page") int page,
 			@RequestParam(defaultValue = "15", value = "size") int size) {
+		Page<SiteUserJson> pages = userService.findBySiteAuthority(
+				"ROLE_ADMIN", new PageRequest(page - 1, size));
+		return pages;
+	}
 
-		return null;
+	@RequestMapping(value = "/admin/users/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public String save(@PathVariable("id") Long id, SiteUser user) {
+		SiteUser u = userService.save(user);
+		return "{\"id\":\"" + u.getId() + "\"}";
 	}
 
 	@RequestMapping(value = "/checkUsers", method = RequestMethod.POST)

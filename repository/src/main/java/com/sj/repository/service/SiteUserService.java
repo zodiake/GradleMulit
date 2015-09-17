@@ -28,6 +28,8 @@ public interface SiteUserService {
 
 	public SiteUser findByNameAndSiteAuthority(SiteUser user);
 
-	public Page<SiteUserJson> findBySiteAuthority(String authority);
+	public Page<SiteUserJson> findBySiteAuthority(String authority,
+			Pageable pageable);
 
+	public SiteUser save(SiteUser user);
 }

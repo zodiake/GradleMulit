@@ -201,4 +201,19 @@ public class IndexController extends UploadController {
 	public String scrollImgDetail() {
 		return "scroll/detail";
 	}
+
+	@RequestMapping(value = "/templates/adminUser")
+	public String adminUser() {
+		return "user/adminUser";
+	}
+
+	@RequestMapping(value = "/templates/adminUserAdd")
+	public String adminUserAdd() {
+		return "user/adminUserAdd";
+	}
+
+	@RequestMapping(value = "/templates/authority")
+	public String authority() {
+		return "";
+	}
 }
