@@ -280,7 +280,7 @@ img{
 	background: #43b628;
 }
 
-/**澶撮儴璐墿杞�**/
+/**婢舵挳鍎寸拹顓犲⒖鏉烇拷**/
 .head-dorpdown{
 	margin-top: 25px;
 	float: right;
@@ -636,7 +636,7 @@ img{
     background-color: #ffbe26;
 }
 
-/** 涓汉娉ㄥ唽 **/
+/** 娑擃亙姹夊▔銊ュ斀 **/
 
 
 .resg-header .head-nav{
@@ -794,7 +794,7 @@ img{
 	text-align: center;
 	background: #7ecef4;
 }
-/**鐧诲綍**/
+/**閻ц缍�**/
 .resg-header .head-menu-btn.logo-menu{
 	float: right;
 	padding-right: 20px;
@@ -827,11 +827,11 @@ img{
 	margin-right: 32px;
 }
 
-/**鎵惧洖瀵嗙爜**/
+/**閹垫儳娲栫�靛棛鐖�**/
 .find-password button{
 	margin-left: 210px;
 }
-/**浠櫒鍒嗙被**/
+/**娴狀亜娅掗崚鍡欒**/
 .sort-box{
 	width: 480px;
 	margin-bottom: 20px;
@@ -850,7 +850,7 @@ img{
 .sort-box div.sort-detail i{
 	margin-right: 8px;
 }
-/**涓汉涓績**/
+/**娑擃亙姹夋稉顓炵妇**/
 .self-wrap .gray-hd{
 	margin-bottom: 20px;
 	width: 970px;
@@ -960,7 +960,7 @@ table.save-table span.one-sort{
 .point p{
 	margin: 10px 0;
 }
-/**璐墿杞�**/
+/**鐠愵厾澧挎潪锟�**/
 .mainpanel{
 	width: 805px;
 }
@@ -974,12 +974,13 @@ table.save-table span.one-sort{
 	margin-left: 10px;
 }
 .mainpanel table td div.fl{
-	max-width: 150px;
+	max-width: 148px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 .mainpanel table td div.fr{
 	padding-right: 30px;
+	max-width:180px;
 }
 .cart-table table th,
 .cart-table table td{
@@ -1050,7 +1051,7 @@ a.minus:hover, a.plus:hover {
 	margin-top: 7px;
 }
 
-/**鏀惰棌澶�**/
+/**閺�鎯版婢讹拷**/
 .collect{
 	width: 780px;
 	padding-left:25px;
@@ -1069,6 +1070,9 @@ a.minus:hover, a.plus:hover {
 	float: left;
 	margin-right: 28px;
 	margin-bottom: 28px;
+}
+.pro-list{
+	min-height:300px;
 }
 .pro-list li{
 	height:340px;
@@ -1112,7 +1116,7 @@ a.minus:hover, a.plus:hover {
 	background: url('../img/icon-cart.png') no-repeat 1px 3px;
 	margin-left: 2px;
 }
-/*浠櫒鍒嗙被鍒楄〃*/
+/*娴狀亜娅掗崚鍡欒閸掓銆�*/
 .crumb{
 	padding-left: 20px;
 	margin: 8px 0px;
@@ -1290,7 +1294,7 @@ a.minus:hover, a.plus:hover {
 	background: url('../img/icon-del.png') no-repeat;
 }
 
-/**浠櫒鍟嗗搧璇︽儏椤�**/
+/**娴狀亜娅掗崯鍡楁惂鐠囷附鍎忔い锟�**/
 .goods-property{
 	padding: 10px;
 }
@@ -1535,7 +1539,7 @@ li div.topic-detail{
 }
 
 
-/**鏂伴椈**/
+/**閺備即妞�**/
 .news-crumb{
 	padding-bottom: 5px;
 	border-bottom: 1px solid #dcdcdc;
@@ -1561,7 +1565,7 @@ li div.topic-detail{
 	background: url('../img/icon-news.png') no-repeat;
 }
 
-/**鏂伴椈璇︾粏椤�**/
+/**閺備即妞堢拠锔剧矎妞わ拷**/
 .news-dtl-wrap .news-point{
 	padding-left: 25px;
 	background-position: 0 9px;
@@ -1916,6 +1920,9 @@ input[type=radio]:checked + label{
 	opacity: 0.3; 
 	filter:alpha(opacity=30);  
 }
+.readonly.left124{
+	left:124px;
+}
 .cate-hd{
 	margin:10px 10px 0;
 	padding:5px;
@@ -1923,7 +1930,7 @@ input[type=radio]:checked + label{
 	background:#eee;
 	border-left:3px solid #27bff8;
 }
-.basic-info .form-group.readonly-group{
+.basic-info .readonly-group{
 	position:relative;
 }
 .logo-hd{
@@ -1935,4 +1942,19 @@ input[type=radio]:checked + label{
 	font-family: "Arial";
 	font-size:13px;
 	border-left:1px solid #868fa7;
+}
+i.ml115{
+	margin-left:115px;
+	display:block;
+}
+.brand-bd{
+	overflow:hidden;
+}
+.brand-bd label{
+	float:left;
+	width:40px;
+}
+.brand-bd span{
+	float:left;
+	width:140px;
 }
