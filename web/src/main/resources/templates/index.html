@@ -116,10 +116,9 @@
 									<div class="fl list-mode">
 										<ul>
 											<li th:each="productCategory,categoryStat:${sjs}"  th:if="${categoryStat.index lt 4}">
-												<label
-												th:text="${productCategory.name}"></label>
+												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 												<div>
-													<i th:each="child:${productCategory.categories}"> <a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+													<i th:each="child:${productCategory.categories}"> <a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 												</div>
 											</li>
 										</ul>
@@ -130,10 +129,9 @@
 										</div>
 										<ul>
 											<li th:each="productCategory,categoryStat:${sjs}"  th:unless="${categoryStat.index lt 4}">
-												<label
-												th:text="${productCategory.name}"></label>
+												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 												<div>
-													<i th:each="child:${productCategory.categories}"> <a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+													<i th:each="child:${productCategory.categories}"> <a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 												</div>
 											</li>
 										</ul>
@@ -143,9 +141,9 @@
 									<div class="fl list-mode">
 										<ul>
 											<li th:each="productCategory,categoryStat:${hcs}" th:if="${categoryStat.index lt 6}">
-												<label th:text="${productCategory.name}"></label>
+												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 												</div>
 											</li>
 										</ul>
@@ -156,9 +154,9 @@
 										</div>
 										<ul>
 											<li th:each="productCategory,categoryStat:${hcs}" th:unless="${categoryStat.index lt 6}">
-												<label th:text="${productCategory.name}"></label>
+												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 												</div>
 											</li>
 										</ul>
@@ -168,9 +166,9 @@
 									<div class="fl list-mode">
 										<ul>
 											<li th:each="productCategory,categoryStat:${fws}" th:if="${categoryStat.index lt 7}">
-												<label th:text="${productCategory.name}"></label>
+												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 												</div>
 											</li>
 										</ul>
@@ -181,9 +179,9 @@
 										</div>
 										<ul>
 											<li th:each="productCategory,categoryStat:${fws}" th:unless="${categoryStat.index lt 7}">
-												<label th:text="${productCategory.name}"></label>
+												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
 												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}"></a><span>&nbsp;|&nbsp;</span></i>
+													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
 												</div>
 											</li>
 										</ul>
@@ -194,7 +192,7 @@
 						<div class="brand fr">
 							<h3>品牌</h3>
 							<div class="brand-box">
-								<a th:each="brand:${brands}" th:with="href=${brand.href}" th:href="@{'http://'+${href}}" target="_blank"><img th:src="@{${brand.coverImg}}"/></a>
+								<a th:each="brand:${brands}" th:with="href=${brand.href}" th:href="@{${href}}" target="_blank"><img th:src="@{${brand.coverImg}}"/></a>
 							</div>
 						</div>
 					</div>
