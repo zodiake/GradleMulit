@@ -47,6 +47,8 @@ public class SubjectSearchController extends BaseController<SubjectSearch> {
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
 		uiModel.addAttribute("categories", categories);
+		uiModel.addAttribute("action", "/subject/_search");
+		uiModel.addAttribute("field", "方案");
 		return SEARCH_LIST;
 	}
 
