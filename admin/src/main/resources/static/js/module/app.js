@@ -16,7 +16,9 @@ var app = angular.module('app', [
     'Product',
     'Category',
     'scroll',
-    'SubjectCategory'
+    'SubjectCategory',
+    'adminUser',
+    'role'
 ]);
 
 app.config([
@@ -61,18 +63,18 @@ app.config([
                 url: '/subjectCreate',
                 templateUrl: '/admin/subject/create',
                 controller: 'SubjectCreateController',
-                resolve:{
-                    categories:function(SubjectCategoryService){
+                resolve: {
+                    categories: function (SubjectCategoryService) {
                         return SubjectCategoryService.findAll();
                     }
                 }
             })
             .state('subjectDetail', {
                 url: '/subjectDetail/:id',
-                templateUrl:  '/admin/templates/subject',
+                templateUrl: '/admin/templates/subject',
                 controller: 'SubjectEditController',
-                resolve:{
-                    categories:function(SubjectCategoryService){
+                resolve: {
+                    categories: function (SubjectCategoryService) {
                         return SubjectCategoryService.findAll();
                     }
                 }
@@ -101,6 +103,16 @@ app.config([
                 url: '/scrollImg',
                 templateUrl: '/admin/templates/scrollImg',
                 controller: 'ScrollImgController'
+            })
+            .state('user', {
+                url: '/user',
+                templateUrl: '/admin/templates/adminUser',
+                controller: 'AdminUserController'
+            })
+            .state('authority', {
+                url: '/authority',
+                templateUrl: '/admin/templates/authority',
+                controller: 'AuthorityController'
             });
     }
 ]);

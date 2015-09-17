@@ -16,20 +16,26 @@ public interface SiteUserRepository extends
 		PagingAndSortingRepository<SiteUser, Long> {
 	public SiteUser findByNameAndEnabled(String name, ActivateEnum activate);
 
-	public SiteUser findByNameOrPhoneOrEmailAndEnabled(String name,String phone,String email,ActivateEnum activate);
-	
+	public SiteUser findByNameOrPhoneOrEmailAndEnabled(String name,
+			String phone, String email, ActivateEnum activate);
+
+	@Override
 	public Page<SiteUser> findAll(Pageable pageable);
-	
-	@Modifying	
+
+	@Modifying
 	@Query("update SiteUser u set u.enabled=:enabled,u.authenticatedTime=:time where u.id=:id")
-	public void updateEnabled(@Param("enabled")ActivateEnum state,@Param("time")Calendar time,@Param("id")Long id);
-	
+	public void updateEnabled(@Param("enabled") ActivateEnum state,
+			@Param("time") Calendar time, @Param("id") Long id);
+
 	public SiteUser findByName(String name);
-	
+
 	public SiteUser findByPhone(String phone);
-	
+
 	public SiteUser findByEmail(String email);
-	
-	public SiteUser findByNameAndEnabledAndSiteAuthority(String name,ActivateEnum activate,String siteAuthority);
-	
+
+	public SiteUser findByNameAndEnabledAndSiteAuthority(String name,
+			ActivateEnum activate, String siteAuthority);
+
+	public Page<SiteUser> findBySiteAuthority(String authority,
+			Pageable pageable);
 }

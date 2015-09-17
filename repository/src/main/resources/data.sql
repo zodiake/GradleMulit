@@ -189,7 +189,8 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone,real_n
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(15,'pjf123','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234566@qq.com','13700000006','mary3',0,'2012-12-12 12:23:32');
 
 -- test user admin
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,'2012-12-12 12:23:32');
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin1','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,'2012-12-12 12:23:32');
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(20,'admin2','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,'2012-12-12 12:23:32');
 
 -- test industry_info
 insert into industry_info(id,name,industry_type) values(1,'生物科学','p');
@@ -1201,3 +1202,37 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(904,'基因组DNA',477,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(906, '仪器维修服务', 882,1,'2012-1-1','admin','pc','2015-1-1','admin');
+
+insert into site_menu(id,name,href) values(1,'个人用户','commonUser');
+insert into site_menu(id,name,href) values(2,'企业用户','provider');
+insert into site_menu(id,name,href) values(3,'品牌管理','brand');
+insert into site_menu(id,name,href) values(4,'商品分类管理','category');
+insert into site_menu(id,name,href) values(5,'商品管理','products');
+insert into site_menu(id,name,href) values(6,'广告发布','advertise');
+insert into site_menu(id,name,href) values(7,'信息发布','info');
+insert into site_menu(id,name,href) values(8,'专题','subject');
+insert into site_menu(id,name,href) values(9,'滚动图片','scrollImg');
+insert into site_menu(id,name,href) values(10,'用户管理','user');
+insert into site_menu(id,name,href) values(11,'权限管理','authority');
+
+insert into site_role(id,role_name) values(1,'superAdmin');
+insert into site_role(id,role_name) values(2,'admin');
+
+insert into role_menu(role_id,menu_id) values(1,1);
+insert into role_menu(role_id,menu_id) values(1,2);
+insert into role_menu(role_id,menu_id) values(1,3);
+insert into role_menu(role_id,menu_id) values(1,4);
+insert into role_menu(role_id,menu_id) values(1,5);
+insert into role_menu(role_id,menu_id) values(1,6);
+insert into role_menu(role_id,menu_id) values(1,7);
+insert into role_menu(role_id,menu_id) values(1,8);
+insert into role_menu(role_id,menu_id) values(1,9);
+insert into role_menu(role_id,menu_id) values(1,10);
+insert into role_menu(role_id,menu_id) values(1,11);
+
+insert into role_menu(role_id,menu_id) values(2,1);
+insert into role_menu(role_id,menu_id) values(2,2);
+insert into role_menu(role_id,menu_id) values(2,7);
+
+insert into user_role(user_id,role_id) values(5,1);
+insert into user_role(user_id,role_id) values(20,2);

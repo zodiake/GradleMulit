@@ -9,12 +9,12 @@
 		<div class="head-search">
 			<form id="searchForm" th:action="${action==null?'/products/_search':action}">
 				<span class="searched" th:text="${field==null?'商品':field}">商品</span>
-				<input type="text" name="title" id="searchText" th:value="${option==null?null:option.title}"/>
+				<input type="text" name="${name==null?'title':name}" id="searchText" th:value="${option==null?null:option.title}"/>
 				<input class="icon-search" type="submit" value="" />
 				<div class="search-sort">
 					<a data-name="/products/_search" data-input="title">商品</a>
-					<a data-name="/products/_search" data-input="model">型号</a>
-					<a data-name="/products/_search" data-input="brand">品牌</a>
+					<a data-name="/products/_search?show=true" data-input="model">型号</a>
+					<a data-name="/products/_search?show=true" data-input="brand">品牌</a>
 					<a data-name="/subject/_search" data-input="title">方案</a>
 					<a data-name="/info/_search" data-input="title">资讯</a>
 				</div>

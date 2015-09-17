@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sj.admin.security.UserContext;
+import com.sj.model.model.SiteMenu;
+import com.sj.model.model.SiteUser;
+import com.sj.repository.service.SiteMenuService;
+
 @Controller
 @RequestMapping(value = "/admin")
 public class IndexController extends UploadController {
+	@Autowired
+	private UserContext userContext;
+	@Autowired
+	private SiteMenuService menuService;
 
 	@RequestMapping(value = "/img/upload", method = RequestMethod.POST)
 	@ResponseBody
@@ -57,7 +68,10 @@ public class IndexController extends UploadController {
 	}
 
 	@RequestMapping(value = "/index")
-	public String index() {
+	public String index(Model uiModel) {
+		SiteUser user = userContext.getCurrnetUser();
+		Set<SiteMenu> menus = menuService.findByUser(user);
+		uiModel.addAttribute("menus", menus);
 		return "index";
 	}
 
@@ -186,5 +200,20 @@ public class IndexController extends UploadController {
 	@RequestMapping(value = "/templates/scrollImg/detail")
 	public String scrollImgDetail() {
 		return "scroll/detail";
+	}
+
+	@RequestMapping(value = "/templates/adminUser")
+	public String adminUser() {
+		return "user/adminUser";
+	}
+
+	@RequestMapping(value = "/templates/adminUserAdd")
+	public String adminUserAdd() {
+		return "user/adminUserAdd";
+	}
+
+	@RequestMapping(value = "/templates/authority")
+	public String authority() {
+		return "";
 	}
 }

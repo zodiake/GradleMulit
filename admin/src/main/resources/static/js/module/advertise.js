@@ -85,12 +85,14 @@ advertiseModule.controller('AdvertiseController', ['$scope', 'AdvertiseService',
         $scope.state;
 
         function init(opt) {
-            AdvertiseService.findAll(opt).success(function (data) {
-                $scope.items = data.content;
-                $scope.total = data.totalElements;
-            }).error(function () {
+            AdvertiseService
+                .findAll(opt)
+                .success(function (data) {
+                    $scope.items = data.content;
+                    $scope.total = data.totalElements;
+                }).error(function () {
 
-            });
+                });
         }
 
         $scope.search = function () {
@@ -156,19 +158,19 @@ advertiseModule.controller('AdvModalCtrl', [
     '$modalInstance',
     'item',
     'AdvertiseService',
-    function ($scope, $modalInstance, item,AdvertiseService ) {
+    function ($scope, $modalInstance, item, AdvertiseService) {
         $scope.item = item;
         $scope.ok = function () {
             AdvertiseService
                 .updateState(item)
-                .success(function(data){
+                .success(function (data) {
                     if (data == 'success') {
                         item.state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
                         $modalInstance.dismiss();
                     }
                 })
-                .error(function(err){
-                    
+                .error(function (err) {
+
                 });
         };
 

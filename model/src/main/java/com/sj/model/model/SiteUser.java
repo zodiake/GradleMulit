@@ -1,15 +1,20 @@
 package com.sj.model.model;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,9 +42,9 @@ public class SiteUser {
 	@NotBlank(message = "真实姓名不能为空")
 	@Column(name = "real_name")
 	private String realName;
-	
-	@NotNull(message="请选择性别")
-	@Column(name="sex")
+
+	@NotNull(message = "请选择性别")
+	@Column(name = "sex")
 	private SexEnum sex;
 
 	@Size(min = 6, message = "密码最少为6位")
@@ -64,6 +69,10 @@ public class SiteUser {
 
 	private int score;
 
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private List<SiteRole> roles;
+
 	public SiteUser() {
 	}
 
@@ -71,7 +80,8 @@ public class SiteUser {
 		super();
 		this.id = id;
 	}
-	public SiteUser(Long id,String name,String passwrod){
+
+	public SiteUser(Long id, String name, String passwrod) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -164,6 +174,14 @@ public class SiteUser {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public List<SiteRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<SiteRole> roles) {
+		this.roles = roles;
 	}
 
 	@Override

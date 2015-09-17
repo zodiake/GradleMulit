@@ -56,7 +56,7 @@ public class LoginController {
 				.loadUserByUsername(user.getName());
 		if ("ROLE_ADMIN".equals(siteUser.getSiteAuthority())) {
 			userContext.setCurrentUser(siteUser);
-			return INDEX;
+			return "redirect:/admin/index";
 		} else {
 			user.setPassword(null);
 			uiModel.addAttribute("user", user);
