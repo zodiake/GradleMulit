@@ -163,7 +163,7 @@
 				<a>评论数</a>
 				<a>上架时间</a>
 			</div>
-			<div class="items-list pro-list">
+			<div class="items-list pro-list h300">
 				<ul>
 					<li class="bodr product" th:each="product:${products.getContent()}" >
 						<a th:href="@{'/products/'+${product.id}}"> <img th:src="@{${product.imgurl}}" width="210" height="175"/> </a>
