@@ -1,9 +1,8 @@
 package com.sj.admin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +22,13 @@ public class AdminUserController {
 	@Autowired
 	private ProviderService providerService;
 
-	@RequestMapping(value = "/users")
-	public String userList(Model uiModel,
+	@RequestMapping(value = "/admin/users")
+	@ResponseBody
+	public List<SiteUser> userList(
 			@RequestParam(defaultValue = "1", value = "page") int page,
-			@RequestParam(defaultValue = "15", value = "size") int size,
-			@RequestParam(value = "state", defaultValue = "-1") int state) {
-		PageRequest pageRequest = new PageRequest(page - 1, size,
-				Direction.ASC, "createdTime");
-		Page<SiteUser> userList = userService.findAll(pageRequest);
-		uiModel.addAttribute("lists", userList);
-		return "index";
+			@RequestParam(defaultValue = "15", value = "size") int size) {
+
+		return null;
 	}
 
 	@RequestMapping(value = "/checkUsers", method = RequestMethod.POST)

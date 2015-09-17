@@ -276,3 +276,32 @@ create table buy_product(
 	foreign key(buy_id) references buy_record(id),
 	foreign key(product_id) references product(id)
 );
+
+create table site_menu(
+	id bigint not null AUTO_INCREMENT,
+	name varchar(20),
+	href varchar(30),
+	primary key(id)
+);
+
+create table site_role(
+	id bigint not null AUTO_INCREMENT,
+	role_name varchar(20),
+	primary key(id)
+);
+
+create table role_menu(
+	role_id bigint not null,
+	menu_id bigint not null,
+	primary key(role_id,menu_id),
+	foreign key(role_id) references site_role(id),
+	foreign key(menu_id) references site_menu(id)
+);
+
+create table user_role(
+	user_id bigint not null,
+	role_id bigint not null,
+	primary key(user_id,role_id),
+	foreign key(role_id) references site_role(id),
+	foreign key(user_id) references site_user(id)
+);

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.SiteUserJson;
 import com.sj.repository.repository.SiteUserRepository;
 import com.sj.repository.service.SiteUserService;
 
@@ -79,6 +80,12 @@ public class SiteUserServiceImpl implements SiteUserService {
 	@Override
 	public SiteUser findByEmail(String email) {
 		return repository.findByEmail(email);
+	}
+
+	@Override
+	public Page<SiteUserJson> findBySiteAuthority(String authority) {
+
+		return null;
 	}
 
 }

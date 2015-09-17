@@ -3,6 +3,8 @@ package com.sj.web.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +45,8 @@ public class SearchController extends BaseController<ProductSearch> {
 	@RequestMapping(value = "/products/_search", method = RequestMethod.GET)
 	public String productSearch(@ModelAttribute ProductSearchOption option,
 			@PageableDefault(page = 0, size = 12) Pageable pageable,
-			Model uiModel) {
+			Model uiModel, HttpServletRequest request) {
+
 		buildOption(option);
 
 		Page<ProductSearch> results;

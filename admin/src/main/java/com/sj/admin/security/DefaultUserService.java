@@ -27,9 +27,6 @@ public class DefaultUserService implements UserDetailsService {
 	}
 
 	private class SiteUserDetails extends SiteUser implements UserDetails {
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
 		public SiteUserDetails(SiteUser user) {
