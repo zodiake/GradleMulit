@@ -718,7 +718,7 @@ img{
 .form-group{
 	margin: 20px 0;
 }
-.form-group i.error{
+.form-group i{
 	color: #eb6100;
 }
 .push-good .form-group{
@@ -1775,7 +1775,7 @@ button.default{
 }
 .basic-info .form-group i.error{
 	display: block;
-	margin-left: 125px;
+	margin-left: 165px;
 	position: absolute;
 	z-index: 2;
 	margin-bottom: -20px;
@@ -1987,4 +1987,7 @@ a.fff{
 .mb150{
 	margin-bottom:150px;
 	margin-top:150px;
+}
+.form-group>ul>li>i{
+	color:#686f83;
 }
