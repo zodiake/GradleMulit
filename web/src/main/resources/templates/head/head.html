@@ -7,8 +7,8 @@
 			<span class="logo-hd">你的协同采购平台</span>
 		</a>
 		<div class="head-search">
-			<form id="searchForm" action="/products/_search">
-				<span class="searched">商品</span>
+			<form id="searchForm" th:action="${action==null?'/products/_search':action}">
+				<span class="searched" th:text="${field==null?'商品':field}">商品</span>
 				<input type="text" name="title" id="searchText" th:value="${option==null?null:option.title}"/>
 				<input class="icon-search" type="submit" value="" />
 				<div class="search-sort">

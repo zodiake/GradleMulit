@@ -5,7 +5,9 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +30,11 @@ public class InfoSearchController extends BaseController<InfoSearch> {
 			@PageableDefault(page = 0, size = 15) Pageable pageable,
 			Model uiModel) {
 		buildOption(option);
+		PageRequest pageRequest = new PageRequest(pageable.getPageNumber(),
+				pageable.getPageSize(), Direction.DESC, "createdTime");
 
 		Page<InfoSearch> pages = infoSearchService.findByOption(option,
-				pageable);
+				pageRequest);
 		Map<String, String> map = infoSearchService.buildMap(option);
 
 		ViewPage viewpage = caculatePage(pages);
@@ -41,6 +45,8 @@ public class InfoSearchController extends BaseController<InfoSearch> {
 		uiModel.addAttribute("informations", pages);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
+		uiModel.addAttribute("action", "/info/_search");
+		uiModel.addAttribute("field", "咨询");
 		return INFO_SEARCH_LIST;
 	}
 
