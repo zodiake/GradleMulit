@@ -50,7 +50,6 @@
                      	totalNum.html(num);
             			}
             		},error:function(data){
-            			console.log(data);
             		}
                 });
                 
@@ -65,8 +64,6 @@
 			<a>首页</a>
 			<i>></i>
 			<a>解决方案</a>
-			<i>></i>
-			<a th:text="${subject.name}">Lorem ipsum dolor sit amet</a>
 		</div>	
 		<div class="mainwrapper clearfix">
 			<div class="news-dtl-wrap bodr">
@@ -94,7 +91,7 @@
 										<label>参考报价：</label>
 										<b class="red ft14" th:text="${product.price}">￥1500</b>
 									</p>
-									<p class="mt5" th:text="${product.name}">GenePix A生物芯片扫描仪</p>
+									<p class="mt5" th:text="${product.name}" style="max-width: 100px;text-overflow: ellipsis;overflow: hidden;">GenePix A生物芯片扫描仪</p>
 								</div>
 								</a>
 							</li>

@@ -44,7 +44,6 @@
               		data : {'id' : $(this).attr("data-id")},
               		type : 'post',
               		success:function(data){
-              			console.log(data);
               			 $('#includeHeader').load('/head');
               			if(data=="no authority")
               				alert("对不起您没有权限");
@@ -115,8 +114,8 @@
 								<label th:for="${#ids.prev('brand')}" th:text="${brand.name}">Heating</label>
 							</li>
 						</ul>
-						<div id="more" style="right: 20px;bottom: 5px;position: absolute;"><a type="button" class="blue">↓</a></div>
-						<div id="contraction" style="right: 20px;bottom: 10px;position: absolute; display: none;"><a class="blue" type="button">↑</a></div>
+						<div id="more"><a type="button">更多</a></div>
+						<div id="contraction"><a type="button">收起</a></div>
 					</div>
 					<div class="search-select">
 						<label><b>产地：</b></label>

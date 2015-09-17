@@ -43,7 +43,7 @@ create table subject(
 	created_by varchar(64),
 	updated_time timestamp DEFAULT CURRENT_TIMESTAMP,
 	content_id bigint,
-	image varchar(69),
+	image varchar(100),
 	summary varchar(200),
 	category_id bigint,
 	primary key(id),
@@ -140,7 +140,7 @@ create table brand(
 	name varchar(50),
 	created_time timestamp DEFAULT CURRENT_TIMESTAMP,
 	activate smallint default 1,
-	cover_img varchar(69),
+	cover_img varchar(90),
 	href varchar(225),
 	primary key(id)
 );
@@ -243,7 +243,7 @@ create table advertisement_content(
 create table advertisement(
 	id bigint not null AUTO_INCREMENT,
 	category_id bigint,
-	cover_img char(69),
+	cover_img char(100),
 	content_id bigint,
 	url varchar(100),
 	activate smallint ,

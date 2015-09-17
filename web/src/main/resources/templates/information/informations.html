@@ -16,18 +16,18 @@
 		<div class="crumb news-crumb">
 			<a href="/">首页</a>
 			<i>></i>
-			<a th:if="${pc.url == 'HYYW'}">行业要闻</a>
-			<a th:if="${pc.url == 'XPCG'}">新品成果</a>
-			<a th:if="${pc.url == 'CSDT'}">厂商动态</a>
+			<a th:if="${pc.id}==7">行业要闻</a>
+			<a th:if="${pc.id}==8">新品成果</a>
+			<a th:if="${pc.id}==9">厂商动态</a>
 		</div>	
 		<div class="mainwrapper clearfix">
 			<div class="aside fl">
-				<a th:if="${pc.url =='HYYW'}" class="active">行业要闻</a>
-				<a th:unless="${pc.url =='HYYW'}" href="/informationCategorys/7">行业要闻</a>
-				<a th:if="${pc.url =='XPCG'}" class="active">新品成果</a>
-				<a th:unless="${pc.url =='XPCG'}" href="/informationCategorys/8">新品成果</a>
-				<a th:if="${pc.url =='CSDT'}" class="active">厂商动态</a>
-				<a th:unless="${pc.url =='CSDT'}" href="/informationCategorys/9">厂商动态</a>
+				<a th:if="${pc.id}==7" class="active">行业要闻</a>
+				<a th:unless="${pc.id}==7" href="/informationCategorys/7">行业要闻</a>
+				<a th:if="${pc.id}==8" class="active">新品成果</a>
+				<a th:unless="${pc.id}==8" href="/informationCategorys/8">新品成果</a>
+				<a th:if="${pc.id}==9" class="active">厂商动态</a>
+				<a th:unless="${pc.id}==9" href="/informationCategorys/9">厂商动态</a>
 			</div>
 			<div class="mainpanel fr">
 				<div class="news-wrap">
@@ -60,8 +60,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="footer">
-		© 1998 - 2015 SJ Inc. All Rights Reserved
-	</div>
+	<div th:include="footer/footer"></div>
 </body>
 </html>	

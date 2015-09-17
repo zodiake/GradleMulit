@@ -4,7 +4,7 @@
 		<script src="/js/searchForm.js"></script>
 		<a href="/" class="logo">
 			<img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/>
-			<span class="logo-hd">你的协同采购平台</span>
+			<span class="logo-hd"><img src="img/logo-txt.png" /></span>
 		</a>
 		<div class="head-search">
 			<form id="searchForm" th:action="${action==null?'/products/_search':action}">
@@ -32,8 +32,8 @@
 					购物车(<i th:if="${session.cartLines==null}" th:text="0" id="allNum"></i><i th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="allNum"></i>)
 				</div>
 				<div class="ct-cart-wrap bodr hide" >
-					<h3><b class="gray-deeply" >购物车中的商品</b></h3>
-					<div class="ct-cart-list"  >
+					<h3><b class="gray-deeply">购物车中的商品</b></h3>
+					<div class="ct-cart-list">
 						<ul id="cartUl">
 							<li th:each="cartline:${session.cartLines}" th:id="'cart'+${cartline.productId}">
 								<div class="fl ct-img">
@@ -82,7 +82,7 @@
 							<a target="_blank" href="/provider/products">商品维护</a>
 						</li>
 						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
-							<a  href="/provider/count">商品信息统计</a>
+							<a href="/provider/count">商品信息统计</a>
 						</li>
 						<li>
 							<form id="logoutForm" action="/logout" method="post">

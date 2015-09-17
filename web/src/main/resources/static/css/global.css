@@ -104,6 +104,9 @@ button{
 .ml-20{
 	margin: 0 -20px;
 }
+.ml40{
+	margin-left:40px;
+}
 .gray-hd{
 	background: #eee;
 	line-height: 35px;
@@ -280,7 +283,7 @@ img{
 	background: #43b628;
 }
 
-/**澶撮儴璐墿杞�**/
+/**婢舵挳鍎寸拹顓犲⒖鏉烇拷**/
 .head-dorpdown{
 	margin-top: 25px;
 	float: right;
@@ -636,7 +639,7 @@ img{
     background-color: #ffbe26;
 }
 
-/** 涓汉娉ㄥ唽 **/
+/** 娑擃亙姹夊▔銊ュ斀 **/
 
 
 .resg-header .head-nav{
@@ -794,7 +797,7 @@ img{
 	text-align: center;
 	background: #7ecef4;
 }
-/**鐧诲綍**/
+/**閻ц缍�**/
 .resg-header .head-menu-btn.logo-menu{
 	float: right;
 	padding-right: 20px;
@@ -827,11 +830,11 @@ img{
 	margin-right: 32px;
 }
 
-/**鎵惧洖瀵嗙爜**/
+/**閹垫儳娲栫�靛棛鐖�**/
 .find-password button{
 	margin-left: 210px;
 }
-/**浠櫒鍒嗙被**/
+/**娴狀亜娅掗崚鍡欒**/
 .sort-box{
 	width: 480px;
 	margin-bottom: 20px;
@@ -850,7 +853,7 @@ img{
 .sort-box div.sort-detail i{
 	margin-right: 8px;
 }
-/**涓汉涓績**/
+/**娑擃亙姹夋稉顓炵妇**/
 .self-wrap .gray-hd{
 	margin-bottom: 20px;
 	width: 970px;
@@ -960,7 +963,7 @@ table.save-table span.one-sort{
 .point p{
 	margin: 10px 0;
 }
-/**璐墿杞�**/
+/**鐠愵厾澧挎潪锟�**/
 .mainpanel{
 	width: 805px;
 }
@@ -974,11 +977,13 @@ table.save-table span.one-sort{
 	margin-left: 10px;
 }
 .mainpanel table td div.fl{
-	max-width: 150px;
+	max-width: 148px;
 	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .mainpanel table td div.fr{
 	padding-right: 30px;
+	max-width:180px;
 }
 .cart-table table th,
 .cart-table table td{
@@ -1049,7 +1054,7 @@ a.minus:hover, a.plus:hover {
 	margin-top: 7px;
 }
 
-/**鏀惰棌澶�**/
+/**閺�鎯版婢讹拷**/
 .collect{
 	width: 780px;
 	padding-left:25px;
@@ -1068,6 +1073,9 @@ a.minus:hover, a.plus:hover {
 	float: left;
 	margin-right: 28px;
 	margin-bottom: 28px;
+}
+.pro-list{
+	min-height:300px;
 }
 .pro-list li{
 	height:340px;
@@ -1111,7 +1119,7 @@ a.minus:hover, a.plus:hover {
 	background: url('../img/icon-cart.png') no-repeat 1px 3px;
 	margin-left: 2px;
 }
-/*浠櫒鍒嗙被鍒楄〃*/
+/*娴狀亜娅掗崚鍡欒閸掓銆�*/
 .crumb{
 	padding-left: 20px;
 	margin: 8px 0px;
@@ -1289,7 +1297,7 @@ a.minus:hover, a.plus:hover {
 	background: url('../img/icon-del.png') no-repeat;
 }
 
-/**浠櫒鍟嗗搧璇︽儏椤�**/
+/**娴狀亜娅掗崯鍡楁惂鐠囷附鍎忔い锟�**/
 .goods-property{
 	padding: 10px;
 }
@@ -1534,7 +1542,7 @@ li div.topic-detail{
 }
 
 
-/**鏂伴椈**/
+/**閺備即妞�**/
 .news-crumb{
 	padding-bottom: 5px;
 	border-bottom: 1px solid #dcdcdc;
@@ -1560,7 +1568,7 @@ li div.topic-detail{
 	background: url('../img/icon-news.png') no-repeat;
 }
 
-/**鏂伴椈璇︾粏椤�**/
+/**閺備即妞堢拠锔剧矎妞わ拷**/
 .news-dtl-wrap .news-point{
 	padding-left: 25px;
 	background-position: 0 9px;
@@ -1767,7 +1775,7 @@ button.default{
 }
 .basic-info .form-group i.error{
 	display: block;
-	margin-left: 125px;
+	margin-left: 165px;
 	position: absolute;
 	z-index: 2;
 	margin-bottom: -20px;
@@ -1802,7 +1810,7 @@ button.default{
     border-color:#1ab3d0;
 }
 .files.noline #uploadImg{
-	left:33%;
+	left:70%;
 }
 .files #uploadImg a{
     color:#fff;
@@ -1814,7 +1822,7 @@ button.default{
     width: 65px;
     overflow: hidden;
     position:absolute; 
-    left:27%;
+    left:0;
     z-index:100; 
     font-size:16px;
     opacity:0;
@@ -1829,9 +1837,6 @@ button.default{
 }
 .files.files-res input[type=file]{
 	left:-4%;
-}
-.push-good .form-group i.error{
-    margin-left: 165px;
 }
 .push-good .form-group i.error.error-abs{
 	top:40%;
@@ -1918,6 +1923,9 @@ input[type=radio]:checked + label{
 	opacity: 0.3; 
 	filter:alpha(opacity=30);  
 }
+.readonly.left124{
+	left:124px;
+}
 .cate-hd{
 	margin:10px 10px 0;
 	padding:5px;
@@ -1925,16 +1933,64 @@ input[type=radio]:checked + label{
 	background:#eee;
 	border-left:3px solid #27bff8;
 }
-.basic-info .form-group.readonly-group{
+.basic-info .readonly-group{
 	position:relative;
 }
 .logo-hd{
+	position: relative;
+	height:32px;
 	vertical-align: top;
-	line-height:30px;
-	padding-left:15px;
-	margin-left:15px;
+	margin-right:70px;
+	margin-left: 12px;
 	display:inline-block;
 	font-family: "Arial";
 	font-size:13px;
 	border-left:1px solid #868fa7;
+}
+.logo-hd img{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+i.ml115{
+	margin-left:115px;
+	display:block;
+}
+.brand-bd{
+	overflow:hidden;
+}
+.brand-bd label{
+	float:left;
+	width:40px;
+}
+.brand-bd span{
+	float:left;
+	width:140px;
+}
+.orders-form .form-group label.top{
+	vertical-align: top;
+}
+a.fff{
+	color:#fff;
+}
+#more{
+	right: 20px;
+	bottom: 5px;
+	position: absolute;
+}
+#contraction{
+	right: 20px;
+	bottom: 10px;
+	position: absolute; 
+	display: none;
+}
+.mb150{
+	margin-bottom:150px;
+	margin-top:150px;
+}
+.form-group>ul>li>i{
+	color:#686f83;
+}
+.resg-header .logo-hd{
+	margin-right:110px;
 }
