@@ -82,6 +82,7 @@
 			</div>
 		</footer>
 		<script>
+		$('.nav li').eq(0).addClass('active');
 		$('.nav li').click(function(){
 			$(this).addClass('active').siblings().removeClass('active');
 		})
