@@ -2093,3 +2093,6 @@ a.fff{
 .thickbox p{
 	line-height:25px;
 }
+select.w100{
+	width:100px;
+}
