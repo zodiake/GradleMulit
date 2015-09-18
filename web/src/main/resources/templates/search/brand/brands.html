@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta charset="UTF-8" />
+<title>仪器商品详情</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript">
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var id = $("meta[name='id']").attr("content");
+		var ajaxStatus = "";
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="includeHeader" class="header" th:include="head/head">Head</div>
+	<!-- header -->
+		<div class="wrapper">
+			<div class="gray-hd">
+				<span>查找结果共<i th:text="${page.totalElements}">1222</i>个品牌</span>
+			</div>
+			<div class="items-list pro-list">
+				<ul>
+					<li class="bodr product" th:each="brand:${page.getContent()}" >
+						<a th:href="@{/products/brand/__${brand.id}__}"> 
+							<img th:src="@{${brand.coverImg}}" width="210" height="155"/>
+							<div class="pic-box">
+								<div class="pic-row refer">
+									<label>品牌名称</label>
+									<span> <b class="red ft14"><i th:text="${brand.name}"></i></b> </span>
+								</div>
+							</div> 
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="pagination">
+				<div class="l-pagination">
+					<ul >
+						<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i-1==viewpage.current}?active">
+							<a th:href="@{${viewpage.href}(page=${i-1},size=16,__${viewpage.option}__)}" th:text="${i}"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div th:include="footer/footer"></div>
+</body>
+</html>

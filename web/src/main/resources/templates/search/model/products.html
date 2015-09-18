@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta charset="UTF-8" />
+<title>仪器商品详情</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript">
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var id = $("meta[name='id']").attr("content");
+		var ajaxStatus = "";
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="includeHeader" class="header" th:include="head/head">Head</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="gray-hd">
+			<span>查找结果共<i th:text="${page.totalElements}">1222</i>件商品</span>
+		</div>
+		<div class="items-list pro-list h300">
+			<ul>
+				<li class="bodr product" th:each="product:${page.getContent()}" >
+					<a th:href="@{'/products/'+${product.id}}"> <img th:src="@{${product.coverImg}}" width="210" height="175"/> </a>
+					<div class="pic-box">
+						<div class="pic-row refer">
+							<label>参考报价</label>
+							<span> <b class="red ft14">￥<i th:text="${product.price}"></i></b> </span>
+						</div>
+						<div class="pic-row tit" th:text="${product.name}"></div>
+						<div class="pic-row">
+							<label>品牌：</label>
+							<span th:text="${product.brand.name}"></span>
+						</div>
+						<div class="pic-row">
+							<label >产地：</label>
+							<span th:text="${product.placeOfProduction.getName()}"></span>
+						</div>
+						<div class="pic-row">
+							<label>型号：</label>
+							<span th:text="${product.model}"></span>
+						</div>
+						<div class="pic-row bodr" th:id="'coll'+${product.id}">
+							<a class="btn-cancel coll" th:attr="data-id=${product.id}">加入收藏</a>
+							<a class="btn-cart addCart" th:attr="data-id=${product.id}">加入购物车</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="pagination">
+			<div class="l-pagination">
+				<ul >
+					<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i-1==viewpage.current}?active">
+						<a th:href="@{${viewpage.href}(page=${i-1},size=16,__${viewpage.option}__)}" th:text="${i}"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div th:include="footer/footer"></div>
+</body>
+</html>
