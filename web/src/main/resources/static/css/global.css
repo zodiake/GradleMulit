@@ -1202,25 +1202,45 @@ a.minus:hover, a.plus:hover {
 	margin: 10px 0 15px;
 	background: #eee;
 }
-.filter a{
-	position: relative;
-	padding: 2px 10px;
-	margin-right:8px;
-	background: #fff;
-	border: 1px solid #dcdcdc;
+.filter.sorts-row{
+	padding:5px 20px;
 }
-.filter a.price{
-	padding-right: 15px;
-	padding-left: 8px;
+.sorts-row li{
+	line-height:26px;
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	background:#fff;
+	border:1px solid #ccc;
 }
-.filter a i{
-	display: block;
-	position: absolute;
-	top: 5px;
-	right: 4px;
-	width: 9px;
-	height: 11px;
-	background: url('../img/icon-price.png') no-repeat;
+.sorts-row li>span,
+.sorts-row li .price>span{
+	width:60px;
+	text-align:center;
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+}
+.sorts-row .price{
+	position:relative;
+	cursor:pointer;
+}
+.sorts-row .droplist{
+	display:none;
+	width:80px;
+	position:absolute;
+	top:-1px;;
+	left:-1px;
+	background:#fff;
+	padding:0 10px;
+	border:1px solid #ccc;
+}
+.sorts-row .price:hover .droplist{
+	display:block;
+}
+.sorts-row .droplist span{
+	display:block;
+	margin:10px 0;
 }
 .items-list{
 	padding-left: 20px;
