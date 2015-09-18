@@ -23,5 +23,7 @@ public interface BrandRepository extends
 	public Brand findByNameAndActivate(String name,ActivateEnum activate);
 	
 	public List<Brand> findAll(Sort sort);
+	
+	public Page<Brand> findByNameLike(String name,Pageable pageable);
 
 }

@@ -1,7 +1,12 @@
 package com.sj.repository.service.Impl;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -22,6 +27,7 @@ import com.sj.model.model.Brand;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.BrandJson;
 import com.sj.repository.repository.BrandRepository;
+import com.sj.repository.search.model.BrandSearchOption;
 import com.sj.repository.service.BrandService;
 
 @Service
@@ -108,5 +114,40 @@ public class BrandServiceImpl implements BrandService {
 	@Override
 	public List<Brand> findAllOrderByName() {
 		return repository.findAll(new Sort(new Order(Direction.ASC,"name")));
+	}
+
+	@Override
+	public Page<Brand> searchBrand(BrandSearchOption option,Pageable pageable) {
+		return repository.findByNameLike("%"+option.getTitle()+"%", pageable);
+	}
+	@Override
+	public Map<String, String> buildMap(BrandSearchOption option) {
+		Field[] fields = option.getClass().getDeclaredFields();
+		List<Field> options = filterNullValue(option, fields);
+		Map<String, String> map = new HashMap<>();
+		for (Field f : options) {
+			Object value;
+			try {
+				value = f.get(option);
+				map.put(f.getName(), String.valueOf(value));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return map;
+	}
+	public List<Field> filterNullValue(BrandSearchOption option,
+			Field[] fields) {
+		return Arrays.stream(fields).filter(f -> {
+			if (!Modifier.isPublic(f.getModifiers())) {
+				f.setAccessible(true);
+			}
+			try {
+				return f.get(option) != null;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+		}).collect(Collectors.toList());
 	}
 }

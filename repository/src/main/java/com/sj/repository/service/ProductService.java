@@ -3,6 +3,7 @@ package com.sj.repository.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,6 +20,7 @@ import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.exception.BatchException;
 import com.sj.repository.model.ProductDetailJson;
 import com.sj.repository.model.ProductJson;
+import com.sj.repository.search.model.ModelSearchOption;
 
 public interface ProductService {
 	public Page<Product> findByUsers(Provider user, Pageable pageable,
@@ -73,5 +75,9 @@ public interface ProductService {
 	public List<Product> findDataForBatch(XSSFWorkbook wb,Provider provider) throws BatchException;
 	
 	public XSSFWorkbook getModel() throws InvalidFormatException, IOException;
+	
+	public Page<Product> findBySearchModel(ModelSearchOption option,Pageable pageable);
+
+	Map<String, String> buildMap(ModelSearchOption option);
 	
 }
