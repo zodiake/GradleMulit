@@ -131,22 +131,29 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 			}
 		}
 		if (queryBuilder == null && !boolFilterBuilder.hasClauses()) {
+			// both is empty match all
 			MatchAllQueryBuilder builder = new MatchAllQueryBuilder();
 			query = new NativeSearchQuery(builder);
 			query.setPageable(pageable);
+			System.out.println(builder.toString());
 			return query;
-		} else if (queryBuilder == null) {
+		} else if (queryBuilder == null && boolFilterBuilder.hasClauses()) {
+			// query is empty but filter is not filtered query
 			MatchAllQueryBuilder match = new MatchAllQueryBuilder();
 			FilteredQueryBuilder builder = new FilteredQueryBuilder(match,
 					boolFilterBuilder);
 			query = new NativeSearchQuery(builder);
 			query.setPageable(pageable);
+			System.out.println(builder.toString());
 			return query;
 		} else if (queryBuilder != null && !boolFilterBuilder.hasClauses()) {
+			// query is not empty but filter is
+			// must match query
 			BoolQueryBuilder builder = new BoolQueryBuilder();
 			mustClauses.forEach(i -> builder.must(i));
 			query = new NativeSearchQuery(builder);
 			query.setPageable(pageable);
+			System.out.println(builder.toString());
 			return query;
 		}
 		FilteredQueryBuilder builder = new FilteredQueryBuilder(queryBuilder,

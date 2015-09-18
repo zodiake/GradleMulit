@@ -50,6 +50,9 @@ PUT /sj
         },
         "id":{
           "type":"long"
+        },
+        "createdTime":{
+          "type":"date"
         }
       }
     },

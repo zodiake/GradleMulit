@@ -51,21 +51,16 @@ public class SearchController extends BaseController<ProductSearch> {
 			Model uiModel, HttpServletRequest request) {
 
 		buildOption(option);
-		PageRequest pageImpl = buildPageRequest(option, pageable);
+		PageRequest pageRequest = buildPageRequest(option, pageable);
 
-		Page<ProductSearch> results;
-		if (option.getModel() != null) {
-			results = service.findByModel(option.getModel(), pageImpl);
-		} else {
-			results = service.findByOption(option, pageImpl);
-		}
+		Page<ProductSearch> results = service.findByOption(option, pageRequest);
 
 		Map<String, String> map = service.buildMap(option);
 
 		ViewPage viewpage = caculatePage(results);
 		viewpage.setOption(map);
 		viewpage.setHref("/products/_search");
-		viewpage.setCurrent(pageImpl.getPageNumber());
+		viewpage.setCurrent(pageable.getPageNumber());
 
 		uiModel.addAttribute("products", results);
 		uiModel.addAttribute("option", option);
@@ -104,36 +99,42 @@ public class SearchController extends BaseController<ProductSearch> {
 
 	private PageRequest buildPageRequest(ProductSearchOption option,
 			Pageable pageable) {
-		SortEnum sort = option.getSort();
-		Direction direction = null;
-		String properties = null;
-		switch (sort) {
-		case CREATEDTIMEASC:
-			direction = Direction.DESC;
-			properties = "createdTime";
-			break;
-		case CREATEDTIMEDESC:
-			direction = Direction.ASC;
-			properties = "createdTime";
-			break;
-		case PRICEDESC:
-			direction = Direction.DESC;
-			properties = "price";
-			break;
-		case PRICEASC:
-			direction = Direction.ASC;
-			properties = "price";
-			break;
-		case REVIEWASC:
-			direction = Direction.ASC;
-			properties = "review";
-			break;
-		case REVIEWDESC:
-			direction = Direction.DESC;
-			properties = "review";
-			break;
+		if (option.getSort() != null) {
+			SortEnum sort = option.getSort();
+			Direction direction = null;
+			String properties = null;
+			switch (sort) {
+			case CREATEDTIMEASC:
+				direction = Direction.DESC;
+				properties = "createdTime";
+				break;
+			case CREATEDTIMEDESC:
+				direction = Direction.ASC;
+				properties = "createdTime";
+				break;
+			case PRICEDESC:
+				direction = Direction.DESC;
+				properties = "price";
+				break;
+			case PRICEASC:
+				direction = Direction.ASC;
+				properties = "price";
+				break;
+			case REVIEWASC:
+				direction = Direction.ASC;
+				properties = "review";
+				break;
+			case REVIEWDESC:
+				direction = Direction.DESC;
+				properties = "review";
+				break;
+			}
+			return new PageRequest(pageable.getPageNumber(),
+					pageable.getPageSize(), direction, properties);
+		} else {
+			return new PageRequest(pageable.getPageNumber(),
+					pageable.getPageSize(), Direction.DESC, "createdTime");
 		}
-		return new PageRequest(pageable.getPageNumber(),
-				pageable.getPageSize(), direction, properties);
+
 	}
 }

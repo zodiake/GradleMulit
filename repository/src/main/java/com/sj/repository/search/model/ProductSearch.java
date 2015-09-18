@@ -1,5 +1,7 @@
 package com.sj.repository.search.model;
 
+import java.util.Calendar;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -57,6 +59,9 @@ public class ProductSearch {
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed)
 	private String model;
 
+	@Field(type = FieldType.Date, index = FieldIndex.not_analyzed)
+	private Calendar createdTime;
+
 	public ProductSearch() {
 	}
 
@@ -75,6 +80,7 @@ public class ProductSearch {
 				: 0;
 		this.tag = i.getLabel();
 		this.model = i.getModel();
+		this.createdTime = i.getAuthenticatedTime();
 	}
 
 	public Long getId() {
