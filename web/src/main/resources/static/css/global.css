@@ -34,7 +34,7 @@ li{
 i{
 	font-style: normal;
 }
-.i-ml i.error{
+.find-password i.error{
 	display:block;
 	margin-left:163px;
 }
@@ -717,6 +717,7 @@ img{
 }
 .form-group{
 	margin: 20px 0;
+	overflow:hidden;
 }
 .form-group i{
 	color: #eb6100;
@@ -1077,9 +1078,6 @@ a.minus:hover, a.plus:hover {
 .h300{
 	min-height:300px;
 }
-.pro-list li{
-	height:340px;
-}
 .pro-list li a{
 	color:#868fa7;
 }
@@ -1099,6 +1097,10 @@ a.minus:hover, a.plus:hover {
 }
 .pic-box .pic-row.tit{
 	font-weight: bold;
+	max-width: 210px;
+	max-height: 16px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .pic-box .comment{
 	background: url('../img/icon-comment.png') no-repeat 1px 3px;
@@ -2016,4 +2018,17 @@ a.fff{
 }
 .resg-header .logo-hd{
 	margin-right:110px;
+}
+.text-center{
+	text-align:center;
+}
+.pw-point{
+	width:300px;
+	margin:auto;
+	padding-left:55px;
+	font-size:30px;
+	background:url('../img/icon-alt.png') no-repeat;
+}
+.pw-fail{
+	background-position:0 -42px;
 }
