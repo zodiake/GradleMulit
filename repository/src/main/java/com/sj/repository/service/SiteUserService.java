@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.SiteUserDetailJson;
 import com.sj.repository.model.SiteUserJson;
 
 public interface SiteUserService {
@@ -32,4 +33,8 @@ public interface SiteUserService {
 			Pageable pageable);
 
 	public SiteUser save(SiteUser user);
+
+	public SiteUser update(SiteUser user);
+
+	public SiteUserDetailJson findOneJson(Long id);
 }

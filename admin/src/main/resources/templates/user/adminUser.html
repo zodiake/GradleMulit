@@ -1,26 +1,30 @@
 <div class="contentpanel">
-	<form class="form-inline">
-		<div class="form-group">
-			<a class="btn btn-success btn-sm" ng-click="create()">添加</a>
-		</div>
-	</form>
-	<table class="table table-bordered mb30">
-		<thead>
-			<tr>
-				<th>序号</th>
-				<th>姓名</th>
-				<th>创建日期</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="item in items" ng-click="showDetail(item)">
-				<td>{{$index+1}}</td>
-				<td>{{item.name}}</td>
-				<td>{{item.createTime}}</td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="pagenumQu">
-		<pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
-	</div>
+    <form class="form-inline">
+        <div class="form-group">
+            <a class="btn btn-success btn-sm" ng-click="create()">添加</a>
+        </div>
+    </form>
+    <table class="table table-bordered mb30">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>创建日期</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items" ng-click="showDetail(item)">
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.createTime}}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" ng-click="view(item)">修改</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pagenumQu">
+        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="page" ng-change="search()"></pagination>
+    </div>
 </div>

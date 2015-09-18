@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -13,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sj.model.model.SiteUser;
 import com.sj.model.type.ActivateEnum;
+import com.sj.model.type.SexEnum;
+import com.sj.repository.model.SiteUserDetailJson;
 import com.sj.repository.model.SiteUserJson;
 import com.sj.repository.repository.SiteUserRepository;
 import com.sj.repository.service.SiteUserService;
@@ -22,6 +26,8 @@ import com.sj.repository.service.SiteUserService;
 public class SiteUserServiceImpl implements SiteUserService {
 	@Autowired
 	private SiteUserRepository repository;
+	@Autowired
+	private EntityManager em;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -99,7 +105,27 @@ public class SiteUserServiceImpl implements SiteUserService {
 	@Override
 	public SiteUser save(SiteUser user) {
 		user.setSiteAuthority("ROLE_ADMIN");
-		return repository.save(user);
+		user.setEnabled(ActivateEnum.ACTIVATE);
+		user.setCreateTime(Calendar.getInstance());
+		user.setSex(SexEnum.MALE);
+		user.setEmail("admin@admin.com");
+		user.setRealName("admin");
+		SiteUser u = repository.save(user);
+		return u;
+	}
+
+	@Override
+	public SiteUser update(SiteUser user) {
+		SiteUser u = repository.findOne(user.getId());
+		u.setPassword(user.getPassword());
+		u.setRoles(user.getRoles());
+		return u;
+	}
+
+	@Override
+	public SiteUserDetailJson findOneJson(Long id) {
+		SiteUser user = findOne(id);
+		return new SiteUserDetailJson(user);
 	}
 
 }

@@ -287,6 +287,7 @@ create table site_menu(
 create table site_role(
 	id bigint not null AUTO_INCREMENT,
 	role_name varchar(20),
+	active smallint,
 	primary key(id)
 );
 
