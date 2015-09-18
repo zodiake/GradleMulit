@@ -89,6 +89,13 @@
                 $('#tagSearch').click(function() {
                     $('form').submit();
                 });
+                
+                $('.droplist span').click(function(){
+                	var self=$(this);
+                	var id=self.attr('data-id');
+                	$('#'+id).prop("checked", true);
+                	$('form').submit();
+                });
             });
 		</script>
 	</head>
@@ -157,12 +164,12 @@
 						</button>
 					</div>
 					<div class="sort-radio">
-						<input type="radio" name="sort" value="1"/>
-						<input type="radio" name="sort" value="1"/>
-						<input type="radio" name="sort" value="1"/>
-						<input type="radio" name="sort" value="1"/>
-						<input type="radio" name="sort" value="1"/>
-						<input type="radio" name="sort" value="1"/>
+						<input type="radio" value="priceDesc" th:field="*{sort}" th:id="priceDesc"/>
+						<input type="radio" value="priceAsc" th:field="*{sort}" th:id="priceAsc"/>
+						<input type="radio" value="reviewDesc" th:field="*{sort}" th:id="reviewDesc"/>
+						<input type="radio" value="reviewAsc" th:field="*{sort}" th:id="reviewAsc"/>
+						<input type="radio" value="createdTimeDesc" th:field="*{sort}" th:id="createdTimeDesc"/>
+						<input type="radio" value="createdTimeAsc" th:field="*{sort}" th:id="createdTimeAsc"/>
 					</div>
 				</form>
 			</div>
@@ -172,8 +179,8 @@
 						<div class="sorts-drop">
 							<span>价格</span>
 							<div class="droplist">
-								<span>价格从高到低</span>
-								<span>价格从低到高</span>
+								<span data-id="priceDesc">价格从高到低</span>
+								<span data-id="priceAsc">价格从低到高</span>
 							</div>
 						</div>
 						
@@ -182,8 +189,8 @@
 						<div class="sorts-drop">
 							<span>评论数</span>
 							<div class="droplist">
-								<span>价格从高到低</span>
-								<span>价格从低到高</span>
+								<span data-id="reviewDesc">评论数从高到低</span>
+								<span data-id="reviewAsc">评论数从低到高</span>
 							</div>
 						</div>
 					</li>
@@ -191,8 +198,8 @@
 						<div class="sorts-drop">
 							<span>上架时间</span>
 							<div class="droplist">
-								<span>价格从高到低</span>
-								<span>价格从低到高</span>
+								<span data-id="createdTimeDesc">时间从高到低</span>
+								<span data-id="createdTimeAsc">时间从低到高</span>
 							</div>
 						</div>
 					</li>

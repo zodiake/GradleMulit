@@ -50,6 +50,10 @@ public class ProductSearch {
 	// 商品url
 	private String url;
 
+	// 评论数
+	@Field(type = FieldType.Integer)
+	private int review;
+
 	@Field(type = FieldType.Integer)
 	private int original;
 
@@ -81,6 +85,7 @@ public class ProductSearch {
 		this.tag = i.getLabel();
 		this.model = i.getModel();
 		this.createdTime = i.getAuthenticatedTime();
+		this.review = 0;
 	}
 
 	public Long getId() {
@@ -185,6 +190,22 @@ public class ProductSearch {
 
 	public void setThirdCategoryName(String thirdCategoryName) {
 		this.thirdCategoryName = thirdCategoryName;
+	}
+
+	public int getReview() {
+		return review;
+	}
+
+	public void setReview(int review) {
+		this.review = review;
+	}
+
+	public Calendar getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Calendar createdTime) {
+		this.createdTime = createdTime;
 	}
 
 	@Override

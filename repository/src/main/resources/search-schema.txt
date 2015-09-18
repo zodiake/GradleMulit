@@ -53,6 +53,9 @@ PUT /sj
         },
         "createdTime":{
           "type":"date"
+        },
+        "review":{
+        	"type":"integer"
         }
       }
     },
