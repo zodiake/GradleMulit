@@ -14,7 +14,7 @@ $(function(){
 		$('.hide-wrap-small').fadeIn();
 		$('.fixed').fadeIn();
 	})
-	$(".fixed:not(.hide-wrap)").click(function(){
+	$(".fixed:not(.hide-wrap),.close").click(function(){
 		  $(".hide-wrap").fadeOut();
 		  $(".hide-wrap-small").fadeOut();
 		  $(".fixed").fadeOut();

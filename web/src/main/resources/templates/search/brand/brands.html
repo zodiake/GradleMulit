@@ -26,19 +26,16 @@
 	<div id="includeHeader" class="header" th:include="head/head">Head</div>
 	<!-- header -->
 		<div class="wrapper">
-			<div class="gray-hd">
+			<div class="filter">
 				<span>查找结果共<i th:text="${page.totalElements}">1222</i>个品牌</span>
 			</div>
-			<div class="items-list pro-list">
+			<div class="items-list pro-list brand-list">
 				<ul>
 					<li class="bodr product" th:each="brand:${page.getContent()}" >
 						<a th:href="@{/products/brand/__${brand.id}__}"> 
 							<img th:src="@{${brand.coverImg}}" width="210" height="155"/>
 							<div class="pic-box">
-								<div class="pic-row refer">
-									<label>品牌名称</label>
-									<span> <b class="red ft14" th:text="${brand.name}"></b> </span>
-								</div>
+								<div class="pic-row tit" th:text="${brand.name}"></div>
 							</div> 
 						</a>
 					</li>
