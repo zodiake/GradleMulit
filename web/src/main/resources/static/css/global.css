@@ -790,7 +790,7 @@ img{
 .resg-form .resg-btn{
 	text-align: center;
 }
-.resg-form .resg-btn button{
+.resg-btn button{
 	width: 210px;
 	height: 30px;
 	margin-top: 20px;
@@ -2051,4 +2051,27 @@ a.fff{
 }
 .pw-fail{
 	background-position:0 -42px;
+}
+.fixed-two{
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+}
+.thickbox{
+	text-align:left;
+	left: 0;
+	top: 10%;
+	width: 700px;
+	margin: auto;
+	right: 0;
+	height: 500px;
+	overflow-y: auto;
+	border:2px solid #ccc;
+}
+.thickbox h4{
+	font-size:14px;
+	color:#686f83;
+	margin:10px 0;
+}
+.thickbox p{
+	line-height:25px;
 }
