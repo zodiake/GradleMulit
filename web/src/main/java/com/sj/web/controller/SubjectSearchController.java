@@ -30,7 +30,7 @@ public class SubjectSearchController extends BaseController<SubjectSearch> {
 
 	@RequestMapping(value = "/subject/_search", method = RequestMethod.GET)
 	public String infoSearch(SubjectSearchOption option,
-			@PageableDefault(page = 0, size = 15) Pageable pageable,
+			@PageableDefault(page = 0, size = 16) Pageable pageable,
 			Model uiModel) {
 		buildOption(option);
 

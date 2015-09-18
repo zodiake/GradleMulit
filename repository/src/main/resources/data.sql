@@ -10,7 +10,7 @@ insert into city(id,name,province_id) values(4,'福州市','2');
 insert into city(id,name,province_id) values(5,'泉州市','2');
 
 -- test brand
-insert into brand(id,name,activate,cover_img,created_time,href) values(1,'Thermo Fisher Scientific',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1','www.baidu.com');
+insert into brand(id,name,activate,cover_img,created_time,href) values(1,'Thermo Fisher Scientific',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1','http://www.thermofisher.com/cn/zh/home.html');
 insert into brand(id,name,activate,cover_img,created_time,href) values(2,'3M',1,'http://localhost:8000/2015/9/3M.jpg','2012-1-1','www.baidu.com');
 insert into brand(id,name,activate,cover_img,created_time,href) values(3,'AccuStandard',1,'http://localhost:8000/2015/9/AccuStandard.jpg','2012-1-1','www.baidu.com');
 insert into brand(id,name,activate,cover_img,created_time,href) values(4,'Acros',1,'http://localhost:8000/2015/9/Acros.jpg','2012-1-1','www.baidu.com');

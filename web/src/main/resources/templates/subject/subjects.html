@@ -52,7 +52,7 @@
 			<div class="l-pagination">
 					<ul>
 						<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i==viewpage.current}?active" >
-							<a th:href="@{${viewpage.href}(page=${i},size=12}" th:text="${i}"></a>
+							<a th:href="@{${viewpage.href}(page=${i},size=16)}" th:text="${i}"></a>
 						</li>
 					</ul>
 			</div>

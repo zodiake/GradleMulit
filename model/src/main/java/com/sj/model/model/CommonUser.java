@@ -55,6 +55,7 @@ public class CommonUser extends SiteUser {
 
 	@OneToOne()
 	@JoinColumn(name = "info_id")
+	@NotNull(message = "请选择行业信息")
 	private UserIndustryInfo industryInfo; // 行业信息
 
 	@Transient

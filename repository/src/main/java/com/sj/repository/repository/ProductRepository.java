@@ -30,5 +30,7 @@ public interface ProductRepository extends
 	Page<Product> findBySecondCategory(ProductCategory category,Pageable pageable);
 	
 	Product findByIdAndStatus(Long id,ProductStatusEnum status);
+	
+	Page<Product> findByModelLike(String model,Pageable pageable);
 }
 

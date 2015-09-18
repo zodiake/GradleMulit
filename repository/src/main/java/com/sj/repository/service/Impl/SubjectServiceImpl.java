@@ -77,7 +77,7 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	@Cacheable(value = "subjectsCache")
 	public List<Subject> findByShowOnIndex() {
-		return repository.findByShowOnIndex(ActivateEnum.ACTIVATE);
+		return repository.findByShowOnIndexAndActivate(ActivateEnum.ACTIVATE, ActivateEnum.ACTIVATE);
 	}
 
 	@Override

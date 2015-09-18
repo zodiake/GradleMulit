@@ -8,11 +8,15 @@ import static com.sj.repository.util.RedisConstant.VIEWCOUNT;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -59,6 +63,7 @@ import com.sj.repository.repository.ProductCategoryRepository;
 import com.sj.repository.repository.ProductRepository;
 import com.sj.repository.repository.ReagentsRepository;
 import com.sj.repository.repository.ServiceRepository;
+import com.sj.repository.search.model.ModelSearchOption;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.PreferProductService;
@@ -536,4 +541,40 @@ public class ProductServiceImpl implements ProductService {
 		return p;
 	}
 
+	@Override
+	public Page<Product> findBySearchModel(ModelSearchOption option,
+			Pageable pageable) {
+		
+		return repository.findByModelLike("%"+option.getTitle()+"%", pageable);
+	}
+	@Override
+	public Map<String, String> buildMap(ModelSearchOption option) {
+		Field[] fields = option.getClass().getDeclaredFields();
+		List<Field> options = filterNullValue(option, fields);
+		Map<String, String> map = new HashMap<>();
+		for (Field f : options) {
+			Object value;
+			try {
+				value = f.get(option);
+				map.put(f.getName(), String.valueOf(value));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return map;
+	}
+	public List<Field> filterNullValue(ModelSearchOption option,
+			Field[] fields) {
+		return Arrays.stream(fields).filter(f -> {
+			if (!Modifier.isPublic(f.getModifiers())) {
+				f.setAccessible(true);
+			}
+			try {
+				return f.get(option) != null;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+		}).collect(Collectors.toList());
+	}
 }
