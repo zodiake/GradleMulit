@@ -44,6 +44,7 @@ import com.sj.repository.converter.StringToProviderIndustryInfo;
 import com.sj.repository.converter.StringToScaleEnumConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
 import com.sj.repository.converter.StringToSexEnumConverter;
+import com.sj.repository.converter.StringToSortEnumConverter;
 import com.sj.repository.converter.StringToTitleEnumConverter;
 import com.sj.repository.converter.StringToUserIndustryInfo;
 import com.sj.web.resolver.PageRequestResolver;
@@ -86,7 +87,8 @@ public class Application extends WebMvcConfigurerAdapter {
 					.failureUrl("/login?error")
 					.and()
 					.logout()
-					.logoutUrl("/logout").invalidateHttpSession(true)
+					.logoutUrl("/logout")
+					.invalidateHttpSession(true)
 					.logoutSuccessUrl("/index")
 					.permitAll()
 					.and()
@@ -156,18 +158,19 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(longToBrandConverter());
 		formatterRegistry.addConverter(stringToCalendarConverter());
 		formatterRegistry.addConverter(stringToFloatConverter());
+		formatterRegistry.addConverter(stringToSortEnumConverter());
 	}
 
 	@Bean
-	public StringToCalendarConverter stringToCalendarConverter(){
+	public StringToCalendarConverter stringToCalendarConverter() {
 		return new StringToCalendarConverter();
 	}
-	
+
 	@Bean
-	public StringToFloatConverter stringToFloatConverter(){
+	public StringToFloatConverter stringToFloatConverter() {
 		return new StringToFloatConverter();
 	}
-	
+
 	@Bean
 	public StringToAcitvateEnumConverter stringToAcitvateEnumConverter() {
 		return new StringToAcitvateEnumConverter();
@@ -248,5 +251,11 @@ public class Application extends WebMvcConfigurerAdapter {
 	public StringToTitleEnumConverter stringToTitleEnumConverter() {
 		return new StringToTitleEnumConverter();
 	}
+
+	@Bean
+	public StringToSortEnumConverter stringToSortEnumConverter() {
+		return new StringToSortEnumConverter();
+	}
+
 	/*---------------------------end converter bean---------------------------------------*/
 }

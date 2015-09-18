@@ -5,7 +5,6 @@
 				<a class="btn btn-success btn-sm" ng-click="create()">添加</a>
 			</div>
 		</form>
-		<h4>仪器</h4>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -21,7 +20,7 @@
 						{{$index+1}}
 					</td>
 					<td>
-						<input type="text" ng-model="item.name"/>
+						{{item.name}}
 					</td>
 					<td>
 						{{item.createdTime}}
@@ -34,8 +33,5 @@
 				</tr>
 			</tbody>
 		</table>
-		<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">
-		{{alert.msg}}
-		</alert>
 	</div>
 </div>

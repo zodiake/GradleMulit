@@ -112,7 +112,7 @@ app.config([
             .state('authority', {
                 url: '/authority',
                 templateUrl: '/admin/templates/authority',
-                controller: 'AuthorityController'
+                controller: 'RoleController'
             });
     }
 ]);

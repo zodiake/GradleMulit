@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sj.model.model.Brand;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.model.ProductSearchOption;
+import com.sj.repository.search.model.SortEnum;
 import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.search.service.SubjectSearchService;
 import com.sj.repository.service.BrandService;
@@ -48,12 +51,13 @@ public class SearchController extends BaseController<ProductSearch> {
 			Model uiModel, HttpServletRequest request) {
 
 		buildOption(option);
+		PageRequest pageImpl = buildPageRequest(option, pageable);
 
 		Page<ProductSearch> results;
 		if (option.getModel() != null) {
-			results = service.findByModel(option.getModel(), pageable);
+			results = service.findByModel(option.getModel(), pageImpl);
 		} else {
-			results = service.findByOption(option, pageable);
+			results = service.findByOption(option, pageImpl);
 		}
 
 		Map<String, String> map = service.buildMap(option);
@@ -61,7 +65,7 @@ public class SearchController extends BaseController<ProductSearch> {
 		ViewPage viewpage = caculatePage(results);
 		viewpage.setOption(map);
 		viewpage.setHref("/products/_search");
-		viewpage.setCurrent(pageable.getPageNumber());
+		viewpage.setCurrent(pageImpl.getPageNumber());
 
 		uiModel.addAttribute("products", results);
 		uiModel.addAttribute("option", option);
@@ -75,7 +79,7 @@ public class SearchController extends BaseController<ProductSearch> {
 			Integer i = Integer.parseInt(option.getPriceRange());
 			switch (i) {
 			case 1:
-				option.setFrom(10000f);
+				option.setFrom(0f);
 				option.setTo(30000f);
 				break;
 			case 2:
@@ -96,5 +100,40 @@ public class SearchController extends BaseController<ProductSearch> {
 			option.setTitle(null);
 		if (StringUtils.isEmpty(option.getBrand()))
 			option.setBrand(null);
+	}
+
+	private PageRequest buildPageRequest(ProductSearchOption option,
+			Pageable pageable) {
+		SortEnum sort = option.getSort();
+		Direction direction = null;
+		String properties = null;
+		switch (sort) {
+		case CREATEDTIMEASC:
+			direction = Direction.DESC;
+			properties = "createdTime";
+			break;
+		case CREATEDTIMEDESC:
+			direction = Direction.ASC;
+			properties = "createdTime";
+			break;
+		case PRICEDESC:
+			direction = Direction.DESC;
+			properties = "price";
+			break;
+		case PRICEASC:
+			direction = Direction.ASC;
+			properties = "price";
+			break;
+		case REVIEWASC:
+			direction = Direction.ASC;
+			properties = "review";
+			break;
+		case REVIEWDESC:
+			direction = Direction.DESC;
+			properties = "review";
+			break;
+		}
+		return new PageRequest(pageable.getPageNumber(),
+				pageable.getPageSize(), direction, properties);
 	}
 }

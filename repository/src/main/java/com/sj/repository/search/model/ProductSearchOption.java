@@ -11,6 +11,7 @@ public class ProductSearchOption {
 	private String original;
 	private String model;
 	private String tag;
+	private SortEnum sort;
 
 	public String getTitle() {
 		return title;
@@ -90,5 +91,13 @@ public class ProductSearchOption {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+	public SortEnum getSort() {
+		return sort;
+	}
+
+	public void setSort(SortEnum sort) {
+		this.sort = sort;
 	}
 }
