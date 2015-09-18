@@ -1,26 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-<meta charset="UTF-8" />
-<title>仪器商品详情</title>
-<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
-<script type="text/javascript" th:src="@{/js/script.js}"></script>
-<script type="text/javascript">
-	$(function() {
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		var id = $("meta[name='id']").attr("content");
-		var ajaxStatus = "";
-
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader(header, token);
-		});
-	});
-</script>
+	<head lang="en">
+		<meta charset="UTF-8" />
+		<title>仪器商品详情</title>
+		<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
+		<meta name="_csrf" th:content="${_csrf.token}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
+		<script type="text/javascript" th:src="@{/js/script.js}"></script>
+		<script type="text/javascript" th:src="@{/js/ajaxLogin-collection-products.js}"></script>
+		<script type="text/javascript" th:src="@{/js/ajaxLogin-cart-products.js}"></script>
+		<script type="text/javascript">
+			$(function() {
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				var id = $("meta[name='id']").attr("content");
+				var ajaxStatus = "";
+		
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+				
+				 $('.addCart').loginBeforeAjaxCart({
+		         	url : '/ajax/carts',
+		         	data : {
+		         		'productId' : $(this).attr("data-id"),
+		                 	'number' : "1"
+		                 },
+		         	type : 'post',
+		         	dataType : 'json',
+		         	success : function(data){
+			                 $('#includeHeader').load('/head');
+		         		if (data.data == "no authority") {
+			                 	alert("对不起您没有权限");
+			                 }
+		         	},
+		         	error : function(data){
+		         		alert("系统异常");
+		         	}
+		         });
+		       	$('.coll').loginBeforeAjaxCollection({
+		       		url : '/ajax/preferProduct',
+		       		data : {'id' : $(this).attr("data-id")},
+		       		type : 'post',
+		       		success:function(data){
+		       			 $('#includeHeader').load('/head');
+		       			if(data=="no authority")
+		       				alert("对不起您没有权限");
+		       			else if(data=="duplicate")
+		       				alert("该商品已被您收藏");
+		       			else if(data == "success")
+		       				alert("添加收藏成功");
+		       		},
+		       		error:function(data){
+		       			alert("系统异常");
+		       		}
+		       	});
+		
+		         $(".product").on("click", ".coll", function() {
+		             var obj = $(this);
+		             var productId = obj.attr("data-id");
+		             coll(productId);
+		         });
+		         $(".product").on("click", ".nocoll", function() {
+		             var obj = $(this);
+		             var productId = obj.attr("data-id");
+		             nocoll(productId);
+		         });
+			});
+		</script>
 </head>
 <body>
 	<div id="includeHeader" class="header" th:include="head/head">Head</div>
@@ -70,5 +119,7 @@
 		</div>
 	</div>
 	<div th:include="footer/footer"></div>
+	<div class="fixed"></div>
+	<div class="hide-wrap logo-small bodr"></div>
 </body>
 </html>
