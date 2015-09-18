@@ -17,6 +17,8 @@ import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder.Operator;
 import org.elasticsearch.index.query.RangeFilterBuilder;
 import org.elasticsearch.index.query.TermFilterBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
+import com.sj.model.model.Product;
 import com.sj.repository.repository.ProductSearchRepository;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.model.ProductSearchOption;
@@ -33,10 +36,12 @@ import com.sj.repository.search.service.ProductSearchService;
 @Service
 public class ProductSearchServiceImpl implements ProductSearchService {
 	@Autowired
-	protected ElasticsearchTemplate searchTemplate;
-
+	private ElasticsearchTemplate searchTemplate;
 	@Autowired
-	protected ProductSearchRepository repository;
+	private ProductSearchRepository repository;
+
+	private Logger log = LoggerFactory
+			.getLogger(ProductSearchServiceImpl.class);
 
 	@Override
 	public Page<ProductSearch> findByOption(ProductSearchOption option,
@@ -134,30 +139,31 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 			// both is empty match all
 			MatchAllQueryBuilder builder = new MatchAllQueryBuilder();
 			query = new NativeSearchQuery(builder);
+			log.info(builder.toString());
 			query.setPageable(pageable);
-			System.out.println(builder.toString());
 			return query;
 		} else if (queryBuilder == null && boolFilterBuilder.hasClauses()) {
 			// query is empty but filter is not filtered query
 			MatchAllQueryBuilder match = new MatchAllQueryBuilder();
 			FilteredQueryBuilder builder = new FilteredQueryBuilder(match,
 					boolFilterBuilder);
+			log.info(builder.toString());
 			query = new NativeSearchQuery(builder);
 			query.setPageable(pageable);
-			System.out.println(builder.toString());
 			return query;
 		} else if (queryBuilder != null && !boolFilterBuilder.hasClauses()) {
 			// query is not empty but filter is
 			// must match query
 			BoolQueryBuilder builder = new BoolQueryBuilder();
 			mustClauses.forEach(i -> builder.must(i));
+			log.info(builder.toString());
 			query = new NativeSearchQuery(builder);
 			query.setPageable(pageable);
-			System.out.println(builder.toString());
 			return query;
 		}
 		FilteredQueryBuilder builder = new FilteredQueryBuilder(queryBuilder,
 				boolFilterBuilder);
+		log.info(builder.toString());
 		query = new NativeSearchQuery(builder);
 		query.setPageable(pageable);
 		return query;
@@ -178,6 +184,10 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 		}).collect(Collectors.toList());
 	}
 
+	public void addReview(Product p) {
+		repository.save(new ProductSearch(p));
+	}
+
 	@Override
 	public void save(ProductSearch product) {
 		repository.save(product);
@@ -196,5 +206,10 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 	@Override
 	public Page<ProductSearch> findByBrand(String brand, Pageable pageable) {
 		return repository.findByBrand(brand, pageable);
+	}
+
+	@Override
+	public ProductSearch findOne(Long id) {
+		return repository.findOne(id);
 	}
 }
