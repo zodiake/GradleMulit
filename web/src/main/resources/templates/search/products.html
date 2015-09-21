@@ -186,6 +186,7 @@
 				<ul>
 					<li>
 						<div class="sorts-drop">
+							<i class="icon-sort lf15"></i>
 							<span>价格</span>
 							<div class="droplist">
 								<span data-id="priceDesc">价格从高到低</span>
@@ -196,6 +197,7 @@
 					</li>
 					<li>
 						<div class="sorts-drop">
+							<i class="icon-sort"></i>
 							<span>评论数</span>
 							<div class="droplist">
 								<span data-id="reviewDesc">评论数从高到低</span>
@@ -205,6 +207,7 @@
 					</li>
 					<li>
 						<div class="sorts-drop">
+							<i class="icon-sort"></i>
 							<span>上架时间</span>
 							<div class="droplist">
 								<span data-id="createdTimeDesc">时间从高到低</span>
@@ -254,4 +257,22 @@
 		<div class="fixed"></div>
 		<div class="hide-wrap logo-small bodr"></div>
 	</body>
+	<script>
+		$(function(){
+		   var checked_val= $('input:radio[name="sort"]:checked').val();
+			if(checked_val=="PRICEDESC"){
+				$('.sorts-drop').eq(0).find('i').show().addClass('descending');
+			}else if(checked_val=="PRICEASC"){
+				$('.sorts-drop').eq(0).find('i').show().addClass('ascending').removeClass('descending');
+			}else if(checked_val=="REVIEWDESC"){
+				$('.sorts-drop').eq(1).find('i').show().addClass('descending');
+			}else if(checked_val=="REVIEWASC"){
+				$('.sorts-drop').eq(1).find('i').show().addClass('ascending').removeClass('descending');
+			}else if(checked_val=="CREATEDTIMEDESC"){
+				$('.sorts-drop').eq(2).find('i').show().addClass('descending');
+			}else if(checked_val=="CREATEDTIMEASC"){
+				$('.sorts-drop').eq(2).find('i').show().addClass('ascending').removeClass('descending');
+			}
+		})
+	</script>
 </html>
