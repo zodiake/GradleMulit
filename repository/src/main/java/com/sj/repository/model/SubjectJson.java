@@ -13,6 +13,7 @@ public class SubjectJson {
 	private Calendar updatedTime;
 	private Long category;
 	private ActivateEnum active;
+	private String categoryName;
 
 	public SubjectJson(Subject s) {
 		this.id = s.getId();
@@ -22,6 +23,7 @@ public class SubjectJson {
 		this.updatedTime = s.getUpdatedTime();
 		this.category = s.getCategory().getId();
 		this.active = s.getActivate();
+		this.categoryName = s.getCategory().getName();
 	}
 
 	public Long getId() {
@@ -78,5 +80,13 @@ public class SubjectJson {
 
 	public void setActive(ActivateEnum active) {
 		this.active = active;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 }

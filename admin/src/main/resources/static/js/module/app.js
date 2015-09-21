@@ -18,7 +18,8 @@ var app = angular.module('app', [
     'scroll',
     'SubjectCategory',
     'adminUser',
-    'role'
+    'role',
+    'Menu'
 ]);
 
 app.config([
@@ -57,7 +58,12 @@ app.config([
             .state('subject', {
                 url: '/subject',
                 templateUrl: '/admin/subject',
-                controller: 'SubjectController'
+                controller: 'SubjectController',
+                resolve: {
+                    categories: function (SubjectCategoryService) {
+                        return SubjectCategoryService.findAll();
+                    }
+                }
             })
             .state('subjectCreate', {
                 url: '/subjectCreate',

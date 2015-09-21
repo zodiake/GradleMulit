@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sj.model.model.SiteRole;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.SiteRoleDetailJson;
 import com.sj.repository.model.SiteRoleJson;
 import com.sj.repository.repository.SiteRoleRepository;
 import com.sj.repository.service.SiteRoleService;
@@ -28,6 +29,11 @@ public class SiteRoleServiceImpl implements SiteRoleService {
 		}
 		return lists.stream().map(r -> new SiteRoleJson(r))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public SiteRoleDetailJson findOneJson(Long id) {
+		return new SiteRoleDetailJson(repository.findOne(id));
 	}
 
 }
