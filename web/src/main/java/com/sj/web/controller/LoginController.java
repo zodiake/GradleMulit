@@ -248,7 +248,7 @@ public class LoginController {
 			form.setNewPassword(null);
 			form.setOldPassword(null);
 			uiModel.addAttribute("form", form);
-			return "user/common/changePassword";
+			return "user/provider/changePassword";
 		}
 		ChangePasswordForm source = form;
 		form = translatePassword(form);
@@ -262,6 +262,9 @@ public class LoginController {
 		SiteUser u = userService.updatePassword(user.getId(),
 				form.getNewPassword());
 		userContext.setCurrentUser(u);
+		if("ROLE_PROVIDER".equals(u.getSiteAuthority())){
+			return "redirect:/provider/detail";
+		}
 		return "redirect:/supplier/detail";
 	}
 
