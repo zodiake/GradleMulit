@@ -25,6 +25,22 @@ roleModule.service('RoleService', ['$http', function ($http) {
         return $http.get('/admin/authorities/' + id);
     };
 
+    this.save = function (item) {
+        var menus = Object.keys(item.fake).filter(function (s) {
+            return item.fake[s];
+        });
+        return $http({
+            method: 'POST',
+            url: '/admin/authorities/',
+            transformRequest: transform,
+            data: {
+                name: item.name,
+                menus: menus
+            },
+            headers: header
+        });
+    };
+
     this.update = function (item) {
         var menus = Object.keys(item.fake).filter(function (s) {
             return item.fake[s];
@@ -40,6 +56,13 @@ roleModule.service('RoleService', ['$http', function ($http) {
             headers: header
         });
     };
+
+    this.saveOrUpdate = function (item) {
+        if (item.id)
+            return this.update(item);
+        else
+            return this.save(item);
+    }
 
     this.delete = function (item) {
         var state = item.state == 'ACTIVATE' ? 'deactivate' : 'activate';
@@ -97,6 +120,20 @@ roleModule.controller('RoleController', ['$scope',
                 resolve: {
                     item: function () {
                         return item;
+                    }
+                }
+            });
+        };
+
+        $scope.create = function () {
+            $modal.open({
+                templateUrl: '/admin/templates/authorityDetail',
+                size: 'sm',
+                controller: 'RoleCreateController',
+                scope: $scope,
+                resolve: {
+                    menus: function (MenuService) {
+                        return MenuService.findAll();
                     }
                 }
             });
@@ -166,6 +203,34 @@ roleModule.controller('roleDetailController', ['$scope',
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
+        };
+    }
+]);
+
+roleModule.controller('RoleCreateController', ['$scope',
+    'menus',
+    'RoleService',
+    function ($scope, menus, RoleService) {
+        $scope.menus = menus.data;
+        $scope.alerts=[];
+
+        $scope.submit = function () {
+            RoleService
+                .saveOrUpdate($scope.item)
+                .success(function (data) {
+                    if (data.status == 'success') {
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+
+                    }
+                })
+                .error(function (err) {
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
+                });
         };
     }
 ]);
