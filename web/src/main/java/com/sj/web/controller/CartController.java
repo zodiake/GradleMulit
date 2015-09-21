@@ -167,11 +167,24 @@ public class CartController {
 	@ResponseBody
 	private String updateCartLineNumber(
 			@PathVariable(value = "cartLineId") Long cartLineId,
-			@PathVariable(value = "number") Integer number) {
+			@PathVariable(value = "number") Integer number,HttpSession session){
 		if (!userContext.isLogin())
 			return "fail";
-		SiteUser user = userContext.getCurrentUser();
-		cartLineService.updateNumber(user.getId(), cartLineId, number);
+		Set<CartLine> lines = (Set<CartLine>) session.getAttribute("cartLines");
+		for (CartLine cartLine : lines) {
+			if(cartLine.getId().equals(cartLineId)){
+				SiteUser user = userContext.getCurrentUser();
+				if(cartLine.getNumber()+number<=999){
+					cartLineService.updateNumber(user.getId(), cartLineId, number);
+					cartLine.setNumber(cartLine.getNumber()+number);
+				}else{
+					cartLineService.updateNumber(user.getId(), cartLineId, 999);
+					cartLine.setNumber(999);
+				}
+				break;
+			}
+		}
+		session.setAttribute("cartLines", lines);
 		return "success";
 	}
 
