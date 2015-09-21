@@ -58,15 +58,15 @@
 			<div class="form-group">
 				<div class="fl">
 				<label><i>*</i>手机号码</label>
-					<input type="text" th:field="*{phone}"/>				
-					<button class="tel-code">获取验证码</button>
+					<input type="text" th:field="*{phone}"/>		
 					<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></i>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="fl">
 				<label>验证码</label>
-				<input type="password" th:field="*{code}"/>
+				<input type="text" th:field="*{code}" class="w115"/>
+				<button class="tel-code">获取验证码</button>
 				<i class="error"></i>
 				</div>
 			</div>

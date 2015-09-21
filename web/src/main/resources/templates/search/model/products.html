@@ -31,10 +31,10 @@
 		         	type : 'post',
 		         	dataType : 'json',
 		         	success : function(data){
-			                 $('#includeHeader').load('/head');
+			            $('#includeHeader').load('/head');
 		         		if (data.data == "no authority") {
 			                 	alert("对不起您没有权限");
-			                 }
+			            }
 		         	},
 		         	error : function(data){
 		         		alert("系统异常");
@@ -68,6 +68,7 @@
 		             var productId = obj.attr("data-id");
 		             nocoll(productId);
 		         });
+		         
 			});
 		</script>
 </head>
@@ -121,5 +122,8 @@
 	<div th:include="footer/footer"></div>
 	<div class="fixed"></div>
 	<div class="hide-wrap logo-small bodr"></div>
+	<div class="add_cart_success">
+		<h2>加入购物车成功</h2>
+	</div>
 </body>
 </html>

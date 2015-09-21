@@ -1,13 +1,596 @@
 -- test province
-insert into province(id,name) values(1,'浙江省');
-insert into province(id,name) values(2,'福建省');
+insert into province(id,name) values(1,'安徽省');
+insert into province(id,name) values(2,'澳门');
+insert into province(id,name) values(3,'北京市');
+insert into province(id,name) values(4,'重庆市');
+insert into province(id,name) values(5,'福建省');
+insert into province(id,name) values(6,'甘肃省');
+insert into province(id,name) values(7,'广东省');
+insert into province(id,name) values(8,'广西省');
+insert into province(id,name) values(9,'贵州省');
+insert into province(id,name) values(10,'海南省');
+insert into province(id,name) values(11,'河北省');
+insert into province(id,name) values(12,'河南省');
+insert into province(id,name) values(13,'黑龙江省');
+insert into province(id,name) values(14,'湖北省');
+insert into province(id,name) values(15,'湖南省');
+insert into province(id,name) values(16,'吉林省');
+insert into province(id,name) values(17,'江苏省');
+insert into province(id,name) values(18,'江西省');
+insert into province(id,name) values(19,'辽宁省');
+insert into province(id,name) values(20,'内蒙古');
+insert into province(id,name) values(21,'宁夏省');
+insert into province(id,name) values(22,'青海省');
+insert into province(id,name) values(23,'山东省');
+insert into province(id,name) values(24,'山西省');
+insert into province(id,name) values(25,'陕西省');
+insert into province(id,name) values(26,'上海市');
+insert into province(id,name) values(27,'四川省');
+insert into province(id,name) values(28,'天津市');
+insert into province(id,name) values(29,'台湾省');
+insert into province(id,name) values(30,'西藏自治区');
+insert into province(id,name) values(31,'香港');
+insert into province(id,name) values(32,'新疆省');
+insert into province(id,name) values(33,'云南省');
+insert into province(id,name) values(34,'浙江省');
+
 
 -- test city
-insert into city(id,name,province_id) values(1,'杭州市','1');
-insert into city(id,name,province_id) values(2,'绍兴市','1');
-insert into city(id,name,province_id) values(3,'台州市','1');
-insert into city(id,name,province_id) values(4,'福州市','2');
-insert into city(id,name,province_id) values(5,'泉州市','2');
+
+
+insert into city(id,name,province_id) values(1,'合肥市',1);
+insert into city(id,name,province_id) values(2,'芜湖市',1);
+insert into city(id,name,province_id) values(3,'蚌埠市',1);
+insert into city(id,name,province_id) values(4,'铜陵市',1);
+insert into city(id,name,province_id) values(5,'安庆市',1);
+insert into city(id,name,province_id) values(6,'桐城市',1);
+insert into city(id,name,province_id) values(7,'滁州市',1);
+insert into city(id,name,province_id) values(8,'天长市',1);
+insert into city(id,name,province_id) values(9,'淮北市',1);
+insert into city(id,name,province_id) values(10,'淮南市',1);
+insert into city(id,name,province_id) values(11,'明光市',1);
+insert into city(id,name,province_id) values(12,'阜阳市',1);
+insert into city(id,name,province_id) values(13,'马鞍山市',1);
+insert into city(id,name,province_id) values(14,'界首市',1);
+insert into city(id,name,province_id) values(15,'宿州市',1);
+insert into city(id,name,province_id) values(16,'巢湖市',1);
+insert into city(id,name,province_id) values(17,'六安市',1);
+insert into city(id,name,province_id) values(18,'亳州市',1);
+insert into city(id,name,province_id) values(19,'池州市',1);
+insert into city(id,name,province_id) values(20,'宣城市',1);
+insert into city(id,name,province_id) values(21,'宁国市',1);
+
+
+
+insert into city(id,name,province_id) values(22,'花地玛堂区',2);
+insert into city(id,name,province_id) values(23,'圣安多尼堂区',2);
+insert into city(id,name,province_id) values(24,'大堂区',2);
+insert into city(id,name,province_id) values(25,'望德堂区',2);
+insert into city(id,name,province_id) values(26,'风顺堂区',2);
+
+
+
+insert into city(id,name,province_id) values(27,'东城区',3);
+insert into city(id,name,province_id) values(28,'西城区',3);
+insert into city(id,name,province_id) values(29,'朝阳区',3);
+insert into city(id,name,province_id) values(30,'崇文区',3);
+insert into city(id,name,province_id) values(31,'海淀区',3);
+insert into city(id,name,province_id) values(32,'宣武区',3);
+insert into city(id,name,province_id) values(33,'石景山区',3);
+insert into city(id,name,province_id) values(34,'门头沟区',3);
+insert into city(id,name,province_id) values(35,'丰台区区',3);
+insert into city(id,name,province_id) values(36,'房山区',3);
+insert into city(id,name,province_id) values(37,'大兴区',3);
+insert into city(id,name,province_id) values(38,'通州区',3);
+insert into city(id,name,province_id) values(39,'顺义区',3);
+insert into city(id,name,province_id) values(40,'平谷区',3);
+insert into city(id,name,province_id) values(41,'昌平区',3);
+insert into city(id,name,province_id) values(42,'怀柔区',3);
+insert into city(id,name,province_id) values(43,'延庆区',3);
+insert into city(id,name,province_id) values(44,'密云县',3);
+
+
+
+insert into city(id,name,province_id) values(45,'万州区',4);
+insert into city(id,name,province_id) values(46,'涪陵区',4);
+insert into city(id,name,province_id) values(47,'涂中区',4);
+insert into city(id,name,province_id) values(48,'大渡口区',4);
+insert into city(id,name,province_id) values(49,'江北区',4);
+insert into city(id,name,province_id) values(50,'沙坪坝区',4);
+insert into city(id,name,province_id) values(51,'九龙坡区',4);
+insert into city(id,name,province_id) values(52,'南岸区',4);
+insert into city(id,name,province_id) values(53,'北碚区',4);
+insert into city(id,name,province_id) values(54,'万盛区',4);
+insert into city(id,name,province_id) values(55,'双桥区',4);
+insert into city(id,name,province_id) values(56,'渝北区',4);
+insert into city(id,name,province_id) values(57,'巴南区',4);
+insert into city(id,name,province_id) values(58,'黔江区',4);
+insert into city(id,name,province_id) values(59,'长寿区',4);
+insert into city(id,name,province_id) values(60,'江津市',4);
+insert into city(id,name,province_id) values(61,'合川市',4);
+insert into city(id,name,province_id) values(62,'永州市',4);
+insert into city(id,name,province_id) values(63,'南川市',4);
+insert into city(id,name,province_id) values(64,'綦江县',4);
+insert into city(id,name,province_id) values(65,'潼南县',4);
+insert into city(id,name,province_id) values(66,'铜梁县',4);
+insert into city(id,name,province_id) values(67,'大足县',4);
+insert into city(id,name,province_id) values(68,'荣昌县',4);
+insert into city(id,name,province_id) values(69,'璧山县',4);
+insert into city(id,name,province_id) values(70,'梁平县',4);
+insert into city(id,name,province_id) values(71,'城口县',4);
+insert into city(id,name,province_id) values(72,'丰都县',4);
+insert into city(id,name,province_id) values(73,'垫江县',4);
+insert into city(id,name,province_id) values(74,'武隆县',4);
+insert into city(id,name,province_id) values(75,'忠县',4);
+insert into city(id,name,province_id) values(76,'开县',4);
+insert into city(id,name,province_id) values(77,'云阳县',4);
+insert into city(id,name,province_id) values(78,'奉节县',4);
+insert into city(id,name,province_id) values(79,'巫山县',4);
+insert into city(id,name,province_id) values(80,'巫溪县',4);
+insert into city(id,name,province_id) values(81,'石柱县',4);
+insert into city(id,name,province_id) values(82,'秀山县',4);
+insert into city(id,name,province_id) values(83,'酉阳县',4);
+insert into city(id,name,province_id) values(84,'彭水县',4);
+
+
+
+insert into city(id,name,province_id) values(85,'福州市',5);
+insert into city(id,name,province_id) values(86,'龙岩市',5);
+insert into city(id,name,province_id) values(87,'南平市',5);
+insert into city(id,name,province_id) values(88,'宁德市',5);
+insert into city(id,name,province_id) values(89,'莆田市',5);
+insert into city(id,name,province_id) values(90,'泉州市',5);
+insert into city(id,name,province_id) values(91,'三明市',5);
+insert into city(id,name,province_id) values(92,'厦门市',5);
+insert into city(id,name,province_id) values(93,'漳州市',5);
+
+
+
+insert into city(id,name,province_id) values(94,'兰州市',6);
+insert into city(id,name,province_id) values(95,'白银市',6);
+insert into city(id,name,province_id) values(96,'定西市',6);
+insert into city(id,name,province_id) values(97,'合作市',6);
+insert into city(id,name,province_id) values(98,'金昌市',6);
+insert into city(id,name,province_id) values(99,'酒泉市',6);
+insert into city(id,name,province_id) values(100,'嘉峪关市',6);
+insert into city(id,name,province_id) values(101,'临夏市',6);
+insert into city(id,name,province_id) values(102,'平凉市',6);
+insert into city(id,name,province_id) values(103,'庆阳市',6);
+insert into city(id,name,province_id) values(104,'天水市',6);
+insert into city(id,name,province_id) values(105,'武都市',6);
+insert into city(id,name,province_id) values(106,'武威市',6);
+insert into city(id,name,province_id) values(107,'张掖市',6);
+
+
+
+insert into city(id,name,province_id) values(108,'广州市',7);
+insert into city(id,name,province_id) values(109,'潮州市',7);
+insert into city(id,name,province_id) values(110,'东莞市',7);
+insert into city(id,name,province_id) values(111,'佛山市',7);
+insert into city(id,name,province_id) values(112,'河源市',7);
+insert into city(id,name,province_id) values(113,'惠州市',7);
+insert into city(id,name,province_id) values(114,'江门市',7);
+insert into city(id,name,province_id) values(115,'揭阳市',7);
+insert into city(id,name,province_id) values(116,'梅州市',7);
+insert into city(id,name,province_id) values(117,'茂名市',7);
+insert into city(id,name,province_id) values(118,'清远市',7);
+insert into city(id,name,province_id) values(119,'深圳市',7);
+insert into city(id,name,province_id) values(120,'汕头市',7);
+insert into city(id,name,province_id) values(121,'韶关市',7);
+insert into city(id,name,province_id) values(122,'汕尾市',7);
+insert into city(id,name,province_id) values(123,'阳江市',7);
+insert into city(id,name,province_id) values(124,'云浮市',7);
+insert into city(id,name,province_id) values(125,'珠海市',7);
+insert into city(id,name,province_id) values(126,'中山市',7);
+insert into city(id,name,province_id) values(127,'湛江市',7);
+insert into city(id,name,province_id) values(128,'肇庆市',7);
+
+
+
+insert into city(id,name,province_id) values(129,'南宁市',8);
+insert into city(id,name,province_id) values(130,'北海市',8);
+insert into city(id,name,province_id) values(131,'白色市',8);
+insert into city(id,name,province_id) values(132,'崇左市',8);
+insert into city(id,name,province_id) values(133,'防城港市',8);
+insert into city(id,name,province_id) values(134,'桂林市',8);
+insert into city(id,name,province_id) values(135,'贵港市',8);
+insert into city(id,name,province_id) values(136,'贺州市',8);
+insert into city(id,name,province_id) values(137,'河池市',8);
+insert into city(id,name,province_id) values(138,'柳州市',8);
+insert into city(id,name,province_id) values(139,'来宾市',8);
+insert into city(id,name,province_id) values(140,'钦州市',8);
+insert into city(id,name,province_id) values(141,'梧州市',8);
+insert into city(id,name,province_id) values(142,'玉林市',8);
+
+
+
+insert into city(id,name,province_id) values(143,'贵阳市',9);
+insert into city(id,name,province_id) values(144,'安顺市',9);
+insert into city(id,name,province_id) values(145,'毕节市',9);
+insert into city(id,name,province_id) values(146,'都匀市',9);
+insert into city(id,name,province_id) values(147,'凯里市',9);
+insert into city(id,name,province_id) values(148,'六盘水市',9);
+insert into city(id,name,province_id) values(149,'晴隆市',9);
+insert into city(id,name,province_id) values(150,'铜仁市',9);
+insert into city(id,name,province_id) values(151,'兴义市',9);
+insert into city(id,name,province_id) values(152,'遵义市',9);
+
+
+
+insert into city(id,name,province_id) values(153,'海口市',10);
+insert into city(id,name,province_id) values(154,'白沙市',10);
+insert into city(id,name,province_id) values(155,'保亭市',10);
+insert into city(id,name,province_id) values(156,'澄迈市',10);
+insert into city(id,name,province_id) values(157,'昌江市',10);
+insert into city(id,name,province_id) values(158,'儋州市',10);
+insert into city(id,name,province_id) values(159,'定安市',10);
+insert into city(id,name,province_id) values(160,'东方市',10);
+insert into city(id,name,province_id) values(161,'临高市',10);
+insert into city(id,name,province_id) values(162,'陵水市',10);
+insert into city(id,name,province_id) values(163,'乐东市',10);
+insert into city(id,name,province_id) values(164,'南沙岛市',10);
+insert into city(id,name,province_id) values(165,'琼海市',10);
+insert into city(id,name,province_id) values(166,'琼中市',10);
+insert into city(id,name,province_id) values(167,'三亚市',10);
+insert into city(id,name,province_id) values(168,'屯昌市',10);
+insert into city(id,name,province_id) values(169,'五指山市',10);
+insert into city(id,name,province_id) values(170,'文昌市',10);
+insert into city(id,name,province_id) values(171,'万宁市',10);
+insert into city(id,name,province_id) values(172,'西沙市',10);
+
+insert into city(id,name,province_id) values(173,'石家庄',11);
+insert into city(id,name,province_id) values(174,'保定市',11);
+insert into city(id,name,province_id) values(175,'承德市',11);
+insert into city(id,name,province_id) values(176,'沧州市',11);
+insert into city(id,name,province_id) values(177,'衡水市',11);
+insert into city(id,name,province_id) values(178,'邯郸市',11);
+insert into city(id,name,province_id) values(179,'廊坊市',11);
+insert into city(id,name,province_id) values(180,'秦皇岛',11);
+insert into city(id,name,province_id) values(181,'唐山市',11);
+insert into city(id,name,province_id) values(182,'邢台市',11);
+insert into city(id,name,province_id) values(183,'张家口',11);
+
+insert into city(id,name,province_id) values(184,'郑州市',12);
+insert into city(id,name,province_id) values(185,'安阳市',12);
+insert into city(id,name,province_id) values(186,'鹤壁市',12);
+insert into city(id,name,province_id) values(187,'焦作市',12);
+insert into city(id,name,province_id) values(188,'济源市',12);
+insert into city(id,name,province_id) values(189,'开封市',12);
+insert into city(id,name,province_id) values(190,'洛阳市',12);
+insert into city(id,name,province_id) values(191,'漯河市',12);
+insert into city(id,name,province_id) values(192,'南阳市',12);
+insert into city(id,name,province_id) values(193,'濮阳市',12);
+insert into city(id,name,province_id) values(194,'平顶山',12);
+insert into city(id,name,province_id) values(195,'三门峡',12);
+insert into city(id,name,province_id) values(196,'商丘市',12);
+insert into city(id,name,province_id) values(197,'新乡市',12);
+insert into city(id,name,province_id) values(198,'许昌市',12);
+insert into city(id,name,province_id) values(199,'信阳市',12);
+insert into city(id,name,province_id) values(200,'周口市',12);
+insert into city(id,name,province_id) values(201,'驻马店',12);
+
+insert into city(id,name,province_id) values(202,'哈尔滨',13);
+insert into city(id,name,province_id) values(203,'大庆市',13);
+insert into city(id,name,province_id) values(204,'大兴安岭',13);
+insert into city(id,name,province_id) values(205,'鹤岗市',13);
+insert into city(id,name,province_id) values(206,'黑河市',13);
+insert into city(id,name,province_id) values(207,'佳木斯',13);
+insert into city(id,name,province_id) values(208,'鸡西市',13);
+insert into city(id,name,province_id) values(209,'牡丹江',13);
+insert into city(id,name,province_id) values(210,'齐齐哈尔',13);
+insert into city(id,name,province_id) values(211,'七台河',13);
+insert into city(id,name,province_id) values(212,'双鸭山',13);
+insert into city(id,name,province_id) values(213,'绥化市',13);
+insert into city(id,name,province_id) values(214,'伊春市',13);
+
+insert into city(id,name,province_id) values(215,'武汉市',14);
+insert into city(id,name,province_id) values(216,'鄂州市',14);
+insert into city(id,name,province_id) values(217,'恩施市',14);
+insert into city(id,name,province_id) values(218,'黄石市',14);
+insert into city(id,name,province_id) values(219,'黄冈市',14);
+insert into city(id,name,province_id) values(220,'荆州市',14);
+insert into city(id,name,province_id) values(221,'荆门市',14);
+insert into city(id,name,province_id) values(222,'潜江市',14);
+insert into city(id,name,province_id) values(223,'十堰市',14);
+insert into city(id,name,province_id) values(224,'随州市',14);
+insert into city(id,name,province_id) values(225,'神农架',14);
+insert into city(id,name,province_id) values(226,'天门市',14);
+insert into city(id,name,province_id) values(227,'襄阳市',14);
+insert into city(id,name,province_id) values(228,'孝感市',14);
+insert into city(id,name,province_id) values(229,'仙桃市',14);
+insert into city(id,name,province_id) values(230,'宜昌市',14);
+
+insert into city(id,name,province_id) values(231,'长沙市',15);
+insert into city(id,name,province_id) values(232,'常德市',15);
+insert into city(id,name,province_id) values(233,'郴州市',15);
+insert into city(id,name,province_id) values(234,'衡阳市',15);
+insert into city(id,name,province_id) values(235,'怀化市',15);
+insert into city(id,name,province_id) values(236,'吉首市',15);
+insert into city(id,name,province_id) values(237,'娄底市',15);
+insert into city(id,name,province_id) values(238,'黔阳市',15);
+insert into city(id,name,province_id) values(239,'卲阳市',15);
+insert into city(id,name,province_id) values(240,'湘潭市',15);
+insert into city(id,name,province_id) values(241,'岳阳市',15);
+insert into city(id,name,province_id) values(242,'益阳市',15);
+insert into city(id,name,province_id) values(243,'永州市',15);
+insert into city(id,name,province_id) values(244,'株洲市',15);
+insert into city(id,name,province_id) values(245,'张家界',15);
+
+insert into city(id,name,province_id) values(246,'长春市',16);
+insert into city(id,name,province_id) values(247,'白山市',16);
+insert into city(id,name,province_id) values(248,'白城市',16);
+insert into city(id,name,province_id) values(249,'吉林市',16);
+insert into city(id,name,province_id) values(250,'辽源市',16);
+insert into city(id,name,province_id) values(251,'四平市',16);
+insert into city(id,name,province_id) values(252,'松原市',16);
+insert into city(id,name,province_id) values(253,'通化市',16);
+insert into city(id,name,province_id) values(254,'延吉市',16);
+
+insert into city(id,name,province_id) values(255,'南京市',17);
+insert into city(id,name,province_id) values(256,'常州市',17);
+insert into city(id,name,province_id) values(257,'淮安市',17);
+insert into city(id,name,province_id) values(258,'连云港',17);
+insert into city(id,name,province_id) values(259,'南通市',17);
+insert into city(id,name,province_id) values(260,'苏州市',17);
+insert into city(id,name,province_id) values(261,'宿迁市',17);
+insert into city(id,name,province_id) values(262,'秦州市',17);
+insert into city(id,name,province_id) values(263,'无锡市',17);
+insert into city(id,name,province_id) values(264,'徐州市',17);
+insert into city(id,name,province_id) values(265,'盐城市',17);
+insert into city(id,name,province_id) values(266,'扬州市',17);
+insert into city(id,name,province_id) values(267,'镇江市',17);
+
+insert into city(id,name,province_id) values(268,'南昌市',18);
+insert into city(id,name,province_id) values(269,'抚州市',18);
+insert into city(id,name,province_id) values(270,'赣州市',18);
+insert into city(id,name,province_id) values(271,'九江市',18);
+insert into city(id,name,province_id) values(272,'景德镇',18);
+insert into city(id,name,province_id) values(273,'吉安市',18);
+insert into city(id,name,province_id) values(274,'萍乡市',18);
+insert into city(id,name,province_id) values(275,'上饶市',18);
+insert into city(id,name,province_id) values(276,'新余市',18);
+insert into city(id,name,province_id) values(277,'鹰潭市',18);
+insert into city(id,name,province_id) values(278,'宜春市',18);
+
+insert into city(id,name,province_id) values(279,'沈阳市',19);
+insert into city(id,name,province_id) values(280,'鞍山市',19);
+insert into city(id,name,province_id) values(281,'本溪市',19);
+insert into city(id,name,province_id) values(282,'朝阳市',19);
+insert into city(id,name,province_id) values(283,'大连市',19);
+insert into city(id,name,province_id) values(284,'丹东市',19);
+insert into city(id,name,province_id) values(285,'阜新市',19);
+insert into city(id,name,province_id) values(286,'葫芦岛',19);
+insert into city(id,name,province_id) values(287,'锦州市',19);
+insert into city(id,name,province_id) values(288,'辽阳市',19);
+insert into city(id,name,province_id) values(289,'盘锦市',19);
+insert into city(id,name,province_id) values(290,'铁岭市',19);
+insert into city(id,name,province_id) values(291,'营口市',19);
+
+insert into city(id,name,province_id) values(292,'呼和浩特市',20);
+insert into city(id,name,province_id) values(293,'阿拉善左旗',20);
+insert into city(id,name,province_id) values(294,'包头市',20);
+insert into city(id,name,province_id) values(295,'赤峰市',20);
+insert into city(id,name,province_id) values(296,'鄂尔多斯',20);
+insert into city(id,name,province_id) values(297,'呼伦贝尔',20);
+insert into city(id,name,province_id) values(298,'集宁市',20);
+insert into city(id,name,province_id) values(299,'临江市',20);
+insert into city(id,name,province_id) values(300,'通辽市',20);
+insert into city(id,name,province_id) values(301,'乌兰浩特',20);
+insert into city(id,name,province_id) values(302,'乌梅市',20);
+insert into city(id,name,province_id) values(303,'锡林浩特',20);
+
+insert into city(id,name,province_id) values(304,'银川市',21);
+insert into city(id,name,province_id) values(305,'固原市',21);
+insert into city(id,name,province_id) values(306,'石嘴山',21);
+insert into city(id,name,province_id) values(307,'吴忠市',21);
+insert into city(id,name,province_id) values(308,'中卫市',21);
+
+insert into city(id,name,province_id) values(309,'西宁市',22);
+insert into city(id,name,province_id) values(310,'果洛市',22);
+insert into city(id,name,province_id) values(311,'海东市',22);
+insert into city(id,name,province_id) values(312,'海南市',22);
+insert into city(id,name,province_id) values(313,'海北市',22);
+insert into city(id,name,province_id) values(314,'海西市',22);
+insert into city(id,name,province_id) values(315,'黄南市',22);
+insert into city(id,name,province_id) values(316,'玉树市',22);
+
+insert into city(id,name,province_id) values(317,'济南市',23);
+insert into city(id,name,province_id) values(318,'滨州市',23);
+insert into city(id,name,province_id) values(319,'东营市',23);
+insert into city(id,name,province_id) values(320,'德州市',23);
+insert into city(id,name,province_id) values(321,'菏泽市',23);
+insert into city(id,name,province_id) values(322,'济宁市',23);
+insert into city(id,name,province_id) values(323,'莱芜市',23);
+insert into city(id,name,province_id) values(324,'临沂市',23);
+insert into city(id,name,province_id) values(325,'聊城市',23);
+insert into city(id,name,province_id) values(326,'青岛市',23);
+insert into city(id,name,province_id) values(327,'日照市',23);
+insert into city(id,name,province_id) values(328,'泰安市',23);
+insert into city(id,name,province_id) values(329,'潍坊市',23);
+insert into city(id,name,province_id) values(330,'威海市',23);
+insert into city(id,name,province_id) values(331,'烟台市',23);
+insert into city(id,name,province_id) values(332,'淄博市',23);
+insert into city(id,name,province_id) values(333,'枣庄市',23);
+
+insert into city(id,name,province_id) values(334,'太原市',24);
+insert into city(id,name,province_id) values(335,'长治市',24);
+insert into city(id,name,province_id) values(336,'大同市',24);
+insert into city(id,name,province_id) values(337,'晋中市',24);
+insert into city(id,name,province_id) values(338,'临汾市',24);
+insert into city(id,name,province_id) values(339,'吕梁市',24);
+insert into city(id,name,province_id) values(340,'朔州市',24);
+insert into city(id,name,province_id) values(341,'忻州市',24);
+insert into city(id,name,province_id) values(342,'阳泉市',24);
+insert into city(id,name,province_id) values(343,'运城市',24);
+
+insert into city(id,name,province_id) values(344,'西安市',25);
+insert into city(id,name,province_id) values(345,'宝康市',25);
+insert into city(id,name,province_id) values(346,'宝鸡市',25);
+insert into city(id,name,province_id) values(347,'陈仓市',25);
+insert into city(id,name,province_id) values(348,'汉中市',25);
+insert into city(id,name,province_id) values(349,'商洛市',25);
+insert into city(id,name,province_id) values(350,'铜州市',25);
+insert into city(id,name,province_id) values(351,'渭南市',25);
+insert into city(id,name,province_id) values(352,'咸阳市',25);
+insert into city(id,name,province_id) values(353,'延安市',25);
+insert into city(id,name,province_id) values(354,'榆林市',25);
+
+insert into city(id,name,province_id) values(355,'浦东新区',26);
+insert into city(id,name,province_id) values(356,'徐汇区',26);
+insert into city(id,name,province_id) values(357,'普陀区',26);
+insert into city(id,name,province_id) values(358,'闸北区',26);
+insert into city(id,name,province_id) values(359,'虹口区',26);
+insert into city(id,name,province_id) values(360,'杨浦区',26);
+insert into city(id,name,province_id) values(361,'黄浦区',26);
+insert into city(id,name,province_id) values(362,'卢湾区',26);
+insert into city(id,name,province_id) values(363,'静安区',26);
+insert into city(id,name,province_id) values(364,'宝山区',26);
+insert into city(id,name,province_id) values(365,'闵行区',26);
+insert into city(id,name,province_id) values(366,'嘉定区',26);
+insert into city(id,name,province_id) values(367,'金山区',26);
+insert into city(id,name,province_id) values(368,'松江区',26);
+insert into city(id,name,province_id) values(369,'青浦区',26);
+insert into city(id,name,province_id) values(370,'南汇区',26);
+insert into city(id,name,province_id) values(371,'奉贤区',26);
+insert into city(id,name,province_id) values(372,'崇明县',26);
+
+insert into city(id,name,province_id) values(373,'成都市',27);
+insert into city(id,name,province_id) values(374,'阿贝市',27);
+insert into city(id,name,province_id) values(375,'巴中市',27);
+insert into city(id,name,province_id) values(376,'德阳市',27);
+insert into city(id,name,province_id) values(377,'达州市',27);
+insert into city(id,name,province_id) values(378,'广元市',27);
+insert into city(id,name,province_id) values(379,'广安市',27);
+insert into city(id,name,province_id) values(380,'甘孜市',27);
+insert into city(id,name,province_id) values(381,'泸州市',27);
+insert into city(id,name,province_id) values(382,'乐山市',27);
+insert into city(id,name,province_id) values(383,'凉山市',27);
+insert into city(id,name,province_id) values(384,'绵阳市',27);
+insert into city(id,name,province_id) values(385,'眉山市',27);
+insert into city(id,name,province_id) values(386,'内江市',27);
+insert into city(id,name,province_id) values(387,'南充市',27);
+insert into city(id,name,province_id) values(388,'攀枝花',27);
+insert into city(id,name,province_id) values(389,'遂宁市',27);
+insert into city(id,name,province_id) values(390,'宜宾市',27);
+insert into city(id,name,province_id) values(391,'雅安市',27);
+insert into city(id,name,province_id) values(392,'自贡市',27);
+insert into city(id,name,province_id) values(393,'资阳市',27);
+
+insert into city(id,name,province_id) values(394,'和平区',28);
+insert into city(id,name,province_id) values(395,'河西区',28);
+insert into city(id,name,province_id) values(396,'河东区',28);
+insert into city(id,name,province_id) values(397,'南开区',28);
+insert into city(id,name,province_id) values(398,'红桥区',28);
+insert into city(id,name,province_id) values(399,'河北区',28);
+insert into city(id,name,province_id) values(400,'东丽区',28);
+insert into city(id,name,province_id) values(401,'西青区',28);
+insert into city(id,name,province_id) values(402,'津南区',28);
+insert into city(id,name,province_id) values(403,'北辰区',28);
+insert into city(id,name,province_id) values(404,'塘沽区',28);
+insert into city(id,name,province_id) values(405,'大港区',28);
+insert into city(id,name,province_id) values(406,'汉沽区',28);
+insert into city(id,name,province_id) values(407,'宝坻区',28);
+insert into city(id,name,province_id) values(408,'武清区',28);
+insert into city(id,name,province_id) values(409,'蓟县',28);
+insert into city(id,name,province_id) values(410,'宁河县',28);
+insert into city(id,name,province_id) values(411,'静海县',28);
+
+insert into city(id,name,province_id) values(412,'台北市',29);
+insert into city(id,name,province_id) values(413,'高雄市',29);
+insert into city(id,name,province_id) values(414,'基隆市',29);
+insert into city(id,name,province_id) values(415,'新竹市',29);
+insert into city(id,name,province_id) values(416,'台中市',29);
+insert into city(id,name,province_id) values(417,'嘉义市',29);
+insert into city(id,name,province_id) values(418,'台南市',29);
+insert into city(id,name,province_id) values(419,'冝兰县',29);
+insert into city(id,name,province_id) values(420,'台北县',29);
+insert into city(id,name,province_id) values(421,'桃源县',29);
+insert into city(id,name,province_id) values(422,'新竹县',29);
+insert into city(id,name,province_id) values(423,'苗粟县',29);
+insert into city(id,name,province_id) values(424,'台中县',29);
+insert into city(id,name,province_id) values(425,'彰化县',29);
+insert into city(id,name,province_id) values(426,'南投县',29);
+insert into city(id,name,province_id) values(427,'云林县',29);
+insert into city(id,name,province_id) values(428,'嘉义县',29);
+insert into city(id,name,province_id) values(429,'台南县',29);
+insert into city(id,name,province_id) values(430,'高雄县',29);
+insert into city(id,name,province_id) values(431,'屏东县',29);
+insert into city(id,name,province_id) values(432,'台东县',29);
+insert into city(id,name,province_id) values(433,'花莲县',29);
+insert into city(id,name,province_id) values(434,'澎湖县',29);
+
+insert into city(id,name,province_id) values(435,'拉萨市',30);
+insert into city(id,name,province_id) values(436,'阿里市',30);
+insert into city(id,name,province_id) values(437,'昌都市',30);
+insert into city(id,name,province_id) values(438,'林芝市',30);
+insert into city(id,name,province_id) values(439,'那区市',30);
+insert into city(id,name,province_id) values(440,'日喀则',30);
+insert into city(id,name,province_id) values(441,'山南市',30);
+
+insert into city(id,name,province_id) values(442,'中西区',31);
+insert into city(id,name,province_id) values(443,'东区',31);
+insert into city(id,name,province_id) values(444,'南区',31);
+insert into city(id,name,province_id) values(445,'湾仔区',31);
+insert into city(id,name,province_id) values(446,'九龙城区',31);
+insert into city(id,name,province_id) values(447,'观塘区',31);
+insert into city(id,name,province_id) values(448,'深水埗',31);
+insert into city(id,name,province_id) values(449,'黄大仙区',31);
+insert into city(id,name,province_id) values(450,'油尖旺区',31);
+insert into city(id,name,province_id) values(451,'离岛区',31);
+insert into city(id,name,province_id) values(452,'葵青区',31);
+insert into city(id,name,province_id) values(453,'北区',31);
+insert into city(id,name,province_id) values(454,'西贡区',31);
+insert into city(id,name,province_id) values(455,'沙田区',31);
+insert into city(id,name,province_id) values(456,'大浦区',31);
+insert into city(id,name,province_id) values(457,'荃湾区',31);
+insert into city(id,name,province_id) values(458,'屯门区',31);
+insert into city(id,name,province_id) values(459,'元朗区',31);
+
+insert into city(id,name,province_id) values(460,'乌鲁木齐',32);
+insert into city(id,name,province_id) values(461,'阿克苏',32);
+insert into city(id,name,province_id) values(462,'阿图什',32);
+insert into city(id,name,province_id) values(463,'阿勒泰',32);
+insert into city(id,name,province_id) values(464,'阿拉尔',32);
+insert into city(id,name,province_id) values(465,'博乐市',32);
+insert into city(id,name,province_id) values(466,'昌吉市',32);
+insert into city(id,name,province_id) values(467,'哈密市',32);
+insert into city(id,name,province_id) values(468,'和田市',32);
+insert into city(id,name,province_id) values(469,'克拉玛依',32);
+insert into city(id,name,province_id) values(470,'喀什市',32);
+insert into city(id,name,province_id) values(471,'库尔勒',32);
+insert into city(id,name,province_id) values(472,'石河子',32);
+insert into city(id,name,province_id) values(473,'吐鲁番',32);
+insert into city(id,name,province_id) values(474,'塔城市',32);
+insert into city(id,name,province_id) values(475,'伊宁市',32);
+
+insert into city(id,name,province_id) values(476,'昆明市',33);
+insert into city(id,name,province_id) values(477,'保山市',33);
+insert into city(id,name,province_id) values(478,'楚雄市',33);
+insert into city(id,name,province_id) values(479,'大理市',33);
+insert into city(id,name,province_id) values(480,'德宏市',33);
+insert into city(id,name,province_id) values(481,'红河市',33);
+insert into city(id,name,province_id) values(482,'景洪市',33);
+insert into city(id,name,province_id) values(483,'丽江市',33);
+insert into city(id,name,province_id) values(484,'临沧市',33);
+insert into city(id,name,province_id) values(485,'怒江市',33);
+insert into city(id,name,province_id) values(486,'曲靖市',33);
+insert into city(id,name,province_id) values(487,'思茅市',33);
+insert into city(id,name,province_id) values(488,'文山市',33);
+insert into city(id,name,province_id) values(489,'香格里拉',33);
+insert into city(id,name,province_id) values(490,'玉溪市',33);
+insert into city(id,name,province_id) values(491,'昭通市',33);
+
+insert into city(id,name,province_id) values(492,'杭州市',34);
+insert into city(id,name,province_id) values(493,'湖州市',34);
+insert into city(id,name,province_id) values(494,'嘉兴市',34);
+insert into city(id,name,province_id) values(495,'金华市',34);
+insert into city(id,name,province_id) values(496,'丽水市',34);
+insert into city(id,name,province_id) values(497,'宁波市',34);
+insert into city(id,name,province_id) values(498,'衢州市',34);
+insert into city(id,name,province_id) values(499,'绍兴市',34);
+insert into city(id,name,province_id) values(500,'台州市',34);
+insert into city(id,name,province_id) values(501,'温州市',34);
+insert into city(id,name,province_id) values(502,'舟山市',34);
 
 -- test brand
 insert into brand(id,name,activate,cover_img,created_time,href) values(1,'Thermo Fisher Scientific',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1','http://www.thermofisher.com/cn/zh/home.html');
@@ -198,7 +781,7 @@ insert into industry_info(id,name,industry_type) values(2,'药品采集','p');
 insert into industry_info(id,name,industry_type) values(3,'学校','u');
 insert into industry_info(id,name,industry_type) values(4,'科学研究所','u');
 insert into industry_info(id,name,industry_type) values(5,'实验室','u');
-insert into industry_info(id,name,industry_type) values(6,'医院s','u');
+insert into industry_info(id,name,industry_type) values(6,'医院','u');
 
 -- test common user
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
