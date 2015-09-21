@@ -11,6 +11,7 @@
                     <th>序号</th>
                     <th>商品名称</th>
                     <th>修改时间</th>
+                    <th>state</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -26,8 +27,14 @@
                         {{item.createdTime}}
                     </td>
                     <td>
+                        {{item.state|activeFilter}}
+                    </td>
+                    <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
                             修改
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                            {{item.state|reverseActiveFilter}}
                         </button>
                     </td>
                 </tr>
