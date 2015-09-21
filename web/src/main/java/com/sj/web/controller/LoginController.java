@@ -226,7 +226,7 @@ public class LoginController {
 	}
 
 	/* user change password feature */
-	@RequestMapping(value = "/supplier/changePw", method = RequestMethod.GET)
+	@RequestMapping(value = {"/supplier/changePw","/provider/changePw"}, method = RequestMethod.GET)
 	public String editProviderPassword(Model uiModel,
 			@SecurityUser SiteUser user) {
 		uiModel.addAttribute("form", new ChangePasswordForm());
@@ -239,10 +239,17 @@ public class LoginController {
 		return "user/common/changePassword";
 	}
 
-	@RequestMapping(value = "/supplier/changePw", method = RequestMethod.POST)
+	@RequestMapping(value = {"/supplier/changePw","/provider/changePw"}, method = RequestMethod.POST)
 	public String processProviderPassword(
 			@Valid @ModelAttribute("form") ChangePasswordForm form,
 			BindingResult result, Model uiModel, @SecurityUser SiteUser user) {
+		if(StringUtils.equals(form.getOldPassword(), form.getNewPassword())){
+			result.addError(new FieldError("ChangePasswordForm", "oldPassword","新旧密码不能一致"));
+			form.setNewPassword(null);
+			form.setOldPassword(null);
+			uiModel.addAttribute("form", form);
+			return "user/common/changePassword";
+		}
 		ChangePasswordForm source = form;
 		form = translatePassword(form);
 		validateChangePassword(user, form, result);
