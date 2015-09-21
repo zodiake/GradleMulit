@@ -93,8 +93,8 @@ public class Provider extends SiteUser {
 	private String position; // 联系人职务*
 
 	@Column(name = "provider_phone")
-	@NotBlank(message = "联系人电话不能为空")
-	private String providerPhone; // 联系人电话*
+	@NotBlank(message = "企业电话不能为空")
+	private String providerPhone; // 企业电话*
 
 	private String fax; // 联系人传真*
 

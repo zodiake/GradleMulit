@@ -64,9 +64,11 @@ public class ProviderServiceImpl implements ProviderService {
 		if("ROLE_UNAUTH".equals(p.getSiteAuthority())){
 			p.setBusinessLicenseUrl(provider.getBusinessLicenseUrl());
 			p.setStructureCodeUrl(provider.getStructureCodeUrl());
-			p.setTaxRegistrationUrl(provider.getTaxRegistrationUrl());
+			p.setTaxRegistrationUrl(provider.getTaxRegistrationUrl());		
+			p.setCompanyNameChina(provider.getCompanyNameChina());
+			p.setEmail(provider.getEmail());
 		}
-		p.setName(provider.getName());
+		p.setCompanyNameEnglish(provider.getCompanyNameEnglish());
 		p.setLegalPerson(provider.getLegalPerson());
 		p.setComponyType(provider.getComponyType());
 		p.setRegisteredCapital(provider.getRegisteredCapital());
@@ -87,7 +89,7 @@ public class ProviderServiceImpl implements ProviderService {
 		p.setFax(provider.getFax());
 		return repository.save(p);
 	}
-
+	
 	@Override
 	public Page<ProviderJson> toJson(Pageable pageable, String authority) {
 		Page<Provider> pages = findBySiteAuthority(pageable, authority);
