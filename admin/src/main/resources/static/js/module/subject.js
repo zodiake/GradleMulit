@@ -112,7 +112,8 @@ subjectModule.controller('SubjectController', ['$scope',
             init({
                 page: $scope.page,
                 size: $scope.size,
-                category: $scope.opt.category
+                category: $scope.opt.category,
+                activate: $scope.opt.activate
             });
         };
 

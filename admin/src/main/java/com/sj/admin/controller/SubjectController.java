@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
+import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.SolutionJson;
 import com.sj.repository.model.SubjectDetailJson;
@@ -36,9 +38,19 @@ public class SubjectController {
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<SubjectJson> lists(Model uiModel,
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) String activate,
 			@PageableDefault(page = 0, size = 15) Pageable pageable) {
-		return subjectService.findAllJson(new PageRequest(pageable
-				.getPageNumber() - 1, pageable.getPageSize()));
+		SubjectCategory sc;
+		if (category != null)
+			sc = new SubjectCategory(Long.parseLong(category));
+		else
+			sc = null;
+		ActivateEnum act = ActivateEnum.fromString(activate);
+		PageRequest pageRequest = new PageRequest(pageable.getPageNumber() - 1,
+				pageable.getPageSize());
+		return subjectService.findByCategoryAndActivateJson(act, sc,
+				pageRequest);
 	}
 
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.POST)

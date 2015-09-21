@@ -1,10 +1,15 @@
 package com.sj.repository.service.Impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Subject;
+import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.SubjectDetailJson;
 import com.sj.repository.model.SubjectJson;
@@ -77,16 +83,45 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	@Cacheable(value = "subjectsCache")
 	public List<Subject> findByShowOnIndex() {
-		return repository.findByShowOnIndexAndActivate(ActivateEnum.ACTIVATE, ActivateEnum.ACTIVATE);
+		return repository.findByShowOnIndexAndActivate(ActivateEnum.ACTIVATE,
+				ActivateEnum.ACTIVATE);
 	}
 
 	@Override
-	public Page<SubjectJson> findAllJson(Pageable pageable) {
-		Page<Subject> page = repository.findByOrderByUpdatedTimeDesc(pageable);
-		List<SubjectJson> list = page.getContent().stream()
-				.map(c -> new SubjectJson(c)).collect(Collectors.toList());
-		return new PageImpl<SubjectJson>(list, pageable,
-				page.getTotalElements());
+	public Page<SubjectJson> findByCategoryAndActivateJson(
+			ActivateEnum activate, SubjectCategory category, Pageable pageable) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Subject> c = cb.createQuery(Subject.class);
+		Root<Subject> subject = c.from(Subject.class);
+
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		cq.select(cb.count(cq.from(Subject.class)));
+
+		List<Predicate> criteria = new ArrayList<>();
+
+		if (category != null) {
+			criteria.add(cb.equal(subject.get("category"), category));
+		}
+		if (activate != null) {
+			criteria.add(cb.equal(subject.get("activate"), activate));
+		}
+		c.where(criteria.toArray(new Predicate[0]));
+		cq.where(criteria.toArray(new Predicate[0]));
+
+		List<Subject> lists = em
+				.createQuery(c)
+				.setFirstResult(
+						(pageable.getPageNumber()) * pageable.getPageSize())
+				.setMaxResults(
+						pageable.getPageNumber() * pageable.getPageSize())
+				.getResultList();
+
+		List<SubjectJson> subjects = lists.stream()
+				.map(s -> new SubjectJson(s)).collect(Collectors.toList());
+
+		Long count = em.createQuery(cq).getSingleResult();
+		return new PageImpl<SubjectJson>(subjects, pageable, count);
+
 	}
 
 	@Override
