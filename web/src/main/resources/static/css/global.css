@@ -1212,11 +1212,13 @@ a.minus:hover, a.plus:hover {
 	padding:5px 20px;
 }
 .sort-radio{
-	display:none;
+	display: none;
 	padding:5px 0 5px 20px;
 	border-bottom: 1px solid #dcdcdc;
 }
 .sorts-row li{
+	position: relative;
+	margin:0 8px;
 	cursor:pointer;
 	line-height:26px;
 	display:inline-block;
@@ -1225,8 +1227,8 @@ a.minus:hover, a.plus:hover {
 	background:#fff;
 	border:1px solid #ccc;
 }
-.sorts-row li>.sorts-drop>span{
-	width:60px;
+.sorts-row li>.sorts-drop>span{	
+	width:80px;
 	text-align:center;
 	display:inline-block;
 	*display:inline;
@@ -1237,7 +1239,7 @@ a.minus:hover, a.plus:hover {
 }
 .sorts-row .droplist{
 	display:none;
-	width:80px;
+	width:85px;
 	position:absolute;
 	top:-1px;;
 	left:-1px;
@@ -2095,4 +2097,22 @@ a.fff{
 }
 select.w100{
 	width:100px;
+}
+.sorts-drop i.icon-sort{
+	background:url('../img/icon-sort.png') no-repeat;
+	width: 9px;
+	height: 11px;
+	position: absolute;
+	top: 7px;
+	left: 7px;
+	display:none;
+}
+.sorts-drop i.icon-sort.lf15{
+	left:15px;
+}
+.sorts-drop i.icon-sort.descending{
+	background-position:0 -12px;
+}
+.sorts-drop li i.icon-sort.ascending{
+	background-position:0 0;
 }
