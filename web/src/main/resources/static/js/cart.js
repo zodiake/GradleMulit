@@ -151,7 +151,7 @@ $(function() {
 				if ($(this).is(':checked')) {
 					$.ajax({
 						type : 'put',
-						url : '/user/carts/all/1?check',
+						url : '/user/carts/1?check',
 						success : function(data) {
 							var checkboxs = $('tr').find('input[name="carts"]');
 							checkboxs.prop('checked', true);

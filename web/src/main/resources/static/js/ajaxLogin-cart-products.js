@@ -67,8 +67,10 @@
 					alert("对不起您没有权限");
 				} else if (res.data == "addone") {
 					var cartNumber = $("#cartNumber"+ data);
-					var numberVal = cartNumber.html();
-					cartNumber.html(parseInt(numberVal)+1);
+					if(cartNumber.html()==999){
+						alert("购物车中商品数量最大为999");
+					}
+					cartNumber.html(res.number);
 					$(".add_cart_success").show();
 					setTimeout("$('.add_cart_success').hide()",3000);
 				} else {

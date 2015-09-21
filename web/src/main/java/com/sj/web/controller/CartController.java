@@ -55,15 +55,23 @@ public class CartController {
 			for (CartLine cart : lines) {
 				if (cartLine.getProductId().equals(cart.getProductId())) {
 					int num = cart.getNumber();
-					cartLineService.updateNumber(user.getId(), cart.getId(),
-							num + cartLine.getNumber());
-					cart.setNumber(num + cartLine.getNumber());
+					if((num + cartLine.getNumber())<=999){
+						cartLineService.updateNumber(user.getId(), cart.getId(),
+								num + cartLine.getNumber());
+						cart.setNumber(num + cartLine.getNumber());
+					}else{
+						cartLineService.updateNumber(user.getId(), cart.getId(),999);
+						cart.setNumber(999);
+					}
 					httpSession.setAttribute("cartLines", lines);
-					return "{\"data\":\"addone\"}";
+					return "{\"data\":\"addone\""+",\"number\":\""+cart.getNumber()+"\"}";
 				}
 			}
 		} else {
 			lines = new HashSet<CartLine>();
+		}
+		if(cartLine.getNumber()>999){
+			cartLine.setNumber(999);
 		}
 		Product p = productService.findOne(cartLine.getProductId());
 		cartLine = new CartLine(p, cartLine.getNumber());
@@ -200,7 +208,7 @@ public class CartController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/user/carts/all/{check}", method = RequestMethod.PUT, params = "check")
+	@RequestMapping(value = "/user/carts/{check}", method = RequestMethod.PUT, params = "check")
 	@ResponseBody
 	private String updateAllCartLineCheck(@PathVariable("check") String check) {
 		if (!userContext.isLogin())
