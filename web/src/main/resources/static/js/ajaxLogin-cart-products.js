@@ -47,7 +47,8 @@
 		};
 
 		this.click(function(event) {
-			data = $(this).attr("data-id");
+			var obj = $(this);
+			data = obj.attr("data-id");
 			$.ajax({
 				url : settings.url,
 				data : {
@@ -68,6 +69,8 @@
 					var cartNumber = $("#cartNumber"+ data);
 					var numberVal = cartNumber.html();
 					cartNumber.html(parseInt(numberVal)+1);
+					$(".add_cart_success").show();
+					setTimeout("$('.add_cart_success').hide()",3000);
 				} else {
 					var str = '<li id="cart'+ data+ '"><div class="fl ct-img"><a href="/products/'+ data
 					+ '"><img width="50" height="50" src="'+ res.image+ '"/></a></div><div class="fl ct-name"><a href="/products/'
@@ -79,6 +82,8 @@
 					allNum.html(parseInt(allNum.html()) + 1);
 					var totalNum = $("#totalNum");
 					totalNum.html(parseInt(totalNum.html()) + 1);
+					$(".add_cart_success").show();
+					setTimeout("$('.add_cart_success').hide()",3000);
 				}
 			});
 			return false;
