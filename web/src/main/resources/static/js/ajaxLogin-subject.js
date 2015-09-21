@@ -82,6 +82,7 @@
 	    				allNum.html(num);
 	    				var totalNum =$("#totalNum");
 	    				totalNum.html(num);
+	    				checksVal.length=0;
 	    			}
 	    		}).error(function(data){
 	    			console.log(data);

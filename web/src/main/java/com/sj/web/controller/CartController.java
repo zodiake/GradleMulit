@@ -95,9 +95,10 @@ public class CartController {
 			if (lines.size() != 0) {
 				for (CartLine cartLine : lines) {
 					if (productId.equals(cartLine.getProductId().toString())) {
-						cartLineService.updateNumber(user.getId(),
-								cartLine.getId(), 1 + cartLine.getNumber());
-						cartLine.setNumber(1 + cartLine.getNumber());
+						if(cartLine.getNumber()<999){
+							cartLineService.updateNumber(user.getId(), cartLine.getId(), 1 + cartLine.getNumber());
+							cartLine.setNumber(1 + cartLine.getNumber());
+						}
 						bool = false;
 						break;
 					}
