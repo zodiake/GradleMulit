@@ -1212,6 +1212,7 @@ a.minus:hover, a.plus:hover {
 	padding:5px 20px;
 }
 .sort-radio{
+	display: none;
 	padding:5px 0 5px 20px;
 	border-bottom: 1px solid #dcdcdc;
 }
