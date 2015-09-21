@@ -34,10 +34,6 @@ li{
 i{
 	font-style: normal;
 }
-.find-password i.error{
-	display:block;
-	margin-left:163px;
-}
 .i-ml button.orange{
 	margin-top:10px;
 }
@@ -819,7 +815,7 @@ img{
 }
 .find-password{
 	border:2px solid #eee;
-	width: 550px;
+	width: 520px;
 	margin-top: 50px;
 	padding: 12px 30px 20px 10px
 }
@@ -2095,6 +2091,9 @@ a.fff{
 .thickbox p{
 	line-height:25px;
 }
+.form-group input.w115{
+	width:112px;
+}
 select.w100{
 	width:100px;
 }
@@ -2115,4 +2114,19 @@ select.w100{
 }
 .sorts-drop li i.icon-sort.ascending{
 	background-position:0 0;
+}
+.add_cart_success{
+	width: 300px;
+	position: fixed;
+	display: none;
+	left: 40%;
+	top: 40%;
+	background-color:#fff;
+	border:2px solid #eee;	
+}
+.add_cart_success h2{
+	line-height:40px;
+	margin:20px auto;
+	padding-left:130px;
+	background:url('../img/icon-alt.png') no-repeat 75px 0;
 }
