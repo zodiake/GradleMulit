@@ -83,9 +83,13 @@ subjectModule.service('SubjectService', ['$http',
 subjectModule.controller('SubjectController', ['$scope',
     'SubjectService',
     '$modal',
-    function ($scope, SubjectService, $modal) {
+    'categories',
+    function ($scope, SubjectService, $modal, categories) {
         $scope.page = 1;
         $scope.size = 15;
+        $scope.opt = {};
+
+        $scope.categories = categories.data;
 
         function init(opt) {
             SubjectService
@@ -93,7 +97,8 @@ subjectModule.controller('SubjectController', ['$scope',
                 .success(function (data) {
                     $scope.items = data.content;
                     $scope.total = data.totalElements;
-                }).error(function (err) {
+                })
+                .error(function (err) {
 
                 });
         }
@@ -106,7 +111,9 @@ subjectModule.controller('SubjectController', ['$scope',
         $scope.search = function () {
             init({
                 page: $scope.page,
-                size: $scope.size
+                size: $scope.size,
+                category: $scope.opt.category,
+                activate: $scope.opt.activate
             });
         };
 
@@ -136,7 +143,7 @@ subjectModule.controller('SubjectModalCtrl', [
             SubjectService
                 .updateState(item)
                 .success(function (data) {
-                    if (data== 'success') {
+                    if (data == 'success') {
                         item.active = item.active == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
                         $modalInstance.dismiss();
                     }
@@ -151,7 +158,11 @@ subjectModule.controller('SubjectModalCtrl', [
     }
 ]);
 
-subjectModule.controller('SubjectCreateController', ['$scope', 'SubjectService', '$modal', '$http', 'categories',
+subjectModule.controller('SubjectCreateController', ['$scope',
+    'SubjectService',
+    '$modal',
+    '$http',
+    'categories',
     function ($scope, SubjectService, $modal, $http, categories) {
         $scope.categories = categories.data;
         $scope.item = {

@@ -1,10 +1,12 @@
 package com.sj.repository.model;
 
 import com.sj.model.model.SiteRole;
+import com.sj.model.type.ActivateEnum;
 
 public class SiteRoleJson {
 	private long id;
 	private String name;
+	private ActivateEnum state;
 
 	public SiteRoleJson() {
 	}
@@ -12,6 +14,7 @@ public class SiteRoleJson {
 	public SiteRoleJson(SiteRole role) {
 		this.id = role.getId();
 		this.name = role.getRoleName();
+		this.state = role.getActive();
 	}
 
 	public long getId() {
@@ -30,4 +33,11 @@ public class SiteRoleJson {
 		this.name = name;
 	}
 
+	public ActivateEnum getState() {
+		return state;
+	}
+
+	public void setState(ActivateEnum state) {
+		this.state = state;
+	}
 }

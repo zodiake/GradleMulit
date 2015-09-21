@@ -61,7 +61,7 @@ infoModule.service('InfoService', ['$http',
         };
 
         this.updateState = function (item) {
-            var state = item.state == 'activate' ? 'deactivate' : 'activate';
+            var state = item.state == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
             return $http({
                 method: 'POST',
                 url: '/admin/info/' + item.id + '/state',
@@ -82,12 +82,15 @@ infoModule.controller('InfoController', ['$scope', 'InfoService', '$modal',
         $scope.state = "";
 
         function init(opt) {
-            InfoService.findAll(opt).success(function (data) {
-                $scope.items = data.content;
-                $scope.total = data.totalElements;
-            }).error(function (err) {
+            InfoService
+                .findAll(opt)
+                .success(function (data) {
+                    $scope.items = data.content;
+                    $scope.total = data.totalElements;
+                })
+                .error(function (err) {
 
-            });
+                });
         }
 
         init({

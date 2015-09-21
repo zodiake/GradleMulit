@@ -1,37 +1,53 @@
 <div class="mainpanel">
-	<div class="contentpanel">
-		<form class="form-inline">
-			<div class="form-group">
-				<a class="btn btn-success btn-sm" ng-click="create()">添加</a>
-			</div>
-		</form>
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>序号</th>
-					<th>商品名称</th>
-					<th>修改时间</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="item in items">
-					<td>
-						{{$index+1}}
-					</td>
-					<td>
-						{{item.name}}
-					</td>
-					<td>
-						{{item.createdTime}}
-					</td>
-					<td>
-						<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
-						修改
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+    <div class="contentpanel">
+        <form class="form-inline">
+            <div class="form-group">
+                <a class="btn btn-success btn-sm" ng-click="create()">添加</a>
+            </div>
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>商品名称</th>
+                    <th>修改时间</th>
+                    <th>state</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in items">
+                    <td>
+                        {{$index+1}}
+                    </td>
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        {{item.createdTime}}
+                    </td>
+                    <td>
+                        {{item.state|activeFilter}}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
+                            修改
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                            {{item.state|reverseActiveFilter}}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<script type="text/ng-template" id="roleModal.html">
+    <div class="modal-body">
+        是否{{item.state|reverseActiveFilter}}{{item.title}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

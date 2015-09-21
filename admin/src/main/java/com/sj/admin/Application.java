@@ -33,6 +33,7 @@ import com.sj.repository.converter.StringToInfoContentConverter;
 import com.sj.repository.converter.StringToProductConverter;
 import com.sj.repository.converter.StringToProductStatusEnumConverter;
 import com.sj.repository.converter.StringToScrollImageTypeConverter;
+import com.sj.repository.converter.StringToSiteRoleConverter;
 import com.sj.repository.converter.StringToSubjectCategoryConverter;
 
 @EnableConfigurationProperties
@@ -113,6 +114,7 @@ public class Application extends WebMvcConfigurerAdapter {
 		formatterRegistry.addConverter(stringToContentConverter());
 		formatterRegistry.addConverter(stringToProductStatusEnumConverter());
 		formatterRegistry.addConverter(stringToSubjectCategoryConverter());
+		formatterRegistry.addConverter(stringToSiteRoleConverter());
 	}
 
 	@Bean
@@ -163,6 +165,11 @@ public class Application extends WebMvcConfigurerAdapter {
 	@Bean
 	public StringToSubjectCategoryConverter stringToSubjectCategoryConverter() {
 		return new StringToSubjectCategoryConverter();
+	}
+
+	@Bean
+	public StringToSiteRoleConverter stringToSiteRoleConverter() {
+		return new StringToSiteRoleConverter();
 	}
 
 	/*---------------------------end converter bean---------------------------------------*/

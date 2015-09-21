@@ -22,6 +22,13 @@ public class SiteMenu {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "menus")
 	private Set<SiteRole> roles;
 
+	public SiteMenu() {
+	}
+
+	public SiteMenu(Long id) {
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

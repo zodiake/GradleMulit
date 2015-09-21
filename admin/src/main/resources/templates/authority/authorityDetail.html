@@ -1,0 +1,28 @@
+<div class="modal-body files_tab">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">{{alert.msg}}</alert>
+    <form class="form-horizontal w400" name="brandForm" ng-submit="submit()">
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-sm-2">name</label>
+                <div class="col-sm-6">
+                    <input class="form-control" name="title" ng-model="item.name" ng-required="true" />
+                    <span ng-show="brandForm.title.$error.required">请输入标题</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-1 ml10">menus</label>
+                <div class="col-sm-10 li-line">
+                    <ul>
+                        <li ng-repeat="m in menus">
+                            <label>{{m.name}}</label>
+                            <input type="checkbox" ng-model="item.fake[m.id]" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group lhg">
+                <input type="submit" ng-disabled="disabled" class="btn btn-primary col-xs-offset-3" value="保存"></input>
+            </div>
+        </div>
+    </form>
+</div>
