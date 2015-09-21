@@ -5,14 +5,12 @@
 				<a class="btn btn-success btn-sm" ng-click="create()">添加</a>
 			</div>
 		</form>
-		<h4>仪器</h4>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th>序号</th>
 					<th>商品名称</th>
 					<th>修改时间</th>
-					<th>状态</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -22,13 +20,10 @@
 						{{$index+1}}
 					</td>
 					<td>
-						<input type="text" ng-model="item.name"/>
+						{{item.name}}
 					</td>
 					<td>
-						{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}
-					</td>
-					<td>
-						{{item.activate|activeFilter}}
+						{{item.createdTime}}
 					</td>
 					<td>
 						<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
@@ -38,8 +33,5 @@
 				</tr>
 			</tbody>
 		</table>
-		<alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">
-		{{alert.msg}}
-		</alert>
 	</div>
 </div>

@@ -1,15 +1,15 @@
 { "create": { "_index": "sj", "_type": "product", "_id": "1" }}
-{ "title":"My first blog post","secondCategoryName":"仪器","thirdCategoryName":"仪器","secondCategory":"10","thirdCategory":"12","price":15000.0,"brand":"brand1","imgurl":"asdf","model":"ab","url":"http://baidu.com","original":"1","tag":"aa","id":"1"}
+{ "title":"My first blog post","secondCategoryName":"仪器","thirdCategoryName":"仪器","secondCategory":"10","thirdCategory":"12","price":15000.0,"brand":"brand1","imgurl":"asdf","model":"ab","url":"http://baidu.com","original":"1","tag":"aa","id":"1","createdTime":"2012-12-31T12:23:13","review":"5"}
 { "create": { "_index": "sj", "_type": "product", "_id": "2" }}
-{ "title":"My second blog post","secondCategoryName":"仪器","thirdCategoryName":"仪器","secondCategory":"10","thirdCategory":"12","price":25000.0,"brand":"brand1","imgurl":"asdf","model":"bc","url":"http://baidu.com","original":"1","tag":"bb","id":"2"}
+{ "title":"My second blog post","secondCategoryName":"仪器","thirdCategoryName":"仪器","secondCategory":"10","thirdCategory":"12","price":25000.0,"brand":"brand1","imgurl":"asdf","model":"bc","url":"http://baidu.com","original":"1","tag":"bb","id":"2","createdTime":"2012-12-31T12:23:23","review":"6"}
 { "create": { "_index": "sj", "_type": "product", "_id": "3" }}
-{ "title":"My third blog post","secondCategoryName":"仪器","thirdCategoryName":"仪器","secondCategory":"11","thirdCategory":"12","price":35000.0,"brand":"brand1","imgurl":"asdf","model":"cd","url":"http://baidu.com","original":"1","tag":"cc","id":"3"}
+{ "title":"My third blog post","secondCategoryName":"仪器","thirdCategoryName":"仪器","secondCategory":"11","thirdCategory":"12","price":35000.0,"brand":"brand1","imgurl":"asdf","model":"cd","url":"http://baidu.com","original":"1","tag":"cc","id":"3","createdTime":"2012-12-31T12:23:33","review":"7"}
 { "create": { "_index": "sj", "_type": "product", "_id": "4" }}
-{ "title":"My fourth blog post","secondCategoryName":"试剂","thirdCategoryName":"试剂","secondCategory":"11","thirdCategory":"13","price":45000.0,"brand":"brand2","imgurl":"asdf","model":"de","url":"http://baidu.com","original":"1","tag":"dd","id":"4"}
+{ "title":"My fourth blog post","secondCategoryName":"试剂","thirdCategoryName":"试剂","secondCategory":"11","thirdCategory":"13","price":45000.0,"brand":"brand2","imgurl":"asdf","model":"de","url":"http://baidu.com","original":"1","tag":"dd","id":"4","createdTime":"2012-12-31T12:23:43","review":"8"}
 { "create": { "_index": "sj", "_type": "product", "_id": "5" }}
-{ "title":"My fifth blog post","secondCategoryName":"试剂","thirdCategoryName":"试剂","secondCategory":"11","thirdCategory":"13","price":55000.0,"brand":"brand3","imgurl":"asdf","model":"ef","url":"http://baidu.com","original":"1","tag":"ee","id":"5"}
+{ "title":"My fifth blog post","secondCategoryName":"试剂","thirdCategoryName":"试剂","secondCategory":"11","thirdCategory":"13","price":55000.0,"brand":"brand3","imgurl":"asdf","model":"ef","url":"http://baidu.com","original":"1","tag":"ee","id":"5","createdTime":"2012-12-31T12:23:53","review":"9"}
 { "create": { "_index": "sj", "_type": "product", "_id": "6" }}
-{ "title":"My sixth blog post","secondCategoryName":"试剂","thirdCategoryName":"试剂","secondCategory":"11","thirdCategory":"13","price":65000.0,"brand":"brand2","imgurl":"asdf","model":"fg","url":"http://baidu.com","original":"1","tag":"ff","id":"6"}
+{ "title":"My sixth blog post","secondCategoryName":"试剂","thirdCategoryName":"试剂","secondCategory":"11","thirdCategory":"13","price":65000.0,"brand":"brand2","imgurl":"asdf","model":"fg","url":"http://baidu.com","original":"1","tag":"ff","id":"6","createdTime":"2012-12-31T12:23:03","review":"10"}
 
 
 { "create": { "_index": "sj", "_type": "subject", "_id": "1" }}

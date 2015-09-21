@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.sj.model.type.ActivateEnum;
 
 @Entity
 @Table(name = "site_role")
@@ -29,6 +32,16 @@ public class SiteRole {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "role_menu", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
 	private List<SiteMenu> menus;
+
+	@Enumerated
+	private ActivateEnum active;
+
+	public SiteRole() {
+	}
+
+	public SiteRole(Long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
@@ -60,6 +73,14 @@ public class SiteRole {
 
 	public void setMenus(List<SiteMenu> menus) {
 		this.menus = menus;
+	}
+
+	public ActivateEnum getActive() {
+		return active;
+	}
+
+	public void setActive(ActivateEnum active) {
+		this.active = active;
 	}
 
 	@Override

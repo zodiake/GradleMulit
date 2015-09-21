@@ -22,4 +22,6 @@ public interface ProductSearchService {
 	public Page<ProductSearch> findByModel(String model, Pageable pageable);
 
 	public Page<ProductSearch> findByBrand(String brand, Pageable pageable);
+
+	public ProductSearch findOne(Long id);
 }

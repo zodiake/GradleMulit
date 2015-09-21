@@ -1798,8 +1798,9 @@ insert into site_menu(id,name,href) values(9,'滚动图片','scrollImg');
 insert into site_menu(id,name,href) values(10,'用户管理','user');
 insert into site_menu(id,name,href) values(11,'权限管理','authority');
 
-insert into site_role(id,role_name) values(1,'superAdmin');
-insert into site_role(id,role_name) values(2,'admin');
+insert into site_role(id,role_name,active) values(1,'superAdmin',1);
+insert into site_role(id,role_name,active) values(2,'subadmin',1);
+insert into site_role(id,role_name,active) values(4,'childadmin',0);
 
 insert into role_menu(role_id,menu_id) values(1,1);
 insert into role_menu(role_id,menu_id) values(1,2);

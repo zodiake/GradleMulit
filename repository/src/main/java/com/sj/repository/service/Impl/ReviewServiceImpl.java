@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.sj.model.model.Product;
 import com.sj.model.model.Review;
 import com.sj.repository.repository.ReviewRepository;
+import com.sj.repository.search.model.ProductSearch;
+import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.ReviewService;
 
 @Service
@@ -24,6 +26,8 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewRepository repository;
 	@Autowired
 	private StringRedisTemplate template;
+	@Autowired
+	private ProductSearchService searchService;
 
 	@Override
 	public Page<Review> findByProduct(Product product, Pageable pageable) {
@@ -34,7 +38,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public Review save(Review review) {
 		review.setCreatedTime(Calendar.getInstance());
 		review = repository.save(review);
-		template.opsForValue().increment(REVIEWCOUNT + review.getProduct().getId(), 1);
+		template.opsForValue().increment(
+				REVIEWCOUNT + review.getProduct().getId(), 1);
+		ProductSearch productSearch = searchService.findOne(review.getProduct()
+				.getId());
+		productSearch.setReview(productSearch.getReview() + 1);
+		searchService.save(productSearch);
 		return review;
 	}
 

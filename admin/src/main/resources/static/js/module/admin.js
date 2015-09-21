@@ -20,26 +20,37 @@ adminUserModule.service('AdminService', ['$http', function ($http) {
     };
 
     this.save = function (item) {
+
+        var adds = Object.keys(item.fake).filter(function (s) {
+            return item.fake[s];
+        });
+
         return $http({
             method: 'POST',
             url: '/admin/users',
             transformRequest: transform,
             data: {
                 name: item.name,
-                password: item.password
+                password: item.password,
+                roles: adds
             },
             headers: header
         });
     };
 
     this.update = function (item) {
+        var adds = Object.keys(item.fake).filter(function (s) {
+            return item.fake[s];
+        });
+
         return $http({
             method: 'POST',
             url: '/admin/users/' + item.id,
             transformRequest: transform,
             data: {
                 name: item.name,
-                password: item.password
+                password: item.password,
+                roles: adds
             },
             headers: header
         });
@@ -50,6 +61,10 @@ adminUserModule.service('AdminService', ['$http', function ($http) {
             return this.update(item);
         else
             return this.save(item);
+    };
+
+    this.findOne = function (id) {
+        return $http.get('/admin/users/' + id);
     };
 }]);
 
@@ -84,7 +99,24 @@ adminUserModule.controller('AdminUserController', ['$scope',
                 scope: $scope,
                 resolve: {
                     roles: function (RoleService) {
-                        return RoleService.findAll();
+                        return RoleService.findAllActive();
+                    }
+                }
+            });
+        };
+
+        $scope.view = function (item) {
+            $modal.open({
+                templateUrl: '/admin/templates/adminUserAdd',
+                size: 'sm',
+                controller: 'AdminUserUpdateController',
+                scope: $scope,
+                resolve: {
+                    roles: function (RoleService) {
+                        return RoleService.findAllActive();
+                    },
+                    item: function (AdminService) {
+                        return AdminService.findOne(item.id);
                     }
                 }
             });
@@ -98,13 +130,40 @@ adminUserModule.controller('AdminUserAddController', ['$scope',
     'roles',
     function ($scope, AdminService, $modal, roles) {
         $scope.item = {};
-        $scope.roles = roles;
+        $scope.roles = roles.data;
 
         $scope.submit = function () {
             AdminService
                 .saveOrUpdate($scope.item)
-                .success(function () {
+                .success(function (data) {
+                    console.log(data);
+                    $scope.item.id = data.id;
+                })
+                .error(function (err) {
 
+                });
+        };
+    }
+]);
+
+adminUserModule.controller('AdminUserUpdateController', ['$scope',
+    'AdminService',
+    '$modal',
+    'roles',
+    'item',
+    function ($scope, AdminService, $modal, roles, item) {
+        $scope.item = item.data;
+        $scope.item.fake = [];
+        $scope.roles = roles.data;
+        $scope.item.roles.forEach(function (s) {
+            $scope.item.fake[s.id] = true;
+        });
+
+        $scope.submit = function () {
+            AdminService
+                .saveOrUpdate($scope.item)
+                .success(function (data) {
+                    $scope.item.id = data.id;
                 })
                 .error(function (err) {
 
