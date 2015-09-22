@@ -25,37 +25,30 @@ $(function() {
 
 	$(".minus").click(function() {
 		var i = $(this);
-		var cartId = i.attr("cart-id");
 		var productId = i.attr("data-id");
-		var product = $("#num" + productId);
+		var cartId = i.attr("cart-id");
 		var priceDom = $("#small" + cartId);
-		
 		var price = parseFloat(priceDom.attr("price")).toFixed(1);
+		var product = $("#num" + productId);
 		var number = product.val();
 		if (number > 1) {
 			number = parseFloat(number) - 1;
-			product.val(number);
-			priceDom.html(parseFloat(number * price).toFixed(1));
-			getCount();
+			$.ajax({
+				type : 'PUT',
+				url : '/user/carts/' + cartId + '/' + number,
+				success : function(data) {
+					if (data == "success") {
+						product.val(number);
+						priceDom.html(parseFloat(number * price).toFixed(1));
+						getCount();
+					}
+				},
+				error : function(data) {
+					alert("系统异常");
+				}
+			});
 		}
-	});
-	$(".minus").mouseout(function(){
-		var i = $(this);
-		var productId = i.attr("data-id");
-		var priceDom = $("#small" + cartId);
-		var price = parseFloat(priceDom.attr("price")).toFixed(1);
-		var product = $("#num" + productId);
-		var number = product.val();
-		var cartId = i.attr("cart-id");
-		$.ajax({
-			type : 'PUT',
-			url : '/user/carts/' + cartId + '/' + number,
-			success : function(data) {
-			},
-			error : function(data) {
-				alert("系统异常");
-			}
-		});
+
 	});
 	$(".plus").click(function() {
 		var i = $(this);
@@ -65,30 +58,22 @@ $(function() {
 		var price = parseFloat(priceDom.attr("price")).toFixed(1);
 		var product = $("#num" + productId);
 		var number = product.val();
-		if(number<999){
-			number = parseFloat(number) + 1;
-			product.val(number);
-			priceDom.html(parseFloat(number * price).toFixed(1));
-			getCount();
-		}
-	});
-	$(".plus").mouseout(function(){
-		var i = $(this);
-		var productId = i.attr("data-id");
-		var cartId = i.attr("cart-id");
-		var priceDom = $("#small" + cartId);
-		var price = parseFloat(priceDom.attr("price")).toFixed(1);
-		var product = $("#num" + productId);
-		var number = product.val();
+		number = parseFloat(number) + 1;
 		$.ajax({
 			type : 'PUT',
 			url : '/user/carts/' + cartId + '/' + number,
 			success : function(data) {
+				if (data != "error") {
+					product.val(number);
+					priceDom.html(parseFloat(number * price).toFixed(1));
+					getCount();
+				}
 			},
 			error : function(data) {
 				alert("系统异常");
 			}
 		});
+
 	});
 	$(".check").click(function() {
 		var check = $(this);
@@ -126,17 +111,17 @@ $(function() {
 		var productId = i.attr("product-id");
 		var priceDom = $("#small" + cartId);
 		var product = $("#num" + productId);
-		if(number<1||number>999){
+		if(number<1 || number>999){
 			alert("数量只能在1~999之间");
 			number = 999;
-			product.val(number);
+			i.val(number);
 		}
 		$.ajax({
 			type : 'PUT',
 			url : '/user/carts/' + cartId + '/' + number,
 			success : function(data) {
 				if (data == "success") {
-					product.val(number);
+					i.val(number);
 					priceDom.html(parseFloat(number * price).toFixed(1));
 					getCount();
 				}
