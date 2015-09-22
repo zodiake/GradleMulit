@@ -39,7 +39,6 @@ public class SiteUserServiceImpl implements SiteUserService {
 	public SiteUser updatePassword(Long id, String newPassword) {
 		SiteUser u = repository.findOne(id);
 		u.setPassword(newPassword);
-		repository.save(u);
 		return u;
 	}
 
