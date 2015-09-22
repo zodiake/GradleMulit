@@ -1,12 +1,7 @@
 $(function() {
-	var all = false;
-	var agreementCheck = false;
+	var agreementCheck = true;
 	$("#agreement").click(function(){
-		if(agreementCheck==true)
-			agreementCheck=false;
-		else
-			agreementCheck=true;
-		if(agreementCheck){
+		if($(this).is(':checked')){
 			$("#regirect").removeAttr("disabled");
 		}else{
 			$("#regirect").attr("disabled","disabled");

@@ -28,9 +28,9 @@
 		<div class="head-dorpdown" th:unless="${session.SPRING_SECURITY_CONTEXT==null}">
 			<script type="text/javascript" th:src="@{/js/headCart.js}"></script>
 			<div class="head-cart" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-				<div class="ct-cart">
+				<a href="/user/carts"><div class="ct-cart">
 					购物车(<i th:if="${session.cartLines==null}" th:text="0" id="allNum"></i><i th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="allNum"></i>)
-				</div>
+				</div></a>
 				<div class="ct-cart-wrap bodr hide" >
 					<h3><b class="gray-deeply">购物车中的商品</b></h3>
 					<div class="ct-cart-list">
