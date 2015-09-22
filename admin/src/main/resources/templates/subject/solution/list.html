@@ -1,5 +1,6 @@
 <!-- leftpanel -->
 <div class="contentpanel">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">{{alert.msg}}</alert>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -18,7 +19,7 @@
                 </td>
                 <td>
                 	<button ng-click="update(item)" class="btn btn-primary btn-sm">修改</button>
-                	<button ng-click="delete(item)" class="btn btn-primary btn-sm">{{item.active|reverseActiveFilter}}</button>
+                	<button ng-click="delete(item)" class="btn btn-default btn-primary btn-sm">{{item.active|reverseActiveFilter}}</button>
                 </td>
             </tr>
         </tbody>

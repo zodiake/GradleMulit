@@ -72,6 +72,7 @@ module.controller('SolutionController', ['$scope',
     function ($scope, $stateParams, SolutionService, $modal) {
         var id = $stateParams.id;
         $scope.items = {};
+        $scope.alerts=[];
         $scope.solution = {
             subject: id
         };
@@ -80,15 +81,16 @@ module.controller('SolutionController', ['$scope',
             SolutionService
                 .updateName(item)
                 .success(function (data) {
-
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: '保存成功',
+                    });
                 })
                 .error(function (err) {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
-        };
-
-        $scope.delete = function (id) {
-
         };
 
         function init() {
@@ -129,6 +131,10 @@ module.controller('SolutionController', ['$scope',
                     }
                 }
             });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);
