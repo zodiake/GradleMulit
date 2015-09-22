@@ -7,9 +7,10 @@
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
 <script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
 <script type="text/javascript" th:src="@{/js/ajaxLogin-review.js}"></script>
-<script type="text/javascript" th:src="@{/js/ajaxLogin-cart.js}"></script>
+<script type="text/javascript" th:src="@{/js/ajaxLogin-cart-product.js}"></script>
 <script type="text/javascript" th:src="@{/js/script.js}"></script>
 <script type="text/javascript" th:src="@{/js/ajaxLogin-collection-product.js}"></script>
 <script type="text/javascript">
@@ -33,7 +34,7 @@
 							data : $(this).serialize(),
 							success : function(res) {
 								if (res == "content is null") {
-									alert("content is null");
+									promptError("评论内容不能为空");
 								} else {
 									var username = $('#username').text();
 									var str = '<li><div class="member-info fl"><img th:src="@{/img/member.png}" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">'
@@ -50,6 +51,7 @@
 									ul.prepend(str);
 									$('#reviewNum').text(parseInt(num) + 1);
 									$("#content").val("");
+									promptSuccess("评论成功");
 								}
 							}
 						});
@@ -63,12 +65,12 @@
 	             },
 	             success : function(data) {
 	                 if (data.data == "no authority") {
-	                 	alert("对不起您没有权限");
+	                	 promptError("对不起您没有权限");
 	                 }
 	                 $('#includeHeader').load('/head');
 	             },
 	             error : function(data) {
-	                 alert(data);
+	            	 promptError("系统异常");
 	             }
 		});
 		$("#collection").loginBeforeAjaxCollection({
@@ -79,9 +81,9 @@
 			},
 			success : function(data) {
 				if (data == "no authority") {
-					alert("对不起您没有权限");
+					promptError("对不起您没有权限");
 				} else if (data == "duplicate") {
-					alert("您已加入了收藏");
+					promptError("您已加入了收藏");
 					$('.collect-num').html("已收藏");
 					$('.collect-num').removeAttr("id");
 				} else if (data == "success") {
@@ -89,10 +91,11 @@
 					collectionNum.html(parseInt(collectionNum.html()) + 1);
 					$('.collect-num').html("已收藏");
 					$('.collect-num').removeAttr("id");
+					promptSuccess("添加收藏成功");
 				}
 			},
 			error : function(data) {
-				alert("error");
+				promptError("系统异常");
 			}
 		});
 		$(".amount-increase").click(function() {
@@ -109,11 +112,11 @@
 			var val = $(this).val();
 			if(1 > val){
 				$(this).val(1);
-				alert('数量最少为1');
+				promptError('数量最少为1');
 			}
 			if(val>999){
 				$(this).val(999);
-				alert('数量最多为999');
+				promptError('数量最多为999');
 			}
 		});
 	});
@@ -272,5 +275,6 @@
 	<script></script>
 	<div class="fixed"></div>
 	<div class="hide-wrap logo-small bodr"></div>
+	<div class="prompt"></div>
 </body>
 </html>

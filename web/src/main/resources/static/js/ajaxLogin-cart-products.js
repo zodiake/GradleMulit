@@ -49,47 +49,47 @@
 		this.click(function(event) {
 			var obj = $(this);
 			data = obj.attr("data-id");
-			$.ajax({
-				url : settings.url,
-				data : {
-					'productId' : data,
-					'number' : 1
-				},
-				dataType : 'json',
-				type : 'post'
-			}).success(function(res) {
-				if (res.data == "login") {
-					$('.hide-wrap').empty();
-					$('.hide-wrap').append(loginForm$);
-					$('.fixed').fadeIn();
-					$('.hide-wrap').fadeIn();
-				} else if (res.data == "no authority") {
-					alert("对不起您没有权限");
-				} else if (res.data == "addone") {
-					var cartNumber = $("#cartNumber"+ data);
-					if(cartNumber.html()==999){
-						alert("购物车中商品数量最大为999");
+			var cartNumber = $("#cartNumber"+ data);
+			if(cartNumber.html()==999){
+				promptError("该商品数量已达上限");
+			}else{
+				$.ajax({
+					url : settings.url,
+					data : {
+						'productId' : data,
+						'number' : 1
+					},
+					dataType : 'json',
+					type : 'post'
+				}).success(function(res) {
+					if (res.data == "login") {
+						$('.hide-wrap').empty();
+						$('.hide-wrap').append(loginForm$);
+						$('.fixed').fadeIn();
+						$('.hide-wrap').fadeIn();
+					} else if (res.data == "no authority") {
+						promptError("对不起您没有权限");
+					} else if (res.data == "addone") {
+						cartNumber.html(res.number);
+						promptSuccess("已加入购物车");
+					} else {
+						var str = '<li id="cart'+ data+ '"><div class="fl ct-img"><a href="/products/'+ data
+						+ '"><img width="50" height="50" src="'+ res.image+ '"/></a></div><div class="fl ct-name"><a href="/products/'
+						+ data+ '">'+ res.name+ '</a>'+ '</div><div class="fr ct-detail"><span class="ct-price"><b>'+ res.price
+						+ '</b>×<i id="cartNumber'+ data+ '">'+ 1+ '</i></span><br/><a class="fr cartRemove" data-id="'+ data
+						+ '">删除</a></div></li>';
+						$("#cartUl").append(str);
+						var allNum = $("#allNum");
+						allNum.html(parseInt(allNum.html()) + 1);
+						var totalNum = $("#totalNum");
+						totalNum.html(parseInt(totalNum.html()) + 1);
+						promptSuccess("已加入购物车");
 					}
-					cartNumber.html(res.number);
-					$(".add_cart_success").show();
-					setTimeout("$('.add_cart_success').hide()",3000);
-				} else {
-					var str = '<li id="cart'+ data+ '"><div class="fl ct-img"><a href="/products/'+ data
-					+ '"><img width="50" height="50" src="'+ res.image+ '"/></a></div><div class="fl ct-name"><a href="/products/'
-					+ data+ '">'+ res.name+ '</a>'+ '</div><div class="fr ct-detail"><span class="ct-price"><b>'+ res.price
-					+ '</b>×<i id="cartNumber'+ data+ '">'+ 1+ '</i></span><br/><a class="fr cartRemove" data-id="'+ data
-					+ '">删除</a></div></li>';
-					$("#cartUl").append(str);
-					var allNum = $("#allNum");
-					allNum.html(parseInt(allNum.html()) + 1);
-					var totalNum = $("#totalNum");
-					totalNum.html(parseInt(totalNum.html()) + 1);
-					$(".add_cart_success").show();
-					setTimeout("$('.add_cart_success').hide()",3000);
-				}
-			});
+				});
+			}
 			return false;
 		});
 		return this;
 	};
 })(jQuery);
+

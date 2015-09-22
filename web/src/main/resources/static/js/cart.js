@@ -18,7 +18,7 @@ $(function() {
 				}
 			},
 			error : function(data) {
-				alert("系统异常");
+				promptError("系统异常");
 			}
 		});
 	});
@@ -44,7 +44,7 @@ $(function() {
 					}
 				},
 				error : function(data) {
-					alert("系统异常");
+					promptError("系统异常");
 				}
 			});
 		}
@@ -70,7 +70,7 @@ $(function() {
 				}
 			},
 			error : function(data) {
-				alert("系统异常");
+				promptError("系统异常");
 			}
 		});
 
@@ -86,7 +86,7 @@ $(function() {
 				success : function(data) {
 				},
 				error : function(data) {
-					alert('error');
+					promptError('系统异常');
 				}
 			});
 		} else {
@@ -96,7 +96,7 @@ $(function() {
 				success : function(data) {
 				},
 				error : function(data) {
-					alert('error');
+					promptError('系统异常');
 				}
 			});
 			check.attr('checked', 'checked');
@@ -112,10 +112,10 @@ $(function() {
 		var priceDom = $("#small" + cartId);
 		var product = $("#num" + productId);
 		if(number<1 || number>999){
-			alert("数量只能在1~999之间");
+			promptError("数量只能在1~999之间");
 			number = 999;
 			i.val(number);
-		}
+		}else{
 		$.ajax({
 			type : 'PUT',
 			url : '/user/carts/' + cartId + '/' + number,
@@ -127,9 +127,10 @@ $(function() {
 				}
 			},
 			error : function(data) {
-				alert(data);
+				promptError("系统异常");
 			}
 		});
+		}
 	});
 	$("#checkAll").click(
 			function() {
@@ -144,7 +145,7 @@ $(function() {
 							getCount();
 						},
 						error : function(data) {
-							alert(error);
+							promptError("系统异常");
 						}
 					});
 				} else {
@@ -158,7 +159,7 @@ $(function() {
 							getCount();
 						},
 						error : function(data) {
-							alert(error);
+							promptError("系统异常");
 						}
 					});
 				}
@@ -177,8 +178,9 @@ $(function() {
             	var totalNum =$("#totalNum");
             	totalNum.html(parseInt(totalNum.html())-1);
             	$("#"+productId).remove();
+            	promptSuccess("删除成功");
     		},error:function(data){
-    			alert("error");
+    			promptError("系统异常");
     		}
     	});
 	});

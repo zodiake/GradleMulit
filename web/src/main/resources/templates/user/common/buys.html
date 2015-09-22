@@ -6,7 +6,8 @@
   <meta name="description" content=""/>
   <title>采购申请</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-  <script th:src="@{/js/jquery-min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/prompt.js}"></script>
   <script th:src="@{/js/script.js}"></script>
   <meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
@@ -30,7 +31,7 @@
 						$('#noBuys').show();
 					}
 				},error : function(data){
-					alert("error");
+					promptError("系统异常");
 				}
 			});
 		});
@@ -87,5 +88,6 @@
 			</div>
 		</div>
 	</div>
+	<div class="prompt"></div>
 </body>
 </html>	

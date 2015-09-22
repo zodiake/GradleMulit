@@ -59,9 +59,9 @@
 					$('.fixed').fadeIn();
 					$('.hide-wrap').fadeIn();
 				}else if(response == "no authority"){
-					alert("对不起您没有权限");
+					promptError("对不起您没有权限");
 				}else if(response == "duplicate"){
-					alert("该商品已经加入收藏");
+					promptSuccess("该商品已经加入收藏");
 					$('.collect-num').html("已收藏");
 					$('.collect-num').removeAttr("id");
 				}else if(response == "success"){
@@ -69,6 +69,7 @@
 					collectionNum.html(parseInt(collectionNum.html())+1);
 					$('.collect-num').html("已收藏");
 					$('.collect-num').removeAttr("id");
+					promptSuccess("添加收藏成功");
 				}
 			});
 			return false;

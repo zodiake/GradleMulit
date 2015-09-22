@@ -10,7 +10,8 @@
   <meta name="_csrf_parameterName" th:content="${_csrf.parameterName}" />
   
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-  <script th:src="@{/js/jquery-min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
   <script type="text/javascript" th:src="@{/js/jquery.ui.widget.js}"></script>
   <script type="text/javascript" th:src="@{/js/jquery.iframe-transport.js}"></script>
   <script type="text/javascript" th:src="@{/js/jquery.fileupload.js}"></script>
@@ -47,7 +48,7 @@
                       	 data.submit();
                  	  }
                  	  else{
-                 		  alert("文件过大,请上传1M以下的图片");
+                 		 promptError("文件过大,请上传1M以下的图片");
                  	  }
                 },
                 done : function(e, data) {
@@ -90,7 +91,7 @@
 	          				});
 	          				thirdCategory.append(str);
 	          			},error:function(data){
-	          				alert("error");
+	          				promptError("error");
 	          			}
 	          		});
           		}else{
@@ -219,5 +220,6 @@
 		</div>
 	</div>
 	<div th:include="footer/footer"></div>
+	<div class="prompt"></div>
 </body>
 </html>	

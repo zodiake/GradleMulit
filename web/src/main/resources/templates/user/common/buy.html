@@ -6,7 +6,8 @@
 <meta name="description" content="" />
 <title>采购申请</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
-<script th:src="@{/js/jquery-min.js}"></script>
+<script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/script.js}"></script>
 </head>
@@ -81,9 +82,9 @@
 			        			 <input type="text" disabled="disabled" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}"/>
 						</div>
 						<div class="center">
-							<a th:href="'/user/buyRecords/'+${buy.noId}+'.pdf'" target="_blank" class="btn green mauto">下载PDF文档</a>
-							<a th:href="'/user/buyRecords/'+${buy.id}+'?edit'"><button class="btn green mauto" type="button">修改</button></a>
-							<a href="/user/buyRecords"><button class="btn mauto default" type="button">返回列表</button></a>
+							<a th:href="'/user/buyRecords/'+${buy.noId}+'.pdf'" target="_blank" class="btn green mauto fff">下载PDF文档</a>
+							<a th:href="'/user/buyRecords/'+${buy.id}+'?edit'" class="btn green mauto fff">修改</a>
+							<a href="/user/buyRecords" class="btn mauto default">返回列表</a>
 						</div>
 					</form>
 					</div>
@@ -93,5 +94,6 @@
 		</div>
 	</div>
 	<div th:include="footer/footer"></div>
+	<div class="prompt"></div>
 </body>
 </html>

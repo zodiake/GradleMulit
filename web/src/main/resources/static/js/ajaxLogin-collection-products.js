@@ -59,11 +59,11 @@
 					$('.hide-wrap').fadeIn();
 				}
 				else if(response=="no authority")
-      				alert("对不起您没有权限");
+					promptError("对不起您没有权限");
       			else if(response=="duplicate")
-      				alert("该商品已被您收藏");
+      				promptSuccess("该商品已被您收藏");
       			else if(response == "success"){
-      				alert("添加收藏成功");
+      				promptSuccess("添加收藏成功");
       			}
 			});
 			return false;

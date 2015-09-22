@@ -8,7 +8,8 @@
 		<meta name="_csrf" th:content="${_csrf.token}" />
 		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 		<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-		<script th:src="@{/js/jquery-min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
 		<script th:src="@{/js/script.js}"></script>
 		<script type="text/javascript">
             $(function() {
@@ -36,9 +37,10 @@
                             if($("#preferUl li").length==0){
                             	$("#noCollection").show();
                             }
+                            promptSuccess("删除成功");
                         },
                         error : function(data) {
-                            alert(data);
+                        	promptError("系统异常");
                         }
                     });
                 });
@@ -104,5 +106,6 @@
 				</div>
 			</div>
 		</div>
+		<div class="prompt"></div>
 	</body>
 </html>
