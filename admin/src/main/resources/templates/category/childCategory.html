@@ -21,7 +21,7 @@
                         {{$index+1}}
                     </td>
                     <td>
-                        <input type="text" ng-model="item.name" />
+                        {{item.name}}
                     </td>
                     <td>
                         {{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}
@@ -33,7 +33,7 @@
                         <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
                             修改
                         </button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+                        <button type="button" class="btn btn-default btn-primary btn-sm" ng-click="delete(item)">
                             {{item.activate|reverseActiveFilter}}
                         </button>
                     </td>
@@ -46,7 +46,7 @@
     </div>
     <script type="text/ng-template" id="productChildCategoryModal.html">
         <div class="modal-body">
-            是否{{item.state|reverseActiveFilter}}{{item.name}}
+            是否{{item.activate|reverseActiveFilter}}{{item.name}}
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="ok()">OK</button>

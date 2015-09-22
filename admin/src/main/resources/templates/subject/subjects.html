@@ -55,7 +55,7 @@
     </div>
     <script type="text/ng-template" id="subjectModal.html">
         <div class="modal-body">
-            {{item.state|reverseActiveFilter}}{{item.name}}
+            {{item.active|reverseActiveFilter}}{{item.name}}
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="ok()">OK</button>
