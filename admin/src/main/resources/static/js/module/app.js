@@ -19,7 +19,8 @@ var app = angular.module('app', [
     'SubjectCategory',
     'adminUser',
     'role',
-    'Menu'
+    'Menu',
+    'Password'
 ]);
 
 app.config([
@@ -119,6 +120,11 @@ app.config([
                 url: '/authority',
                 templateUrl: '/admin/templates/authority',
                 controller: 'RoleController'
+            })
+            .state('password',{
+                url:'/password',
+                templateUrl:'/admin/templates/password',
+                controller:'PasswordController'
             });
     }
 ]);

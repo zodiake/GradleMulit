@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sj.admin.security.UserContext;
 import com.sj.model.model.SiteRole;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.model.SiteUserDetailJson;
@@ -29,9 +31,12 @@ import com.sj.repository.service.SiteUserService;
 public class AdminUserController {
 	@Autowired
 	private SiteUserService userService;
-
 	@Autowired
 	private ProviderService providerService;
+	@Autowired
+	private ShaPasswordEncoder encoder;
+	@Autowired
+	private UserContext userContext;
 
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	@ResponseBody
@@ -64,8 +69,18 @@ public class AdminUserController {
 	public String save(SiteUser user, HttpServletRequest request) {
 		String roles = request.getParameter("roles");
 		user.setRoles(converteStringToSiteRoles(roles));
+		user.setPassword(encoder.encodePassword(user.getPassword(), null));
 		SiteUser u = userService.save(user);
 		return "{\"id\":\"" + u.getId() + "\"}";
+	}
+
+	@RequestMapping(value = "/admin/users/password", method = RequestMethod.POST)
+	@ResponseBody
+	public String updatePassword(@RequestParam("password") String password) {
+		SiteUser user = userContext.getCurrnetUser();
+		userService.updatePassword(user.getId(),
+				encoder.encodePassword(password, null));
+		return "success";
 	}
 
 	private List<SiteRole> converteStringToSiteRoles(String sRoles) {

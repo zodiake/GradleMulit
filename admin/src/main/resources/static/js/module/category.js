@@ -51,7 +51,7 @@ category.service('CategoryService', ['$http',
                 url: '/admin/product/categories/' + item.id + '/state',
                 transformRequest: transform,
                 data: {
-                    activate: item.activate == 'ACTIVATE' ? 'DEACTIVE' : 'ACTIVATE'
+                    activate: item.activate == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE'
                 },
                 headers: header
             });
@@ -132,7 +132,7 @@ category.controller('CategoryController', [
     }
 ]);
 
- category.controller('ProductModalCtrl', [
+category.controller('ProductModalCtrl', [
     '$scope',
     '$modalInstance',
     'item',
@@ -143,7 +143,7 @@ category.controller('CategoryController', [
             CategoryService
                 .delete(item)
                 .success(function (data) {
-                    if (data == 'success') {
+                    if (data.data == 'success') {
                         item.activate = item.activate == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
                         $modalInstance.dismiss();
                     }
@@ -195,6 +195,18 @@ category.controller('ChildCategoryController', [
             });
         };
 
+        $scope.delete = function (item) {
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'productChildCategoryModal.html',
+                controller: 'ProductChildModalCtrl',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
+            });
+        };
     }
 ]);
 
@@ -203,7 +215,7 @@ category.controller('CategoryChildAddController', ['$scope',
     'CategoryService',
     function ($scope, $stateParams, CategoryService) {
         $scope.item = {};
-        $scope.alerts=[];
+        $scope.alerts = [];
 
         $scope.submit = function () {
             $scope.item.parent = $stateParams.id;
@@ -211,14 +223,14 @@ category.controller('CategoryChildAddController', ['$scope',
                 .saveOrUpdate($scope.item)
                 .success(function (data) {
                     $scope.item.id = data.id;
-                    var flag=false;
-                    for(var i=0;i<$scope.items.length;i++){
-                        if($scope.items[i].id==data.id){
-                            flag=true;
+                    var flag = false;
+                    for (var i = 0; i < $scope.items.length; i++) {
+                        if ($scope.items[i].id == data.id) {
+                            flag = true;
                             break;
                         }
                     }
-                    if(!flag){
+                    if (!flag) {
                         $scope.items.push($scope.item);
                     }
                     $scope.alerts.push({
@@ -239,18 +251,44 @@ category.controller('CategoryChildAddController', ['$scope',
     }
 ]);
 
+category.controller('ProductChildModalCtrl', [
+    '$scope',
+    '$modalInstance',
+    'item',
+    'CategoryService',
+    function ($scope, $modalInstance, item, CategoryService) {
+        $scope.ok = function () {
+            CategoryService
+                .delete(item)
+                .success(function (data) {
+                    if (data.data == 'success') {
+                        item.activate = item.activate == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+                        $modalInstance.dismiss();
+                    }
+                })
+                .error(function () {
+
+                });
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
+        };
+    }
+]);
+
 category.controller('CategoryAddController', [
     '$scope',
     'CategoryService',
     function ($scope, CategoryService) {
         $scope.item = {};
-        $scope.alerts=[];
+        $scope.alerts = [];
 
         $scope.submit = function () {
             CategoryService
                 .saveOrUpdate($scope.item)
                 .success(function (data) {
-                    $scope.item.id=data.id;
+                    $scope.item.id = data.id;
                     $scope.alerts.push({
                         type: 'success',
                         msg: '保存成功',

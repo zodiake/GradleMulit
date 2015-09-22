@@ -1,10 +1,12 @@
 <!-- leftpanel -->
 <div class="contentpanel">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">{{alert.msg}}</alert>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>序号</th>
                 <th>名称</th>
+                <th>状态</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -12,7 +14,13 @@
             <tr ng-repeat="item in items">
                 <td><a href="#/subjectDetail/{{item.id}}">{{$index+1}}</a></td>
                 <td><input type="text" ng-model="item.name" class="form-control w160"/></td>
-                <td><button ng-click="update(item)" class="btn btn-primary btn-sm">修改</button></td>
+                <td>
+                	{{item.active|activeFilter}}
+                </td>
+                <td>
+                	<button ng-click="update(item)" class="btn btn-primary btn-sm">修改</button>
+                	<button ng-click="delete(item)" class="btn btn-default btn-primary btn-sm">{{item.active|reverseActiveFilter}}</button>
+                </td>
             </tr>
         </tbody>
         <div class="form-group">
@@ -20,4 +28,13 @@
 	        <button ng-click="add()" class="btn btn-success btn-sm ml10">添加</button>        
         </div>
     </table>
+    <script type="text/ng-template" id="solutionModal.html">
+        <div class="modal-body">
+            {{item.active|reverseActiveFilter}}{{item.name}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 </div>

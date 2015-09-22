@@ -97,7 +97,7 @@ public class CategroyController {
 		ActivateEnum activate = ActivateEnum.fromString(request
 				.getParameter("activate"));
 		productCategoryService.updateState(id, activate);
-		return "\"success\"";
+		return "{\"data\":\"success\"}";
 	}
 
 }

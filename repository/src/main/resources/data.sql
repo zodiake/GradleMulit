@@ -1797,6 +1797,7 @@ insert into site_menu(id,name,href) values(8,'专题','subject');
 insert into site_menu(id,name,href) values(9,'滚动图片','scrollImg');
 insert into site_menu(id,name,href) values(10,'用户管理','user');
 insert into site_menu(id,name,href) values(11,'权限管理','authority');
+insert into site_menu(id,name,href) values(12,'密码管理','password');
 
 insert into site_role(id,role_name,active) values(1,'superAdmin',1);
 insert into site_role(id,role_name,active) values(2,'subadmin',1);
@@ -1813,6 +1814,7 @@ insert into role_menu(role_id,menu_id) values(1,8);
 insert into role_menu(role_id,menu_id) values(1,9);
 insert into role_menu(role_id,menu_id) values(1,10);
 insert into role_menu(role_id,menu_id) values(1,11);
+insert into role_menu(role_id,menu_id) values(1,12);
 
 insert into role_menu(role_id,menu_id) values(2,1);
 insert into role_menu(role_id,menu_id) values(2,2);

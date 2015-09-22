@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sj.admin.exception.GlobalException;
 import com.sj.model.model.SiteMenu;
 import com.sj.model.model.SiteRole;
 import com.sj.model.type.ActivateEnum;
@@ -34,6 +36,20 @@ public class AuthorityController {
 		return service.findAllJson(activeEnum);
 	}
 
+	@RequestMapping(value = "/authorities", method = RequestMethod.POST)
+	@ResponseBody
+	public String save(@RequestParam("menus") String menus,
+			@RequestParam("name") String name) {
+		if (StringUtils.isEmpty(name)) {
+			throw new GlobalException();
+		}
+		SiteRole role = new SiteRole();
+		role.setRoleName(name);
+		role.setMenus(convertStringToSiteRole(menus));
+		SiteRole r = service.save(role);
+		return "{\"id\":\"" + r.getId() + "\"}";
+	}
+
 	@RequestMapping(value = "/authorities/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public SiteRoleJson findOne(@PathVariable("id") Long id) {
@@ -48,8 +64,8 @@ public class AuthorityController {
 		SiteRole role = new SiteRole(id);
 		role.setRoleName(name);
 		role.setMenus(convertStringToSiteRole(menus));
-		service.save(role);
-		return "{\"status\":\"success\"}";
+		service.update(role);
+		return "{\"id\":\"" + id + "\"}";
 	}
 
 	private List<SiteMenu> convertStringToSiteRole(String siteRoles) {

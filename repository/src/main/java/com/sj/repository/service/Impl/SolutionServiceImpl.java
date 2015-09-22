@@ -52,4 +52,11 @@ public class SolutionServiceImpl implements SolutionService {
 		return solutions.stream().map(i -> new SolutionJson(i))
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public Solution updateState(Long id, ActivateEnum active) {
+		Solution s = repository.findOne(id);
+		s.setActive(active);
+		return s;
+	}
 }

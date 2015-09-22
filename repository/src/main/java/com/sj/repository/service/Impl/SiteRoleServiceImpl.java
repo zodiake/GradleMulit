@@ -40,10 +40,8 @@ public class SiteRoleServiceImpl implements SiteRoleService {
 
 	@Override
 	public SiteRole save(SiteRole role) {
-		SiteRole siteRole = repository.findOne(role.getId());
-		siteRole.setMenus(role.getMenus());
-		siteRole.setRoleName(role.getRoleName());
-		return siteRole;
+		role.setActive(ActivateEnum.ACTIVATE);
+		return repository.save(role);
 	}
 
 	@Override
@@ -53,4 +51,11 @@ public class SiteRoleServiceImpl implements SiteRoleService {
 		return role;
 	}
 
+	@Override
+	public SiteRole update(SiteRole role) {
+		SiteRole siteRole = repository.findOne(role.getId());
+		siteRole.setMenus(role.getMenus());
+		siteRole.setRoleName(role.getRoleName());
+		return siteRole;
+	}
 }

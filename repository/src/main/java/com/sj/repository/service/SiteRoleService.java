@@ -14,5 +14,7 @@ public interface SiteRoleService {
 
 	public SiteRole save(SiteRole role);
 
+	public SiteRole update(SiteRole role);
+
 	public SiteRole updateState(Long id, ActivateEnum active);
 }

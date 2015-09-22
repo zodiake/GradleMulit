@@ -221,4 +221,9 @@ public class IndexController extends UploadController {
 	public String authorityDetail() {
 		return "authority/authorityDetail";
 	}
+
+	@RequestMapping(value = "/templates/password")
+	public String password() {
+		return "user/password";
+	}
 }
