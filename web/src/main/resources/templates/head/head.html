@@ -60,8 +60,11 @@
 				<div class="user-name" id="username"  th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></div>
 				<div class="user-menu show-menu bodr">
 					<ul>
-						<li th:unless="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
+						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_UNAUTH">
 							<a href="/supplier/detail">个人中心</a>
+						</li>
+						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
+							<a href="/provider/detail">个人中心</a>
 						</li>
 						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
 							<a href="/user/detail">个人中心</a>

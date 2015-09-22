@@ -128,29 +128,30 @@ $(function() {
 		var product = $("#num" + productId);
 		if(number<1||number>999){
 			alert("数量只能在1~999之间");
-		}else{
-			$.ajax({
-				type : 'PUT',
-				url : '/user/carts/' + cartId + '/' + number,
-				success : function(data) {
-					if (data == "success") {
-						product.val(number);
-						priceDom.html(parseFloat(number * price).toFixed(1));
-						getCount();
-					}
-				},
-				error : function(data) {
-					alert(data);
-				}
-			});
+			number = 999;
+			product.val(number);
 		}
+		$.ajax({
+			type : 'PUT',
+			url : '/user/carts/' + cartId + '/' + number,
+			success : function(data) {
+				if (data == "success") {
+					product.val(number);
+					priceDom.html(parseFloat(number * price).toFixed(1));
+					getCount();
+				}
+			},
+			error : function(data) {
+				alert(data);
+			}
+		});
 	});
 	$("#checkAll").click(
 			function() {
 				if ($(this).is(':checked')) {
 					$.ajax({
 						type : 'put',
-						url : '/user/carts/all/1?check',
+						url : '/user/carts/1?check',
 						success : function(data) {
 							var checkboxs = $('tr').find('input[name="carts"]');
 							checkboxs.prop('checked', true);

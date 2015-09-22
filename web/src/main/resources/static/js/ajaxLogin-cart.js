@@ -48,6 +48,11 @@
 
 		this.click(function(event) {
 			num = $("#num").val();
+			if(num>999){
+				alert('商品数量最多为999');
+				$("#num").val(999);
+				return;
+			}
 			if (num > 0) {
 				productId = $(this).attr("data-id");
 				$.ajax({
@@ -68,8 +73,7 @@
 							alert("对不起您没有权限");
 						} else if (data.data == "addone") {
 							var cartNumber = $("#cartNumber"+ productId);
-							var numberVal = cartNumber.html();
-							cartNumber.html(parseInt(numberVal)+ parseInt(num));
+							cartNumber.html(data.number);
 						} else {
 							var str = '<li id="cart'+ productId+ '"><div class="fl ct-img"><a href="/products/'+ productId
 							+ '"><img width="50" height="50" src="'+ data.image+ '"/></a></div><div class="fl ct-name"><a href="/products/'

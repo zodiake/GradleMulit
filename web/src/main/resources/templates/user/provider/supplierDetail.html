@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <title>个人资料-企业</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.ui.widget.js}"></script>
+  <script th:src="@{/js/script.js}"></script>
+  <script th:src="@{/js/province.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.fileupload.js}"></script>
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <script type="text/javascript">
+  $(function() {
+	  var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		var ajaxUrl = "";
+	    $('input[type="file"]').bind('fileuploadsubmit', function(e, data) {
+	       	var self = $(this);
+	        ajaxUrl = self.attr('data-url');
+	        data.formData = {
+	        url: self.prev('input').val()
+	        };
+	    });
+
+	    $('input[type="file"]').fileupload({
+	        dataType: 'json',
+	        add: function(e, data) {
+	        data.submit();
+	        },
+	        done: function(e, data) {
+	            $("#" + ajaxUrl).val(data.result[0]);
+	             $(this).parent().parent().find("img").attr("src", data.result[0]);
+	         },
+	         progressall: function(e, data) {
+	         }
+	     });
+	});
+  </script>
+</head>
+<body>
+	<div class="header" th:include="head/head">Head</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="self-wrap">
+			<div class="gray-hd"><a class="blue">个人中心</a></div>
+			<div class="mainwrapper clearfix">
+				<div class="aside fl">
+					<a class="active">个人资料</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products?form" target="_blank">发布商品</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/products">商品维护</a>
+					<a th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER" href="/provider/count">商品信息统计</a>
+				</div>
+				<div class="mainpanel fr">
+					<div class="tabs-nav info-tabs bodr">
+						<a class="active">基本资料</a>
+						<a href="/supplier/changePw">修改密码</a>
+					</div>
+					<div class="tab-conts tab-con basic-info">
+						<div class="tab-panel form-control company-group">
+							<form th:object="${user}" th:method="put" enctype="multipart/form-data">
+								<h3 class="cate-hd">注册信息</h3>
+									<div class="clearfix">
+										<div class="fl">											
+											<div class="form-group readonly-group">
+												<div class="fl">
+												<label><i>*</i>用户名</label>
+												<input type="text" th:field="*{name}" readonly="readonly"/>
+												<div class="readonly"></div>
+												</div>
+											</div>
+											<div class="form-group readonly-group">
+												<div class="fl">
+												<label><i>*</i>邮箱</label>
+												<input type="text" th:field="*{email}"/>
+												</div>
+											</div>
+										</div>
+										<div class="fr">
+											<div class="form-group readonly-group">
+												<div class="fl">
+												<label><i>*</i>手机号</label>
+												<input type="text" th:field="*{phone}" readonly="readonly"/>	
+												<div class="readonly"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+										
+								<h3 class="cate-hd">联系信息</h3>
+									<div class="clearfix">
+										<div class="fl">											
+											<div class="form-group">
+												<div class="fl">
+												<label><i>*</i>联系人姓名</label>
+												<input type="text" th:field="*{realName}"/>	
+												<i class="error ml143" th:if="${#fields.hasErrors('realName')}" th:errors="*{realName}"></i>								
+												</div>
+											</div>											
+											<div class="form-group" >
+												<div class="fl">
+												<label><i>*</i>性别</label>
+												<input type="radio" th:field="*{sex}" value="MALE"/>男
+												<input type="radio" th:field="*{sex}" value="FEMALE"/>女
+												<i class="error ml143" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></i>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="fl">
+												<label><i>*</i>职务</label>
+												<input type="text" th:field="*{position}"/>	
+												<i class="error ml143" th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></i>								
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="fl">
+												<label><i>*</i>企业电话</label>
+												<input type="text" th:field="*{providerPhone}"/>	
+												<i class="error ml143" th:if="${#fields.hasErrors('providerPhone')}" th:errors="*{providerPhone}"></i>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="fl">
+												<label>传真</label>
+												<input type="text" th:field="*{fax}"/>
+												</div>
+											</div>
+										</div>
+										<div class="fr">
+											<div class="form-group">
+												<div class="fl">
+												<label><i>*</i>详细地址</label>
+												<input type="text" th:field="*{address}"/>	
+												<i class="error ml143" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></i>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="fl">
+												<label><i>*</i>省/市</label>
+												<select class="w115" th:field="*{province}">
+												<option value="">选择省份/市</option>
+												<option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
+												</select>
+												<select class="w115" th:field="*{city}">
+												<option value="">选择城市</option>
+												<option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
+												</select>
+												<i class="error ml143" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></i>
+												</div>
+											</div>	
+											<div class="form-group">
+												<div class="fl">
+												<label><i>*</i>邮政编码</label>
+												<input type="text" th:field="*{code}"/>	
+												<i class="error ml143" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></i>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="fl">
+												<label>公司网址</label>
+												<input type="text" th:field="*{website}"/>		
+												</div>
+											</div>
+										</div>
+									</div>
+								<h3 class="cate-hd">企业信息</h3>
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+								<div class="clearfix">
+									<div class="fr">
+										<div class="form-group">
+											<div class="fl">
+											<label><i>*</i>企业性质</label>
+											<select class="w228" th:field="*{componyType}">
+												<option value="FOREIGNOWNED">外商独资</option>
+												<option value="JOINTVENTURE">合资企业</option>
+												<option value="PRIVATE">民营企业</option>
+												<option value="STATEOWNED">国有企业</option>
+												<option value="UNIVERSITIES">高等院校</option>
+												<option value="INVESTIGATION">刑侦机关</option>
+											</select>
+											<i class="error ml143" th:if="${#fields.hasErrors('componyType')}" th:errors="*{componyType}"></i>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="fl">
+											<label><i>*</i>业务类型</label>
+											<select class="w228" th:field="*{businessType}">
+												<option value="PRODUCTION">生产型</option>
+												<option value="TRADE">贸易型</option>
+												<option value="SERVICE">服务型</option>
+												<option value="OTHER">其他</option>
+											</select>
+											<i class="error ml143" th:if="${#fields.hasErrors('businessType')}" th:errors="*{businessType}"></i>
+											</div>
+										</div>										
+										<div class="form-group">
+											<div class="fl">
+											<label><i>*</i>年产值</label>
+											<select class="w228" th:field="*{output}">
+												<option value="FIVEMILLION">五百万以下</option>
+												<option value="TWENTYMILLION">五百万至两千万</option>
+												<option value="FIFTYMILLION">两千万至五千万</option>
+												<option value="ONEHUNDREDM">五千万至一亿</option>
+												<option value="FIVEHUNDREDM">一亿至五亿</option>
+												<option value="OTHER">五亿以上</option>
+											</select>
+											<i class="error ml143" th:if="${#fields.hasErrors('output')}" th:errors="*{output}"></i>
+											</div>
+										</div>	
+										<div class="form-group">
+											<div class="fl">
+											<label><i>*</i>主营产品/服务</label>
+											<input type="text" th:field="*{mainProduct}"/>	
+											<i class="error ml143" th:if="${#fields.hasErrors('mainProduct')}" th:errors="*{mainProduct}"></i>								
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="fl">
+											<label><i>*</i>企业规模</label>
+											<select class="w228" th:field="*{scale}">
+												<option value="FIFTY">五十人以下</option>
+												<option value="ONEHUNDRED">五十到一百人</option>
+												<option value="FIVEHUNDRED">一百到五百</option>
+												<option value="OTHER">超过五百</option>
+											</select>
+											<i class="error ml143" th:if="${#fields.hasErrors('scale')}" th:errors="*{scale}"></i>
+											</div>
+										</div>						
+									</div>
+									<div class="fl">
+										<div class="form-group readonly-group">
+											<label><i>*</i>企业名称（中文）</label>
+											<input type="text" th:field="*{companyNameChina}" readonly="readonly"/>	
+										</div>										
+										<div class="form-group readonly-group">
+											<div class="fl">
+											<label>企业名称（英文）</label>
+											<input type="text" th:field="*{companyNameEnglish}" readonly="readonly"/>	
+											</div>
+										</div>	
+										<div class="form-group">
+											<div class="fl">
+											<label>法人代表</label>
+											<input type="text" th:field="*{legalPerson}" />		
+											<i class="error ml143" th:if="${#fields.hasErrors('legalPerson')}" th:errors="*{legalPerson}"></i>							
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="fl">
+											<label><i>*</i>行业</label>
+											<select class="w228" th:field="*{industryInfo}">
+											<option th:each="info : ${industryInfos}" th:value="${info.id}" th:text="${info.name}"></option>
+											</select>
+											<i class="error ml143" th:if="${#fields.hasErrors('industryInfo')}" th:errors="*{industryInfo}"></i>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="fl">
+											<label>注册资本</label>
+											<input type="text" th:field="*{registeredCapital}"/>万
+											<i class="error ml143" th:if="${#fields.hasErrors('registeredCapital')}" th:errors="*{registeredCapital}"></i>								
+											</div>
+										</div>
+									</div>
+								</div>																
+								<div class="form-group">
+									<div class="fl">
+									<label class="top"><i>*</i>企业简介</label>
+									<textarea rows="12" th:field="*{content}" style="width: 618px;"></textarea>
+									<i class="error ml143" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></i>
+									</div>
+								</div>																					
+								<div class="form-group files noline">
+             							<label><i>*</i>企业营业执照</label>
+             							<img th:src="*{businessLicenseUrl}" width="100" height="100" />
+						            <span id="uploadImg" type="button" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_UNAUTH">
+						            <input type='file' name='file' th:attr="data-url=@{businessLicenseUrl}"/>
+						            <a href="#">选择文件</a>
+						            </span>
+						            <input type="hidden" th:field="*{businessLicenseUrl}" />
+						         </div>	
+					            <div class="form-group files noline">
+					                <label><i>*</i>税务登记证</label>
+					                <img th:src="*{taxRegistrationUrl}" width="100" height="100" />
+					                <span id="uploadImg" type="button" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_UNAUTH">
+					                    <input type='file' name='file' th:attr="data-url=@{taxRegistrationUrl}"/>
+					                    <a href="#">选择文件</a>
+					                </span>
+					                <input type="hidden" th:field="*{taxRegistrationUrl}" />
+					            </div>
+				           		<div class="form-group files noline">
+					                <label><i>*</i>组织机构代码证</label>
+					                <img th:src="*{structureCodeUrl}" width="100" height="100" />
+					                <span id="uploadImg" type="button" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_UNAUTH">
+					                    <input type='file' name='file' th:attr="data-url=@{structureCodeUrl}"/>
+					                    <a href="#">选择文件</a>
+					                </span>
+					                <input type="hidden" th:field="*{structureCodeUrl}" />
+				            	</div>					
+								<button class="btn green">保存</button>							
+							</form>
+						</div>
+						<div class="tab-panel form-control hide w500">
+							<form action="/">
+								<div class="form-group">
+									<label><i>*</i>旧密码</label>
+									<input type="text"/>				
+								</div>
+								<div class="form-group">
+									<label><i>*</i>新密码</label>
+									<input type="text"/>
+								</div>
+								<button class="btn green">保存</button>			
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="footer/footer"></div>
+</body>
+</html>	

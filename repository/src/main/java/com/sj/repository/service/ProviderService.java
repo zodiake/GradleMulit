@@ -22,7 +22,7 @@ public interface ProviderService {
 	public Provider checkUser(Provider provider, ActivateEnum activate);
 
 	public Provider updateProvider(Provider provider);
-
+	
 	public Page<ProviderJson> toJson(Pageable pageable, String authority);
 
 	public Page<Provider> findBySiteAuthority(Pageable pageable,

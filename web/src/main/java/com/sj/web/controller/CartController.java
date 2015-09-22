@@ -55,15 +55,23 @@ public class CartController {
 			for (CartLine cart : lines) {
 				if (cartLine.getProductId().equals(cart.getProductId())) {
 					int num = cart.getNumber();
-					cartLineService.updateNumber(user.getId(), cart.getId(),
-							num + cartLine.getNumber());
-					cart.setNumber(num + cartLine.getNumber());
+					if((num + cartLine.getNumber())<=999){
+						cartLineService.updateNumber(user.getId(), cart.getId(),
+								num + cartLine.getNumber());
+						cart.setNumber(num + cartLine.getNumber());
+					}else{
+						cartLineService.updateNumber(user.getId(), cart.getId(),999);
+						cart.setNumber(999);
+					}
 					httpSession.setAttribute("cartLines", lines);
-					return "{\"data\":\"addone\"}";
+					return "{\"data\":\"addone\""+",\"number\":\""+cart.getNumber()+"\"}";
 				}
 			}
 		} else {
 			lines = new HashSet<CartLine>();
+		}
+		if(cartLine.getNumber()>999){
+			cartLine.setNumber(999);
 		}
 		Product p = productService.findOne(cartLine.getProductId());
 		cartLine = new CartLine(p, cartLine.getNumber());
@@ -95,9 +103,10 @@ public class CartController {
 			if (lines.size() != 0) {
 				for (CartLine cartLine : lines) {
 					if (productId.equals(cartLine.getProductId().toString())) {
-						cartLineService.updateNumber(user.getId(),
-								cartLine.getId(), 1 + cartLine.getNumber());
-						cartLine.setNumber(1 + cartLine.getNumber());
+						if(cartLine.getNumber()<999){
+							cartLineService.updateNumber(user.getId(), cartLine.getId(), 1 + cartLine.getNumber());
+							cartLine.setNumber(1 + cartLine.getNumber());
+						}
 						bool = false;
 						break;
 					}
@@ -166,11 +175,24 @@ public class CartController {
 	@ResponseBody
 	private String updateCartLineNumber(
 			@PathVariable(value = "cartLineId") Long cartLineId,
-			@PathVariable(value = "number") Integer number) {
+			@PathVariable(value = "number") Integer number,HttpSession session){
 		if (!userContext.isLogin())
 			return "fail";
-		SiteUser user = userContext.getCurrentUser();
-		cartLineService.updateNumber(user.getId(), cartLineId, number);
+		Set<CartLine> lines = (Set<CartLine>) session.getAttribute("cartLines");
+		for (CartLine cartLine : lines) {
+			if(cartLine.getId().equals(cartLineId)){
+				SiteUser user = userContext.getCurrentUser();
+				if(cartLine.getNumber()+number<=999){
+					cartLineService.updateNumber(user.getId(), cartLineId, number);
+					cartLine.setNumber(cartLine.getNumber()+number);
+				}else{
+					cartLineService.updateNumber(user.getId(), cartLineId, 999);
+					cartLine.setNumber(999);
+				}
+				break;
+			}
+		}
+		session.setAttribute("cartLines", lines);
 		return "success";
 	}
 
@@ -186,7 +208,7 @@ public class CartController {
 		return "success";
 	}
 
-	@RequestMapping(value = "/user/carts/all/{check}", method = RequestMethod.PUT, params = "check")
+	@RequestMapping(value = "/user/carts/{check}", method = RequestMethod.PUT, params = "check")
 	@ResponseBody
 	private String updateAllCartLineCheck(@PathVariable("check") String check) {
 		if (!userContext.isLogin())

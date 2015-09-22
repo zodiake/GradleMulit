@@ -75,6 +75,35 @@ public class ProviderController extends BaseController<Product> {
 	private ServiceService serviceService;
 
 	@RequestMapping(value = "/supplier/detail", method = RequestMethod.GET)
+	public String findCurrentSupplier(Model uiModel) {
+		SiteUser user = userContext.getCurrentUser();
+		Provider provider = providerService.findById(user.getId());
+		uiModel.addAttribute("user", provider);
+		uiModel.addAttribute("provinces", provinceService.findAll());
+		uiModel.addAttribute("industryInfos",
+				providerIndustryInfoService.findAll());
+		uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
+		return "user/provider/supplierDetail";
+	}
+
+	@RequestMapping(value = "/supplier/detail", method = RequestMethod.PUT)
+	public String updateCurrentSupplier(Model uiModel,
+			@Valid @ModelAttribute("user") Provider provider,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("user", provider);
+			uiModel.addAttribute("provinces", provinceService.findAll());
+			uiModel.addAttribute("industryInfos",providerIndustryInfoService.findAll());
+			uiModel.addAttribute("citys",cityService.findByProvince(provider.getProvince()));
+			return "user/provider/supplierDetail";
+		}
+		SiteUser user = userContext.getCurrentUser();
+		provider.setId(user.getId());
+		provider = providerService.updateProvider(provider);
+		uiModel.addAttribute("user", provider);
+		return "redirect:/supplier/detail";
+	}
+	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
 		Provider provider = providerService.findById(user.getId());
@@ -82,12 +111,11 @@ public class ProviderController extends BaseController<Product> {
 		uiModel.addAttribute("provinces", provinceService.findAll());
 		uiModel.addAttribute("industryInfos",
 				providerIndustryInfoService.findAll());
-		uiModel.addAttribute("citys",
-				cityService.findByProvince(provider.getProvince()));
-		return "user/provider/detail";
+		uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
+		return "user/provider/providerDetail";
 	}
 
-	@RequestMapping(value = "/supplier/detail", method = RequestMethod.PUT)
+	@RequestMapping(value = "/provider/detail", method = RequestMethod.PUT)
 	public String updateCurrentProvider(Model uiModel,
 			@Valid @ModelAttribute("user") Provider provider,
 			BindingResult bindingResult) {
@@ -96,15 +124,14 @@ public class ProviderController extends BaseController<Product> {
 			uiModel.addAttribute("provinces", provinceService.findAll());
 			uiModel.addAttribute("industryInfos",providerIndustryInfoService.findAll());
 			uiModel.addAttribute("citys",cityService.findByProvince(provider.getProvince()));
-			return "user/provider/detail";
+			return "user/provider/providerDetail";
 		}
 		SiteUser user = userContext.getCurrentUser();
 		provider.setId(user.getId());
 		provider = providerService.updateProvider(provider);
 		uiModel.addAttribute("user", provider);
-		return "redirect:/supplier/detail";
+		return "redirect:/provider/detail";
 	}
-
 	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)
 	public String findAllProductByProvider(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "1") int page,

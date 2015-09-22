@@ -27,8 +27,7 @@
                  	alert("对不起您没有权限");
                  } else if(data.data == "addone"){
                  	var cartNumber = $("#cartNumber"+product);
-                 	var numberVal = cartNumber.html();
-                 	cartNumber.html(parseInt(numberVal)+parseInt(number));
+                 	cartNumber.html(data.number);
                  }else{
                  	var str = '<li id="cart'+product+'"><div class="fl ct-img"><a href="/products/'+product+'"><img width="50" height="50" src="'+data.image+'"/></a></div><div class="fl ct-name"><a href="/products/'+product+'">'+data.name+'</a>'+
 						'</div><div class="fr ct-detail"><span class="ct-price"><b>'+data.price+'</b>×<i id="cartNumber'+product+'">'+number+'</i></span><br/><a class="fr cartRemove" data-id="'+product+'">删除</a></div></li>';
