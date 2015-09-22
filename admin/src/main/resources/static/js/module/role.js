@@ -62,7 +62,7 @@ roleModule.service('RoleService', ['$http', function ($http) {
             return this.update(item);
         else
             return this.save(item);
-    }
+    };
 
     this.delete = function (item) {
         var state = item.state == 'ACTIVATE' ? 'deactivate' : 'activate';
@@ -186,7 +186,7 @@ roleModule.controller('roleDetailController', ['$scope',
             RoleService
                 .update($scope.item)
                 .success(function (data) {
-                    if (data.status == 'success') {
+                    if (data.id) {
                         $scope.alerts.push({
                             type: 'success',
                             msg: '保存成功',
@@ -212,18 +212,18 @@ roleModule.controller('RoleCreateController', ['$scope',
     'RoleService',
     function ($scope, menus, RoleService) {
         $scope.menus = menus.data;
-        $scope.alerts=[];
+        $scope.alerts = [];
 
         $scope.submit = function () {
             RoleService
                 .saveOrUpdate($scope.item)
                 .success(function (data) {
-                    if (data.status == 'success') {
+                    if (data.id) {
+                        $scope.item.id = data.id;
                         $scope.alerts.push({
                             type: 'success',
                             msg: '保存成功',
                         });
-
                     }
                 })
                 .error(function (err) {
@@ -231,6 +231,10 @@ roleModule.controller('RoleCreateController', ['$scope',
                         msg: '保存失败',
                     });
                 });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);

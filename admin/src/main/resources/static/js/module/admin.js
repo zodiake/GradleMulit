@@ -82,7 +82,9 @@ adminUserModule.controller('AdminUserController', ['$scope',
                     $scope.items = data.content;
                 })
                 .error(function (err) {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
         }
 
@@ -131,17 +133,27 @@ adminUserModule.controller('AdminUserAddController', ['$scope',
     function ($scope, AdminService, $modal, roles) {
         $scope.item = {};
         $scope.roles = roles.data;
+        $scope.alerts = [];
 
         $scope.submit = function () {
             AdminService
                 .saveOrUpdate($scope.item)
                 .success(function (data) {
-                    console.log(data);
-                    $scope.item.id = data.id;
+                    if (data.id) {
+                        $scope.item.id = data.id;
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    }
                 })
                 .error(function (err) {
 
                 });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);
@@ -155,6 +167,8 @@ adminUserModule.controller('AdminUserUpdateController', ['$scope',
         $scope.item = item.data;
         $scope.item.fake = [];
         $scope.roles = roles.data;
+        $scope.alerts = [];
+
         $scope.item.roles.forEach(function (s) {
             $scope.item.fake[s.id] = true;
         });
@@ -163,11 +177,23 @@ adminUserModule.controller('AdminUserUpdateController', ['$scope',
             AdminService
                 .saveOrUpdate($scope.item)
                 .success(function (data) {
-                    $scope.item.id = data.id;
+                    if (data.id) {
+                        $scope.item.id = data.id;
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    }
                 })
                 .error(function (err) {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);

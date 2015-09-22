@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,9 +30,10 @@ import com.sj.repository.service.SiteUserService;
 public class AdminUserController {
 	@Autowired
 	private SiteUserService userService;
-
 	@Autowired
 	private ProviderService providerService;
+	@Autowired
+	private ShaPasswordEncoder encoder;
 
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	@ResponseBody
@@ -64,6 +66,7 @@ public class AdminUserController {
 	public String save(SiteUser user, HttpServletRequest request) {
 		String roles = request.getParameter("roles");
 		user.setRoles(converteStringToSiteRoles(roles));
+		user.setPassword(encoder.encodePassword(user.getPassword(), null));
 		SiteUser u = userService.save(user);
 		return "{\"id\":\"" + u.getId() + "\"}";
 	}
