@@ -1792,7 +1792,7 @@ insert into site_menu(id,name,href) values(3,'品牌管理','brand');
 insert into site_menu(id,name,href) values(4,'商品分类管理','category');
 insert into site_menu(id,name,href) values(5,'商品管理','products');
 insert into site_menu(id,name,href) values(6,'广告发布','advertise');
-insert into site_menu(id,name,href) values(7,'信息发布','info');
+insert into site_menu(id,name,href) values(7,'资讯发布','info');
 insert into site_menu(id,name,href) values(8,'专题','subject');
 insert into site_menu(id,name,href) values(9,'滚动图片','scrollImg');
 insert into site_menu(id,name,href) values(10,'用户管理','user');

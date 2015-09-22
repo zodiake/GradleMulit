@@ -1,130 +1,126 @@
 <div class="mainpanel">
-    <div class="contentpanel">    	
-        <form class="form-inline">
-            <div class="form-group">
-                <a class="btn btn-success btn-sm" data-toggle="modal" ng-click="create()">添加</a>
-            </div>
-        </form>
-        <h4>仪器</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>商品名称</th>
-                    <th>更新时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in yq">
-                    <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{item.activate|activeFilter}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
-                           		 修改
-                        </button>
-                        <button type="button" class="btn btn-default btn-sm" ng-click="delete(item)">
-                           		{{item.activate|reverseActiveFilter}}
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <h4>试剂</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>商品名称</th>
-                    <th>更新时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in sj">
-                    <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{item.activate|activeFilter}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
-                           		 修改
-                        </button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                           		无效 
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <h4>耗材</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>商品名称</th>
-                    <th>更新时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in hc">
-                    <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{item.activate|activeFilter}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
-                           		 修改
-                        </button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                           		无效 
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <h4>服务</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>商品名称</th>
-                    <th>更新时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in fw">
-                    <td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{item.activate|activeFilter}}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
-                           		 修改
-                        </button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
-                           		无效 
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <script type="text/ng-template" id="productCategoryModal.html">
-        <div class="modal-body">
-        	是否{{item.state|reverseActiveFilter}}{{item.name}}
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
-    </script>
+	<div class="contentpanel">
+		<form class="form-inline">
+			<div class="form-group">
+				<a class="btn btn-success btn-sm" data-toggle="modal" ng-click="create()">添加</a>
+			</div>
+		</form>
+		<h4>仪器</h4>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>商品名称</th>
+					<th>更新时间</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in yq">
+					<td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
+					<td>{{item.name}}</td>
+					<td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{item.activate|activeFilter}}</td>
+					<td>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
+						修改
+					</button>
+					<button type="button" class="btn btn-default btn-sm" ng-click="delete(item)">
+						{{item.activate|reverseActiveFilter}}
+					</button></td>
+				</tr>
+			</tbody>
+		</table>
+		<h4>试剂</h4>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>商品名称</th>
+					<th>更新时间</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in sj">
+					<td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
+					<td>{{item.name}}</td>
+					<td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{item.activate|activeFilter}}</td>
+					<td>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
+						修改
+					</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+						{{item.activate|reverseActiveFilter}}
+					</button><a href="#/{{item.id}}/categories" class="btn btn-primary btn-sm">查看</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<h4>耗材</h4>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>商品名称</th>
+					<th>更新时间</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in hc">
+					<td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
+					<td>{{item.name}}</td>
+					<td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{item.activate|activeFilter}}</td>
+					<td>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
+						修改
+					</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+						{{item.activate|reverseActiveFilter}}
+					</button></td>
+				</tr>
+			</tbody>
+		</table>
+		<h4>服务</h4>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>商品名称</th>
+					<th>更新时间</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in fw">
+					<td><a href="#/{{item.id}}/categories">{{$index+1}}</a></td>
+					<td>{{item.name}}</td>
+					<td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{item.activate|activeFilter}}</td>
+					<td>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="edit(item)">
+						修改
+					</button>
+					<button type="button" class="btn btn-primary btn-sm" ng-click="delete(item)">
+						{{item.activate|reverseActiveFilter}}
+					</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script type="text/ng-template" id="productCategoryModal.html">
+		<div class="modal-body">
+		是否{{item.activate|reverseActiveFilter}}{{item.name}}
+		</div>
+		<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">OK</button>
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+		</div>
+	</script>
 </div>

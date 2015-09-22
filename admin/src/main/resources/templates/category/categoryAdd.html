@@ -4,7 +4,7 @@
 	</alert>
 	<form class="form-horizontal" name="categoryForm" ng-submit="submit()">
 		<div class="form-group">
-			<label class="col-sm-3 control-label">商品分类分类</label>
+			<label class="col-sm-3 control-label">一级分类label>
 			<div class="col-sm-5">
 				<select name="category" ng-model="item.parent" ng-required="true">
 					<option value="">--请选择--</option>
@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-3 control-label">分类名称</label>
+			<label class="col-sm-3 control-label">二级分类</label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" ng-model="item.name" name="name" ng-required="true"/>
 			</div>

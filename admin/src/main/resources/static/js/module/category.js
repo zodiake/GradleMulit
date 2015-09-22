@@ -141,7 +141,7 @@ category.controller('ProductModalCtrl', [
         $scope.item = item;
         $scope.ok = function () {
             CategoryService
-                .delete(item)
+                .delete($scope.item)
                 .success(function (data) {
                     if (data.data == 'success') {
                         item.activate = item.activate == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
