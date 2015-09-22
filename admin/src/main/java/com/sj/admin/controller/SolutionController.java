@@ -2,6 +2,8 @@ package com.sj.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
+import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.SolutionJson;
 import com.sj.repository.service.SolutionService;
 
@@ -27,10 +30,14 @@ public class SolutionController {
 		return "{\"id\":\"" + id + "\"}";
 	}
 
-	@RequestMapping(value = "/solutions/{id}", method = RequestMethod.DELETE)
-	public String delete(@PathVariable("id") Long id) {
-		solutionService.delete(id);
-		return "";
+	@RequestMapping(value = "/solutions/{id}/state", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateState(HttpServletRequest request,
+			@PathVariable("id") Long id) {
+		String active = request.getParameter("activate");
+		ActivateEnum activeEnum = ActivateEnum.fromString(active);
+		solutionService.updateState(id, activeEnum);
+		return "{\"status\":\"success\"}";
 	}
 
 	@RequestMapping(value = "/subjects/{id}/solutions", method = RequestMethod.POST)

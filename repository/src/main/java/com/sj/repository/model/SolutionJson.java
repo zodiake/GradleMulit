@@ -29,4 +29,12 @@ public class SolutionJson {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public ActivateEnum getActive() {
+		return active;
+	}
+
+	public void setActive(ActivateEnum active) {
+		this.active = active;
+	}
 }
