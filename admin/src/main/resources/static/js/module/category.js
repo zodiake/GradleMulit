@@ -166,14 +166,16 @@ category.controller('ChildCategoryController', [
     '$stateParams',
     function ($scope, CategoryService, $modal, $stateParams) {
         $scope.edit = function (item) {
-            CategoryService
-                .update(item)
-                .success(function () {
-
-                })
-                .error(function () {
-
-                });
+            $modal.open({
+                templateUrl: '/admin/childCategoryAdd',
+                size: 'sm',
+                controller: 'ChildCategoryEditController',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
+            });
         };
 
         function init() {
@@ -206,6 +208,37 @@ category.controller('ChildCategoryController', [
                     }
                 }
             });
+        };
+    }
+]);
+
+category.controller('ChildCategoryEditController', ['$scope',
+    'item',
+    'CategoryService',
+    function ($scope, item, CategoryService) {
+        $scope.item = item;
+        $scope.alerts = [];
+
+        $scope.submit = function () {
+            CategoryService
+                .update($scope.item)
+                .success(function (data) {
+                    if (data.id) {
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    }
+                })
+                .error(function (err) {
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
+                });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }
 ]);
@@ -257,6 +290,8 @@ category.controller('ProductChildModalCtrl', [
     'item',
     'CategoryService',
     function ($scope, $modalInstance, item, CategoryService) {
+        $scope.item=item;
+
         $scope.ok = function () {
             CategoryService
                 .delete(item)

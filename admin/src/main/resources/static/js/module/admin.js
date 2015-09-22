@@ -148,7 +148,9 @@ adminUserModule.controller('AdminUserAddController', ['$scope',
                     }
                 })
                 .error(function (err) {
-
+                    $scope.alerts.push({
+                        msg: '保存失败',
+                    });
                 });
         };
 
