@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -57,9 +56,6 @@ public class CommonUser extends SiteUser {
 	@JoinColumn(name = "info_id")
 	@NotNull(message = "请选择行业信息")
 	private UserIndustryInfo industryInfo; // 行业信息
-
-	@Transient
-	private String captcha;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<PreferProduct> preferProducts;
@@ -133,14 +129,6 @@ public class CommonUser extends SiteUser {
 
 	public void setCity(City city) {
 		this.city = city;
-	}
-
-	public String getCaptcha() {
-		return captcha;
-	}
-
-	public void setCaptcha(String captcha) {
-		this.captcha = captcha;
 	}
 
 	public void setProvince(Province province) {

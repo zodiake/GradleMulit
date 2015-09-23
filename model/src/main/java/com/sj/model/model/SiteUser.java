@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -72,6 +73,9 @@ public class SiteUser {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<SiteRole> roles;
+	
+	@Transient
+	private String captcha;//注册验证码
 
 	public SiteUser() {
 	}
@@ -184,6 +188,14 @@ public class SiteUser {
 		this.roles = roles;
 	}
 
+	public String getCaptcha() {
+		return captcha;
+	}
+
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -208,4 +220,5 @@ public class SiteUser {
 			return false;
 		return true;
 	}
+
 }

@@ -157,8 +157,13 @@ public class LoginController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, params = "user")
 	public String signupProcess(@Valid @ModelAttribute("user") CommonUser user,
 			BindingResult userResult, HttpSession session, Model uiModel) {
+		String code = (String) session.getAttribute("uCode");
+		if(code == null || !code.equals(user.getCaptcha())){
+			userResult.addError(new FieldError("user", "captcha", captchaError));
+		}
 		if (userResult.hasErrors()) {
 			user.setPassword(null);
+			user.setCaptcha(null);
 			uiModel.addAttribute("provinces", provinceService.findAll());
 			uiModel.addAttribute("infos", userIndustryInfoService.findAll());
 			if (user.getProvince() != null) {
@@ -171,6 +176,7 @@ public class LoginController {
 		SiteUser siteUser = commonUserService.create(user);
 		userContext.setCurrentUser(siteUser);
 		session.setAttribute("cartLines", new HashSet<CartLine>());
+		session.removeAttribute("uCode");
 		return "redirect:/";
 	}
 
@@ -187,7 +193,11 @@ public class LoginController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST, params = "provider")
 	public String providerSignupProcess(
 			@Valid @ModelAttribute("user") Provider provider,
-			BindingResult providerResult, Model uiModel) {
+			BindingResult providerResult, Model uiModel,HttpSession session) {
+		String code = (String) session.getAttribute("pCode");
+		if(code == null ||!code.equals(provider.getCaptcha())){
+			providerResult.addError(new FieldError("user", "captcha", captchaError));
+		}
 		if (providerResult.hasErrors()) {
 			provider.setPassword(null);
 			uiModel.addAttribute("provinces", provinceService.findAll());
@@ -202,6 +212,7 @@ public class LoginController {
 		provider.setPassword(encoder.encodePassword(provider.getPassword(),null));
 		provider = providerService.create(provider);
 		userContext.setCurrentUser(provider);
+		session.removeAttribute("pCode");
 		return "redirect:/";
 	}
 
@@ -215,7 +226,7 @@ public class LoginController {
 	}
 
 	/* Verify that the name exists */
-	@RequestMapping(value = "/name", method = RequestMethod.POST, params = "valid")
+	@RequestMapping(value = "/users/name", method = RequestMethod.POST)
 	@ResponseBody
 	public String validateUserNameIsExiste(@RequestParam("name") String name) {
 		SiteUser user = userService.findByName(name);
@@ -321,19 +332,20 @@ public class LoginController {
 	public String forgetPwVaildata(
 			@Valid @ModelAttribute("form") MobileVerificationForm form,
 			BindingResult result, Model uiModel, HttpSession session) {
-		if (result.hasErrors()) {
-			form.setCode(null);
-			uiModel.addAttribute("form", form);
-			return "user/forgetPw";
-		}
 		SiteUser user = userService.findByPhone(form.getPhone());
-		if (user == null) {
+		if(user == null)
 			result.addError(new FieldError("form", "phone", "该手机号码未注册"));
-			form.setCode(null);
+		String code = (String) session.getAttribute("fCode");
+		if(!code.equals(form.getCaptcha()))
+			result.addError(new FieldError("form", "captcha", "验证码错误"));
+		if (result.hasErrors()) {
+			form.setCaptcha(null);
 			uiModel.addAttribute("form", form);
 			return "user/forgetPw";
 		}
+		
 		session.setAttribute("phone", form.getPhone());
+		session.removeAttribute("fCode");
 		uiModel.addAttribute("form", new RetrievePasswordForm(form.getPhone()));
 		return "user/changePw";
 	}
@@ -342,15 +354,9 @@ public class LoginController {
 	public String forgetPwProcess(
 			@Valid @ModelAttribute("form") RetrievePasswordForm form,
 			BindingResult bindingResult, Model uiModel, HttpSession session) {
+		if (!StringUtils.equals(form.getPassword(), form.getConfirm()))
+			bindingResult.addError(new FieldError("form", "confirm","两次输入的密码不一致"));
 		if (bindingResult.hasErrors()) {
-			form.setPassword(null);
-			form.setConfirm(null);
-			uiModel.addAttribute("form", form);
-			return "user/changePw";
-		}
-		if (!StringUtils.equals(form.getPassword(), form.getConfirm())) {
-			bindingResult.addError(new FieldError("form", "confirm",
-					"两次输入的密码不一致"));
 			form.setPassword(null);
 			form.setConfirm(null);
 			uiModel.addAttribute("form", form);
@@ -358,10 +364,7 @@ public class LoginController {
 		}
 		String phone = (String) session.getAttribute("phone");
 		if (phone == null || "".equals(phone)) {
-			form.setPassword(null);
-			form.setConfirm(null);
-			uiModel.addAttribute("form", form);
-			return "user/changePw";
+			return "redirect:/forgetPw";
 		}
 		SiteUser user = userService.findByPhone(phone);
 		userService.updatePassword(user.getId(),
