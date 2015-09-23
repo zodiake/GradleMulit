@@ -175,13 +175,11 @@ public class CartController {
 	@ResponseBody
 	private String updateCartLineNumber(
 			@PathVariable(value = "cartLineId") Long cartLineId,
-			@PathVariable(value = "number") Integer number,HttpSession session){
-		if (!userContext.isLogin())
-			return "fail";
-		Set<CartLine> lines = (Set<CartLine>) session.getAttribute("cartLines");
+			@PathVariable(value = "number") Integer number,HttpSession session,@SecurityUser SiteUser user){
+		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+//				(Set<CartLine>) session.getAttribute("cartLines");
 		for (CartLine cartLine : lines) {
 			if(cartLine.getId().equals(cartLineId)){
-				SiteUser user = userContext.getCurrentUser();
 				if(cartLine.getNumber()+number<=999){
 					cartLineService.updateNumber(user.getId(), cartLineId, number);
 					cartLine.setNumber(cartLine.getNumber()+number);
