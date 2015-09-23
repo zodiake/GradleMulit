@@ -18,9 +18,11 @@ $(function() {
 					getCount();
 					var listSize = $("#listSize");
 					listSize.html(parseInt(listSize.html()) - 1);
-					if($(".check").length==0){
+					var checksLength = $(".check").length;
+					if($(".check").length == 0){
 						$("#noProduct").show();
 					}
+					$("#allNum").html(checksLength);
 				}
 				$(".fixed").fadeOut();
 				$(".deletePrompt").fadeOut();

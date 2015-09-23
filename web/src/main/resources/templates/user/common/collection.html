@@ -24,25 +24,37 @@
                     var product = id.attr("data-id");
                     createCart(1,product);
                 });
+                var deleteId;
                 $('.btn-cancel').click(function() {
                     var id = $(this);
                     var product = id.attr("data-id");
-                    $.ajax({
+                    deleteId = product;
+                    $(".fixed").fadeIn();
+					$(".hide-wrap").fadeIn();
+                });
+                $('#delete').click(function(){
+                	$.ajax({
                         type : 'delete',
-                        url : '/user/collection/' + product,
+                        url : '/user/collection/' + deleteId,
                         success : function(data) {
                             if (data == "success") {
-                                $("#li" + product).remove();
+                                $("#li" + deleteId).remove();
                             }
                             if($("#preferUl li").length==0){
                             	$("#noCollection").show();
                             }
+                            $(".fixed").fadeOut();
+        					$(".hide-wrap").fadeOut();
                             promptSuccess("删除成功");
                         },
                         error : function(data) {
                         	promptError("系统异常");
                         }
                     });
+                });
+                $('.cancel').click(function(){
+                	$(".fixed").fadeOut();
+					$(".hide-wrap").fadeOut();
                 });
             });
 		</script>
@@ -107,6 +119,16 @@
 			</div>
 		</div>
 		<div th:include="footer/footer"></div>
+		<div class="fixed"></div>
 		<div class="prompt"></div>
+		<div class="hide-wrap deletePrompt bodr">
+		<div class="hide-con">
+			<h2>是否删除该收藏品</h2>
+			<div class="foot-btn">
+				<button class="btn green ft14" id="delete">确认</button>
+				<button class="btn default cancel" >取消</button>
+			</div>
+		</div>
+	</div>
 	</body>
 </html>

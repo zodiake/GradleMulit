@@ -37,7 +37,8 @@
 				url : '/user/buyRecords/'+deleteId,
 				success : function(data){
 					$('#tr'+deleteId).remove();
-					if($('tbody tr').length==0){
+					var cartNum = $('tbody tr').length; 
+					if(cartNum == 0){
 						$('#noBuys').show();
 					}
 					$(".fixed").fadeOut();
