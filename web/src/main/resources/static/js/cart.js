@@ -1,14 +1,20 @@
 $(function() {
 	getCount();
+	var deleteId;
 	$(".deleteCart").click(function() {
 		var product = $(this);
 		var productId = product.attr("data-id");
+		$(".fixed").fadeIn();
+		$(".deletePrompt").fadeIn();
+		deleteId = productId;
+	});
+	$("#delete").click(function(){
 		$.ajax({
 			type : 'DELETE',
-			url : "/user/carts/" + productId,
+			url : "/user/carts/" + deleteId,
 			success : function(data) {
 				if (data == "success") {
-					$("#" + productId).remove();
+					$("#" + deleteId).remove();
 					getCount();
 					var listSize = $("#listSize");
 					listSize.html(parseInt(listSize.html()) - 1);
@@ -16,6 +22,8 @@ $(function() {
 						$("#noProduct").show();
 					}
 				}
+				$(".fixed").fadeOut();
+				$(".deletePrompt").fadeOut();
 			},
 			error : function(data) {
 				promptError("系统异常");

@@ -19,17 +19,29 @@
 		$(document).ajaxSend(function(e, xhr, options) {
 			xhr.setRequestHeader(header, token);
 		});
+		var deleteId;
 		$('.delete').click(function(){
 			var obj = $(this);
 			var id = obj.attr('data-id');
+			deleteId = id;
+			$(".fixed").fadeIn();
+			$(".deletePrompt").fadeIn();
+		});
+		$('.cancel').click(function(){
+			$(".fixed").fadeOut();
+			$(".deletePrompt").fadeOut();
+		});
+		$("#delete").click(function(){
 			$.ajax({
 				type : 'delete',
-				url : '/user/buyRecords/'+id,
+				url : '/user/buyRecords/'+deleteId,
 				success : function(data){
-					$('#tr'+id).remove();
+					$('#tr'+deleteId).remove();
 					if($('tbody tr').length==0){
 						$('#noBuys').show();
 					}
+					$(".fixed").fadeOut();
+					$(".deletePrompt").fadeOut();
 				},error : function(data){
 					promptError("系统异常");
 				}
@@ -88,6 +100,17 @@
 			</div>
 		</div>
 	</div>
+	<div th:include="footer/footer"></div>
+	<div class="fixed"></div>
 	<div class="prompt"></div>
+	<div class="hide-wrap deletePrompt bodr">
+		<div class="hide-con">
+			<h2>是否删除该采购清单</h2>
+			<div class="foot-btn">
+				<button class="btn green ft14" id="delete">确认</button>
+				<button class="btn default cancel" >取消</button>
+			</div>
+		</div>
+	</div>
 </body>
 </html>	
