@@ -24,13 +24,13 @@ $(function() {
 					}
 					$("#allNum").html(checksLength);
 				}
-				$(".fixed").fadeOut();
-				$(".deletePrompt").fadeOut();
 			},
 			error : function(data) {
 				promptError("系统异常");
 			}
 		});
+		$(".fixed").fadeOut();
+		$(".deletePrompt").fadeOut();
 	});
 
 	$(".minus").click(function() {

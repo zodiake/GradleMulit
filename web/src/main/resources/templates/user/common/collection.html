@@ -43,13 +43,13 @@
                             if($("#preferUl li").length==0){
                             	$("#noCollection").show();
                             }
-                            $(".fixed").fadeOut();
-        					$(".hide-wrap").fadeOut();
                             promptSuccess("删除成功");
                         },
                         error : function(data) {
                         	promptError("系统异常");
                         }
+                        $(".fixed").fadeOut();
+        				$(".hide-wrap").fadeOut();
                     });
                 });
                 $('.cancel').click(function(){

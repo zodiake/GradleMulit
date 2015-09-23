@@ -41,12 +41,12 @@
 					if(cartNum == 0){
 						$('#noBuys').show();
 					}
-					$(".fixed").fadeOut();
-					$(".deletePrompt").fadeOut();
 				},error : function(data){
 					promptError("系统异常");
 				}
 			});
+			$(".fixed").fadeOut();
+			$(".deletePrompt").fadeOut();
 		});
 	});
   </script>

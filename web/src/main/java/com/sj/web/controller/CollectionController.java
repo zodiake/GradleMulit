@@ -85,8 +85,7 @@ public class CollectionController extends BaseController<PreferProduct>{
 	public String deleteCollection(Model uiModel,
 			@PathVariable(value = "productId") Long productId) {
 		SiteUser user = userContext.getCurrentUser();
-		preferService.deleteByUserAndProduct(new CommonUser(user.getId()),
-				new Product(productId));
+		preferService.deleteByUserAndProduct(new CommonUser(user.getId()),new Product(productId));
 		return "success";
 	}
 

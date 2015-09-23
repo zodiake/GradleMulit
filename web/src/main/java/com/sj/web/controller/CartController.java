@@ -143,14 +143,16 @@ public class CartController {
 	private String removeCartLine(@PathVariable("productId") Long productId,
 			HttpSession session, @SecurityUser SiteUser user) {
 		Set<CartLine> lines = cartLineService.findByUser(user.getId());
-		for (CartLine cartLine : lines) {
-			if (cartLine.getProductId().equals(productId)) {
-				cartLineService.remove(user.getId(), cartLine.getId());
-				lines.remove(cartLine);
-				break;
+		if(lines!=null && lines.size()!=0){
+			for (CartLine cartLine : lines) {
+				if (cartLine.getProductId().equals(productId)) {
+					cartLineService.remove(user.getId(), cartLine.getId());
+					lines.remove(cartLine);
+					break;
+				}
 			}
+			session.setAttribute("cartLines", lines);
 		}
-		session.setAttribute("cartLines", lines);
 		return "success";
 	}
 	@RequestMapping(value = "/user/carts", method = RequestMethod.DELETE)
@@ -158,16 +160,18 @@ public class CartController {
 	private String removeCartLines(@RequestParam("productIds") String[] productIds,
 			HttpSession session, @SecurityUser SiteUser user) {
 		Set<CartLine> lines = cartLineService.findByUser(user.getId());
-		for (int i = 0; i < productIds.length; i++) {
-			for (CartLine cartLine : lines) {
-				if (productIds[i].equals(cartLine.getId())) {
-					cartLineService.remove(user.getId(), cartLine.getId());
-					lines.remove(cartLine);
-					break;
+		if(lines != null && lines.size() != 0 ){
+			for (int i = 0; i < productIds.length; i++) {
+				for (CartLine cartLine : lines) {
+					if (productIds[i].equals(cartLine.getId())) {
+						cartLineService.remove(user.getId(), cartLine.getId());
+						lines.remove(cartLine);
+						break;
+					}
 				}
 			}
+			session.setAttribute("cartLines", lines);
 		}
-		session.setAttribute("cartLines", lines);
 		return "success";
 	}
 
@@ -177,7 +181,6 @@ public class CartController {
 			@PathVariable(value = "cartLineId") Long cartLineId,
 			@PathVariable(value = "number") Integer number,HttpSession session,@SecurityUser SiteUser user){
 		Set<CartLine> lines = cartLineService.findByUser(user.getId());
-//				(Set<CartLine>) session.getAttribute("cartLines");
 		for (CartLine cartLine : lines) {
 			if(cartLine.getId().equals(cartLineId)){
 				if(cartLine.getNumber()+number<=999){
