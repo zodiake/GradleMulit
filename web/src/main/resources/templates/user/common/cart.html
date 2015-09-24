@@ -18,6 +18,39 @@
 		$(document).ajaxSend(function(e, xhr, options) {
 			xhr.setRequestHeader(header, token);
 		});
+		$('.text-amount').keyup(function(){      
+	        $(this).val($(this).val().replace(/[^0-9.]/g,''));      
+	    }).bind("paste",function(){       
+	        $(this).val($(this).val().replace(/[^0-9.]/g,''));       
+	   	});
+	    
+		$(".text-amount").blur(function() {
+			var i = $(this);
+			var number = i.val();
+			var cartId = i.attr("cart-id");
+			var price = i.attr("price");
+			var productId = i.attr("product-id");
+			var priceDom = $("#small" + cartId);
+			var product = $("#num" + productId);
+			if(1>number  || number>999){
+				number = 999;
+				i.val(number);
+			}else{
+				$.ajax({
+					type : 'PUT',
+					url : '/user/carts/' + cartId + '/' + number,
+					success : function(data) {
+						if (data == "success") {
+							i.val(number);
+							priceDom.html(parseFloat(number * price).toFixed(1));
+							getCount();
+						}
+					},
+					error : function(data) {
+					}
+				});
+			}
+		});
 	});
   </script>
 </head>
@@ -80,7 +113,7 @@
 									<td>
 										<div class="amount">
 											<a class="minus" th:attr="data-id=${cart.productId},cart-id=${cart.id}">-</a>
-											<input type="text" class="text-amount" th:value="${cart.number}" th:id="'num'+${cart.productId}" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" th:attr="cart-id=${cart.id},price=${cart.price},product-id=${cart.productId}"/>
+											<input type="text" class="text-amount" th:value="${cart.number}" th:id="'num'+${cart.productId}" th:attr="cart-id=${cart.id},price=${cart.price},product-id=${cart.productId}"/>
 											<a class="plus" th:attr="data-id=${cart.productId},cart-id=${cart.id},price=${cart.price}">+</a>
 										</div>
 									</td>

@@ -86,6 +86,7 @@ $(function() {
 
 	});
 	$(".check").click(function() {
+		alert(12);
 		var check = $(this);
 		var cartId = check.attr('data-id');
 		if (check.attr("checked") == "checked") {
@@ -112,35 +113,6 @@ $(function() {
 			check.attr('checked', 'checked');
 		}
 		getCount();
-	});
-	$(".text-amount").change(function() {
-		var i = $(this);
-		var number = i.val();
-		var cartId = i.attr("cart-id");
-		var price = i.attr("price");
-		var productId = i.attr("product-id");
-		var priceDom = $("#small" + cartId);
-		var product = $("#num" + productId);
-		if(number<1 || number>999){
-			promptError("数量只能在1~999之间");
-			number = 999;
-			i.val(number);
-		}else{
-		$.ajax({
-			type : 'PUT',
-			url : '/user/carts/' + cartId + '/' + number,
-			success : function(data) {
-				if (data == "success") {
-					i.val(number);
-					priceDom.html(parseFloat(number * price).toFixed(1));
-					getCount();
-				}
-			},
-			error : function(data) {
-				promptError("系统异常");
-			}
-		});
-		}
 	});
 	$("#checkAll").click(
 			function() {
