@@ -46,41 +46,53 @@
             progressall: function(e, data) {
             }
         });
-        $(".tel-code").click(function(){
-    		var code = $(this);
-    		var phone = $("#phone");
-    		$("#phoneError").empty();
-    		if(phone.val()=="" || phone.val().length!=11){
-    			phone.after('<i class="error" id="phoneError">请确认手机号码</i>');
-    			return;
-    		}
-    		$.ajax({
-    			type : 'POST',
-    			url : '/providers/phone',
-    			data : {'phone':phone.val()},
-    			success : function(data){
-    				if(data=='exists')
-    					phone.after('<i class="error" id="phoneError">该手机已被注册</i>');
-    				else if(data=='success'){
-    					code.attr("disabled","disabled");
-    					code.html("60秒后重发");
-    					var time = 59;
-    					var timer = setInterval(function(){
-    						code.html(time + "秒后重发");
-    						time--; 
-    						if(time == -1){
-    							clearInterval(timer);
-    							code.removeAttr("disabled");
-    							code.html("获取验证码");
-    						}
-    					},1000);
-
-    				}
-    				else
-    					phone.after('<i class="error" id="phoneError">请确认您的手机号码或您的次数已达上限</i>');
-    			}
-    		});
-    	});
+        var valiPhone = false;
+		$("#phone").change(function(){
+			$("#phoneError").empty();
+			valiPhone = false;
+			var phone = $(this);
+			if(phone.val() == "" || phone.val().length != 11){
+				phone.after('<i class="error" id="phoneError">请确认手机号码</i>');
+				return;
+			}
+			$.ajax({
+				type : 'post',
+				url : '/users/phone',
+				data : {'phone':phone.val()},
+				success : function(data){
+					if(data=='true')
+						valiPhone = true;
+					else
+						phone.after('<i class="error" id="phoneError">该手机号码已被注册</i>');	
+				}
+			});
+		});
+		$(".tel-code").click(function(){
+			var code = $(this);
+			var phone = $("#phone");
+			if(valiPhone==false){
+				return;
+			}
+			code.attr("disabled","disabled");
+			code.html("60秒后重发");
+			$.ajax({
+				type : 'POST',
+				url : '/users/captcha',
+				data : {'phone':phone.val()},
+				success : function(data){
+						var time = 59;
+						var timer = setInterval(function(){
+							code.html(time + "秒后重发");
+							time--; 
+							if(time == -1){
+								clearInterval(timer);
+								code.removeAttr("disabled");
+								code.html("获取验证码");
+							}
+						},1000);
+				}
+			});
+		});
     });
     </script>
 </head>

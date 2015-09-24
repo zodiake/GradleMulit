@@ -123,12 +123,16 @@
 			var productId = $(this).attr("data-id");
 			var reviews = $("#reviews"); 
 			if(reviews.html()==""){
+			$(".fixed").fadeIn();
+			$("#gif").fadeIn();
 				$.ajax({
 					url : "/products/"+productId+"/reviews",
 					type : "get",
 					success : function(data){
 						reviews.empty();
 						reviews.append(data);
+						$(".fixed").fadeOut();
+						$("#gif").fadeOut();
 					}
 				});
 			}
@@ -177,7 +181,7 @@
 						4100 A</span>
 				</div>
 				<div class="panel">
-					<label>产地：</label> 
+					<label>产地：</label> 	
 					<span th:if="${product.placeOfProduction.toString()=='DOMESTIC'}" th:text="国产"></span> 
 					<span th:if="${product.placeOfProduction.toString()=='IMPORTED'}" th:text="进口"></span>
 				</div>
@@ -245,6 +249,7 @@
 	<div th:include="footer/footer"></div>
 	<script></script>
 	<div class="fixed"></div>
+	<div class="hide-wrap" style="background: transparent;padding-left:8%; width: 50px; height: 50px;" id = "gif"><img style="width: 50px; height: 50px;" alt="" th:src="@{/img/loading.gif}"/></div>
 	<div class="hide-wrap logo-small bodr"></div>
 	<div class="prompt"></div>
 </body>

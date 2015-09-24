@@ -29,13 +29,10 @@ public class PhoneController {
 
 	private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit";
 
-	@RequestMapping(value = "/users/phone",method = RequestMethod.POST)
+	@RequestMapping(value = "/users/captcha",method = RequestMethod.POST)
 	@ResponseBody
 	public String verificationUserPhone(@RequestParam("phone") String phone,
 			HttpSession session) throws HttpException, IOException, DocumentException {
-		SiteUser user = userService.findByPhone(phone);
-		if (user != null)
-			return "exists";
 		int mobile_code = (int) ((Math.random() * 9 + 1) * 100000);
 		String code = sendRequest(phone, mobile_code);
 		if("2".equals(code))

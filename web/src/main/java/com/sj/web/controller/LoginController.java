@@ -235,6 +235,14 @@ public class LoginController {
 		}
 		return "false";
 	}
+	@RequestMapping(value = "/users/phone", method = RequestMethod.POST)
+	@ResponseBody
+	public String validateUserPhoneIsExists(@RequestParam("phone") String phone){
+		SiteUser user = userService.findByPhone(phone);
+		if(user==null)
+			return "true";
+		return "false";
+	}
 
 	/* user change password feature */
 	@RequestMapping(value = {"/supplier/changePw","/provider/changePw"}, method = RequestMethod.GET)
