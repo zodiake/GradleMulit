@@ -1,9 +1,6 @@
 package com.sj.web.controller;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.json.JSONArray;
@@ -25,8 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sj.model.model.Product;
 import com.sj.model.model.Review;
 import com.sj.model.model.SiteUser;
-import com.sj.model.model.Solution;
-import com.sj.model.model.Subject;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ReviewService;
 import com.sj.web.exception.ProductNotFoundException;
@@ -43,8 +38,6 @@ public class ReviewController extends BaseController<Review>{
 	@Autowired
 	private StringRedisTemplate template;
 	
-	private final String DETAIL = "product/product";
-
 	@RequestMapping(value = "/products/{productId}/reviews", method = RequestMethod.GET)
 	private String list(@PathVariable("productId") Long productId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
@@ -54,10 +47,10 @@ public class ReviewController extends BaseController<Review>{
 			throw new ProductNotFoundException();
 		Page<Review> reviews = reviewService.findByProduct(product,
 				new PageRequest(page , size, Direction.DESC, "createdTime"));
-		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page, size, Direction.DESC, "createdTime"));
 		
-		ViewPage viewpage = caculatePage(reviewPage);
+		ViewPage viewpage = caculatePage(reviews);
 		viewpage.setHref("/products/"+productId+"/reviews");
+		viewpage.setCurrent(reviews.getNumber());
 		
 		uiModel.addAttribute("reviewPage", reviews);
 		uiModel.addAttribute("viewpage", viewpage);
@@ -91,34 +84,5 @@ public class ReviewController extends BaseController<Review>{
 			return object;
 		}).forEach(i -> array.put(i));
 		return array.toString();
-	}
-	
-	
-	@RequestMapping(value="/provider/products/{id}",method = RequestMethod.GET,params="detail")
-	public String findOne(@PathVariable("id")Long id,Model uiModel,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size){
-		Product product = productService.findOne(id);
-		Set<Subject> subjects = new HashSet<Subject>(); 
-		List<Solution> solutions = product.getSolutions();
-		if(solutions!=null && solutions.size()!=0){
-			for (Solution solution : solutions) {
-				subjects.add(solution.getSubject());
-			}
-		}
-		product.setSolutions(null);
-		
-		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page, size, Direction.DESC, "createdTime"));
-		ViewPage viewpage = caculatePage(reviewPage);
-		viewpage.setHref("/provider/products/"+id+"?detail");
-		uiModel.addAttribute("viewpage", viewpage);
-		
-		uiModel.addAttribute("subjects", subjects);
-		uiModel.addAttribute("product", product);
-		uiModel.addAttribute("reviewPage", reviewPage);
-		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());
-		uiModel.addAttribute("pc", product.getFirstCategory());
-		uiModel.addAttribute("product", product);
-		return DETAIL;
 	}
 }

@@ -1,6 +1,9 @@
 package com.sj.web.controller;
 
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -26,6 +29,8 @@ import com.sj.model.model.Provider;
 import com.sj.model.model.Reagents;
 import com.sj.model.model.Service;
 import com.sj.model.model.SiteUser;
+import com.sj.model.model.Solution;
+import com.sj.model.model.Subject;
 import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.service.BrandService;
@@ -38,6 +43,7 @@ import com.sj.repository.service.ProviderIndustryInfoService;
 import com.sj.repository.service.ProviderService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.ReagentsService;
+import com.sj.repository.service.ReviewService;
 import com.sj.repository.service.ServiceService;
 import com.sj.repository.service.SiteUserService;
 import com.sj.web.annotation.SecurityUser;
@@ -73,6 +79,10 @@ public class ProviderController extends BaseController<Product> {
 	private ReagentsService reagentsService;
 	@Autowired
 	private ServiceService serviceService;
+	@Autowired
+	private ReviewService reviewService;
+	
+	private final String DETAIL = "product/product";
 
 	@RequestMapping(value = "/supplier/detail", method = RequestMethod.GET)
 	public String findCurrentSupplier(Model uiModel) {
@@ -482,5 +492,30 @@ public class ProviderController extends BaseController<Product> {
 		
 		uiModel.addAttribute("products", products);
 		return "user/provider/count";
+	}
+	
+	
+	@RequestMapping(value="/provider/products/{id}",method = RequestMethod.GET,params="detail")
+	public String findOne(@PathVariable("id")Long id,Model uiModel,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Product product = productService.findOne(id);
+		Set<Subject> subjects = new HashSet<Subject>(); 
+		List<Solution> solutions = product.getSolutions();
+		if(solutions!=null && solutions.size()!=0){
+			for (Solution solution : solutions) {
+				subjects.add(solution.getSubject());
+			}
+		}
+		product.setSolutions(null);
+		long reviewCount = reviewService.findCountByProduct(product);
+		uiModel.addAttribute("reviewCount", reviewCount);
+		
+		uiModel.addAttribute("subjects", subjects);
+		uiModel.addAttribute("product", product);
+		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());
+		uiModel.addAttribute("pc", product.getFirstCategory());
+		uiModel.addAttribute("product", product);
+		return DETAIL;
 	}
 }
