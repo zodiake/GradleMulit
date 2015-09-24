@@ -37,3 +37,17 @@ filterModel.filter('roleFilter',function(){
 		return role==1?'未审核':'已审核';
 	};
 });
+
+filterModel.filter('productStateFilter',function(){
+   return function(state){
+        if(state=='DOWN')   {
+            return '下架';
+        }else if(state=='UP'){
+            return '已上架';
+        }else if(state=='EXAMINE'){
+            return '审核中';
+        }else if(state=='NOT'){
+            return '未通过';
+        }
+   };
+});

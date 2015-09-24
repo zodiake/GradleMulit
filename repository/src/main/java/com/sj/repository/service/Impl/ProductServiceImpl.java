@@ -96,7 +96,8 @@ public class ProductServiceImpl implements ProductService {
 	private PreferProductService preferProductService;
 
 	@Override
-	public Page<Product> findByUsers(Provider user, Pageable pageable, ProductStatusEnum status) {
+	public Page<Product> findByUsers(Provider user, Pageable pageable,
+			ProductStatusEnum status) {
 		Page<Product> pages = repository.findByCreatedByAndStatus(user,
 				pageable, status);
 		return pages;
@@ -105,8 +106,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findUpOne(Long id) {
 		Product p = repository.findByIdAndStatus(id, ProductStatusEnum.UP);
-		if(p != null){
-			String count = template.opsForValue().get(COLLECTIONCOUNT + p.getId().toString());
+		if (p != null) {
+			String count = template.opsForValue().get(
+					COLLECTIONCOUNT + p.getId().toString());
 			if (count == null)
 				p.setCollectionCount(0l);
 			else
@@ -114,19 +116,21 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return p;
 	}
-	
+
 	@Override
-	public Product findUpOneUserIsLogin(Long id,SiteUser user) {
-		Product p = repository.findByIdAndStatus(id,ProductStatusEnum.UP);
-		if(p != null){
-			String count = template.opsForValue().get(COLLECTIONCOUNT + p.getId().toString());
+	public Product findUpOneUserIsLogin(Long id, SiteUser user) {
+		Product p = repository.findByIdAndStatus(id, ProductStatusEnum.UP);
+		if (p != null) {
+			String count = template.opsForValue().get(
+					COLLECTIONCOUNT + p.getId().toString());
 			if (count == null)
 				p.setCollectionCount(0l);
 			else
 				p.setCollectionCount(Long.valueOf(count));
-			List<PreferProduct> prefers = preferProductService.findByUser(new CommonUser(user.getId()));
+			List<PreferProduct> prefers = preferProductService
+					.findByUser(new CommonUser(user.getId()));
 			for (PreferProduct preferProduct : prefers) {
-				if(p.getId() == preferProduct.getProduct().getId()){
+				if (p.getId() == preferProduct.getProduct().getId()) {
 					p.setIsCollection(true);
 					break;
 				}
@@ -168,11 +172,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> findByCategory(ProductCategory category, Pageable pageable) {
-		Page<Product> products = repository.findByThirdCategoryAndStatus(category, pageable,ProductStatusEnum.UP);
+	public Page<Product> findByCategory(ProductCategory category,
+			Pageable pageable) {
+		Page<Product> products = repository.findByThirdCategoryAndStatus(
+				category, pageable, ProductStatusEnum.UP);
 		for (Product product : products.getContent()) {
-			String reviewCount = template.opsForValue().get(REVIEWCOUNT +product.getId());
-			if(reviewCount==null)
+			String reviewCount = template.opsForValue().get(
+					REVIEWCOUNT + product.getId());
+			if (reviewCount == null)
 				product.setReviewCount(0l);
 			else
 				product.setReviewCount(Long.valueOf(reviewCount));
@@ -207,26 +214,30 @@ public class ProductServiceImpl implements ProductService {
 	public Page<Product> findCount(Provider user, Pageable pageable) {
 		Page<Product> pages = repository.findByCreatedBy(user, pageable);
 		for (Product product : pages.getContent()) {
-			String viewCount = template.opsForValue().get(VIEWCOUNT + product.getId().toString());
-			if(viewCount==null)
+			String viewCount = template.opsForValue().get(
+					VIEWCOUNT + product.getId().toString());
+			if (viewCount == null)
 				product.setViewCount(0l);
 			else
 				product.setViewCount(Long.valueOf(viewCount));
-			
-			String collectionCount = template.opsForValue().get(COLLECTIONCOUNT+product.getId().toString());
-			if(collectionCount==null)
+
+			String collectionCount = template.opsForValue().get(
+					COLLECTIONCOUNT + product.getId().toString());
+			if (collectionCount == null)
 				product.setCollectionCount(0l);
 			else
 				product.setCollectionCount(Long.valueOf(collectionCount));
-			
-			String reviewCount = template.opsForValue().get(REVIEWCOUNT+product.getId().toString());
-			if(reviewCount==null)
+
+			String reviewCount = template.opsForValue().get(
+					REVIEWCOUNT + product.getId().toString());
+			if (reviewCount == null)
 				product.setReviewCount(0l);
 			else
 				product.setReviewCount(Long.valueOf(reviewCount));
-			
-			String buyCount = template.opsForValue().get(BUYCOUNT+product.getId().toString());
-			if(buyCount==null)
+
+			String buyCount = template.opsForValue().get(
+					BUYCOUNT + product.getId().toString());
+			if (buyCount == null)
 				product.setBuyCount(0l);
 			else
 				product.setBuyCount(Long.valueOf(buyCount));
@@ -237,22 +248,24 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findBySecondCategory(ProductCategory second,
 			Pageable pageable) {
-		Page<Product> products = repository.findBySecondCategory(second, pageable);
+		Page<Product> products = repository.findBySecondCategory(second,
+				pageable);
 		for (Product product : products.getContent()) {
-			String reviewCount = template.opsForValue().get(REVIEWCOUNT +product.getId());
-			if(reviewCount==null)
+			String reviewCount = template.opsForValue().get(
+					REVIEWCOUNT + product.getId());
+			if (reviewCount == null)
 				product.setReviewCount(0l);
 			else
 				product.setReviewCount(Long.valueOf(reviewCount));
-				
+
 		}
 		return repository.findBySecondCategory(second, pageable);
 	}
 
 	@Override
-	public Page<ProductJson> findByFirstCategoryAndSecondCategoryAndStatusJson(
+	public Page<ProductJson> findByFirstCategoryAndSecondCategoryAndThirdCategoryAndStatusJson(
 			Pageable pageable, ProductCategory fc, ProductCategory sc,
-			ProductStatusEnum status) {
+			ProductCategory tc, ProductStatusEnum status) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Product> c = cb.createQuery(Product.class);
 		Root<Product> product = c.from(Product.class);
@@ -267,6 +280,9 @@ public class ProductServiceImpl implements ProductService {
 		}
 		if (sc != null) {
 			criteria.add(cb.equal(product.get("secondCategory"), sc));
+		}
+		if (sc != null) {
+			criteria.add(cb.equal(product.get("thirdCategory"), tc));
 		}
 		if (status != null) {
 			criteria.add(cb.equal(product.get("status"), status));
@@ -326,7 +342,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findDataForBatch(XSSFWorkbook wb,Provider provider)
+	public List<Product> findDataForBatch(XSSFWorkbook wb, Provider provider)
 			throws BatchException {
 		List<Product> products = new ArrayList<Product>();
 		XSSFSheet sheet = wb.getSheetAt(0);
@@ -334,19 +350,20 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 3; i <= irLength; i++) {
 			XSSFRow xssfRow = sheet.getRow(i);
 			Product product = new Product();
-			String name = getStringCellValue(xssfRow, i, 0,40);
+			String name = getStringCellValue(xssfRow, i, 0, 40);
 			product.setName(name);
-			String model = getStringCellValue(xssfRow, i, 1,20);
+			String model = getStringCellValue(xssfRow, i, 1, 20);
 			product.setModel(model);
 
-			product.setSpecifications(getStringCellValue(xssfRow, i, 2,20));
+			product.setSpecifications(getStringCellValue(xssfRow, i, 2, 20));
 			String brandName = getStringCellValue(xssfRow, i, 3);
-			Brand brand = brandRepository.findByNameAndActivate(brandName,ActivateEnum.ACTIVATE);
+			Brand brand = brandRepository.findByNameAndActivate(brandName,
+					ActivateEnum.ACTIVATE);
 			if (brand == null)
 				throw new BatchException("第" + (i + 1) + "行品牌找不到");
 			else
 				product.setBrand(brand);
-			String place = getStringCellValue(xssfRow, i, 4,2);
+			String place = getStringCellValue(xssfRow, i, 4, 2);
 			if ("国产".equals(place))
 				product.setPlaceOfProduction(PlaceEnum.DOMESTIC);
 			else if ("进口".equals(place))
@@ -357,7 +374,9 @@ public class ProductServiceImpl implements ProductService {
 			product.setPrice(price);
 
 			String firstCategoryName = getStringCellValue(xssfRow, i, 6);
-			ProductCategory firstCategory = pcRepository.findByNameAndActivateAndParentIsNull(firstCategoryName, ActivateEnum.ACTIVATE);
+			ProductCategory firstCategory = pcRepository
+					.findByNameAndActivateAndParentIsNull(firstCategoryName,
+							ActivateEnum.ACTIVATE);
 			if (firstCategory == null)
 				throw new BatchException("第" + (i + 1) + "行大类不存在");
 			else
@@ -380,9 +399,9 @@ public class ProductServiceImpl implements ProductService {
 				throw new BatchException("第" + (i + 1) + "行二级分类不存在");
 			else
 				product.setThirdCategory(thirdCategory);
-			
+
 			String label = xssfRow.getCell(9).getStringCellValue();
-			if(label!=null && label.length()>150)
+			if (label != null && label.length() > 150)
 				throw new BatchException("第" + (i + 1) + "行标签过长");
 			product.setLabel(label);
 			product.setCreatedBy(provider);
@@ -397,28 +416,36 @@ public class ProductServiceImpl implements ProductService {
 		return products;
 	}
 
-	private String getStringCellValue(XSSFRow xssfRow, int line, int column,int length)throws BatchException {
+	private String getStringCellValue(XSSFRow xssfRow, int line, int column,
+			int length) throws BatchException {
 		String value = "";
 		try {
 			value = xssfRow.getCell(column).getStringCellValue();
-			}catch(Exception e){
-				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据错误");
-			}
-			if(value==null || value.length()==0)
-				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据为空");
-			if(value.length()>length)
-				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据过长");
+		} catch (Exception e) {
+			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1)
+					+ "列数据错误");
+		}
+		if (value == null || value.length() == 0)
+			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1)
+					+ "列数据为空");
+		if (value.length() > length)
+			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1)
+					+ "列数据过长");
 		return value;
 	}
-	private String getStringCellValue(XSSFRow xssfRow, int line, int column)throws BatchException {
+
+	private String getStringCellValue(XSSFRow xssfRow, int line, int column)
+			throws BatchException {
 		String value = "";
 		try {
 			value = xssfRow.getCell(column).getStringCellValue();
-		}catch(Exception e){
-			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据错误");
+		} catch (Exception e) {
+			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1)
+					+ "列数据错误");
 		}
-		if(value==null || value.length()==0)
-			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1) + "列数据为空");
+		if (value == null || value.length() == 0)
+			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1)
+					+ "列数据为空");
 		return value;
 	}
 
@@ -427,17 +454,17 @@ public class ProductServiceImpl implements ProductService {
 		float price = 0f;
 		try {
 			price = (float) xssfRow.getCell(column).getNumericCellValue();
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw new BatchException("第" + (line + 1) + "行价格输入有误");
 		}
-		if(price==0f)
+		if (price == 0f)
 			throw new BatchException("第" + (line + 1) + "行价格不能为0或者为空");
 		return price;
 	}
 
 	@Override
-	public String batchSaveProduct(InputStream is,Provider provider) throws BatchException,
-			Exception {
+	public String batchSaveProduct(InputStream is, Provider provider)
+			throws BatchException, Exception {
 		XSSFWorkbook wb = new XSSFWorkbook(is);
 		is.close();
 		List<Product> products = findDataForBatch(wb, provider);
@@ -461,7 +488,8 @@ public class ProductServiceImpl implements ProductService {
 				searchService.save(new ProductSearch(c));
 				continue;
 			case "服务":
-				com.sj.model.model.Service s = new com.sj.model.model.Service(product);
+				com.sj.model.model.Service s = new com.sj.model.model.Service(
+						product);
 				s = serviceRepository.save(s);
 				searchService.save(new ProductSearch(s));
 				continue;
@@ -481,8 +509,9 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		XSSFSheet brandAndPlaceSheet = wb.createSheet("品牌和产地");
-		
-		List<Brand> brands = brandRepository.findByActivate(ActivateEnum.ACTIVATE);
+
+		List<Brand> brands = brandRepository
+				.findByActivate(ActivateEnum.ACTIVATE);
 		for (int i = 0; i < brands.size(); i++) {
 			XSSFRow brandRow = brandAndPlaceSheet.createRow(i);
 			XSSFCell brandCell = brandRow.createCell(0);
@@ -494,33 +523,40 @@ public class ProductServiceImpl implements ProductService {
 		XSSFRow importedRow = brandAndPlaceSheet.getRow(1);
 		XSSFCell importedRowCell = importedRow.createCell(1);
 		importedRowCell.setCellValue("进口");
-		
+
 		XSSFSheet categorySheet = wb.createSheet("分类");
-		List<ProductCategory> firstCategories = pcRepository.findByParentIsNullAndActivate(ActivateEnum.ACTIVATE);
-		XSSFRow firstCategoryRow =categorySheet.createRow(0);
+		List<ProductCategory> firstCategories = pcRepository
+				.findByParentIsNullAndActivate(ActivateEnum.ACTIVATE);
+		XSSFRow firstCategoryRow = categorySheet.createRow(0);
 		for (int i = 0; i < firstCategories.size(); i++) {
 			XSSFCell firstCategoryCell = firstCategoryRow.createCell(i);
-			firstCategoryCell.setCellValue(firstCategories.get(i).getName());	
+			firstCategoryCell.setCellValue(firstCategories.get(i).getName());
 		}
-		
+
 		int secondRowNum = 6;
 		for (int i = 0; i < firstCategories.size(); i++) {
-			XSSFRow secondRow =categorySheet.createRow(i+2);
+			XSSFRow secondRow = categorySheet.createRow(i + 2);
 			XSSFCell secondCategoryHeadCell = secondRow.createCell(0);
-			secondCategoryHeadCell.setCellValue(firstCategories.get(i).getName());
-			List<ProductCategory> secondCategories = pcRepository.findByParentAndActivate(firstCategories.get(i), ActivateEnum.ACTIVATE);
-			
+			secondCategoryHeadCell.setCellValue(firstCategories.get(i)
+					.getName());
+			List<ProductCategory> secondCategories = pcRepository
+					.findByParentAndActivate(firstCategories.get(i),
+							ActivateEnum.ACTIVATE);
+
 			for (int j = 0; j < secondCategories.size(); j++) {
-				XSSFCell secondCell = secondRow.createCell(j+1);
+				XSSFCell secondCell = secondRow.createCell(j + 1);
 				secondCell.setCellValue(secondCategories.get(j).getName());
-				
-				secondRowNum= secondRowNum + 1;
+
+				secondRowNum = secondRowNum + 1;
 				XSSFRow thirdRow = categorySheet.createRow(secondRowNum);
 				XSSFCell thirdCategoryHeadCell = thirdRow.createCell(0);
-				thirdCategoryHeadCell.setCellValue(secondCategories.get(j).getName());
-				List<ProductCategory> thirdCategories =  pcRepository.findByParentAndActivate(secondCategories.get(j), ActivateEnum.ACTIVATE);
+				thirdCategoryHeadCell.setCellValue(secondCategories.get(j)
+						.getName());
+				List<ProductCategory> thirdCategories = pcRepository
+						.findByParentAndActivate(secondCategories.get(j),
+								ActivateEnum.ACTIVATE);
 				for (int k = 0; k < thirdCategories.size(); k++) {
-					XSSFCell thirdCell = thirdRow.createCell(k+1);
+					XSSFCell thirdCell = thirdRow.createCell(k + 1);
 					thirdCell.setCellValue(thirdCategories.get(k).getName());
 				}
 			}
@@ -531,8 +567,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findOne(Long id) {
 		Product p = repository.findOne(id);
-		if(p != null){
-			String count = template.opsForValue().get(COLLECTIONCOUNT + p.getId().toString());
+		if (p != null) {
+			String count = template.opsForValue().get(
+					COLLECTIONCOUNT + p.getId().toString());
 			if (count == null)
 				p.setCollectionCount(0l);
 			else
@@ -544,9 +581,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Page<Product> findBySearchModel(ModelSearchOption option,
 			Pageable pageable) {
-		
-		return repository.findByModelLike("%"+option.getTitle()+"%", pageable);
+
+		return repository.findByModelLike("%" + option.getTitle() + "%",
+				pageable);
 	}
+
 	@Override
 	public Map<String, String> buildMap(ModelSearchOption option) {
 		Field[] fields = option.getClass().getDeclaredFields();
@@ -563,8 +602,8 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return map;
 	}
-	public List<Field> filterNullValue(ModelSearchOption option,
-			Field[] fields) {
+
+	public List<Field> filterNullValue(ModelSearchOption option, Field[] fields) {
 		return Arrays.stream(fields).filter(f -> {
 			if (!Modifier.isPublic(f.getModifiers())) {
 				f.setAccessible(true);

@@ -53,9 +53,10 @@ public class ProductController {
 			@RequestParam(defaultValue = "15", value = "size") int size,
 			ProductOption option) {
 		return productService
-				.findByFirstCategoryAndSecondCategoryAndStatusJson(
+				.findByFirstCategoryAndSecondCategoryAndThirdCategoryAndStatusJson(
 						new PageRequest(page, size), option.getFirstCategory(),
-						option.getSecondCategory(), option.getState());
+						option.getSecondCategory(), option.getThirdCategory(),
+						option.getState());
 	}
 
 	@RequestMapping(value = "/admin/products/{id}", method = RequestMethod.GET)
@@ -80,22 +81,22 @@ public class ProductController {
 		productService.updateSolution(id, solutions);
 		return "";
 	}
-	
-	
+
 	@RequestMapping(value = "/admin/providers/{providerId}/products", method = RequestMethod.POST, params = "batch")
 	@ResponseBody
-	public String createBatchProcess(@RequestParam("file") MultipartFile mf,@PathVariable("providerId")Long id) throws IOException, InvalidFormatException {
+	public String createBatchProcess(@RequestParam("file") MultipartFile mf,
+			@PathVariable("providerId") Long id) throws IOException,
+			InvalidFormatException {
 		InputStream is = mf.getInputStream();
 		String result = "";
-			try {
-				result = productService.batchSaveProduct(is,new Provider(id));
-			}catch (BatchException e) {
-				return "\""+e.getMessage()+"\"";
-			} 
-			catch (Exception e) {
-				return "\"error\"";
-			}
-		return "\""+result+"\"";
+		try {
+			result = productService.batchSaveProduct(is, new Provider(id));
+		} catch (BatchException e) {
+			return "\"" + e.getMessage() + "\"";
+		} catch (Exception e) {
+			return "\"error\"";
+		}
+		return "\"" + result + "\"";
 	}
 
 	@RequestMapping(value = "/admin/getModel", method = RequestMethod.GET)

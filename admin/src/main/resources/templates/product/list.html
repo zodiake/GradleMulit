@@ -8,7 +8,11 @@
             </select>
         </div>
         <div class="form-group company-select">
-            <select ng-model="opt.secondCategory" ng-options="s.id as s.name for s in secondCategories">
+            <select ng-model="opt.secondCategory" ng-change="findThirdCategory(opt.secondCategory)" ng-options="s.id as s.name for s in secondCategories">
+            </select>
+        </div>
+        <div class="form-group company-select">
+            <select ng-model="opt.thirdCategory" ng-options="s.id as s.name for s in thirdCategories">
             </select>
         </div>
         <div class="form-group company-select">
@@ -29,6 +33,7 @@
                 <th>序号</th>
                 <th>一级分类</th>
                 <th>二级分类</th>
+                <th>三级分类</th>
                 <th>名称</th>
                 <th>价格</th>
                 <th>提交日期</th>
@@ -40,6 +45,7 @@
                 <td>{{$index+1}}</td>
                 <td>{{item.firstCategoryName}}</td>
                 <td>{{item.secondCategoryName}}</td>
+                <td>{{item.thirdCategoryName}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.price}}</td>
                 <td>{{item.createdTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
