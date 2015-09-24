@@ -9,4 +9,6 @@ import com.sj.model.model.Review;
 
 public interface ReviewRepository extends PagingAndSortingRepository<Review, Long>{
 	Page<Review> findByProduct(Product p,Pageable pageable);
+	
+	long countByProduct(Product p);
 }

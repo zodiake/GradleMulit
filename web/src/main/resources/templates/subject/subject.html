@@ -11,6 +11,7 @@
   <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/ajaxLogin-subject.js}"></script>
+  <script type="text/javascript" th:src="@{/js/prompt.js}"></script>
   <script th:src="@{/js/silderBox.js}"></script>
   <script th:src="@{/js/script.js}"></script>
   		<script type="text/javascript">
@@ -66,10 +67,10 @@
                 	if($(this).is(':checked')){
                 		var checks = $(this).parent().parent().find('[name="checks"]').not('input:checked');
                 		if(checks.length==0){
-                			$(this).parent().parent().parent().find('.checkAll').prop('checked',true);
+                			$(this).parent().parent().parent().parent().find('.checkAll').prop('checked',true);
                 		}
                 	}else{
-            			$(this).parent().parent().parent().find('.checkAll').prop('checked',false);
+            			$(this).parent().parent().parent().parent().find('.checkAll').prop('checked',false);
             		}
                 });
             });
@@ -96,7 +97,7 @@
 				</div>			
 				<div class="gray-hd ft14">设备方案</div>
 				<div class="plans" th:if="${subject.getSolutions().size()!=0}" th:each="solution:${subject.getSolutions()}">
-					<h3 th:text="${solution.name}"></h3>
+					<div><input class="checkAll fl" type="checkbox"/><h3 class="fl" th:text="${solution.name}"></h3></div>
 					<div class="plans-list">
 						<ul>
 							<li th:if="${solution.getProducts().size()!=0}" th:each="product:${solution.getProducts()}">	
@@ -115,9 +116,6 @@
 								</a>
 							</li>
 						</ul>
-						<div >						
-							<input class="checkAll" type="checkbox" />全选
-						</div>
 					</div>
 				</div>
 				<a class="add-cart ft16 mauto" id="addCart">加入购物车</a>
@@ -125,6 +123,7 @@
 		</div>
 	</div>
 	<div th:include="footer/footer"></div>
+	<div class="prompt"></div>
 	<div class="fixed"></div>
 	<div class="hide-wrap logo-small bodr"></div>
 </body>

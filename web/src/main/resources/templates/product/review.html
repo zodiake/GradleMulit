@@ -1,0 +1,44 @@
+<div id="reviewsList">
+<script type="text/javascript" th:src="@{/js/review.js}"></script>
+	<div class="comment-list">
+		<ul id="reviewUl">
+			<li th:each="review:${reviewPage.getContent()}">
+				<div class="member-info fl">
+					<img th:src="@{/img/member.png}" width="60" height="60" />
+				</div>
+				<div class="member-global fr">
+					<div class="member-msg clearfix"
+						th:with="date=${nowTime-review.createdTime.getTime().getTime()}">
+						<span class="me-name fl" th:text="${review.createdBy.name}"></span>
+						<span class="evt-time fr">
+							<i th:if="${date/(1000*60) lt 1 }" th:text="${date/(1000)}+'秒前'"></i>
+							<i th:if="${1 lt (date/(1000*60)) and (date/(1000*60)) lt 60 }"
+							th:text="${date/(1000*60)}+'分钟前'"></i>
+							<i th:if="${1 lt (date/(1000*3600)) and (date/(1000*3600)) lt 24}"
+							th:text="${(date/(1000*3600))}+'小时前'"></i>
+							<i th:if="${24 lt (date/(1000*3600)) and (date/(1000*3600*24))==1}"
+							th:text="昨天"></i>
+							<i th:if="${1 lt (date/(1000*3600*24)) and (date/(1000*3600*24)) lt 10}"
+							th:text="${(date/(1000*3600*24))}+'天前'"></i>
+							<i th:if="${10 lt (date/(1000*3600*24))}"
+							th:text="${#dates.format(review.createdTime, 'yyyy-MM-dd')}"></i>
+						</span>
+					</div>
+					<div class="msg">
+						<p th:text="${review.content}"></p>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="pagination">
+		<div class="l-pagination">
+			<ul>
+				<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}"
+					th:class="${i-1==viewpage.current}?active">
+					<a class="page" th:attr="url=${viewpage.href},page=__${i-1}__" th:text="${i}"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

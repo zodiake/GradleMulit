@@ -26,8 +26,7 @@ public class BrandController extends BaseController<Brand> {
 	@RequestMapping(value = "/brands/_search", method = RequestMethod.GET)
 	public String findBrandByName(Model uiModel,
 			@ModelAttribute BrandSearchOption option,
-			@PageableDefault(page = 0, size = 12) Pageable pageable) {
-		System.out.println(option.getTitle());
+			@PageableDefault(page = 0, size = 16) Pageable pageable) {
 		Page<Brand> brandPage = brandService.searchBrand(option, pageable);
 		
 		Map<String, String> map = brandService.buildMap(option);
@@ -35,7 +34,7 @@ public class BrandController extends BaseController<Brand> {
 		ViewPage viewPage = caculatePage(brandPage);
 		viewPage.setHref("/brands/_search");
 		viewPage.setOption(map);
-		viewPage.setCurrent(pageable.getPageNumber());
+		viewPage.setCurrent(brandPage.getNumber());
 		
 		uiModel.addAttribute("viewpage", viewPage);
 		uiModel.addAttribute("page", brandPage);

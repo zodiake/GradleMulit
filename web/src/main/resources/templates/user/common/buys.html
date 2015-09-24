@@ -6,7 +6,8 @@
   <meta name="description" content=""/>
   <title>采购申请</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-  <script th:src="@{/js/jquery-min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/prompt.js}"></script>
   <script th:src="@{/js/script.js}"></script>
   <meta name="_csrf" th:content="${_csrf.token}" />
 	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
@@ -18,21 +19,34 @@
 		$(document).ajaxSend(function(e, xhr, options) {
 			xhr.setRequestHeader(header, token);
 		});
+		var deleteId;
 		$('.delete').click(function(){
 			var obj = $(this);
 			var id = obj.attr('data-id');
+			deleteId = id;
+			$(".fixed").fadeIn();
+			$(".deletePrompt").fadeIn();
+		});
+		$('.cancel').click(function(){
+			$(".fixed").fadeOut();
+			$(".deletePrompt").fadeOut();
+		});
+		$("#delete").click(function(){
 			$.ajax({
 				type : 'delete',
-				url : '/user/buyRecords/'+id,
+				url : '/user/buyRecords/'+deleteId,
 				success : function(data){
-					$('#tr'+id).remove();
-					if($('tbody tr').length==0){
+					$('#tr'+deleteId).remove();
+					var cartNum = $('tbody tr').length; 
+					if(cartNum == 0){
 						$('#noBuys').show();
 					}
 				},error : function(data){
-					alert("error");
+					promptError("系统异常");
 				}
 			});
+			$(".fixed").fadeOut();
+			$(".deletePrompt").fadeOut();
 		});
 	});
   </script>
@@ -65,7 +79,7 @@
 							<tr th:each="buy,buyStat:${pages.getContent()}" th:id="'tr'+${buy.id}">
 								<td th:text="${buyStat.index+1}"></td>
 								<td th:text="${#dates.format(buy.createTime, 'yyyy-MM-dd')}"></td>
-								<td class="show-wrap" th:attr="product-id=${buy.id}">
+								<td th:attr="product-id=${buy.id}">
 									<a th:text="${buy.name}" th:href="'/user/buyRecords/'+${buy.id}">
 									</a>
 								</td>
@@ -78,12 +92,33 @@
 							</tr>
 						</tbody>
 					</table>
+					<div class="pagination">
+						<div class="l-pagination">
+							<ul>
+								<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${(i-1)==viewpage.current}?active">
+									<a th:href="@{${viewpage.href}(page=${i-1})}" th:text="${i}"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
 					<div id="noBuys" th:class="${pages.getContent().size()==0}?userShow:userHide" >
 						<div class="tip-box bodr" style="line-height: 300px;">
 							<span>您还没有任何采购记录，快去采购吧！</span>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="footer/footer"></div>
+	<div class="fixed"></div>
+	<div class="prompt"></div>
+	<div class="hide-wrap deletePrompt bodr">
+		<div class="hide-con">
+			<h2>是否删除该采购清单</h2>
+			<div class="foot-btn">
+				<button class="btn green ft14" id="delete">确认</button>
+				<button class="btn default cancel" >取消</button>
 			</div>
 		</div>
 	</div>

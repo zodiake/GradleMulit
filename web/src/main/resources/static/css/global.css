@@ -2118,7 +2118,7 @@ select.w100{
 .sorts-drop li i.icon-sort.ascending{
 	background-position:0 0;
 }
-.add_cart_success{
+.prompt{
 	width: 300px;
 	position: fixed;
 	display: none;
@@ -2127,11 +2127,18 @@ select.w100{
 	background-color:#fff;
 	border:2px solid #eee;	
 }
-.add_cart_success h2{
+.prompt .success{
 	line-height:40px;
 	margin:20px auto;
-	padding-left:130px;
-	background:url('../img/icon-alt.png') no-repeat 75px 0;
+	padding-left:100px;
+	background:url('../img/icon-alt.png') no-repeat 50px 0;
+}
+.prompt .error{
+	line-height:40px;
+	margin:20px auto;
+	padding-left:100px;
+	background:url('../img/icon-alt.png') no-repeat 50px 0;
+	background-position: 50px -42px;
 }
 
 

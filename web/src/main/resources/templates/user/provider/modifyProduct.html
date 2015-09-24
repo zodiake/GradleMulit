@@ -10,7 +10,8 @@
   <meta name="_csrf_parameterName" th:content="${_csrf.parameterName}" />
   
   <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-  <script th:src="@{/js/jquery-min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
   <script type="text/javascript" th:src="@{/js/jquery.ui.widget.js}"></script>
   <script type="text/javascript" th:src="@{/js/jquery.iframe-transport.js}"></script>
   <script type="text/javascript" th:src="@{/js/jquery.fileupload.js}"></script>
@@ -47,7 +48,7 @@
                       	 data.submit();
                  	  }
                  	  else{
-                 		  alert("文件过大,请上传1M以下的图片");
+                 		 promptError("文件过大,请上传1M以下的图片");
                  	  }
                 },
                 done : function(e, data) {
@@ -90,7 +91,7 @@
 	          				});
 	          				thirdCategory.append(str);
 	          			},error:function(data){
-	          				alert("error");
+	          				promptError("error");
 	          			}
 	          		});
           		}else{
@@ -206,8 +207,12 @@
 						</div>	
 						<div class="point">
 							<div class="red">[重要提示]</div>
-							<p>1. 为了规范申捷电商平台信息发布，产品修改后需要重新通过审核，我们会在2-4小时内进行一次审核工作，网络繁忙时1个工作日内审核。</p>
-							<p>2. 产品名称中只能包含一种产品，不得把产品系列当作单条产品发布；可加入型号，但不允许加入其它任何如联系方式、价格或“进口”“国产”“现货”等,或和产品名称无关的符号。否则，我们有权更改或删除。</p>
+							<p>1.
+								为了规范申捷电商平台信息发布，产品修改后需要重新通过审核，我们会在<i class="red">2-4小时内</i>进行一次审核工作，网络繁忙时<i class="red">1个工作日</i>内审核。</p>
+							<p>2.
+								产品名称中只能包含一种产品，不得把产品系列当作单条产品发布；可加入型号，但不允许加入其它任何如联系方式、价格或“进口”“国产”“现货”等,或和产品名称无关的符号。否则，我们有权更改或删除。</p>
+							<p>3.
+								只能上传<i class="red">1M</i>一下的图片，富文本框中图片最佳效果为宽度<i class="red">890px</i>，可通过图片属性中宽度、高度、间距和对齐方式对图片或文字进行排版</p>
 						</div>
 						<div class="center">
 							<button class="btn green">保存</button>	
@@ -219,5 +224,6 @@
 		</div>
 	</div>
 	<div th:include="footer/footer"></div>
+	<div class="prompt"></div>
 </body>
 </html>	

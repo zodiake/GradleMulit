@@ -1,12 +1,7 @@
 $(function() {
-	var all = false;
-	var agreementCheck = false;
+	var agreementCheck = true;
 	$("#agreement").click(function(){
-		if(agreementCheck==true)
-			agreementCheck=false;
-		else
-			agreementCheck=true;
-		if(agreementCheck){
+		if($(this).is(':checked')){
 			$("#regirect").removeAttr("disabled");
 		}else{
 			$("#regirect").attr("disabled","disabled");
@@ -16,14 +11,13 @@ $(function() {
 		var obj = $(this);
 		$.ajax({
 			type : 'POST',
-			url : '/name?valid',
+			url : '/users/name',
 			data : {'name':obj.val()},
 			success : function(data){
 				if(data=="true"){
 					$("#nameerror").remove();
 				}else{
-					if($("#nameerror").text()){
-					}else{
+					if(!$("#nameerror").text()){
 						obj.after('<i class="error" id="nameerror">用户名已存在</i>');
 					}
 				}

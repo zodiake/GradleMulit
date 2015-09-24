@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 public class MobileVerificationForm {
 	@Size(min=11,max=11,message="请输入正确的手机号码")
 	private String phone;
-	private String code;
+	private String captcha;
 	public MobileVerificationForm(){
 		
 	}
@@ -20,11 +20,11 @@ public class MobileVerificationForm {
 		this.phone = phone;
 	}
 
-	public String getCode() {
-		return code;
+	public String getCaptcha() {
+		return captcha;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
 	}
 }

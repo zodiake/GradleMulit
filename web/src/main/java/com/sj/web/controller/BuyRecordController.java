@@ -45,15 +45,16 @@ public class BuyRecordController extends BaseController<BuyRecord>{
 
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.GET)
 	public String findAll(Model uiModel,
-			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size) {
 		SiteUser user = siteUserContext.getCurrentUser();
 		Page<BuyRecord> pages = buyRecordService.findPage(
-				new CommonUser(user.getId()), new PageRequest(page - 1, size));
+				new CommonUser(user.getId()), new PageRequest(page , size));
 		uiModel.addAttribute("pages", pages);
 		
 		ViewPage viewpage = caculatePage(pages);
 		viewpage.setHref("/user/buyRecords");
+		viewpage.setCurrent(pages.getNumber());
 		uiModel.addAttribute("viewpage", viewpage);
 		
 		return "user/common/buys";

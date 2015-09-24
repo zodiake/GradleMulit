@@ -763,7 +763,7 @@ insert into content values(8,'product8-content');
 -- test user provider
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(1,'tom','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_PROVIDER','1234561@qq.com','13700000001','张三',1,'2012-12-12 12:23:32');
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(2,'mary2','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_PROVIDER','1234562@qq.com','13700000002','lisi',1,'2012-12-12 12:23:32');
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(7,'peter','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_UNAUTH','1234562@qq.com','13700000002','lisi',1,'2012-12-12 12:23:32');
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(7,'peter','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_UNAUTH','1234562@qq.com','13700000007','lisi',1,'2012-12-12 12:23:32');
 
 -- test user commonuser
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(3,'mary3','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234563@qq.com','13700000003','mary3',0,'2012-12-12 12:23:32');
@@ -772,8 +772,8 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone,real_n
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(15,'pjf123','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234566@qq.com','13700000006','mary3',0,'2012-12-12 12:23:32');
 
 -- test user admin
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin1','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,'2012-12-12 12:23:32');
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(20,'admin2','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000007','admin',1,'2012-12-12 12:23:32');
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(5,'admin1','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000008','admin',1,'2012-12-12 12:23:32');
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(20,'admin2','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000009','admin',1,'2012-12-12 12:23:32');
 
 -- test industry_info
 insert into industry_info(id,name,industry_type) values(1,'生物科学','p');
@@ -784,14 +784,14 @@ insert into industry_info(id,name,industry_type) values(5,'实验室','u');
 insert into industry_info(id,name,industry_type) values(6,'医院','u');
 
 -- test common user
-insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
-values(3,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2171号','317500',1,3,3);
-insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
-values(4,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,4);
-insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
-values(6,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,5);
-insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id) 
-values(15,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,6);
+insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id,position) 
+values(3,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2171号','317500',1,3,3,'boss');
+insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id,position) 
+values(4,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,4,'boss');
+insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id,position) 
+values(6,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,5,'boss');
+insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id,position) 
+values(15,'上海恒企信息','生物研究部','010-12345678','010-12345678','万航渡路2170号','317500',2,5,6,'boss');
 
 -- test provider
 insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated,compony_type,info_id,content) 
