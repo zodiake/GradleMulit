@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BaseController<T> {
 	ViewPage caculatePage(Page<T> page) {
-		int current = page.getNumber();
+		int current = page.getNumber()+1;
 		int pages = page.getTotalPages();
 		if (pages == 0) {
 			return new ViewPage(1, 1, 1);
@@ -21,9 +21,9 @@ public class BaseController<T> {
 		} else {
 			if (current <= 4) {
 				int end = pages >= 7 ? 7 : pages;
-				return new ViewPage(1, end, current );
+				return new ViewPage(1, end, current);
 			} else if (current >= pages - 3 && current <= pages) {
-				int begin = pages - 7;
+				int begin = pages - 6;
 				int end = pages;
 				// return begin end
 				return new ViewPage(begin, end, current );

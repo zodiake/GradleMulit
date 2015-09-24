@@ -35,8 +35,9 @@
 		<div class="l-pagination">
 			<ul>
 				<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}"
-					th:class="${(i-1)==viewpage.current}?active">
-					<a class="page" th:attr="url=${viewpage.href},page=__${i}__" th:text="${i}"></a>
+					th:class="${i==viewpage.current}?active">
+					<a th:text="${i}"></a>
+					<a class="page" th:attr="url=${viewpage.href},page=__${i-1}__" th:text="${i}"></a>
 				</li>
 			</ul>
 		</div>

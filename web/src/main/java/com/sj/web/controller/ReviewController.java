@@ -47,14 +47,14 @@ public class ReviewController extends BaseController<Review>{
 
 	@RequestMapping(value = "/products/{productId}/reviews", method = RequestMethod.GET)
 	private String list(@PathVariable("productId") Long productId,
-			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size,Model uiModel) {
 		Product product = productService.findOne(productId);
 		if(product==null)
 			throw new ProductNotFoundException();
 		Page<Review> reviews = reviewService.findByProduct(product,
-				new PageRequest(page - 1, size, Direction.DESC, "createdTime"));
-		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
+				new PageRequest(page , size, Direction.DESC, "createdTime"));
+		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page, size, Direction.DESC, "createdTime"));
 		
 		ViewPage viewpage = caculatePage(reviewPage);
 		viewpage.setHref("/products/"+productId+"/reviews");
@@ -96,7 +96,7 @@ public class ReviewController extends BaseController<Review>{
 	
 	@RequestMapping(value="/provider/products/{id}",method = RequestMethod.GET,params="detail")
 	public String findOne(@PathVariable("id")Long id,Model uiModel,
-			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		Product product = productService.findOne(id);
 		Set<Subject> subjects = new HashSet<Subject>(); 
@@ -108,7 +108,7 @@ public class ReviewController extends BaseController<Review>{
 		}
 		product.setSolutions(null);
 		
-		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
+		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page, size, Direction.DESC, "createdTime"));
 		ViewPage viewpage = caculatePage(reviewPage);
 		viewpage.setHref("/provider/products/"+id+"?detail");
 		uiModel.addAttribute("viewpage", viewpage);

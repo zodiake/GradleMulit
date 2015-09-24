@@ -32,13 +32,16 @@ public class SubjectController extends BaseController<Subject>{
 
 	@RequestMapping(value = "/subjects", method = RequestMethod.GET)
 	public String findSubjects(
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "16") int size,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "12") int size,
 			Model uiModel) {
-		Page<Subject> subjects = subjectService.findByActivated(new PageRequest(page - 1, size),ActivateEnum.ACTIVATE);
-		uiModel.addAttribute("subjects", subjects);
+		Page<Subject> subjects = subjectService.findByActivated(new PageRequest(page , size),ActivateEnum.ACTIVATE);
+		
 		ViewPage viewpage = caculatePage(subjects);
 		viewpage.setHref("/subjects");
+		viewpage.setCurrent(subjects.getNumber());
+		
+		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("viewpage", viewpage);
 		uiModel.addAttribute("pc", new SubjectCategory(6l));
 		return "subject/subjects";

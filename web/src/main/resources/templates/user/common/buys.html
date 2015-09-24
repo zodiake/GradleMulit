@@ -92,6 +92,15 @@
 							</tr>
 						</tbody>
 					</table>
+					<div class="pagination">
+						<div class="l-pagination">
+							<ul>
+								<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${(i-1)==viewpage.current}?active">
+									<a th:href="@{${viewpage.href}(page=${i-1})}" th:text="${i}"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
 					<div id="noBuys" th:class="${pages.getContent().size()==0}?userShow:userHide" >
 						<div class="tip-box bodr" style="line-height: 300px;">
 							<span>您还没有任何采购记录，快去采购吧！</span>

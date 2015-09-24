@@ -109,6 +109,15 @@
 								</li>
 							</ul>
 						</div>
+					<div class="pagination">
+						<div class="l-pagination">
+							<ul>
+								<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${(i-1)==viewpage.current}?active">
+									<a th:href="@{${viewpage.href}(page=${i-1})}" th:text="${i}"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
 					<div id="noCollection" th:class="${pages.getContent()==null || pages.getContent().size()==0}?userShow:userHide">
 						<div  class="tip-box mainpanel collect fr" style="line-height: 300px;">
 							<span>您还没有收藏任何商品，赶紧收藏吧！</span>

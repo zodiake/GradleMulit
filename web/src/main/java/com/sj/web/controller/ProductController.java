@@ -57,18 +57,18 @@ public class ProductController extends BaseController<Product> {
 	public String findBrandByName(Model uiModel,
 			@ModelAttribute ModelSearchOption option,
 			@PageableDefault(page = 0, size = 12) Pageable pageable) {
-		Page<Product> brandPage = productService.findBySearchModel(option,
+		Page<Product> productPage = productService.findBySearchModel(option,
 				pageable);
 
 		Map<String, String> map = productService.buildMap(option);
 
-		ViewPage viewPage = caculatePage(brandPage);
+		ViewPage viewPage = caculatePage(productPage);
 		viewPage.setHref("/models/_search");
 		viewPage.setOption(map);
-		viewPage.setCurrent(pageable.getPageNumber());
+		viewPage.setCurrent(productPage.getNumber());
 
 		uiModel.addAttribute("viewpage", viewPage);
-		uiModel.addAttribute("page", brandPage);
+		uiModel.addAttribute("page", productPage);
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("action", "/models/_search");
 		uiModel.addAttribute("field", "型号");
@@ -82,17 +82,15 @@ public class ProductController extends BaseController<Product> {
 		Page<Product> productPage = productService.findByBrand(pageable, new Brand(brandId));
 		
 		ViewPage viewPage = caculatePage(productPage);
-		viewPage.setCurrent(pageable.getPageNumber());
 		viewPage.setHref("/products/brand/" + brandId);
+		viewPage.setCurrent(productPage.getNumber());
 		
 		uiModel.addAttribute("viewpage", viewPage);
 		uiModel.addAttribute("page", productPage);
 		return "search/brand/products";
 	}
 	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-	public String view(Model uiModel, @PathVariable(value = "id") Long id,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size) {
+	public String view(Model uiModel, @PathVariable(value = "id") Long id) {
 		Product product = new Product();
 		if(userContext.isLogin()){
 			 product = productService.findUpOneUserIsLogin(id, userContext.getCurrentUser());
@@ -118,11 +116,9 @@ public class ProductController extends BaseController<Product> {
 		}
 		product.setSolutions(null);
 		long reviewCount = reviewService.findCountByProduct(product);
-//		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
 		
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("product", product);
-//		uiModel.addAttribute("reviewPage", reviewPage);
 		uiModel.addAttribute("reviewCount", reviewCount);
 		uiModel.addAttribute("pc", product.getFirstCategory());
 		return DETAIL;

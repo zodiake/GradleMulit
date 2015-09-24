@@ -1,9 +1,9 @@
 package com.sj.web.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +30,7 @@ import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.SiteUserContext;
 
 @Controller
-public class CollectionController extends BaseController<PreferProduct>{
+public class CollectionController extends BaseController<PreferProduct> {
 	@Autowired
 	private SiteUserContext userContext;
 	@Autowired
@@ -56,21 +56,24 @@ public class CollectionController extends BaseController<PreferProduct>{
 
 	@RequestMapping(value = "/user/collection", method = RequestMethod.GET)
 	public String getCollectionByUser(Model uiModel,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "8") int size) {
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "6") int size) {
 		SiteUser user = userContext.getCurrentUser();
-		Page<PreferProduct> pages = preferService.findByUser(new CommonUser(user.getId()), new PageRequest(page - 1, size));
+		Page<PreferProduct> pages = preferService.findByUser(new CommonUser(
+				user.getId()), new PageRequest(page , size, Direction.DESC,
+				"createdTime"));
 		uiModel.addAttribute("pages", pages);
-		
+
 		ViewPage viewpage = caculatePage(pages);
 		viewpage.setHref("/user/collection");
+		viewpage.setCurrent(pages.getNumber());
 		uiModel.addAttribute("viewpage", viewpage);
-		
 		return "user/common/collection";
 	}
 
 	@RequestMapping(value = "/user/collection", method = RequestMethod.POST)
-	public String addCollection(@SecurityUser SiteUser user,@RequestParam("id") Long productId) {
+	public String addCollection(@SecurityUser SiteUser user,
+			@RequestParam("id") Long productId) {
 		Product p = productServise.findOne(productId);
 		if (p == null)
 			throw new ProductNotFoundException();
@@ -85,9 +88,9 @@ public class CollectionController extends BaseController<PreferProduct>{
 	public String deleteCollection(Model uiModel,
 			@PathVariable(value = "productId") Long productId) {
 		SiteUser user = userContext.getCurrentUser();
-		preferService.deleteByUserAndProduct(new CommonUser(user.getId()),new Product(productId));
+		preferService.deleteByUserAndProduct(new CommonUser(user.getId()),
+				new Product(productId));
 		return "success";
 	}
 
-	
 }

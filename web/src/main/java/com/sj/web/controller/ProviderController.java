@@ -134,15 +134,17 @@ public class ProviderController extends BaseController<Product> {
 	}
 	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)
 	public String findAllProductByProvider(Model uiModel,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size,
 			@SecurityUser SiteUser user) {
 		Page<Product> products = productService.findByUsers(
-				new Provider(user.getId()), new PageRequest(page - 1, size,
+				new Provider(user.getId()), new PageRequest(page , size,
 						Direction.DESC, "createdTime"));
 		
 		ViewPage viewpage = caculatePage(products);
 		viewpage.setHref("/provider/products");
+		viewpage.setCurrent(products.getNumber());
+		
 		uiModel.addAttribute("viewpage", viewpage);
 		
 		uiModel.addAttribute("lists", products);
@@ -151,16 +153,18 @@ public class ProviderController extends BaseController<Product> {
 
 	@RequestMapping(value = "/provider/products/{status}", method = RequestMethod.GET)
 	public String findAllProductByProviderAndStatus(Model uiModel,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size,
 			@SecurityUser SiteUser user, @PathVariable("status") String status) {
 		Page<Product> products = productService.findByUsers(
-				new Provider(user.getId()), new PageRequest(page - 1, size,
+				new Provider(user.getId()), new PageRequest(page, size,
 						Direction.DESC, "createdTime"), ProductStatusEnum
 						.valueOf(status));
 		
 		ViewPage viewpage = caculatePage(products);
 		viewpage.setHref("/provider/products/"+status);
+		viewpage.setCurrent(products.getNumber());
+		
 		uiModel.addAttribute("viewpage", viewpage);
 		
 		uiModel.addAttribute("lists", products);
@@ -466,12 +470,14 @@ public class ProviderController extends BaseController<Product> {
 
 	@RequestMapping(value = "/provider/count", method = RequestMethod.GET)
 	public String findCount(Model uiModel, @SecurityUser SiteUser user,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
-		Page<Product> products = productService.findCount(new Provider(user.getId()), new PageRequest(page - 1, size,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "20") int size) {
+		Page<Product> products = productService.findCount(new Provider(user.getId()), new PageRequest(page, size,
 				Direction.DESC, "createdTime"));
 		ViewPage viewpage = caculatePage(products);
 		viewpage.setHref("/provider/count");
+		viewpage.setCurrent(products.getNumber());
+		
 		uiModel.addAttribute("viewpage", viewpage);
 		
 		uiModel.addAttribute("products", products);
