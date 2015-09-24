@@ -1,7 +1,5 @@
 package com.sj.web.controller;
 
-import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
-
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -48,14 +46,23 @@ public class ReviewController extends BaseController<Review>{
 	private final String DETAIL = "product/product";
 
 	@RequestMapping(value = "/products/{productId}/reviews", method = RequestMethod.GET)
-	@ResponseBody
 	private String list(@PathVariable("productId") Long productId,
 			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
-		Product product = new Product(productId);
+			@RequestParam(value = "size", defaultValue = "15") int size,Model uiModel) {
+		Product product = productService.findOne(productId);
+		if(product==null)
+			throw new ProductNotFoundException();
 		Page<Review> reviews = reviewService.findByProduct(product,
 				new PageRequest(page - 1, size, Direction.DESC, "createdTime"));
-		return convertJSONString(reviews.getContent().stream());
+		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
+		
+		ViewPage viewpage = caculatePage(reviewPage);
+		viewpage.setHref("/products/"+productId+"/reviews");
+		
+		uiModel.addAttribute("reviewPage", reviews);
+		uiModel.addAttribute("viewpage", viewpage);
+		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());
+		return "product/review";
 	}
 
 	@RequestMapping(value = "/products/{productId}/reviews", method = RequestMethod.POST)
@@ -86,48 +93,6 @@ public class ReviewController extends BaseController<Review>{
 		return array.toString();
 	}
 	
-
-	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-	public String view(Model uiModel, @PathVariable(value = "id") Long id,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size) {
-		Product product = new Product();
-		if(userContext.isLogin()){
-			 product = productService.findUpOneUserIsLogin(id, userContext.getCurrentUser());
-		}else{
-			 product = productService.findUpOne(id);
-		}
-		
-		if (product == null)
-			throw new ProductNotFoundException();
-		String collectionCount = template.opsForValue().get(COLLECTIONCOUNT + id.toString());
-		if(collectionCount!=null)
-			product.setCollectionCount(Long.valueOf(template.opsForValue().get(COLLECTIONCOUNT + id.toString())));
-		else
-			product.setCollectionCount(0l);
-		productService.addViewCount(id);
-		
-		Set<Subject> subjects = new HashSet<Subject>(); 
-		List<Solution> solutions = product.getSolutions();
-		if(solutions!=null){
-			for (Solution solution : solutions) {
-				subjects.add(solution.getSubject());
-			}
-		}
-		product.setSolutions(null);
-		
-		Page<Review> reviewPage = reviewService.findByProduct(product,new PageRequest(page-1, size, Direction.DESC, "createdTime"));
-		ViewPage viewpage = caculatePage(reviewPage);
-		viewpage.setHref("/products/"+id);
-		uiModel.addAttribute("viewpage", viewpage);
-		
-		uiModel.addAttribute("subjects", subjects);
-		uiModel.addAttribute("product", product);
-		uiModel.addAttribute("reviewPage", reviewPage);
-		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());
-		uiModel.addAttribute("pc", product.getFirstCategory());
-		return DETAIL;
-	}
 	
 	@RequestMapping(value="/provider/products/{id}",method = RequestMethod.GET,params="detail")
 	public String findOne(@PathVariable("id")Long id,Model uiModel,

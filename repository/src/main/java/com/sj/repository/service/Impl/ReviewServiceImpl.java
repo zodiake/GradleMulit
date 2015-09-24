@@ -47,4 +47,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return review;
 	}
 
+	@Override
+	public Long findCountByProduct(Product product) {
+		
+		return repository.countByProduct(product);
+	}
+
 }

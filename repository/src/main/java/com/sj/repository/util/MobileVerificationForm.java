@@ -5,7 +5,6 @@ import javax.validation.constraints.Size;
 public class MobileVerificationForm {
 	@Size(min=11,max=11,message="请输入正确的手机号码")
 	private String phone;
-	@Size(min=6,max=6,message="请输入正确的验证码")
 	private String captcha;
 	public MobileVerificationForm(){
 		

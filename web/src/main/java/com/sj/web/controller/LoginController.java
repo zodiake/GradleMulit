@@ -336,7 +336,7 @@ public class LoginController {
 		if(user == null)
 			result.addError(new FieldError("form", "phone", "该手机号码未注册"));
 		String code = (String) session.getAttribute("fCode");
-		if(!code.equals(form.getCaptcha()))
+		if(code==null || !code.equals(form.getCaptcha()))
 			result.addError(new FieldError("form", "captcha", "验证码错误"));
 		if (result.hasErrors()) {
 			form.setCaptcha(null);
