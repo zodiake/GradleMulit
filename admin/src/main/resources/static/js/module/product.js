@@ -104,6 +104,14 @@ productModule.controller('ProductController', ['$scope',
                     $scope.secondCategories = data;
                 });
         };
+        
+        $scope.findThirdCategory=function(category){
+            ProductCategoryService
+                .findByParentId(category)
+                .success(function (data) {
+                    $scope.thirdCategories = data;
+                });
+        };
 
         $scope.search = function () {
             ProductService

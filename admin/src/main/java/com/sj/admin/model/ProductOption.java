@@ -7,6 +7,7 @@ public class ProductOption {
 	private String productType;
 	private ProductCategory firstCategory;
 	private ProductCategory secondCategory;
+	private ProductCategory thirdCategory;
 	private ProductStatusEnum state;
 
 	public String getProductType() {
@@ -31,6 +32,14 @@ public class ProductOption {
 
 	public void setSecondCategory(ProductCategory secondCategory) {
 		this.secondCategory = secondCategory;
+	}
+
+	public ProductCategory getThirdCategory() {
+		return thirdCategory;
+	}
+
+	public void setThirdCategory(ProductCategory thirdCategory) {
+		this.thirdCategory = thirdCategory;
 	}
 
 	public ProductStatusEnum getState() {

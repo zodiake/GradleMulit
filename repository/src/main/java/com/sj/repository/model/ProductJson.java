@@ -11,6 +11,8 @@ public class ProductJson {
 	private String firstCategoryName;
 	private Long secondCategory;
 	private String secondCategoryName;
+	private Long thirdCategory;
+	private String thirdCategoryName;
 	private float price;
 	private Calendar createdTime;
 	private String stateName;
@@ -22,6 +24,8 @@ public class ProductJson {
 		this.firstCategoryName = p.getFirstCategory().getName();
 		this.secondCategory = p.getSecondCategory().getId();
 		this.secondCategoryName = p.getSecondCategory().getName();
+		this.thirdCategory = p.getThirdCategory().getId();
+		this.thirdCategoryName = p.getThirdCategory().getName();
 		this.price = p.getPrice();
 		this.createdTime = p.getCreatedTime();
 		this.stateName = p.getStatus().toString();
@@ -97,5 +101,21 @@ public class ProductJson {
 
 	public Long getSecondCategory() {
 		return secondCategory;
+	}
+
+	public Long getThirdCategory() {
+		return thirdCategory;
+	}
+
+	public void setThirdCategory(Long thirdCategory) {
+		this.thirdCategory = thirdCategory;
+	}
+
+	public String getThirdCategoryName() {
+		return thirdCategoryName;
+	}
+
+	public void setThirdCategoryName(String thirdCategoryName) {
+		this.thirdCategoryName = thirdCategoryName;
 	}
 }

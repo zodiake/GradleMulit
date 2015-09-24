@@ -78,7 +78,7 @@
 		<div class="filter">
 			<span>查找结果共<i th:text="${page.totalElements}">1222</i>件商品</span>
 		</div>
-		<div class="items-list pro-list h300">
+		<div class="items-list pro-list h400">
 			<ul>
 				<li class="bodr product" th:each="product:${page.getContent()}" >
 					<a th:href="@{'/products/'+${product.id}}"> <img th:src="@{${product.coverImg}}" width="210" height="175"/> </a>

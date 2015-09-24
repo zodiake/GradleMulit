@@ -27,12 +27,12 @@ public interface ProductService {
 			ProductStatusEnum status);
 
 	public Page<Product> findByUsers(Provider user, Pageable pageable);
-	
+
 	public Product findOne(Long id);
 
 	public Product findUpOne(Long id);
-	
-	public Product findUpOneUserIsLogin(Long id,SiteUser user);
+
+	public Product findUpOneUserIsLogin(Long id, SiteUser user);
 
 	public void addViewCount(Long id);
 
@@ -58,9 +58,9 @@ public interface ProductService {
 	public Page<Product> findBySecondCategory(ProductCategory second,
 			Pageable pageable);
 
-	public Page<ProductJson> findByFirstCategoryAndSecondCategoryAndStatusJson(
+	public Page<ProductJson> findByFirstCategoryAndSecondCategoryAndThirdCategoryAndStatusJson(
 			Pageable pageable, ProductCategory fc, ProductCategory sc,
-			ProductStatusEnum status);
+			ProductCategory tc, ProductStatusEnum status);
 
 	public ProductDetailJson findOneJson(Long id);
 
@@ -69,15 +69,18 @@ public interface ProductService {
 	public Product updateState(Long id, ProductStatusEnum state);
 
 	public void updateSolution(Long id, String lists);
-	
-	public String batchSaveProduct(InputStream is,Provider provider) throws BatchException, Exception;
-	
-	public List<Product> findDataForBatch(XSSFWorkbook wb,Provider provider) throws BatchException;
-	
+
+	public String batchSaveProduct(InputStream is, Provider provider)
+			throws BatchException, Exception;
+
+	public List<Product> findDataForBatch(XSSFWorkbook wb, Provider provider)
+			throws BatchException;
+
 	public XSSFWorkbook getModel() throws InvalidFormatException, IOException;
-	
-	public Page<Product> findBySearchModel(ModelSearchOption option,Pageable pageable);
+
+	public Page<Product> findBySearchModel(ModelSearchOption option,
+			Pageable pageable);
 
 	Map<String, String> buildMap(ModelSearchOption option);
-	
+
 }
