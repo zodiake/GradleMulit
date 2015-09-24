@@ -3,21 +3,14 @@ package com.sj.web.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.CommonUser;
-import com.sj.model.model.PreferProduct;
-import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.BuyProductService;
 import com.sj.repository.service.BuyRecordService;
@@ -28,8 +21,6 @@ import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.UserIndustryInfoService;
-import com.sj.web.annotation.SecurityUser;
-import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.SiteUserContext;
 
 @Controller
@@ -72,6 +63,7 @@ public class CommonUserController{
 	public String updateOne(Model uiModel,
 			@Valid @ModelAttribute("user") CommonUser commonUser,
 			BindingResult bindingResult) {
+		System.out.println(commonUser.getSex().toString());
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", commonUser);
 			uiModel.addAttribute("provinces", provinceService.findAll());

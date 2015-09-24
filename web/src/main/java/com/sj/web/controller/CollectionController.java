@@ -1,9 +1,8 @@
 package com.sj.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,15 +58,10 @@ public class CollectionController extends BaseController<PreferProduct> {
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "6") int size) {
 		SiteUser user = userContext.getCurrentUser();
-		Page<PreferProduct> pages = preferService.findByUser(new CommonUser(
-				user.getId()), new PageRequest(page , size, Direction.DESC,
-				"createdTime"));
+		List<PreferProduct> pages = preferService.findByUser(new CommonUser(user.getId()));
+		
 		uiModel.addAttribute("pages", pages);
 
-		ViewPage viewpage = caculatePage(pages);
-		viewpage.setHref("/user/collection");
-		viewpage.setCurrent(pages.getNumber());
-		uiModel.addAttribute("viewpage", viewpage);
 		return "user/common/collection";
 	}
 

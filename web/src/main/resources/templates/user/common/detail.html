@@ -72,7 +72,7 @@
 									<div class="fl" style="width: 355px;">
 										<label><i>*</i>性别</label>
 										<input type="radio" th:field="*{sex}" value="MALE"/>男
-										<input type="radio" th:field="*{sex}" value="FEMALEs"/>女
+										<input type="radio" th:field="*{sex}" value="FEMALE"/>女
 										<i class="error" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">必填</i>
 									</div>
 									<div class="fl">
