@@ -10,4 +10,6 @@ public interface ReviewService {
 	Page<Review> findByProduct(Product product, Pageable pageable);
 
 	Review save(Review review);
+	
+	Long findCountByProduct(Product product);
 }

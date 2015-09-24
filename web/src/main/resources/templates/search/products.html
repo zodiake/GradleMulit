@@ -9,6 +9,7 @@
 		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 		<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
 		<script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
 		<script type="text/javascript" th:src="@{/js/script.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajaxLogin-collection-products.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajaxLogin-cart-products.js}"></script>
@@ -32,11 +33,11 @@
                     success : function(data) {
                         $('#includeHeader').load('/head');
                         if (data.data == "no authority") {
-                            alert("对不起您没有权限");
+                        	promptError("对不起您没有权限");
                         }
                     },
                     error : function(data) {
-                        alert("系统异常");
+                    	promptError("系统异常");
                     }
                 });
                 $('.coll').loginBeforeAjaxCollection({
@@ -48,14 +49,14 @@
                     success : function(data) {
                         $('#includeHeader').load('/head');
                         if (data == "no authority")
-                            alert("对不起您没有权限");
+                        	promptError("对不起您没有权限");
                         else if (data == "duplicate")
-                            alert("该商品已被您收藏");
+                        	promptSuccess("该商品已被您收藏");
                         else if (data == "success")
-                            alert("添加收藏成功");
+                        	promptSuccess("添加收藏成功");
                     },
                     error : function(data) {
-                        alert("系统异常");
+                    	promptError("系统异常");
                     }
                 });
 
@@ -256,6 +257,7 @@
 		<div th:include="footer/footer"></div>
 		<div class="fixed"></div>
 		<div class="hide-wrap logo-small bodr"></div>
+		<div class="prompt"></div>
 	</body>
 	<script>
 		$(function(){

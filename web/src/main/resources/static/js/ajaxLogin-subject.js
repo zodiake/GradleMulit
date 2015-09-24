@@ -65,7 +65,7 @@
 						$('.fixed').fadeIn();
 						$('.hide-wrap').fadeIn();
 					} else if(res.data=="no authority"){
-	    				alert("对不起您没有权限");
+						promptError("对不起您没有权限");
 	    			}else{
 	    				var strs = "";
 	    				var num =0;
@@ -83,12 +83,13 @@
 	    				var totalNum =$("#totalNum");
 	    				totalNum.html(num);
 	    				checksVal.length=0;
+	    				promptSuccess("已加入购物车");
 	    			}
 	    		}).error(function(data){
-	    			console.log(data);
+	    			promptError("系统异常");
 	    		});
         	}else{
-        		alert("请选择要加入购物车的商品");
+        		promptError("请选择要加入购物车的商品");
         	}
 			return false;
 		});

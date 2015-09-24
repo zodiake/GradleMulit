@@ -17,7 +17,7 @@ $(function() {
 				}
 			},
 			error : function(data) {
-				alert("系统异常");
+				promptError("系统异常");
 			}
 		});
 	}
@@ -33,7 +33,7 @@ $(function() {
 				}
 			},
 			error : function(data) {
-				alert("error");
+				promptError("系统异常");
 			}
 		});
 	}

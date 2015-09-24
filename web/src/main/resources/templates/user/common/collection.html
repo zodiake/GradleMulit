@@ -8,7 +8,8 @@
 		<meta name="_csrf" th:content="${_csrf.token}" />
 		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 		<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-		<script th:src="@{/js/jquery-min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
 		<script th:src="@{/js/script.js}"></script>
 		<script type="text/javascript">
             $(function() {
@@ -23,24 +24,37 @@
                     var product = id.attr("data-id");
                     createCart(1,product);
                 });
+                var deleteId;
                 $('.btn-cancel').click(function() {
                     var id = $(this);
                     var product = id.attr("data-id");
-                    $.ajax({
+                    deleteId = product;
+                    $(".fixed").fadeIn();
+					$(".hide-wrap").fadeIn();
+                });
+                $('#delete').click(function(){
+                	$.ajax({
                         type : 'delete',
-                        url : '/user/collection/' + product,
+                        url : '/user/collection/' + deleteId,
                         success : function(data) {
                             if (data == "success") {
-                                $("#li" + product).remove();
+                                $("#li" + deleteId).remove();
                             }
                             if($("#preferUl li").length==0){
                             	$("#noCollection").show();
                             }
+                            promptSuccess("删除成功");
                         },
                         error : function(data) {
-                            alert(data);
+                        	promptError("系统异常");
                         }
                     });
+                    $(".fixed").fadeOut();
+        			$(".hide-wrap").fadeOut();
+                });
+                $('.cancel').click(function(){
+                	$(".fixed").fadeOut();
+					$(".hide-wrap").fadeOut();
                 });
             });
 		</script>
@@ -95,6 +109,15 @@
 								</li>
 							</ul>
 						</div>
+					<div class="pagination">
+						<div class="l-pagination">
+							<ul>
+								<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${(i-1)==viewpage.current}?active">
+									<a th:href="@{${viewpage.href}(page=${i-1})}" th:text="${i}"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
 					<div id="noCollection" th:class="${pages.getContent()==null || pages.getContent().size()==0}?userShow:userHide">
 						<div  class="tip-box mainpanel collect fr" style="line-height: 300px;">
 							<span>您还没有收藏任何商品，赶紧收藏吧！</span>
@@ -104,5 +127,17 @@
 				</div>
 			</div>
 		</div>
+		<div th:include="footer/footer"></div>
+		<div class="fixed"></div>
+		<div class="prompt"></div>
+		<div class="hide-wrap deletePrompt bodr">
+		<div class="hide-con">
+			<h2>是否删除该收藏品</h2>
+			<div class="foot-btn">
+				<button class="btn green ft14" id="delete">确认</button>
+				<button class="btn default cancel" >取消</button>
+			</div>
+		</div>
+	</div>
 	</body>
 </html>

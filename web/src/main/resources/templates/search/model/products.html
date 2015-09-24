@@ -7,6 +7,7 @@
 		<meta name="_csrf" th:content="${_csrf.token}" />
 		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 		<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
 		<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
 		<script type="text/javascript" th:src="@{/js/script.js}"></script>
 		<script type="text/javascript" th:src="@{/js/ajaxLogin-collection-products.js}"></script>
@@ -33,11 +34,11 @@
 		         	success : function(data){
 			            $('#includeHeader').load('/head');
 		         		if (data.data == "no authority") {
-			                 	alert("对不起您没有权限");
+			                 promptError("对不起您没有权限");
 			            }
 		         	},
 		         	error : function(data){
-		         		alert("系统异常");
+		         		promptError("系统异常");
 		         	}
 		         });
 		       	$('.coll').loginBeforeAjaxCollection({
@@ -47,14 +48,14 @@
 		       		success:function(data){
 		       			 $('#includeHeader').load('/head');
 		       			if(data=="no authority")
-		       				alert("对不起您没有权限");
+		       				promptError("对不起您没有权限");
 		       			else if(data=="duplicate")
-		       				alert("该商品已被您收藏");
+		       				prompetSuccess("该商品您已添加收藏");
 		       			else if(data == "success")
-		       				alert("添加收藏成功");
+		       				prompetSuccess("添加收藏成功");
 		       		},
 		       		error:function(data){
-		       			alert("系统异常");
+		       			promptError("系统异常");
 		       		}
 		       	});
 		
@@ -113,7 +114,7 @@
 			<div class="l-pagination">
 				<ul >
 					<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i-1==viewpage.current}?active">
-						<a th:href="@{${viewpage.href}(page=${i-1},size=16,__${viewpage.option}__)}" th:text="${i}"></a>
+						<a th:href="@{${viewpage.href}(page=${i-1},size=12,__${viewpage.option}__)}" th:text="${i}"></a>
 					</li>
 				</ul>
 			</div>
@@ -122,8 +123,6 @@
 	<div th:include="footer/footer"></div>
 	<div class="fixed"></div>
 	<div class="hide-wrap logo-small bodr"></div>
-	<div class="add_cart_success">
-		<h2>加入购物车成功</h2>
-	</div>
+	<div class="prompt"></div>
 </body>
 </html>

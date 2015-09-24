@@ -59,15 +59,13 @@
 					$('.hide-wrap').fadeIn();
 				}
 				else if(response == "content is null"){
-					alert("请填写评论内容");
+					promptError("请填写评论内容");
 				}
 				else{
 					var username = $('#username').text();
 					var str = '<li><div class="member-info fl"><img src="/img/member.png" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">'
-																+ response
-																	+ '</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>'
-																	+ $("#content").val()
-																	+ '</p></div></div></li>';
+							+ response+ '</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>'+ $("#content").val()
+							+ '</p></div></div></li>';
 					var ul = $('#reviewUl');
 					var num = $('#reviewNum').text();
 					if (num >= 10) {
@@ -75,8 +73,9 @@
 						li[9].remove();
 					}
 					ul.prepend(str);
-						$('#reviewNum').text(parseInt(num) + 1);
-						$("#content").val("");
+					$('#reviewNum').text(parseInt(num) + 1);
+					$("#content").val("");
+					promptSuccess("评论成功");
 				}
 			});
 			return false;

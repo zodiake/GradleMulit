@@ -35,14 +35,16 @@ public class InformationController extends BaseController<Information>{
 	@RequestMapping(value = "/informationCategorys/{id}", method = RequestMethod.GET)
 	public String findByCategory(
 			@PathVariable(value = "id") Long id, Model uiModel,
-			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
 		InformationCategory ic = informationCategoryService.findOne(id);
 		if(ic == null)
 			throw new CategoryNotFoundException();
-		Page<Information> informations = informationService.findByCategory(ic, new PageRequest(page - 1, size));
+		Page<Information> informations = informationService.findByCategory(ic, new PageRequest(page , size));
 		ViewPage viewpage = caculatePage(informations);
 		viewpage.setHref("/informationCategorys/"+id);
+		viewpage.setCurrent(informations.getNumber());
+		
 		uiModel.addAttribute("viewpage", viewpage);
 		uiModel.addAttribute("informations", informations);
 		uiModel.addAttribute("pc", ic);

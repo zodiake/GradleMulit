@@ -14,7 +14,7 @@ $(function() {
 					});
 					$('#city').append(str);
 				},error : function(data){
-					alert("系统异常请稍后再试");
+					promptError("系统异常");
 				}
 			}); 
 		}else{

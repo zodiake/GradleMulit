@@ -7,9 +7,10 @@
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/prompt.js}"></script>
 <script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
 <script type="text/javascript" th:src="@{/js/ajaxLogin-review.js}"></script>
-<script type="text/javascript" th:src="@{/js/ajaxLogin-cart.js}"></script>
+<script type="text/javascript" th:src="@{/js/ajaxLogin-cart-product.js}"></script>
 <script type="text/javascript" th:src="@{/js/script.js}"></script>
 <script type="text/javascript" th:src="@{/js/ajaxLogin-collection-product.js}"></script>
 <script type="text/javascript">
@@ -33,7 +34,7 @@
 							data : $(this).serialize(),
 							success : function(res) {
 								if (res == "content is null") {
-									alert("content is null");
+									promptError("评论内容不能为空");
 								} else {
 									var username = $('#username').text();
 									var str = '<li><div class="member-info fl"><img th:src="@{/img/member.png}" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">'
@@ -50,6 +51,7 @@
 									ul.prepend(str);
 									$('#reviewNum').text(parseInt(num) + 1);
 									$("#content").val("");
+									promptSuccess("评论成功");
 								}
 							}
 						});
@@ -63,12 +65,12 @@
 	             },
 	             success : function(data) {
 	                 if (data.data == "no authority") {
-	                 	alert("对不起您没有权限");
+	                	 promptError("对不起您没有权限");
 	                 }
 	                 $('#includeHeader').load('/head');
 	             },
 	             error : function(data) {
-	                 alert(data);
+	            	 promptError("系统异常");
 	             }
 		});
 		$("#collection").loginBeforeAjaxCollection({
@@ -79,9 +81,9 @@
 			},
 			success : function(data) {
 				if (data == "no authority") {
-					alert("对不起您没有权限");
+					promptError("对不起您没有权限");
 				} else if (data == "duplicate") {
-					alert("您已加入了收藏");
+					promptError("您已加入了收藏");
 					$('.collect-num').html("已收藏");
 					$('.collect-num').removeAttr("id");
 				} else if (data == "success") {
@@ -89,10 +91,11 @@
 					collectionNum.html(parseInt(collectionNum.html()) + 1);
 					$('.collect-num').html("已收藏");
 					$('.collect-num').removeAttr("id");
+					promptSuccess("添加收藏成功");
 				}
 			},
 			error : function(data) {
-				alert("error");
+				promptError("系统异常");
 			}
 		});
 		$(".amount-increase").click(function() {
@@ -109,11 +112,25 @@
 			var val = $(this).val();
 			if(1 > val){
 				$(this).val(1);
-				alert('数量最少为1');
+				promptError('数量最少为1');
 			}
 			if(val>999){
 				$(this).val(999);
-				alert('数量最多为999');
+				promptError('数量最多为999');
+			}
+		});
+		$("#review").click(function(){
+			var productId = $(this).attr("data-id");
+			var reviews = $("#reviews"); 
+			if(reviews.html()==""){
+				$.ajax({
+					url : "/products/"+productId+"/reviews",
+					type : "get",
+					success : function(data){
+						reviews.empty();
+						reviews.append(data);
+					}
+				});
 			}
 		});
 	});
@@ -146,7 +163,7 @@
 				</div>
 				<div class="panel panel-price">
 					<label>价格：</label><span>
-					<b class="ft22 red" th:text="${product.price}">￥1500</b></span>
+					<b class="ft22 red">￥</b><b class="ft22 red" th:text="${product.price}">1500</b></span>
 				</div>
 				<div class="panel">
 					<label>类型</label><span th:text="${product.thirdCategory.name}">芯片扫描仪</span>
@@ -187,7 +204,7 @@
 		</div>
 		<div class="layout">
 			<div class="tabs-nav detail-nav bodr">
-				<a class="active">商品详情</a><a>相关解决方案</a><a>评论(<i th:text="${reviewPage.getTotalElements()}" id="reviewNum"></i>)
+				<a class="active">商品详情</a><a>相关解决方案</a><a id="review" th:attr="data-id=__${product.id}__">评论(<i th:text="${reviewCount}" id="reviewNum"></i>)
 				</a>
 			</div>
 			<div class="tab-conts detail-con bodr">
@@ -208,7 +225,6 @@
 				</div>
 				<div class="tab-panel global-box comments hide">
 					<div class="area-box">
-						<div id="reviews"></div>
 						<div class="info-area bodr clearfix">
 							<div class="info fl">
 								<img th:src="@{/img/member.png}" width="60" height="60" />
@@ -221,49 +237,7 @@
 							</form>
 						</div>
 					</div>
-					<div class="comment-list">
-						<ul id="reviewUl">
-							<li th:each="review:${reviewPage.getContent()}">
-								<div class="member-info fl">
-									<img th:src="@{/img/member.png}" width="60" height="60" />
-								</div>
-								<div class="member-global fr">
-									<div class="member-msg clearfix"
-										th:with="date=${nowTime-review.createdTime.getTime().getTime()}">
-										<span class="me-name fl" th:text="${review.createdBy.name}"></span>
-										<span class="evt-time fr"><i
-											th:if="${date/(1000*60) lt 1 }" th:text="${date/(1000)}+'秒前'"></i></span>
-										<span class="evt-time fr"><i
-											th:if="${1 lt (date/(1000*60)) and (date/(1000*60)) lt 60 }"
-											th:text="${date/(1000*60)}+'分钟前'"></i></span> <span
-											class="evt-time fr"><i
-											th:if="${1 lt (date/(1000*3600)) and (date/(1000*3600)) lt 24}"
-											th:text="${(date/(1000*3600))}+'小时前'"></i></span> <span
-											class="evt-time fr"><i
-											th:if="${24 lt (date/(1000*3600)) and (date/(1000*3600*24))==1}"
-											th:text="昨天"></i></span> <span class="evt-time fr"><i
-											th:if="${1 lt (date/(1000*3600*24)) and (date/(1000*3600*24)) lt 10}"
-											th:text="${(date/(1000*3600*24))}+'天前'"></i></span> <span
-											class="evt-time fr"><i
-											th:if="${10 lt (date/(1000*3600*24))}"
-											th:text="${#dates.format(review.createdTime, 'yyyy-MM-dd')}"></i></span>
-									</div>
-									<div class="msg">
-										<p th:text="${review.content}"></p>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="pagination">
-						<div class="l-pagination">
-						<ul>
-							<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i==viewpage.current}?active" >
-								<a th:href="@{${viewpage.href}(page=${i},size=10,__${viewpage.option}__)}" th:text="${i}"></a>
-							</li>
-						</ul>
-						</div>
-					</div>
+					<div id="reviews"></div>
 				</div>
 			</div>
 		</div>
@@ -272,5 +246,6 @@
 	<script></script>
 	<div class="fixed"></div>
 	<div class="hide-wrap logo-small bodr"></div>
+	<div class="prompt"></div>
 </body>
 </html>

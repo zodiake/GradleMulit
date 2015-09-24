@@ -36,7 +36,7 @@ public class ProductCategoryController {
 
 	@RequestMapping(value = "/productCategory/{parent}/{second}/{third}", method = RequestMethod.GET)
 	public String findByThird(@PathVariable("third") String third,Model uiModel, @PathVariable("parent") String parent,
-			@PathVariable("second") String second,@RequestParam(value = "page", defaultValue = "1") int page,
+			@PathVariable("second") String second,@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
 		ProductCategory thirdCategory = pcService.findByName(third,
 				ActivateEnum.ACTIVATE);
@@ -49,7 +49,7 @@ public class ProductCategoryController {
 			throw new CategoryNotFoundException();
 		}
 		Page<Product> pages = productService.findByCategory(thirdCategory,
-				new PageRequest(page - 1, size));
+				new PageRequest(page, size));
 		uiModel.addAttribute("pc", thirdCategory.getParent().getParent());
 		uiModel.addAttribute("second", thirdCategory.getParent());
 		uiModel.addAttribute("child", thirdCategory);
@@ -60,13 +60,13 @@ public class ProductCategoryController {
 	@RequestMapping(value = "/productCategory/{parent}/{second}", method = RequestMethod.GET)
 	public String findBySecond(@PathVariable("second") String second,
 			Model uiModel, @PathVariable("parent") String parent,
-			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
 		ProductCategory secondCategory = pcService.findByName(second,ActivateEnum.ACTIVATE);
 		if (secondCategory == null || secondCategory == null || !secondCategory.getParent().getName().equals(parent))
 			throw new CategoryNotFoundException();
 		Page<Product> pages = productService.findBySecondCategory(
-				secondCategory, new PageRequest(page - 1, size));
+				secondCategory, new PageRequest(page, size));
 
 		uiModel.addAttribute("second", secondCategory);
 		uiModel.addAttribute("pc", secondCategory.getParent());
