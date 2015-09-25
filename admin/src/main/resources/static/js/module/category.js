@@ -1,4 +1,5 @@
 var category = angular.module('Category', []);
+var validFailMessage = '校验失败';
 
 category.service('CategoryService', ['$http',
     function ($http) {
@@ -220,21 +221,27 @@ category.controller('ChildCategoryEditController', ['$scope',
         $scope.alerts = [];
 
         $scope.submit = function () {
-            CategoryService
-                .update($scope.item)
-                .success(function (data) {
-                    if (data.id) {
+            if ($scope.categoryForm.$valid) {
+                CategoryService
+                    .update($scope.item)
+                    .success(function (data) {
+                        if (data.id) {
+                            $scope.alerts.push({
+                                type: 'success',
+                                msg: '保存成功',
+                            });
+                        }
+                    })
+                    .error(function (err) {
                         $scope.alerts.push({
-                            type: 'success',
-                            msg: '保存成功',
+                            msg: '保存失败',
                         });
-                    }
-                })
-                .error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
                     });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
@@ -251,31 +258,37 @@ category.controller('CategoryChildAddController', ['$scope',
         $scope.alerts = [];
 
         $scope.submit = function () {
-            $scope.item.parent = $stateParams.id;
-            CategoryService
-                .saveOrUpdate($scope.item)
-                .success(function (data) {
-                    $scope.item.id = data.id;
-                    var flag = false;
-                    for (var i = 0; i < $scope.items.length; i++) {
-                        if ($scope.items[i].id == data.id) {
-                            flag = true;
-                            break;
+            if ($scope.categoryForm.$valid) {
+                $scope.item.parent = $stateParams.id;
+                CategoryService
+                    .saveOrUpdate($scope.item)
+                    .success(function (data) {
+                        $scope.item.id = data.id;
+                        var flag = false;
+                        for (var i = 0; i < $scope.items.length; i++) {
+                            if ($scope.items[i].id == data.id) {
+                                flag = true;
+                                break;
+                            }
                         }
-                    }
-                    if (!flag) {
-                        $scope.items.push($scope.item);
-                    }
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+                        if (!flag) {
+                            $scope.items.push($scope.item);
+                        }
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    })
+                    .error(function () {
+                        $scope.alerts.push({
+                            msg: '保存失败',
+                        });
                     });
-                })
-                .error(function () {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
@@ -290,7 +303,7 @@ category.controller('ProductChildModalCtrl', [
     'item',
     'CategoryService',
     function ($scope, $modalInstance, item, CategoryService) {
-        $scope.item=item;
+        $scope.item = item;
 
         $scope.ok = function () {
             CategoryService
@@ -320,20 +333,26 @@ category.controller('CategoryAddController', [
         $scope.alerts = [];
 
         $scope.submit = function () {
-            CategoryService
-                .saveOrUpdate($scope.item)
-                .success(function (data) {
-                    $scope.item.id = data.id;
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.categoryForm.$valid) {
+                CategoryService
+                    .saveOrUpdate($scope.item)
+                    .success(function (data) {
+                        $scope.item.id = data.id;
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    })
+                    .error(function (err) {
+                        $scope.alerts.push({
+                            msg: '保存失败',
+                        });
                     });
-                })
-                .error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
@@ -353,19 +372,25 @@ category.controller('CategoryEditController', [
         $scope.categories = categories;
 
         $scope.submit = function () {
-            CategoryService
-                .update($scope.item)
-                .success(function () {
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.categoryForm.$valid) {
+                CategoryService
+                    .update($scope.item)
+                    .success(function () {
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    })
+                    .error(function () {
+                        $scope.alerts.push({
+                            msg: '保存失败',
+                        });
                     });
-                })
-                .error(function () {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
