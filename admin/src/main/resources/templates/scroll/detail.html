@@ -5,10 +5,11 @@
     <form class="form-horizontal w400" name="scrollForm" ng-submit="submit()">
         <div class="row">
             <div class="form-group">
-                <label class="control-label col-sm-2">href</label>
+                <label class="control-label col-sm-2">链接</label>
                 <div class="col-sm-6">
-                    <input class="form-control" name="href" ng-model="item.href" ng-required="true" />
-                    <span ng-show="scrollForm.href.$errors.required">need</span>
+                    <input class="form-control" name="href" ng-model="item.href" ng-required="true" ng-maxlength="100" />
+                    <span ng-show="scrollForm.href.$errors.required">不能为空</span>
+                    <span ng-show="scrollForm.href.$errors.maxlength">长度应小于100</span>
                 </div>
             </div>
             <div class="form-group lhg">
