@@ -15,9 +15,11 @@
             <div class="form-group">
                 <label class="control-label col-sm-1">摘要</label>
                 <div class="col-sm-11">
-                    <input type="text" class="form-control" name="summary" ng-model="item.summary" ng-maxlength="100" />
+                    <<<<<<< HEAD <input type="text" class="form-control" name="summary" ng-model="item.summary" ng-maxlength="100" />
                     <span ng-show="infoForm.summary.$error.required" class="error">请输入摘要</span>
-                    <span ng-show="infoForm.summary.$error.maxlength" class="error">长度应小于100</span>
+                    <span ng-show="infoForm.summary.$error.maxlength" class="error">长度应小于100</span> =======
+                    <input type="text" class="form-control" name="summary" ng-model="item.summary" />
+                    <span ng-show="infoForm.title.$error.required" class="text-danger">请输入摘要</span> >>>>>>> origin/master
                 </div>
             </div>
             <div class="form-group">
@@ -25,14 +27,14 @@
                 <div class="col-sm-3">
                     <select ng-model="item.category" name="category" ng-options="c.id as c.name for c in categories" class="form-control" ng-required="true">
                     </select>
-                    <span ng-show="infoForm.category.$error.required" class="error">请输入商品分类</span>
+                    <span ng-show="infoForm.category.$error.required" class="text-danger">请输入商品分类</span>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-1">内容</label>
                 <div class="col-sm-10">
                     <textarea name="content" ckeditor="editorOptions" ng-model="item.content" ng-required="true"></textarea>
-                    <span ng-show="infoForm.content.$error.required" class="error">请输入内容</span>
+                    <span ng-show="infoForm.content.$error.required" class="text-danger">请输入内容</span>
                 </div>
             </div>
         </div>

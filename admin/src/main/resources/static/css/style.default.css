@@ -33,7 +33,6 @@ a:focus {
 a{
     color:#43505d;
 }
-
 .ml10{
 	margin-left:10px;
 }
@@ -48,9 +47,14 @@ input.w160{
 	margin:auto;
 }
 .sm-ml .btn-sm{
-	margin:0 5px;
+	margin:0 1px;
 }
-
+ul{
+	padding:0;
+}
+li{
+	list-style:none;
+}
 /********** 3. HEADER STYLES **********/
 /**************************************/
 html, body,.mainwrapper,.mainpanel,.contentpanel{
