@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.SiteUserService;
 
@@ -25,14 +26,12 @@ public class PhoneController {
 	@Autowired
 	private SiteUserService userService;
 
-
 	@RequestMapping(value = "/users/captcha", method = RequestMethod.POST)
 	@ResponseBody
 	public String verificationUserPhone(@RequestParam("phone") String phone,
 			HttpSession session) throws DocumentException {
 		int mobile_code = (int) ((Math.random() * 9 + 1) * 100000);
 		String code = sendRequest(phone, mobile_code);
-		System.out.println(code);
 		if ("2".equals(code))
 			session.setAttribute("uCode", String.valueOf(mobile_code));
 		else if("4085".equals(code))
@@ -54,6 +53,8 @@ public class PhoneController {
 		String code = sendRequest(phone, mobile_code);
 		if ("2".equals(code))
 			session.setAttribute("pCode", String.valueOf(mobile_code));
+		else if("4085".equals(code))
+			return "limit";
 		else
 			return "error";
 		return "success";
@@ -68,8 +69,11 @@ public class PhoneController {
 			return "noexists";
 		int mobile_code = (int) ((Math.random() * 9 + 1) * 100000);
 		String code = sendRequest(phone, mobile_code);
+		
 		if ("2".equals(code))
 			session.setAttribute("fCode", String.valueOf(mobile_code));
+		else if("4085".equals(code))
+			return "limit";
 		else
 			return "error";
 		return "success";
@@ -85,7 +89,6 @@ public class PhoneController {
 		data.put("content", content);
 		String postUrl = "http://106.ihuyi.cn/webservice/sms.php?method=Submit&account={account}&password={password}&mobile={mobile}&content={content}";
 		String str = rest.postForObject(postUrl, null, String.class,data);
-		System.out.println(str);
 		
 		Document doc = DocumentHelper.parseText(str);
 		Element root = doc.getRootElement();
