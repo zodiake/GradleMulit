@@ -23,15 +23,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in items" >
+            <tr ng-repeat="item in items">
                 <td>{{$index+1}}</td>
                 <td>{{item.categoryName}}</td>
                 <td>{{item.title}}</td>
                 <td>{{item.state|activeFilter}}</td>
                 <td>{{item.updatedTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>
-                	<a class="btn btn-default btn-sm" ng-click="updateState(item)">{{item.state|reverseActiveFilter}}</a>
-                	<a class="btn btn-primary btn-sm" ng-click="view(item)">修改</a>
+                    <a class="btn btn-default btn-sm" ng-click="updateState(item)">{{item.state|reverseActiveFilter}}</a>
+                    <a class="btn btn-primary btn-sm" ng-click="view(item)">修改</a>
                 </td>
             </tr>
         </tbody>
@@ -41,7 +41,7 @@
     </div>
     <script type="text/ng-template" id="infoModal.html">
         <div class="modal-body">
-        	{{item.state|reverseActiveFilter}}{{item.title}}
+            {{item.state|reverseActiveFilter}}{{item.title}}
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="ok()">OK</button>

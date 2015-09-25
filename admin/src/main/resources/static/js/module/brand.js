@@ -1,4 +1,5 @@
 var brandModule = angular.module('Brand', []);
+var validFailMessage = '校验失败';
 
 brandModule.service('BrandService', ['$http',
     function ($http) {
@@ -76,7 +77,7 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
             $modal.open({
                 templateUrl: '/admin/brandDetail',
                 size: 'sm',
-                controller: 'BrandDetailController'
+                controller: 'BrandAddController'
             });
         };
 
@@ -155,7 +156,7 @@ brandModule.controller('BrandModalCtrl', [
     }
 ]);
 
-brandModule.controller('BrandDetailController', ['$scope',
+brandModule.controller('BrandAddController', ['$scope',
     '$http',
     'BrandService',
     function ($scope, $http, BrandService) {
@@ -181,22 +182,26 @@ brandModule.controller('BrandDetailController', ['$scope',
         };
 
         $scope.submit = function () {
-            $scope.disable = true;
-            BrandService
-                .saveOrUpdate($scope.item)
-                .success(function (data) {
-                    $scope.disable = false;
-                    $scope.item.id = data.id;
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.brandForm.$valid) {
+                BrandService
+                    .saveOrUpdate($scope.item)
+                    .success(function (data) {
+                        $scope.item.id = data.id;
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    })
+                    .error(function (err) {
+                        $scope.alerts.push({
+                            msg: '保存失败',
+                        });
                     });
-                })
-                .error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
@@ -232,19 +237,25 @@ brandModule.controller('BrandViewController', ['$scope',
         };
 
         $scope.submit = function () {
-            BrandService
-                .update($scope.item)
-                .success(function () {
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.brandForm.$valid) {
+                BrandService
+                    .update($scope.item)
+                    .success(function () {
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    })
+                    .error(function (err) {
+                        $scope.alerts.push({
+                            msg: '保存失败',
+                        });
                     });
-                })
-                .error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {

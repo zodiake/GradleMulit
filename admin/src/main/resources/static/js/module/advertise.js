@@ -1,4 +1,5 @@
 var advertiseModule = angular.module('Advertise', []);
+var validFailMessage = '校验失败';
 
 advertiseModule.service('AdvertiseService', ['$http',
     function ($http) {
@@ -187,22 +188,26 @@ advertiseModule.controller('CreateAdvertiseController', ['$scope', 'category', '
         $scope.alerts = [];
 
         $scope.submit = function () {
-            $scope.disabled = true;
-            AdvertiseService
-                .saveOrUpdate($scope.item)
-                .success(function (data) {
-                    $scope.disabled = false;
-                    $scope.item.id = data.id;
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.advForm.$valid) {
+                AdvertiseService
+                    .saveOrUpdate($scope.item)
+                    .success(function (data) {
+                        $scope.item.id = data.id;
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    })
+                    .error(function () {
+                        $scope.alerts.push({
+                            msg: '保存失败',
+                        });
                     });
-                })
-                .error(function () {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.upload = function (event) {
@@ -258,18 +263,24 @@ advertiseModule.controller('AdvertiseDetailController', ['$scope',
         };
 
         $scope.submit = function () {
-            AdvertiseService
-                .update($scope.item)
-                .success(function () {
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.advForm.$valid) {
+                AdvertiseService
+                    .update($scope.item)
+                    .success(function () {
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    }).error(function (err) {
+                        $scope.alerts.push({
+                            msg: '保存失败',
+                        });
                     });
-                }).error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
