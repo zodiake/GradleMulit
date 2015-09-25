@@ -196,21 +196,25 @@ infoModule.controller('InfoCreateController', ['$scope', 'categories', 'InfoServ
         };
 
         $scope.submit = function () {
-            $scope.disabled = true;
-            InfoService
-                .saveOrUpdate($scope.item)
-                .success(function (data) {
-                    $scope.disabled = false;
-                    $scope.item.id = data.id;
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.infoForm.$valid) {
+                InfoService
+                    .saveOrUpdate($scope.item)
+                    .success(function (data) {
+                        $scope.item.id = data.id;
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    }).error(function (err) {
+                        $scope.alerts.push({
+                            msg: '保存失败',
+                        });
                     });
-                }).error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
@@ -233,18 +237,24 @@ infoModule.controller('InfoDetailController', ['$scope', 'item', 'categories', '
         $scope.alerts = [];
 
         $scope.submit = function () {
-            InfoService
-                .update($scope.item)
-                .success(function () {
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.infoForm.$valid) {
+                InfoService
+                    .update($scope.item)
+                    .success(function () {
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功',
+                        });
+                    }).error(function (err) {
+                        $scope.alerts.push({
+                            msg: '保存失败'
+                        });
                     });
-                }).error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
