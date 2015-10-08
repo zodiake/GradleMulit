@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -40,7 +41,7 @@ public class Product {
 	protected Long id;
 
 	@NotBlank(message = "商品名称不能为空")
-	@Size(max = 40, message = "商品名字最长为20个中文")
+	@Size(max = 40, message = "商品名字最长为40个字符")
 	protected String name;
 
 	@NotBlank(message = "型号不能为空")
@@ -62,7 +63,8 @@ public class Product {
 	@NotBlank(message = "请上传图片")
 	protected String coverImg;
 
-	protected float price;
+	@Min(value=0,message="价格不能为空和0")
+	protected Float price;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "first_category_id")
@@ -174,7 +176,7 @@ public class Product {
 		this.coverImg = coverImg;
 	}
 
-	public float getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 

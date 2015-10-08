@@ -81,7 +81,7 @@ public class ProviderController extends BaseController<Product> {
 	private ServiceService serviceService;
 	@Autowired
 	private ReviewService reviewService;
-	
+
 	private final String DETAIL = "product/product";
 
 	@RequestMapping(value = "/supplier/detail", method = RequestMethod.GET)
@@ -92,7 +92,8 @@ public class ProviderController extends BaseController<Product> {
 		uiModel.addAttribute("provinces", provinceService.findAll());
 		uiModel.addAttribute("industryInfos",
 				providerIndustryInfoService.findAll());
-		uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
+		uiModel.addAttribute("citys",
+				cityService.findByProvince(provider.getProvince()));
 		return "user/provider/supplierDetail";
 	}
 
@@ -103,8 +104,10 @@ public class ProviderController extends BaseController<Product> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", provider);
 			uiModel.addAttribute("provinces", provinceService.findAll());
-			uiModel.addAttribute("industryInfos",providerIndustryInfoService.findAll());
-			uiModel.addAttribute("citys",cityService.findByProvince(provider.getProvince()));
+			uiModel.addAttribute("industryInfos",
+					providerIndustryInfoService.findAll());
+			uiModel.addAttribute("citys",
+					cityService.findByProvince(provider.getProvince()));
 			return "user/provider/supplierDetail";
 		}
 		SiteUser user = userContext.getCurrentUser();
@@ -113,6 +116,7 @@ public class ProviderController extends BaseController<Product> {
 		uiModel.addAttribute("user", provider);
 		return "redirect:/supplier/detail";
 	}
+
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
 	public String findCurrentProvider(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
@@ -121,7 +125,8 @@ public class ProviderController extends BaseController<Product> {
 		uiModel.addAttribute("provinces", provinceService.findAll());
 		uiModel.addAttribute("industryInfos",
 				providerIndustryInfoService.findAll());
-		uiModel.addAttribute("citys", cityService.findByProvince(provider.getProvince()));
+		uiModel.addAttribute("citys",
+				cityService.findByProvince(provider.getProvince()));
 		return "user/provider/providerDetail";
 	}
 
@@ -132,8 +137,10 @@ public class ProviderController extends BaseController<Product> {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", provider);
 			uiModel.addAttribute("provinces", provinceService.findAll());
-			uiModel.addAttribute("industryInfos",providerIndustryInfoService.findAll());
-			uiModel.addAttribute("citys",cityService.findByProvince(provider.getProvince()));
+			uiModel.addAttribute("industryInfos",
+					providerIndustryInfoService.findAll());
+			uiModel.addAttribute("citys",
+					cityService.findByProvince(provider.getProvince()));
 			return "user/provider/providerDetail";
 		}
 		SiteUser user = userContext.getCurrentUser();
@@ -142,21 +149,22 @@ public class ProviderController extends BaseController<Product> {
 		uiModel.addAttribute("user", provider);
 		return "redirect:/provider/detail";
 	}
+
 	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)
 	public String findAllProductByProvider(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size,
 			@SecurityUser SiteUser user) {
 		Page<Product> products = productService.findByUsers(
-				new Provider(user.getId()), new PageRequest(page , size,
+				new Provider(user.getId()), new PageRequest(page, size,
 						Direction.DESC, "createdTime"));
-		
+
 		ViewPage viewpage = caculatePage(products);
 		viewpage.setHref("/provider/products");
 		viewpage.setCurrent(products.getNumber());
-		
+
 		uiModel.addAttribute("viewpage", viewpage);
-		
+
 		uiModel.addAttribute("lists", products);
 		return "user/provider/maintain";
 	}
@@ -170,20 +178,21 @@ public class ProviderController extends BaseController<Product> {
 				new Provider(user.getId()), new PageRequest(page, size,
 						Direction.DESC, "createdTime"), ProductStatusEnum
 						.valueOf(status));
-		
+
 		ViewPage viewpage = caculatePage(products);
-		viewpage.setHref("/provider/products/"+status);
+		viewpage.setHref("/provider/products/" + status);
 		viewpage.setCurrent(products.getNumber());
-		
+
 		uiModel.addAttribute("viewpage", viewpage);
-		
+
 		uiModel.addAttribute("lists", products);
 		uiModel.addAttribute("status", ProductStatusEnum.valueOf(status));
 		return "user/provider/maintain";
 	}
 
 	/* 商品发布 */
-	@RequestMapping(value = "/provider/products", params = "form", method = RequestMethod.GET)
+	@RequestMapping(value = { "/provider/products", "/provider/instruments",
+			"/provider/consumables", "/provider/reagents", "/provider/services" }, params = "form", method = RequestMethod.GET)
 	public String create(Model uiModel) {
 		uiModel.addAttribute("product", new Product());
 		uiModel.addAttribute("brands", brandService.findAll());
@@ -199,21 +208,25 @@ public class ProviderController extends BaseController<Product> {
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
 		float price = instrument.getPrice();
-		if (price == 0.0f) {
+		if (price == 0) {
 			bindingResult
 					.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("brands", brandService.findAll());
-			List<ProductCategory> pcs = productCategoryService.findAllFirstCategory(ActivateEnum.ACTIVATE);
+			List<ProductCategory> pcs = productCategoryService
+					.findAllFirstCategory(ActivateEnum.ACTIVATE);
 			if (instrument.getFirstCategory() != null) {
-				List<ProductCategory> secondCategory = productCategoryService.findByParentAndActivate(instrument.getFirstCategory(),
+				List<ProductCategory> secondCategory = productCategoryService
+						.findByParentAndActivate(instrument.getFirstCategory(),
 								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("secondCategories", secondCategory);
 			}
 			if (instrument.getSecondCategory() != null) {
-				List<ProductCategory> thirdCategory = productCategoryService.findByParentAndActivate(
-								instrument.getSecondCategory(),ActivateEnum.ACTIVATE);
+				List<ProductCategory> thirdCategory = productCategoryService
+						.findByParentAndActivate(
+								instrument.getSecondCategory(),
+								ActivateEnum.ACTIVATE);
 				uiModel.addAttribute("thirdCategories", thirdCategory);
 			}
 			uiModel.addAttribute("pcs", pcs);
@@ -222,8 +235,8 @@ public class ProviderController extends BaseController<Product> {
 		}
 		instrument.setCreatedBy(new Provider(user.getId()));
 
-		Instrument i =instrumentService.saveNoPublisher(instrument);
-		return "redirect:/provider/products/"+i.getId()+"?detail";
+		Instrument i = instrumentService.saveNoPublisher(instrument);
+		return "redirect:/provider/products/" + i.getId() + "?detail";
 	}
 
 	@RequestMapping(value = "/provider/consumables", method = RequestMethod.POST, params = "form")
@@ -232,7 +245,7 @@ public class ProviderController extends BaseController<Product> {
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
 		float price = consumable.getPrice();
-		if (price == 0.0f) {
+		if (price == 0) {
 			bindingResult
 					.addError(new FieldError("product", "price", "价格不能为0"));
 		}
@@ -258,9 +271,9 @@ public class ProviderController extends BaseController<Product> {
 			return "user/provider/release";
 		}
 		consumable.setCreatedBy(new Provider(user.getId()));
-		
+
 		Consumable c = consumableService.saveNoPublisher(consumable);
-		return "redirect:/provider/products/"+c.getId()+"?detail";
+		return "redirect:/provider/products/" + c.getId() + "?detail";
 	}
 
 	@RequestMapping(value = "/provider/reagents", method = RequestMethod.POST, params = "form")
@@ -269,7 +282,7 @@ public class ProviderController extends BaseController<Product> {
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
 		float price = reagents.getPrice();
-		if (price == 0.0f) {
+		if (price == 0) {
 			bindingResult
 					.addError(new FieldError("product", "price", "价格不能为0"));
 		}
@@ -296,7 +309,7 @@ public class ProviderController extends BaseController<Product> {
 		reagents.setCreatedBy(new Provider(user.getId()));
 
 		Reagents r = reagentsService.saveNoPublisher(reagents);
-		return "redirect:/provider/products/"+r.getId()+"?detail";
+		return "redirect:/provider/products/" + r.getId() + "?detail";
 	}
 
 	@RequestMapping(value = "/provider/services", method = RequestMethod.POST, params = "form")
@@ -305,7 +318,7 @@ public class ProviderController extends BaseController<Product> {
 			BindingResult bindingResult, Model uiModel,
 			@SecurityUser SiteUser user) {
 		float price = service.getPrice();
-		if (price == 0.0f) {
+		if (price == 0) {
 			bindingResult
 					.addError(new FieldError("product", "price", "价格不能为0"));
 		}
@@ -332,7 +345,7 @@ public class ProviderController extends BaseController<Product> {
 		service.setCreatedBy(new Provider(user.getId()));
 
 		Service s = serviceService.saveNoPublisher(service);
-		return "redirect:/provider/products/"+s.getId()+"?detail";
+		return "redirect:/provider/products/" + s.getId() + "?detail";
 	}
 
 	/* 商品发布 end */
@@ -359,7 +372,7 @@ public class ProviderController extends BaseController<Product> {
 			@Valid @ModelAttribute("product") Instrument instrument,
 			BindingResult result, Model uiModel) {
 		float price = instrument.getPrice();
-		if (price == 0.0f) {
+		if (price == 0) {
 			result.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (result.hasErrors()) {
@@ -377,7 +390,7 @@ public class ProviderController extends BaseController<Product> {
 		instrument.setId(id);
 		instrument = instrumentService.updateNoPublisher(instrument);
 		uiModel.addAttribute("product", instrument);
-		return "redirect:/provider/products/"+id+"?detail";
+		return "redirect:/provider/products/" + id + "?detail";
 	}
 
 	@RequestMapping(value = "/provider/consumables/{id}", method = RequestMethod.PUT, params = "edit")
@@ -385,7 +398,7 @@ public class ProviderController extends BaseController<Product> {
 			@Valid @ModelAttribute("product") Consumable consumable,
 			BindingResult result, Model uiModel) {
 		float price = consumable.getPrice();
-		if (price == 0.0f) {
+		if (price == 0) {
 			result.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (result.hasErrors()) {
@@ -402,7 +415,7 @@ public class ProviderController extends BaseController<Product> {
 		consumable.setId(id);
 		consumable = consumableService.updateNoPublisher(consumable);
 		uiModel.addAttribute("product", consumable);
-		return "redirect:/provider/products/"+id+"?detail";
+		return "redirect:/provider/products/" + id + "?detail";
 	}
 
 	@RequestMapping(value = "/provider/services/{id}", method = RequestMethod.PUT, params = "edit")
@@ -410,7 +423,7 @@ public class ProviderController extends BaseController<Product> {
 			@Valid @ModelAttribute("product") Service service,
 			BindingResult result, Model uiModel) {
 		float price = service.getPrice();
-		if (price == 0.0f) {
+		if (price == 0) {
 			result.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (result.hasErrors()) {
@@ -427,15 +440,15 @@ public class ProviderController extends BaseController<Product> {
 		service.setId(id);
 		service = serviceService.updateNoPublisher(service);
 		uiModel.addAttribute("product", service);
-		return "redirect:/provider/products/"+id+"?detail";
+		return "redirect:/provider/products/" + id + "?detail";
 	}
-	
+
 	@RequestMapping(value = "/provider/reagents/{id}", method = RequestMethod.PUT, params = "edit")
 	public String editReagents(@PathVariable("id") Long id,
 			@Valid @ModelAttribute("product") Reagents reagents,
 			BindingResult result, Model uiModel) {
 		float price = reagents.getPrice();
-		if (price == 0.0f) {
+		if (price == 0) {
 			result.addError(new FieldError("product", "price", "价格不能为0"));
 		}
 		if (result.hasErrors()) {
@@ -457,7 +470,7 @@ public class ProviderController extends BaseController<Product> {
 		reagents.setId(id);
 		reagents = reagentsService.updateNoPublisher(reagents);
 		uiModel.addAttribute("product", reagents);
-		return "redirect:/provider/products/"+id+"?detail";
+		return "redirect:/provider/products/" + id + "?detail";
 	}
 
 	/* 商品修改 end */
@@ -482,27 +495,27 @@ public class ProviderController extends BaseController<Product> {
 	public String findCount(Model uiModel, @SecurityUser SiteUser user,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "20") int size) {
-		Page<Product> products = productService.findCount(new Provider(user.getId()), new PageRequest(page, size,
-				Direction.DESC, "createdTime"));
+		Page<Product> products = productService.findCount(
+				new Provider(user.getId()), new PageRequest(page, size,
+						Direction.DESC, "createdTime"));
 		ViewPage viewpage = caculatePage(products);
 		viewpage.setHref("/provider/count");
 		viewpage.setCurrent(products.getNumber());
-		
+
 		uiModel.addAttribute("viewpage", viewpage);
-		
+
 		uiModel.addAttribute("products", products);
 		return "user/provider/count";
 	}
-	
-	
-	@RequestMapping(value="/provider/products/{id}",method = RequestMethod.GET,params="detail")
-	public String findOne(@PathVariable("id")Long id,Model uiModel,
+
+	@RequestMapping(value = "/provider/products/{id}", method = RequestMethod.GET, params = "detail")
+	public String findOne(@PathVariable("id") Long id, Model uiModel,
 			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size){
+			@RequestParam(value = "size", defaultValue = "10") int size) {
 		Product product = productService.findOne(id);
-		Set<Subject> subjects = new HashSet<Subject>(); 
+		Set<Subject> subjects = new HashSet<Subject>();
 		List<Solution> solutions = product.getSolutions();
-		if(solutions!=null && solutions.size()!=0){
+		if (solutions != null && solutions.size() != 0) {
 			for (Solution solution : solutions) {
 				subjects.add(solution.getSubject());
 			}
@@ -510,10 +523,11 @@ public class ProviderController extends BaseController<Product> {
 		product.setSolutions(null);
 		long reviewCount = reviewService.findCountByProduct(product);
 		uiModel.addAttribute("reviewCount", reviewCount);
-		
+
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("product", product);
-		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime().getTime());
+		uiModel.addAttribute("nowTime", Calendar.getInstance().getTime()
+				.getTime());
 		uiModel.addAttribute("pc", product.getFirstCategory());
 		uiModel.addAttribute("product", product);
 		return DETAIL;

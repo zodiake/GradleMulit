@@ -147,12 +147,12 @@
 						<div class="form-group">
 							<div class="fl">
 								<label><i>*</i>产品名称</label> 
-								<input type="text" th:field="*{name}" /> 
+								<input type="text" th:field="*{name}" placeholder="商品名字最长为40个字符" /> 
 								<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
 							</div>
 								<div class="fl">
 								<label><i>*</i>产品型号</label> 
-								<input type="text" th:field="*{model}" /> 
+								<input type="text" th:field="*{model}" placeholder="请输入商品型号"/> 
 								<i class="error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></i>
 							</div>
 						</div>
@@ -167,7 +167,7 @@
 							</div>
 							<div class="fl">
 								<label><i>*</i>产品规格/单位</label> 
-								<input type="text" th:field="*{specifications}" /> 
+								<input type="text" th:field="*{specifications}" placeholder="请输入商品规格"/> 
 								<i class="error" th:if="${#fields.hasErrors('specifications')}" th:errors="*{specifications}"></i>
 							</div>
 						</div>
@@ -182,7 +182,7 @@
 								<i class="error" th:if="${#fields.hasErrors('placeOfProduction')}" th:errors="*{placeOfProduction}"></i>
 							</div>
 							<div class="fl">
-								<label><i>*</i>价格</label> <input type="text" th:field="*{price}" /> 
+								<label><i>*</i>价格</label> <input type="text" th:field="*{price}" placeholder="价格精确到小数点后两位"/> 
 								<i class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></i>
 							</div>
 						</div>
@@ -211,7 +211,7 @@
 						<div class="form-group">
 							<div class="fl">
 								<label>标签</label> 
-								<input type="text" class="w630" th:field="*{label}" /> 
+								<input type="text" class="w630" th:field="*{label}" placeholder="标签最长为150个字符"/> 
 								<i class="error" th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
 							</div>
 						</div>

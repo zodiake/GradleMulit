@@ -63,14 +63,14 @@
 				}
 				else{
 					var username = $('#username').text();
-					var str = '<li><div class="member-info fl"><img src="/img/member.png" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">'
+					var str = '<li><div class="member-global"><div class="member-msg clearfix"><span class="me-name fl">'
 							+ response+ '</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>'+ $("#content").val()
 							+ '</p></div></div></li>';
 					var ul = $('#reviewUl');
 					var num = $('#reviewNum').text();
-					if (num >= 10) {
+					if (num >= 15) {
 						var li = $('#reviewUl li');
-						li[9].remove();
+						li[14].remove();
 					}
 					ul.prepend(str);
 					$('#reviewNum').text(parseInt(num) + 1);

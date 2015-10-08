@@ -110,7 +110,7 @@ public class Provider extends SiteUser {
 	@NotBlank(message = "详细地址不能为空")
 	private String address; // 详细地址*
 
-	@NotBlank(message = "邮编不能为空")
+	@NotBlank(message = "邮编为6位数字")
 	private String code; // 邮编*
 
 	private String website; // 公司网址

@@ -114,28 +114,28 @@
 			</div>
 			<div class="form-group">
 				<label><i>*</i>用户名</label>
-				<input type="text" th:field="*{name}"/>
+				<input type="text" th:field="*{name}" placeholder="用户名"/>
 				<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>密码</label>
-				<input type="password" th:field="*{password}"/>
+				<input type="password" th:field="*{password}" placeholder="密码长度不可少于6位"/>
 				<i class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>手机号</label>
-				<input type="text" th:field="*{phone}"/>
+				<input type="text" th:field="*{phone}" placeholder="请输入11位手机号"/>
 				<i class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>验证码</label>
-				<input type="text" th:field="*{captcha}" class="w115"/>
+				<input type="text" th:field="*{captcha}" class="w115" placeholder="请输入6位验证码"/>
 				<button class="tel-code" type="button">获取验证码</button>
 				<i class="error" th:if="${#fields.hasErrors('captcha')}" th:errors="*{captcha}">必填</i>
 			</div>
 			<div class="form-group">
 				<label><i>*</i>邮箱</label>
-				<input type="text" th:field="*{email}"/>
+				<input type="text" th:field="*{email}" placeholder="邮箱格式为xxx@xx.com"/>
 				<i class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></i>
 			</div>
 			<div class="form-group">

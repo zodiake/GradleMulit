@@ -3,10 +3,7 @@
 	<div class="comment-list">
 		<ul id="reviewUl">
 			<li th:each="review:${reviewPage.getContent()}">
-				<div class="member-info fl">
-					<img th:src="@{/img/member.png}" width="60" height="60" />
-				</div>
-				<div class="member-global fr">
+				<div class="member-global">
 					<div class="member-msg clearfix"
 						th:with="date=${nowTime-review.createdTime.getTime().getTime()}">
 						<span class="me-name fl" th:text="${review.createdBy.name}"></span>

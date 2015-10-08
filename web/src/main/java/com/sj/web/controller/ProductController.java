@@ -2,10 +2,7 @@ package com.sj.web.controller;
 
 import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sj.model.model.Brand;
 import com.sj.model.model.Product;
-import com.sj.model.model.Solution;
-import com.sj.model.model.Subject;
 import com.sj.repository.search.model.ModelSearchOption;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ReviewService;
@@ -100,18 +95,9 @@ public class ProductController extends BaseController<Product> {
 		else
 			product.setCollectionCount(0l);
 		productService.addViewCount(id);
-		
-		Set<Subject> subjects = new HashSet<Subject>(); 
-		List<Solution> solutions = product.getSolutions();
-		if(solutions!=null){
-			for (Solution solution : solutions) {
-				subjects.add(solution.getSubject());
-			}
-		}
-		product.setSolutions(null);
+
 		long reviewCount = reviewService.findCountByProduct(product);
 		
-		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("product", product);
 		uiModel.addAttribute("reviewCount", reviewCount);
 		uiModel.addAttribute("pc", product.getFirstCategory());

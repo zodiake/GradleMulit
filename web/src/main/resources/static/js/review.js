@@ -13,8 +13,8 @@ $(function() {
 			url : url+"?page="+page,
 			type : "get",
 			success : function(data){
+				window.scrollTo(0,590);
 				var parent = $("#reviewsList").parent();
-				console.log(parent);
 				parent.empty();
 				parent.append(data);
 				$(".fixed").fadeOut();

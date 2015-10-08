@@ -122,20 +122,18 @@
 		$("#review").click(function(){
 			var productId = $(this).attr("data-id");
 			var reviews = $("#reviews"); 
-			if(reviews.html().trim()==""){
 			$(".fixed").fadeIn();
 			$("#gif").fadeIn();
-				$.ajax({
-					url : "/products/"+productId+"/reviews",
-					type : "get",
-					success : function(data){
-						reviews.empty();
-						reviews.append(data);
-						$(".fixed").fadeOut();
-						$("#gif").fadeOut();
-					}
-				});
-			}
+			$.ajax({
+				url : "/products/"+productId+"/reviews",
+				type : "get",
+				success : function(data){
+					reviews.empty();
+					reviews.append(data);
+					$(".fixed").fadeOut();
+					$("#gif").fadeOut();
+				}
+			});
 		});
 		$("#subject").click(function(){
 			var productId = $(this).attr("data-id");
@@ -242,9 +240,6 @@
 				<div class="tab-panel global-box comments hide">
 					<div class="area-box">
 						<div class="info-area bodr clearfix">
-							<div class="info fl">
-								<img th:src="@{/img/member.png}" width="60" height="60" />
-							</div>
 							<form id="reviewForm" th:attr="data_id=${product.id}">
 								<div class="text-area fl">
 									<textarea class="bodr" id="content" name="content"></textarea>

@@ -1546,7 +1546,7 @@ li div.topic-detail{
 	padding-left: 18px;
 	letter-spacing: 8px;
 	line-height: 30px;
-	margin-right: 10px;
+	margin-right: 15px;
 	margin-top: 10px;
 	border-radius: 5px;
 }
@@ -1554,7 +1554,7 @@ li div.topic-detail{
 	margin-left: 20px;
 }
 .area-box .text-area textarea{
-	width: 825px;
+	width: 877px;
 	height: 70px;
 	color: #686f83;
 	resize: none;
@@ -1569,7 +1569,7 @@ li div.topic-detail{
 	border-bottom: 1px dashed #dcdcdc;
 }
 .comment-list li .member-global{
-	width: 870px;
+	width: 920px;
 	margin-left: 15px;
 }
 .member-global .member-msg{
