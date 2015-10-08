@@ -1647,8 +1647,8 @@ li div.topic-detail{
 	left: 0;
 	top: 0;
 	background: #000;
-	opacity: 0.8;
-	filter:alpha(opacity=80);
+	opacity: 0.2;
+	filter:alpha(opacity=20);
 	display: none;
 }
 .hide-wrap,
@@ -1696,6 +1696,15 @@ width: 50px;
 }
 .hide-wrap.orders label{
 	width: 58px;
+}
+#down,#revoke{
+	width:300px;
+	height:80px;
+	margin:auto;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
 }
 .pdf{
 	margin:20px;
@@ -2119,7 +2128,7 @@ select.w100{
 	background-position:0 0;
 }
 .prompt{
-	width: 300px;
+	width: 355px;
 	position: fixed;
 	display: none;
 	left: 40%;
