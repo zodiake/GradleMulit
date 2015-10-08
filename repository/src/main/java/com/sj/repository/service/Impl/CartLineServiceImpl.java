@@ -3,8 +3,10 @@ package com.sj.repository.service.Impl;
 import static com.sj.repository.util.RedisConstant.CART;
 import static com.sj.repository.util.RedisConstant.CARTLINE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,7 +35,7 @@ public class CartLineServiceImpl implements CartLineService {
 		String cartId = CART + id;
 		
 		// add to user cart
-		template.opsForSet().add(cartId, cartline.getId().toString());
+		template.opsForList().leftPush(cartId, cartline.getId().toString());
 
 		// add to
 		template.opsForHash().put(cartlineId, "id", cartline.getId().toString());
@@ -52,13 +54,13 @@ public class CartLineServiceImpl implements CartLineService {
 	public void remove(Long id, Long cartLineId) {
 		String cartId = CART + id;
 		String cartlineId = CARTLINE + id + ":" + cartLineId;
-		template.opsForSet().remove(cartId, cartLineId.toString());
+		template.opsForList().remove(cartId, -1, cartLineId.toString());
 		template.delete(cartlineId);
 	}
 
 	@Override
-	public Set<CartLine> findByUser(Long id) {
-		Set<String> ids = template.opsForSet().members(CART + id);
+	public List<CartLine> findByUser(Long id) {
+		List<String> ids = template.opsForList().range(CART+id, 0, -1);
 		if(ids==null|| ids.size()==0)
 			return null;
 		String redisCartlineId = CARTLINE + id + ":";
@@ -86,7 +88,7 @@ public class CartLineServiceImpl implements CartLineService {
 					String check = (String) template.opsForHash().get(
 							redisCartlineId + i, "check");
 					return new CartLine(tempId, name, price, number,image, brandName, model, place, productId, check);
-				}).collect(Collectors.toSet());
+				}).collect(Collectors.toList());
 	}
 
 	@Override
@@ -114,10 +116,10 @@ public class CartLineServiceImpl implements CartLineService {
 	}
 
 	@Override
-	public Set<CartLine> findByUserAndCheck(Long id) {
-		Set<String> ids = template.opsForSet().members(CART + id);
+	public List<CartLine> findByUserAndCheck(Long id) {
+		List<String> ids = template.opsForList().range(CART+id, 0, -1);
 		String redisCartlineId = CARTLINE + id + ":";
-		Set<CartLine> lines = new HashSet<CartLine>();
+		List<CartLine> lines = new ArrayList<CartLine>();
 		for (String str : ids) {
 			String check = (String) template.opsForHash().get(redisCartlineId + str, "check");
 			if(Boolean.valueOf(check)){

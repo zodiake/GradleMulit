@@ -111,7 +111,7 @@ public class LoginController {
 		httpSession.removeAttribute("cartLines");
 		userContext.setCurrentUser(user);
 		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
-			 Set<CartLine> lines = cartLineService.findByUser(user.getId());
+			 List<CartLine> lines = cartLineService.findByUser(user.getId());
 			 httpSession.setAttribute("cartLines", lines);
 		}
 		return "redirect:/index";
@@ -137,7 +137,7 @@ public class LoginController {
 		SiteUser user = (SiteUser) userDetailsService.loadUserByUsername(name);
 		userContext.setCurrentUser(user);
 		if ("ROLE_COMMONUSER".equals(user.getSiteAuthority())) {
-			 Set<CartLine> lines = cartLineService.findByUser(user.getId());
+			 List<CartLine> lines = cartLineService.findByUser(user.getId());
 			 httpSession.setAttribute("cartLines", lines);
 		}
 		return "success";

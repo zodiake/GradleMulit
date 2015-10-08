@@ -5,6 +5,7 @@ import static com.sj.repository.util.RedisConstant.BUYCOUNT;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -38,7 +39,7 @@ public class BuyRecordServiceImpl implements BuyRecordService {
 	private StringRedisTemplate template;
 
 	@Override
-	public BuyRecord save(BuyRecord buyRecord, Set<CartLine> lines) {
+	public BuyRecord save(BuyRecord buyRecord, List<CartLine> lines) {
 		SimpleDateFormat sdf =new SimpleDateFormat("yyyyMMddHHmmss");
 		String str = sdf.format(Calendar.getInstance().getTime());
 		buyRecord.setNoId(str + buyRecord.getUser().getId());

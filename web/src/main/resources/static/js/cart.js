@@ -86,7 +86,6 @@ $(function() {
 
 	});
 	$(".check").click(function() {
-		alert(12);
 		var check = $(this);
 		var cartId = check.attr('data-id');
 		if (check.attr("checked") == "checked") {

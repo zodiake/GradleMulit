@@ -137,6 +137,17 @@
 				});
 			}
 		});
+		$("#subject").click(function(){
+			var productId = $(this).attr("data-id");
+			var subjects = $("#subjects");
+			console.log(subjects.html());
+			if(subjects.html().trim()==""){
+				$(".fixed").fadeIn();
+				$("#gif").fadeIn();
+				$.ajax({
+				});
+			}
+		});
 	});
 </script>
 </head>
@@ -208,23 +219,13 @@
 		</div>
 		<div class="layout">
 			<div class="tabs-nav detail-nav bodr">
-				<a class="active">商品详情</a><a>相关解决方案</a><a id="review" th:attr="data-id=__${product.id}__">评论(<i th:text="${reviewCount}" id="reviewNum"></i>)
+				<a class="active">商品详情</a><a id="subject" th:attr="data-id=__${product.id}__">相关解决方案</a><a id="review" th:attr="data-id=__${product.id}__">评论(<i th:text="${reviewCount}" id="reviewNum"></i>)
 				</a>
 			</div>
 			<div class="tab-conts detail-con bodr">
 				<div class="tab-panel global-box goods-detail" th:utext="${product.content.content}" style="max-width: 890px;overflow: hidden;"></div>
 				<div class="tab-panel global-box topic-box hide">
-					<ul class="ml-20">
-						<li th:each="subject:${subjects}">
-						<a th:href="'/subjects/'+${subject.id}" target="_blank">
-								<div class="title">
-									<b class="ft16 text210" th:text="${subject.name}">生物芯片扫描仪</b>
-								</div>
-								<div class="spe-pic">
-									<img th:src="@{${subject.image}}" width="210" height="175" />
-								</div>
-								<div class="topic-detail" th:text="${subject.summary}"></div>
-						</a></li>
+					<ul class="ml-20" id="subjects">
 					</ul>
 				</div>
 				<div class="tab-panel global-box comments hide">

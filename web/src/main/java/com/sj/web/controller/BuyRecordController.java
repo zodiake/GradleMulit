@@ -1,6 +1,7 @@
 package com.sj.web.controller;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -110,7 +111,7 @@ public class BuyRecordController extends BaseController<BuyRecord>{
 
 	@RequestMapping(value = "/user/buyRecords", method = RequestMethod.GET, params = "form")
 	public String createBuyRecord(Model uiModel, @SecurityUser SiteUser user) {
-		Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
+		List<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
 		float totalPrice = 0f;
 		for (CartLine cartLine : lines) {
 			totalPrice = totalPrice + cartLine.getPrice()*cartLine.getNumber();
@@ -132,7 +133,7 @@ public class BuyRecordController extends BaseController<BuyRecord>{
 			CommonUser common = commonUserService.findOne(user.getId());
 			buyRecord.setUser(common);
 			uiModel.addAttribute("buy", buyRecord);
-			Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
+			List<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
 			float totalPrice = 0f;
 			for (CartLine cartLine : lines) {
 				totalPrice = totalPrice + cartLine.getPrice()*cartLine.getNumber();
@@ -141,10 +142,11 @@ public class BuyRecordController extends BaseController<BuyRecord>{
 			uiModel.addAttribute("lines", lines);
 			return "user/common/createBuy";
 		}
-		Set<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
+		List<CartLine> lines = cartLineService.findByUserAndCheck(user.getId());
 		buyRecord.setUser(new CommonUser(user.getId()));
 		buyRecordService.save(buyRecord, lines);
-		session.removeAttribute("cartLines");
+		lines = cartLineService.findByUser(user.getId());
+		session.setAttribute("cartLines", lines);
 		return "redirect:/user/buyRecords/"+buyRecord.getId();
 	}
 }

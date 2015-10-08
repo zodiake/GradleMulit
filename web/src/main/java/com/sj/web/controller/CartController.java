@@ -1,7 +1,9 @@
 package com.sj.web.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -50,7 +52,7 @@ public class CartController {
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
 			return "{\"data\":\"no authority\"}";
 		SiteUser user = userContext.getCurrentUser();
-		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		List<CartLine> lines = cartLineService.findByUser(user.getId());
 		if (lines != null) {
 			for (CartLine cart : lines) {
 				if (cartLine.getProductId().equals(cart.getProductId())) {
@@ -68,7 +70,7 @@ public class CartController {
 				}
 			}
 		} else {
-			lines = new HashSet<CartLine>();
+			lines = new ArrayList<CartLine>();
 		}
 		if(cartLine.getNumber()>999){
 			cartLine.setNumber(999);
@@ -78,7 +80,7 @@ public class CartController {
 		cartLine.setId(Calendar.getInstance().getTime().getTime());
 
 		cartLineService.save(user.getId(), cartLine);
-		lines.add(cartLine);
+		lines.add(0, cartLine);
 
 		httpSession.setAttribute("cartLines", lines);
 		return "{\"image\":\"" + p.getCoverImg() + "\",\"name\":\""
@@ -93,17 +95,17 @@ public class CartController {
 		if (!userContext.hasRole(new SimpleGrantedAuthority("ROLE_COMMONUSER")))
 			return "{\"data\":\"no authority\"}";
 		SiteUser user = userContext.getCurrentUser();
-		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		List<CartLine> lines = cartLineService.findByUser(user.getId());
 		if (lines == null) {
-			lines = new HashSet<CartLine>();
+			lines = new ArrayList<CartLine>();
 		}
-		for (int i = 0; i < productIds.length; i++) {
+		for (int i = 0,len = productIds.length; i < len; i++) {
 			String productId = productIds[i];
 			boolean bool = true;
 			if (lines.size() != 0) {
 				for (CartLine cartLine : lines) {
 					if (productId.equals(cartLine.getProductId().toString())) {
-						if(cartLine.getNumber()<999){
+						if(cartLine.getNumber() < 999){
 							cartLineService.updateNumber(user.getId(), cartLine.getId(), 1 + cartLine.getNumber());
 							cartLine.setNumber(1 + cartLine.getNumber());
 						}
@@ -117,14 +119,14 @@ public class CartController {
 				CartLine cartLine = new CartLine(p, 1);
 				cartLine.setId(Calendar.getInstance().getTime().getTime());
 				cartLineService.save(user.getId(), cartLine);
-				lines.add(cartLine);
+				lines.add(0,cartLine);
 			}
 		}
 		session.setAttribute("cartLines", lines);
 		return convertJSONString(lines);
 	}
 
-	private String convertJSONString(Set<CartLine> lines) {
+	private String convertJSONString(List<CartLine> lines) {
 		JSONArray array = new JSONArray();
 		for (CartLine cartLine : lines) {
 			JSONObject object = new JSONObject();
@@ -142,7 +144,7 @@ public class CartController {
 	@ResponseBody
 	private String removeCartLine(@PathVariable("productId") Long productId,
 			HttpSession session, @SecurityUser SiteUser user) {
-		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		List<CartLine> lines = cartLineService.findByUser(user.getId());
 		if(lines!=null && lines.size()!=0){
 			for (CartLine cartLine : lines) {
 				if (cartLine.getProductId().equals(productId)) {
@@ -159,7 +161,7 @@ public class CartController {
 	@ResponseBody
 	private String removeCartLines(@RequestParam("productIds") String[] productIds,
 			HttpSession session, @SecurityUser SiteUser user) {
-		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		List<CartLine> lines = cartLineService.findByUser(user.getId());
 		if(lines != null && lines.size() != 0 ){
 			for (int i = 0; i < productIds.length; i++) {
 				for (CartLine cartLine : lines) {
@@ -180,7 +182,7 @@ public class CartController {
 	private String updateCartLineNumber(
 			@PathVariable(value = "cartLineId") Long cartLineId,
 			@PathVariable(value = "number") Integer number,HttpSession session,@SecurityUser SiteUser user){
-		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		List<CartLine> lines = cartLineService.findByUser(user.getId());
 		for (CartLine cartLine : lines) {
 			if(cartLine.getId().equals(cartLineId)){
 				if(cartLine.getNumber()+number<=999){
@@ -215,7 +217,7 @@ public class CartController {
 		if (!userContext.isLogin())
 			return "fail";
 		SiteUser user = userContext.getCurrentUser();
-		Set<CartLine> lines = cartLineService.findByUser(user.getId());
+		List<CartLine> lines = cartLineService.findByUser(user.getId());
 		if ("1".equals(check)) {
 			for (CartLine cartLine : lines) {
 				cartLineService.updateCheck(user.getId(), cartLine.getId(),
@@ -233,7 +235,7 @@ public class CartController {
 	@RequestMapping(value = "/user/carts", method = RequestMethod.GET)
 	private String list(Model uiModel) {
 		SiteUser user = userContext.getCurrentUser();
-		Set<CartLine> lists = cartLineService.findByUser(user.getId());
+		List<CartLine> lists = cartLineService.findByUser(user.getId());
 		uiModel.addAttribute("list", lists);
 		uiModel.addAttribute("pc", new ProductCategory());
 		return LIST;

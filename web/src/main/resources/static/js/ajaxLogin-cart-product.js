@@ -93,7 +93,7 @@
 						+ productId+ '">'+ data.name+ '</a>'+ '</div><div class="fr ct-detail"><span class="ct-price"><b>'+ data.price
 						+ '</b>×<i id="cartNumber'+ productId+ '">'+ num+ '</i></span><br/><a class="fr cartRemove" data-id="'+ productId
 						+ '">删除</a></div></li>';
-						$("#cartUl").append(str);
+						$("#cartUl").prepend(str);
 						var allNum = $("#allNum");
 						allNum.html(parseInt(allNum.html()) + 1);
 						var totalNum = $("#totalNum");

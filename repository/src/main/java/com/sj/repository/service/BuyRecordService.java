@@ -1,6 +1,6 @@
 package com.sj.repository.service;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +10,7 @@ import com.sj.model.model.CartLine;
 import com.sj.model.model.CommonUser;
 
 public interface BuyRecordService {
-	public BuyRecord save(BuyRecord buyRecord,Set<CartLine> lines);
+	public BuyRecord save(BuyRecord buyRecord,List<CartLine> lines);
 
 	public Page<BuyRecord> findPage(CommonUser user, Pageable pageable);
 	
