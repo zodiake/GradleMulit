@@ -3,6 +3,8 @@ package com.sj.web.controller;
 
 import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,10 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.model.model.Subject;
 import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.SubjectListJson;
+import com.sj.repository.service.ProductService;
+import com.sj.repository.service.SolutionService;
 import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
 import com.sj.web.exception.SubjectNotFoundException;
@@ -29,6 +35,10 @@ public class SubjectController extends BaseController<Subject>{
 	private SubjectCategoryService subjectCategoryService;
 	@Autowired
 	private StringRedisTemplate template;
+	@Autowired
+	private SolutionService solutionService;
+	@Autowired
+	private ProductService productService;
 
 	@RequestMapping(value = "/subjects", method = RequestMethod.GET)
 	public String findSubjects(
@@ -58,5 +68,12 @@ public class SubjectController extends BaseController<Subject>{
 		uiModel.addAttribute("subject", subject);
 		uiModel.addAttribute("pc", new SubjectCategory(6l));
 		return "subject/subject";
+	}
+	
+	@RequestMapping(value = "/products/{productId}/subjects", method = RequestMethod.GET)
+	@ResponseBody
+	public Set<SubjectListJson> findSubjectByProduct(@PathVariable("productId")Long productId){
+		Set<SubjectListJson> subjects = subjectService.findByProduct(productId);
+		return subjects;
 	}
 }

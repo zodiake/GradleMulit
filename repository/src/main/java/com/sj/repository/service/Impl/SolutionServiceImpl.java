@@ -59,4 +59,5 @@ public class SolutionServiceImpl implements SolutionService {
 		s.setActive(active);
 		return s;
 	}
+
 }

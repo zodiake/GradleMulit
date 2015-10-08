@@ -2410,3 +2410,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
 	width: 14px;
 	height: 14px
 }
+.gif{
+	display: none;padding: 30px;text-align: center;position: fixed;left: 40%;top: 40%;
+	background: transparent;padding-left:8%; width: 50px; height: 50px;
+}
+.gif img{
+	width: 50px; height: 50px;
+}

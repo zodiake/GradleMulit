@@ -2,7 +2,9 @@ package com.sj.repository.service.Impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -19,14 +21,18 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sj.model.model.Product;
+import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
 import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.SubjectDetailJson;
 import com.sj.repository.model.SubjectJson;
+import com.sj.repository.model.SubjectListJson;
 import com.sj.repository.repository.SubjectRepository;
 import com.sj.repository.search.model.SubjectSearch;
 import com.sj.repository.search.service.SubjectSearchService;
+import com.sj.repository.service.ProductService;
 import com.sj.repository.service.SubjectService;
 
 @Service
@@ -38,6 +44,8 @@ public class SubjectServiceImpl implements SubjectService {
 	private SubjectSearchService service;
 	@Autowired
 	private EntityManager em;
+	@Autowired
+	private ProductService productService;
 
 	@Override
 	public Page<Subject> findAll(Pageable pageable) {
@@ -143,6 +151,18 @@ public class SubjectServiceImpl implements SubjectService {
 				.setParameter("active", active)
 				.setParameter("subject", subject).executeUpdate();
 		return subject;
+	}
+
+	@Override
+	public Set<SubjectListJson> findByProduct(Long productId) {
+		Product product = productService.findOne(productId);
+		List<Solution> solutions = product.getSolutions();
+		Set<SubjectListJson> subjects = new HashSet<SubjectListJson>();
+		for (Solution solution : solutions) {
+			SubjectListJson json = new SubjectListJson(solution.getSubject());
+			subjects.add(json);
+		}
+		return subjects;
 	}
 
 }

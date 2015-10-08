@@ -2,7 +2,6 @@ package com.sj.web.controller;
 
 import static com.sj.repository.util.RedisConstant.COLLECTIONCOUNT;
 
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +9,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -21,17 +18,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sj.model.model.Brand;
 import com.sj.model.model.Product;
-import com.sj.model.model.Review;
 import com.sj.model.model.Solution;
 import com.sj.model.model.Subject;
 import com.sj.repository.search.model.ModelSearchOption;
 import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ReviewService;
-import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.UserContext;
 
