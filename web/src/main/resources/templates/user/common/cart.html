@@ -32,24 +32,23 @@
 			var productId = i.attr("product-id");
 			var priceDom = $("#small" + cartId);
 			var product = $("#num" + productId);
-			if(1>number  || number>999){
+			if(1 > number  || number > 999){
 				number = 999;
 				i.val(number);
-			}else{
-				$.ajax({
-					type : 'PUT',
-					url : '/user/carts/' + cartId + '/' + number,
-					success : function(data) {
-						if (data == "success") {
-							i.val(number);
-							priceDom.html(parseFloat(number * price).toFixed(1));
-							getCount();
-						}
-					},
-					error : function(data) {
-					}
-				});
 			}
+			$.ajax({
+				type : 'PUT',
+				url : '/user/carts/' + cartId + '/' + number,
+				success : function(data) {
+					if (data == "success") {
+						i.val(number);
+						priceDom.html(parseFloat(number * price).toFixed(1));
+						getCount();
+					}
+				},
+				error : function(data) {
+				}
+			});
 		});
 	});
   </script>
@@ -167,4 +166,4 @@
 	</div>
 	
 </body>
-</html>	
+</html>

@@ -1,4 +1,5 @@
 var subjectModule = angular.module('Subject', ['Solution']);
+var validFailMessage = '校验失败';
 
 subjectModule.service('SubjectService', ['$http',
     function ($http) {
@@ -179,20 +180,26 @@ subjectModule.controller('SubjectCreateController', ['$scope',
         };
 
         $scope.submit = function () {
-            SubjectService
-                .saveOrUpdate($scope.item)
-                .success(function (data) {
-                    $scope.item.id = data.id;
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.subjectForm.$valid) {
+                SubjectService
+                    .saveOrUpdate($scope.item)
+                    .success(function (data) {
+                        $scope.item.id = data.id;
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功'
+                        });
+                    })
+                    .error(function (err) {
+                        $scope.alerts.push({
+                            msg: '保存失败'
+                        });
                     });
-                })
-                .error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.addSolution = function () {
@@ -278,19 +285,25 @@ subjectModule.controller('SubjectEditController', ['$scope',
         };
 
         $scope.submit = function () {
-            SubjectService
-                .update($scope.item)
-                .success(function () {
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: '保存成功',
+            if ($scope.subjectForm.$valid) {
+                SubjectService
+                    .update($scope.item)
+                    .success(function () {
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '保存成功'
+                        });
+                    })
+                    .error(function (err) {
+                        $scope.alerts.push({
+                            msg: '保存失败'
+                        });
                     });
-                })
-                .error(function (err) {
-                    $scope.alerts.push({
-                        msg: '保存失败',
-                    });
+            } else {
+                $scope.alerts.push({
+                    msg: validFailMessage
                 });
+            }
         };
 
         $scope.closeAlert = function (index) {
@@ -298,4 +311,3 @@ subjectModule.controller('SubjectEditController', ['$scope',
         };
     }
 ]);
-
