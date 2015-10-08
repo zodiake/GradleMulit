@@ -2,7 +2,6 @@ package com.sj.web.controller;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -402,7 +401,7 @@ public class LoginController {
 		SiteUser user = userService.findByPhone(phone);
 		userService.updatePassword(user.getId(),
 				encoder.encodePassword(form.getPassword(), null));
-		return "redirect:/login";
+		return "user/forgetPw-result";
 	}
 
 	private void sendCaptcha() {
