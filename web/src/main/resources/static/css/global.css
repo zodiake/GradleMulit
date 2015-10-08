@@ -1697,7 +1697,7 @@ width: 50px;
 .hide-wrap.orders label{
 	width: 58px;
 }
-#down,#revoke{
+.logo-small,#down,#revoke{
 	width:300px;
 	height:80px;
 	margin:auto;
@@ -1705,6 +1705,13 @@ width: 50px;
 	top:0;
 	right:0;
 	bottom:0;
+}
+.logo-small{
+	width:325px;
+	height:150px;
+}
+.logo-small .btn.orange{
+	margin-left:20px;
 }
 .pdf{
 	margin:20px;
