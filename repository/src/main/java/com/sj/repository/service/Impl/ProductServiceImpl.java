@@ -477,23 +477,23 @@ public class ProductServiceImpl implements ProductService {
 			case "仪器":
 				Instrument i = new Instrument(product);
 				i = instrumentRepository.save(i);
-//				searchService.save(new ProductSearch(i));
+				searchService.save(new ProductSearch(i));
 				continue;
 			case "试剂":
 				Reagents r = new Reagents(product);
 				r = reagentsRepository.save(r);
-//				searchService.save(new ProductSearch(r));
+				searchService.save(new ProductSearch(r));
 				continue;
 			case "耗材":
 				Consumable c = new Consumable(product);
 				c = consumableRepository.save(c);
-//				searchService.save(new ProductSearch(c));
+				searchService.save(new ProductSearch(c));
 				continue;
 			case "服务":
 				com.sj.model.model.Service s = new com.sj.model.model.Service(
 						product);
 				s = serviceRepository.save(s);
-//				searchService.save(new ProductSearch(s));
+				searchService.save(new ProductSearch(s));
 				continue;
 			}
 		}

@@ -1006,7 +1006,7 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(128,'全自动样品跟踪系统',114,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(129,'其它',114,1,'2012-1-1','admin','pc','2015-1-1','admin');
 
-insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(130,'基因组/蛋白组设备',1,1,'2012-1-1','admin','pc','2015-1-1','admin');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(130,'基因组\蛋白组设备',1,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(131,'DNA测序仪',130,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(132,'全基因组测序仪',130,1,'2012-1-1','admin','pc','2015-1-1','admin');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type,updated_time,updated_by) values(133,'基因分型系统',130,1,'2012-1-1','admin','pc','2015-1-1','admin');
@@ -1793,7 +1793,7 @@ insert into site_menu(id,name,href) values(4,'商品分类管理','category');
 insert into site_menu(id,name,href) values(5,'商品管理','products');
 insert into site_menu(id,name,href) values(6,'广告发布','advertise');
 insert into site_menu(id,name,href) values(7,'资讯发布','info');
-insert into site_menu(id,name,href) values(8,'专题','subject');
+insert into site_menu(id,name,href) values(8,'解决方案','subject');
 insert into site_menu(id,name,href) values(9,'滚动图片','scrollImg');
 insert into site_menu(id,name,href) values(10,'用户管理','user');
 insert into site_menu(id,name,href) values(11,'权限管理','authority');
