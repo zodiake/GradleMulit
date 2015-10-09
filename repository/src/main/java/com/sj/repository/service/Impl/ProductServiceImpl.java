@@ -26,6 +26,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -399,11 +400,12 @@ public class ProductServiceImpl implements ProductService {
 				throw new BatchException("第" + (i + 1) + "行二级分类不存在");
 			else
 				product.setThirdCategory(thirdCategory);
-
-			String label = xssfRow.getCell(9).getStringCellValue();
+			
+			String label = xssfRow.getCell(9,HSSFRow.CREATE_NULL_AS_BLANK).getStringCellValue();	
 			if (label != null && label.length() > 150)
 				throw new BatchException("第" + (i + 1) + "行标签过长");
 			product.setLabel(label);
+			
 			product.setCreatedBy(provider);
 			product.setCreatedTime(Calendar.getInstance());
 			product.setAuthenticatedTime(Calendar.getInstance());
@@ -475,23 +477,23 @@ public class ProductServiceImpl implements ProductService {
 			case "仪器":
 				Instrument i = new Instrument(product);
 				i = instrumentRepository.save(i);
-				searchService.save(new ProductSearch(i));
+//				searchService.save(new ProductSearch(i));
 				continue;
 			case "试剂":
 				Reagents r = new Reagents(product);
 				r = reagentsRepository.save(r);
-				searchService.save(new ProductSearch(r));
+//				searchService.save(new ProductSearch(r));
 				continue;
 			case "耗材":
 				Consumable c = new Consumable(product);
 				c = consumableRepository.save(c);
-				searchService.save(new ProductSearch(c));
+//				searchService.save(new ProductSearch(c));
 				continue;
 			case "服务":
 				com.sj.model.model.Service s = new com.sj.model.model.Service(
 						product);
 				s = serviceRepository.save(s);
-				searchService.save(new ProductSearch(s));
+//				searchService.save(new ProductSearch(s));
 				continue;
 			}
 		}

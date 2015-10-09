@@ -220,10 +220,11 @@ userModule.controller('ProviderDetailController', ['$scope',
         
         $scope.batchProducts = function(event){
             var file = event.target.files[0];
+            console.log(file);
             if(file.size<1048576){
 	            var fd = new FormData();
 	            var reader = new FileReader();
-	            var providerId = $(this).attr("data-id");
+	            var providerId = event.target.id;
 	            
 	            fd.append('file', file);
 	            
@@ -234,6 +235,7 @@ userModule.controller('ProviderDetailController', ['$scope',
 	                },
 	                transformRequest: angular.identity
 	            }).success(function (data) {
+	            	console.log(data);
 	            	$scope.alerts.push({
 	            		type: 'success',
 	                    msg: data,
