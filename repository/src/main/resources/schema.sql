@@ -36,7 +36,7 @@ create table content(
 -- 专题
 create table subject(
 	id bigint not null auto_increment,
-	name varchar(40) not null,
+	name varchar(64) not null,
 	show_on_index smallint,
 	activate smallint,
 	created_time timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -222,7 +222,7 @@ create table information_content(
 -- 资讯
 create table information(
 	id bigint not null AUTO_INCREMENT,
-	title varchar(100),
+	title varchar(64),
 	activate smallint,
 	content_id bigint,
 	created_time timestamp DEFAULT CURRENT_TIMESTAMP,
