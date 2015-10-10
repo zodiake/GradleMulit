@@ -49,7 +49,7 @@ public class CommonUser extends SiteUser {
 	@NotBlank(message = "详细地址不能为空")
 	private String address; // 详细地址*
 
-	@Pattern(regexp = "[0-9]{6}", message = "邮编为6位数组")
+	@Pattern(regexp = "[0-9]{6}", message = "邮编为6位数字")
 	private String code; // 邮编*
 
 	@OneToOne()

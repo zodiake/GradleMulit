@@ -38,6 +38,7 @@ public class SiteUser {
 	protected Long id;
 
 	@NotBlank(message = "用户名不能为空")
+	@Size(min=6,max=20,message="用户名长度为6-20位")
 	protected String name; // 用户名
 
 	@NotBlank(message = "真实姓名不能为空")
@@ -65,7 +66,7 @@ public class SiteUser {
 	@Email(message = "请输入正确的邮箱")
 	private String email; // 邮箱
 
-	@Pattern(regexp = "[0-9]{11}", message = "手机号码为11位数组")
+	@Pattern(regexp = "[0-9]{11}", message = "手机号码为11位")
 	private String phone; // 手机号码
 
 	private int score;

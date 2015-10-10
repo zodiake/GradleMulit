@@ -41,7 +41,7 @@ public class Product {
 	protected Long id;
 
 	@NotBlank(message = "商品名称不能为空")
-	@Size(max = 40, message = "商品名字最长为40个字符")
+	@Size(max = 40, message = "商品名字最长为40位")
 	protected String name;
 
 	@NotBlank(message = "型号不能为空")
@@ -56,7 +56,7 @@ public class Product {
 	@Enumerated
 	protected ProductStatusEnum status;
 
-	@Size(max=150,message="标签最长为150个字符")
+	@Size(max=150,message="标签最长为150位")
 	protected String label;
 
 	@Column(name = "cover_img")

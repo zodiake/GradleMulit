@@ -3,6 +3,8 @@ package com.sj.web.controller;
 import java.util.Calendar;
 import java.util.stream.Stream;
 
+import javax.validation.Valid;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,18 +63,20 @@ public class ReviewController extends BaseController<Review>{
 
 	@RequestMapping(value = "/products/{productId}/reviews", method = RequestMethod.POST)
 	@ResponseBody
-	private String add(@ModelAttribute("review") Review review,
+	private String add(@Valid @ModelAttribute("review") Review review,BindingResult result,
 			@PathVariable("productId") Long productId) {
 		if (!userContext.isLogin())
 			return "login";
 		if("".equals(review.getContent().trim()))
 			return "content is null";
+		if(result.hasErrors())
+			return "content is too long";
 		Product p = new Product(productId);
 		review.setProduct(p);
 		SiteUser user = userContext.getCurrentUser();
-		review.setCreatedBy(new SiteUser(user.getId()));
+		review.setCreatedBy(user);
 		reviewService.save(review);
-		return user.getName();
+		return "success";
 	}
 
 	private String convertJSONString(Stream<Review> reviews) {
@@ -79,8 +84,6 @@ public class ReviewController extends BaseController<Review>{
 		reviews.map(r -> {
 			JSONObject object = new JSONObject();
 			object.put("content", r.getContent());
-			object.put("userId", r.getCreatedBy().getId());
-			object.put("userName", r.getCreatedBy().getName());
 			return object;
 		}).forEach(i -> array.put(i));
 		return array.toString();

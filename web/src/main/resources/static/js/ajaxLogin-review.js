@@ -21,7 +21,6 @@
 				type : 'post'
 			}).success(function(response) {
 				if(response=="success"){
-					$('.fixed').fadeOut();
 					$('.hide-wrap').fadeOut();
 					$('#includeHeader').load('/head');
 					self.remove();
@@ -53,27 +52,21 @@
 				type : 'post'
 			}).success(function(response) {
 				if (response == 'login'){
-					$('.hide-wrap').empty();
-					$('.hide-wrap').append(loginForm$);
-					$('.fixed').fadeIn();
-					$('.hide-wrap').fadeIn();
+					$(".fixed").fadeIn();
+					var wrap = $('.hide-wrap');
+					wrap.empty();
+					wrap.append(loginForm$);
+					wrap.fadeIn();
 				}
 				else if(response == "content is null"){
 					promptError("请填写评论内容");
 				}
-				else{
-					var username = $('#username').text();
-					var str = '<li><div class="member-global"><div class="member-msg clearfix"><span class="me-name fl">'
-							+ response+ '</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>'+ $("#content").val()
-							+ '</p></div></div></li>';
-					var ul = $('#reviewUl');
-					var num = $('#reviewNum').text();
-					if (num >= 15) {
-						var li = $('#reviewUl li');
-						li[14].remove();
-					}
-					ul.prepend(str);
-					$('#reviewNum').text(parseInt(num) + 1);
+				else if(response == "content is too long"){
+					promptError("评论内容过长");
+				}
+				else if(response == "success"){
+					var productId = $('#reviewForm').attr('data_id');
+					showReview(productId);
 					$("#content").val("");
 					promptSuccess("评论成功");
 				}

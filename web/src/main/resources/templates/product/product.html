@@ -14,6 +14,20 @@
 <script type="text/javascript" th:src="@{/js/script.js}"></script>
 <script type="text/javascript" th:src="@{/js/ajaxLogin-collection-product.js}"></script>
 <script type="text/javascript">
+function showReview(productId){
+	var reviews = $("#reviews"); 
+	$("#gif").fadeIn();
+	$.ajax({
+		url : "/products/"+productId+"/reviews",
+		type : "get",
+		success : function(data){
+			reviews.empty();
+			reviews.append(data);
+		}
+	});
+	$("#gif").fadeOut();
+	$(".fixed").fadeOut();
+}
 	$(function() {
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
@@ -33,23 +47,15 @@
 							div : 'reviews',
 							data : $(this).serialize(),
 							success : function(res) {
-								if (res == "content is null") {
-									promptError("评论内容不能为空");
-								} else {
-									var username = $('#username').text();
-									var str = '<li><div class="member-info fl"><img th:src="@{/img/member.png}" width="60" height="60"/></div><div class="member-global fr"><div class="member-msg clearfix"><span class="me-name fl">'
-											+ res
-											+ '</span><span class="evt-time fr"><i>刚刚</i></span></div><div class="msg"><p>'
-											+ $("#content").val()
-											+ '</p></div></div></li>';
-									var ul = $('#reviewUl');
-									var num = $('#reviewNum').text();
-									if (num >= 10) {
-										var li = $('#reviewUl li');
-										li[9].remove();
-									}
-									ul.prepend(str);
-									$('#reviewNum').text(parseInt(num) + 1);
+								if(res == "content is null"){
+									promptError("请填写评论内容");
+								}
+								else if(res == "content is too long"){
+									promptError("评论内容过长");
+								}
+								else if(res == "success"){
+									var productId = $('#reviewForm').attr('data_id')
+									showReview(productId);
 									$("#content").val("");
 									promptSuccess("评论成功");
 								}
@@ -121,20 +127,10 @@
 		});
 		$("#review").click(function(){
 			var productId = $(this).attr("data-id");
-			var reviews = $("#reviews"); 
 			$(".fixed").fadeIn();
-			$("#gif").fadeIn();
-			$.ajax({
-				url : "/products/"+productId+"/reviews",
-				type : "get",
-				success : function(data){
-					reviews.empty();
-					reviews.append(data);
-					$(".fixed").fadeOut();
-					$("#gif").fadeOut();
-				}
-			});
+			showReview(productId);
 		});
+		
 		$("#subject").click(function(){
 			var productId = $(this).attr("data-id");
 			var subjects = $("#subjects");
@@ -242,7 +238,7 @@
 						<div class="info-area bodr clearfix">
 							<form id="reviewForm" th:attr="data_id=${product.id}">
 								<div class="text-area fl">
-									<textarea class="bodr" id="content" name="content"></textarea>
+									<textarea class="bodr" id="content" name="content" maxlength="4000000"></textarea>
 								</div>
 								<button class="btn green fr" id="reviewButton" type="submit">评论</button>
 							</form>

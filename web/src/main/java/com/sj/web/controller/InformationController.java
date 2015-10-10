@@ -17,7 +17,6 @@ import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.InformationService;
-import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.CategoryNotFoundException;
 import com.sj.web.exception.InformationNotFoundException;
 
