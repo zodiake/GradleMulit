@@ -2157,18 +2157,7 @@ select.w100{
 	background:url('../img/icon-alt.png') no-repeat 50px 0;
 	background-position: 50px -42px;
 }
-
-
-/*日期*/
-/*!
- * Datetimepicker for Bootstrap
- *
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- */.datetimepicker {
+ .datetimepicker {
 	padding: 4px;
 	margin-top: 1px;
 	-webkit-border-radius: 4px;
