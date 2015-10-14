@@ -16,12 +16,13 @@ public class ProvinceServiceImpl implements ProvinceService{
 	private ProvinceRepository provinceRepository;
 
 	@Override
+	@Cacheable(value = "provinceCache",key="#id")
 	public Province findOne(Long id) {
 		return provinceRepository.findOne(id);
 	}
 
 	@Override
-	@Cacheable(value = "provinceCache")
+	@Cacheable(value = "provincesCache")
 	public Iterable<Province> findAll() {
 		return provinceRepository.findAll();
 	}

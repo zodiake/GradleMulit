@@ -54,6 +54,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@Cacheable(value = "indexBrandCache")
 	public List<Brand> findByAcitvate(ActivateEnum activate, Pageable pageable) {
 		return repository.findByActivate(activate, pageable);
 	}

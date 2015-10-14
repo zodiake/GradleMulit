@@ -31,6 +31,7 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 	}
 
 	@Override
+	@Cacheable(value = "indexImageCache")
 	public List<ScrollImage> findAll() {
 		return repository.findAllByOrderBySortNumberDesc();
 	}

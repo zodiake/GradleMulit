@@ -1,5 +1,6 @@
 package com.sj.model.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ import com.sj.model.type.ActivateEnum;
 
 @Entity
 @Table(name = "brand")
-public class Brand {
+public class Brand implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

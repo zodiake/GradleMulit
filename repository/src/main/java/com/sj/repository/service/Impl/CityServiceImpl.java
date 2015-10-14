@@ -27,7 +27,7 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	@Cacheable(value = "cityCache",key="#province.id")
+	@Cacheable(value = "citiesCache",key="#province.id")
 	public Set<City> findByProvince(Province province) {
 		return cityRepository.findByProvince(province);
 	}

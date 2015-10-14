@@ -34,45 +34,45 @@ public class ProductCategoryController {
 	@Autowired
 	private SiteUserContext userContext;
 
-	@RequestMapping(value = "/productCategory/{parent}/{second}/{third}", method = RequestMethod.GET)
-	public String findByThird(@PathVariable("third") String third,Model uiModel, @PathVariable("parent") String parent,
-			@PathVariable("second") String second,@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
-		ProductCategory thirdCategory = pcService.findByName(third,
-				ActivateEnum.ACTIVATE);
-		if (thirdCategory == null
-				|| thirdCategory.getParent() == null
-				|| !thirdCategory.getParent().getName().equals(second)
-				|| thirdCategory.getParent().getParent() == null
-				|| !thirdCategory.getParent().getParent().getName()
-						.equals(parent)) {
-			throw new CategoryNotFoundException();
-		}
-		Page<Product> pages = productService.findByCategory(thirdCategory,
-				new PageRequest(page, size));
-		uiModel.addAttribute("pc", thirdCategory.getParent().getParent());
-		uiModel.addAttribute("second", thirdCategory.getParent());
-		uiModel.addAttribute("child", thirdCategory);
-		uiModel.addAttribute("page", pages);
-		return "product/products";
-	}
-
-	@RequestMapping(value = "/productCategory/{parent}/{second}", method = RequestMethod.GET)
-	public String findBySecond(@PathVariable("second") String second,
-			Model uiModel, @PathVariable("parent") String parent,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "15") int size) {
-		ProductCategory secondCategory = pcService.findByName(second,ActivateEnum.ACTIVATE);
-		if (secondCategory == null || secondCategory == null || !secondCategory.getParent().getName().equals(parent))
-			throw new CategoryNotFoundException();
-		Page<Product> pages = productService.findBySecondCategory(
-				secondCategory, new PageRequest(page, size));
-
-		uiModel.addAttribute("second", secondCategory);
-		uiModel.addAttribute("pc", secondCategory.getParent());
-		uiModel.addAttribute("page", pages);
-		return "product/products";
-	}
+//	@RequestMapping(value = "/productCategory/{parent}/{second}/{third}", method = RequestMethod.GET)
+//	public String findByThird(@PathVariable("third") String third,Model uiModel, @PathVariable("parent") String parent,
+//			@PathVariable("second") String second,@RequestParam(value = "page", defaultValue = "0") int page,
+//			@RequestParam(value = "size", defaultValue = "15") int size) {
+//		ProductCategory thirdCategory = pcService.findByName(third,
+//				ActivateEnum.ACTIVATE);
+//		if (thirdCategory == null
+//				|| thirdCategory.getParent() == null
+//				|| !thirdCategory.getParent().getName().equals(second)
+//				|| thirdCategory.getParent().getParent() == null
+//				|| !thirdCategory.getParent().getParent().getName()
+//						.equals(parent)) {
+//			throw new CategoryNotFoundException();
+//		}
+//		Page<Product> pages = productService.findByCategory(thirdCategory,
+//				new PageRequest(page, size));
+//		uiModel.addAttribute("pc", thirdCategory.getParent().getParent());
+//		uiModel.addAttribute("second", thirdCategory.getParent());
+//		uiModel.addAttribute("child", thirdCategory);
+//		uiModel.addAttribute("page", pages);
+//		return "product/products";
+//	}
+//
+//	@RequestMapping(value = "/productCategory/{parent}/{second}", method = RequestMethod.GET)
+//	public String findBySecond(@PathVariable("second") String second,
+//			Model uiModel, @PathVariable("parent") String parent,
+//			@RequestParam(value = "page", defaultValue = "0") int page,
+//			@RequestParam(value = "size", defaultValue = "15") int size) {
+//		ProductCategory secondCategory = pcService.findByName(second,ActivateEnum.ACTIVATE);
+//		if (secondCategory == null || secondCategory == null || !secondCategory.getParent().getName().equals(parent))
+//			throw new CategoryNotFoundException();
+//		Page<Product> pages = productService.findBySecondCategory(
+//				secondCategory, new PageRequest(page, size));
+//
+//		uiModel.addAttribute("second", secondCategory);
+//		uiModel.addAttribute("pc", secondCategory.getParent());
+//		uiModel.addAttribute("page", pages);
+//		return "product/products";
+//	}
 
 	@RequestMapping(value = "/productCategory/{id}", method = RequestMethod.GET)
 	public String findByParent(@PathVariable("id") Long id, Model uiModel) {
@@ -84,6 +84,7 @@ public class ProductCategoryController {
 		uiModel.addAttribute("categories", categories);
 		return "productcategory/productCategorys";
 	}
+	
 	@RequestMapping(value = "/ajaxProductCategory/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Category> ajaxFindByParent(@PathVariable("id")Long id){

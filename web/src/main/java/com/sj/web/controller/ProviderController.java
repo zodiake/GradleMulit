@@ -195,7 +195,7 @@ public class ProviderController extends BaseController<Product> {
 			"/provider/consumables", "/provider/reagents", "/provider/services" }, params = "form", method = RequestMethod.GET)
 	public String create(Model uiModel) {
 		uiModel.addAttribute("product", new Product());
-		uiModel.addAttribute("brands", brandService.findAll());
+		uiModel.addAttribute("brands", brandService.findByAcitvate(ActivateEnum.ACTIVATE));
 		List<ProductCategory> pcs = productCategoryService
 				.findAllFirstCategory(ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pcs", pcs);

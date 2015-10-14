@@ -53,6 +53,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
+	@Cacheable(value = "subjectsCache", key = "#pageable.getPageNumber()")
 	public Page<Subject> findByActivated(Pageable pageable,
 			ActivateEnum activate) {
 		return repository.findByActivateOrderByCreatedTimeDesc(pageable,
@@ -89,7 +90,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@Cacheable(value = "subjectsCache")
+	@Cacheable(value = "indexSubjectsCache")
 	public List<Subject> findByShowOnIndex() {
 		return repository.findByShowOnIndexAndActivate(ActivateEnum.ACTIVATE,
 				ActivateEnum.ACTIVATE);

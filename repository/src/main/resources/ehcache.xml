@@ -2,31 +2,49 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
 	monitoring="autodetect" dynamicConfig="true">
-	<cache name="advertiseCache" maxEntriesLocalHeap="5000"
+	<cache name="indexSecondProductCategoryCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-	<cache name="scrollImageCache" maxEntriesLocalHeap="5000"
+	<cache name="indexSubjectsCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-	<cache name="UserIndustryInfoCache" maxEntriesLocalHeap="5000"
+	<cache name="indexInformationCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-	<cache name="categorySearchCache" maxEntriesLocalHeap="5000"
+	<cache name="indexBrandCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-	<cache name="ProviderIndustryInfoCache" maxEntriesLocalHeap="5000"
+	<cache name="indexImageCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="productCategoryCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="secondProductCategoriesCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="subjectsCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
@@ -38,7 +56,13 @@
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-	<cache name="secondProductCategoryCache" maxEntriesLocalHeap="5000"
+		<cache name="informationCategories" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="provincesCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
@@ -56,32 +80,55 @@
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-	<cache name="subjectsCache" maxEntriesLocalHeap="5000"
+	<cache name="citiesCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-
-	<cache name="lists" maxEntriesLocalHeap="5000"
+	<cache name="UserIndustryInfoCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-	<cache name="informationCache" maxEntriesLocalHeap="5000"
+	<cache name="ProviderIndustryInfoCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
-	<cache name="productCategoryCache" maxEntriesLocalHeap="5000"
+	<cache name="advertiseCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="scrollImageCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
 		<persistence strategy="localTempSwap" />
 	</cache>
 	<cache name="brandCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="brandsCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="firstProductCategoryCache" maxEntriesLocalHeap="5000"
+		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="200" timeToLiveSeconds="500"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	<cache name="firstProductCategoriesCache" maxEntriesLocalHeap="5000"
 		maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20"
 		timeToIdleSeconds="200" timeToLiveSeconds="500"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off">

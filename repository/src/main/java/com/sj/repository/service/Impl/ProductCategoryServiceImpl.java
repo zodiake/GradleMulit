@@ -72,6 +72,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
+	@Cacheable(value = "secondProductCategoriesCache", key = "#category.id")
 	public List<ProductCategory> findByParentAndActivate(
 			ProductCategory category, ActivateEnum activate) {
 		return repository.findByParentAndActivate(category, activate);
@@ -88,7 +89,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	@Cacheable(value = "secondProductCategoryCache", key = "#category.id")
+	@Cacheable(value = "indexSecondProductCategoryCache", key = "#category.id")
 	public List<ProductCategory> findSecondCategory(ProductCategory category,
 			Pageable pageable) {
 		return repository.findByParentAndActivate(category,
@@ -115,13 +116,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	@Cacheable(value = "productCategoryCache", key = "#id")
+	@Cacheable(value = "firstProductCategoryCache", key = "#id")
 	public ProductCategory findActivateFirstCategoryById(Long id) {
 		return repository.findByIdAndActivate(id, ActivateEnum.ACTIVATE);
 	}
 
 	@Override
-	@Cacheable(value = "productCategoryCache")
+	@Cacheable(value = "firstProductCategoriesCache")
 	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate) {
 		return repository.findByParentIsNullAndActivate(activate);
 	}
@@ -207,6 +208,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
+	@Cacheable(value = "productCategoryCache", key = "#id")
 	public ProductCategory findByIdAndParent(Long id) {
 		return repository.findByIdAndActivateAndParentIsNull(id,
 				ActivateEnum.ACTIVATE);
