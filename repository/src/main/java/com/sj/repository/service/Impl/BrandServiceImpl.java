@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 
 import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -60,6 +61,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@CacheEvict(value = "brandCache")
 	public Brand save(Brand brand) {
 		Calendar c = Calendar.getInstance();
 		brand.setCreatedTime(c);
@@ -67,6 +69,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@CacheEvict(value = "brandCache")
 	public void update(Brand brand) {
 		em.createQuery(
 				"update Brand b set b.name=:name,b.coverImg=:cover where b.id=:id")
@@ -82,11 +85,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	public Brand findByName(String name) {
-		return repository.findByName(name);
-	}
-
-	@Override
+	@CacheEvict(value = "brandCache")
 	public void deleteOne(Long id) {
 		repository.delete(id);
 	}
@@ -106,6 +105,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@CacheEvict(value = "brandCache")
 	public void activate(Long id, ActivateEnum activate) {
 		em.createQuery("update Brand b set b.activate=:activate where b.id=:id")
 				.setParameter("activate", activate).setParameter("id", id)

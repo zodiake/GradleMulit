@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.CategoryJson;
 import com.sj.repository.model.ProductCategoryDetailJson;
 import com.sj.repository.model.ProductCategoryJson;
 import com.sj.repository.repository.ProductCategoryRepository;
@@ -111,13 +112,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public ProductCategory findOneActivate(Long id) {
-		return repository.findByIdAndActivate(id, ActivateEnum.ACTIVATE);
-	}
-
-	@Override
 	@Cacheable(value = "firstProductCategoryCache", key = "#id")
-	public ProductCategory findActivateFirstCategoryById(Long id) {
+	public ProductCategory findOneActivate(Long id) {
 		return repository.findByIdAndActivate(id, ActivateEnum.ACTIVATE);
 	}
 
@@ -128,53 +124,22 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	@Cacheable(value = "productCategoryCache", key = "#name")
-	public ProductCategory findByName(String name, ActivateEnum activate) {
-		return repository.findByNameAndActivate(name, activate);
-	}
-
-	@Override
 	public List<ProductCategory> findByParent(ProductCategory category) {
 		return repository.findByParentAndActivate(category,
 				ActivateEnum.ACTIVATE);
 	}
 
 	@Override
-	public List<Category> ajaxFineByParent(ProductCategory productCategory) {
-		List<ProductCategory> productCategories = repository
-				.findByParentAndActivate(productCategory, ActivateEnum.ACTIVATE);
-		List<Category> categories = new ArrayList<Category>();
+	@Cacheable(value = "secondJsonCategoriesCache", key = "#productCategory.id")
+	public List<CategoryJson> ajaxFindByParent(ProductCategory productCategory) {
+		List<ProductCategory> productCategories = findByParentAndActivate(
+				productCategory, ActivateEnum.ACTIVATE);
+		List<CategoryJson> categories = new ArrayList<CategoryJson>();
 		productCategories.stream().map(r -> {
-			Category category = new Category(r.getId(), r.getName());
+			CategoryJson category = new CategoryJson(r.getId(), r.getName());
 			return category;
 		}).forEach(i -> categories.add(i));
 		return categories;
-	}
-
-	public class Category {
-		private Long id;
-		private String name;
-
-		public Category(Long id, String name) {
-			this.id = id;
-			this.name = name;
-		}
-
-		public Long getId() {
-			return id;
-		}
-
-		public void setId(Long id) {
-			this.id = id;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
 	}
 
 	@Override

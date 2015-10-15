@@ -3,23 +3,19 @@ package com.sj.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sj.model.model.Product;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.CategoryJson;
 import com.sj.repository.service.PreferProductService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ProductService;
-import com.sj.repository.service.Impl.ProductCategoryServiceImpl.Category;
 import com.sj.web.exception.CategoryNotFoundException;
 import com.sj.web.security.SiteUserContext;
 
@@ -34,46 +30,6 @@ public class ProductCategoryController {
 	@Autowired
 	private SiteUserContext userContext;
 
-//	@RequestMapping(value = "/productCategory/{parent}/{second}/{third}", method = RequestMethod.GET)
-//	public String findByThird(@PathVariable("third") String third,Model uiModel, @PathVariable("parent") String parent,
-//			@PathVariable("second") String second,@RequestParam(value = "page", defaultValue = "0") int page,
-//			@RequestParam(value = "size", defaultValue = "15") int size) {
-//		ProductCategory thirdCategory = pcService.findByName(third,
-//				ActivateEnum.ACTIVATE);
-//		if (thirdCategory == null
-//				|| thirdCategory.getParent() == null
-//				|| !thirdCategory.getParent().getName().equals(second)
-//				|| thirdCategory.getParent().getParent() == null
-//				|| !thirdCategory.getParent().getParent().getName()
-//						.equals(parent)) {
-//			throw new CategoryNotFoundException();
-//		}
-//		Page<Product> pages = productService.findByCategory(thirdCategory,
-//				new PageRequest(page, size));
-//		uiModel.addAttribute("pc", thirdCategory.getParent().getParent());
-//		uiModel.addAttribute("second", thirdCategory.getParent());
-//		uiModel.addAttribute("child", thirdCategory);
-//		uiModel.addAttribute("page", pages);
-//		return "product/products";
-//	}
-//
-//	@RequestMapping(value = "/productCategory/{parent}/{second}", method = RequestMethod.GET)
-//	public String findBySecond(@PathVariable("second") String second,
-//			Model uiModel, @PathVariable("parent") String parent,
-//			@RequestParam(value = "page", defaultValue = "0") int page,
-//			@RequestParam(value = "size", defaultValue = "15") int size) {
-//		ProductCategory secondCategory = pcService.findByName(second,ActivateEnum.ACTIVATE);
-//		if (secondCategory == null || secondCategory == null || !secondCategory.getParent().getName().equals(parent))
-//			throw new CategoryNotFoundException();
-//		Page<Product> pages = productService.findBySecondCategory(
-//				secondCategory, new PageRequest(page, size));
-//
-//		uiModel.addAttribute("second", secondCategory);
-//		uiModel.addAttribute("pc", secondCategory.getParent());
-//		uiModel.addAttribute("page", pages);
-//		return "product/products";
-//	}
-
 	@RequestMapping(value = "/productCategory/{id}", method = RequestMethod.GET)
 	public String findByParent(@PathVariable("id") Long id, Model uiModel) {
 		ProductCategory pc = pcService.findByIdAndParent(id);
@@ -87,11 +43,11 @@ public class ProductCategoryController {
 	
 	@RequestMapping(value = "/ajaxProductCategory/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Category> ajaxFindByParent(@PathVariable("id")Long id){
+	public List<CategoryJson> ajaxFindByParent(@PathVariable("id")Long id){
 		ProductCategory pc = pcService.findOneActivate(id);
 		if (pc == null)
 			throw new CategoryNotFoundException();
-		List<Category> categories = pcService.ajaxFineByParent(pc);
+		List<CategoryJson> categories = pcService.ajaxFindByParent(pc);
 		return categories;
 	}
 

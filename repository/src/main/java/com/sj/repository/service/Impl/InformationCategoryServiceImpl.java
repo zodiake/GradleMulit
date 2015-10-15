@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 
 import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.InformationCategory;
-import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.InformationCategoryJson;
 import com.sj.repository.repository.InformationCategoryRepository;
 import com.sj.repository.service.InformationCategoryService;
@@ -43,19 +44,15 @@ public class InformationCategoryServiceImpl implements
 	}
 
 	@Override
+	@CachePut(value = "informationCategoryCache", key = "#category.id")
 	public InformationCategory update(InformationCategory category) {
 		return repository.save(category);
 	}
 
 	@Override
+	@CacheEvict(value = "informationCategoryCache",key = "#id")
 	public void delete(Long id) {
 		repository.delete(id);
-	}
-
-	@Override
-	@Cacheable(value = "informationCategoryCache", key = "#name")
-	public InformationCategory findByName(String name) {
-		return repository.findByNameAndActivate(name, ActivateEnum.ACTIVATE);
 	}
 
 	@Override

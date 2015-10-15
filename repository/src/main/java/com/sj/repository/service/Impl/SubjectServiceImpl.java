@@ -53,10 +53,9 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@Cacheable(value = "subjectsCache", key = "#pageable.getPageNumber()")
-	public Page<Subject> findByActivated(Pageable pageable,
-			ActivateEnum activate) {
-		return repository.findByActivateOrderByCreatedTimeDesc(pageable,
+	@Cacheable(value = "subjectsCache", key = "#category.id + #pageable.getPageNumber()")
+	public Page<Subject> findByCategoryAndActivate(SubjectCategory category,Pageable pageable, ActivateEnum activate) {
+		return repository.findByCategoryAndActivateOrderByCreatedTimeDesc(category,	pageable,
 				activate);
 	}
 
@@ -66,6 +65,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
+	@Cacheable(value = "subjectCache", key = "#id")
 	public Subject findOne(Long id) {
 		return repository.findOne(id);
 	}

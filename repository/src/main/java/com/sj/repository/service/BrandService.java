@@ -29,8 +29,6 @@ public interface BrandService {
 
 	public void update(Brand brand);
 
-	public Brand findByName(String name);
-
 	public void deleteOne(Long id);
 
 	public void activate(Long id, ActivateEnum activate);

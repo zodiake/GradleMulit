@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.SubjectCategory;
@@ -21,6 +22,7 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
 	private SubjectCategoryRepostiory repository;
 
 	@Override
+	@Cacheable(value = "subjectCategoryCache",key="#id")
 	public SubjectCategory findOne(Long id) {
 		return repository.findOne(id);
 	}

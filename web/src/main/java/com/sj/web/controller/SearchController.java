@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sj.model.model.Brand;
+import com.sj.model.type.ActivateEnum;
 import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.model.ProductSearchOption;
 import com.sj.repository.search.model.SortEnum;
@@ -42,7 +43,7 @@ public class SearchController extends BaseController<ProductSearch> {
 
 	@ModelAttribute("brands")
 	public List<Brand> brands() {
-		return brandService.findAll();
+		return brandService.findByAcitvate(ActivateEnum.ACTIVATE);
 	}
 
 	@RequestMapping(value = "/products/_search", method = RequestMethod.GET)

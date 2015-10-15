@@ -15,7 +15,7 @@ import com.sj.repository.model.SubjectListJson;
 public interface SubjectService {
 	Page<Subject> findAll(Pageable pageable);
 
-	Page<Subject> findByActivated(Pageable pageable, ActivateEnum activate);
+	Page<Subject> findByCategoryAndActivate(SubjectCategory category,Pageable pageable, ActivateEnum activate);
 
 	Subject findOne(Long id);
 
@@ -33,4 +33,6 @@ public interface SubjectService {
 	Subject updateState(Long id, ActivateEnum active);
 	
 	Set<SubjectListJson> findByProduct(Long productId);
+	
+	
 }

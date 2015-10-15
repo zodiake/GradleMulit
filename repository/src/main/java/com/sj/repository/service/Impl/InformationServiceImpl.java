@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,7 +38,7 @@ public class InformationServiceImpl implements InformationService {
 	private InfoSearchService infoSearchService;
 
 	@Override
-	@Cacheable(value = "informationCategories", key = "#category.id + #pageable.getPageNumber()")
+	@Cacheable(value = "informationsCache", key = "#category.id + #pageable.getPageNumber()")
 	public Page<Information> findByCategory(InformationCategory category,
 			Pageable pageable) {
 		
@@ -46,6 +47,7 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
+	@CacheEvict(value = {"informationsCache","indexInformationCache"})
 	public Information update(Information information) {
 		Information info = repository.findOne(information.getId());
 		info.setTitle(information.getTitle());
@@ -57,26 +59,28 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
+	@Cacheable(value = "informationCache", key = "#id")
 	public Information findByIdAndCategory(Long id,
 			AdvertiseCategoryEnum category) {
 		return repository.findByIdAndCategory(id, category);
 	}
 
 	@Override
+	@CacheEvict(value = {"informationsCache","indexInformationCache"})
 	public Information create(Information info) {
 		info.setCreatedTime(Calendar.getInstance());
 		return repository.save(info);
 	}
 
 	@Override
+	@Cacheable(value = "informationCache", key = "#id")
 	public Information findOne(Long id) {
 		return repository.findOne(id);
 	}
 
 	@Override
 	@Cacheable(value = "indexInformationCache", key = "#category.id")
-	public List<Information> findByCategoryAndShowOnIndex(
-			InformationCategory category) {
+	public List<Information> findByCategoryAndShowOnIndex(InformationCategory category) {
 		Page<Information> infoPage = repository.findByCategoryAndActivate(
 				category, new PageRequest(0, 3, Direction.DESC, "createdTime"),
 				ActivateEnum.ACTIVATE);
@@ -89,6 +93,7 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
+	@CacheEvict(value = {"informationsCache","indexInformationCache"})
 	public Information save(Information advertisement) {
 		advertisement.setUpdatedTime(Calendar.getInstance());
 		advertisement.setCreatedTime(Calendar.getInstance());
@@ -119,6 +124,7 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
+	@CacheEvict(value = {"informationsCache","indexInformationCache"})
 	public void updateState(Long id, ActivateEnum state) {
 		Information info = repository.findOne(id);
 		info.setActivate(state);

@@ -22,7 +22,5 @@ public interface InformationCategoryService {
 
 	public void delete(Long id);
 
-	public InformationCategory findByName(String name);
-
 	public Page<InformationCategoryJson> findAllJson();
 }

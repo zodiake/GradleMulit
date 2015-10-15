@@ -1,6 +1,5 @@
 package com.sj.web.controller;
 
-
 import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
 
 import java.util.Set;
@@ -25,10 +24,11 @@ import com.sj.repository.service.ProductService;
 import com.sj.repository.service.SolutionService;
 import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
+import com.sj.web.exception.CategoryNotFoundException;
 import com.sj.web.exception.SubjectNotFoundException;
 
 @Controller
-public class SubjectController extends BaseController<Subject>{
+public class SubjectController extends BaseController<Subject> {
 	@Autowired
 	private SubjectService subjectService;
 	@Autowired
@@ -40,17 +40,21 @@ public class SubjectController extends BaseController<Subject>{
 	@Autowired
 	private ProductService productService;
 
-	@RequestMapping(value = "/subjects", method = RequestMethod.GET)
-	public String findSubjects(
+	@RequestMapping(value = "/subjectCategorys/{id}", method = RequestMethod.GET)
+	public String findSubjects(@PathVariable("id") Long id,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "12") int size,
 			Model uiModel) {
-		Page<Subject> subjects = subjectService.findByActivated(new PageRequest(page , size),ActivateEnum.ACTIVATE);
-		
+		SubjectCategory category = subjectCategoryService.findOne(id);
+		if(category==null)
+			throw new CategoryNotFoundException();
+		Page<Subject> subjects = subjectService.findByCategoryAndActivate(
+				category, new PageRequest(page, size), ActivateEnum.ACTIVATE);
+
 		ViewPage viewpage = caculatePage(subjects);
 		viewpage.setHref("/subjects");
 		viewpage.setCurrent(subjects.getNumber());
-		
+
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("viewpage", viewpage);
 		uiModel.addAttribute("pc", new SubjectCategory(6l));
@@ -62,17 +66,19 @@ public class SubjectController extends BaseController<Subject>{
 		Subject subject = subjectService.findOne(id);
 		if (subject == null)
 			throw new SubjectNotFoundException();
-		
-		Long subjectCount = template.opsForValue().increment(REVIEWCOUNT + id, 1);
+
+		Long subjectCount = template.opsForValue().increment(REVIEWCOUNT + id,
+				1);
 		subject.setViewCount(subjectCount);
 		uiModel.addAttribute("subject", subject);
 		uiModel.addAttribute("pc", new SubjectCategory(6l));
 		return "subject/subject";
 	}
-	
+
 	@RequestMapping(value = "/products/{productId}/subjects", method = RequestMethod.GET)
 	@ResponseBody
-	public Set<SubjectListJson> findSubjectByProduct(@PathVariable("productId")Long productId){
+	public Set<SubjectListJson> findSubjectByProduct(
+			@PathVariable("productId") Long productId) {
 		Set<SubjectListJson> subjects = subjectService.findByProduct(productId);
 		return subjects;
 	}

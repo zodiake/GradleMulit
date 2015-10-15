@@ -116,8 +116,22 @@
 				<li th:class="${pc.id==4}?active">
 					<a href="/productCategory/4">服务</a>
 				</li>
-				<li th:class="${pc.id==6}?active">
+				<!-- <li th:class="${pc.id==6}?active">
 					<a href="/subjects">解决方案</a>
+				</li> -->
+				<li class="news-down hide-menu active nobor" th:if="${pc.id == 6}">
+					<a >解决方案</a>
+					<div class="news-sort show-menu">
+						<a href="/subjectCategorys/6">解决方案1</a>
+						<a href="/subjectCategorys/1000">解决方案1</a>
+					</div>
+				</li>
+				<li class="news-down hide-menu " th:unless="${pc.id == 6}">
+					<a >解决方案</a>
+					<div class="news-sort show-menu">
+						<a href="/subjectCategorys/6">解决方案1</a>
+						<a href="/subjectCategorys/1000">解决方案2</a>
+					</div>
 				</li>
 				<li class="news-down hide-menu active nobor" th:if="${pc.id == 7 or pc.id==8 or pc.id ==9}">
 					<a >资讯</a>
