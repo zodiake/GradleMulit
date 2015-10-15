@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
 import com.sj.model.type.ActivateEnum;
-import com.sj.model.type.AdvertiseCategoryEnum;
 import com.sj.repository.model.InformationJson;
 import com.sj.repository.repository.InformationCategoryRepository;
 import com.sj.repository.repository.InformationRepository;
@@ -48,6 +48,7 @@ public class InformationServiceImpl implements InformationService {
 
 	@Override
 	@CacheEvict(value = {"informationsCache","indexInformationCache"})
+	@CachePut(value = "informationCache",key = "#information.id")
 	public Information update(Information information) {
 		Information info = repository.findOne(information.getId());
 		info.setTitle(information.getTitle());
@@ -59,13 +60,6 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	@Cacheable(value = "informationCache", key = "#id")
-	public Information findByIdAndCategory(Long id,
-			AdvertiseCategoryEnum category) {
-		return repository.findByIdAndCategory(id, category);
-	}
-
-	@Override
 	@CacheEvict(value = {"informationsCache","indexInformationCache"})
 	public Information create(Information info) {
 		info.setCreatedTime(Calendar.getInstance());
@@ -73,7 +67,6 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	@Cacheable(value = "informationCache", key = "#id")
 	public Information findOne(Long id) {
 		return repository.findOne(id);
 	}
@@ -85,11 +78,6 @@ public class InformationServiceImpl implements InformationService {
 				category, new PageRequest(0, 3, Direction.DESC, "createdTime"),
 				ActivateEnum.ACTIVATE);
 		return infoPage.getContent();
-	}
-
-	@Override
-	public Page<Information> findAll(Pageable pageable) {
-		return repository.findAll(pageable);
 	}
 
 	@Override
@@ -124,7 +112,7 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	@CacheEvict(value = {"informationsCache","indexInformationCache"})
+	@CacheEvict(value = {"informationsCache","indexInformationCache","informationCache"})
 	public void updateState(Long id, ActivateEnum state) {
 		Information info = repository.findOne(id);
 		info.setActivate(state);

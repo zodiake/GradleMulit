@@ -17,9 +17,6 @@ public interface InformationService {
 
 	public Information update(Information info);
 
-	public Information findByIdAndCategory(Long id,
-			AdvertiseCategoryEnum category);
-
 	public Information save(Information advertisement);
 
 	public Information create(Information info);
@@ -28,8 +25,6 @@ public interface InformationService {
 
 	public List<Information> findByCategoryAndShowOnIndex(
 			InformationCategory category);
-
-	public Page<Information> findAll(Pageable pageable);
 
 	public Page<Information> findByActivate(Pageable pageable,
 			ActivateEnum activate);

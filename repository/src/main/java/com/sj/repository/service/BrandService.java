@@ -12,8 +12,6 @@ import com.sj.repository.model.BrandJson;
 import com.sj.repository.search.model.BrandSearchOption;
 
 public interface BrandService {
-	public Page<Brand> findAll(Pageable pageable);
-
 	public List<Brand> findAll();
 
 	public Brand findOne(Long id);
@@ -29,12 +27,8 @@ public interface BrandService {
 
 	public void update(Brand brand);
 
-	public void deleteOne(Long id);
-
 	public void activate(Long id, ActivateEnum activate);
 	
-	public List<Brand> findAllOrderByName();
-
 	public Page<Brand> searchBrand(BrandSearchOption option,Pageable pageable);
 
 	Map<String, String> buildMap(BrandSearchOption option);

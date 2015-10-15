@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import com.sj.model.model.CommonUser;
 import com.sj.model.model.PreferProduct;
 import com.sj.model.model.Product;
-import com.sj.model.model.SiteUser;
 
 public interface PreferProductService {
 	public Page<PreferProduct> findByUser(CommonUser user, Pageable pageable);

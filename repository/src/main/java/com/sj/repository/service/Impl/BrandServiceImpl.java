@@ -19,9 +19,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.Brand;
@@ -40,11 +37,6 @@ public class BrandServiceImpl implements BrandService {
 	private EntityManager em;
 
 	@Override
-	public Page<Brand> findAll(Pageable pageable) {
-		return repository.findAll(pageable);
-	}
-
-	@Override
 	public List<Brand> findAll() {
 		return Lists.newArrayList(repository.findAll());
 	}
@@ -61,7 +53,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	@CacheEvict(value = "brandCache")
+	@CacheEvict(value = {"brandCache","indexBrandCache"})
 	public Brand save(Brand brand) {
 		Calendar c = Calendar.getInstance();
 		brand.setCreatedTime(c);
@@ -69,7 +61,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	@CacheEvict(value = "brandCache")
+	@CacheEvict(value = {"brandCache","indexBrandCache"})
 	public void update(Brand brand) {
 		em.createQuery(
 				"update Brand b set b.name=:name,b.coverImg=:cover where b.id=:id")
@@ -82,12 +74,6 @@ public class BrandServiceImpl implements BrandService {
 	@Cacheable(value = "brandCache")
 	public List<Brand> findByAcitvate(ActivateEnum activate) {
 		return repository.findByActivate(activate);
-	}
-
-	@Override
-	@CacheEvict(value = "brandCache")
-	public void deleteOne(Long id) {
-		repository.delete(id);
 	}
 
 	@Override
@@ -105,18 +91,13 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	@CacheEvict(value = "brandCache")
+	@CacheEvict(value = {"brandCache","indexBrandCache"})
 	public void activate(Long id, ActivateEnum activate) {
 		em.createQuery("update Brand b set b.activate=:activate where b.id=:id")
 				.setParameter("activate", activate).setParameter("id", id)
 				.executeUpdate();
 	}
-
-	@Override
-	public List<Brand> findAllOrderByName() {
-		return repository.findAll(new Sort(new Order(Direction.ASC,"name")));
-	}
-
+	
 	@Override
 	public Page<Brand> searchBrand(BrandSearchOption option,Pageable pageable) {
 		return repository.findByNameLike("%"+option.getTitle()+"%", pageable);

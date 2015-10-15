@@ -10,8 +10,6 @@ import com.sj.model.type.ScrollImageType;
 public interface ScrollImageService {
 	public List<ScrollImage> findAll(ScrollImageType type, Pageable pageable);
 
-	public ScrollImage update(ScrollImage image);
-
 	public ScrollImage update(Long id, ScrollImage image);
 
 	public void freshCache(ScrollImageType type);

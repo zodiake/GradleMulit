@@ -37,15 +37,7 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 	}
 
 	@Override
-	public ScrollImage update(ScrollImage image) {
-		ScrollImage img = repository.findOne(image.getId());
-		img.setImageUrl(image.getImageUrl());
-		img.setHref(image.getHref());
-		repository.save(img);
-		return img;
-	}
-
-	@Override
+	@CacheEvict(value = {"scrollImageCache","indexImageCache"})
 	public ScrollImage update(Long id, ScrollImage image) {
 		ScrollImage img = repository.findOne(id);
 		img.setImageUrl(image.getImageUrl());

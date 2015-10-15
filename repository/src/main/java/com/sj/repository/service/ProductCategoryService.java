@@ -19,24 +19,16 @@ public interface ProductCategoryService {
 
 	public ProductCategory findOneActivate(Long id);
 
-	public List<ProductCategory> findAll();
-
 	public Page<ProductCategory> findByParent(Pageable pageable,
 			ProductCategory category);
 
 	public List<ProductCategory> findByParentAndActivate(ProductCategory category, ActivateEnum activate);
-
-	public List<ProductCategory> findAllSecondCategory(ActivateEnum activate);
-
-	public ProductCategory findByIdAndParent(Long id, ProductCategory category);
 
 	public ProductCategory save(ProductCategory category);
 
 	public ProductCategory update(ProductCategory category);
 
 	public List<ProductCategory> findSecondCategory(ProductCategory category,Pageable pageable);
-
-	public void delete(Long id);
 
 	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate);
 

@@ -2,12 +2,12 @@ package com.sj.repository.service.Impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.elasticsearch.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,18 +34,15 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public List<ProductCategory> findAll() {
-		return Lists.newArrayList(repository.findAll());
-	}
-
-	@Override
 	public Page<ProductCategory> findByParent(Pageable pageable,
 			ProductCategory category) {
 		return repository.findByParent(pageable, category);
 	}
 
 	@Override
+	@CacheEvict(value = { "secondProductCategoriesCache",
+			"indexSecondProductCategoryCache", "secondJsonCategoriesCache",
+			"productCategoryCache" })
 	public ProductCategory save(ProductCategory category) {
 		ProductCategory pc = new ProductCategory();
 		pc.setName(category.getName());
@@ -57,11 +54,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public ProductCategory findByIdAndParent(Long id, ProductCategory category) {
-		return repository.findByIdAndParent(id, category);
-	}
-
-	@Override
+	@CacheEvict(value = { "secondProductCategoriesCache",
+			"indexSecondProductCategoryCache", "secondJsonCategoriesCache",
+			"productCategoryCache" })
 	public ProductCategory update(ProductCategory category) {
 		ProductCategory memory = repository.findOne(category.getId());
 		memory.setName(category.getName());
@@ -80,35 +75,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public List<ProductCategory> findAllSecondCategory(ActivateEnum activate) {
-		List<ProductCategory> categories = repository.findByParentAndActivate(
-				null, activate);
-		List<ProductCategory> results = new LinkedList<>();
-		categories.stream().forEach(
-				(c) -> c.getCategories().forEach((i) -> results.add(i)));
-		return results;
-	}
-
-	@Override
 	@Cacheable(value = "indexSecondProductCategoryCache", key = "#category.id")
 	public List<ProductCategory> findSecondCategory(ProductCategory category,
 			Pageable pageable) {
 		return repository.findByParentAndActivate(category,
 				ActivateEnum.ACTIVATE, pageable);
-	}
-
-	@Override
-	public void delete(Long id) {
-		ProductCategory pc = repository.findOne(id);
-		if (pc.getCategories() == null || pc.getCategories().size() == 0) {
-
-		} else {
-			List<ProductCategory> pcs = pc.getCategories();
-			for (ProductCategory productCategory : pcs) {
-				repository.delete(productCategory);
-			}
-		}
-		repository.delete(id);
 	}
 
 	@Override
@@ -165,6 +136,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
+	@CacheEvict(value = { "secondProductCategoriesCache",
+			"indexSecondProductCategoryCache", "secondJsonCategoriesCache",
+			"productCategoryCache" })
 	public ProductCategory updateState(Long id, ActivateEnum activate) {
 		ProductCategory pc = repository.findOne(id);
 		pc.setActivate(activate);

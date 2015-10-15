@@ -15,6 +15,8 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -71,22 +73,13 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
+	@CacheEvict(value={"indexSubjectsCache","subjectsCache"})
 	public Subject save(Subject s) {
 		s.setUpdatedTime(Calendar.getInstance());
 		s.setCreatedTime(Calendar.getInstance());
 		Subject sub = repository.save(s);
 		service.save(new SubjectSearch(sub));
 		return sub;
-	}
-
-	@Override
-	public Subject update(Subject s, Subject old) {
-		old.setContent(s.getContent());
-		old.setCreatedBy(s.getCreatedBy());
-		old.setName(s.getName());
-		old.setShowOnIndex(s.getShowOnIndex());
-		old.setActivate(s.getActivate());
-		return repository.save(old);
 	}
 
 	@Override
@@ -134,6 +127,8 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
+	@CachePut(value = "subjectCache", key = "#subject.id")
+	@CacheEvict(value={"indexSubjectsCache","subjectsCache"})
 	public Subject update(Subject subject) {
 		Subject s = repository.findOne(subject.getId());
 		s.setContent(subject.getContent());
@@ -144,6 +139,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
+	@CacheEvict(value={"indexSubjectsCache","subjectsCache","subjectCache"})
 	public Subject updateState(Long id, ActivateEnum active) {
 		Subject subject = repository.findOne(id);
 		subject.setActivate(active);

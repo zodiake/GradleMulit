@@ -21,8 +21,6 @@ public interface SubjectService {
 
 	Subject save(Subject s);
 
-	Subject update(Subject s, Subject old);
-
 	Subject update(Subject subject);
 
 	List<Subject> findByShowOnIndex();
