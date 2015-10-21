@@ -364,13 +364,17 @@ public class ProductServiceImpl implements ProductService {
 				throw new BatchException("第" + (i + 1) + "行品牌找不到");
 			else
 				product.setBrand(brand);
-			String place = getStringCellValue(xssfRow, i, 4, 2);
-			if ("国产".equals(place))
+			
+			String place = xssfRow.getCell(4, HSSFRow.CREATE_NULL_AS_BLANK).getStringCellValue();	
+			if("".equals(place))
+				product.setPlaceOfProduction(PlaceEnum.OTHER);
+			else if ("国产".equals(place))
 				product.setPlaceOfProduction(PlaceEnum.DOMESTIC);
 			else if ("进口".equals(place))
 				product.setPlaceOfProduction(PlaceEnum.IMPORTED);
 			else
 				throw new BatchException("第" + (i + 1) + "行产地输入错误");
+			
 			float price = getNumericCellValue(xssfRow, i, 5);
 			product.setPrice(price);
 
@@ -477,23 +481,23 @@ public class ProductServiceImpl implements ProductService {
 			case "仪器":
 				Instrument i = new Instrument(product);
 				i = instrumentRepository.save(i);
-				searchService.save(new ProductSearch(i));
+//				searchService.save(new ProductSearch(i));
 				continue;
 			case "试剂":
 				Reagents r = new Reagents(product);
 				r = reagentsRepository.save(r);
-				searchService.save(new ProductSearch(r));
+//				searchService.save(new ProductSearch(r));
 				continue;
 			case "耗材":
 				Consumable c = new Consumable(product);
 				c = consumableRepository.save(c);
-				searchService.save(new ProductSearch(c));
+//				searchService.save(new ProductSearch(c));
 				continue;
 			case "服务":
 				com.sj.model.model.Service s = new com.sj.model.model.Service(
 						product);
 				s = serviceRepository.save(s);
-				searchService.save(new ProductSearch(s));
+//				searchService.save(new ProductSearch(s));
 				continue;
 			}
 		}

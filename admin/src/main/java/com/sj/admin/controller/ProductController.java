@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sj.admin.model.ProductOption;
 import com.sj.admin.security.SiteUserContext;
-import com.sj.model.model.Product;
 import com.sj.model.model.Provider;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.exception.BatchException;
@@ -69,7 +68,7 @@ public class ProductController {
 	@ResponseBody
 	private String updateProductState(@PathVariable("id") Long id,
 			ProductStatusEnum state) {
-		Product p = productService.updateState(id, state);
+		productService.updateState(id, state);
 		return "\"success\"";
 	}
 

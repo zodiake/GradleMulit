@@ -55,10 +55,9 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@Cacheable(value = "subjectsCache", key = "#category.id + #pageable.getPageNumber()")
+	@Cacheable(value = "subjectsCache", key = "#pageable.getPageNumber()")
 	public Page<Subject> findByCategoryAndActivate(SubjectCategory category,Pageable pageable, ActivateEnum activate) {
-		return repository.findByCategoryAndActivateOrderByCreatedTimeDesc(category,	pageable,
-				activate);
+		return repository.findByActivateOrderByCreatedTimeDesc(pageable, ActivateEnum.ACTIVATE);
 	}
 
 	public SubjectDetailJson findOneJson(Long id) {
@@ -160,6 +159,14 @@ public class SubjectServiceImpl implements SubjectService {
 			subjects.add(json);
 		}
 		return subjects;
+	}
+
+	@Override
+	@CachePut(value = "subjectCache",key="#subject.id")
+	public Subject updateShowOnIndex(Subject subject, ActivateEnum showOnIndex) {
+		subject.setShowOnIndex(showOnIndex);
+		repository.save(subject);
+		return subject;
 	}
 
 }

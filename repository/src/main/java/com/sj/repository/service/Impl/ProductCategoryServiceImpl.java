@@ -71,7 +71,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Cacheable(value = "secondProductCategoriesCache", key = "#category.id")
 	public List<ProductCategory> findByParentAndActivate(
 			ProductCategory category, ActivateEnum activate) {
-		return repository.findByParentAndActivate(category, activate);
+		System.out.println("-------------"+Calendar.getInstance().getTime().getTime());
+		List<ProductCategory> categories = repository.findByParentAndActivate(category, activate);
+		for (ProductCategory productCategory : categories) {
+			List<ProductCategory> thirds = repository.findByParentAndActivate(productCategory, activate);
+			productCategory.setCategories(thirds);
+		}
+		return categories;
 	}
 
 	@Override

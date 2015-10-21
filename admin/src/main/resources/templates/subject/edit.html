@@ -63,6 +63,7 @@
         </div>
         <div class="col-xs-offset-3 panel-footer">
             <input type="submit" id="submit" class="btn btn-primary" value="提交" />
+            <input type="button" id="showOnIndex" class="btn btn-primary" value="{{item.showOnIndex|subjectShowOnIndexFilter}}" ng-click="showOnIndex(item)" />
             <a class="btn btn-primary" href="#/subject/{{item.id}}/solutions">修改解决方案</a>
             <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="1000" close="closeAlert($index)">{{alert.msg}}</alert>
         </div>

@@ -51,3 +51,9 @@ filterModel.filter('productStateFilter',function(){
         }
    };
 });
+
+filterModel.filter('subjectShowOnIndexFilter',function(){
+	return function(state){
+		return state == 'ACTIVATE' ? '不显示在首页' : '显示在首页';
+	}
+})

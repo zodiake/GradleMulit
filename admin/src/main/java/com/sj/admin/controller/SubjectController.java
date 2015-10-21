@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.h2.engine.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -111,5 +113,14 @@ public class SubjectController {
 		Subject s = subjectService.findOne(id);
 		return s.getSolutions().stream().map(p -> new SolutionJson(p))
 				.collect(Collectors.toList());
+	}
+	
+	@RequestMapping(value = "/admin/subject/{id}/showOnIndex",method = RequestMethod.POST)
+	@ResponseBody
+	public String showOnIndex(@PathVariable("id")Long id,HttpServletRequest request){
+		String showOnIndex = request.getParameter("showOnIndex");
+		ActivateEnum showEnum = ActivateEnum.fromString(showOnIndex);
+		subjectService.updateShowOnIndex(subjectService.findOne(id), showEnum);
+		return "\"success\"";
 	}
 }

@@ -78,6 +78,18 @@ subjectModule.service('SubjectService', ['$http',
                 }
             });
         };
+        
+        this.showOnIndex = function(item){
+        	return $http({
+        		method : 'post',
+        		url: '/admin/subject/'+item.id+'/showOnIndex',
+        		transformRequest: transform,
+                headers: header,
+                data: {
+                	showOnIndex: item.showOnIndex == 'ACTIVATE' ? 'deactivate' : 'activate'
+                }
+        	});
+        }
     }
 ]);
 
@@ -308,6 +320,20 @@ subjectModule.controller('SubjectEditController', ['$scope',
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
+        };
+        
+        $scope.showOnIndex = function(item){
+        	item.showOnIndex = item.showOnIndex == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+        	SubjectService.showOnIndex(item).success(function(data){
+        		$scope.alerts.push({
+                    type: 'success',
+                    msg: '保存成功'
+                });
+        	}).error(function (err) {
+                $scope.alerts.push({
+                    msg: '保存失败'
+                });
+            });
         };
     }
 ]);

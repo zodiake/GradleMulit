@@ -32,5 +32,7 @@ public interface SubjectService {
 	
 	Set<SubjectListJson> findByProduct(Long productId);
 	
+	Subject updateShowOnIndex(Subject subject,ActivateEnum showOnIndex);
+	
 	
 }

@@ -18,6 +18,7 @@ public class SubjectDetailJson {
 	private String summary;
 	private Long category;
 	private ActivateEnum active;
+	private ActivateEnum showOnIndex;
 
 	public SubjectDetailJson(Subject s) {
 		this.id = s.getId();
@@ -32,6 +33,7 @@ public class SubjectDetailJson {
 		this.summary = s.getSummary();
 		this.category = s.getCategory().getId();
 		this.active = s.getActivate();
+		this.showOnIndex = s.getShowOnIndex();
 	}
 
 	public Long getId() {
@@ -112,5 +114,13 @@ public class SubjectDetailJson {
 
 	public void setActive(ActivateEnum active) {
 		this.active = active;
+	}
+
+	public ActivateEnum getShowOnIndex() {
+		return showOnIndex;
+	}
+
+	public void setShowOnIndex(ActivateEnum showOnIndex) {
+		this.showOnIndex = showOnIndex;
 	}
 }
