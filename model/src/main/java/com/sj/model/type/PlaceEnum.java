@@ -4,7 +4,8 @@ import java.util.Locale;
 
 public enum PlaceEnum {
 	DOMESTIC{public String getName(){return "国产";}}, 
-	IMPORTED{public String getName(){return "进口";}};
+	IMPORTED{public String getName(){return "进口";}},
+	OTHER{public String getName(){return "";}};
 	
 	public abstract String getName();
 	public static PlaceEnum formString(String source) {
