@@ -40,16 +40,13 @@ public class SubjectController extends BaseController<Subject> {
 	@Autowired
 	private ProductService productService;
 
-	@RequestMapping(value = "/subjectCategorys/{id}", method = RequestMethod.GET)
-	public String findSubjects(@PathVariable("id") Long id,
+	@RequestMapping(value = "/subjects", method = RequestMethod.GET)
+	public String findSubjects(
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "12") int size,
 			Model uiModel) {
-		SubjectCategory category = subjectCategoryService.findOne(id);
-		if(category==null)
-			throw new CategoryNotFoundException();
 		Page<Subject> subjects = subjectService.findByCategoryAndActivate(
-				category, new PageRequest(page, size), ActivateEnum.ACTIVATE);
+				null, new PageRequest(page, size), ActivateEnum.ACTIVATE);
 
 		ViewPage viewpage = caculatePage(subjects);
 		viewpage.setHref("/subjects");

@@ -147,6 +147,8 @@ public class BuyRecordController extends BaseController<BuyRecord>{
 		buyRecordService.save(buyRecord, lines);
 		lines = cartLineService.findByUser(user.getId());
 		session.setAttribute("cartLines", lines);
-		return "redirect:/user/buyRecords/"+buyRecord.getId();
+		
+		uiModel.addAttribute("href", "/user/buyRecords/"+buyRecord.getId());
+		return "user/common/createBuySuccess";
 	}
 }
