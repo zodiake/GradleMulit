@@ -115,7 +115,7 @@ public class PDFServiceImpl implements PDFService {
 				document.newPage();
 				num=0;
 			}
-			Product product = productRepository.findOne(buyProduct.getId());
+			Product product = productRepository.findOne(buyProduct.getProduct().getId());
 			document.add(getProductsTable(product,fontChinese));
 			num++;
 		}
