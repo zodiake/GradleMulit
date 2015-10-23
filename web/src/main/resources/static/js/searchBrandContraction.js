@@ -8,7 +8,7 @@ $(function() {
 		contraction.show();
 	});
 	$('#contraction a').click(function(){
-		brandSearch.css("height","40px");
+		brandSearch.css("height","23px");
 		more.show();
 		contraction.hide();
 	});

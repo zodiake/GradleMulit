@@ -2,8 +2,6 @@ package com.sj.web.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itextpdf.text.DocumentException;
 import com.sj.model.model.BuyRecord;
-import com.sj.model.model.CommonUser;
-import com.sj.model.model.Product;
 import com.sj.model.model.SiteUser;
 import com.sj.repository.service.BuyRecordService;
 import com.sj.repository.service.PDFService;
