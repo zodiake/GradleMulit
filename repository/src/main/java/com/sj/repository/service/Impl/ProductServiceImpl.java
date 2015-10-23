@@ -26,6 +26,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -169,7 +170,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<Product> findByBrand(Pageable pageable, Brand brand) {
-		return repository.findByBrand(brand, pageable);
+		return repository.findByBrandAndStatus(brand, ProductStatusEnum.UP,
+				pageable);
 	}
 
 	@Override
@@ -364,9 +366,10 @@ public class ProductServiceImpl implements ProductService {
 				throw new BatchException("第" + (i + 1) + "行品牌找不到");
 			else
 				product.setBrand(brand);
-			
-			String place = xssfRow.getCell(4, HSSFRow.CREATE_NULL_AS_BLANK).getStringCellValue();	
-			if("".equals(place))
+
+			String place = xssfRow.getCell(4, HSSFRow.CREATE_NULL_AS_BLANK)
+					.getStringCellValue();
+			if ("".equals(place))
 				product.setPlaceOfProduction(PlaceEnum.OTHER);
 			else if ("国产".equals(place))
 				product.setPlaceOfProduction(PlaceEnum.DOMESTIC);
@@ -374,7 +377,7 @@ public class ProductServiceImpl implements ProductService {
 				product.setPlaceOfProduction(PlaceEnum.IMPORTED);
 			else
 				throw new BatchException("第" + (i + 1) + "行产地输入错误");
-			
+
 			float price = getNumericCellValue(xssfRow, i, 5);
 			product.setPrice(price);
 
@@ -404,12 +407,13 @@ public class ProductServiceImpl implements ProductService {
 				throw new BatchException("第" + (i + 1) + "行二级分类不存在");
 			else
 				product.setThirdCategory(thirdCategory);
-			
-			String label = xssfRow.getCell(9,HSSFRow.CREATE_NULL_AS_BLANK).getStringCellValue();	
+
+			String label = xssfRow.getCell(9, HSSFRow.CREATE_NULL_AS_BLANK)
+					.getStringCellValue();
 			if (label != null && label.length() > 150)
 				throw new BatchException("第" + (i + 1) + "行标签过长");
 			product.setLabel(label);
-			
+
 			product.setCreatedBy(provider);
 			product.setCreatedTime(Calendar.getInstance());
 			product.setAuthenticatedTime(Calendar.getInstance());
@@ -426,7 +430,18 @@ public class ProductServiceImpl implements ProductService {
 			int length) throws BatchException {
 		String value = "";
 		try {
-			value = xssfRow.getCell(column).getStringCellValue();
+			XSSFCell cell = xssfRow.getCell(column);
+			switch(cell.getCellType()){
+			case XSSFCell.CELL_TYPE_NUMERIC:
+				value = String.valueOf(cell.getNumericCellValue());
+				break;
+			case XSSFCell.CELL_TYPE_STRING:
+				value = xssfRow.getCell(column).getStringCellValue();
+				break;
+			default :
+				throw new BatchException("第" + (line + 1) + "行,第" + (column + 1)
+						+ "列数据错误");
+			}
 		} catch (Exception e) {
 			throw new BatchException("第" + (line + 1) + "行,第" + (column + 1)
 					+ "列数据错误");
@@ -481,23 +496,23 @@ public class ProductServiceImpl implements ProductService {
 			case "仪器":
 				Instrument i = new Instrument(product);
 				i = instrumentRepository.save(i);
-//				searchService.save(new ProductSearch(i));
+				// searchService.save(new ProductSearch(i));
 				continue;
 			case "试剂":
 				Reagents r = new Reagents(product);
 				r = reagentsRepository.save(r);
-//				searchService.save(new ProductSearch(r));
+				// searchService.save(new ProductSearch(r));
 				continue;
 			case "耗材":
 				Consumable c = new Consumable(product);
 				c = consumableRepository.save(c);
-//				searchService.save(new ProductSearch(c));
+				// searchService.save(new ProductSearch(c));
 				continue;
 			case "服务":
 				com.sj.model.model.Service s = new com.sj.model.model.Service(
 						product);
 				s = serviceRepository.save(s);
-//				searchService.save(new ProductSearch(s));
+				// searchService.save(new ProductSearch(s));
 				continue;
 			}
 		}
@@ -588,8 +603,8 @@ public class ProductServiceImpl implements ProductService {
 	public Page<Product> findBySearchModel(ModelSearchOption option,
 			Pageable pageable) {
 
-		return repository.findByModelLike("%" + option.getTitle() + "%",
-				pageable);
+		return repository.findByStatusAndModelLike(ProductStatusEnum.UP, "%"
+				+ option.getTitle() + "%", pageable);
 	}
 
 	@Override
