@@ -11,4 +11,8 @@ public interface SubjectCategoryService {
 	public List<SubjectCategoryJson> findAllJson();
 
 	public List<SubjectCategory> findAll();
+	
+	public List<SubjectCategory> findParentIsNull();
+	
+	List<SubjectCategory> findByShowOnIndex(List<SubjectCategory> subjectCategories);
 }

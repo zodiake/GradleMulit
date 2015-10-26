@@ -30,7 +30,7 @@ public class ProductCategoryController {
 	@Autowired
 	private SiteUserContext userContext;
 
-	@RequestMapping(value = "/productCategory/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/productCategories/{id}", method = RequestMethod.GET)
 	public String findByParent(@PathVariable("id") Long id, Model uiModel) {
 		ProductCategory pc = pcService.findByIdAndParent(id);
 		if (pc == null)

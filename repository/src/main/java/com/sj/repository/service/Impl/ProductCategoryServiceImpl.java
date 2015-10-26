@@ -2,7 +2,9 @@ package com.sj.repository.service.Impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.elasticsearch.common.collect.Lists;
@@ -82,10 +84,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	@Cacheable(value = "indexSecondProductCategoryCache", key = "#category.id")
-	public List<ProductCategory> findSecondCategory(ProductCategory category,
-			Pageable pageable) {
-		return repository.findByParentAndActivate(category,
-				ActivateEnum.ACTIVATE, pageable);
+	public List<ProductCategory> findSecondCategory(ProductCategory category) {
+		return repository.findByParentAndActivate(category,ActivateEnum.ACTIVATE);
 	}
 
 	@Override
@@ -157,5 +157,16 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	public ProductCategory findByIdAndParent(Long id) {
 		return repository.findByIdAndActivateAndParentIsNull(id,
 				ActivateEnum.ACTIVATE);
+	}
+
+	@Override
+	public Map<String, List<ProductCategory>> findAllShowOnHead() {
+		Map<String, List<ProductCategory>> maps = new HashMap<String, List<ProductCategory>>();
+		List<ProductCategory> firstCategories = findAllFirstCategory(ActivateEnum.ACTIVATE);
+		for (int i = 0,len = firstCategories.size(); i < len; i++) {
+			List<ProductCategory> pcs = repository.findByParentAndActivate(firstCategories.get(i),ActivateEnum.ACTIVATE);
+			maps.put(String.valueOf(i+1), pcs);
+		}
+		return maps;
 	}
 }

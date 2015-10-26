@@ -17,6 +17,7 @@ public interface SubjectRepository extends
 
 	Page<Subject> findByActivateOrderByCreatedTimeDesc(Pageable pageable, ActivateEnum activate);
 	
-	List<Subject> findByShowOnIndexAndActivate(ActivateEnum activate,
-			ActivateEnum acti);
+	List<Subject> findByShowOnIndexAndActivateAndCategory(ActivateEnum activate,
+			ActivateEnum acti,SubjectCategory category);
+
 }

@@ -2,6 +2,7 @@ package com.sj.web.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -15,12 +16,14 @@ import com.sj.model.model.Information;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.ScrollImage;
 import com.sj.model.model.Subject;
+import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.InformationService;
 import com.sj.repository.service.ProductCategoryService;
 import com.sj.repository.service.ScrollImageService;
+import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
 
 
@@ -38,21 +41,21 @@ public class IndexController {
 	private ScrollImageService scrollImageService;
 	@Autowired
 	private InformationCategoryService informationCategorySerivce;
+	@Autowired
+	private SubjectCategoryService subjectCategoryService;
 	
 	@RequestMapping(value = { "/", "/index" },method = RequestMethod.GET)
 	public String index(Model uiModel) {
-		List<ProductCategory> yqs = productCategoryService.findSecondCategory(new ProductCategory(1l),new PageRequest(0, 9));
-		uiModel.addAttribute("yqs", yqs);
-		List<ProductCategory> sjs = productCategoryService.findSecondCategory(new ProductCategory(2l),new PageRequest(0, 8));
-		uiModel.addAttribute("sjs", sjs);
-		List<ProductCategory> hcs = productCategoryService.findSecondCategory(new ProductCategory(3l),new PageRequest(0, 12));
-		uiModel.addAttribute("hcs", hcs);
-		List<ProductCategory> fws = productCategoryService.findSecondCategory(new ProductCategory(4l),new PageRequest(0, 14));
-		uiModel.addAttribute("fws", fws);
-		uiModel.addAttribute("pc", new ProductCategory());
+		Map<String,List<ProductCategory>> maps = productCategoryService.findAllShowOnHead();
+		uiModel.addAttribute("yqs", maps.get("1"));
+		uiModel.addAttribute("sjs", maps.get("2"));
+		uiModel.addAttribute("hcs", maps.get("3"));
+		uiModel.addAttribute("fws", maps.get("4"));
 		
-		List<Subject> subjects = subjectService.findByShowOnIndex();
-		uiModel.addAttribute("subjects", subjects);
+		List<SubjectCategory> subjectCategories = subjectCategoryService.findParentIsNull();
+		subjectCategories = subjectCategoryService.findByShowOnIndex(subjectCategories);
+		uiModel.addAttribute("subjectCategories", subjectCategories);
+		
 		List<Information> industryNews =informationService.findByCategoryAndShowOnIndex(informationCategorySerivce.findOne(7l));
 		List<Information> newResults =informationService.findByCategoryAndShowOnIndex(informationCategorySerivce.findOne(8l));
 		List<Information> vendorDynamics =informationService.findByCategoryAndShowOnIndex(informationCategorySerivce.findOne(9l));
@@ -61,7 +64,7 @@ public class IndexController {
 		uiModel.addAttribute("newResults", newResults);
 		uiModel.addAttribute("vendorDynamics", vendorDynamics);
 		
-		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 5));
+		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 10));
 		uiModel.addAttribute("brands", brands);
 		List<ScrollImage> scrollImages = scrollImageService.findAll();
 		uiModel.addAttribute("images", scrollImages);

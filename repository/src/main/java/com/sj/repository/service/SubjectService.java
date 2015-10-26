@@ -23,8 +23,6 @@ public interface SubjectService {
 
 	Subject update(Subject subject);
 
-	List<Subject> findByShowOnIndex();
-
 	public Page<SubjectJson> findByCategoryAndActivateJson(
 			ActivateEnum activate, SubjectCategory category, Pageable pageable);
 

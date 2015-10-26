@@ -63,6 +63,18 @@ public class Information implements Serializable {
 	public Information(Long id) {
 		this.id = id;
 	}
+	
+	public Information(Information info){
+		this.activate = info.activate;
+		this.category=info.category;
+		this.content=info.content;
+		this.createBy=info.createBy;
+		this.createdTime=info.createdTime;
+		this.id=info.id;
+		this.summary=info.summary;
+		this.title=info.title;
+		this.updatedTime=info.updatedTime;
+	}
 
 	public Long getId() {
 		return id;

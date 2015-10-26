@@ -22,13 +22,237 @@
 		</script>
 	</head>
 	<body>
-		<div th:include="head/head">
-			Head
-		</div>
-		<!-- header -->
-		<div class="wrapper">
-			<div class="screen-one clearfix">
-				<div class="J-banner fl">
+    <div class="top-line-wp">
+        <div class="w990">
+            <a href="/login">登录</a>
+            <span>|</span>
+            <a href="/signup?user">注册</a>
+        </div>
+    </div>
+    <div class="header">
+        <div class="head-box clearfix">
+            <a href="/" class="logo">
+                <img th:src="@{/img/logo.png}" alt="logo" width="135"/>
+                <span class="logo-hd">
+                    <img th:src="@{/img/logo-txt.png}"/>
+                </span>
+            </a>
+            <div class="search-wp">
+                <div class="search-tab">
+                    <a class="active">商品</a>
+                    <a>型号</a>
+                    <a>品牌</a>
+                    <a>专题</a>
+                    <a>资讯</a>
+                </div>
+                <div class="search-panel">
+                    <form>
+                        <div class="search-cont">
+                            <input type="text" />
+                            <button type="submit" class="search-btn">搜索</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="head-cart">
+                <div class="cart-num">5</div>
+                <div class="ct-cart">我的购物车</div>
+                <div class="ct-cart-wrap bodr hide" style="display: none;">
+                    <h3><b class="gray-deeply">最近加入的商品</b></h3>
+                    <div class="ct-cart-list">
+                        <ul>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣 肉松饼898克 热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣网络热销装网络热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣 肉松饼898克 网络热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>肉松饼898克 网络热销装网络热销装网络热销装网络热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣 肉松饼898克 </a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣 肉松饼898克装网络热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ct-total">
+                        共<b>21</b>件商品　共计<strong>￥ 1961.95</strong>
+                        <a class="go-cart">去购物车</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="head-nav">
+            <div class="nav-box">
+                <ul>
+                    <li class="active"><a href="/">首页</a></li>
+                    <li><a href="/productCategories/1">仪器</a></li>
+                    <li><a href="/productCategories/2">试剂</a></li>
+                    <li><a href="/productCategories/3">耗材</a></li>
+                    <li><a href="/productCategories/4">服务</a></li>
+                    <li><a href="/subjects">专题</a></li>
+                    <li><a href="#">资讯</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- header -->
+    <div class="wrapper index-wrap">
+        <div class="screen-one clearfix">
+            <div class="category-con">
+                <div class="category"><a href="#">全部分类</a></div>
+                <div class="category-list">
+                    <ul>
+                        <li>
+                            <label class="icon-yq">仪器</label>
+                            <p>
+                                <a>影像系统</a>
+                                <a>生物芯片</a>
+                                <a>影像系统</a>
+                                <a>生物</a>
+                                <a>影像系统</a>
+                                <a>生物芯片</a>
+                                <a>生物芯片</a>
+                            </p>
+                            <div class="category-child-list">
+                            	<a th:each="productCategory:${yqs}" 
+                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
+                            		th:text="${productCategory.name}"></a>
+                            </div>
+                        </li>
+                        <li>
+                            <label class="icon-sj">试剂</label>
+                            <p>
+                                <a>影像系统</a>
+                                <a>生物芯片</a>
+                                <a>影像系统</a>
+                                <a>生物</a>
+                                <a>影像系统</a>
+                                <a>生物芯片</a>
+                                <a>生物芯片</a>
+                            </p>
+                            <div class="category-child-list">
+                            	<a th:each="productCategory:${sjs}" 
+                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
+                            		th:text="${productCategory.name}"></a>
+                            </div>
+                        </li>
+                        <li>
+                            <label class="icon-hc">耗材</label>
+                            <p>
+                                <a>影像系统</a>
+                                <a>生物芯片</a>
+                                <a>影像系统</a>
+                                <a>生物</a>
+                                <a>影像系统</a>
+                                <a>生物芯片</a>
+                                <a>生物芯片</a>
+                            </p>
+                            <div class="category-child-list">
+                            	<a th:each="productCategory:${hcs}" 
+                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
+                            		th:text="${productCategory.name}"></a>
+                            </div>
+                        </li>
+                        <li>
+                            <label class="icon-fw">服务</label>
+                            <p>
+                                <a>影像系统</a>
+                                <a>生物芯片</a>
+                                <a>影像系统</a>
+                                <a>生物</a>
+                                <a>影像系统</a>
+                                <a>生物芯片</a>
+                                <a>生物芯片</a>
+                            </p>
+                            <div class="category-child-list">
+                            	<a th:each="productCategory:${fws}" 
+                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
+                            		th:text="${productCategory.name}"></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="J-banner fl">
 					<div id="J-banner-carousel" class="carousel slide"
 					data-ride="carousel">
 						<ol class="carousel-indicators">
@@ -41,182 +265,144 @@
 						</div>
 					</div>
 				</div>
-				<!-- j-banner -->
-				<div class="news fr">
-					<div class="tabs-nav news-nav">
-						<a class="active">行业要闻</a><a>新品成果</a><a class="nobor">厂商动态</a>
-					</div>
-					<div class="tab-conts news-box">
-						<div class="tab-panel news-list">
-							<ul>
-								<li th:each="infor:${industryNews}">
-									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
-								</li>
-							</ul>
-							<a class="more blue" href="/informationCategorys/7">more>></a>
-						</div>
-						<div class="tab-panel news-list hide">
-							<ul>
-								<li th:each="infor:${newResults}">
-									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
-								</li>
-							</ul>
-							<a class="more blue" href="/informationCategorys/8">more>></a>
-						</div>
-						<div class="tab-panel news-list hide">
-							<ul>
-								<li th:each="infor:${vendorDynamics}">
-									<a th:href="'/informations/'+${infor.id}"> <h4 class="gray-deeply text350" th:text="${infor.title}"></h4> <p class="text350" th:text="${infor.summary}"></p> </a>
-								</li>
-							</ul>
-							<a class="more blue" href="/informationCategorys/9">more>></a>
-						</div>
-					</div>
-				</div>
-				<!--news-->
-			</div>
-			<div class="products">
-				<div class="hd">
-					<span>产品库</span>
-				</div>
-				<div class="product-list">
-					<div class="product-wrap clearfix">
-						<div class="product-box fl clearfix">
-							<div class="tabs-nav product-nav">
-								<a class="active">仪器</a><a>试剂</a><a>耗材</a><a class="nobor">服务</a>
-							</div>
-							<div class="tab-conts products-con">
-								<div class="tab-panel products-detail">
-									<div class="fl list-mode">
-										<ul>
-											<li th:each="productCategory,categoryStat:${yqs}" th:if="${categoryStat.index lt 5}">
-												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="fr list-mode">
-										<div style="float: right;padding-right: 10px; padding-top: 10px;" >
-											<a href="/productCategory/1" class="more blue">more>></a>
-										</div>
-										<ul>
-											<li th:each="productCategory,categoryStat:${yqs}" th:unless="${categoryStat.index lt 5}">
-												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-												</div>
-											</li>
-										</ul>
-									</div>
-
-								</div>
-								<div class="tab-panel products-detail hide">
-									<div class="fl list-mode">
-										<ul>
-											<li th:each="productCategory,categoryStat:${sjs}"  th:if="${categoryStat.index lt 4}">
-												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-												<div>
-													<i th:each="child:${productCategory.categories}"> <a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="fr list-mode">
-										<div style="float: right;padding-right: 10px; padding-top: 10px;" >
-											<a href="/productCategory/2" class="more blue">more>></a>
-										</div>
-										<ul>
-											<li th:each="productCategory,categoryStat:${sjs}"  th:unless="${categoryStat.index lt 4}">
-												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-												<div>
-													<i th:each="child:${productCategory.categories}"> <a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="tab-panel products-detail hide">
-									<div class="fl list-mode">
-										<ul>
-											<li th:each="productCategory,categoryStat:${hcs}" th:if="${categoryStat.index lt 6}">
-												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="fr list-mode">
-										<div style="float: right;padding-right: 10px; padding-top: 10px;" >
-											<a href="/productCategory/3" class="more blue">more>></a>
-										</div>
-										<ul>
-											<li th:each="productCategory,categoryStat:${hcs}" th:unless="${categoryStat.index lt 6}">
-												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="tab-panel products-detail hide">
-									<div class="fl list-mode">
-										<ul>
-											<li th:each="productCategory,categoryStat:${fws}" th:if="${categoryStat.index lt 7}">
-												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="fr list-mode">
-										<div style="float: right;padding-right: 10px; padding-top: 10px;" >
-											<a href="/productCategory/4" class="more blue">more>></a>
-										</div>
-										<ul>
-											<li th:each="productCategory,categoryStat:${fws}" th:unless="${categoryStat.index lt 7}">
-												<a th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"><label th:text="${productCategory.name}"></label></a>
-												<div>
-													<i th:each="child:${productCategory.categories}"><a th:text="${child.name}" th:href="@{'/products/_search?thirdCategory='+${child.id}}"></a><span>&nbsp;|&nbsp;</span></i>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="brand fr">
-							<h3>品牌</h3>
-							<div class="brand-box">
-								<a th:each="brand:${brands}" th:with="href=${brand.href}" th:href="@{${href}}" target="_blank"><img th:src="@{${brand.coverImg}}"/></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="topic">
-				<div class="hd">
-					<span>解决方案</span>
-				</div>
-				<div class="global-box topic-box">
-					<ul>
-						<li th:each="subject:${subjects}">
-							<a th:href="'/subjects/'+${subject.id}">
-							<div class="title ft16 text210" th:text="${subject.name}">
-								生物芯片扫描仪
-							</div>
-							<div class="spe-pic">
-								<img alt="" th:src="@{${subject.image}}" width="210" height="170" />
-							</div> <div class="topic-detail" th:text="${subject.summary}"></div> </a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div th:include="footer/footer"></div>
-	</body>
+            <!-- j-banner -->
+            <div class="news fr">
+                <div class="tabs-nav news-nav">
+                    <a class="active">行业要闻</a>
+                    <a>新品成果</a>
+                    <a class="nobor">厂商动态</a>
+                </div>
+                <div class="tab-conts news-box">
+                    <div class="tab-panel news-list">
+                        <ul>
+                            <li th:each="infor:${industryNews}">
+                                <a th:href="'/informations/'+${infor.id}" th:text="${infor.title}"></a>
+                            </li>
+                        </ul>
+                        <a class="more" href="/informationCategorys/7"><img th:src="@{/img/more.png}" /></a>
+                    </div>
+                    <div class="tab-panel news-list hide">
+                        <ul>
+                       		<li th:each="infor:${newResults}">
+                                <a th:href="'/informations/'+${infor.id}" th:text="${infor.title}"></a>
+                            </li>
+                        </ul>
+                        <a class="more" href="/informationCategorys/8"><img th:src="@{/img/more.png}" /></a>
+                    </div>
+                    <div class="tab-panel news-list hide">
+                        <ul>
+                        	<li th:each="infor:${vendorDynamics}">
+                                <a th:href="'/informations/'+${infor.id}" th:text="${infor.title}"></a>
+                            </li>
+                        </ul>
+                        <a class="more" href="/informationCategorys/9"><img th:src="@{/img/more.png}" /></a>
+                    </div>
+                </div>
+            </div>
+            <!--news-->
+        </div>
+        <div class="products">
+            <div class="hd-line clearfix">
+                <h3 class="fl">商品展示</h3>
+                <a class="fr"><img src="img/more.png"/></a>
+            </div>
+            <div class="product-list">
+                <div class="product-wrap clearfix">
+                    <div class="product-box fl">
+                        <dl>
+                            <dt>
+                                <img src="img/topic1.jpg" width="145" height="110" />
+                            </dt>
+                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
+                            <dd class="pro-price">￥2000.000,000</dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <img src="img/topic1.jpg" width="145" height="110" />
+                            </dt>
+                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
+                            <dd class="pro-price">￥2000.000,000</dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <img src="img/topic1.jpg" width="145" height="110" />
+                            </dt>
+                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
+                            <dd class="pro-price">￥2000.000,000</dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <img src="img/topic1.jpg" width="145" height="110" />
+                            </dt>
+                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
+                            <dd class="pro-price">￥2000.000,000</dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <img src="img/topic1.jpg" width="145" height="110" />
+                            </dt>
+                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
+                            <dd class="pro-price">￥2000.000,000</dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <img src="img/topic1.jpg" width="145" height="110" />
+                            </dt>
+                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
+                            <dd class="pro-price">￥2000.000,000</dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <img src="img/topic1.jpg" width="145" height="110" />
+                            </dt>
+                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
+                            <dd class="pro-price">￥2000.000,000</dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                <img src="img/topic1.jpg" width="145" height="110" />
+                            </dt>
+                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
+                            <dd class="pro-price">￥2000.000,000</dd>
+                        </dl>
+                    </div>
+                    <div class="brand fr">
+                        <div class="brand-box">
+                        	<a th:each="brand:${brands}" th:href="@{${brand.href}}"><img th:src="@{${brand.coverImg}}" width="110" height="65"/>
+                        	</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="topic">
+            <div class="hd-line clearfix">
+                <h3 class="fl">专题</h3>
+                <a class="fr" href="/subjects"><img th:src="@{/img/more.png}"/></a>
+            </div>
+            <div th:each="subjectCategory:${subjectCategories}">
+            <div class="hd-cate">
+                <span th:text="${subjectCategory.name}"></span>
+            </div>
+            <div class="global-box topic-box">
+                <ul>
+                    <li th:each="subject:${subjectCategory.subjects}">
+                        <a>
+                            <div class="title ft16" th:text="${subject.name}">生物芯片扫描仪</div>
+                            <div class="spe-pic">
+                                <img th:src="${subject.image}" width="210" height="175"/>
+                            </div>
+                            <div class="topic-detail" th:text="${subject.summary}">
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        © 1998 - 2015 SJ Inc. All Rights Reserved
+    </div>
+</body>
 </html>

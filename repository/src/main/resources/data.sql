@@ -594,107 +594,10 @@ insert into city(id,name,province_id) values(502,'舟山市',34);
 
 -- test brand
 insert into brand(id,name,activate,cover_img,created_time,href) values(1,'Thermo Fisher Scientific',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1','http://www.thermofisher.com/cn/zh/home.html');
-insert into brand(id,name,activate,cover_img,created_time,href) values(2,'3M',1,'http://localhost:8000/2015/9/3M.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(3,'AccuStandard',1,'http://localhost:8000/2015/9/AccuStandard.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(4,'Acros',1,'http://localhost:8000/2015/9/Acros.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(5,'AGILENT',1,'http://localhost:8000/2015/9/AGILENT.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(6,'ALDRICH',1,'http:/localhost:8000//2015/9/ALDRICH.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(7,'Alexis',1,'http://localhost:8000/2015/9/Alexis.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(8,'Alfa Aesar',1,'http://localhost:8000/2015/9/Alfa Aesar.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(9,'ALLTECH',1,'http://localhost:8000/2015/9/ALLTECH.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(10,'ANPEL',1,'http://localhost:8000/2015/9/ANPEL.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(11,'APSC',1,'http://localhost:8000/2015/9/APSC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(12,'Beacon',1,'http://localhost:8000/2015/9/Beacon.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(13,'BRAND',1,'http://localhost:8000/2015/9/BRAND.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(14,'CDN Isotopes',1,'http://localhost:8000/2015/9/CDN Isotopes.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(15,'CAMBRIDGE ISOTOP',1,'http:/localhost:8000//2015/9/CAMBRIDGE ISOTOP.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(16,'Camsco',1,'http://localhost:8000/2015/9/Camsco.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(17,'CaroteNature GmbH',1,'http:/localhost:8000//2015/9/CaroteNature GmbH.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(18,'Cerilliant',1,'http://localhost:8000/2015/9/Cerilliant.jpg','2012-1-1','www.baidu.com');
+insert into brand(id,name,activate,cover_img,created_time,href) values(2,'BIOMERIEUX',1,'http://localhost:8000/2015/9/BIOMERIEUX.jpg','2012-1-1','www.baidu.com');
+insert into brand(id,name,activate,cover_img,created_time,href) values(3,'CDRC',1,'http://localhost:8000/2015/9/CDRC.jpg','2012-1-1','www.baidu.com');
+insert into brand(id,name,activate,cover_img,created_time,href) values(4,'MERCK',1,'http://localhost:8000/2015/9/MERCK.jpg','2012-1-1','www.baidu.com');
 
-insert into brand(id,name,activate,cover_img,created_time,href) values(19,'Chemservice',1,'http://localhost:8000/2015/9/Chemservice.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(20,'Chiron',1,'http://localhost:8000/2015/9/Chiron.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(21,'ChromaDex',1,'http://localhost:8000/2015/9/ChromaDex.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(22,'CNW',1,'http://localhost:8000/2015/9/CNW.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(23,'Cole Parmer',1,'http://localhost:8000/2015/9/Cole Parmer.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(24,'COWIE',1,'http://localhost:8000/2015/9/COWIE.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(25,'Dr',1,'http://localhost:8000/2015/9/Dr.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(26,'FAPAS',1,'http://localhost:8000/2015/9/FAPAS.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(27,'FLUKA',1,'http://localhost:8000/2015/9/FLUKA.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(28,'GL',1,'http://localhost:8000/2015/9/GL.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(29,'Hamilton',1,'http://localhost:8000/2015/9/Hamilton.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(30,'Icon Isotope',1,'http://localhost:8000/2015/9/Icon Isotope.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(31,'IDEX',1,'http://localhost:8000/2015/9/IDEX.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(32,'IRMM',1,'http://localhost:8000/2015/9/IRMM.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(33,'ISMATEC',1,'http://localhost:8000/2015/9/ISMATEC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(34,'JUN-AIR',1,'http://localhost:8000/2015/9/JUN-AIR.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(35,'KARTELL',1,'http://localhost:8000/2015/9/KARTELL.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(36,'KNF',1,'http://localhost:8000/2015/9/KNF.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(37,'KROMASIL',1,'http://localhost:8000/2015/9/KROMASIL.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(38,'Larodan',1,'http://localhost:8000/2015/9/Larodan.jpg','2012-1-1','www.baidu.com');
-
-insert into brand(id,name,activate,cover_img,created_time,href) values(39,'LC LAB',1,'http://localhost:8000/2015/9/LC LAB.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(40,'LGC',1,'http://localhost:8000/2015/9/LGC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(41,'Matreya LLC',1,'http://localhost:8000/2015/9/Matreya LLC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(42,'Medical Isotope',1,'http://localhost:8000/2015/9/Medical Isotope.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(43,'Megazyme',1,'http://localhost:8000/2015/9/Megazyme.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(44,'MERCK',1,'http://localhost:8000/2015/9/MERCK.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(45,'METROHM',1,'http://localhost:8000/2015/9/METROHM.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(46,'METTLER',1,'http://localhost:8000/2015/9/METTLER.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(47,'MN',1,'http://localhost:8000/2015/9/MN.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(48,'MRI',1,'http://localhost:8000/2015/9/MRI.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(49,'NIST',1,'http://localhost:8000/2015/9/NIST.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(50,'NSI',1,'http://localhost:8000/2015/9/NSI.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(51,'NU-CHEK',1,'http://localhost:8000/2015/9/NU-CHEK.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(52,'o2si',1,'http://localhost:8000/2015/9/o2si.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(53,'ORION',1,'http://localhost:8000/2015/9/ORION.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(54,'OLChemIm',1,'http://localhost:8000/2015/9/OLChemIm.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(55,'PALL',1,'http://localhost:8000/2015/9/PALL.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(56,'PE',1,'http://localhost:8000/2015/9/PE.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(57,'PHENOMENEX',1,'http://localhost:8000/2015/9/PHENOMENEX.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(58,'Phytolab',1,'http://localhost:8000/2015/9/Phytolab.jpg','2012-1-1','www.baidu.com');
-
-insert into brand(id,name,activate,cover_img,created_time,href) values(59,'PSS',1,'http://localhost:8000/2015/9/PSS.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(60,'RDH',1,'http://localhost:8000/2015/9/RDH.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(61,'REGIS',1,'http://localhost:8000/2015/9/REGIS.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(62,'RESTEK',1,'http://localhost:8000/2015/9/RESTEK.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(63,'RTC',1,'http://localhost:8000/2015/9/RTC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(64,'Schott',1,'http://localhost:8000/2015/9/Schott.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(65,'SGE',1,'http://localhost:8000/2015/9/SGE.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(66,'Shodex',1,'http://localhost:8000/2015/9/Shodex.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(67,'SIGMA',1,'http://localhost:8000/2015/9/SIGMA.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(68,'Silicycle',1,'http://localhost:8000/2015/9/Silicycle.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(69,'SPEX',1,'http://localhost:8000/2015/9/SPEX.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(70,'SUPELCO',1,'http://localhost:8000/2015/9/SUPELCO.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(71,'SWAGELOK',1,'http://localhost:8000/2015/9/SWAGELOK.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(72,'talboys',1,'http://localhost:8000/2015/9/talboys.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(73,'TLC',1,'http://localhost:8000/2015/9/TLC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(74,'TRANSGENOMIC',1,'http://localhost:8000/2015/9/TRANSGENOMIC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(75,'TRC',1,'http://localhost:8000/2015/9/TRC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(76,'TSK',1,'http://localhost:8000/2015/9/TSK.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(77,'Varian',1,'http://localhost:8000/2015/9/Varian.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(78,'VITLAB',1,'http://localhost:8000/2015/9/VITLAB.jpg','2012-1-1','www.baidu.com');
-
-insert into brand(id,name,activate,cover_img,created_time,href) values(79,'WATERS',1,'http://localhost:8000/2015/9/WATERS.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(80,'Wellington',1,'http://localhost:8000/2015/9/Wellington.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(81,'WHATMAN',1,'http://localhost:8000/2015/9/WHATMAN.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(82,'witeg',1,'http://localhost:8000/2015/9/witeg.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(83,'WITEGA Laboratorien',1,'http://localhost:8000/2015/9/WITEGA Laboratorien.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(84,'艾德姆 ADAM',1,'http://localhost:8000/2015/9/艾德姆 ADAM.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(85,'岛津',1,'http://localhost:8000/2015/9/岛津.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(86,'东京理化',1,'http://localhost:8000/2015/9/东京理化.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(87,'弗鲁克(FLUKO)',1,'http://localhost:8000/2015/9/弗鲁克(FLUKO).jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(88,'梯希爱(TCI)',1,'http://localhost:8000/2015/9/梯希爱(TCI).jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(89,'一恒',1,'http://localhost:8000/2015/9/一恒.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(90,'MEDSON',1,'http://localhost:8000/2015/9/MEDSON.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(91,'TOYOBO',1,'http://localhost:8000/2015/9/TOYOBO.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(92,'CDRC',1,'http://localhost:8000/2015/9/CDRC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(93,'BIOMERIEUX',1,'http://localhost:8000/2015/9/BIOMERIEUX.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(94,'康百德',1,'http://localhost:8000/2015/9/康百德.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(95,'TBC',1,'http://localhost:8000/2015/9/TBC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(96,'REACON',1,'http://localhost:8000/2015/9/REACON.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(97,'中科美菱',1,'http://localhost:8000/2015/9/中科美菱.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(98,'Roche',1,'http://localhost:8000/2015/9/Roche.jpg','2012-1-1','www.baidu.com');
 
 -- test category
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -708,14 +611,20 @@ values(4,'服务',null,1,'2012-1-1','tom','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(5,'资讯',null,1,'2012-1-1','tom','ic');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(6,'解决方案分类',null,1,'2012-1-1','tom','sc');
+values(6,'方案大类1',null,1,'2012-1-1','tom','sc');
 insert into category(id,name,category_type,activate,url) values(7,'行业要闻','ic',1,'HYYW');
 insert into category(id,name,category_type,activate,url) values(8,'新品成果','ic',1,'XPCG');
 insert into category(id,name,category_type,activate,url) values(9,'厂商动态','ic',1,'CSDT');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(10,'解决方案分类子类1',null,1,'2012-1-1','tom','sc');
+values(10,'方案子类1',6,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(11,'解决方案分类子类1',null,1,'2012-1-1','tom','sc');
+values(11,'方案子类2',6,1,'2012-1-1','tom','sc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(12,'方案大类2',null,1,'2012-1-1','tom','sc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(13,'方案子类1',12,1,'2012-1-1','tom','sc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(14,'方案子类2',12,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(20,'广告位1',null,1,'2012-1-1','tom','ac');
 
@@ -2665,23 +2574,23 @@ values(7,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider
 -- test product
 -- tom product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type) 
-values(1,'1234567890123456789012345678901234567890','http://localhost:8000/2015/9/witeg.jpg',10.0,'/product/1',1,31,32,1,1,'HD300',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(1,'1234567890123456789012345678901234567890','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/1',1,31,32,1,1,'HD300',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(2,'product2','http://localhost:8000/2015/9/witeg.jpg',10.0,'/product/2',3,761,762,1,2,'HD302',1,'10支',1,1,'2012-12-12 12:23:32','c');
+values(2,'product2','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/2',3,761,762,1,2,'HD302',1,'10支',1,1,'2012-12-12 12:23:32','c');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(3,'product3','http://localhost:8000/2015/9/witeg.jpg',10.0,'/product/3',1,31,32,1,3,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(3,'product3','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/3',1,31,32,1,3,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(4,'product4','http://localhost:8000/2015/9/witeg.jpg',10.0,'/product/4',4,889,890,1,4,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','s');
+values(4,'product4','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/4',4,889,890,1,4,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','s');
 
 -- mary2 product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(5,'product5','http://localhost:8000/2015/9/witeg.jpg',10.0,'/product/1',1,31,32,2,5,'HD303',1,'10支',1,0,'2012-12-12 12:23:32','i');
+values(5,'product5','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/1',1,31,32,2,5,'HD303',1,'10支',1,0,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(6,'product6','http://localhost:8000/2015/9/witeg.jpg',10.0,'/product/2',1,31,32,2,6,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(6,'product6','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/2',1,31,32,2,6,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(7,'product7','http://localhost:8000/2015/9/witeg.jpg',10.0,'/product/3',1,31,32,2,7,'HD303',1,'10支',1,2,'2012-12-12 12:23:32','i');
+values(7,'product7','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/3',1,31,32,2,7,'HD303',1,'10支',1,2,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(8,'product8','http://localhost:8000/2015/9/witeg.jpg',10.0,'/product/4',1,31,32,2,8,'HD303',1,'10支',1,3,'2012-12-12 12:23:32','i');
+values(8,'product8','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/4',1,31,32,2,8,'HD303',1,'10支',1,3,'2012-12-12 12:23:32','i');
 
 -- test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');
@@ -2693,13 +2602,13 @@ insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (1,'1234567890123456789012345678901234567890',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',10);
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (2,'subject2',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',10);
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (3,'subject3',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',10);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (4,'subject4',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',10);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (5,'subject5',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',10);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (6,'subject6',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (7,'subject7',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (8,'subject8',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (9,'subject9',0,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (10,'subject10',0,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (4,'subject4',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (5,'subject5',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',14);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (6,'subject6',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',14);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (7,'subject7',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',13);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (8,'subject8',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',13);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (9,'subject9',0,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',14);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (10,'subject10',0,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',14);
 
 insert into solution(id,name,subject_id,active) values(1,'solution1',1,1);
 insert into solution(id,name,subject_id,active) values(2,'solution2',1,1);

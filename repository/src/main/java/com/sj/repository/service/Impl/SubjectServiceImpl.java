@@ -82,13 +82,6 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@Cacheable(value = "indexSubjectsCache")
-	public List<Subject> findByShowOnIndex() {
-		return repository.findByShowOnIndexAndActivate(ActivateEnum.ACTIVATE,
-				ActivateEnum.ACTIVATE);
-	}
-
-	@Override
 	public Page<SubjectJson> findByCategoryAndActivateJson(
 			ActivateEnum activate, SubjectCategory category, Pageable pageable) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -134,6 +127,7 @@ public class SubjectServiceImpl implements SubjectService {
 		s.setName(subject.getName());
 		s.setSummary(subject.getSummary());
 		s.setImage(subject.getImage());
+		s.setSolutions(s.getSolutions());
 		return s;
 	}
 

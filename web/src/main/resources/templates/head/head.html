@@ -1,169 +1,152 @@
-<div th:fragment="head" class="header" >
-	<div class="head-box clearfix">
-		<script type="text/javascript" th:src="@{/js/script.js}"></script>
-		<script src="/js/searchForm.js"></script>
-		<a href="/" class="logo">
-			<img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/>
-			<span class="logo-hd"><img th:src="@{/img/logo-txt.png}" /></span>
-		</a>
-		<div class="head-search">
-			<form id="searchForm" th:action="${action==null?'/products/_search':action}">
-				<span class="searched" th:text="${field==null?'商品':field}">商品</span>
-				<input type="text" th:name="${name==null?'title':name}" id="searchText" th:value="${option==null?null:option.title}"/>
-				<input class="icon-search" type="submit" value="" />
-				<div class="search-sort">
-					<a data-name="/products/_search" data-input="title">商品</a>
-					<a data-name="/models/_search?show=true" data-input="title">型号</a>
-					<a data-name="/brands/_search?show=true" data-input="title">品牌</a>
-					<a data-name="/subject/_search" data-input="title">方案</a>
-					<a data-name="/info/_search" data-input="title">资讯</a>
-				</div>
-			</form>
-		</div>
-		<div class="head-menu"  th:if="${session.SPRING_SECURITY_CONTEXT==null}">
-			<a href="/login">登录</a>
-			<span>|</span>
-			<a href="/signup?user">注册</a>
-		</div>
-		<div class="head-dorpdown" th:unless="${session.SPRING_SECURITY_CONTEXT==null}">
-			<script type="text/javascript" th:src="@{/js/headCart.js}"></script>
-			<div class="head-cart" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-				<a href="/user/carts"><div class="ct-cart">
-					购物车(<i th:if="${session.cartLines==null}" th:text="0" id="allNum"></i><i th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="allNum"></i>)
-				</div></a>
-				<div class="ct-cart-wrap bodr hide" >
-					<h3><b class="gray-deeply">购物车中的商品</b></h3>
-					<div class="ct-cart-list">
-						<ul id="cartUl">
-							<li th:each="cartline:${session.cartLines}" th:id="'cart'+${cartline.productId}">
-								<div class="fl ct-img">
-									<a th:href="'/products/'+${cartline.productId}"><img th:src="@{${cartline.image}}" width="50" height="50"/></a>
-								</div>
-								<div class="fl ct-name">
-									<a th:text="${cartline.name}" th:href="'/products/'+${cartline.productId}"></a>
-								</div>
-								<div class="fr ct-detail">
-									<span class="ct-price"> <b th:text="${cartline.price}"></b>×<i th:id="'cartNumber'+${cartline.productId}" th:text="${cartline.number}"></i> </span>
-									<br/>
-									<a class="fr cartRemove"  th:attr="data-id=${cartline.productId}">删除</a>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="ct-total">
-						共<b th:if="${session.cartLines==null}" th:text="0" id="totalNum"></b><b th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="totalNum"></b>种商品 <a class="go-cart" href="/user/carts">去购物车</a>
-					</div>
-				</div>
-			</div>
-			<div class="head-user hide-menu">
-				<script type="text/javascript" th:src="@{/js/logout.js}"></script>
-				<div class="user-name" id="username"  th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></div>
-				<div class="user-menu show-menu bodr">
-					<ul>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_UNAUTH">
-							<a href="/supplier/detail">个人中心</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
-							<a href="/provider/detail">个人中心</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/detail">个人中心</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/collection">收藏夹</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/carts">我的购物车</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/buyRecords">我的采购申请</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
-							<a target="_blank" href="/provider/products?form">商品发布</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
-							<a target="_blank" href="/provider/products">商品维护</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
-							<a href="/provider/count">商品信息统计</a>
-						</li>
-						<li>
-							<form id="logoutForm" action="/logout" method="post">
-							 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-								<a id="logout">退出登录</a>
-							</form>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="head-nav">
-		<div class="nav-box">
-			<ul th:if="${pc!=null}">
-				<li th:class="${pc.id==0}?active">
-					<a href="/">首页</a>
-				</li>
-				<li th:class="${pc.id==1}?active">
-					<a href="/productCategory/1">仪器</a>
-				</li>
-				<li th:class="${pc.id==2}?active">
-					<a href="/productCategory/2">试剂</a>
-				</li>
-				<li th:class="${pc.id==3}?active">
-					<a href="/productCategory/3">耗材</a>
-				</li>
-				<li th:class="${pc.id==4}?active">
-					<a href="/productCategory/4">服务</a>
-				</li>
-				<li th:class="${pc.id==6}?active">
-					<a href="/subjects">解决方案</a>
-				</li>
-				<li class="news-down hide-menu active nobor" th:if="${pc.id == 7 or pc.id==8 or pc.id ==9}">
-					<a >资讯</a>
-					<div class="news-sort show-menu">
-						<a href="/informationCategorys/7">行业要闻</a>
-						<a href="/informationCategorys/8">新品成果</a>
-						<a href="/informationCategorys/9">厂商动态</a>
-					</div>
-				</li>
-				<li class="news-down hide-menu" th:unless="${pc.id == 7 or pc.id==8 or pc.id ==9}">
-					<a >资讯</a>
-					<div class="news-sort show-menu">
-						<a href="/informationCategorys/7">行业要闻</a>
-						<a href="/informationCategorys/8">新品成果</a>
-						<a href="/informationCategorys/9">厂商动态</a>
-					</div>
-				</li>
-			</ul>
-			<ul th:unless="${pc!=null}">
-				<li>
-					<a href="/">首页</a>
-				</li>
-				<li>
-					<a href="/productCategory/1">仪器</a>
-				</li>
-				<li>
-					<a href="/productCategory/2">试剂</a>
-				</li>
-				<li>
-					<a href="/productCategory/3">耗材</a>
-				</li>
-				<li>
-					<a href="/productCategory/4">服务</a>
-				</li>
-				<li>
-					<a href="/subjects">解决方案</a>
-				</li>
-				<li class="news-down hide-menu">
-					<a >资讯</a>
-					<div class="news-sort show-menu">
-						<a href="/informationCategorys/7">行业要闻</a>
-						<a href="/informationCategorys/8">新品成果</a>
-						<a href="/informationCategorys/9">厂商动态</a>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>
+<div class="top-line-wp">
+        <div class="w990">
+            <a href="/login">登录</a>
+            <span>|</span>
+            <a href="/siguup?user">注册</a>
+        </div>
+    </div>
+    <div class="header">
+        <div class="head-box clearfix">
+            <a href="#" class="logo">
+                <img th:src="@{/img/logo.png}" alt="logo" width="135"/>
+                <span class="logo-hd">
+                    <img th:src="@{/img/logo-txt.png}"/>
+                </span>
+            </a>
+            <div class="search-wp">
+                <div class="search-tab">
+                    <a class="active">商品</a>
+                    <a>型号</a>
+                    <a>品牌</a>
+                    <a>专题</a>
+                    <a>资讯</a>
+                </div>
+                <div class="search-panel">
+                    <form>
+                        <div class="search-cont">
+                            <input type="text" />
+                            <button type="submit" class="search-btn">搜索</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="head-cart">
+                <div class="cart-num">5</div>
+                <div class="ct-cart">我的购物车</div>
+                <div class="ct-cart-wrap bodr hide" style="display: none;">
+                    <h3><b class="gray-deeply">最近加入的商品</b></h3>
+                    <div class="ct-cart-list">
+                        <ul>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣 肉松饼898克 热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣网络热销装网络热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣 肉松饼898克 网络热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>肉松饼898克 网络热销装网络热销装网络热销装网络热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣 肉松饼898克 </a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fl ct-img">
+                                    <a><img src="img/list1.jpg" width="50" height="50"/></a>
+                                </div>
+                                <div class="fl ct-name">
+                                    <a>友臣 肉松饼898克装网络热销装</a>
+                                </div>
+                                <div class="fr ct-detail">
+                                    <span class="ct-price">
+                                            <b>150.00</b>×1
+                                        </span>
+                                    <br/>
+                                    <a class="fr">删除</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ct-total">
+                        共<b>21</b>件商品　共计<strong>￥ 1961.95</strong>
+                        <a class="go-cart">去购物车</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="head-nav">
+            <div class="nav-box">
+                <ul>
+                    <li class="active"><a href="/">首页</a></li>
+                    <li><a href="/productCategories/1">仪器</a></li>
+                    <li><a href="/productCategories/2">试剂</a></li>
+                    <li><a href="/productCategories/3">耗材</a></li>
+                    <li><a href="/productCategories/4">服务</a></li>
+                    <li><a href="/subjects">专题</a></li>
+                    <li><a href="#">资讯</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>

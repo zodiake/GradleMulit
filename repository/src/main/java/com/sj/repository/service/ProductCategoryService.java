@@ -1,6 +1,8 @@
 package com.sj.repository.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +30,7 @@ public interface ProductCategoryService {
 
 	public ProductCategory update(ProductCategory category);
 
-	public List<ProductCategory> findSecondCategory(ProductCategory category,Pageable pageable);
+	public List<ProductCategory> findSecondCategory(ProductCategory category);
 
 	public List<ProductCategory> findAllFirstCategory(ActivateEnum activate);
 
@@ -43,4 +45,6 @@ public interface ProductCategoryService {
 	public ProductCategory findByIdAndParent(Long id);
 
 	List<CategoryJson> ajaxFindByParent(ProductCategory productCategory);
+	
+	public Map<String, List<ProductCategory>> findAllShowOnHead();
 }

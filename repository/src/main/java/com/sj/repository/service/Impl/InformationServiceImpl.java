@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import net.sf.ehcache.management.CacheManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -67,8 +69,12 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
+	@Cacheable(value = "informationCache",key = "#id")
 	public Information findOne(Long id) {
-		return repository.findOne(id);
+		Information info = repository.findOne(id);
+		System.out.println("-------");
+		System.out.println(info.getCategory().getName());
+		return info;
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public interface ProductRepository extends
 			ProductStatusEnum status);
 	Page<Product> findByCreatedBy(Provider user, Pageable pageable);
 
-	Page<Product> findByBrand(Brand brand, Pageable pageable);
+	Page<Product> findByBrandAndStatus(Brand brand,ProductStatusEnum status,Pageable pageable);
 
 	Page<Product> findByThirdCategoryAndStatus(ProductCategory category,
 			Pageable pageable,ProductStatusEnum status);
@@ -31,6 +31,6 @@ public interface ProductRepository extends
 	
 	Product findByIdAndStatus(Long id,ProductStatusEnum status);
 	
-	Page<Product> findByModelLike(String model,Pageable pageable);
+	Page<Product> findByStatusAndModelLike(ProductStatusEnum status,String model,Pageable pageable);
 }
 

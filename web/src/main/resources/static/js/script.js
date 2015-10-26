@@ -56,6 +56,11 @@ $(function(){
     }).bind("paste",function(){       
         $(this).val($(this).val().replace(/[^0-9.]/g,''));       
     }) 
+    $('.category-con').mouseenter(function() {
+            $(this).find('.category-child').show();
+        }).mouseleave(function() {
+            $(this).find('.category-child').hide();
+        })
 })
 
 function selectAll(){

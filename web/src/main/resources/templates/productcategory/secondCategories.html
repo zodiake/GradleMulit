@@ -1,0 +1,75 @@
+<div class="category-con">
+            <div class="category category-nav"><a href="#">全部分类</a></div>
+            <div class="category-list category-child">
+                <ul>
+                    <li>
+                        <label class="icon-yq">仪器</label>
+                        <p>
+                            <a>影像系统</a>
+                            <a>生物芯片</a>
+                            <a>影像系统</a>
+                            <a>生物</a>
+                            <a>影像系统</a>
+                            <a>生物芯片</a>
+                            <a>生物芯片</a>
+                        </p>
+                        <div class="category-child-list">
+                            	<a th:each="productCategory:${yqs}" 
+                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
+                            		th:text="${productCategory.name}"></a>
+                            </div>
+                    </li>
+                    <li>
+                        <label class="icon-sj">试剂</label>
+                        <p>
+                            <a>影像系统</a>
+                            <a>生物芯片</a>
+                            <a>影像系统</a>
+                            <a>生物</a>
+                            <a>影像系统</a>
+                            <a>生物芯片</a>
+                            <a>生物芯片</a>
+                        </p>
+                        <div class="category-child-list">
+                            	<a th:each="productCategory:${sjs}" 
+                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
+                            		th:text="${productCategory.name}"></a>
+                            </div>
+                    </li>
+                    <li>
+                        <label class="icon-hc">耗材</label>
+                        <p>
+                            <a>影像系统</a>
+                            <a>生物芯片</a>
+                            <a>影像系统</a>
+                            <a>生物</a>
+                            <a>影像系统</a>
+                            <a>生物芯片</a>
+                            <a>生物芯片</a>
+                        </p>
+                        <div class="category-child-list">
+                            	<a th:each="productCategory:${hcs}" 
+                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
+                            		th:text="${productCategory.name}"></a>
+                            </div>
+                    </li>
+                    <li>
+                        <label class="icon-fw">服务</label>
+                        <p>
+                            <a>影像系统</a>
+                            <a>生物芯片</a>
+                            <a>影像系统</a>
+                            <a>生物</a>
+                            <a>影像系统</a>
+                            <a>生物芯片</a>
+                            <a>生物芯片</a>
+                        </p>
+                        <div class="category-child-list">
+                            	<a th:each="productCategory:${fws}" 
+                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
+                            		th:text="${productCategory.name}"></a>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
