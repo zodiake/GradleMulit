@@ -160,12 +160,17 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public Map<String, List<ProductCategory>> findAllShowOnHead() {
-		Map<String, List<ProductCategory>> maps = new HashMap<String, List<ProductCategory>>();
+	public Map<String, List<CategoryJson>> findAllShowOnHead() {
+		Map<String, List<CategoryJson>> maps = new HashMap<String, List<CategoryJson>>();
 		List<ProductCategory> firstCategories = findAllFirstCategory(ActivateEnum.ACTIVATE);
 		for (int i = 0,len = firstCategories.size(); i < len; i++) {
 			List<ProductCategory> pcs = repository.findByParentAndActivate(firstCategories.get(i),ActivateEnum.ACTIVATE);
-			maps.put(String.valueOf(i+1), pcs);
+			List<CategoryJson> jsons = new ArrayList<CategoryJson>();
+			for (int j = 0,jlen = pcs.size(); j < jlen; j++) {
+				ProductCategory pc = pcs.get(j);
+				jsons.add(new CategoryJson(pc.getId(),pc.getName()));
+			}
+			maps.put(String.valueOf(i+1), jsons);
 		}
 		return maps;
 	}

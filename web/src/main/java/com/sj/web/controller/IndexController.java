@@ -15,9 +15,9 @@ import com.sj.model.model.Brand;
 import com.sj.model.model.Information;
 import com.sj.model.model.ProductCategory;
 import com.sj.model.model.ScrollImage;
-import com.sj.model.model.Subject;
 import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
+import com.sj.repository.model.CategoryJson;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.InformationService;
@@ -46,7 +46,7 @@ public class IndexController {
 	
 	@RequestMapping(value = { "/", "/index" },method = RequestMethod.GET)
 	public String index(Model uiModel) {
-		Map<String,List<ProductCategory>> maps = productCategoryService.findAllShowOnHead();
+		Map<String,List<CategoryJson>> maps = productCategoryService.findAllShowOnHead();
 		uiModel.addAttribute("yqs", maps.get("1"));
 		uiModel.addAttribute("sjs", maps.get("2"));
 		uiModel.addAttribute("hcs", maps.get("3"));

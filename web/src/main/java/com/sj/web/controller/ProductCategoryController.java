@@ -1,6 +1,7 @@
 package com.sj.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,13 @@ public class ProductCategoryController {
 			throw new CategoryNotFoundException();
 		List<CategoryJson> categories = pcService.ajaxFindByParent(pc);
 		return categories;
+	}
+	
+	@RequestMapping(value = "/productCategories/second", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,List<CategoryJson>> findAllSecond(){
+		Map<String,List<CategoryJson>> maps = pcService.findAllShowOnHead();
+		return maps;
 	}
 
 }

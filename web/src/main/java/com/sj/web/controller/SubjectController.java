@@ -24,7 +24,6 @@ import com.sj.repository.service.ProductService;
 import com.sj.repository.service.SolutionService;
 import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
-import com.sj.web.exception.CategoryNotFoundException;
 import com.sj.web.exception.SubjectNotFoundException;
 
 @Controller

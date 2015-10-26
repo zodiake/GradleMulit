@@ -2,10 +2,6 @@ package com.sj.web.controller;
 
 import static com.sj.repository.util.RedisConstant.INFORMATIONCOUNT;
 
-import java.util.List;
-import java.util.Map;
-
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
-import com.sj.model.model.ProductCategory;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.InformationService;
 import com.sj.repository.service.ProductCategoryService;
@@ -48,12 +43,6 @@ public class InformationController extends BaseController<Information>{
 			@PathVariable(value = "id") Long id, Model uiModel,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "15") int size) {
-		Map<String,List<ProductCategory>> maps = categoryService.findAllShowOnHead();
-		uiModel.addAttribute("yqs", maps.get("1"));
-		uiModel.addAttribute("sjs", maps.get("2"));
-		uiModel.addAttribute("hcs", maps.get("3"));
-		uiModel.addAttribute("fws", maps.get("4"));
-		
 		InformationCategory ic = informationCategoryService.findOne(id);
 		if(ic == null)
 			throw new CategoryNotFoundException();
@@ -70,12 +59,6 @@ public class InformationController extends BaseController<Information>{
 
 	@RequestMapping(value = "/informations/{id}", method = RequestMethod.GET)
 	public String findOne(@PathVariable(value = "id") Long id, Model uiModel) {
-		Map<String,List<ProductCategory>> maps = categoryService.findAllShowOnHead();
-		uiModel.addAttribute("yqs", maps.get("1"));
-		uiModel.addAttribute("sjs", maps.get("2"));
-		uiModel.addAttribute("hcs", maps.get("3"));
-		uiModel.addAttribute("fws", maps.get("4"));
-		
 		Information information = informationService.findOne(id);
 		if(information==null)
 			throw new InformationNotFoundException();

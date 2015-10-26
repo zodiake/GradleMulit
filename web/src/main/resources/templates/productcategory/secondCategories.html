@@ -1,4 +1,5 @@
 <div class="category-con">
+<script type="text/javascript" th:src="@{/js/productCategory.js}"></script>
             <div class="category category-nav"><a href="#">全部分类</a></div>
             <div class="category-list category-child">
                 <ul>
@@ -13,10 +14,7 @@
                             <a>生物芯片</a>
                             <a>生物芯片</a>
                         </p>
-                        <div class="category-child-list">
-                            	<a th:each="productCategory:${yqs}" 
-                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
-                            		th:text="${productCategory.name}"></a>
+                        <div class="category-child-list" id="instruments">
                             </div>
                     </li>
                     <li>
@@ -30,10 +28,7 @@
                             <a>生物芯片</a>
                             <a>生物芯片</a>
                         </p>
-                        <div class="category-child-list">
-                            	<a th:each="productCategory:${sjs}" 
-                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
-                            		th:text="${productCategory.name}"></a>
+                        <div class="category-child-list" id="reagents">
                             </div>
                     </li>
                     <li>
@@ -47,10 +42,7 @@
                             <a>生物芯片</a>
                             <a>生物芯片</a>
                         </p>
-                        <div class="category-child-list">
-                            	<a th:each="productCategory:${hcs}" 
-                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
-                            		th:text="${productCategory.name}"></a>
+                        <div class="category-child-list" id="supplies">
                             </div>
                     </li>
                     <li>
@@ -64,10 +56,7 @@
                             <a>生物芯片</a>
                             <a>生物芯片</a>
                         </p>
-                        <div class="category-child-list">
-                            	<a th:each="productCategory:${fws}" 
-                            		th:href="@{'/products/_search?secondCategory='+${productCategory.id}}"
-                            		th:text="${productCategory.name}"></a>
+                        <div class="category-child-list" id="servers">
                             </div>
                     </li>
                 </ul>

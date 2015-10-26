@@ -46,5 +46,5 @@ public interface ProductCategoryService {
 
 	List<CategoryJson> ajaxFindByParent(ProductCategory productCategory);
 	
-	public Map<String, List<ProductCategory>> findAllShowOnHead();
+	public Map<String, List<CategoryJson>> findAllShowOnHead();
 }
