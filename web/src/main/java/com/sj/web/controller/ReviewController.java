@@ -74,7 +74,7 @@ public class ReviewController extends BaseController<Review>{
 		Product p = new Product(productId);
 		review.setProduct(p);
 		SiteUser user = userContext.getCurrentUser();
-		review.setCreatedBy(user);
+		review.setCreatedBy(new SiteUser(user.getId()));
 		reviewService.save(review);
 		return "success";
 	}

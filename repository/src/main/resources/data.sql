@@ -2574,7 +2574,7 @@ values(7,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider
 -- test product
 -- tom product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type) 
-values(1,'1234567890123456789012345678901234567890','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/1',1,31,32,1,1,'HD300',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(1,'人体超级强化药剂','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/1',1,31,32,1,1,'HD300',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(2,'product2','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/2',3,761,762,1,2,'HD302',1,'10支',1,1,'2012-12-12 12:23:32','c');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)

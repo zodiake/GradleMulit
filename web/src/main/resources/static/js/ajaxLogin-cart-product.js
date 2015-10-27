@@ -94,8 +94,8 @@
 						+ '</b>×<i id="cartNumber'+ productId+ '">'+ num+ '</i></span><br/><a class="fr cartRemove" data-id="'+ productId
 						+ '">删除</a></div></li>';
 						$("#cartUl").prepend(str);
-						var allNum = $("#allNum");
-						allNum.html(parseInt(allNum.html()) + 1);
+						var allNum = $(".cart-num");
+	                 	allNum.html(parseInt(allNum.html())+1);
 						var totalNum = $("#totalNum");
 						totalNum.html(parseInt(totalNum.html()) + 1);
 						promptSuccess("已加入购物车");

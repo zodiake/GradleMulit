@@ -43,16 +43,17 @@
 				<span class="logo-hd"><img th:src="@{/img/logo-txt.png}" /></span>
 			</a>
 			<div class="head-menu-btn fr login-resg">
-				<a href="/signup?user" class="self-btn"></a>
-				<a href="/signup?provider" class="company-btn"></a>
-			</div>
+                <a href="/signup?user" class="blue ft14">用户注册</a>
+                <span class="ft14">|</span>
+                <a href="/signup?provider" class="blue ft14">供应商注册</a>
+            </div>
 		</div>
 	</div>
 	<!-- header -->
 	<div class="wrapper">		
 		<div class="hd resg-hd">
-			<span>会员登录</span>
-		</div>
+            <span>会员登录</span>
+        </div>
 		<div class="logo-wrap mb150">
 			<form th:method="post" th:object="${user}">
 				<div class="form-group">

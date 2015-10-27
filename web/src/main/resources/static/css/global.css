@@ -281,6 +281,8 @@ img {
     color: #686f83;
 }
 
+.top-line-wp a:hover{ color:#42a5f6; }
+
 .top-line-wp span {
     color: #d2d2d2;
     display: inline-block;

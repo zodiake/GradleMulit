@@ -114,7 +114,7 @@
 			</div>
 			<div class="form-group">
 				<label><i>*</i>用户名</label>
-				<input type="text" th:field="*{name}" placeholder="用户名"/>
+				<input type="text" th:field="*{name}" placeholder="用户名不可少于6位"/>
 				<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
 			</div>
 			<div class="form-group">

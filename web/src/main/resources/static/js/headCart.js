@@ -4,7 +4,7 @@
     		url :'/user/carts/'+productId,
     		success:function(data){
     			$("#cart"+productId).remove();
-    			var allNum = $("#allNum");
+    			var allNum = $(".cart-num");
             	allNum.html(parseInt(allNum.html())-1);
             	var totalNum =$("#totalNum");
             	totalNum.html(parseInt(totalNum.html())-1);
@@ -33,7 +33,7 @@
                  	var str = '<li id="cart'+product+'"><div class="fl ct-img"><a href="/products/'+product+'"><img width="50" height="50" src="'+data.image+'"/></a></div><div class="fl ct-name"><a href="/products/'+product+'">'+data.name+'</a>'+
 						'</div><div class="fr ct-detail"><span class="ct-price"><b>'+data.price+'</b>×<i id="cartNumber'+product+'">'+number+'</i></span><br/><a class="fr cartRemove" data-id="'+product+'">删除</a></div></li>';
                  	$("#cartUl").append(str);
-                 	var allNum = $("#allNum");
+                 	var allNum = $(".cart-num");
                  	allNum.html(parseInt(allNum.html())+1);
                  	var totalNum =$("#totalNum");
                  	totalNum.html(parseInt(totalNum.html())+1);
@@ -46,7 +46,7 @@
     });
     }
     $(function() {
-    $(".head-dorpdown").on("click",".cartRemove",function(){
+    $(".head-cart").on("click",".cartRemove",function(){
     	var obj = $(this);
     	var productId = obj.attr("data-id");
     	cartRemove(productId);
