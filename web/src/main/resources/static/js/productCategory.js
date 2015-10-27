@@ -1,5 +1,4 @@
 function productCategoryInit(){
-	console.log("productCategoryInit");
 	$.ajax({
 		url : "/productCategories/second",
 		type : "get",

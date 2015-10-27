@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="description" content=""/>
-  <title>商品维护</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-  <script th:src="@{/js/jquery-min.js}"></script>
-   <meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-	<script type="text/javascript" th:src="@{/js/maintain.js}">
-	</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<title>商品维护</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
+<script th:src="@{/js/jquery-min.js}"></script>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script type="text/javascript" th:src="@{/js/maintain.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
 </head>
 <body>
 	<div class="header" th:include="head/head">Head</div>
 	<!-- header -->
 	<div class="wrapper h400">
+		<div th:include="productcategory/secondCategories">Head</div>
 		<div class="self-wrap">
 			<div class="gray-hd"><a class="blue">个人中心</a></div>
 			<div class="mainwrapper clearfix">

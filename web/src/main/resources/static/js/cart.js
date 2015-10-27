@@ -22,7 +22,7 @@ $(function() {
 					if($(".check").length == 0){
 						$("#noProduct").show();
 					}
-					$("#allNum").html(checksLength);
+					$(".cart-num").html(checksLength);
 				}
 			},
 			error : function(data) {

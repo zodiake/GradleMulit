@@ -2531,8 +2531,8 @@ insert into content values(8,'product8-content');
 
 -- test user provider
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(1,'tom','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_PROVIDER','1234561@qq.com','13700000001','张三',1,'2012-12-12 12:23:32');
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(2,'mary2','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_PROVIDER','1234562@qq.com','13700000002','lisi',1,'2012-12-12 12:23:32');
-insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(7,'peter','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_UNAUTH','1234562@qq.com','13700000007','lisi',1,'2012-12-12 12:23:32');
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(2,'mary22','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_PROVIDER','1234562@qq.com','13700000002','lisi',1,'2012-12-12 12:23:32');
+insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(7,'peter1','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_UNAUTH','1234562@qq.com','13700000007','lisi',1,'2012-12-12 12:23:32');
 
 -- test user commonuser
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(3,'mary3','ebcd0c0a2fead5ce94ac2100d90bc04bc04596554a976ce3bec32452faeeb007',1,'ROLE_COMMONUSER','1234563@qq.com','13700000003','mary3',0,'2012-12-12 12:23:32');

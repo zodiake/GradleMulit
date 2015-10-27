@@ -72,6 +72,8 @@ function showReview(productId){
 	             success : function(data) {
 	                 if (data.data == "no authority") {
 	                	 promptError("对不起您没有权限");
+	                 }else{
+	                	 promptSuccess("已加入购物车");
 	                 }
 	                 $('#includeHeader').load('/head');
 	             },
@@ -161,6 +163,7 @@ function showReview(productId){
 	<!-- header -->
 	<div id="loginForm"></div>
 	<div class="wrapper" th:object="${product}">
+		<div th:include="productcategory/secondCategories">Head</div>
 		<div class="crumb">
 			<a href="/">首页</a>
 			<i>></i> 

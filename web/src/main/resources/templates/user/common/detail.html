@@ -26,6 +26,7 @@
 	<div class="header" th:include="head/head">Head</div>
 	<!-- header -->
 	<div class="wrapper">
+		<div th:include="productcategory/secondCategories">Head</div>
 		<div class="self-wrap">
 			<div class="gray-hd">
 				<a class="blue">个人中心</a>
@@ -120,13 +121,6 @@
 										</div>
 										<div class="form-group">											
 											<div class="fl">
-												<label><i>*</i>部门</label> 
-												<input type="text" th:field="*{department}" />
-												<i class="error" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></i>
-											</div>
-										</div>
-										<div class="form-group">											
-											<div class="fl">
 												<label>传真</label> 
 												<input type="text" th:field="*{fax}" />
 												<i class="error" th:if="${#fields.hasErrors('fax')}" th:errors="*{fax}"></i>
@@ -144,6 +138,13 @@
 													<option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
 												</select>
 												<i class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></i>
+											</div>
+										</div>
+										<div class="form-group">											
+											<div class="fl">
+												<label><i>*</i>详细地址</label> 
+												<input type="text" th:field="*{address}" />
+												<i class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></i>
 											</div>
 										</div>
 									</div>
@@ -167,13 +168,6 @@
 												<label><i>*</i>邮政编码</label> 
 												<input type="text" th:field="*{code}" />
 												<i class="error" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></i>
-											</div>
-										</div>
-										<div class="form-group">											
-											<div class="fl">
-												<label><i>*</i>详细地址</label> 
-												<input type="text" th:field="*{address}" />
-												<i class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></i>
 											</div>
 										</div>
 									</div>

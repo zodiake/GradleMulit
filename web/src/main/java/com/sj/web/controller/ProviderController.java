@@ -113,8 +113,8 @@ public class ProviderController extends BaseController<Product> {
 		SiteUser user = userContext.getCurrentUser();
 		provider.setId(user.getId());
 		provider = providerService.updateProvider(provider);
-		uiModel.addAttribute("user", provider);
-		return "redirect:/supplier/detail";
+		uiModel.addAttribute("href", "/supplier/detail");
+		return "user/update-result";
 	}
 
 	@RequestMapping(value = "/provider/detail", method = RequestMethod.GET)
@@ -146,8 +146,8 @@ public class ProviderController extends BaseController<Product> {
 		SiteUser user = userContext.getCurrentUser();
 		provider.setId(user.getId());
 		provider = providerService.updateProvider(provider);
-		uiModel.addAttribute("user", provider);
-		return "redirect:/provider/detail";
+		uiModel.addAttribute("href", "/provider/detail");
+		return "user/update-result";
 	}
 
 	@RequestMapping(value = "/provider/products", method = RequestMethod.GET)

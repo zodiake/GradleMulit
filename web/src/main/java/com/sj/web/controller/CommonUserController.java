@@ -74,8 +74,9 @@ public class CommonUserController{
 		SiteUser siteUser = userContext.getCurrentUser();
 		commonUser.setId(siteUser.getId());
 		commonUser = commonUserService.update(commonUser);
-		uiModel.addAttribute("user", commonUser);
-		return "redirect:/user/detail";
+//		uiModel.addAttribute("user", commonUser);
+		uiModel.addAttribute("href", "/user/detail");
+		return "user/update-result";
 	}
 
 }
