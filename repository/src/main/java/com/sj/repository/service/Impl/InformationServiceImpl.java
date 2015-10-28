@@ -72,8 +72,6 @@ public class InformationServiceImpl implements InformationService {
 	@Cacheable(value = "informationCache",key = "#id")
 	public Information findOne(Long id) {
 		Information info = repository.findOne(id);
-		System.out.println("-------");
-		System.out.println(info.getCategory().getName());
 		return info;
 	}
 

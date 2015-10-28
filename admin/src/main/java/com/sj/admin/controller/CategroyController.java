@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,8 @@ public class CategroyController {
 	private InformationCategoryService informationCategoryService;
 	@Autowired
 	private SubjectCategoryService subjectCategoryService;
+	@Autowired
+	private CacheManager manager;
 
 	@RequestMapping(value = "/admin/advertise/category", method = RequestMethod.GET)
 	@ResponseBody

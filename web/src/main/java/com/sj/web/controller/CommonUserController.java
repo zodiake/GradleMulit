@@ -63,7 +63,6 @@ public class CommonUserController{
 	public String updateOne(Model uiModel,
 			@Valid @ModelAttribute("user") CommonUser commonUser,
 			BindingResult bindingResult) {
-		System.out.println(commonUser.getSex().toString());
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("user", commonUser);
 			uiModel.addAttribute("provinces", provinceService.findAll());
@@ -74,7 +73,6 @@ public class CommonUserController{
 		SiteUser siteUser = userContext.getCurrentUser();
 		commonUser.setId(siteUser.getId());
 		commonUser = commonUserService.update(commonUser);
-//		uiModel.addAttribute("user", commonUser);
 		uiModel.addAttribute("href", "/user/detail");
 		return "user/update-result";
 	}

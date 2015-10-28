@@ -1,9 +1,17 @@
 package com.sj.admin.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheException;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -27,6 +35,8 @@ import com.sj.repository.service.InformationService;
 public class InformationController {
 	@Autowired
 	private InformationService informationService;
+	@Autowired
+	private CacheManager manager;
 
 	@RequestMapping(value = "/admin/information", method = RequestMethod.GET)
 	@ResponseBody
@@ -51,8 +61,10 @@ public class InformationController {
 
 	@RequestMapping(value = "/admin/informations/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public InformationJson findOne(Model uiModel, @PathVariable("id") Long id) {
+	public InformationJson findOne(Model uiModel, @PathVariable("id") Long id) throws CacheException, IOException {
+		Cache cache = manager.getCache("informationCache");
 		Information info = informationService.findOne(id);
+		Element in = cache.get("11");
 		return new InformationDetailJson(info);
 	}
 
