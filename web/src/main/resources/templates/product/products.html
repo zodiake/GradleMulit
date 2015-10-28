@@ -38,6 +38,11 @@
                 		alert("系统异常");
                 	}
                 });
+        		$(".hide-wrap").on("click",".ajaxLogin-close",function(){
+        			$('.fixed').fadeOut();
+        			$('.hide-wrap').fadeOut();
+        			$('.hide-wrap').empty();
+        		});
               	$('.coll').loginBeforeAjaxCollection({
               		url : '/ajax/preferProduct',
               		data : {'id' : $(this).attr("data-id")},

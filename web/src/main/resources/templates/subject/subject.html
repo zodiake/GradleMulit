@@ -23,6 +23,11 @@
                 $(document).ajaxSend(function(e, xhr, options) {
                     xhr.setRequestHeader(header, token);
                 });
+        		$(".hide-wrap").on("click",".ajaxLogin-close",function(){
+        			$('.fixed').fadeOut();
+        			$('.hide-wrap').fadeOut();
+        			$('.hide-wrap').empty();
+        		});
                 $("#addCart").loginBeforeAjaxSubject({
                 	url : "/ajax/carts?multiple",
                 	type : "post",

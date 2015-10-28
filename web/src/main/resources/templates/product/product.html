@@ -132,7 +132,11 @@ function showReview(productId){
 			$(".fixed").fadeIn();
 			showReview(productId);
 		});
-		
+		$(".hide-wrap").on("click",".ajaxLogin-close",function(){
+			$('.fixed').fadeOut();
+			$('.hide-wrap').fadeOut();
+			$('.hide-wrap').empty();
+		});
 		$("#subject").click(function(){
 			var productId = $(this).attr("data-id");
 			var subjects = $("#subjects");
@@ -256,7 +260,8 @@ function showReview(productId){
 	<script></script>
 	<div class="fixed"></div>
 	<div class="gif" id = "gif"><img alt="" th:src="@{/img/loading.gif}"/></div>
-	<div class="hide-wrap logo-small bodr"></div>
+	<div class="hide-wrap logo-small bodr">
+	</div>
 	<div class="prompt"></div>
 </body>
 </html>

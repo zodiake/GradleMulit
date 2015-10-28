@@ -104,41 +104,39 @@
 </head>
 
 <body>
-    <div class="resg-header">
-        <div class="head-nav">
-            <div class="nav-box">
+    <div class="resg-header">		
+		<div class="head-nav">
+			<div class="nav-box">
 				<a href="/">首页</a>
 				<i>|</i>
-				<a href="/productCategory/1">仪器</a>
+				<a href="/productCategories/1">仪器</a>
 				<i>|</i>
-				<a href="/productCategory/2">试剂</a>
+				<a href="/productCategories/2">试剂</a>
 				<i>|</i>
-				<a href="/productCategory/3">耗材</a>
+				<a href="/productCategories/3">耗材</a>
 				<i>|</i>
-				<a href="/productCategory/4">服务</a>
+				<a href="/productCategories/4">服务</a>
 				<i>|</i>
 				<a href="/subjects">解决方案</a>
 			</div>
-        </div>
-        <div class="head-box clearfix">
-            <a href="/" class="logo">
+		</div>
+		<div class="head-box clearfix">
+			<a href="/" class="logo">
 				<img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/>
 				<span class="logo-hd"><img th:src="@{/img/logo-txt.png}" /></span>
 			</a>
-            <div class="head-menu-btn resg-company">
-                <a href="/signup?user" class="self-btn"></a>
-                <a class="company-btn"></a>
+			<div class="head-menu-btn fr login-resg">
+                <a href="/signup?user" class="blue ft14">用户注册</a>
+                <span class="ft14">|</span>
+                <a href="/login" class="blue ft14">已有账号？马上登录</a>
             </div>
-            <div class="head-menu">
-                <a href="/login">已有账号？马上登录</a>
-            </div>
-        </div>
-    </div>
+		</div>
+	</div>
     <!-- header -->
     <div class="wrapper">
         <form class="resg-form" enctype="multipart/form-data" th:object="${user}" method="post">
             <div class="hd resg-hd">
-                <span>注册信息</span>
+                <span>基本信息</span>
             </div>
             <div class="form-group">
                 <label><i>*</i>用户名</label>

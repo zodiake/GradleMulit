@@ -73,7 +73,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Cacheable(value = "secondProductCategoriesCache", key = "#category.id")
 	public List<ProductCategory> findByParentAndActivate(
 			ProductCategory category, ActivateEnum activate) {
-		System.out.println("-------------"+Calendar.getInstance().getTime().getTime());
 		List<ProductCategory> categories = repository.findByParentAndActivate(category, activate);
 		for (ProductCategory productCategory : categories) {
 			List<ProductCategory> thirds = repository.findByParentAndActivate(productCategory, activate);
@@ -83,7 +82,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	@Cacheable(value = "indexSecondProductCategoryCache", key = "#category.id")
 	public List<ProductCategory> findSecondCategory(ProductCategory category) {
 		return repository.findByParentAndActivate(category,ActivateEnum.ACTIVATE);
 	}
@@ -160,6 +158,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
+	@Cacheable(value = "indexSecondProductCategoryCache")
 	public Map<String, List<CategoryJson>> findAllShowOnHead() {
 		Map<String, List<CategoryJson>> maps = new HashMap<String, List<CategoryJson>>();
 		List<ProductCategory> firstCategories = findAllFirstCategory(ActivateEnum.ACTIVATE);
