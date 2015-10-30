@@ -3,8 +3,6 @@ package com.sj.web.controller;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,15 +31,12 @@ public class ProductCategoryController {
 	private PreferProductService preferProductService;
 	@Autowired
 	private SiteUserContext userContext;
-	@Autowired
-	private CacheManager manager;
 
 	@RequestMapping(value = "/productCategories/{id}", method = RequestMethod.GET)
 	public String findByParent(@PathVariable("id") Long id, Model uiModel) {
 		ProductCategory pc = pcService.findByIdAndParent(id);
 		if (pc == null)
 			throw new CategoryNotFoundException();
-		Cache c = manager.getCache("secondProductCategoriesCache");
 		List<ProductCategory> categories = pcService.findByParentAndActivate(pc, ActivateEnum.ACTIVATE);
 		uiModel.addAttribute("pc", pc);
 		uiModel.addAttribute("categories", categories);

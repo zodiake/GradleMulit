@@ -71,6 +71,7 @@ public class IndexController extends UploadController {
 	public String index(Model uiModel) {
 		SiteUser user = userContext.getCurrnetUser();
 		Set<SiteMenu> menus = menuService.findByUser(user);
+		System.out.println(menus.size());
 		uiModel.addAttribute("menus", menus);
 		return "index";
 	}
@@ -225,5 +226,15 @@ public class IndexController extends UploadController {
 	@RequestMapping(value = "/templates/password")
 	public String password() {
 		return "user/password";
+	}
+	
+	@RequestMapping(value = "/templates/productDisplay")
+	public String productDisplay(){
+		return "productDisplay/list";
+	}
+	
+	@RequestMapping(value = "/templates/productDisplay/detail")
+	public String productDisplayDetail(){
+		return "productDisplay/detail";
 	}
 }

@@ -2528,6 +2528,14 @@ insert into content values(5,'product5-content');
 insert into content values(6,'product6-content');
 insert into content values(7,'product7-content');
 insert into content values(8,'product8-content');
+insert into content values(9,'<p>product9-content</p>');
+insert into content values(10,'product10-content');
+insert into content values(11,'product11-content');
+insert into content values(12,'product12-content');
+insert into content values(13,'product13-content');
+insert into content values(14,'product14-content');
+insert into content values(15,'product15-content');
+insert into content values(16,'product16-content');
 
 -- test user provider
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(1,'tom','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_PROVIDER','1234561@qq.com','13700000001','张三',1,'2012-12-12 12:23:32');
@@ -2591,6 +2599,24 @@ insert into product(id,name,cover_Img,price,url,first_category_id,second_categor
 values(7,'product7','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/3',1,31,32,2,7,'HD303',1,'10支',1,2,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(8,'product8','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/4',1,31,32,2,8,'HD303',1,'10支',1,3,'2012-12-12 12:23:32','i');
+
+-- 商品展示数据
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(9,'SuperSignal™ West Dura Extended Duration Substrate','/img/product/34075-SuperSignal-Dura-b.jpg',9999.99,'product/9',2,579,581,1,9,'34075',1,'100 mL',1,1,'2012-12-12 12:23:32','r');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(10,'SuperSignal™ West Dura Extended Duration Substrate','/img/product/34076-SuperSignal-Dura.jpg',9999.99,'product/9',2,579,581,1,10,'34076',1,'200 mL',1,1,'2012-12-12 12:23:32','r');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(11,'SuperSignal™ West Dura Extended Duration Substrate','/img/product/37071-SuperSignal-Dura.jpg',9999.99,'product/9',2,579,581,1,11,'37071',1,'20 mL',1,1,'2012-12-12 12:23:32','r');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(12,'SuperSignal™ West Pico Chemiluminescent Substrate','/img/product/34077-SuperSignal-Pico.jpg',9999.99,'product/9',2,579,581,1,12,'34077',1,'100 mL',1,1,'2012-12-12 12:23:32','r');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(13,'SuperSignal™ West Pico Chemiluminescent Substrate','/img/product/34079-SuperSignal-Pico.jpg',9999.99,'product/9',2,579,581,1,13,'34079',1,'50 mL',1,1,'2012-12-12 12:23:32','r');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(14,'SuperSignal™ West Pico Chemiluminescent Substrate','/img/product/34080-SuperSignal-Pico.jpg',9999.99,'product/9',2,579,581,1,14,'34080',1,'500 mL',1,1,'2012-12-12 12:23:32','r');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(15,'SuperSignal™ West Pico Chemiluminescent Substrate','/img/product/34087-SuperSignal-Pico.jpg',9999.99,'product/9',2,579,581,1,15,'34087',1,'200 mL',1,1,'2012-12-12 12:23:32','r');
+insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
+values(16,'1-Step™ Chloronaphthol Substrate Solution','/img/product/34012-CN-Solution.jpg',9999.99,'product/9',2,579,581,1,16,'34012',1,'250 mL',1,1,'2012-12-12 12:23:32','r');
 
 -- test product_category
 insert into prefer_products(user_id,product_id,created_time) values(3,1,'2012-1-1');
@@ -2679,6 +2705,7 @@ insert into site_menu(id,name,href) values(9,'滚动图片','scrollImg');
 insert into site_menu(id,name,href) values(10,'用户管理','user');
 insert into site_menu(id,name,href) values(11,'权限管理','authority');
 insert into site_menu(id,name,href) values(12,'密码管理','password');
+insert into site_menu(id,name,href) values(13,'商品展示','display');
 
 insert into site_role(id,role_name,active) values(1,'superAdmin',1);
 insert into site_role(id,role_name,active) values(2,'subadmin',1);
@@ -2696,6 +2723,7 @@ insert into role_menu(role_id,menu_id) values(1,9);
 insert into role_menu(role_id,menu_id) values(1,10);
 insert into role_menu(role_id,menu_id) values(1,11);
 insert into role_menu(role_id,menu_id) values(1,12);
+insert into role_menu(role_id,menu_id) values(1,13);
 
 insert into role_menu(role_id,menu_id) values(2,1);
 insert into role_menu(role_id,menu_id) values(2,2);
@@ -2703,3 +2731,12 @@ insert into role_menu(role_id,menu_id) values(2,7);
 
 insert into user_role(user_id,role_id) values(5,1);
 insert into user_role(user_id,role_id) values(20,2);
+
+insert into product_display(id,product_id,state,created_time)values(1,9,1,'2015-10-29');
+insert into product_display(id,product_id,state,created_time)values(2,10,1,'2015-10-29');
+insert into product_display(id,product_id,state,created_time)values(3,11,1,'2015-10-29');
+insert into product_display(id,product_id,state,created_time)values(4,12,1,'2015-10-29');
+insert into product_display(id,product_id,state,created_time)values(5,13,1,'2015-10-29');
+insert into product_display(id,product_id,state,created_time)values(6,14,1,'2015-10-29');
+insert into product_display(id,product_id,state,created_time)values(7,15,1,'2015-10-29');
+insert into product_display(id,product_id,state,created_time)values(8,16,1,'2015-10-29');

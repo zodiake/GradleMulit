@@ -148,61 +148,14 @@
             <div class="product-list">
                 <div class="product-wrap clearfix">
                     <div class="product-box fl">
-                        <dl>
+                        <dl th:each="productDisplay:${displays}" >
+                        	<a th:href="'/products/'+${productDisplay.product.id}">
                             <dt>
-                                <img src="img/topic1.jpg" width="145" height="110" />
+                                <img th:src="@{${productDisplay.getProduct().coverImg}}" width="145" height="110" />
                             </dt>
-                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
-                            <dd class="pro-price">￥2000.000,000</dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                                <img src="img/topic1.jpg" width="145" height="110" />
-                            </dt>
-                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
-                            <dd class="pro-price">￥2000.000,000</dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                                <img src="img/topic1.jpg" width="145" height="110" />
-                            </dt>
-                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
-                            <dd class="pro-price">￥2000.000,000</dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                                <img src="img/topic1.jpg" width="145" height="110" />
-                            </dt>
-                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
-                            <dd class="pro-price">￥2000.000,000</dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                                <img src="img/topic1.jpg" width="145" height="110" />
-                            </dt>
-                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
-                            <dd class="pro-price">￥2000.000,000</dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                                <img src="img/topic1.jpg" width="145" height="110" />
-                            </dt>
-                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
-                            <dd class="pro-price">￥2000.000,000</dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                                <img src="img/topic1.jpg" width="145" height="110" />
-                            </dt>
-                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
-                            <dd class="pro-price">￥2000.000,000</dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                                <img src="img/topic1.jpg" width="145" height="110" />
-                            </dt>
-                            <dd class="pro-tit">Engström Pro急症护理呼 吸机</dd>
-                            <dd class="pro-price">￥2000.000,000</dd>
+                            <dd class="pro-tit" th:text="${productDisplay.getProduct().name}"></dd>
+                            <dd class="pro-price">￥<i th:text="${productDisplay.getProduct().price}"></i></dd>
+                            </a>
                         </dl>
                     </div>
                     <div class="brand fr">

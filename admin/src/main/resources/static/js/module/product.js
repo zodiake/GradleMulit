@@ -67,6 +67,14 @@ productModule.service('ProductService', ['$http', function ($http) {
             headers: header
         });
     };
+    this.addDisplay = function(id){
+    	return $http({
+    		method: 'POST',
+    		url: '/admin/productDisplays/productId/'+id,
+    		transformRequest: transform,
+    		headers: header
+    	});
+    };
 }]);
 
 productModule.controller('ProductController', ['$scope',
@@ -214,5 +222,22 @@ productModule.controller('ProductDetailController', ['$scope',
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
+        
+        $scope.addDisplay = function(id){
+        	ProductService.addDisplay(id).success(function(data){
+        		if(data=="limit"){
+        			$scope.alerts.push({
+                    msg: '商品展示数量达到上限',
+                    });
+        		}else if(data=="success"){
+        			$scope.alerts.push({
+                        type: 'success',
+                        msg: '操作成功',
+                    });
+        		}
+        	}).error(function(data){
+        		
+        	})
+        }
     }
 ]);

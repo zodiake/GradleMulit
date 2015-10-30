@@ -72,7 +72,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@CacheEvict(value={"indexSubjectsCache","subjectsCache"})
+	@CacheEvict(value={"indexSubjectsCache","subjectsCache"},allEntries = true)
 	public Subject save(Subject s) {
 		s.setUpdatedTime(Calendar.getInstance());
 		s.setCreatedTime(Calendar.getInstance());
@@ -120,7 +120,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	@CachePut(value = "subjectCache", key = "#subject.id")
-	@CacheEvict(value={"indexSubjectsCache","subjectsCache"})
+	@CacheEvict(value={"indexSubjectsCache","subjectsCache"},allEntries = true)
 	public Subject update(Subject subject) {
 		Subject s = repository.findOne(subject.getId());
 		s.setContent(subject.getContent());
@@ -132,7 +132,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@CacheEvict(value={"indexSubjectsCache","subjectsCache","subjectCache"})
+	@CacheEvict(value={"indexSubjectsCache","subjectsCache","subjectCache"},allEntries = true)
 	public Subject updateState(Long id, ActivateEnum active) {
 		Subject subject = repository.findOne(id);
 		subject.setActivate(active);

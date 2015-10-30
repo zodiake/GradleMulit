@@ -147,7 +147,7 @@ create table brand(
 
 create table product(
 	id bigint not null auto_increment,
-	name varchar(40) not null,
+	name varchar(64) not null,
 	model varchar(20),
 	place_of_production smallint,
 	status smallint,
@@ -305,4 +305,13 @@ create table user_role(
 	primary key(user_id,role_id),
 	foreign key(role_id) references site_role(id),
 	foreign key(user_id) references site_user(id)
+);
+
+create table product_display(
+	id bigint not null AUTO_INCREMENT,
+	product_id bigint not null,
+	state smallint,
+	created_time timestamp DEFAULT CURRENT_TIMESTAMP,
+	primary key(id),
+	foreign key(product_id) references product(id)
 );

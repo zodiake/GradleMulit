@@ -44,7 +44,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Override
 	@CacheEvict(value = { "secondProductCategoriesCache",
 			"indexSecondProductCategoryCache", "secondJsonCategoriesCache",
-			"productCategoryCache" })
+			"productCategoryCache" },allEntries=true)
 	public ProductCategory save(ProductCategory category) {
 		ProductCategory pc = new ProductCategory();
 		pc.setName(category.getName());
@@ -58,7 +58,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Override
 	@CacheEvict(value = { "secondProductCategoriesCache",
 			"indexSecondProductCategoryCache", "secondJsonCategoriesCache",
-			"productCategoryCache" })
+			"productCategoryCache" },allEntries=true)
 	public ProductCategory update(ProductCategory category) {
 		ProductCategory memory = repository.findOne(category.getId());
 		memory.setName(category.getName());
@@ -142,7 +142,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Override
 	@CacheEvict(value = { "secondProductCategoriesCache",
 			"indexSecondProductCategoryCache", "secondJsonCategoriesCache",
-			"productCategoryCache" })
+			"productCategoryCache" },allEntries=true)
 	public ProductCategory updateState(Long id, ActivateEnum activate) {
 		ProductCategory pc = repository.findOne(id);
 		pc.setActivate(activate);

@@ -53,7 +53,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	@CacheEvict(value = {"brandCache","indexBrandCache"})
+	@CacheEvict(value = {"brandCache","indexBrandCache"},allEntries = true)
 	public Brand save(Brand brand) {
 		Calendar c = Calendar.getInstance();
 		brand.setCreatedTime(c);
@@ -61,7 +61,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	@CacheEvict(value = {"brandCache","indexBrandCache"})
+	@CacheEvict(value = {"brandCache","indexBrandCache"},allEntries = true)
 	public void update(Brand brand) {
 		em.createQuery(
 				"update Brand b set b.name=:name,b.coverImg=:cover where b.id=:id")
@@ -91,7 +91,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
-	@CacheEvict(value = {"brandCache","indexBrandCache"})
+	@CacheEvict(value = {"brandCache","indexBrandCache"},allEntries = true)
 	public void activate(Long id, ActivateEnum activate) {
 		em.createQuery("update Brand b set b.activate=:activate where b.id=:id")
 				.setParameter("activate", activate).setParameter("id", id)

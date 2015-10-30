@@ -49,7 +49,7 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	@CacheEvict(value = {"informationsCache","indexInformationCache"})
+	@CacheEvict(value = {"informationsCache","indexInformationCache"},allEntries = true)
 	@CachePut(value = "informationCache",key = "#information.id")
 	public Information update(Information information) {
 		Information info = repository.findOne(information.getId());
@@ -62,7 +62,7 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	@CacheEvict(value = {"informationsCache","indexInformationCache"})
+	@CacheEvict(value = {"informationsCache","indexInformationCache"},allEntries = true)
 	public Information create(Information info) {
 		info.setCreatedTime(Calendar.getInstance());
 		return repository.save(info);
@@ -85,7 +85,7 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	@CacheEvict(value = {"informationsCache","indexInformationCache"})
+	@CacheEvict(value = {"informationsCache","indexInformationCache"},allEntries = true)
 	public Information save(Information advertisement) {
 		advertisement.setUpdatedTime(Calendar.getInstance());
 		advertisement.setCreatedTime(Calendar.getInstance());
@@ -116,7 +116,7 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	@CacheEvict(value = {"informationsCache","indexInformationCache","informationCache"})
+	@CacheEvict(value = {"informationsCache","indexInformationCache","informationCache"},allEntries = true)
 	public void updateState(Long id, ActivateEnum state) {
 		Information info = repository.findOne(id);
 		info.setActivate(state);

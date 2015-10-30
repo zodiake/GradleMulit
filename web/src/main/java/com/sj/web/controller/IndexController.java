@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sj.model.model.Brand;
 import com.sj.model.model.Information;
 import com.sj.model.model.ProductCategory;
+import com.sj.model.model.ProductDisplay;
 import com.sj.model.model.ScrollImage;
 import com.sj.model.model.SubjectCategory;
 import com.sj.model.type.ActivateEnum;
@@ -22,6 +23,7 @@ import com.sj.repository.service.BrandService;
 import com.sj.repository.service.InformationCategoryService;
 import com.sj.repository.service.InformationService;
 import com.sj.repository.service.ProductCategoryService;
+import com.sj.repository.service.ProductDisplayService;
 import com.sj.repository.service.ScrollImageService;
 import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
@@ -43,6 +45,8 @@ public class IndexController {
 	private InformationCategoryService informationCategorySerivce;
 	@Autowired
 	private SubjectCategoryService subjectCategoryService;
+	@Autowired
+	private ProductDisplayService productDisplayService;
 	
 	@RequestMapping(value = { "/", "/index" },method = RequestMethod.GET)
 	public String index(Model uiModel) {
@@ -69,6 +73,9 @@ public class IndexController {
 		List<ScrollImage> scrollImages = scrollImageService.findAll();
 		uiModel.addAttribute("images", scrollImages);
 		uiModel.addAttribute("pc", new ProductCategory(0l));
+		
+		List<ProductDisplay> displays = productDisplayService.findAll();
+		uiModel.addAttribute("displays", displays);
 		return "index";
 	}
 	@RequestMapping(value = "/head",method = RequestMethod.GET)

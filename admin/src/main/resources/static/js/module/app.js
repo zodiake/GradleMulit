@@ -20,7 +20,8 @@ var app = angular.module('app', [
     'adminUser',
     'role',
     'Menu',
-    'Password'
+    'Password',
+    'Display'
 ]);
 
 app.config([
@@ -125,6 +126,11 @@ app.config([
                 url:'/password',
                 templateUrl:'/admin/templates/password',
                 controller:'PasswordController'
+            })
+            .state('display',{
+            	url: '/display',
+            	templateUrl: '/admin/templates/productDisplay',
+            	controller:'DisplayController'
             });
     }
 ]);

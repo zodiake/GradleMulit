@@ -90,8 +90,12 @@ public class CategroyController {
 	@ResponseBody
 	public String updateProductCategory(@PathVariable("id") Long id,
 			ProductCategory pc) {
+		Cache c1 = manager.getCache("indexSecondProductCategoryCache");
+		System.out.println("first..."+c1.getSize());
 		pc.setId(id);
 		productCategoryService.update(pc);
+		Cache c2 = manager.getCache("indexSecondProductCategoryCache");
+		System.out.println("lase..."+c2.getSize());
 		return "{\"id\":\"" + id + "\"}";
 	}
 

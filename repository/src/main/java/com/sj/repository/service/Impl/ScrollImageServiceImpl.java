@@ -37,7 +37,7 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 	}
 
 	@Override
-	@CacheEvict(value = {"scrollImageCache","indexImageCache"})
+	@CacheEvict(value = {"scrollImageCache","indexImageCache"},allEntries = true)
 	public ScrollImage update(Long id, ScrollImage image) {
 		ScrollImage img = repository.findOne(id);
 		img.setImageUrl(image.getImageUrl());
