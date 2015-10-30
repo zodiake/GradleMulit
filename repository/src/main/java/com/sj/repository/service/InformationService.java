@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import com.sj.model.model.Information;
 import com.sj.model.model.InformationCategory;
 import com.sj.model.type.ActivateEnum;
-import com.sj.model.type.AdvertiseCategoryEnum;
 import com.sj.repository.model.InformationJson;
 
 public interface InformationService {

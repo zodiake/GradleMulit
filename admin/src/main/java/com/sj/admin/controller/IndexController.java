@@ -71,7 +71,6 @@ public class IndexController extends UploadController {
 	public String index(Model uiModel) {
 		SiteUser user = userContext.getCurrnetUser();
 		Set<SiteMenu> menus = menuService.findByUser(user);
-		System.out.println(menus.size());
 		uiModel.addAttribute("menus", menus);
 		return "index";
 	}
