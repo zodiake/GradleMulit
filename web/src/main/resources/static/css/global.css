@@ -2724,6 +2724,15 @@ a.fff {
     border: 2px solid #ccc;
 }
 
+.thickbox img{
+	position:absolute;
+	right:5px;
+	top:5px;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
 .thickbox h4 {
     font-size: 14px;
     color: #686f83;

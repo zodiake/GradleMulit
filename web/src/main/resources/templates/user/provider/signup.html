@@ -99,6 +99,10 @@
 				}
 			});
 		});
+		$(".thickbox img").click(function(){
+			$('.hide-wrap').fadeOut();
+			$('.fixed').fadeOut();
+		});
     });
     </script>
 </head>
@@ -353,6 +357,7 @@
     <div th:include="footer/footer"></div>
     <div class="fixed fixed-two"></div>
     <div class="hide-wrap thickbox">
+    	<img th:src="@{/img/icon-close.png}" width="20px" height="20px"/>
 		<h4>“优捷实验协同采购平台”用户注册协议</h4>
 		<p>本协议是您与“优捷实验”协同采购平台”网站（简称"本站"，网址：www.ulabexpress.com）所有者（以下简称为"优捷实验"）之间就“优捷实验”网站服务等相关事宜所订立的契约，请您仔细阅读本注册协议，您点击"同意并继续"按钮后，本协议即构成对双方有约束力的法律文件。
 		</p><h4>第1条 本站服务条款的确认和接纳</h4>
