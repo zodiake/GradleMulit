@@ -65,8 +65,8 @@ module.controller('ScrollImgController', ['$scope',
 module.controller('ScrollImgDetailController', ['$scope',
     'item',
     '$http',
-    'ScrollService',
-    function ($scope, item, $http, ScrollService) {
+    'ScrollService','$modalInstance',
+    function ($scope, item, $http, ScrollService,$modalInstance) {
         $scope.item = item;
         $scope.alerts = [];
 
@@ -86,6 +86,10 @@ module.controller('ScrollImgDetailController', ['$scope',
             }).success(function (data) {
                 $scope.item.imageUrl = data[0];
             });
+        };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
         };
 
         $scope.submit = function () {

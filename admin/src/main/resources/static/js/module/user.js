@@ -163,10 +163,14 @@ userModule.controller('ProviderController', ['$scope',
 
 userModule.controller('CommonUserDetailController', ['$scope',
     'item',
-    'CommonUserService',
-    function ($scope, item, CommonUserService) {
+    'CommonUserService','$modalInstance',
+    function ($scope, item, CommonUserService,$modalInstance) {
         $scope.item = item;
         $scope.alerts = [];
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        };
 
         $scope.updateScore = function (item) {
             CommonUserService
@@ -193,8 +197,8 @@ userModule.controller('CommonUserDetailController', ['$scope',
 
 userModule.controller('ProviderDetailController', ['$scope',
     'item',
-    'ProviderService','$http',
-    function ($scope, item, ProviderService,$http) {
+    'ProviderService','$http','$modalInstance',
+    function ($scope, item, ProviderService,$http,$modalInstance) {
         $scope.item = item;
         $scope.alerts = [];
 
@@ -217,6 +221,10 @@ userModule.controller('ProviderDetailController', ['$scope',
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        }
         
         $scope.batchProducts = function(event){
             var file = event.target.files[0];

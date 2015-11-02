@@ -181,8 +181,8 @@ advertiseModule.controller('AdvModalCtrl', [
     }
 ]);
 
-advertiseModule.controller('CreateAdvertiseController', ['$scope', 'category', 'AdvertiseService', '$http',
-    function ($scope, category, AdvertiseService, $http) {
+advertiseModule.controller('CreateAdvertiseController', ['$scope', 'category', 'AdvertiseService', '$http','$modalInstance',
+    function ($scope, category, AdvertiseService, $http,$modalInstance) {
         $scope.categories = category.data;
         $scope.item = {};
         $scope.alerts = [];
@@ -208,6 +208,9 @@ advertiseModule.controller('CreateAdvertiseController', ['$scope', 'category', '
                     msg: validFailMessage
                 });
             }
+        };
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
         };
 
         $scope.upload = function (event) {
@@ -238,8 +241,8 @@ advertiseModule.controller('AdvertiseDetailController', ['$scope',
     'category',
     'item',
     'AdvertiseService',
-    '$http',
-    function ($scope, category, item, AdvertiseService, $http) {
+    '$http','$modalInstance',
+    function ($scope, category, item, AdvertiseService, $http,$modalInstance) {
         $scope.categories = category.data;
         $scope.item = item;
         $scope.alerts = [];
@@ -286,5 +289,9 @@ advertiseModule.controller('AdvertiseDetailController', ['$scope',
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        }
     }
 ]);

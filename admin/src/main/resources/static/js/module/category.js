@@ -153,6 +153,10 @@ category.controller('ProductModalCtrl', [
 
                 });
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        }
 
         $scope.cancel = function () {
             $modalInstance.dismiss();
@@ -215,8 +219,8 @@ category.controller('ChildCategoryController', [
 
 category.controller('ChildCategoryEditController', ['$scope',
     'item',
-    'CategoryService',
-    function ($scope, item, CategoryService) {
+    'CategoryService','$modalInstance',
+    function ($scope, item, CategoryService,$modalInstance) {
         $scope.item = item;
         $scope.alerts = [];
 
@@ -243,6 +247,10 @@ category.controller('ChildCategoryEditController', ['$scope',
                 });
             }
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        };
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
@@ -252,8 +260,8 @@ category.controller('ChildCategoryEditController', ['$scope',
 
 category.controller('CategoryChildAddController', ['$scope',
     '$stateParams',
-    'CategoryService',
-    function ($scope, $stateParams, CategoryService) {
+    'CategoryService','$modalInstance',
+    function ($scope, $stateParams, CategoryService,$modalInstance) {
         $scope.item = {};
         $scope.alerts = [];
 
@@ -290,6 +298,10 @@ category.controller('CategoryChildAddController', ['$scope',
                 });
             }
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        };
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
@@ -322,13 +334,14 @@ category.controller('ProductChildModalCtrl', [
         $scope.cancel = function () {
             $modalInstance.dismiss();
         };
+        
     }
 ]);
 
 category.controller('CategoryAddController', [
     '$scope',
-    'CategoryService',
-    function ($scope, CategoryService) {
+    'CategoryService','$modalInstance',
+    function ($scope, CategoryService,$modalInstance) {
         $scope.item = {};
         $scope.alerts = [];
 
@@ -354,6 +367,10 @@ category.controller('CategoryAddController', [
                 });
             }
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        }
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
@@ -365,8 +382,8 @@ category.controller('CategoryEditController', [
     '$scope',
     'CategoryService',
     'item',
-    'categories',
-    function ($scope, CategoryService, item, categories) {
+    'categories','$modalInstance',
+    function ($scope, CategoryService, item, categories,$modalInstance) {
         $scope.item = item;
         $scope.alerts = [];
         $scope.categories = categories;
@@ -392,6 +409,10 @@ category.controller('CategoryEditController', [
                 });
             }
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        }
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);

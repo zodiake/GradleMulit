@@ -129,8 +129,8 @@ adminUserModule.controller('AdminUserController', ['$scope',
 adminUserModule.controller('AdminUserAddController', ['$scope',
     'AdminService',
     '$modal',
-    'roles',
-    function ($scope, AdminService, $modal, roles) {
+    'roles','$modalInstance',
+    function ($scope, AdminService, $modal, roles,$modalInstance) {
         $scope.item = {};
         $scope.roles = roles.data;
         $scope.alerts = [];
@@ -153,6 +153,10 @@ adminUserModule.controller('AdminUserAddController', ['$scope',
                     });
                 });
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        };
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
@@ -164,13 +168,17 @@ adminUserModule.controller('AdminUserUpdateController', ['$scope',
     'AdminService',
     '$modal',
     'roles',
-    'item',
-    function ($scope, AdminService, $modal, roles, item) {
+    'item','$modalInstance',
+    function ($scope, AdminService, $modal, roles, item,$modalInstance) {
         $scope.item = item.data;
         $scope.item.fake = [];
         $scope.roles = roles.data;
         $scope.alerts = [];
 
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        };
+        
         $scope.item.roles.forEach(function (s) {
             $scope.item.fake[s.id] = true;
         });

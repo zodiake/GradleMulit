@@ -158,8 +158,8 @@ brandModule.controller('BrandModalCtrl', [
 
 brandModule.controller('BrandAddController', ['$scope',
     '$http',
-    'BrandService',
-    function ($scope, $http, BrandService) {
+    'BrandService','$modalInstance',
+    function ($scope, $http, BrandService,$modalInstance) {
         $scope.item = {};
         $scope.alerts = [];
 
@@ -179,6 +179,10 @@ brandModule.controller('BrandAddController', ['$scope',
             }).success(function (data) {
                 $scope.item.cover = data[0];
             });
+        };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
         };
 
         $scope.submit = function () {
@@ -213,8 +217,8 @@ brandModule.controller('BrandAddController', ['$scope',
 brandModule.controller('BrandViewController', ['$scope',
     'BrandService',
     'item',
-    '$http',
-    function ($scope, BrandService, item, $http) {
+    '$http','$modalInstance',
+    function ($scope, BrandService, item, $http,$modalInstance) {
         $scope.item = item;
         $scope.alerts = [];
 
@@ -235,6 +239,10 @@ brandModule.controller('BrandViewController', ['$scope',
                 $scope.item.cover = data[0];
             });
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        }
 
         $scope.submit = function () {
             if ($scope.brandForm.$valid) {

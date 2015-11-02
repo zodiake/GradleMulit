@@ -57,12 +57,15 @@ module.service('SolutionService', ['$http', function ($http) {
     };
 }]);
 
-module.controller('SolutionCreateController', ['$scope', function ($scope) {
+module.controller('SolutionCreateController', ['$scope','$modalInstance', function ($scope,$modalInstance) {
     $scope.solution = {};
 
     $scope.add = function (solution) {
         $scope.item.solutions.push($scope.solution);
     };
+    $scope.closeModal = function(){
+    	$modalInstance.dismiss();
+    }
 }]);
 
 module.controller('SolutionController', ['$scope',

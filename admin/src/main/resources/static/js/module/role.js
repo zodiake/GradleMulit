@@ -165,14 +165,18 @@ roleModule.controller('RoleModuleController', ['$scope',
         $scope.cancel = function () {
             $modalInstance.dismiss();
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        }
     }
 ]);
 
 roleModule.controller('roleDetailController', ['$scope',
     'item',
     'menus',
-    'RoleService',
-    function ($scope, item, menus, RoleService) {
+    'RoleService','$modalInstance',
+    function ($scope, item, menus, RoleService,$modalInstance) {
         $scope.item = item.data;
         $scope.menus = menus.data;
         $scope.item.fake = {};
@@ -204,13 +208,17 @@ roleModule.controller('roleDetailController', ['$scope',
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        };
     }
 ]);
 
 roleModule.controller('RoleCreateController', ['$scope',
     'menus',
-    'RoleService',
-    function ($scope, menus, RoleService) {
+    'RoleService','$modalInstance',
+    function ($scope, menus, RoleService,$modalInstance) {
         $scope.menus = menus.data;
         $scope.alerts = [];
 
@@ -232,6 +240,10 @@ roleModule.controller('RoleCreateController', ['$scope',
                     });
                 });
         };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        }
 
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);

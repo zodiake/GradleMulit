@@ -181,8 +181,8 @@ infoModule.controller('infoModalCtrl', [
     }
 ]);
 
-infoModule.controller('InfoCreateController', ['$scope', 'categories', 'InfoService',
-    function ($scope, categories, InfoService) {
+infoModule.controller('InfoCreateController', ['$scope', 'categories', 'InfoService','$modalInstance',
+    function ($scope, categories, InfoService,$modalInstance) {
         $scope.categories = categories.data.content;
         $scope.item = {};
         $scope.alerts = [];
@@ -193,6 +193,10 @@ infoModule.controller('InfoCreateController', ['$scope', 'categories', 'InfoServ
             filebrowserUploadUrl: '/admin/editor/img/upload',
             width: 795,
             height: 300
+        };
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
         };
 
         $scope.submit = function () {
@@ -223,8 +227,8 @@ infoModule.controller('InfoCreateController', ['$scope', 'categories', 'InfoServ
     }
 ]);
 
-infoModule.controller('InfoDetailController', ['$scope', 'item', 'categories', 'InfoService',
-    function ($scope, item, categories, InfoService) {
+infoModule.controller('InfoDetailController', ['$scope', 'item', 'categories', 'InfoService','$modalInstance',
+    function ($scope, item, categories, InfoService,$modalInstance) {
         $scope.editorOptions = {
             uiColor: '#000000',
             filebrowserBrowseUrl: '/upload',
@@ -235,6 +239,10 @@ infoModule.controller('InfoDetailController', ['$scope', 'item', 'categories', '
         $scope.item = item;
         $scope.categories = categories.data.content;
         $scope.alerts = [];
+        
+        $scope.closeModal = function(){
+        	$modalInstance.dismiss();
+        };
 
         $scope.submit = function () {
             if ($scope.infoForm.$valid) {

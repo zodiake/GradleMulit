@@ -53,7 +53,7 @@ displayModule.controller('DisplayController', [ '$scope', 'DisplayService',
      });
      
      $scope.productDetail = function(id){
-    	 $modal.open({
+    	 var productDetailModal = $modal.open({
              templateUrl: '/admin/templates/productDisplay/detail',
              size: 'lg',
              controller: 'ProductDetailController',

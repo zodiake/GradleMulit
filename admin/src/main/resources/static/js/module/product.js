@@ -151,8 +151,8 @@ productModule.controller('ProductDetailController', ['$scope',
     'productId',
     '$sce',
     'ProductService',
-    'solutions',
-    function ($scope, productId, $sce, ProductService, solutions) {
+    'solutions','$modalInstance',
+    function ($scope, productId, $sce, ProductService, solutions,$modalInstance) {
         $scope.solutions = solutions.data;
         $scope.alerts = [];
 
@@ -238,6 +238,9 @@ productModule.controller('ProductDetailController', ['$scope',
         	}).error(function(data){
         		
         	})
+        };
+        $scope.closeModal = function(){
+        	$modalInstance.close();
         }
     }
 ]);
