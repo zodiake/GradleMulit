@@ -59,9 +59,11 @@ public class SubjectServiceImpl implements SubjectService {
 	public Page<Subject> findByCategoryAndActivate(SubjectCategory category,
 			Pageable pageable, ActivateEnum activate) {
 		if (category.getId() == 6l) {
-			return repository.findByActivateOrderByCreatedTimeDesc(pageable,activate);
+			return repository.findByActivateOrderByCreatedTimeDesc(pageable,
+					activate);
 		} else {
-			return repository.findByCategoryAndActivateOrderByCreatedTimeDesc(category, pageable, activate);
+			return repository.findByCategoryAndActivateOrderByCreatedTimeDesc(
+					category, pageable, activate);
 		}
 	}
 
@@ -166,6 +168,18 @@ public class SubjectServiceImpl implements SubjectService {
 		subject.setShowOnIndex(showOnIndex);
 		repository.save(subject);
 		return subject;
+	}
+
+	@Override
+	public List<SubjectCategory> findByCategoriesAndShowOnIndex(
+			List<SubjectCategory> categories) {
+		for (SubjectCategory subjectCategory : categories) {
+			List<Subject> subjects = repository.findByShowOnIndexAndActivateAndCategory(
+					ActivateEnum.ACTIVATE, ActivateEnum.ACTIVATE,
+					subjectCategory);
+			subjectCategory.setSubjects(subjects);
+		}
+		return categories;
 	}
 
 }

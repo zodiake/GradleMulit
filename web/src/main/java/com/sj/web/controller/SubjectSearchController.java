@@ -36,7 +36,7 @@ public class SubjectSearchController extends BaseController<SubjectSearch> {
 
 		Page<SubjectSearch> pages = service.findByOption(option, pageable);
 		Map<String, String> map = service.buildMap(option);
-		List<SubjectCategory> categories = categoryService.findAll();
+		List<SubjectCategory> categories = categoryService.findByParent();
 
 		ViewPage viewpage = caculatePage(pages);
 		viewpage.setOption(map);

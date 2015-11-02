@@ -61,6 +61,7 @@ public class SubjectController extends BaseController<Subject> {
 		SubjectCategory sc = new SubjectCategory(6l);
 		sc.setName("解决方案");
 		uiModel.addAttribute("pc", sc);
+		uiModel.addAttribute("currentSubjectCategory", new SubjectCategory(6l));
 		uiModel.addAttribute("subjectCategories", subjectCategories);
 		return "subject/subjects";
 	}
@@ -106,7 +107,8 @@ public class SubjectController extends BaseController<Subject> {
 
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("viewpage", viewpage);
-		uiModel.addAttribute("pc", sc);
+		uiModel.addAttribute("pc", new SubjectCategory(6l));
+		uiModel.addAttribute("currentSubjectCategory", sc);
 		uiModel.addAttribute("subjectCategories", subjectCategories);
 		return "subject/subjects";
 	}

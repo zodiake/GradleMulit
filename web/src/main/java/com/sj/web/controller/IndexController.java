@@ -56,8 +56,8 @@ public class IndexController {
 		uiModel.addAttribute("hcs", maps.get("3"));
 		uiModel.addAttribute("fws", maps.get("4"));
 		
-		List<SubjectCategory> subjectCategories = subjectCategoryService.findByParent();
-		subjectCategories = subjectCategoryService.findByShowOnIndex(subjectCategories);
+		List<SubjectCategory> subjectCategories  = subjectCategoryService.findByParent();
+		subjectCategories = subjectService.findByCategoriesAndShowOnIndex(subjectCategories);
 		uiModel.addAttribute("subjectCategories", subjectCategories);
 		
 		List<Information> industryNews =informationService.findByCategoryAndShowOnIndex(informationCategorySerivce.findOne(7l));

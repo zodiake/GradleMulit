@@ -32,4 +32,6 @@ public interface SubjectService {
 	
 	Subject updateShowOnIndex(Subject subject,ActivateEnum showOnIndex);
 	
+	List<SubjectCategory> findByCategoriesAndShowOnIndex(List<SubjectCategory> categories);
+	
 }

@@ -105,7 +105,7 @@
                     <li th:class="${pc.id==2?'active':null}"><a href="/productCategories/2">试剂</a></li>
                     <li th:class="${pc.id==3?'active':null}"><a href="/productCategories/3">耗材</a></li>
                     <li th:class="${pc.id==4?'active':null}"><a href="/productCategories/4">服务</a></li>
-                    <li th:class="${subjectCategories!=null?'active':null}"><a href="/subjects">方案</a></li>
+                    <li th:class="${pc.id==6?'active':null}"><a href="/subjects">方案</a></li>
                     <li><a href="/informationCategorys/7">资讯</a></li>
                 </ul>
                 <ul th:if="${pc==null}">

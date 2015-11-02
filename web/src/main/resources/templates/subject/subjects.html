@@ -36,7 +36,7 @@
 			<div class="global-box topic-boxmainwrapper clearfix">
 				<div class="aside fl">
 					<a th:each="subjectCategory:${subjectCategories}"
-						th:text="${subjectCategory.name}" th:class="${pc.name==subjectCategory.name}?active" th:href="'/subjectCategories/'+${subjectCategory.id}"></a>
+						th:text="${subjectCategory.name}" th:class="${currentSubjectCategory.name==subjectCategory.name}?active" th:href="'/subjectCategories/'+${subjectCategory.id}"></a>
 				</div>
 				<div class="global-box topic-box mainpanel fr">
 					<div class="news-wrap">

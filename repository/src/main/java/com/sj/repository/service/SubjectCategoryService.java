@@ -14,5 +14,4 @@ public interface SubjectCategoryService {
 	
 	public List<SubjectCategory> findByParent();
 	
-	List<SubjectCategory> findByShowOnIndex(List<SubjectCategory> subjectCategories);
 }
