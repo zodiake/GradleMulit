@@ -1,61 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="description" content=""/>
-  <title>检测应用</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
-    		<meta name="_csrf" th:content="${_csrf.token}" />
-		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-  <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
-  <script th:src="@{/js/jquery-min.js}"></script>
-  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-  <script th:src="@{/js/silderBox.js}"></script>
-  <script th:src="@{/js/script.js}"></script>
-    		<script type="text/javascript">
-            $(function() {
-                var token = $("meta[name='_csrf']").attr("content");
-                var header = $("meta[name='_csrf_header']").attr("content");
-                var id = $("meta[name='id']").attr("content");
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<title>解决方案</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<script th:src="@{/js/jquery-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/silderBox.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+<script type="text/javascript">
+	$(function() {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var id = $("meta[name='id']").attr("content");
 
-                $(document).ajaxSend(function(e, xhr, options) {
-                    xhr.setRequestHeader(header, token);
-                });
-            });
-            </script>
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+	});
+</script>
 </head>
 <body>
 	<div th:include="head/head">Head</div>
 	<!-- header -->
-	<div class="wrapper">		
-	<div th:include="productcategory/secondCategories">Head</div>
-	<div class="crumb news-crumb">
-			<a href="/">首页</a>
-			<i>></i>
-			<a>解决方案</a>
-		</div>	
-		<div class="global-box topic-box">
-		    <ul>
-		    	 <li th:each="subject:${subjects}">
-					<a th:href="@{'/subjects/'+${subject.id}}">
-						<div class="title ft16 text210" th:text="${subject.name}">生物芯片扫描仪</div>
-						<div class="spe-pic">
-							<img th:src="@{${subject.image}}" width="210" height="175"/>
-						</div>
-						<div class="topic-detail dd" draggable="false" th:text="${subject.summary}">
-						</div>
-					</a>
-				</li>
-		    </ul>
-		</div>
-		<div class="pagination">
-			<div class="l-pagination">
+	<div class="wrapper">
+		<div class="wrapper h400">
+			<div class="crumb news-crumb">
+				<a href="/">首页</a> <i>></i> <i th:text="${pc.name}"></i>
+			</div>
+			<div class="global-box topic-boxmainwrapper clearfix">
+				<div class="aside fl">
+					<a th:each="subjectCategory:${subjectCategories}"
+						th:text="${subjectCategory.name}" th:class="${pc.name==subjectCategory.name}?active" th:href="'/subjectCategories/'+${subjectCategory.id}"></a>
+				</div>
+				<div class="global-box topic-box mainpanel fr">
+					<div class="news-wrap">
+						<ul>
+							<li th:each="subject:${subjects}">
+								<a th:href="@{'/subjects/'+${subject.id}}">
+									<div class="title ft16 text210" th:text="${subject.name}">生物芯片扫描仪</div>
+									<div class="spe-pic">
+										<img th:src="@{${subject.image}}" width="210" height="175" />
+									</div>
+									<div class="topic-detail dd" draggable="false"
+										th:text="${subject.summary}"></div>
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="pagination">
+				<div class="l-pagination">
 					<ul>
-						<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i-1==viewpage.current}?active" >
-							<a th:href="@{${viewpage.href}(page=${i-1},size=12)}" th:text="${i}"></a>
+						<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}"
+							th:class="${i-1==viewpage.current}?active"><a
+							th:href="@{${viewpage.href}(page=${i-1},size=12)}" th:text="${i}"></a>
 						</li>
 					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

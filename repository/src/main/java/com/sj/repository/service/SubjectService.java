@@ -32,5 +32,4 @@ public interface SubjectService {
 	
 	Subject updateShowOnIndex(Subject subject,ActivateEnum showOnIndex);
 	
-	
 }

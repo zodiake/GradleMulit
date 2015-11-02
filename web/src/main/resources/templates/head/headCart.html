@@ -1,95 +1,96 @@
-<div th:fragment="head" class="header" >
-	<div class="head-box clearfix">
-		<script type="text/javascript" th:src="@{/js/noCart.js}"></script>
-		<script src="/js/searchForm.js"></script>
-		<a href="/" class="logo">
-			<img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/>
-			<span class="logo-hd"><img th:src="@{/img/logo-txt.png}" /></span>
-		</a>
-		<div class="head-search">
-			<form id="searchForm" action="/products/_search">
-				<span class="searched">商品</span>
-				<input type="text" name="title" id="searchText"/>
-				<input class="icon-search" type="submit" value="" />
-				<div class="search-sort">
-					<a data-name="/products/_search" data-input="title">商品</a>
-					<a data-name="/models/_search?show=true" data-input="title">型号</a>
-					<a data-name="/brands/_search?show=true" data-input="title">品牌</a>
-					<a data-name="/subject/_search" data-input="title">方案</a>
-					<a data-name="/info/_search" data-input="title">资讯</a>
-				</div>
+<div class="top-line-wp">
+<script type="text/javascript" th:src="@{/js/logout.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+   <div class="w990" th:if="${session.SPRING_SECURITY_CONTEXT==null}">
+            <a href="/login">登录</a>
+            <span>|</span>
+            <a href="/signup?user">注册</a>
+    </div>
+    <div th:unless="${session.SPRING_SECURITY_CONTEXT==null}">
+	    <div class="w990" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
+	    	<a href="/user/detail" th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></a><span>|</span>
+	    	<a href="/user/detail">个人中心</a><span>|</span>
+	    	<a href="/user/collection">收藏夹</a><span>|</span>
+	    	<a href="/user/carts">我的购物车</a><span>|</span>
+	    	<a href="/user/buyRecords">我的采购清单</a><span>|</span>
+	    	<form id="logoutForm" action="/logout" method="post" style="float: right;padding-top: 3px;">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				<a id="logout">退出登录</a>
 			</form>
-		</div>
-		<div class="head-menu"  th:if="${session.SPRING_SECURITY_CONTEXT==null}">
-			<a href="/login">登录</a>
-			<span>|</span>
-			<a href="/signup?user">注册</a>
-		</div>
-		<div class="head-dorpdown" th:unless="${session.SPRING_SECURITY_CONTEXT==null}">
-			<script type="text/javascript" th:src="@{/js/headCart.js}"></script>
-			<div class="head-cart" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-				<div class="ct-cart">
-					购物车(<i th:if="${session.cartLines==null}" th:text="0" id="allNum"></i><i th:if="${session.cartLines!=null}" th:text="${session.cartLines.size()}" id="allNum"></i>)
-				</div>
-			</div>
-			<div class="head-user">
-				<script type="text/javascript" th:src="@{/js/logout.js}"></script>
-				<div class="user-name" id="username"  th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></div>
-				<div class="user-menu bodr">
-					<ul>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/detail">个人中心</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/collection">收藏夹</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/carts">我的购物车</a>
-						</li>
-						<li th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_COMMONUSER">
-							<a href="/user/buyRecords">我的采购申请</a>
-						</li>
-						<li>
-							<form id="logoutForm" action="/logout" method="post">
-							 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-								<a id="logout">退出登录</a>
-							</form>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="head-nav">
-		<div class="nav-box">
-			<ul>
-				<li>
-					<a href="/">首页</a>
-				</li>
-				<li>
-					<a href="/productCategory/1">仪器</a>
-				</li>
-				<li>
-					<a href="/productCategory/2">试剂</a>
-				</li>
-				<li>
-					<a href="/productCategory/3">耗材</a>
-				</li>
-				<li>
-					<a href="/productCategory/4">服务</a>
-				</li>
-				<li>
-					<a href="/subjects">解决方案</a>
-				</li>
-				<li class="news-down hide-menu">
-					<a >资讯</a>
-					<div class="news-sort show-menu">
-						<a href="/informationCategorys/7">行业要闻</a>
-						<a href="/informationCategorys/8">新品成果</a>
-						<a href="/informationCategorys/9">厂商动态</a>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-</div>
+	    </div>
+	    <div class="w990" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_PROVIDER">
+	    	<a href="/provider/detail" th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></a><span>|</span>
+	    	<a href="/provider/detail">个人中心</a><span>|</span>
+	    	<a target="_blank" href="/provider/products?form">商品发布</a><span>|</span>
+	    	<a target="_blank" href="/provider/products">商品维护</a><span>|</span>
+	    	<a href="/provider/count">商品信息统计</a><span>|</span>
+	    	<form id="logoutForm" action="/logout" method="post" style="float: right;padding-top: 3px;">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				<a id="logout">退出登录</a>
+			</form>
+	    </div>
+	    <div class="w990" th:if="${session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority}==ROLE_UNAUTH">
+	    	<a href="/supplier/detail" th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></a><span>|</span>
+	    	<a href="/supplier/detail">个人中心</a><span>|</span>
+	    	<form id="logoutForm" action="/logout" method="post" style="float: right;padding-top: 3px;">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				<a id="logout">退出登录</a>
+			</form>
+	    </div>
+    </div>
+    </div>
+    <div class="header">
+		<script th:src="@{/js/searchForm.js}"></script>
+        <div class="head-box clearfix">
+            <a href="/" class="logo">
+                <img th:src="@{/img/logo.png}" alt="logo" width="135"/>
+                <span class="logo-hd">
+                    <img th:src="@{/img/logo-txt.png}"/>
+                </span>
+            </a>
+            <div class="search-wp">
+             <form id="searchForm" th:action="${action==null?'/products/_search':action}">
+                <div class="search-tab">
+                    <a data-name="/products/_search" data-input="title" th:class="${field==null?'active':null}">商品</a>
+					<a data-name="/models/_search?show=true" data-input="title" th:class="${field=='型号'?'active':null}">型号</a>
+					<a data-name="/brands/_search?show=true" data-input="title" th:class="${field=='品牌'?'active':null}">品牌</a>
+					<a data-name="/subject/_search" data-input="title" th:class="${field=='方案'?'active':null}">方案</a>
+					<a data-name="/info/_search" data-input="title" th:class="${field=='资讯'?'active':null}">资讯</a>
+                </div>
+                <div class="search-panel">
+                    <div class="search-cont">
+                          <input type="text" th:name="${name==null?'title':name}" id="searchText" th:value="${option==null?null:option.title}"/>
+                          <button type="submit" class="search-btn">搜索</button>
+                     </div>
+                </div>
+                </form>
+            </div>
+            <div class="head-cart" th:if="${session.SPRING_SECURITY_CONTEXT==null || session.SPRING_SECURITY_CONTEXT.authentication.principal.siteAuthority=='ROLE_COMMONUSER'}">
+            	<script type="text/javascript" th:src="@{/js/headCart.js}"></script>
+                <div class="cart-num" th:text="${session.cartLines==null?0:session.cartLines.size()}">5</div>
+                <a href="/user/carts"><div class="ct-cart">我的购物车</div></a>
+            </div>
+        </div>
+        <div class="head-nav">
+            <div class="nav-box">
+           	 	<ul th:if="${pc!=null}">
+                    <li th:class="${pc.id==0?'active':null}"><a href="/">首页</a></li>
+                    <li th:class="${pc.id==1?'active':null}"><a href="/productCategories/1">仪器</a></li>
+                    <li th:class="${pc.id==2?'active':null}"><a href="/productCategories/2">试剂</a></li>
+                    <li th:class="${pc.id==3?'active':null}"><a href="/productCategories/3">耗材</a></li>
+                    <li th:class="${pc.id==4?'active':null}"><a href="/productCategories/4">服务</a></li>
+                    <li th:class="${pc.id==6?'active':null}"><a href="/subjects">专题</a></li>
+                    <li><a href="/informationCategorys/7">资讯</a></li>
+                </ul>
+                <ul th:if="${pc==null}">
+                    <li class="active"><a href="/">首页</a></li>
+                    <li ><a href="/productCategories/1">仪器</a></li>
+                    <li ><a href="/productCategories/2">试剂</a></li>
+                    <li ><a href="/productCategories/3">耗材</a></li>
+                    <li ><a href="/productCategories/4">服务</a></li>
+                    <li ><a href="/subjects">专题</a></li>
+                    <li><a href="/informationCategorys/7">资讯</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>

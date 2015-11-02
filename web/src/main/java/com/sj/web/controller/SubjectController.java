@@ -2,6 +2,7 @@ package com.sj.web.controller;
 
 import static com.sj.repository.util.RedisConstant.REVIEWCOUNT;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import com.sj.repository.service.ProductService;
 import com.sj.repository.service.SolutionService;
 import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
+import com.sj.web.exception.CategoryNotFoundException;
 import com.sj.web.exception.SubjectNotFoundException;
 
 @Controller
@@ -44,8 +46,11 @@ public class SubjectController extends BaseController<Subject> {
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "12") int size,
 			Model uiModel) {
-		Page<Subject> subjects = subjectService.findByCategoryAndActivate(
-				null, new PageRequest(page, size), ActivateEnum.ACTIVATE);
+
+		List<SubjectCategory> subjectCategories = subjectCategoryService.findByParent();
+
+		Page<Subject> subjects = subjectService.findByCategoryAndActivate(new SubjectCategory(6l),
+				new PageRequest(page, size), ActivateEnum.ACTIVATE);
 
 		ViewPage viewpage = caculatePage(subjects);
 		viewpage.setHref("/subjects");
@@ -53,7 +58,10 @@ public class SubjectController extends BaseController<Subject> {
 
 		uiModel.addAttribute("subjects", subjects);
 		uiModel.addAttribute("viewpage", viewpage);
-		uiModel.addAttribute("pc", new SubjectCategory(6l));
+		SubjectCategory sc = new SubjectCategory(6l);
+		sc.setName("解决方案");
+		uiModel.addAttribute("pc", sc);
+		uiModel.addAttribute("subjectCategories", subjectCategories);
 		return "subject/subjects";
 	}
 
@@ -77,5 +85,29 @@ public class SubjectController extends BaseController<Subject> {
 			@PathVariable("productId") Long productId) {
 		Set<SubjectListJson> subjects = subjectService.findByProduct(productId);
 		return subjects;
+	}
+
+	@RequestMapping(value = "/subjectCategories/{id}", method = RequestMethod.GET)
+	public String findByCategory(
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "12") int size,
+			@PathVariable("id") Long id, Model uiModel) {
+		SubjectCategory sc = subjectCategoryService.findOne(id);
+		if(sc==null)
+			throw new CategoryNotFoundException();
+		List<SubjectCategory> subjectCategories = subjectCategoryService.findByParent();
+
+		Page<Subject> subjects = subjectService.findByCategoryAndActivate(sc,
+				new PageRequest(page, size), ActivateEnum.ACTIVATE);
+		
+		ViewPage viewpage = caculatePage(subjects);
+		viewpage.setHref("/subjects");
+		viewpage.setCurrent(subjects.getNumber());
+
+		uiModel.addAttribute("subjects", subjects);
+		uiModel.addAttribute("viewpage", viewpage);
+		uiModel.addAttribute("pc", sc);
+		uiModel.addAttribute("subjectCategories", subjectCategories);
+		return "subject/subjects";
 	}
 }

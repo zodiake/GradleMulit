@@ -9,5 +9,5 @@ import com.sj.model.type.ActivateEnum;
 
 public interface SubjectCategoryRepostiory extends
 		CrudRepository<SubjectCategory, Long> {
-	List<SubjectCategory> findByActivateAndParentIsNull(ActivateEnum activate);
+	List<SubjectCategory> findByActivateAndParent(ActivateEnum activate,SubjectCategory sc);
 }

@@ -46,8 +46,9 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
 	}
 
 	@Override
-	public List<SubjectCategory> findParentIsNull() {
-		return repository.findByActivateAndParentIsNull(ActivateEnum.ACTIVATE);
+	@Cacheable(value = "subjectCategoryCache")
+	public List<SubjectCategory> findByParent() {
+		return repository.findByActivateAndParent(ActivateEnum.ACTIVATE,new SubjectCategory(6l));
 	}
 
 	@Override

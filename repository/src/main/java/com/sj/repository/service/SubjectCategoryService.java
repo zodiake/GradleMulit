@@ -12,7 +12,7 @@ public interface SubjectCategoryService {
 
 	public List<SubjectCategory> findAll();
 	
-	public List<SubjectCategory> findParentIsNull();
+	public List<SubjectCategory> findByParent();
 	
 	List<SubjectCategory> findByShowOnIndex(List<SubjectCategory> subjectCategories);
 }
