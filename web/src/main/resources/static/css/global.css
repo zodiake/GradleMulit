@@ -1530,7 +1530,7 @@ a.plus:hover {
     position: relative;
     border-bottom: 1px solid #dcdcdc;
     overflow: hidden;
-    z-index:-1;
+    z-index:1;
 }
 
 .search-select>label {

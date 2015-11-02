@@ -90,6 +90,8 @@ public class SearchController extends BaseController<ProductSearch> {
 		}
 		if (StringUtils.isEmpty(option.getSecondCategory()))
 			option.setSecondCategory(null);
+		if(StringUtils.isEmpty(option.getThirdCategory()))
+			option.setThirdCategory(null);
 		if (StringUtils.isEmpty(option.getTag()))
 			option.setTag(null);
 		if (StringUtils.isEmpty(option.getTitle()))
