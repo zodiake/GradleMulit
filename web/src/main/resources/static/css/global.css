@@ -2152,6 +2152,15 @@ li div.topic-detail {
     left: 40%;
     top: 40%;
 }
+.PDF {
+    display: none;
+    padding: 30px;
+    text-align: center;
+    background: #fff;
+    position: fixed;
+    left: 40%;
+    top: 40%;
+}
 
 .logo-small label {
     width: 50px;
@@ -2169,8 +2178,16 @@ li div.topic-detail {
     margin: 0 10px;
 }
 
+.PDF .temp span {
+    margin: 0 10px;
+}
+
+.PDF .temp {
+margin: 10px 0 15px;
+}
+
 .hide-wrap .temp-h {
-    text-align: left;
+    text-align: center;
 }
 
 .hide-wrap.orders {

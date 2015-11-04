@@ -48,6 +48,23 @@
 			$(".fixed").fadeOut();
 			$(".deletePrompt").fadeOut();
 		});
+		$(".download").click(function(){
+			var noid = $(this).attr("noid");
+			var val = "/user/buyRecords/"+noid+".pdf";
+			console.log($("#pdfForm").attr("action"));
+			$("#pdfForm").attr("action",val);
+			$(".fixed").fadeIn();
+			$(".PDF").fadeIn();
+		});
+		$(".ajaxLogin-close img").click(function(){
+			$('.fixed').fadeOut();
+			$('.PDF').fadeOut();
+		});
+		$(".fixed").click(function(){
+			$('.fixed').fadeOut();
+			$('.PDF').fadeOut();
+			$(".deletePrompt").fadeOut();
+		});
 	});
   </script>
 </head>
@@ -88,7 +105,7 @@
 								<td>
 									<a class="blue delete" th:attr="data-id=${buy.id}">删除</a>|
 									<a class="blue" th:href="'/user/buyRecords/'+${buy.id}+'?edit'">修改</a>|
-									<a class="blue" th:href="'/user/buyRecords/'+${buy.noId}+'.pdf'" target="_blank">下载</a>
+									<a class="blue download" th:attr="noid=${buy.noId}" target="_blank">下载</a>
 								</td>
 							</tr>
 						</tbody>
@@ -122,6 +139,21 @@
 				<button class="btn default cancel" >取消</button>
 			</div>
 		</div>
+	</div>
+	<div class="PDF temp-wrap bodr">
+		<div class="ajaxLogin-close">
+			<img th:src="@{/img/icon-close.png}" width="20px" height="20px"/>
+		</div>
+		<h3 class="temp-h"><b>请选择PDF模板</b></h3>
+		<form target="_blank" th:method="get" id="pdfForm" action="">
+			<div class="temp">
+				<span><input type="radio" name="type" value="one" checked="checked"/>模板1</span>
+				<span><input type="radio" name="type" value="two"/>模板2</span>
+				<span><input type="radio" name="type" value="three"/>模板3</span>
+				<span><input type="radio" name="type" value="four"/>模板4</span>
+			</div>
+			<button type="submit" class="btn green fff">确认</button>
+		</form>
 	</div>
 </body>
 </html>	

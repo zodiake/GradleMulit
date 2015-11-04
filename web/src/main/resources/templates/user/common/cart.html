@@ -23,6 +23,11 @@
 	    }).bind("paste",function(){       
 	        $(this).val($(this).val().replace(/[^0-9.]/g,''));       
 	   	});
+		
+		$(".ajaxLogin-close img").click(function(){
+			$('.hide-wrap').fadeOut();
+			$('.fixed').fadeOut();
+		});
 	    
 		$(".text-amount").blur(function() {
 			var i = $(this);
@@ -136,7 +141,7 @@
 								<span class="num">已选好<b class="red" id="num"></b>种商品</span>
 								<span>合计：<b  class="red">￥</b><b class="red" id="count"></b></span>
 								<button th:if="${list==null}" class="btn green fr make-orders" disabled="disabled" id="createButton">生成采购订单</button>
-								<button th:unless="${list==null}" class="btn green fr make-orders" id="createButton">生成采购订单</button>
+								<a href="/user/buyRecords?form"><button th:unless="${list==null}" class="btn green fr">生成采购订单</button></a>
 							</div>
 						</div>
 					</div>
@@ -155,16 +160,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="hide-wrap temp-wrap bodr">
-		<h3 class="temp-h">请选择生成的采购模板</h3>
-		<div class="temp">
-			<span><input type="radio" name="radio" />模板1</span>
-			<span><input type="radio" name="radio" />模板2</span>
-			<span><input type="radio" name="radio" />模板3</span>
-			<span><input type="radio" name="radio" />模板4</span>		
-		</div>
-		<a href="/user/buyRecords?form" class="btn green fff">确认</a>
-	</div>
-	
 </body>
 </html>

@@ -10,6 +10,19 @@
 <script type="text/javascript" th:src="@{/js/prompt.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/script.js}"></script>
+<script type="text/javascript">
+$(function() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+	$(".ajaxLogin-close img").click(function(){
+		$('.hide-wrap').fadeOut();
+		$('.fixed').fadeOut();
+	});
+});
+</script>
 </head>
 <body>
 	<div class="header" th:include="head/head">Head</div>
@@ -83,7 +96,7 @@
 			        		<input type="text" disabled="disabled" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}"/>
 						</div>
 						<div class="center">
-							<a th:href="'/user/buyRecords/'+${buy.noId}+'.pdf'" target="_blank" class="btn green mauto fff">下载PDF文档</a>
+							<a class="btn green mauto fff make-orders">下载PDF文档</a>
 							<a th:href="'/user/buyRecords/'+${buy.id}+'?edit'" class="btn green mauto fff">修改</a>
 							<a href="/user/buyRecords" class="btn mauto default">返回列表</a>
 						</div>
@@ -96,5 +109,21 @@
 	</div>
 	<div th:include="footer/footer"></div>
 	<div class="prompt"></div>
+	<div class="fixed"></div>
+	<div class="hide-wrap temp-wrap bodr">
+		<div class="ajaxLogin-close">
+			<img th:src="@{/img/icon-close.png}" width="20px" height="20px"/>
+		</div>
+		<h3 class="temp-h"><b>请选择PDF模板</b></h3>
+		<form th:action="'/user/buyRecords/'+${buy.noId}+'.pdf'" target="_blank" th:method="get">
+			<div class="temp">
+				<span><input type="radio" name="type" value="one" checked="checked"/>模板1</span>
+				<span><input type="radio" name="type" value="two"/>模板2</span>
+				<span><input type="radio" name="type" value="three"/>模板3</span>
+				<span><input type="radio" name="type" value="four"/>模板4</span>
+			</div>
+			<button type="submit" class="btn green fff">确认</button>
+		</form>
+	</div>
 </body>
 </html>

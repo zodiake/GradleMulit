@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itextpdf.text.DocumentException;
 import com.sj.model.model.BuyRecord;
@@ -30,21 +31,24 @@ public class ITextPdfController {
 	@Autowired
 	private PDFService pDFService;
 
-	@RequestMapping(value = "/user/buyRecords/{noid}.pdf", method = RequestMethod.GET)
-	public Callable<HttpEntity<byte[]>> exportPDF(@PathVariable("noid")String noId,HttpServletResponse response,@SecurityUser SiteUser user) {
+	@RequestMapping(value = "/user/buyRecords/{noid}.pdf", method = RequestMethod.GET, params = "type")
+	public Callable<HttpEntity<byte[]>> exportPDF(
+			@PathVariable("noid") String noId,
+			@RequestParam(value = "type", defaultValue = "one") String type,
+			HttpServletResponse response, @SecurityUser SiteUser user) {
 		BuyRecord buyRecord = buyRecordService.findByNoId(noId);
-		if(buyRecord==null)
+		if (buyRecord == null)
 			throw new BuyRecordNotFoundException();
 		return new Callable<HttpEntity<byte[]>>() {
 			@Override
 			public HttpEntity<byte[]> call() throws Exception {
 				try {
 					OutputStream out = response.getOutputStream();
-					byte[] bytes = pDFService.getBuyRecordPdf(buyRecord,out);
-					out = response.getOutputStream();
+					byte[] bytes = pDFService.getBuyRecordPdf(buyRecord, out,type);
 					HttpHeaders header = new HttpHeaders();
 					header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-					header.setContentDispositionFormData("attachment", buyRecord.getNoId()+".pdf");
+					header.setContentDispositionFormData("attachment",
+							buyRecord.getNoId() + ".pdf");
 					header.setContentLength(bytes.length);
 
 					return new HttpEntity<byte[]>(bytes, header);
