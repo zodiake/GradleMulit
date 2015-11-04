@@ -598,7 +598,6 @@ insert into brand(id,name,activate,cover_img,created_time,href) values(2,'BIOMER
 insert into brand(id,name,activate,cover_img,created_time,href) values(3,'CDRC',1,'http://localhost:8000/2015/9/CDRC.jpg','2012-1-1','www.baidu.com');
 insert into brand(id,name,activate,cover_img,created_time,href) values(4,'MERCK',1,'http://localhost:8000/2015/9/MERCK.jpg','2012-1-1','www.baidu.com');
 
-
 -- test category
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(1,'仪器',null,1,'2012-1-1','tom','pc');
@@ -2569,7 +2568,6 @@ insert into provider(id,company_name_china,company_name_english,legal_person,reg
 values(1,'上海恒企','hengqixinxi','bmw','两亿','人体强化药剂','/provider/1','/provider/1','/provider/1','boss','12345678901','010-12345678','外航渡路1234号','123456','www.qq.com',0,0,0,0,1,1,1,1,1,'111111111111111111111111111111111111111111111111111111');
 insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated,compony_type,info_id,content)
 values(2,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider/2','/provider/2','/provider/2','boss','12345678901','010-12345678','外航渡路123发的4号','123456','www.qq.com',0,0,0,0,2,4,1,2,2,'22222222222222222222222222222222222222222222222222222222');
-
 insert into provider(id,company_name_china,company_name_english,legal_person,registered_capital,main_product,business_license_url,tax_registration_url,structure_code_url,position,provider_phone,fax,address,code,website,business_type,scale,output,industry_information,province_id,city_id,is_authenticated,compony_type,info_id,content)
 values(7,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider/2','/provider/2','/provider/2','boss','12345678901','010-12345678','外航渡路123发的4号','123456','www.qq.com',0,0,0,0,2,4,1,2,2,'22222222222222222222222222222222222222222222222222222222');
 

@@ -296,8 +296,7 @@ public class ProductServiceImpl implements ProductService {
 				.createQuery(c)
 				.setFirstResult(
 						(pageable.getPageNumber() - 1) * pageable.getPageSize())
-				.setMaxResults(
-						pageable.getPageNumber() * pageable.getPageSize())
+				.setMaxResults(pageable.getPageSize())
 				.getResultList();
 		List<ProductJson> products = lists.stream()
 				.map(m -> new ProductJson(m)).collect(Collectors.toList());
@@ -352,12 +351,12 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 3; i <= irLength; i++) {
 			XSSFRow xssfRow = sheet.getRow(i);
 			Product product = new Product();
-			String name = getStringCellValue(xssfRow, i, 0, 40);
+			String name = getStringCellValue(xssfRow, i, 0, 64);
 			product.setName(name);
-			String model = getStringCellValue(xssfRow, i, 1, 20);
+			String model = getStringCellValue(xssfRow, i, 1, 50);
 			product.setModel(model);
 
-			product.setSpecifications(getStringCellValue(xssfRow, i, 2, 20));
+			product.setSpecifications(getStringCellValue(xssfRow, i, 2, 50));
 			String brandName = getStringCellValue(xssfRow, i, 3);
 			Brand brand = brandRepository.findByNameAndActivate(brandName,
 					ActivateEnum.ACTIVATE);

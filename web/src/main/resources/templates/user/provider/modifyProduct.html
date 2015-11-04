@@ -125,21 +125,16 @@
 						<div class="form-group">
 							<div class="fl">
 							<label><i>*</i>产品名称</label>
-							<input type="text" th:field="*{name}"/>
+							<input type="text" th:field="*{name}" placeholder="商品名字最长为64位" maxlength="64"/>
 							<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
 							</div>
 							<div class="fl">
 							<label><i>*</i>产品型号</label>
-							<input type="text" th:field="*{model}"/>
+							<input type="text" th:field="*{model}" placeholder="型号最长为50位" maxlength="50"/>
 							<i class="error" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></i>
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="fl">
-							<label><i>*</i>产品规格/单位</label>
-							<input type="text" th:field="*{specifications}"/>
-							<i class="error" th:if="${#fields.hasErrors('specifications')}" th:errors="*{specifications}"></i>
-							</div>
 							<div class="fl">
 							<label><i>*</i>品牌</label>
 							<select class="w235" th:field="*{brand}">
@@ -147,6 +142,11 @@
 								<option th:each="brand:${brands}" th:text="${brand.name}" th:value="${brand.id}"></option>
 							</select>
 							<i class="error" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></i>
+							</div>
+							<div class="fl">
+							<label><i>*</i>产品规格/单位</label>
+							<input type="text" th:field="*{specifications}" placeholder="规格最长为50位" maxlength="50"/>
+							<i class="error" th:if="${#fields.hasErrors('specifications')}" th:errors="*{specifications}"></i>
 							</div>
 						</div>
 						<div class="form-group">
@@ -188,7 +188,7 @@
 						<div class="form-group">
 							<div class="fl">
 							<label>标签</label>							
-							<input type="text" class="w630" th:field="*{label}"/>
+							<input type="text" class="w630" th:field="*{label}" placeholder="标签最长为150个字符" maxlength="150"/>
 							<i class="error" th:if="${#fields.hasErrors('label')}" th:errors="*{label}"></i>
 							</div>
 						</div>	

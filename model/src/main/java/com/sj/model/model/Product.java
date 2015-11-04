@@ -45,12 +45,14 @@ public class Product {
 	protected String name;
 
 	@NotBlank(message = "型号不能为空")
+	@Size(max = 50, message = "型号最长为50位")
 	protected String model;
 
 	@NotNull(message = "请选择产地")
 	protected PlaceEnum placeOfProduction;
 
 	@NotBlank(message = "规格不能为空")
+	@Size(max = 50, message = "规格最长为50位")
 	protected String specifications;
 
 	@Enumerated

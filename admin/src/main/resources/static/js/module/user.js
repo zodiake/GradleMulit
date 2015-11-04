@@ -75,9 +75,9 @@ userModule.controller('CommonUserController', ['$scope',
             size: $scope.size
         });
 
-        $scope.seach = function () {
+        $scope.search = function (current) {
             init({
-                page: $scope.page,
+                page: current,
                 size: $scope.size
             });
         };
@@ -130,9 +130,10 @@ userModule.controller('ProviderController', ['$scope',
             auth: $scope.auth
         });
 
-        $scope.search = function () {
+        $scope.search = function (current) {
+        	console.log(current);
             init({
-                page: $scope.page,
+                page: current,
                 size: $scope.size,
                 auth: $scope.auth
             });

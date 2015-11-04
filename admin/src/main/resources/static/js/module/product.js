@@ -121,7 +121,10 @@ productModule.controller('ProductController', ['$scope',
                 });
         };
 
-        $scope.search = function () {
+        $scope.search = function (current) {
+        	$scope.page = current;
+        	$scope.opt.page = current;
+        	console.log($scope.opt);
             ProductService
                 .findAll($scope.opt)
                 .success(function (data) {

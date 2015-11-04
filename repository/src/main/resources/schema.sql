@@ -148,10 +148,10 @@ create table brand(
 create table product(
 	id bigint not null auto_increment,
 	name varchar(64) not null,
-	model varchar(20),
+	model varchar(50),
 	place_of_production smallint,
 	status smallint,
-	specifications varchar(20),
+	specifications varchar(50),
 	cover_img varchar(100),
 	first_category_id bigint,
 	second_category_id bigint,

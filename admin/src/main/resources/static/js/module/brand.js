@@ -121,9 +121,9 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
             });
         };
 
-        $scope.search = function () {
+        $scope.search = function (current) {
             init({
-                page: $scope.page,
+                page: current,
                 size: $scope.size,
             });
         };

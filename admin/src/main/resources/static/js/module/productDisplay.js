@@ -67,6 +67,18 @@ displayModule.controller('DisplayController', [ '$scope', 'DisplayService',
              }
          });
      };
+     
+     $scope.search = function(current){
+    	 DisplayService.findAll({
+        	 page: current,
+             size: $scope.size
+         }).success(function(data){
+    		 $scope.items = data.content;
+    		 $scope.total = data.totalElements;
+    	 }).error(function(data){
+    		 
+    	 });
+     };
      $scope.update=function(item){
     	 DisplayService.update(item.id,item.state).success(function(data){
     		 if(data=="success"){
