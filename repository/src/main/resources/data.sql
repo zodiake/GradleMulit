@@ -593,10 +593,10 @@ insert into city(id,name,province_id) values(501,'温州市',34);
 insert into city(id,name,province_id) values(502,'舟山市',34);
 
 -- test brand
-insert into brand(id,name,activate,cover_img,created_time,href) values(1,'Thermo Fisher Scientific',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1','http://www.thermofisher.com/cn/zh/home.html');
-insert into brand(id,name,activate,cover_img,created_time,href) values(2,'BIOMERIEUX',1,'http://localhost:8000/2015/9/BIOMERIEUX.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(3,'CDRC',1,'http://localhost:8000/2015/9/CDRC.jpg','2012-1-1','www.baidu.com');
-insert into brand(id,name,activate,cover_img,created_time,href) values(4,'MERCK',1,'http://localhost:8000/2015/9/MERCK.jpg','2012-1-1','www.baidu.com');
+insert into brand(id,name,activate,cover_img,created_time,href,show_on_index,show_time) values(1,'Thermo Fisher Scientific',1,'http://localhost:8000/2015/9/Thermo Fisher Scientific.jpg','2012-1-1','http://www.thermofisher.com/cn/zh/home.html',1,'2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time,href,show_on_index,show_time) values(2,'BIOMERIEUX',1,'http://localhost:8000/2015/9/BIOMERIEUX.jpg','2012-1-1','www.baidu.com',1,'2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time,href,show_on_index,show_time) values(3,'CDRC',1,'http://localhost:8000/2015/9/CDRC.jpg','2012-1-1','www.baidu.com',1,'2012-1-1');
+insert into brand(id,name,activate,cover_img,created_time,href,show_on_index,show_time) values(4,'MERCK',1,'http://localhost:8000/2015/9/MERCK.jpg','2012-1-1','www.baidu.com',1,'2012-1-1');
 
 -- test category
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)

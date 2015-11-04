@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import com.sj.model.model.ProductCategory;
 import com.sj.model.model.ProductDisplay;
 import com.sj.model.model.ScrollImage;
 import com.sj.model.model.SubjectCategory;
-import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.CategoryJson;
 import com.sj.repository.service.BrandService;
 import com.sj.repository.service.InformationCategoryService;
@@ -68,7 +66,7 @@ public class IndexController {
 		uiModel.addAttribute("newResults", newResults);
 		uiModel.addAttribute("vendorDynamics", vendorDynamics);
 		
-		List<Brand> brands = brandService.findByAcitvate(ActivateEnum.ACTIVATE, new PageRequest(0, 10));
+		List<Brand> brands = brandService.findByShowOnIndex();
 		uiModel.addAttribute("brands", brands);
 		List<ScrollImage> scrollImages = scrollImageService.findAll();
 		uiModel.addAttribute("images", scrollImages);

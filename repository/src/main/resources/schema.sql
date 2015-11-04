@@ -140,8 +140,10 @@ create table brand(
 	name varchar(50),
 	created_time timestamp DEFAULT CURRENT_TIMESTAMP,
 	activate smallint default 1,
+	show_on_index smallint default 1,
 	cover_img varchar(90),
 	href varchar(225),
+	show_time timestamp DEFAULT CURRENT_TIMESTAMP,
 	primary key(id)
 );
 

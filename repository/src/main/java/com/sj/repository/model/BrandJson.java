@@ -1,5 +1,7 @@
 package com.sj.repository.model;
 
+import java.util.Calendar;
+
 import com.sj.model.model.Brand;
 
 public class BrandJson {
@@ -7,12 +9,16 @@ public class BrandJson {
 	private String title;
 	private String cover;
 	private String state;
+	private String show;
+	private Calendar showTime;
 
 	public BrandJson(Brand b) {
 		this.id = b.getId();
 		this.title = b.getName();
 		this.cover = b.getCoverImg();
 		this.state = b.getActivate().toString();
+		this.show = b.getShowOnIndex().toString();
+		this.showTime = b.getShowTime();
 	}
 
 	public Long getId() {
@@ -45,5 +51,21 @@ public class BrandJson {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getShow() {
+		return show;
+	}
+
+	public void setShow(String show) {
+		this.show = show;
+	}
+
+	public Calendar getShowTime() {
+		return showTime;
+	}
+
+	public void setShowTime(Calendar showTime) {
+		this.showTime = showTime;
 	}
 }

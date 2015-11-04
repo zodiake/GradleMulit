@@ -65,6 +65,21 @@ brandModule.service('BrandService', ['$http',
             else
                 return this.save(item);
         };
+        
+        this.findByShowOnIndex = function(opt){
+        	return $http.get('/admin/brands/showOnIndex', {
+                params: opt
+            });
+        };
+        
+        this.showOrHide = function(item){
+        	return $http({
+                method: 'POST',
+                url: '/admin/brands/' + item.id + '/showOnIndex',
+                transformRequest: transform,
+                headers: header
+            });
+        }
     }
 ]);
 
@@ -93,7 +108,7 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
                 }
             });
         };
-
+        
         function init(opt) {
             BrandService.findAll(opt).success(function (data) {
                 $scope.items = data.content;
@@ -127,6 +142,27 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
                 size: $scope.size,
             });
         };
+        $scope.alerts=[];
+        $scope.showOrHide = function(item){
+         	BrandService.showOrHide(item).success(function(data){
+         		console.log(data);
+         		if(data=="success"){
+         			if(item.show=="DEACTIVATE")
+       				 item.show = "ACTIVATE";
+         			else
+       				 item.show="DEACTIVATE";
+         			$scope.alerts.push({
+         				type: 'success',
+                        msg: '操作成功',
+                    });
+         		}
+         	}).error(function(data){
+         		
+         	});
+         };
+         $scope.closeAlert = function (index) {
+             $scope.alerts.splice(index, 1);
+         };
     }
 ]);
 

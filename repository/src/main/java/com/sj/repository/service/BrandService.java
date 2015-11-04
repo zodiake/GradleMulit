@@ -22,6 +22,10 @@ public interface BrandService {
 
 	public Page<BrandJson> findByActivateToJson(ActivateEnum activate,
 			Pageable pageable);
+	
+	public List<Brand> findByShowOnIndex();
+	
+	public void updateShowOnIndex(Long id);
 
 	public Brand save(Brand brand);
 
@@ -32,4 +36,5 @@ public interface BrandService {
 	public Page<Brand> searchBrand(BrandSearchOption option,Pageable pageable);
 
 	Map<String, String> buildMap(BrandSearchOption option);
+	
 }

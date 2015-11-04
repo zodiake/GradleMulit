@@ -41,12 +41,28 @@ public class Brand implements Serializable{
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
 	private Set<Product> products;
+	
+	@Enumerated
+	@Column(name = "show_on_index")
+	private ActivateEnum showOnIndex;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "show_time")
+	private Calendar showTime;
 
 	public Brand() {
 	}
 
 	public Brand(Long id) {
 		this.id = id;
+	}
+	
+	public ActivateEnum getShowOnIndex() {
+		return showOnIndex;
+	}
+	
+	public void setShowOnIndex(ActivateEnum showOnIndex) {
+		this.showOnIndex = showOnIndex;
 	}
 
 	public Long getId() {
@@ -103,6 +119,14 @@ public class Brand implements Serializable{
 
 	public void setHref(String href) {
 		this.href = href;
+	}
+
+	public Calendar getShowTime() {
+		return showTime;
+	}
+
+	public void setShowTime(Calendar showTime) {
+		this.showTime = showTime;
 	}
 
 	@Override

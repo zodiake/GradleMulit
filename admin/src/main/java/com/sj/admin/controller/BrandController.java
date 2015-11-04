@@ -37,6 +37,13 @@ public class BrandController {
 				page - 1, size, Direction.DESC, "createdTime"));
 	}
 
+	@RequestMapping(value = "/admin/brands/{id}/showOnIndex",method = RequestMethod.POST)
+	@ResponseBody
+	public String updateShowOnIndex(@PathVariable("id")Long id){
+		brandService.updateShowOnIndex(id);
+		return "\"success\"";
+	}
+
 	@RequestMapping(value = "/admin/brands", method = RequestMethod.POST)
 	@ResponseBody
 	public String create(Brand brand) {

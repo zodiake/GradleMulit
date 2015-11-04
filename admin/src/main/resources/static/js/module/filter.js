@@ -56,4 +56,14 @@ filterModel.filter('subjectShowOnIndexFilter',function(){
 	return function(state){
 		return state == 'ACTIVATE' ? '不显示在首页' : '显示在首页';
 	}
-})
+});
+filterModel.filter('brandShowOnIndexFilter',function(){
+	return function(show){
+		return show == 'ACTIVATE' ? '显示在首页' : '不显示在首页';
+	}
+});
+filterModel.filter('brandShowButtonFilter',function(){
+	return function(show){
+		return show == 'ACTIVATE' ? '取消' : '展示';
+	}
+});
