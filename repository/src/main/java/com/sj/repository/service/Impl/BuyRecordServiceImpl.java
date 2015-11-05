@@ -44,7 +44,6 @@ public class BuyRecordServiceImpl implements BuyRecordService {
 		String str = sdf.format(Calendar.getInstance().getTime());
 		buyRecord.setNoId(str + buyRecord.getUser().getId());
 		buyRecord.setCreateTime(Calendar.getInstance());
-		buyRecord.setArrivalTime(Calendar.getInstance());
 		Set<BuyProduct> products = new HashSet<BuyProduct>();
 		float totalPrice = 0f;
 		for (CartLine cartLine : lines) {

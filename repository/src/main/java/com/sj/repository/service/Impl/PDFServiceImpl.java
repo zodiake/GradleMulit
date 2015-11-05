@@ -130,7 +130,7 @@ public class PDFServiceImpl implements PDFService {
 		title.setAlignment(Element.ALIGN_CENTER);
 		document.add(title);
 		
-		Image logo = Image.getInstance("src/main/resources/static/img/logo.png");
+		Image logo = Image.getInstance("http://127.0.0.1:8000/logo/logo.png");
 		logo.setAbsolutePosition(40, 500);
 		document.add(logo);
 		
@@ -297,17 +297,35 @@ public class PDFServiceImpl implements PDFService {
 					"c:\\Windows\\Fonts\\SIMSUN.TTC,1",
 					BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 		for (int i = 1; i < write.getPageNumber(); i++) {
-			under = stamper.getUnderContent(i);
-			under.beginText();
-			under.setColorFill(BaseColor.LIGHT_GRAY);
-			under.setFontAndSize(baseFontChinese, 40);
-			under.setTextMatrix(70, 0);
-			int rise = 250;
-			for (int k = 0; k < TEXT.length(); k++) {
-				under.setTextRise(rise);
-				char c = TEXT.charAt(k);
-				under.showText(c + " ");
-				rise += 50;
+			Rectangle r = stamper.getUnderContent(i).getPdfDocument().getPageSize();
+			if(r == PageSize.A4.rotate()){
+				System.out.println("rotate");
+				under = stamper.getUnderContent(i);
+				under.beginText();
+				under.setColorFill(BaseColor.LIGHT_GRAY);
+				under.setFontAndSize(baseFontChinese, 40);
+				under.setTextMatrix(180, 50);
+				int rise = 200;
+				for (int k = 0; k < TEXT.length(); k++) {
+					under.setTextRise(rise);
+					char c = TEXT.charAt(k);
+					under.showText(c + " ");
+					rise += 15;
+				}
+			}else if(r == PageSize.A4){
+				System.out.println("A4");
+				under = stamper.getUnderContent(i);
+				under.beginText();
+				under.setColorFill(BaseColor.LIGHT_GRAY);
+				under.setFontAndSize(baseFontChinese, 40);
+				under.setTextMatrix(70, 0);
+				int rise = 250;
+				for (int k = 0; k < TEXT.length(); k++) {
+					under.setTextRise(rise);
+					char c = TEXT.charAt(k);
+					under.showText(c + " ");
+					rise += 50;
+				}
 			}
 		}
 		stamper.close();

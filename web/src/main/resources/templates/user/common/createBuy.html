@@ -6,7 +6,6 @@
 <meta name="description" content="" />
 <title>填写采购信息</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}" />
 <script th:src="@{/js/jquery-min.js}"></script>
 <script th:src="@{/js/script.js}"></script>
 <meta name="_csrf" th:content="${_csrf.token}" />
@@ -47,7 +46,7 @@
 							<form th:object="${buy}" method="post">
 								<div class="form-group">
 									<label>申请单位</label> <input type="text" th:value="${buy.user.company}" disabled="disabled" style="width: 233px;"/> 
-									<label>行业</label><input type="text" th:value="${buy.user.industryInfo.name}" disabled="disabled" style="width: 233px;"/> 
+									<label>行业</label><input type="text" th:value="${buy.user.industryInfo.name}" disabled="disabled" style="width: 233px;margin-left: 4px;"/> 
 								</div>
 								<div class="form-group">
 									<label>申请部门</label> <input type="text" th:value="${buy.user.department}" disabled="disabled" style="width: 233px;"/>

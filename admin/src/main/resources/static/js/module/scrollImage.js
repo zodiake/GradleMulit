@@ -28,6 +28,25 @@ module.service('ScrollService', ['$http', function ($http) {
             headers: header
         });
     };
+    this.save = function(item){
+    	return $http({
+    		method: 'POST',
+            url: '/admin/scrollImages/',
+            transformRequest: transform,
+            data: {
+                href: item.href,
+                imageUrl: item.imageUrl
+            },
+            headers: header
+    	});
+    };
+    this.updateState = function(item){
+    	return $http({
+    		method : 'POST',
+    		url : '/admin/scrollImages/'+item.id+'/state',
+    		headers: header
+    	});
+    };
 }]);
 
 module.controller('ScrollImgController', ['$scope',
@@ -59,6 +78,23 @@ module.controller('ScrollImgController', ['$scope',
                 }
             });
         };
+        $scope.create = function(){
+        	$modal.open({
+                templateUrl: '/admin/templates/scrollImg/detail',
+                size: 'sm',
+                controller: 'ScrollImgAddController'
+            });
+        };
+        $scope.updateState = function(item){
+        	ScrollService.updateState(item).success(function(data){
+        		if(item.state=="DEACTIVATE")
+   				 	item.state = "ACTIVATE";
+        		else
+   				 	item.state="DEACTIVATE";
+        	}).error(function(data){
+        		
+        	});
+        }
     }
 ]);
 
@@ -112,4 +148,37 @@ module.controller('ScrollImgDetailController', ['$scope',
             $scope.alerts.splice(index, 1);
         };
     }
+]);
+
+module.controller('ScrollImgAddController', ['$scope','ScrollService','$http','$modalInstance',
+    function ($scope, ScrollService , $http , $modalInstance) {
+	$scope.item = {};
+	$scope.alerts = [];
+	$scope.upload = function (event) {
+        var file = event.target.files[0];
+        var fd = new FormData();
+        var reader = new FileReader();
+
+        fd.append('file', file);
+
+        $http.post('/admin/img/upload', fd, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+        }).success(function (data) {
+            $scope.item.imageUrl = data[0];
+        });
+    };
+    $scope.submit = function(){
+    	ScrollService.save($scope.item).success(function(data){
+    		$scope.alerts.push({
+                type: 'success',
+                msg: '保存成功',
+            });
+    	}).error(function(data){
+    	});
+    }
+}
 ]);

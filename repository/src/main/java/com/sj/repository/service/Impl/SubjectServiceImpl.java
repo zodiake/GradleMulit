@@ -79,7 +79,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@CacheEvict(value = { "indexSubjectsCache", "subjectsCache" }, allEntries = true)
+	@CacheEvict(value = { "subjectsCache" }, allEntries = true)
 	public Subject save(Subject s) {
 		s.setUpdatedTime(Calendar.getInstance());
 		s.setCreatedTime(Calendar.getInstance());
@@ -171,6 +171,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
+	@Cacheable(value = "indexSubjectsCache" )
 	public List<SubjectCategory> findByCategoriesAndShowOnIndex(
 			List<SubjectCategory> categories) {
 		for (SubjectCategory subjectCategory : categories) {

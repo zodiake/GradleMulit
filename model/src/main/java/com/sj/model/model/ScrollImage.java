@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.ScrollImageType;
 
 @Entity
@@ -42,6 +43,9 @@ public class ScrollImage implements Serializable{
 	@Column(name = "updated_time")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar updatedTime;
+	
+	@Enumerated
+	private ActivateEnum state;
 
 	public ScrollImage() {
 		super();
@@ -106,6 +110,14 @@ public class ScrollImage implements Serializable{
 
 	public void setUpdatedTime(Calendar updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	public ActivateEnum getState() {
+		return state;
+	}
+
+	public void setState(ActivateEnum state) {
+		this.state = state;
 	}
 
 	@Override

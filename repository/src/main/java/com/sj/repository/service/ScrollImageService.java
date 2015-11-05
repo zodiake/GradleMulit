@@ -15,4 +15,8 @@ public interface ScrollImageService {
 	public void freshCache(ScrollImageType type);
 
 	public List<ScrollImage> findAll();
+	
+	public void save(ScrollImage image);
+	
+	public void updateState(Long id);
 }

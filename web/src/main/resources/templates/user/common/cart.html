@@ -140,8 +140,8 @@
 								<span class="del"></span>
 								<span class="num">已选好<b class="red" id="num"></b>种商品</span>
 								<span>合计：<b  class="red">￥</b><b class="red" id="count"></b></span>
-								<button th:if="${list==null}" class="btn green fr make-orders" disabled="disabled" id="createButton">生成采购订单</button>
-								<a href="/user/buyRecords?form"><button th:unless="${list==null}" class="btn green fr">生成采购订单</button></a>
+								<button th:if="${list==null||list.size()==0}" class="btn green fr make-orders" disabled="disabled" id="createButton">生成采购订单</button>
+								<a href="/user/buyRecords?form"><button th:unless="${list==null||list.size()==0}" class="btn green fr">生成采购订单</button></a>
 							</div>
 						</div>
 					</div>

@@ -212,6 +212,7 @@ create table scroll_image(
 	updated_time timestamp DEFAULT CURRENT_TIMESTAMP,
 	sort_number int,
 	scroll_type int,
+	state smallint,
 	href varchar(225),
 	primary key(id)
 );

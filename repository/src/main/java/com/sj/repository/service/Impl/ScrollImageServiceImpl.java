@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sj.model.model.ScrollImage;
+import com.sj.model.type.ActivateEnum;
 import com.sj.model.type.ScrollImageType;
 import com.sj.repository.repository.ScrollImageRepository;
 import com.sj.repository.service.ScrollImageService;
@@ -33,11 +34,12 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 	@Override
 	@Cacheable(value = "indexImageCache")
 	public List<ScrollImage> findAll() {
-		return repository.findAllByOrderBySortNumberDesc();
+		List<ScrollImage> images = repository.findByStateOrderBySortNumberDesc(ActivateEnum.ACTIVATE);
+		return images;
 	}
 
 	@Override
-	@CacheEvict(value = {"scrollImageCache","indexImageCache"},allEntries = true)
+	@CacheEvict(value = { "scrollImageCache", "indexImageCache" }, allEntries = true)
 	public ScrollImage update(Long id, ScrollImage image) {
 		ScrollImage img = repository.findOne(id);
 		img.setImageUrl(image.getImageUrl());
@@ -49,5 +51,27 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 	@Override
 	@Caching(evict = @CacheEvict(value = "scrollImageCache", key = "#type"), put = @CachePut(value = "scrollImageCache", key = "#type"))
 	public void freshCache(ScrollImageType type) {
+	}
+
+	@Override
+	@CacheEvict(value = { "scrollImageCache", "indexImageCache" }, allEntries = true)
+	public void save(ScrollImage image) {
+		image.setCreatedTime(Calendar.getInstance());
+		image.setUpdatedTime(Calendar.getInstance());
+		image.setScrollType(ScrollImageType.INDEX);
+		image.setSortNumber(0);
+		repository.save(image);
+	}
+
+	@Override
+	@CacheEvict(value = { "scrollImageCache", "indexImageCache" }, allEntries = true)
+	public void updateState(Long id) {
+		ScrollImage image = repository.findOne(id);
+		if (image.getState() == ActivateEnum.ACTIVATE) {
+			image.setState(ActivateEnum.DEACTIVATE);
+			image.setUpdatedTime(Calendar.getInstance());
+		} else
+			image.setState(ActivateEnum.ACTIVATE);
+		repository.save(image);
 	}
 }

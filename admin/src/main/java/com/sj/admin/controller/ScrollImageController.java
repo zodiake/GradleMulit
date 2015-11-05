@@ -30,4 +30,17 @@ public class ScrollImageController extends UploadController {
 		service.update(id, image);
 		return "";
 	}
+	
+	@RequestMapping(value = "/admin/scrollImages",method = RequestMethod.POST)
+	@ResponseBody
+	public String add(ScrollImage image){
+		service.save(image);
+		return "";
+	}
+	@RequestMapping(value = "/admin/scrollImages/{id}/state",method = RequestMethod.POST)
+	@ResponseBody
+	public String updateState(@PathVariable("id")Long id){
+		service.updateState(id);
+		return "";
+	}
 }

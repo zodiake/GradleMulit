@@ -1026,7 +1026,33 @@ img {
 .form-group input[type=password] {
     width: 225px;
     height: 26px;
-    border: 1px solid #8491af;
+    border: 1px solid gray;
+}
+
+.orders-form input[type=text]{
+	background-color: #eee;
+}
+
+.orders-form thead{
+	background: #eee;
+	border: 1px solid #eee;
+}
+
+.orders-form input[type=text]{
+	color:black;
+	background-color: #eee;
+}
+
+.orders-form textarea{
+	color:black;
+}
+
+.orders-form tbody{
+	color:black;
+}
+
+.orders-form i{
+	color:black;
 }
 
 .form-group input[type=radio] {
@@ -2256,16 +2282,18 @@ margin: 10px 0 15px;
 
 .hide-wrap.orders input.w635,
 textarea.w635 {
-    width: 635px;
+    width: 597px;
+    background-color: #eee;
 }
 
-.pdf .form-group input.w635,
-textarea.w635 {
-    width: 600px;
+.pdf .form-group input.w635 {
+    width: 595px;
+    margin-left: 4px;
 }
 
 .self-wrap .gray-hd.winh {
     width: 87.3%;
+    border: 1px solid #eee;
 }
 
 .block {
