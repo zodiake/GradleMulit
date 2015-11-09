@@ -2617,7 +2617,7 @@ insert into prefer_products(user_id,product_id,created_time) values(15,2,'2014-1
 insert into prefer_products(user_id,product_id,created_time) values(4,2,'2015-1-1');
 
 -- test subject 专题
-insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (1,'1234567890123456789012345678901234567890',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
+insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (1,'PM2.5 中有机氯及多氯联苯的解决方案',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (2,'subject2',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (3,'subject3',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);
 insert into subject(id,name,show_on_index,activate,created_by,created_time,content_id,image,summary,category_id) values (4,'subject4',1,1,'上海申捷卫生科技','2012-12-12 12:23:32',1,'/img/banner1.jpg','subject-subject',11);

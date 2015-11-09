@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import net.sf.ehcache.management.CacheManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;

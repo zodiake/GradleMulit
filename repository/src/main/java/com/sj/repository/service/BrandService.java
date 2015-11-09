@@ -37,4 +37,6 @@ public interface BrandService {
 
 	Map<String, String> buildMap(BrandSearchOption option);
 	
+	public List<BrandJson> findByShowOnIndexJson();
+	
 }

@@ -106,11 +106,13 @@ function showReview(productId){
 				promptError("系统异常");
 			}
 		});
-		$(".amount-increase").click(function() {
+		$(".addOne").click(function() {
 			var numVal = $("#num").val();
-			$("#num").val(parseInt(numVal) + 1);
+			if(999 > numVal){
+				$("#num").val(parseInt(numVal) + 1);
+			}
 		});
-		$(".amount-decrease").click(function() {
+		$(".minusOne").click(function() {
 			var numVal = $("#num").val();
 			if (numVal > 1) {
 				$("#num").val(parseInt(numVal) - 1);
@@ -177,16 +179,14 @@ function showReview(productId){
 		</div>
 		<div class="goods-property bodr clearfix">
 			<div class="fl pro-big">
-				<img th:src="*{coverImg}" width="420" height="350" />
+				<img th:src="*{coverImg}" width="455" height="350" />
+				<div class="collection" id="collection" th:attr="data-id=${product.id}">
+					收藏 (人气<i th:text="${product.collectionCount}" id="number"></i>)
+				</div>
 			</div>
 			<div class="fl pro-info">
-				<div class="panel global-panel clearfix">
-					<h3 class="ft16 tit" th:text="${product.name}" style="max-width: 350px;text-overflow: ellipsis;overflow: hidden;">GenePix 4100A生物芯片扫描仪</h3>
-					<div>
-						<div class="collect-num" th:if="${product.isCollection==true}" th:attr="data-id=${product.id}">已收藏</div>
-						<div class="collect-num" id="collection" th:unless="${product.isCollection==true}" th:attr="data-id=${product.id}">收藏</div>
-						<div class="number" id="number" th:text="${product.collectionCount}">121</div>
-					</div>
+				<div class="panel global-panel clearfix" style="margin-top: 0px;">
+					<h3 class="ft16 tit" style="max-width: 500px;" th:text="${product.name}"></h3>
 				</div>
 				<div class="panel panel-price">
 					<label>价格：</label><span>
@@ -220,10 +220,12 @@ function showReview(productId){
 				</div>
 				<div class="panel">
 					<label>数量：</label> <span class="mu-amount"> 
+					<span class="minusOne"> 
+						<span class="">-</span>
+					</span>
 					<input type="text" class="amount-input" id="num" value="1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /> 
-					<span class="amount-btn"> 
-						<span class="amount-increase">+</span>
-						<span class="amount-decrease">-</span>
+					<span class="addOne"> 
+						<span class="">+</span>
 					</span>
 					</span><a class="add-cart ft16" id="addCart" th:attr="data-id=${product.id}">加入购物车</a>
 				</div>

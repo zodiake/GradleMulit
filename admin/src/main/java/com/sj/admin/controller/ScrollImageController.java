@@ -20,7 +20,7 @@ public class ScrollImageController extends UploadController {
 	@RequestMapping(value = "/admin/scrollImages", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ScrollImage> list() {
-		List<ScrollImage> lists = service.findAll();
+		List<ScrollImage> lists = service.findAllJson();
 		return lists;
 	}
 

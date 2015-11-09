@@ -16,6 +16,8 @@ public interface ScrollImageService {
 
 	public List<ScrollImage> findAll();
 	
+	public List<ScrollImage> findAllJson();
+	
 	public void save(ScrollImage image);
 	
 	public void updateState(Long id);

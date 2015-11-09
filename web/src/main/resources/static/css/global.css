@@ -1791,17 +1791,19 @@ a.plus:hover {
 
 .goods-property {
     padding: 10px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 .goods-property .pro-big {
-    width: 420px;
-    height: 350px;
+    width: 455px;
+    height: 380px;
     overflow: hidden;
 }
 
 .goods-property .pro-info {
-    width: 500px;
-    margin-left: 35px;
+    width: 483px;
+    margin-left: 20px;
 }
 
 .goods-property .pro-info .panel {
@@ -1847,7 +1849,6 @@ a.plus:hover {
 
 .goods-property .pro-info .panel.panel-price {
     line-height: 35px;
-    background: #eee;
 }
 
 .goods-property .pro-info .panel.panel-tag span {
@@ -1857,14 +1858,19 @@ a.plus:hover {
 span.mu-amount {
     position: relative;
     display: inline-block;
+    width: 100px;
 }
 
 .amount-input {
     text-align: center;
-    width: 30px;
+    width: 35px;
     height: 31px;
     line-height: 31px;
-    border: 1px solid #a0a0a0;
+    border: 1px solid white;
+    margin-left: 50px;
+    margin-right: 5px;
+    font-size: 16px;
+    color: black;
 }
 
 .amount-btn {
@@ -1910,7 +1916,7 @@ a.add-cart {
 }
 
 .pro-info a.add-cart {
-    margin-left: 150px;
+    margin-left: 80px;
     display: inline-block;
 }
 
@@ -2000,6 +2006,10 @@ a.add-cart {
 }
 
 li div.title {
+	width:210px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
     line-height: 35px;
     text-align: center;
 }
@@ -3288,4 +3298,42 @@ select.w100 {
     .product-box {
         height: 378px;
     }
+}
+.addOne{
+	text-align: center;
+	cursor: pointer;
+}
+.addOne span{
+	font-size: 30px;
+	position: absolute;
+	width: 44px;
+	height: 35px;
+	line-height: 31px;
+	color:#868fa7;
+	background-image: url("/img/right.png");
+}
+.minusOne{
+	text-align: center;
+	cursor: pointer;
+}
+.minusOne span{
+	font-size: 30px;
+	position: absolute;
+	width: 44px;
+	height: 35px;
+	line-height: 31px;
+	color:#868fa7;
+	background-image: url("/img/left.png");
+}
+.collection{
+	cursor: pointer;
+	width:150px;
+	background: url('../img/icon-collect.png') no-repeat 6px 2px;
+	padding: 1px 7px 2px 25px;
+	font-size: 15px;
+	color: #0b5a9f;
+}
+.h1-padding{
+	text-align: center;
+	font-size: 27px;
 }

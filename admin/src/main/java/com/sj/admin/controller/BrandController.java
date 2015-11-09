@@ -1,6 +1,7 @@
 package com.sj.admin.controller;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -70,6 +71,11 @@ public class BrandController {
 		brand.setId(id);
 		brandService.update(brand);
 		return "{\"id\":\"" + id + "\"}";
+	}
+	@RequestMapping(value="/admin/brands/showOnIndex",method = RequestMethod.GET)	
+	@ResponseBody
+	public List<BrandJson> findShowOnIndex(){
+		return brandService.findByShowOnIndexJson();
 	}
 
 }

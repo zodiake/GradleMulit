@@ -351,7 +351,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 3; i <= irLength; i++) {
 			XSSFRow xssfRow = sheet.getRow(i);
 			Product product = new Product();
-			String name = getStringCellValue(xssfRow, i, 0, 64);
+			String name = getStringCellValue(xssfRow, i, 0, 100);
 			product.setName(name);
 			String model = getStringCellValue(xssfRow, i, 1, 50);
 			product.setModel(model);

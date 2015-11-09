@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
-<meta http-equiv="refresh" th:content="@{5;url=__${href}__}"/> 
+<meta http-equiv="refresh" th:content="@{5;url=__${href}__}"/>
 </head>
 <body>
 	<div class="resg-header">
@@ -42,8 +42,10 @@
 		<div class="hd resg-hd">
 			<span>采购清单生成完毕</span>
 		</div>
-		<div class="mb150">				
-			<h1 class="pw-point">生成完毕，5秒后返回该清单详情，<a th:href="@{${href}}">立即返回</a></h1>
+		<div class="mb150">	
+			<h1 class="h1-padding">尊敬的用户，您的采购订单生成完毕！</h1>	
+			<h1 class="h1-padding">我们的工作人员将在3个工作日内与您联系。</h1>			
+			<h1 class="h1-padding">5秒后返回该清单详情，<a th:href="@{${href}}">立即返回</a>。</h1>
 		</div>
 	</div>
 	<div th:include="footer/footer"></div>

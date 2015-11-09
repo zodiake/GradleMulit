@@ -9,6 +9,7 @@ public class BrandJson {
 	private String title;
 	private String cover;
 	private String state;
+	private String href;
 	private String show;
 	private Calendar showTime;
 
@@ -19,6 +20,7 @@ public class BrandJson {
 		this.state = b.getActivate().toString();
 		this.show = b.getShowOnIndex().toString();
 		this.showTime = b.getShowTime();
+		this.href = b.getHref();
 	}
 
 	public Long getId() {
@@ -67,5 +69,13 @@ public class BrandJson {
 
 	public void setShowTime(Calendar showTime) {
 		this.showTime = showTime;
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
 	}
 }

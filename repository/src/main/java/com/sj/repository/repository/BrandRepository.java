@@ -27,5 +27,7 @@ public interface BrandRepository extends
 	public Page<Brand> findByNameLike(String name,Pageable pageable);
 	
 	public Page<Brand> findByShowOnIndex(ActivateEnum show,Pageable pageable);
+	
+	public List<Brand> findByShowOnIndex(ActivateEnum show);
 
 }

@@ -37,6 +37,12 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 		List<ScrollImage> images = repository.findByStateOrderBySortNumberDesc(ActivateEnum.ACTIVATE);
 		return images;
 	}
+	
+	@Override
+	public List<ScrollImage> findAllJson() {
+		List<ScrollImage> images = repository.findByStateOrderBySortNumberDesc(ActivateEnum.ACTIVATE);
+		return images;
+	}
 
 	@Override
 	@CacheEvict(value = { "scrollImageCache", "indexImageCache" }, allEntries = true)

@@ -67,9 +67,7 @@ brandModule.service('BrandService', ['$http',
         };
         
         this.findByShowOnIndex = function(opt){
-        	return $http.get('/admin/brands/showOnIndex', {
-                params: opt
-            });
+        	return $http.get('/admin/brands/showOnIndex');
         };
         
         this.showOrHide = function(item){
@@ -95,6 +93,15 @@ brandModule.controller('BrandController', ['$scope', '$modal', 'BrandService',
                 controller: 'BrandAddController'
             });
         };
+        
+        $scope.showOnIndex = function(){
+        	BrandService.findByShowOnIndex().success(function(data){
+        		$scope.items = data;
+        		$scope.total = 1;
+        	}).error(function(data){
+        		
+        	});
+        }
 
         $scope.view = function (item) {
             $modal.open({

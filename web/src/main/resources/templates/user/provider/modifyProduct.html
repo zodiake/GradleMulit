@@ -125,7 +125,7 @@
 						<div class="form-group">
 							<div class="fl">
 							<label><i>*</i>产品名称</label>
-							<input type="text" th:field="*{name}" placeholder="商品名字最长为64位" maxlength="64"/>
+							<input type="text" th:field="*{name}" placeholder="商品名字最长为100位" maxlength="100"/>
 							<i class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></i>
 							</div>
 							<div class="fl">

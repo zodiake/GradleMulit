@@ -2,6 +2,7 @@ package com.sj.repository.service.Impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -90,7 +91,9 @@ public class BrandServiceImpl implements BrandService {
 		return new PageImpl<BrandJson>(lists, pageable,
 				pages.getTotalElements());
 	}
-
+	
+	@Override
+	@CacheEvict(value = {"indexBrandCache" }, allEntries = true)
 	public void updateShowOnIndex(Long id) {
 		Brand brand = repository.findOne(id);
 		if (brand.getShowOnIndex() == ActivateEnum.ACTIVATE) {
@@ -153,5 +156,16 @@ public class BrandServiceImpl implements BrandService {
 		return repository.findByShowOnIndex(ActivateEnum.ACTIVATE,
 				new PageRequest(0, 10, Direction.DESC, "showTime"))
 				.getContent();
+	}
+
+	@Override
+	public List<BrandJson> findByShowOnIndexJson() {
+		List<BrandJson> jsons = new ArrayList<BrandJson>();
+		List<Brand> brnds = repository.findByShowOnIndex(ActivateEnum.ACTIVATE);
+		for (Brand brand : brnds) {
+			BrandJson json = new BrandJson(brand);
+			jsons.add(json);
+		}
+		return jsons;
 	}
 }
