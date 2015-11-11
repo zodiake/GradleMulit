@@ -389,6 +389,8 @@ public class ProductServiceImpl implements ProductService {
 				product.setFirstCategory(firstCategory);
 
 			String secondCategoryName = getStringCellValue(xssfRow, i, 7);
+			secondCategoryName = secondCategoryName.replaceAll("\\\\", "/");
+			
 			ProductCategory secondCategory = pcRepository
 					.findByNameAndParentAndActivate(secondCategoryName,
 							firstCategory, ActivateEnum.ACTIVATE);
@@ -489,28 +491,28 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> products = findDataForBatch(wb, provider);
 		wb.close();
 		for (Product product : products) {
-			String category = product.getFirstCategory().getName();
-			switch (category) {
-			case "仪器":
+			String categoryId = product.getFirstCategory().getId().toString();
+			switch (categoryId) {
+			case "1":
 				Instrument i = new Instrument(product);
 				i = instrumentRepository.save(i);
-				 searchService.save(new ProductSearch(i));
+				searchService.save(new ProductSearch(i));
 				continue;
-			case "试剂":
+			case "2":
 				Reagents r = new Reagents(product);
 				r = reagentsRepository.save(r);
-				 searchService.save(new ProductSearch(r));
+				searchService.save(new ProductSearch(r));
 				continue;
-			case "耗材":
+			case "3":
 				Consumable c = new Consumable(product);
 				c = consumableRepository.save(c);
-				 searchService.save(new ProductSearch(c));
+				searchService.save(new ProductSearch(c));
 				continue;
-			case "服务":
+			case "4":
 				com.sj.model.model.Service s = new com.sj.model.model.Service(
 						product);
 				s = serviceRepository.save(s);
-				 searchService.save(new ProductSearch(s));
+				searchService.save(new ProductSearch(s));
 				continue;
 			}
 		}
@@ -564,13 +566,14 @@ public class ProductServiceImpl implements ProductService {
 
 			for (int j = 0; j < secondCategories.size(); j++) {
 				XSSFCell secondCell = secondRow.createCell(j + 1);
-				secondCell.setCellValue(secondCategories.get(j).getName());
+				String secondCategoryName = secondCategories.get(j).getName();
+				secondCategoryName = secondCategoryName.replaceAll("/", "\\\\");
+				secondCell.setCellValue(secondCategoryName);
 
 				secondRowNum = secondRowNum + 1;
 				XSSFRow thirdRow = categorySheet.createRow(secondRowNum);
 				XSSFCell thirdCategoryHeadCell = thirdRow.createCell(0);
-				thirdCategoryHeadCell.setCellValue(secondCategories.get(j)
-						.getName());
+				thirdCategoryHeadCell.setCellValue(secondCategoryName);
 				List<ProductCategory> thirdCategories = pcRepository
 						.findByParentAndActivate(secondCategories.get(j),
 								ActivateEnum.ACTIVATE);
@@ -614,6 +617,7 @@ public class ProductServiceImpl implements ProductService {
 			Object value;
 			try {
 				value = f.get(option);
+				if(!f.getName().equals("title"))
 				map.put(f.getName(), String.valueOf(value));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();

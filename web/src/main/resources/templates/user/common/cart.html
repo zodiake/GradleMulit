@@ -37,7 +37,10 @@
 			var productId = i.attr("product-id");
 			var priceDom = $("#small" + cartId);
 			var product = $("#num" + productId);
-			if(1 > number  || number > 999){
+			if(1 > number){
+				number=1;
+				i.val(number);
+			}  else if( number > 999){
 				number = 999;
 				i.val(number);
 			}
@@ -117,9 +120,9 @@
 									<td th:text="${cart.price}"></td>
 									<td>
 										<div class="amount">
-											<a class="minus" th:attr="data-id=${cart.productId},cart-id=${cart.id}">-</a>
+											<button class="minus" th:attr="data-id=${cart.productId},cart-id=${cart.id}">-</button>
 											<input type="text" class="text-amount" th:value="${cart.number}" th:id="'num'+${cart.productId}" th:attr="cart-id=${cart.id},price=${cart.price},product-id=${cart.productId}"/>
-											<a class="plus" th:attr="data-id=${cart.productId},cart-id=${cart.id},price=${cart.price}">+</a>
+											<button class="plus" th:attr="data-id=${cart.productId},cart-id=${cart.id},price=${cart.price}">+</button>
 										</div>
 									</td>
 									<td><b class="red" th:id="'small'+${cart.id}" th:text="${cart.price*cart.number}" th:attr="price=${cart.price}">1235.0</b></td>

@@ -46,7 +46,7 @@ public class InfoSearchController extends BaseController<InfoSearch> {
 		uiModel.addAttribute("option", option);
 		uiModel.addAttribute("viewpage", viewpage);
 		uiModel.addAttribute("action", "/info/_search");
-		uiModel.addAttribute("field", "咨询");
+		uiModel.addAttribute("field", "资讯");
 		return INFO_SEARCH_LIST;
 	}
 

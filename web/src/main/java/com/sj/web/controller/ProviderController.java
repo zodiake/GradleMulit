@@ -162,9 +162,8 @@ public class ProviderController extends BaseController<Product> {
 		ViewPage viewpage = caculatePage(products);
 		viewpage.setHref("/provider/products");
 		viewpage.setCurrent(products.getNumber());
-
+		
 		uiModel.addAttribute("viewpage", viewpage);
-
 		uiModel.addAttribute("lists", products);
 		return "user/provider/maintain";
 	}
@@ -184,7 +183,6 @@ public class ProviderController extends BaseController<Product> {
 		viewpage.setCurrent(products.getNumber());
 
 		uiModel.addAttribute("viewpage", viewpage);
-
 		uiModel.addAttribute("lists", products);
 		uiModel.addAttribute("status", ProductStatusEnum.valueOf(status));
 		return "user/provider/maintain";

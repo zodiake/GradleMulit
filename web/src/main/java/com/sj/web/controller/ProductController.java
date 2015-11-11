@@ -48,14 +48,13 @@ public class ProductController extends BaseController<Product> {
 			@PageableDefault(page = 0, size = 12) Pageable pageable) {
 		Page<Product> productPage = productService.findBySearchModel(option,
 				pageable);
-
 		Map<String, String> map = productService.buildMap(option);
 
 		ViewPage viewPage = caculatePage(productPage);
 		viewPage.setHref("/models/_search");
 		viewPage.setOption(map);
 		viewPage.setCurrent(productPage.getNumber());
-
+		
 		uiModel.addAttribute("viewpage", viewPage);
 		uiModel.addAttribute("page", productPage);
 		uiModel.addAttribute("option", option);

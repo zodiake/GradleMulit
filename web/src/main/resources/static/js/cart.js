@@ -68,6 +68,7 @@ $(function() {
 		var price = parseFloat(priceDom.attr("price")).toFixed(1);
 		var product = $("#num" + productId);
 		var number = product.val();
+		if(999 > number){
 		number = parseFloat(number) + 1;
 		$.ajax({
 			type : 'PUT',
@@ -83,7 +84,7 @@ $(function() {
 				promptError("系统异常");
 			}
 		});
-
+		}
 	});
 	$(".check").click(function() {
 		var check = $(this);

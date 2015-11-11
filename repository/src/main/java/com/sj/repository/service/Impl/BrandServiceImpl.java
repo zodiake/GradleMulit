@@ -66,9 +66,10 @@ public class BrandServiceImpl implements BrandService {
 	@CacheEvict(value = { "brandCache", "indexBrandCache" }, allEntries = true)
 	public void update(Brand brand) {
 		em.createQuery(
-				"update Brand b set b.name=:name,b.coverImg=:cover where b.id=:id")
+				"update Brand b set b.name=:name,b.coverImg=:cover,b.href=:href where b.id=:id")
 				.setParameter("name", brand.getName())
 				.setParameter("cover", brand.getCoverImg())
+				.setParameter("href", brand.getHref())
 				.setParameter("id", brand.getId()).executeUpdate();
 	}
 

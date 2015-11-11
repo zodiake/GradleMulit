@@ -171,9 +171,7 @@ function showReview(productId){
 	<div class="wrapper" th:object="${product}">
 		<div th:include="productcategory/secondCategories">Head</div>
 		<div class="crumb">
-			<a href="/">首页</a>
-			<i>></i> 
-			<a th:text="${product.firstCategory.name}" th:href="@{'/productCategory/'+${product.firstCategory.id}}"></a>
+			<a th:text="${product.firstCategory.name}" th:href="@{'/productCategories/'+${product.firstCategory.id}}"></a>
 			<i>></i>
 			<a th:href="@{'/products/_search?thirdCategory='+${product.thirdCategory.id}}" th:text="${product.thirdCategory.name}"></a>
 		</div>
@@ -221,11 +219,11 @@ function showReview(productId){
 				<div class="panel">
 					<label>数量：</label> <span class="mu-amount"> 
 					<span class="minusOne"> 
-						<span class="">-</span>
+						<button class="">-</button>
 					</span>
 					<input type="text" class="amount-input" id="num" value="1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /> 
 					<span class="addOne"> 
-						<span class="">+</span>
+						<button class="">+</button>
 					</span>
 					</span><a class="add-cart ft16" id="addCart" th:attr="data-id=${product.id}">加入购物车</a>
 				</div>

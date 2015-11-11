@@ -130,9 +130,11 @@
 				<span class="logo-hd"><img th:src="@{/img/logo-txt.png}" /></span>
 			</a>
 			<div class="head-menu-btn fr login-resg">
-                <a href="/signup?user" class="blue ft14">用户注册</a>
-                <span class="ft14">|</span>
-                <a href="/login" class="blue ft14">已有账号？马上登录</a>
+				<div>
+					<a href="/signup?user"><div class="reg-noselected" style="margin-right: 8px;">用户注册</div></a>
+					<div class="reg-selected" >企业注册</div>
+				</div>
+                <a href="/login" class="blue ft14" style="float: right;">已有账号？马上登录</a>
             </div>
 		</div>
 	</div>
@@ -192,7 +194,7 @@
             </div>
             <div class="form-group">
                 <label><i>*</i>企业性质</label>
-                <select class="w228" th:field="*{componyType}">
+                <select class="w232" th:field="*{componyType}">
                     <option value="">请选择</option>
                     <option value="FOREIGNOWNED">外商独资</option>
                     <option value="JOINTVENTURE">合资企业</option>
@@ -218,7 +220,7 @@
             </div>
             <div class="form-group">
                 <label><i>*</i>企业规模</label>
-                <select class="w228" th:field="*{scale}">
+                <select class="w232" th:field="*{scale}">
                     <option value="">请选择</option>
                     <option value="FIFTY">五十人以下</option>
                     <option value="ONEHUNDRED">五十到一百人</option>
@@ -229,7 +231,7 @@
             </div>
             <div class="form-group">
                 <label><i>*</i>年产值</label>
-                <select class="w228" th:field="*{output}">
+                <select class="w232" th:field="*{output}">
                     <option value="">请选择</option>
                     <option value="FIVEMILLION">五百万以下</option>
                     <option value="TWENTYMILLION">五百万至两千万</option>
@@ -310,11 +312,11 @@
             </div>
             <div class="form-group">
                 <label><i>*</i>省/市</label>
-                <select th:field="*{province}" class="w100">
+                <select th:field="*{province}" class="pAndC">
                     <option value="">选择省份/市</option>
                     <option th:each="province:${provinces}" th:text="${province.name}" th:value="${province.id}"></option>
                 </select>
-                <select th:field="*{city}" class="w100">
+                <select th:field="*{city}" class="pAndC">
                     <option value="">选择城市</option>
                     <option th:if="${citys!=null}" th:each="city:${citys}" th:text="${city.name}" th:value="${city.id}"></option>
                 </select>

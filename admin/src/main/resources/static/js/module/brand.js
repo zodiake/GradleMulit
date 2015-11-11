@@ -40,7 +40,8 @@ brandModule.service('BrandService', ['$http',
                 transformRequest: transform,
                 data: {
                     name: item.title,
-                    coverImg: item.cover
+                    coverImg: item.cover,
+                    href: item.href
                 },
                 headers: header
             });
@@ -53,7 +54,8 @@ brandModule.service('BrandService', ['$http',
                 transformRequest: transform,
                 data: {
                     name: item.title,
-                    coverImg: item.cover
+                    coverImg: item.cover,
+                    href: item.href
                 },
                 headers: header
             });

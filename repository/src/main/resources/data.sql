@@ -681,7 +681,7 @@ values(56,'LIBS光谱仪',50,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(57,'拉曼光谱仪',50,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(58,'紫外\可见\近红外光谱仪',50,1,'2012-1-1','admin','pc');
+values(58,'紫外/可见/近红外光谱仪',50,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(59,'其它',50,1,'2012-1-1','admin','pc');
 
@@ -698,15 +698,15 @@ values(64,'定量PCR仪',60,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(65,'数字PCR仪',60,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(66,'电穿孔\电融合',60,1,'2012-1-1','admin','pc');
+values(66,'电穿孔/电融合',60,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(67,'电洗脱',60,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(68,'杂交\转印仪器',60,1,'2012-1-1','admin','pc');
+values(68,'杂交/转印仪器',60,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(69,'杂交炉',60,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(70,'DNA\有机\多肽合成',60,1,'2012-1-1','admin','pc');
+values(70,'DNA/有机/多肽合成',60,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(71,'转基因仪',60,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -791,7 +791,7 @@ values(109,'液质联用系统',102,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(110,'气质联用系统',102,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(111,'毛细管电泳\质谱联用系统',102,1,'2012-1-1','admin','pc');
+values(111,'毛细管电泳/质谱联用系统',102,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(112,'杂交质谱',102,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -835,7 +835,7 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(131,'其它',115,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(132,'基因组\蛋白组设备',1,1,'2012-1-1','admin','pc');
+values(132,'基因组/蛋白组设备',1,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(133,'DNA测序仪',132,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1000,19 +1000,19 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(209,'其它',203,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(210,'实验室箱体\摇床',1,1,'2012-1-1','admin','pc');
+values(210,'实验室箱体/摇床',1,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(211,'C02培养箱',210,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(212,'生化培养箱',210,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(213,'厌氧\好氧培养箱',210,1,'2012-1-1','admin','pc');
+values(213,'厌氧/好氧培养箱',210,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(214,'植物生长箱',210,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(215,'恒温\恒湿箱',210,1,'2012-1-1','admin','pc');
+values(215,'恒温/恒湿箱',210,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(216,'烘箱\干燥箱',210,1,'2012-1-1','admin','pc');
+values(216,'烘箱/干燥箱',210,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(217,'摇床',210,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1039,7 +1039,7 @@ values(227,'细胞破碎',220,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(228,'恒温槽',220,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(229,'水浴\金属浴',220,1,'2012-1-1','admin','pc');
+values(229,'水浴/金属浴',220,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(230,'清洗器',220,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1057,7 +1057,7 @@ values(236,'粉碎设备',220,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(237,'气体发生器',220,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(238,'消毒\灭菌',220,1,'2012-1-1','admin','pc');
+values(238,'消毒/灭菌',220,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(239,'红外测温仪',220,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1128,7 +1128,7 @@ values(270,'物性测定仪器',1,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(271,'水分测定仪',270,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(272,'卡氏\库仑水分测定仪',270,1,'2012-1-1','admin','pc');
+values(272,'卡氏/库仑水分测定仪',270,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(273,'场流分离系统',270,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1151,7 +1151,7 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(282,'其它',270,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(283,'样品处理\材料试验',1,1,'2012-1-1','admin','pc');
+values(283,'样品处理/材料试验',1,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(284,'凯氏定氮仪',283,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1186,7 +1186,7 @@ values(298,'实验台',297,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(299,'实验桌椅',297,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(300,'通风橱\柜',297,1,'2012-1-1','admin','pc');
+values(300,'通风橱/柜',297,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(301,'整体实验室家具',297,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1251,7 +1251,7 @@ values(329,'动物功能检测设备',328,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(330,'动物处理设备',328,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(331,'细胞\组织支持系统',328,1,'2012-1-1','admin','pc');
+values(331,'细胞/组织支持系统',328,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(332,'膜片钳',328,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1266,7 +1266,7 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(337,'其它',328,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(338,'植物生理\动物生理毒理\实验动物设备',1,1,'2012-1-1','admin','pc');
+values(338,'植物生理/动物生理毒理/实验动物设备',1,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(339,'植物生理',338,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1410,7 +1410,7 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(407,'其它酶',387,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(408,'蛋白质\抗原\多肽',2,1,'2012-1-1','admin','pc');
+values(408,'蛋白质/抗原/多肽',2,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(409,'免疫球蛋白',408,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1460,7 +1460,7 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(431,'其它cDNA相关',424,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(432,'PCR\RT_PCR',2,1,'2012-1-1','admin','pc');
+values(432,'PCR/RT_PCR',2,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(433,'PCR引物',432,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1733,9 +1733,9 @@ values(562,'信号传导检测',554,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(563,'荧光微球体检测',554,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(564,'组织学\免疫组织学检测',554,1,'2012-1-1','admin','pc');
+values(564,'组织学/免疫组织学检测',554,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(565,'血清\组织\血液产品',554,1,'2012-1-1','admin','pc');
+values(565,'血清/组织/血液产品',554,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(566,'细胞生物学检测试剂盒',554,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1744,11 +1744,11 @@ values(567,'其它',554,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(568,'药物筛选',2,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(569,'荧光素细胞活力\增殖\毒性检测',568,1,'2012-1-1','admin','pc');
+values(569,'荧光素细胞活力/增殖/毒性检测',568,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(570,'细胞标记\跟踪',568,1,'2012-1-1','admin','pc');
+values(570,'细胞标记/跟踪',568,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(571,'其它细胞活力\增殖\毒性检测',568,1,'2012-1-1','admin','pc');
+values(571,'其它细胞活力/增殖/毒性检测',568,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(572,'吞噬作用检测',568,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1865,7 +1865,7 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(636,'其它',632,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(637,'核酸合成\蛋白合成',2,1,'2012-1-1','admin','pc');
+values(637,'核酸合成/蛋白合成',2,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(638,'Oligo纯化',637,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -1913,7 +1913,7 @@ values(658,'其它',646,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(659,'核酸检测',2,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(660,'N\S印迹分析试剂盒',659,1,'2012-1-1','admin','pc');
+values(660,'N/S印迹分析试剂盒',659,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(661,'其它探针标记检测',659,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -2035,7 +2035,7 @@ values(716,'抗体',2,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(717,'蛋白A，G PLUS',716,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(718,'肿瘤抑制\凋亡抗体',716,1,'2012-1-1','admin','pc');
+values(718,'肿瘤抑制/凋亡抗体',716,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(719,'信号分子抗体',716,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -2067,7 +2067,7 @@ values(732,'神经生物抗体',716,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(733,'激酶和磷酸化抗体',716,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(734,'GDP\GTP结合蛋白抗体',716,1,'2012-1-1','admin','pc');
+values(734,'GDP/GTP结合蛋白抗体',716,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(735,'合成降解蛋白抗体',716,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -2333,7 +2333,7 @@ values(860,'进样阀',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(861,'调节阀',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(862,'色谱密封垫\圈',856,1,'2012-1-1','admin','pc');
+values(862,'色谱密封垫/圈',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(863,'色谱衬管',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -2367,15 +2367,15 @@ values(877,'电子倍增器',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(878,'色谱工作站',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(879,'色谱柱管路\接头',856,1,'2012-1-1','admin','pc');
+values(879,'色谱柱管路/接头',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(880,'色谱柱接头\分流器',856,1,'2012-1-1','admin','pc');
+values(880,'色谱柱接头/分流器',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(881,'色谱进样垫\隔垫',856,1,'2012-1-1','admin','pc');
+values(881,'色谱进样垫/隔垫',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(882,'色谱进样垫\隔垫',856,1,'2012-1-1','admin','pc');
+values(882,'色谱进样垫/隔垫',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(883,'进样针\进样器及配件',856,1,'2012-1-1','admin','pc');
+values(883,'进样针/进样器及配件',856,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(884,'其它',856,1,'2012-1-1','admin','pc');
 
@@ -2396,17 +2396,17 @@ values(891,'比色皿 样品池',885,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(892,'雾化器',885,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(893,'石墨管\石墨锥',885,1,'2012-1-1','admin','pc');
+values(893,'石墨管/石墨锥',885,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(894,'光谱标准物\光谱标样',885,1,'2012-1-1','admin','pc');
+values(894,'光谱标准物/光谱标样',885,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(895,'红外光谱配件',885,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(896,'样品池\盐窗口',885,1,'2012-1-1','admin','pc');
+values(896,'样品池/盐窗口',885,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(897,'光栅',885,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(898,'进样针\进样器及配件',885,1,'2012-1-1','admin','pc');
+values(898,'进样针/进样器及配件',885,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(899,'其它',885,1,'2012-1-1','admin','pc');
 
@@ -2423,7 +2423,7 @@ values(904,'培养瓶',900,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(905,'细胞培养板',900,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(906,'立体培养皿\板',900,1,'2012-1-1','admin','pc');
+values(906,'立体培养皿/板',900,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(907,'蓝盖瓶',900,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -2440,7 +2440,7 @@ values(912,'PVDF膜',909,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(913,'胶片',909,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(914,'印迹膜\滤纸三明治',909,1,'2012-1-1','admin','pc');
+values(914,'印迹膜/滤纸三明治',909,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(915,'其它',909,1,'2012-1-1','admin','pc');
 
@@ -2464,7 +2464,7 @@ values(923,'其它',916,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(924,'仪器配套',3,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(925,'比色皿\比色杯',924,1,'2012-1-1','admin','pc');
+values(925,'比色皿/比色杯',924,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(926,'电击杯',924,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -2574,23 +2574,23 @@ values(7,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider
 -- test product
 -- tom product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type) 
-values(1,'人体超级强化药剂','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/1',1,31,32,1,1,'HD300',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(1,'人体超级强化药剂','http://139.196.30.55:8000/2015/9/witeg.jpg',10.01,'/product/1',1,31,32,1,1,'HD300',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(2,'product2','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/2',3,761,762,1,2,'HD302',1,'10支',1,1,'2012-12-12 12:23:32','c');
+values(2,'product2','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/2',3,761,762,1,2,'HD302',1,'10支',1,1,'2012-12-12 12:23:32','c');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(3,'product3','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/3',1,31,32,1,3,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(3,'product3','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/3',1,31,32,1,3,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(4,'product4','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/4',4,889,890,1,4,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','s');
+values(4,'product4','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/4',4,889,890,1,4,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','s');
 
 -- mary2 product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(5,'product5','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/1',1,31,32,2,5,'HD303',1,'10支',1,0,'2012-12-12 12:23:32','i');
+values(5,'product5','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/1',1,31,32,2,5,'HD303',1,'10支',1,0,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(6,'product6','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/2',1,31,32,2,6,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(6,'product6','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/2',1,31,32,2,6,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(7,'product7','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/3',1,31,32,2,7,'HD303',1,'10支',1,2,'2012-12-12 12:23:32','i');
+values(7,'product7','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/3',1,31,32,2,7,'HD303',1,'10支',1,2,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(8,'product8','http://139.196.30.55:8000/2015/9/witeg.jpg',10.0,'/product/4',1,31,32,2,8,'HD303',1,'10支',1,3,'2012-12-12 12:23:32','i');
+values(8,'product8','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/4',1,31,32,2,8,'HD303',1,'10支',1,3,'2012-12-12 12:23:32','i');
 
 -- 商品展示数据
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
@@ -2651,7 +2651,7 @@ insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values
 insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(2,'/img/banner2.jpg',1,0,'www.baiduc.com',1);
 insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(3,'/img/banner1.jpg',1,0,'www.baiduc.com',1);
 insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(4,'/img/banner2.jpg',1,0,'www.baiduc.com',1);
-insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(5,'/img/banner1.jpg',1,0,'www.baiduc.com',0);
+insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(5,'/img/banner1.jpg',1,0,'www.baiduc.com',1);
 
 -- test information_content
 insert into information_content(id,content) values (1,'我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京');

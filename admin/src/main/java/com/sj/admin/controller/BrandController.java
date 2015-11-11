@@ -50,6 +50,7 @@ public class BrandController {
 	public String create(Brand brand) {
 		brand.setActivate(ActivateEnum.ACTIVATE);
 		brand.setCreatedTime(Calendar.getInstance());
+		brand.setShowOnIndex(ActivateEnum.DEACTIVATE);
 		Brand b = brandService.save(brand);
 		return "{\"id\":\"" + b.getId() + "\"}";
 	}

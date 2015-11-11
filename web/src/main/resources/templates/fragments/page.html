@@ -6,11 +6,17 @@
 	</head>
 	<body>
 		<div th:fragment="page(viewpage)">
+			<script type="text/javascript" th:src="@{/js/page.js}"></script>
+			<a class="first" th:href="@{${viewpage.href}(page=0,size=12,__${viewpage.option}__,brand=${option.brand},title=${option.title})}">首页</a>
 			<ul th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}">
 				<li th:class="${i-1==viewpage.current}?active">
 					<a th:href="@{${viewpage.href}(page=${i-1},size=12,__${viewpage.option}__,brand=${option.brand},title=${option.title})}" th:text="${i}"></a>
 				</li>
 			</ul>
+			<a class="last" th:href="@{${viewpage.href}(page=${products.getTotalPages()-1},size=12,__${viewpage.option}__,brand=${option.brand},title=${option.title})}">末页</a>
+			<div class="info">共&nbsp;<i th:text="${products.getTotalPages()}"></i>&nbsp;页，
+			到第&nbsp;<input type="text" id="number" th:value="${viewpage.current+1>=products.getTotalPages()}?${products.getTotalPages()}:${viewpage.current+2}" min="1" th:max="${products.getTotalPages()}"/>&nbsp;页
+			<button id="goToPage" th:attr="href=@{${viewpage.href}(size=12,__${viewpage.option}__,brand=${option.brand},title=${option.title})}">确定</button> </div>
 		</div>
 	</body>
 </html>

@@ -57,12 +57,18 @@
 			</div>
 			<div class="pagination">
 				<div class="l-pagination">
+					<script type="text/javascript" th:src="@{/js/page.js}"></script>
+					<a class="first" th:href="@{${viewpage.href}(page=0,size=12,__${viewpage.option}__)}">首页</a>
 					<ul>
 						<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}"
 							th:class="${i-1==viewpage.current}?active"><a
 							th:href="@{${viewpage.href}(page=${i-1},size=12)}" th:text="${i}"></a>
 						</li>
 					</ul>
+					<a class="last" th:href="@{${viewpage.href}(page=${subjects.getTotalPages()-1},size=12)}">末页</a>
+					<div class="info">共&nbsp;<i th:text="${subjects.getTotalPages()}"></i>&nbsp;页，
+					到第&nbsp;<input type="text" id="number" th:value="${viewpage.current+1>=subjects.getTotalPages()}?${subjects.getTotalPages()}:${viewpage.current+2}" min="1" th:max="${subjects.getTotalPages()}"/>&nbsp;页
+					<button id="goToPage" th:attr="href=@{${viewpage.href}(size=12,__${viewpage.option}__)}">确定</button> </div>
 				</div>
 			</div>
 		</div>

@@ -102,7 +102,7 @@ public class SubjectController extends BaseController<Subject> {
 				new PageRequest(page, size), ActivateEnum.ACTIVATE);
 		
 		ViewPage viewpage = caculatePage(subjects);
-		viewpage.setHref("/subjects");
+		viewpage.setHref("/subjectCategories/"+id);
 		viewpage.setCurrent(subjects.getNumber());
 
 		uiModel.addAttribute("subjects", subjects);
