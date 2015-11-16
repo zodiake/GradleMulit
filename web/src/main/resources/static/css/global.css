@@ -113,6 +113,10 @@ a.btn {
     background: #0b5a9f;
 }
 
+.btn.review {
+    background: #42a5f6;
+}
+
 .btn.default {
     background: #eee;
 }
@@ -329,6 +333,7 @@ img {
     height: 28px;
     line-height: 28px;
     border: 1px solid #d2d2d2;
+    padding-left: 7px;
 }
 
 .search-cont .search-btn {
@@ -1419,6 +1424,7 @@ button.minus{
     background: #eee;
     color:black;
     border: 1px solid #dcdcdc;
+    cursor: pointer;
 }
 
 button.plus {
@@ -1432,6 +1438,7 @@ button.plus {
     text-align: center;
     background: #eee;
     border: 1px solid #dcdcdc;
+    cursor: pointer;
 }
 
 a.plus {
@@ -1493,8 +1500,6 @@ a.plus:hover {
     margin-top: 7px;
 }
 
-
-/**閺�鎯版婢讹拷**/
 
 .collect {
     width: 780px;
@@ -3437,4 +3442,8 @@ select.pAndC{
 .h1-padding{
 	text-align: center;
 	font-size: 27px;
+}
+
+.scrollimg{
+	cursor: pointer;
 }

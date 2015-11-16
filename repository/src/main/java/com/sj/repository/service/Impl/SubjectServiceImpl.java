@@ -77,6 +77,11 @@ public class SubjectServiceImpl implements SubjectService {
 	public Subject findOne(Long id) {
 		return repository.findOne(id);
 	}
+	
+	@Override
+	public Subject findOnJson(Long id){
+		return repository.findOne(id);
+	}
 
 	@Override
 	@CacheEvict(value = { "subjectsCache" }, allEntries = true)
@@ -126,8 +131,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@CachePut(value = "subjectCache", key = "#subject.id")
-	@CacheEvict(value = { "indexSubjectsCache", "subjectsCache" }, allEntries = true)
+	@CacheEvict(value = { "indexSubjectsCache", "subjectsCache","subjectCache" }, allEntries = true)
 	public Subject update(Subject subject) {
 		Subject s = repository.findOne(subject.getId());
 		s.setContent(subject.getContent());

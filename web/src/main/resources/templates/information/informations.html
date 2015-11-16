@@ -58,7 +58,7 @@
 						<a th:href="@{${viewpage.href}(page=${i-1},size=15)}" th:text="${i}"></a>
 					</li>
 				</ul>
-				<a class="last" th:href="@{${viewpage.href}(page=${informations.getTotalPages()-1},size=15)}">末页</a>
+				<a class="last" th:href="@{${viewpage.href}(page=(${informations.getTotalPages()==0}?0:${informations.getTotalPages()-1}),size=15)}">末页</a>
 				<div class="info">共&nbsp;<i th:text="${informations.getTotalPages()}"></i>&nbsp;页，
 				到第&nbsp;<input type="text" id="number" th:value="${viewpage.current+1>=informations.getTotalPages()}?${informations.getTotalPages()}:${viewpage.current+2}" min="1" th:max="${informations.getTotalPages()}"/>&nbsp;页
 				<button id="goToPage" th:attr="href=@{${viewpage.href}(size=12,__${viewpage.option}__)}">确定</button> </div>

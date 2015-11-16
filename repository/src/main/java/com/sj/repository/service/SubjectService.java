@@ -34,4 +34,6 @@ public interface SubjectService {
 	
 	List<SubjectCategory> findByCategoriesAndShowOnIndex(List<SubjectCategory> categories);
 	
+	Subject findOnJson(Long id);
+	
 }

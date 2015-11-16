@@ -76,9 +76,9 @@
 						<a href="/user/buyRecords">采购申请</a>
 					</div>
 					<div class="mainpanel bodr collect fr" >
-						<div class="items-list" th:if="${pages!=null and pages.size()!=0}">
+						<div class="items-list" th:if="${page!=null and page.getContent().size()!=0}">
 							<ul id="preferUl">
-								<li class="bodr" th:each="prefer:${pages}" th:id="'li'+${prefer.product.id}">
+								<li class="bodr" th:each="prefer:${page.getContent()}" th:id="'li'+${prefer.product.id}">
 									<a th:href="@{'/products/'+${prefer.product.id}}" target="_blank"><img th:src="@{${prefer.product.coverImg}}" width="210" height="175"/>
 									<div class="pic-box">
 										<div class="pic-row refer">
@@ -110,11 +110,27 @@
 								</li>
 							</ul>
 						</div>
-					<div id="noCollection" th:class="${pages==null || pages.size()==0}?userShow:userHide">
-						<div  class="tip-box mainpanel collect fr" style="line-height: 300px;">
-							<span>您还没有收藏任何商品，赶紧收藏吧！</span>
+							<div class="pagination">
+								<div class="l-pagination">
+									<script type="text/javascript" th:src="@{/js/page.js}"></script>
+									<a class="first" th:href="@{${viewpage.href}(page=0,size=12)}">首页</a>
+									<ul>
+										<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}"
+											th:class="${i-1==viewpage.current}?active"><a
+											th:href="@{${viewpage.href}(page=${i-1},size=12)}" th:text="${i}"></a>
+										</li>
+									</ul>
+									<a class="last" th:href="@{${viewpage.href}(page=${page.getTotalPages()-1},size=12)}">末页</a>
+									<div class="info">共&nbsp;<i th:text="${page.getTotalPages()}"></i>&nbsp;页，
+									到第&nbsp;<input type="text" id="number" th:value="${viewpage.current+1>=page.getTotalPages()}?${page.getTotalPages()}:${viewpage.current+2}" min="1" th:max="${page.getTotalPages()}"/>&nbsp;页
+									<button id="goToPage" th:attr="href=@{${viewpage.href}(size=12)}">确定</button> </div>
+								</div>
+							</div>
+						<div id="noCollection" th:class="${page==null || page.getContent().size()==0}?userShow:userHide">
+							<div  class="tip-box mainpanel collect fr" style="line-height: 300px;">
+								<span>您还没有收藏任何商品，赶紧收藏吧！</span>
+							</div>
 						</div>
-					</div>
 					</div>
 				</div>
 			</div>

@@ -18,5 +18,7 @@ public interface PreferProductRepository extends
 	public Long countByUserAndProduct(CommonUser user, Product p);
 	public Long deleteByUserAndProduct(CommonUser user, Product p);
 	
-	public List<PreferProduct> findByUser(SiteUser u);
+	public List<PreferProduct> findByUser(CommonUser u);
+	
+	public Page<PreferProduct> findByUser(CommonUser user, Pageable pageable);
 }

@@ -99,8 +99,8 @@
 							<li th:each="image,imageStat:${images}" th:unless="${imageStat.index}==0" data-target="#J-banner-carousel" th:attr="data-slide-to=${imageStat.index}" th:text="${imageStat.index+1}"></li>
 						</ol>
 						<div class="carousel-inner" role="listbox">
-							<div  class="item active" th:style="'background-image: url('+${images.get(0).getImageUrl()}+')'"></div>
-							<div th:each="image,imageStat:${images}" th:unless="${imageStat.index}==0"  class="item" th:style="'background-image: url('+${image.imageUrl}+')'"></div>
+							<div  class="item active scrollimg" th:attr="link=${images.get(0).getHref()}" th:style="'background-image: url('+${images.get(0).getImageUrl()}+')'"></div>
+							<div th:each="image,imageStat:${images}" th:unless="${imageStat.index}==0" th:attr="link=${image.href}"  class="item scrollimg" th:style="'background-image: url('+${image.imageUrl}+')'"></div>
 						</div>
 					</div>
 				</div>
@@ -174,12 +174,12 @@
             </div>
             <div th:each="subjectCategory:${subjectCategories}">
             <div class="hd-cate">
-                <span th:text="${subjectCategory.name}"></span>
+                <a th:href="'/subjectCategories/'+${subjectCategory.id}"><span th:text="${subjectCategory.name}"></span></a>
             </div>
             <div class="global-box topic-box">
                 <ul>
                     <li th:each="subject:${subjectCategory.subjects}">
-                        <a>
+                        <a th:href="'/subjects/'+${subject.id}">
                             <div class="title ft16" th:text="${subject.name}">生物芯片扫描仪</div>
                             <div class="spe-pic">
                                 <img th:src="${subject.image}" width="210" height="175"/>

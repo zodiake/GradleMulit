@@ -1,6 +1,5 @@
 package com.sj.web.controller;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +25,6 @@ import com.sj.repository.service.ScrollImageService;
 import com.sj.repository.service.SubjectCategoryService;
 import com.sj.repository.service.SubjectService;
 
-
 @Controller
 public class IndexController {
 	@Autowired
@@ -45,39 +43,74 @@ public class IndexController {
 	private SubjectCategoryService subjectCategoryService;
 	@Autowired
 	private ProductDisplayService productDisplayService;
-	
-	@RequestMapping(value = { "/", "/index" },method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
 	public String index(Model uiModel) {
-		Map<String,List<CategoryJson>> maps = productCategoryService.findAllShowOnHead();
+		Map<String, List<CategoryJson>> maps = productCategoryService
+				.findAllShowOnHead();
 		uiModel.addAttribute("yqs", maps.get("1"));
 		uiModel.addAttribute("sjs", maps.get("2"));
 		uiModel.addAttribute("hcs", maps.get("3"));
 		uiModel.addAttribute("fws", maps.get("4"));
-		
-		List<SubjectCategory> subjectCategories  = subjectCategoryService.findByParent();
-		subjectCategories = subjectService.findByCategoriesAndShowOnIndex(subjectCategories);
+
+		List<SubjectCategory> subjectCategories = subjectCategoryService
+				.findByParent();
+		subjectCategories = subjectService
+				.findByCategoriesAndShowOnIndex(subjectCategories);
 		uiModel.addAttribute("subjectCategories", subjectCategories);
-		
-		List<Information> industryNews =informationService.findByCategoryAndShowOnIndex(informationCategorySerivce.findOne(7l));
-		List<Information> newResults =informationService.findByCategoryAndShowOnIndex(informationCategorySerivce.findOne(8l));
-		List<Information> vendorDynamics =informationService.findByCategoryAndShowOnIndex(informationCategorySerivce.findOne(9l));
-		
+
+		List<Information> industryNews = informationService
+				.findByCategoryAndShowOnIndex(informationCategorySerivce
+						.findOne(7l));
+		List<Information> newResults = informationService
+				.findByCategoryAndShowOnIndex(informationCategorySerivce
+						.findOne(8l));
+		List<Information> vendorDynamics = informationService
+				.findByCategoryAndShowOnIndex(informationCategorySerivce
+						.findOne(9l));
+
 		uiModel.addAttribute("industryNews", industryNews);
 		uiModel.addAttribute("newResults", newResults);
 		uiModel.addAttribute("vendorDynamics", vendorDynamics);
-		
+
 		List<Brand> brands = brandService.findByShowOnIndex();
 		uiModel.addAttribute("brands", brands);
 		List<ScrollImage> scrollImages = scrollImageService.findAll();
 		uiModel.addAttribute("images", scrollImages);
 		uiModel.addAttribute("pc", new ProductCategory(0l));
-		
+
 		List<ProductDisplay> displays = productDisplayService.findAll();
 		uiModel.addAttribute("displays", displays);
 		return "index";
 	}
-	@RequestMapping(value = "/head",method = RequestMethod.GET)
-	public String head(){
+
+	@RequestMapping(value = "/head", method = RequestMethod.GET)
+	public String head() {
 		return "head/head";
+	}
+
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String about() {
+		return "footer/about";
+	}
+	
+	@RequestMapping(value = "/recruitment",method = RequestMethod.GET)
+	public String recruitment(){
+		return "footer/recruitment";
+	}
+	
+	@RequestMapping(value = "/statement",method = RequestMethod.GET)
+	public String statement(){
+		return "footer/statement";
+	}
+	
+	@RequestMapping(value = "/contactUs",method = RequestMethod.GET)
+	public String contactUs(){
+		return "footer/contactUs";
+	}
+	
+	@RequestMapping(value = "/problems",method = RequestMethod.GET)
+	public String problems(){
+		return "footer/problems";
 	}
 }

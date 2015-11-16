@@ -75,6 +75,10 @@ $(function(){
         $(this).addClass('active').siblings().removeClass('active')
 
     })
+    $('.scrollimg').click(function(){
+    	var obj = $(this);
+    	window.open(obj.attr('link'));
+    });
 })
 
 function selectAll(){

@@ -28,11 +28,7 @@ public class PreferProductServiceImpl implements PreferProductService {
 
 	@Override
 	public Page<PreferProduct> findByUser(CommonUser user, Pageable pageable) {
-		CommonUser jpaUser = new CommonUser(user.getId());
-		Page<PreferProduct> preferProducts = repository.findByUser(jpaUser,
-				pageable);
-		preferProducts.forEach(p -> p.getProduct());
-		return preferProducts;
+		return repository.findByUser(user,pageable);
 	}
 
 	@Override

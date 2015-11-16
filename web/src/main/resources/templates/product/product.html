@@ -173,6 +173,8 @@ function showReview(productId){
 		<div class="crumb">
 			<a th:text="${product.firstCategory.name}" th:href="@{'/productCategories/'+${product.firstCategory.id}}"></a>
 			<i>></i>
+			<a th:href="@{'/products/_search?secondCategory='+${product.secondCategory.id}}" th:text="${product.secondCategory.name}"></a>
+			<i>></i>
 			<a th:href="@{'/products/_search?thirdCategory='+${product.thirdCategory.id}}" th:text="${product.thirdCategory.name}"></a>
 		</div>
 		<div class="goods-property bodr clearfix">
@@ -247,7 +249,7 @@ function showReview(productId){
 								<div class="text-area fl">
 									<textarea class="bodr" id="content" name="content" maxlength="4000000"></textarea>
 								</div>
-								<button class="btn green fr" id="reviewButton" type="submit">评论</button>
+								<button class="btn review fr" id="reviewButton" type="submit">评论</button>
 							</form>
 						</div>
 					</div>

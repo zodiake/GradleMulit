@@ -615,9 +615,11 @@ insert into category(id,name,category_type,activate,url) values(7,'行业要闻'
 insert into category(id,name,category_type,activate,url) values(8,'新品成果','ic',1,'XPCG');
 insert into category(id,name,category_type,activate,url) values(9,'厂商动态','ic',1,'CSDT');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(11,'方案大类1',6,1,'2012-1-1','tom','sc');
+values(11,'食品安全',6,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(12,'方案大类2',6,1,'2012-1-1','tom','sc');
+values(12,'动物健康',6,1,'2012-1-1','tom','sc');
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(13,'生物生产',6,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(20,'广告位1',null,1,'2012-1-1','tom','ac');
 
@@ -2546,12 +2548,12 @@ insert into site_user(id,name,password,enabled,site_authority,email,phone,real_n
 insert into site_user(id,name,password,enabled,site_authority,email,phone,real_name,sex,create_time) values(20,'admin2','6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',1,'ROLE_ADMIN','1234567@qq.com','13700000009','admin',1,'2012-12-12 12:23:32');
 
 -- test industry_info
-insert into industry_info(id,name,industry_type) values(1,'生物科学','p');
-insert into industry_info(id,name,industry_type) values(2,'药品采集','p');
-insert into industry_info(id,name,industry_type) values(3,'学校','u');
-insert into industry_info(id,name,industry_type) values(4,'科学研究所','u');
-insert into industry_info(id,name,industry_type) values(5,'实验室','u');
-insert into industry_info(id,name,industry_type) values(6,'医院','u');
+insert into industry_info(id,name,industry_type) values(1,'生产型企业','p');
+insert into industry_info(id,name,industry_type) values(2,'贸易型企业','p');
+insert into industry_info(id,name,industry_type) values(3,'科研院校','u');
+insert into industry_info(id,name,industry_type) values(4,'卫生机构','u');
+insert into industry_info(id,name,industry_type) values(5,'行业公司','u');
+insert into industry_info(id,name,industry_type) values(6,'政府实验室','u');
 
 -- test common user
 insert into common_user(id,company,department,company_phone,fax,address,code,province_id,city_id,info_id,position) 
@@ -2647,11 +2649,11 @@ insert into review(id,content,product_id,user_id,created_time) values(2,'haha,ve
 insert into review(id,content,product_id,user_id,created_time) values(3,'haha,very good user3',1,3,'2012-09-28');
 
 -- test scrollImage
-insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(1,'/img/banner1.jpg',1,0,'www.baiduc.com',1);
-insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(2,'/img/banner2.jpg',1,0,'www.baiduc.com',1);
-insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(3,'/img/banner1.jpg',1,0,'www.baiduc.com',1);
-insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(4,'/img/banner2.jpg',1,0,'www.baiduc.com',1);
-insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(5,'/img/banner1.jpg',1,0,'www.baiduc.com',1);
+insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(1,'/img/banner1.jpg',1,0,'http://www.baidu.com',1);
+insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(2,'/img/banner2.jpg',1,0,'http://www.baidu.com',1);
+insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(3,'/img/banner1.jpg',1,0,'http://www.baidu.com',1);
+insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(4,'/img/banner2.jpg',1,0,'http://www.baidu.com',1);
+insert into scroll_image(id,image_url,sort_number,scroll_type,href,state) values(5,'/img/banner1.jpg',1,0,'http://www.baidu.com',1);
 
 -- test information_content
 insert into information_content(id,content) values (1,'我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京市中山科技园隆重召开。。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京。我国首个通过透皮贴剂技术治疗尿频尿急的“奥昔布宁透皮贴 剂临床总结会”在南京');

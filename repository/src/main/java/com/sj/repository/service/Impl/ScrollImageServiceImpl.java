@@ -66,6 +66,7 @@ public class ScrollImageServiceImpl implements ScrollImageService {
 		image.setUpdatedTime(Calendar.getInstance());
 		image.setScrollType(ScrollImageType.INDEX);
 		image.setSortNumber(0);
+		image.setState(ActivateEnum.ACTIVATE);
 		repository.save(image);
 	}
 

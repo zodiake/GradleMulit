@@ -1,8 +1,8 @@
 package com.sj.web.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +25,7 @@ import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.UserIndustryInfoService;
 import com.sj.web.annotation.SecurityUser;
+import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.SiteUserContext;
 
@@ -56,11 +57,17 @@ public class CollectionController extends BaseController<PreferProduct> {
 	@RequestMapping(value = "/user/collection", method = RequestMethod.GET)
 	public String getCollectionByUser(Model uiModel,
 			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "6") int size) {
+			@RequestParam(value = "size", defaultValue = "12") int size) {
 		SiteUser user = userContext.getCurrentUser();
-		List<PreferProduct> pages = preferService.findByUser(new CommonUser(user.getId()));
+		Page<PreferProduct> pages = preferService.findByUser(new CommonUser(
+				user.getId()), new PageRequest(page, size));
+
+		ViewPage viewPage = caculatePage(pages);
+		viewPage.setHref("/user/collection");
+		viewPage.setCurrent(pages.getNumber());
 		
-		uiModel.addAttribute("pages", pages);
+		uiModel.addAttribute("viewpage", viewPage);
+		uiModel.addAttribute("page", pages);
 
 		return "user/common/collection";
 	}
