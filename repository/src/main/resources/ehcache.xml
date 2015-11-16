@@ -6,28 +6,28 @@
 	<cacheManagerPeerProviderFactory
 		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
 		properties="peerDiscovery=manual,  
-                        rmiUrls=//localhost:40001/indexSecondProductCategoryCache
-                        |//localhost:40001/productCategoryCache
-                        |//localhost:40001/secondProductCategoriesCache
-                        |//localhost:40001/secondJsonCategoriesCache
-                        |//localhost:40001/indexSubjectsCache
-                        |//localhost:40001/subjectsCache
-                        |//localhost:40001/subjectCache
-                        |//localhost:40001/subjectCategoryCache
-                        |//localhost:40001/informationsCache
-                        |//localhost:40001/informationCache
-                        |//localhost:40001/indexInformationCache
-                        |//localhost:40001/informationCategoryCache
-                        |//localhost:40001/indexImageCache
-                        |//localhost:40001/scrollImageCache
-                        |//localhost:40001/indexBrandCache
-                        |//localhost:40001/brandCache
-                        |//localhost:40001/brandsCache
-                        |//localhost:40001/ProductDisplayCache"
+                        rmiUrls=//localhost:40002/indexSecondProductCategoryCache
+                        |//localhost:40002/productCategoryCache
+                        |//localhost:40002/secondProductCategoriesCache
+                        |//localhost:40002/secondJsonCategoriesCache
+                        |//localhost:40002/indexSubjectsCache
+                        |//localhost:40002/subjectsCache
+                        |//localhost:40002/subjectCache
+                        |//localhost:40002/subjectCategoryCache
+                        |//localhost:40002/informationsCache
+                        |//localhost:40002/informationCache
+                        |//localhost:40002/indexInformationCache
+                        |//localhost:40002/informationCategoryCache
+                        |//localhost:40002/indexImageCache
+                        |//localhost:40002/scrollImageCache
+                        |//localhost:40002/indexBrandCache
+                        |//localhost:40002/brandCache
+                        |//localhost:40002/brandsCache
+                        |//localhost:40002/ProductDisplayCache"
 		propertySeparator="," />
 	<cacheManagerPeerListenerFactory
 		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
-		properties="hostName=localhost, port=40002, socketTimeoutMillis=2000" />
+		properties="hostName=localhost, port=40001, socketTimeoutMillis=2000" />
 	<!-- productCategory -->
 	<cache name="indexSecondProductCategoryCache" maxEntriesLocalHeap="10" eternal="false"
     timeToIdleSeconds="10000" timeToLiveSeconds="10000" overflowToDisk="false">
