@@ -55,7 +55,8 @@ subjectModule.service('SubjectService', ['$http',
                     name: item.name,
                     content: item.content,
                     image: item.cover,
-                    summary: item.summary
+                    summary: item.summary,
+                    category: item.category
                 }
             });
         };
@@ -86,7 +87,7 @@ subjectModule.service('SubjectService', ['$http',
         		transformRequest: transform,
                 headers: header,
                 data: {
-                	showOnIndex: item.showOnIndex == 'ACTIVATE' ? 'deactivate' : 'activate'
+                	showOnIndex: item.showOnIndex
                 }
         	});
         }
@@ -324,6 +325,7 @@ subjectModule.controller('SubjectEditController', ['$scope',
         
         $scope.showOnIndex = function(item){
         	item.showOnIndex = item.showOnIndex == 'ACTIVATE' ? 'DEACTIVATE' : 'ACTIVATE';
+        	console.log(item);
         	SubjectService.showOnIndex(item).success(function(data){
         		$scope.alerts.push({
                     type: 'success',

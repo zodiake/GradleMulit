@@ -236,7 +236,7 @@
 							<div class="pic-row tit" th:text="${product.title}"></div>
 							<div class="pic-row">
 								<label>品牌：</label>
-								<span th:text="${product.brand}"></span>
+								<span class="brand" th:text="${product.brand}"></span>
 							</div>
 							<div class="pic-row">
 								<label >产地：</label>
@@ -245,7 +245,7 @@
 							</div>
 							<div class="pic-row">
 								<label>型号：</label>
-								<span th:text="${product.model}"></span>
+								<span class="sp" th:text="${product.model}"></span>
 							</div>
 							<div class="pic-row bodr" th:id="'coll'+${product.id}">
 								<a class="btn-cancel coll" th:attr="data-id=${product.id}">加入收藏</a>

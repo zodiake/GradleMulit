@@ -62,6 +62,7 @@ import com.sj.repository.repository.ConsumableRepository;
 import com.sj.repository.repository.InstrumentRepository;
 import com.sj.repository.repository.ProductCategoryRepository;
 import com.sj.repository.repository.ProductRepository;
+import com.sj.repository.repository.ProductSearchRepository;
 import com.sj.repository.repository.ReagentsRepository;
 import com.sj.repository.repository.ServiceRepository;
 import com.sj.repository.search.model.ModelSearchOption;
@@ -95,6 +96,8 @@ public class ProductServiceImpl implements ProductService {
 	private ServiceRepository serviceRepository;
 	@Autowired
 	private PreferProductService preferProductService;
+	@Autowired
+	private ProductSearchRepository searchRepository;
 
 	@Override
 	public Page<Product> findByUsers(Provider user, Pageable pageable,
@@ -196,6 +199,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product updateStatus(Product product, ProductStatusEnum status) {
+		if(ProductStatusEnum.UP.equals(product.getStatus())){
+			searchRepository.delete(product.getId());
+		}
 		product.setStatus(status);
 		return repository.save(product);
 	}
@@ -318,6 +324,8 @@ public class ProductServiceImpl implements ProductService {
 			p.setStatus(ProductStatusEnum.UP);
 			repository.save(p);
 		} else {
+			if(ProductStatusEnum.UP.equals(p.getStatus()))
+				searchRepository.delete(p.getId());
 			p.setStatus(ProductStatusEnum.NOT);
 			repository.save(p);
 		}

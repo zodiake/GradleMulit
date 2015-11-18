@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -134,6 +133,7 @@ public class SubjectServiceImpl implements SubjectService {
 	@CacheEvict(value = { "indexSubjectsCache", "subjectsCache","subjectCache" }, allEntries = true)
 	public Subject update(Subject subject) {
 		Subject s = repository.findOne(subject.getId());
+		s.setCategory(subject.getCategory());
 		s.setContent(subject.getContent());
 		s.setName(subject.getName());
 		s.setSummary(subject.getSummary());
@@ -167,7 +167,7 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	@CachePut(value = "subjectCache", key = "#subject.id")
+	@CacheEvict(value = { "indexSubjectsCache" }, allEntries = true)
 	public Subject updateShowOnIndex(Subject subject, ActivateEnum showOnIndex) {
 		subject.setShowOnIndex(showOnIndex);
 		repository.save(subject);

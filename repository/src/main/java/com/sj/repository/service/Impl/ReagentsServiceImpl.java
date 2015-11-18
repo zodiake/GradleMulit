@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.sj.model.model.Reagents;
 import com.sj.model.model.Solution;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.repository.ProductSearchRepository;
 import com.sj.repository.repository.ReagentsRepository;
 import com.sj.repository.service.ReagentsService;
 
@@ -19,6 +20,8 @@ import com.sj.repository.service.ReagentsService;
 public class ReagentsServiceImpl implements ReagentsService {
 	@Autowired
 	private ReagentsRepository repository;
+	@Autowired
+	private ProductSearchRepository searchRepository;
 
 	@Override
 	public Reagents saveNoPublisher(Reagents reagents) {
@@ -31,8 +34,11 @@ public class ReagentsServiceImpl implements ReagentsService {
 	@Override
 	public Reagents updateNoPublisher(Reagents reagents) {
 		Reagents source = repository.findOne(reagents.getId());
-		if (source.getStatus() == ProductStatusEnum.UP)
+		if (source.getStatus().toString()
+				.equals(ProductStatusEnum.UP.toString())){
 			source.setStatus(ProductStatusEnum.EXAMINE);
+			searchRepository.delete(reagents.getId());
+		}
 		Reagents result = repository.save(bindNoPublisher(source, reagents));
 		return repository.save(result);
 	}

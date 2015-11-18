@@ -176,7 +176,8 @@ public class LoginController {
 		userContext.setCurrentUser(siteUser);
 		session.setAttribute("cartLines", new HashSet<CartLine>());
 		session.removeAttribute("uCode");
-		return "redirect:/";
+		uiModel.addAttribute("name", user.getName());
+		return "user/common/signup-result";
 	}
 
 	/* provider registered page */
@@ -212,7 +213,8 @@ public class LoginController {
 		provider = providerService.create(provider);
 		userContext.setCurrentUser(provider);
 		session.removeAttribute("pCode");
-		return "redirect:/";
+		uiModel.addAttribute("name", provider.getName());
+		return "user/provider/signup-result";
 	}
 
 	private void validateSignupForm(String captcha, BindingResult result,

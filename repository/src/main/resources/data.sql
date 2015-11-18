@@ -611,9 +611,9 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(5,'资讯',null,1,'2012-1-1','tom','ic');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(6,'方案',null,1,'2012-1-1','tom','sc');
-insert into category(id,name,category_type,activate,url) values(7,'行业要闻','ic',1,'HYYW');
-insert into category(id,name,category_type,activate,url) values(8,'新品成果','ic',1,'XPCG');
-insert into category(id,name,category_type,activate,url) values(9,'厂商动态','ic',1,'CSDT');
+insert into category(id,name,category_type,activate,url,parent_id) values(7,'行业要闻','ic',1,'HYYW',5);
+insert into category(id,name,category_type,activate,url,parent_id) values(8,'新品成果','ic',1,'XPCG',5);
+insert into category(id,name,category_type,activate,url,parent_id) values(9,'厂商动态','ic',1,'CSDT',5);
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(11,'食品安全',6,1,'2012-1-1','tom','sc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)

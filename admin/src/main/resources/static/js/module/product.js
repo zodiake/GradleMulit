@@ -122,13 +122,15 @@ productModule.controller('ProductController', ['$scope',
         };
 
         $scope.search = function (current) {
-        	$scope.page = current;
         	$scope.opt.page = current;
-        	console.log($scope.opt);
+        	if(current==null)
+        		$scope.opt.page = 1;
             ProductService
                 .findAll($scope.opt)
                 .success(function (data) {
                     $scope.items = data.content;
+                    $scope.page = data.number;
+                    $scope.total = data.totalElements;
                 });
         };
 

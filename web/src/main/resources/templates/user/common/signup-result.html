@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<title>修改密码</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/global.css}"/>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<meta http-equiv="refresh" th:content="@{5;url=/}"/>
+</head>
+<body>
+	<div class="resg-header">
+		<div class="head-nav">
+			<div class="nav-box">
+				<a href="/">首页</a>
+				<i>|</i>
+				<a href="/productCategory/1">仪器</a>
+				<i>|</i>
+				<a href="/productCategory/2">试剂</a>
+				<i>|</i>
+				<a href="/productCategory/3">耗材</a>
+				<i>|</i>
+				<a href="/productCategory/4">服务</a>
+				<i>|</i>
+				<a href="/subjects">解决方案</a>
+			</div>
+		</div>
+		<div class="head-box clearfix">
+			<a href="/" class="logo">
+				<img th:src="@{/img/logo.png}" alt="logo" width="165" height="30"/>
+				<span class="logo-hd"><img th:src="@{/img/logo-txt.png}" /></span>
+			</a>
+			<div class="head-menu-btn logo-menu">
+				<a class="self-btn"></a> <a class="company-btn"></a>
+			</div>
+		</div>
+	</div>
+	<!-- header -->
+	<div class="wrapper">
+		<div class="hd resg-hd">
+			<span>用户注册</span>
+		</div>
+		<div class="result-center">
+			<div class="tit">
+				<img th:src="@{/img/icon-alt.png}"/>
+				<span class="pw-point1"><i th:text="${name}"></i>恭喜您注册成功！</span>
+			</div>
+			<div>
+				<a href="/"><button >返回首页开始购物</button></a>
+				<a href="/user/detail"><button >进入个人中心</button></a>
+			</div>
+		</div>
+	</div>
+	<div th:include="footer/footer"></div>
+</body>
+</html>

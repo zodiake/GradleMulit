@@ -23,6 +23,7 @@ import com.sj.model.model.Solution;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.model.ProductJson;
 import com.sj.repository.repository.ConsumableRepository;
+import com.sj.repository.repository.ProductSearchRepository;
 import com.sj.repository.service.ConsumableService;
 
 @Service
@@ -30,6 +31,8 @@ import com.sj.repository.service.ConsumableService;
 public class ConsumableServiceImpl implements ConsumableService {
 	@Autowired
 	private ConsumableRepository repository;
+	@Autowired
+	private ProductSearchRepository searchRepository;
 
 	@Autowired
 	private EntityManager em;
@@ -83,8 +86,11 @@ public class ConsumableServiceImpl implements ConsumableService {
 	@Override
 	public Consumable updateNoPublisher(Consumable consumable) {
 		Consumable source = repository.findOne(consumable.getId());
-		if (source.getStatus() == ProductStatusEnum.UP)
+		if (source.getStatus().toString()
+				.equals(ProductStatusEnum.UP.toString())){
 			source.setStatus(ProductStatusEnum.EXAMINE);
+			searchRepository.delete(consumable.getId());
+		}
 		Consumable result = repository
 				.save(bindNoPublisher(source, consumable));
 		return repository.save(result);

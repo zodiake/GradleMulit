@@ -84,10 +84,11 @@ public class InformationServiceImpl implements InformationService {
 
 	@Override
 	@CacheEvict(value = {"informationsCache","indexInformationCache"},allEntries = true)
-	public Information save(Information advertisement) {
-		advertisement.setUpdatedTime(Calendar.getInstance());
-		advertisement.setCreatedTime(Calendar.getInstance());
-		Information info = repository.save(advertisement);
+	public Information save(Information infoNew) {
+		infoNew.setCreateBy("上海申捷卫生科技有限公司");
+		infoNew.setUpdatedTime(Calendar.getInstance());
+		infoNew.setCreatedTime(Calendar.getInstance());
+		Information info = repository.save(infoNew);
 		infoSearchService.save(new InfoSearch(info));
 		return info;
 	}

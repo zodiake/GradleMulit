@@ -8,6 +8,15 @@
 <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
 <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
 <script  th:src="@{/js/script.js}"></script>
+<script type="text/javascript">
+$(function() {
+	$("button").click(function(){
+		var id = $(this).attr('data-id');
+		console.log(id);
+		 $('body').animate({scrollTop: $('#'+id).offset().top}, 1000);
+	});
+});
+</script>
 </head>
 <body>
 <div th:include="head/head">Head</div>
@@ -25,6 +34,63 @@
 				<a href="/recruitment">招贤纳士</a>
 				<a href="/contactUs">联系我们</a>
 				<a class="active">常见问题</a>
+			</div>
+			<div class="mainpanel fr">
+				<div class="news-wrap">
+					<div class="problems">
+						<button>注册流程</button>
+						<button>登录流程</button>
+						<button>无法登录</button>
+						<button>忘记密码</button>
+						<button>个人中心</button>
+						<button data-id="release">商品发布流程</button>
+						<button data-id="maintain">商品维护流程</button>
+						<button>图片压缩方式</button>
+					</div>
+					<div class="problem-content bodr">
+						<h1 id="release">商品发布流程</h1>
+						<div class="problem" >
+							<h2>商品发布流程图</h2>
+							<img th:src="@{/img/problem-re1.png}"/>
+							<h2>1. 供应商登陆，进入“个人中心”</h2>
+							<img th:src="@{/img/problem-re2.png}"/>
+							<h2>2. 在个人中心，点击“发布商品”</h2>
+							<img th:src="@{/img/problem-re3.png}"/>
+							<h2>3. 按照要求，依次填写商品详情</h2>
+							<img th:src="@{/img/problem-re4.png}"/>
+							<h2>4. 信息填写完毕，点击“发布”</h2>
+							<h2>5. 商品信息填写注意事项</h2>
+							<ul>
+								<li>带*号选项为必填项。</li>
+								<li>产品名称、产品型号、产品规格/单位的字符长度分别为100、50、50；产品名称为例，100字符即允许填写不超过100个汉字或字母的信息。</li>
+								<li>品牌、产地、产品分类请在下拉框中进行选择。</li>
+								<li>请于标签栏对商品的主要特点进行描述。</li>
+								<li>商品图片，支持常见图片格式，比如：jpg、jpeg、png、bmp，单个图片在455*350px下显示效果最佳，图片大小在1M以内。</li>
+								<li>在产品介绍富文本框，可以支持图片以及文字的商品说明；图片宽度890px以内，大小在1M以内。</li>
+							</ul>
+						</div>
+						<h1 id="maintain">商品维护流程</h1>
+						<div class="problem" >
+							<h2>商品维护流程图</h2>
+							<img th:src="@{/img/problem-wh1.png}"/>
+							<h2>1. 供应商登陆，进入“个人中心”</h2>
+							<img th:src="@{/img/problem-wh2.png}"/>
+							<h2>2. 在个人中心，点击“商品维护”，选择需要维护的商品，点击“修改”</h2>
+							<img th:src="@{/img/problem-wh3.png}"/>
+							<h2>3. 商品信息修改完毕，确认无误后，点击“保存”</h2>
+							<img th:src="@{/img/problem-wh4.png}"/>
+							<h2>5. 商品信息填写注意事项</h2>
+							<ul>
+								<li>带*号选项为必填项。</li>
+								<li>产品名称、产品型号、产品规格/单位的字符长度分别为100、50、50；产品名称为例，100字符即允许填写不超过100个汉字或字母的信息。</li>
+								<li>品牌、产地、产品分类请在下拉框中进行选择。</li>
+								<li>请于标签栏对商品的主要特点进行描述。</li>
+								<li>商品图片，支持常见图片格式，比如：jpg、jpeg、png、bmp，单个图片在455*350px下显示效果最佳，图片大小在1M以内。</li>
+								<li>在产品介绍富文本框，可以支持图片以及文字的商品说明；图片宽度890px以内，大小在1M以内。</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.sj.model.model.Service;
 import com.sj.model.model.Solution;
 import com.sj.model.type.ProductStatusEnum;
+import com.sj.repository.repository.ProductSearchRepository;
 import com.sj.repository.repository.ServiceRepository;
 import com.sj.repository.service.ServiceService;
 
@@ -18,6 +19,8 @@ import com.sj.repository.service.ServiceService;
 public class ServiceServiceImpl implements ServiceService{
 @Autowired
 private ServiceRepository repository;
+@Autowired
+private ProductSearchRepository searchRepository;
 	@Override
 	public Service saveNoPublisher(Service service) {
 		service.setCreatedTime(Calendar.getInstance());
@@ -29,8 +32,11 @@ private ServiceRepository repository;
 	@Override
 	public Service updateNoPublisher(Service service) {
 		Service source = repository.findOne(service.getId());
-		if(source.getStatus()==ProductStatusEnum.UP)
+		if (source.getStatus().toString()
+				.equals(ProductStatusEnum.UP.toString())){
 			source.setStatus(ProductStatusEnum.EXAMINE);
+			searchRepository.delete(service.getId());
+		}
 		Service result = repository.save(bindNoPublisher(source, service));
 		return repository.save(result);
 	}

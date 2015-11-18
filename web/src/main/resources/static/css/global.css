@@ -339,6 +339,7 @@ img {
 .search-cont .search-btn {
     margin-left: -10px;
     padding: 7px 12px;
+    padding-top:5px;
     background: #42a5f6;
 }
 
@@ -1560,6 +1561,22 @@ a.plus:hover {
     max-height: 16px;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.pic-box .pic-row.sp{
+	position: absolute;
+	width: 155px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.pic-box .pic-row.brand{
+	position: absolute;
+	width: 155px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .pic-box .comment {
@@ -3390,13 +3407,13 @@ select.pAndC{
 
 .ajaxLogin-close{
 	position:absolute;
-	right:5px;
-	top:5px;
-	width: 20px;
+	right: 5px;
+	top: 0px;
+	width: 35px;
 	height: 20px;
 }
 
-.ajaxLogin-close img{
+.ajaxLogin-close span{
 	cursor: pointer;
 }
 
@@ -3446,4 +3463,74 @@ select.pAndC{
 
 .scrollimg{
 	cursor: pointer;
+}
+
+.problems button{
+	width: 198px;
+	height: 35px;
+	line-height: 30px;
+	background-color: #42a5f6;
+	cursor: pointer;
+	margin-top: 5px;
+}
+.problem-content{
+	margin-top: 10px;
+}
+
+.problem-content h1{
+	padding-left:5px;
+	border: 1px solid #eee;
+	background-color: #eee;
+	color: #42a5f6;
+}
+
+.problem-content h2{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: #42a5f6;
+}
+
+.problem{
+	padding-left: 30px;
+	padding-right: 30px;
+	width: 745px;
+}
+
+.problem ul{
+	padding-left: 20px;
+}
+
+.problem img{
+	width: 745px;
+}
+
+.result-center{
+	width:990px;
+	text-align: center;
+	margin: auto;
+	height: 280px;
+}
+
+.result-center .pw-point1 {
+	line-height: 42px;
+	font-size: 27px;
+}
+
+.result-center .tit{
+	margin: auto;line-height: 42px;height: 42px;margin-top:80px;
+}
+
+.result-center img{
+	margin-bottom: -10px;
+}
+.result-center .btn{
+margin-top: 30px
+}
+
+.result-center button{
+	margin-top:30px;
+	background-color: #42a5f6;
+	font-size:24px;
+	cursor:pointer;
+	height: 42px;
 }

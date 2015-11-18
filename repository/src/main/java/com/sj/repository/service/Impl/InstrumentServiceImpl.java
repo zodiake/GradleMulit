@@ -14,6 +14,7 @@ import com.sj.model.model.Instrument;
 import com.sj.model.model.Solution;
 import com.sj.model.type.ProductStatusEnum;
 import com.sj.repository.repository.InstrumentRepository;
+import com.sj.repository.repository.ProductSearchRepository;
 import com.sj.repository.service.InstrumentService;
 
 @Service
@@ -21,6 +22,9 @@ import com.sj.repository.service.InstrumentService;
 public class InstrumentServiceImpl implements InstrumentService {
 	@Autowired
 	private InstrumentRepository repository;
+	
+	@Autowired
+	private ProductSearchRepository searchRepository;
 
 	@Override
 	public Instrument findOne(Long id) {
@@ -69,8 +73,10 @@ public class InstrumentServiceImpl implements InstrumentService {
 	public Instrument updateNoPublisher(Instrument instrument) {
 		Instrument source = repository.findById(instrument.getId());
 		if (source.getStatus().toString()
-				.equals(ProductStatusEnum.UP.toString()))
+				.equals(ProductStatusEnum.UP.toString())){
 			source.setStatus(ProductStatusEnum.EXAMINE);
+			searchRepository.delete(instrument.getId());
+		}
 		Instrument result = repository.save(bindNoPublisher(source, instrument));
 		return repository.save(result);
 	}
