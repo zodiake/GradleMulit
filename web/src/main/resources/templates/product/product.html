@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 <meta charset="UTF-8" />
-<title>仪器商品详情</title>
+<title>商品详情</title>
 <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
@@ -134,7 +134,7 @@ function showReview(productId){
 			$(".fixed").fadeIn();
 			showReview(productId);
 		});
-		$(".hide-wrap").on("click",".ajaxLogin-close",function(){
+		$(".hide-wrap").on("click",'.ajaxLogin-close',function(){
 			$('.fixed').fadeOut();
 			$('.hide-wrap').fadeOut();
 			$('.hide-wrap').empty();

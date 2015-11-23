@@ -29,10 +29,10 @@ logging:
 ---
 spring:
    profiles: prod
-   data.elasticsearch.cluster-nodes: localhost:9300
+   data.elasticsearch.cluster-nodes: 127.0.0.1:9300
    datasource:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/sj
+        url: jdbc:mysql://127.0.0.1:3306/sj
         username: root
         password: root
         initialize: false

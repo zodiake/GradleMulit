@@ -114,8 +114,4 @@ public class IndexController {
 		return "footer/problems";
 	}
 	
-	@RequestMapping(value = "/test",method = RequestMethod.GET)
-	public String test(){
-		return "user/common/signup-result";
-	}
 }

@@ -174,7 +174,7 @@
 					</div>
 					<div class="items-search">
 						<label><b>标签：</b></label>
-						<input type="text" class="bodr" th:field="*{tag}"/>
+						<input type="text" class="bodr" th:field="*{tag}" style="padding-left: 3px;"/>
 						<button id="tagSearch">
 							搜索
 						</button>
@@ -205,16 +205,6 @@
 					<li>
 						<div class="sorts-drop">
 							<i class="icon-sort"></i>
-							<span>评论数</span>
-							<div class="droplist">
-								<span data-id="reviewDesc">评论数从高到低</span>
-								<span data-id="reviewAsc">评论数从低到高</span>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="sorts-drop">
-							<i class="icon-sort"></i>
 							<span>上架时间</span>
 							<div class="droplist">
 								<span data-id="createdTimeDesc">时间从高到低</span>
@@ -234,18 +224,18 @@
 								<span> <b class="red ft14">￥<i th:text="${product.price}"></i></b> </span>
 							</div>
 							<div class="pic-row tit" th:text="${product.title}"></div>
-							<div class="pic-row">
+							<div class="pic-row brand">
 								<label>品牌：</label>
-								<span class="brand" th:text="${product.brand}"></span>
+								<span th:text="${product.brand}"></span>
 							</div>
 							<div class="pic-row">
 								<label >产地：</label>
 								<span th:if="${product.original==0}" th:text="进口"></span>
 								<span th:if="${product.original==1}" th:text="国产"></span>
 							</div>
-							<div class="pic-row">
+							<div class="pic-row sp">
 								<label>型号：</label>
-								<span class="sp" th:text="${product.model}"></span>
+								<span th:text="${product.model}"></span>
 							</div>
 							<div class="pic-row bodr" th:id="'coll'+${product.id}">
 								<a class="btn-cancel coll" th:attr="data-id=${product.id}">加入收藏</a>

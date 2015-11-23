@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="" />
-<title>采购申请</title>
+<title>修改采购申请</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/global.css}" />
 <script th:src="@{/js/jquery-min.js}"></script>
 <script th:src="@{/js/script.js}"></script>
@@ -56,11 +56,11 @@
 									<label>申请人</label> <input type="text" th:field="*{user.realName}" disabled="disabled" style="width: 233px;"/>
 								</div>
 								<div class="form-group">
-									<label><i>*</i>经费类别</label><input type="text" class="w635" th:field="*{fundCategory}"/>
+									<label><i>*</i>经费类别</label><input type="text" class="w635" th:field="*{fundCategory}" style="background-color: white;"/>
 									<i class="error ml115" th:if="${#fields.hasErrors('fundCategory')}" th:errors="*{fundCategory}">必填</i>
 								</div>
 								<div class="form-group">
-									<label><i>*</i>项目名称</label><input type="text" class="w635" th:field="*{name}" />
+									<label><i>*</i>项目名称</label><input type="text" class="w635" th:field="*{name}" style="background-color: white;"/>
 									<i class="error ml115" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">必填</i>
 								</div>
 								<table width="90%" class="mauto">
@@ -94,12 +94,12 @@
 								</div>
 								<div class="form-group">
 									<label class="top"><i>*</i>申请理由</label>
-									<textarea class="w635" rows="5" th:field="*{reason}"></textarea>
+									<textarea class="w635" rows="5" th:field="*{reason}" style="background-color: white;"></textarea>
 									<i class="error ml115" th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}">必填</i>
 								</div>
 								<div class="form-group">
 									<label><i>*</i>期望到货日期</label> 
-									<input th:if="${buy.arrivalTime!=null}" class="form-control datepicker" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}" id="arrivalTime" name="arrivalTime" type="text" />
+									<input th:if="${buy.arrivalTime!=null}" style="background-color: white;" class="form-control datepicker" th:value="${#dates.format(buy.arrivalTime, 'yyyy-MM-dd')}" id="arrivalTime" name="arrivalTime" type="text" />
 									<input th:unless="${buy.arrivalTime!=null}" class="form-control datepicker" id="arrivalTime" name="arrivalTime" type="text" />
 									<i class="error" th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}">必填</i>
 									</div>

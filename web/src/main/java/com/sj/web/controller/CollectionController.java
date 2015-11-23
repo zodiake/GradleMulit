@@ -25,7 +25,6 @@ import com.sj.repository.service.ProductService;
 import com.sj.repository.service.ProvinceService;
 import com.sj.repository.service.UserIndustryInfoService;
 import com.sj.web.annotation.SecurityUser;
-import com.sj.web.controller.BaseController.ViewPage;
 import com.sj.web.exception.ProductNotFoundException;
 import com.sj.web.security.SiteUserContext;
 

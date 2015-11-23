@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 <meta charset="UTF-8" />
-<title>仪器商品详情</title>
+<title>商品搜索</title>
 <link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
@@ -94,17 +94,17 @@
 							<span> <b class="red ft14">￥<i th:text="${product.price}"></i></b> </span>
 						</div>
 						<div class="pic-row tit" th:text="${product.name}"></div>
-						<div class="pic-row">
+						<div class="pic-row brand">
 							<label>品牌：</label>
-							<span class="brand" th:text="${product.brand.name}"></span>
+							<span th:text="${product.brand.name}"></span>
 						</div>
 						<div class="pic-row">
 							<label >产地：</label>
 							<span th:text="${product.placeOfProduction.getName()}"></span>
 						</div>
-						<div class="pic-row">
+						<div class="pic-row sp">
 							<label>型号：</label>
-							<span class="sp" th:text="${product.model}"></span>
+							<span th:text="${product.model}"></span>
 						</div>
 						<div class="pic-row bodr" th:id="'coll'+${product.id}">
 							<a class="btn-cancel coll" th:attr="data-id=${product.id}">加入收藏</a>

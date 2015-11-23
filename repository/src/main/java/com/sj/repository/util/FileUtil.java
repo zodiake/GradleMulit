@@ -19,6 +19,10 @@ public class FileUtil {
 			break;
 		case "video/mp4":
 			suffix = ".mp4";
+			break;
+		case "image/bmp":
+			suffix = ".bmp";
+			break;
 		}
 		return suffix;
 	}

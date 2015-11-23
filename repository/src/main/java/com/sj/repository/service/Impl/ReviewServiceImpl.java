@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.sj.model.model.Product;
 import com.sj.model.model.Review;
 import com.sj.repository.repository.ReviewRepository;
-import com.sj.repository.search.model.ProductSearch;
 import com.sj.repository.search.service.ProductSearchService;
 import com.sj.repository.service.ReviewService;
 
@@ -40,10 +39,6 @@ public class ReviewServiceImpl implements ReviewService {
 		review = repository.save(review);
 		template.opsForValue().increment(
 				REVIEWCOUNT + review.getProduct().getId(), 1);
-		ProductSearch productSearch = searchService.findOne(review.getProduct()
-				.getId());
-		productSearch.setReview(productSearch.getReview() + 1);
-		searchService.save(productSearch);
 		return review;
 	}
 

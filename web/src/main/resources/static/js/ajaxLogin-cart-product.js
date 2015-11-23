@@ -10,7 +10,7 @@
 			fail : null
 		}, options || {});
 
-		var loginTemplate = '<div class="ajaxLogin-close"><span style="width:30px;height:30px;font-size:30px;">&times;</span><div class="form-group"><label>用户名</label><input type="text" name="name" placeholder="用户名"/></div><div class="form-group"><label>密码</label><input type="password" name="password" placeholder="密码"/><i class="error block pass"></i></div>'
+		var loginTemplate = '<div class="ajaxLogin-close"><span style="width:30px;height:30px;font-size:30px;">&times;</span></div><form id="ajaxForm"><div class="form-group"><label>用户名</label><input type="text" name="name" placeholder="用户名"/></div><div class="form-group"><label>密码</label><input type="password" name="password" placeholder="密码"/><i class="error block pass"></i></div>'
 			+ '<div class="clearfix"><button class="btn orange" type="submit">登录</button><a class="fr blue" href="/forgetPw">忘记密码？</a></div></form>';
 		var num = "";
 		var productId = "";
