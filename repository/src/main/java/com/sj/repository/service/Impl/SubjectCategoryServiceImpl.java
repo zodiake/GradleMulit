@@ -33,8 +33,11 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
 
 	@Override
 	public List<SubjectCategoryJson> findAllJson() {
-		return Lists.newArrayList(repository.findAll()).stream()
-				.map(i -> new SubjectCategoryJson(i))
+		return Lists
+				.newArrayList(
+						repository.findByActivateAndParent(
+								ActivateEnum.ACTIVATE, new SubjectCategory(6l)))
+				.stream().map(i -> new SubjectCategoryJson(i))
 				.collect(Collectors.toList());
 	}
 
@@ -46,7 +49,8 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
 	@Override
 	@Cacheable(value = "subjectCategoryCache")
 	public List<SubjectCategory> findByParent() {
-		return repository.findByActivateAndParent(ActivateEnum.ACTIVATE,new SubjectCategory(6l));
+		return repository.findByActivateAndParent(ActivateEnum.ACTIVATE,
+				new SubjectCategory(6l));
 	}
 
 }

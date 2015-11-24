@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.sj.model.model.Subject;
 import com.sj.repository.search.model.SubjectSearch;
 import com.sj.repository.search.model.SubjectSearchOption;
 
@@ -15,4 +16,6 @@ public interface SubjectSearchService {
 	void save(SubjectSearch search);
 
 	public Map<String, String> buildMap(SubjectSearchOption option);
+	
+	void update(Subject s);
 }

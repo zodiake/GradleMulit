@@ -57,7 +57,8 @@ public class InformationCategoryServiceImpl implements
 
 	@Override
 	public Page<InformationCategoryJson> findAllJson() {
-		List<InformationCategory> ics = repository.findByParent(repository.findByParentIsNull());
+		InformationCategory ic = repository.findByParentIsNull();
+		List<InformationCategory> ics = repository.findByParent(ic);
 		List<InformationCategoryJson> list = ics.stream()
 				.map(c -> new InformationCategoryJson(c))
 				.collect(Collectors.toList());

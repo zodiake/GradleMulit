@@ -24,6 +24,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
+import com.sj.model.model.Subject;
 import com.sj.repository.repository.SubjectSearchRepository;
 import com.sj.repository.search.model.SubjectSearch;
 import com.sj.repository.search.model.SubjectSearchOption;
@@ -142,5 +143,15 @@ public class SubjectSearchServiceImpl implements SubjectSearchService {
 			}
 			return false;
 		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public void update(Subject s) {
+		SubjectSearch ss = repository.findOne(s.getId());
+		ss.setCategory(s.getCategory().getName());
+		ss.setImage(s.getImage());
+		ss.setSummary(s.getSummary());
+		ss.setTitle(s.getName());
+		repository.save(ss);
 	}
 }

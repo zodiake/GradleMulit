@@ -34,7 +34,7 @@ import com.sj.repository.service.SubjectService;
 public class SubjectController {
 	@Autowired
 	private SubjectService subjectService;
-
+	
 	@RequestMapping(value = "/admin/subjects", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<SubjectJson> lists(Model uiModel,
