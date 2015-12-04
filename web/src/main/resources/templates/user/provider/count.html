@@ -37,8 +37,8 @@
 						</thead>
 						<tbody class="bodr">
 							<tr th:each="product:${products}">
-								<td th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015年01月11日 10:39</td>
-								<td><a th:text="${product.name}" target="view_window" th:href="@{/provider/products/__${product.id}__?detail}">名称名称</a></td>
+								<td class="count-date" th:text="${#dates.format(product.createdTime, 'yyyy-MM-dd')}">2015年01月11日 10:39</td>
+								<td class="count-name"><a target="view_window" th:href="@{/provider/products/__${product.id}__?detail}"><div th:text="${product.name}" ></div></a></td>
 								<td th:text="${product.viewCount}">11111</td>
 								<td th:text="${product.collectionCount}">11111</td>
 								<td th:text="${product.reviewCount}">2222</td>
@@ -46,21 +46,21 @@
 							</tr>
 						</tbody>
 					</table>
-						<div class="pagination">
-							<div class="l-pagination">
-								<script type="text/javascript" th:src="@{/js/page.js}"></script>
-								<a class="first" th:href="@{${viewpage.href}(page=0)}">首页</a>
-								<ul>
-									<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i-1==viewpage.current}?active" >
-										<a th:href="@{${viewpage.href}(page=${i-1})}" th:text="${i}"></a>
-									</li>
-								</ul>
-								<a class="last" th:href="@{${viewpage.href}(page=${products.getTotalPages()-1})}">末页</a>
-								<div class="info">共&nbsp;<i th:text="${products.getTotalPages()}"></i>&nbsp;页，
-								到第&nbsp;<input type="text" id="number" th:value="${viewpage.current+1>=products.getTotalPages()}?${products.getTotalPages()}:${viewpage.current+2}" min="1" th:max="${products.getTotalPages()}"/>&nbsp;页
-								<button id="goToPage" th:attr="href=@{${viewpage.href}(size=20)}">确定</button> </div>
-							</div>
-						</div>	
+					<div class="pagination">
+						<div class="l-pagination">
+							<script type="text/javascript" th:src="@{/js/page.js}"></script>
+							<a class="first" th:href="@{${viewpage.href}(page=0)}">首页</a>
+							<ul>
+								<li th:each="i:${#numbers.sequence(viewpage.begin,viewpage.end)}" th:class="${i-1==viewpage.current}?active" >
+									<a th:href="@{${viewpage.href}(page=${i-1})}" th:text="${i}"></a>
+								</li>
+							</ul>
+							<a class="last" th:href="@{${viewpage.href}(page=${products.getTotalPages()-1})}">末页</a>
+							<div class="info">共&nbsp;<i th:text="${products.getTotalPages()}"></i>&nbsp;页，
+							到第&nbsp;<input type="text" id="number" th:value="${viewpage.current+1>=products.getTotalPages()}?${products.getTotalPages()}:${viewpage.current+2}" min="1" th:max="${products.getTotalPages()}"/>&nbsp;页
+							<button id="goToPage" th:attr="href=@{${viewpage.href}(size=20)}">确定</button> </div>
+						</div>
+					</div>	
 				</div>
 			</div>
 		</div>

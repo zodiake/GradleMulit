@@ -14,4 +14,8 @@ public interface InfoSearchService {
 	void save(InfoSearch info);
 
 	Map<String, String> buildMap(InfoSearchOption option);
+	
+	void delete(InfoSearch info);
+	
+	void update(InfoSearch info);
 }

@@ -14,6 +14,7 @@ public class SubjectDetailJson {
 	private Calendar createdTime;
 	private Calendar updatedTime;
 	private String content;
+	private String createdBy;
 	private List<SolutionDetailJson> solutions;
 	private String summary;
 	private Long category;
@@ -34,6 +35,7 @@ public class SubjectDetailJson {
 		this.category = s.getCategory().getId();
 		this.active = s.getActivate();
 		this.showOnIndex = s.getShowOnIndex();
+		this.createdBy = s.getCreatedBy();
 	}
 
 	public Long getId() {
@@ -122,5 +124,13 @@ public class SubjectDetailJson {
 
 	public void setShowOnIndex(ActivateEnum showOnIndex) {
 		this.showOnIndex = showOnIndex;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreateBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 }

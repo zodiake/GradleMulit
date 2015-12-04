@@ -14,6 +14,7 @@ public class SubjectJson {
 	private Long category;
 	private ActivateEnum active;
 	private String categoryName;
+	private String createdBy;
 
 	public SubjectJson(Subject s) {
 		this.id = s.getId();
@@ -24,6 +25,7 @@ public class SubjectJson {
 		this.category = s.getCategory().getId();
 		this.active = s.getActivate();
 		this.categoryName = s.getCategory().getName();
+		this.createdBy = s.getCreatedBy();
 	}
 
 	public Long getId() {
@@ -88,5 +90,13 @@ public class SubjectJson {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreateBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 }

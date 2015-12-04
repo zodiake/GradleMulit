@@ -18,4 +18,7 @@ public interface SubjectSearchService {
 	public Map<String, String> buildMap(SubjectSearchOption option);
 	
 	void update(Subject s);
+	
+	void delete(SubjectSearch search);
+	
 }

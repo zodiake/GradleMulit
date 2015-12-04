@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content=""/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
 <title>常见问题</title>
-<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
+<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
 <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
-<script  th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/script.js}"></script>
 <script type="text/javascript">
-$(function() {
-	$("button").click(function(){
-		var id = $(this).attr('data-id');
-		console.log(id);
-		 $('body').animate({scrollTop: $('#'+id).offset().top}, 1000);
+	$(function() {
+		$("button").click(function() {
+			var id = $(this).attr('data-id');
+			console.log(id);
+			$('body').animate({
+				scrollTop : $('#' + id).offset().top}, 1000);
+		});
 	});
-});
 </script>
 </head>
 <body>
-<div th:include="head/head">Head</div>
-<div class="wrapper h400">
+	<div th:include="head/head">Head</div>
+	<div class="wrapper h400">
 		<div th:include="productcategory/secondCategories">Head</div>
-		<div class="crumb news-crumb">
-			<a href="/">首页</a>
-			<i>&gt;</i>
-			<i>常见问题</i>
-		</div>	
 		<div class="mainwrapper clearfix">
-			<div class="aside fl">
-				<a href="/about">公司简介</a>
-				<a href="/statement">法律声明</a>
-				<a href="/recruitment">招贤纳士</a>
-				<a href="/contactUs">联系我们</a>
+			<div class="footerlist fl">
+				<h3 class="aboutTitle">关于优捷实验</h3>
+				<a href="/about">公司简介</a> <a href="/statement">法律声明</a> 
+				<a href="/recruitment">招贤纳士</a> <a href="/contactUs">联系我们</a> 
 				<a class="active">常见问题</a>
 			</div>
-			<div class="mainpanel fr">
+			<div class="mainpaneltest fr">
 				<div class="news-wrap">
 					<div class="problems">
 						<button data-id="reg">注册流程</button>
@@ -48,67 +43,68 @@ $(function() {
 					</div>
 					<div class="problem-content bodr">
 						<h1 id="reg">注册流程</h1>
-						<div class="problem" >
+						<div class="problem">
 							<h2 style="color: #FFC53D;">个人注册</h2>
 							<h2>1. 打开优捷实验首页，点击右上方“注册”，进入注册页面</h2>
-							<img th:src="@{/img/problem/user-reg1.png}"/>
+							<img th:src="@{/img/problem/user-reg1.png}" />
 							<h2>2. 出现如下界面，点击“用户注册”</h2>
 							<h2>&nbsp;&nbsp;&nbsp;&nbsp;按照要求填写各项信息，并填写手机号码，点击获取验证码，优捷实验将向您的手机发送一条短信；在您收到短信后，将短信中的验证码填写到页面中后，然后点击“注册”</h2>
 							<h2>&nbsp;&nbsp;&nbsp;&nbsp;(由于受网络及运营商信号影响，短信可能会稍有延迟；若您在60秒内尚未收到验证码，您可以点击重新获取)</h2>
-							<img th:src="@{/img/problem/user-reg2.png}"/>
+							<img th:src="@{/img/problem/user-reg2.png}" />
 							<h2>3. 出现以下页面后，注册完成</h2>
-							<img th:src="@{/img/problem/user-reg3.png}"/>
+							<img th:src="@{/img/problem/user-reg3.png}" />
 						</div>
-						<div class="problem" >
+						<div class="problem">
 							<h2 style="color: #FFC53D;">企业注册</h2>
 							<h2>1.打开优捷实验首页，点击右上方“注册”</h2>
-							<img th:src="@{/img/problem/pro-reg1.png}"/>
+							<img th:src="@{/img/problem/pro-reg1.png}" />
 							<h2>2. 出现如下界面，点击“企业注册”</h2>
 							<h2>&nbsp;&nbsp;&nbsp;&nbsp;按照要求填写各项信息，上传企业的三证，并填写手机号码，点击获取验证码，优捷实验将向您的手机发送一条短信；在您收到短信后，将短信中的验证码填写到页面中后，然后点击“注册”</h2>
 							<h2>&nbsp;&nbsp;&nbsp;&nbsp;(由于受网络及运营商信号影响，短信可能会稍有延迟；若您在60秒内尚未收到验证码，您可以点击重新获取)</h2>
-							<img th:src="@{/img/problem/pro-reg2.png}"/>
+							<img th:src="@{/img/problem/pro-reg2.png}" />
 							<h2>3. 出现以下页面后，注册完成</h2>
-							<img th:src="@{/img/problem/pro-reg3.png}"/>
+							<img th:src="@{/img/problem/pro-reg3.png}" />
 						</div>
 						<h1 id="login">登录流程</h1>
-						<div class="problem" >
+						<div class="problem">
 							<h2>1. 打开优捷实验首页，点击右上方“登陆”，进入登陆页面</h2>
-							<img th:src="@{/img/problem/login1.png}"/>
+							<img th:src="@{/img/problem/login1.png}" />
 							<h2>2. 出现如下页面，输入用户名和密码，点击“登陆”</h2>
-							<img th:src="@{/img/problem/login2.png}"/>
+							<img th:src="@{/img/problem/login2.png}" />
 						</div>
-						
+
 						<h1 id="forget">忘记密码</h1>
-						<div class="problem" >
+						<div class="problem">
 							<h2>1. 在登录页面，点击“忘记密码”，进入密码找回页面</h2>
-							<img th:src="@{/img/problem/forget1.png}"/>
+							<img th:src="@{/img/problem/forget1.png}" />
 							<h2>2. 在找回密码页面，输入您注册时使用的手机号，并点击获取短信验证码。获得并输入验证码后，点击“下一步”</h2>
-							<img th:src="@{/img/problem/forget2.png}"/>
-							<h2>3. 进入密码重置页面后，输入并重复新密码，即可将原密码替换成新密码。两次输入的密码必须完全相同，且不与原密码重复</h2>
-							<img th:src="@{/img/problem/forget3.png}"/>
+							<img th:src="@{/img/problem/forget2.png}" />
+							<h2>3.
+								进入密码重置页面后，输入并重复新密码，即可将原密码替换成新密码。两次输入的密码必须完全相同，且不与原密码重复</h2>
+							<img th:src="@{/img/problem/forget3.png}" />
 							<h2>4. 点击“完成”后，即可使用新密码登录优捷实验</h2>
 						</div>
-						
+
 						<h1 id="detail">个人中心</h1>
-						<div class="problem" >
+						<div class="problem">
 							<h2>1. 登陆优捷实验，并点击顶部“个人中心”</h2>
-							<img th:src="@{/img/problem/detail1.png}"/>
+							<img th:src="@{/img/problem/detail1.png}" />
 							<h2>2. 进入个人中心后，在“个人资料-基本资料”模块下，您可以在这里修改部分信息并保存。</h2>
-							<img th:src="@{/img/problem/detail2.png}"/>
+							<img th:src="@{/img/problem/detail2.png}" />
 							<h2>3. 进入个人中心后，在“个人资料-修改密码”模块下，您可以在这里修改个人密码。</h2>
-							<img th:src="@{/img/problem/detail3.png}"/>
+							<img th:src="@{/img/problem/detail3.png}" />
 						</div>
-						
+
 						<h1 id="release">商品发布流程</h1>
-						<div class="problem" >
-							<h2 >商品发布流程图</h2>
-							<img th:src="@{/img/problem/problem-re1.png}"/>
+						<div class="problem">
+							<h2>商品发布流程图</h2>
+							<img th:src="@{/img/problem/problem-re1.png}" />
 							<h2>1. 供应商登陆，进入“个人中心”</h2>
-							<img th:src="@{/img/problem/problem-re2.png}"/>
+							<img th:src="@{/img/problem/problem-re2.png}" />
 							<h2>2. 在个人中心，点击“发布商品”</h2>
-							<img th:src="@{/img/problem/problem-re3.png}"/>
+							<img th:src="@{/img/problem/problem-re3.png}" />
 							<h2>3. 按照要求，依次填写商品详情</h2>
-							<img th:src="@{/img/problem/problem-re4.png}"/>
+							<img th:src="@{/img/problem/problem-re4.png}" />
 							<h2>4. 信息填写完毕，点击“发布”</h2>
 							<h2>5. 商品信息填写注意事项</h2>
 							<ul>
@@ -121,15 +117,15 @@ $(function() {
 							</ul>
 						</div>
 						<h1 id="maintain">商品维护流程</h1>
-						<div class="problem" >
+						<div class="problem">
 							<h2>商品维护流程图</h2>
-							<img th:src="@{/img/problem/problem-wh1.png}"/>
+							<img th:src="@{/img/problem/problem-wh1.png}" />
 							<h2>1. 供应商登陆，进入“个人中心”</h2>
-							<img th:src="@{/img/problem/problem-wh2.png}"/>
+							<img th:src="@{/img/problem/problem-wh2.png}" />
 							<h2>2. 在个人中心，点击“商品维护”，选择需要维护的商品，点击“修改”</h2>
-							<img th:src="@{/img/problem/problem-wh3.png}"/>
+							<img th:src="@{/img/problem/problem-wh3.png}" />
 							<h2>3. 商品信息修改完毕，确认无误后，点击“保存”</h2>
-							<img th:src="@{/img/problem/problem-wh4.png}"/>
+							<img th:src="@{/img/problem/problem-wh4.png}" />
 							<h2>5. 商品信息填写注意事项</h2>
 							<ul>
 								<li>带*号选项为必填项。</li>
@@ -140,22 +136,24 @@ $(function() {
 								<li>在产品介绍富文本框，可以支持图片以及文字的商品说明；图片宽度890px以内，大小在1M以内。</li>
 							</ul>
 						</div>
-						
+
 						<h1 id="pic">图片压缩</h1>
-						<div class="problem" >
+						<div class="problem">
 							<h2>1. 如果你的图片格式是PNG格式的，而且对图片质量要求不高，可以使用下面的方法来压缩图片大小。</h2>
-							<img th:src="@{/img/problem/pic1.png}" style="width: 380px"/>
+							<img th:src="@{/img/problem/pic1.png}" style="width: 380px" />
 							<h2>2. 右键单击文件选项，将PNG图像文件用系统自带的画图板功能打开。</h2>
-							<img th:src="@{/img/problem/pic2.png}" style="width: 380px"/>
+							<img th:src="@{/img/problem/pic2.png}" style="width: 380px" />
 							<h2>3. 然后点击图片中所示的按钮进行设置，从新保存文件。选择“另存为”。</h2>
-							<img th:src="@{/img/problem/pic3.png}" style="width: 380px"/>
-							<h2>4. 然后我们将保存格式选择为“JPEG图片”，当然根据你的需要，其他个是也可以，只不过我觉得JPEG不会使图片质量弄得损耗过大，并且占空间很小，无疑是最好的方式。</h2>
-							<img th:src="@{/img/problem/pic4.png}" style="width: 380px"/>
-							<h2>5. 最后填写完名称，保存即可，我们就会发现图片的空间比以前小了很多很多。 原来是5.65MB，一下子就变成了0.99MB。</h2>
-							<img th:src="@{/img/problem/pic5.png}"/>
-							<img th:src="@{/img/problem/pic6.png}" style="width: 380px"/>
+							<img th:src="@{/img/problem/pic3.png}" style="width: 380px" />
+							<h2>4.
+								然后我们将保存格式选择为“JPEG图片”，当然根据你的需要，其他个是也可以，只不过我觉得JPEG不会使图片质量弄得损耗过大，并且占空间很小，无疑是最好的方式。</h2>
+							<img th:src="@{/img/problem/pic4.png}" style="width: 380px" />
+							<h2>5. 最后填写完名称，保存即可，我们就会发现图片的空间比以前小了很多很多。
+								原来是5.65MB，一下子就变成了0.99MB。</h2>
+							<img th:src="@{/img/problem/pic5.png}" /> <img
+								th:src="@{/img/problem/pic6.png}" style="width: 380px" />
 						</div>
-						
+
 					</div>
 				</div>
 			</div>

@@ -17,6 +17,7 @@ public class InfoSearch {
 	@Field(type = FieldType.Long, index = FieldIndex.not_analyzed)
 	private Long id;
 
+	@Field(type = FieldType.String)
 	private String title;
 
 	@Field(type = FieldType.Date)

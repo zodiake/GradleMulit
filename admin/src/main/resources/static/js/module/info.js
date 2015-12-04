@@ -32,7 +32,8 @@ infoModule.service('InfoService', ['$http',
                     title: item.title,
                     category: item.category,
                     content: item.content,
-                    summary: item.summary
+                    summary: item.summary,
+                    createBy: item.createBy
                 },
                 headers: header
             });
@@ -47,7 +48,8 @@ infoModule.service('InfoService', ['$http',
                     title: item.title,
                     category: item.category,
                     content: item.content,
-                    summary: item.summary
+                    summary: item.summary,
+                    createBy: item.createBy
                 },
                 headers: header
             });

@@ -86,4 +86,17 @@ public class InfoSearchServiceImpl implements InfoSearchService {
 		}).collect(Collectors.toList());
 	}
 
+	@Override
+	public void delete(InfoSearch info) {
+		repository.delete(info);
+	}
+
+	@Override
+	public void update(InfoSearch info) {
+		InfoSearch infoSearch = repository.findOne(info.getId());
+		infoSearch.setSummary(info.getSummary());
+		infoSearch.setTitle(info.getTitle());
+		repository.save(infoSearch);
+	}
+
 }

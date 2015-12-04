@@ -139,6 +139,7 @@ public class SubjectServiceImpl implements SubjectService {
 		s.setSummary(subject.getSummary());
 		s.setImage(subject.getImage());
 		s.setSolutions(s.getSolutions());
+		s.setCreatedBy(subject.getCreatedBy());
 		service.update(s);
 		return s;
 	}
@@ -152,6 +153,10 @@ public class SubjectServiceImpl implements SubjectService {
 				"update Solution s set s.active=:active where s.subject=:subject")
 				.setParameter("active", active)
 				.setParameter("subject", subject).executeUpdate();
+		if(active.equals(ActivateEnum.ACTIVATE))
+			service.save(new SubjectSearch(subject));
+		else if(active.equals(ActivateEnum.DEACTIVATE))
+			service.delete(new SubjectSearch(subject));
 		return subject;
 	}
 

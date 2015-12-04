@@ -56,6 +56,8 @@ public class InformationServiceImpl implements InformationService {
 		info.setCategory(information.getCategory());
 		info.setSummary(information.getSummary());
 		info.setUpdatedTime(Calendar.getInstance());
+		info.setCreateBy(information.getCreateBy());
+		infoSearchService.update(new InfoSearch(info));
 		return info;
 	}
 
@@ -85,7 +87,6 @@ public class InformationServiceImpl implements InformationService {
 	@Override
 	@CacheEvict(value = {"informationsCache","indexInformationCache"},allEntries = true)
 	public Information save(Information infoNew) {
-		infoNew.setCreateBy("上海申捷卫生科技有限公司");
 		infoNew.setUpdatedTime(Calendar.getInstance());
 		infoNew.setCreatedTime(Calendar.getInstance());
 		Information info = repository.save(infoNew);
@@ -116,8 +117,14 @@ public class InformationServiceImpl implements InformationService {
 
 	@Override
 	@CacheEvict(value = {"informationsCache","indexInformationCache","informationCache"},allEntries = true)
-	public void updateState(Long id, ActivateEnum state) {
+	public Information updateState(Long id, ActivateEnum state) {
 		Information info = repository.findOne(id);
 		info.setActivate(state);
+		repository.save(info);
+		if(state.equals(ActivateEnum.ACTIVATE))
+			infoSearchService.save(new InfoSearch(info));
+		else if(state.equals(ActivateEnum.DEACTIVATE))
+			infoSearchService.delete(new InfoSearch(info));
+		return info;
 	}
 }

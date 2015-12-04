@@ -749,6 +749,10 @@ img {
     border-bottom: 1px dashed #dcdcdc;
 }
 
+.text14{
+	font-size: 14px;
+}
+
 .news-wrap .news-dtl {
     margin: 5px 0;
     line-height: 20px;
@@ -1261,6 +1265,34 @@ img {
     display: block;
 }
 
+.aboutTitle{
+	color : white;
+	background-color: #0b5a9f;
+	width: 210px;
+	text-align: center;
+    line-height: 60px;
+    font-size: 22px;
+    display: block;
+    font-weight: normal;
+}
+
+.footerlist{
+	width: 210px;
+    margin-right: 20px;
+}
+
+.footerlist a {
+    text-align: center;
+    line-height: 60px;
+    font-size: 16px;
+    display: block;
+    background-color: #eee;
+}
+
+.footerlist .active{
+	color: #42a5f6;
+}
+
 .aside a.active {
     color: #42a5f6;
 }
@@ -1271,7 +1303,7 @@ img {
 
 .self-wrap .info-tabs a {
     display: inline-block;
-    width: 130px;
+    width: 157px;
     font-size: 14px;
     text-align: center;
     line-height: 30px;
@@ -1336,8 +1368,7 @@ img {
 }
 
 .self-wrap .info-tabs.inherit {
-    width: 666px;
-    width: 668px\9;
+    width: 803px;
 }
 
 table.save-table td {
@@ -1345,7 +1376,7 @@ table.save-table td {
 }
 
 table.save-table span {
-    width: 110px;
+    width: 80px;
     display: inline-block;
     border-left: 1px solid #dcdcdc;
 }
@@ -1353,6 +1384,25 @@ table.save-table span {
 table.save-table span.one-sort {
     width: 60px;
     border-left: none;
+}
+
+table.save-table .mt_date{
+	width: 100px;
+}
+
+table.save-table .mt_name{
+	width: 375px;
+}
+
+table.save-table .mt_name div{
+	width: 375px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+table.save-table .mt_category{
+	width: 250px;
 }
 
 .push-good button {
@@ -1379,6 +1429,14 @@ table.save-table span.one-sort {
 
 .mainpanel {
     width: 805px;
+}
+
+.mainpanel h2{
+	font-size: 14px;
+}
+
+.mainpaneltest {
+    width: 760px;
 }
 
 .mainpanel .all {
@@ -2171,6 +2229,7 @@ li div.topic-detail {
     margin-right: 15px;
     margin-top: 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .area-box .text-area {
@@ -3465,7 +3524,7 @@ select.pAndC{
 }
 
 .problems button{
-	width: 198px;
+	width: 187px;
 	height: 35px;
 	line-height: 30px;
 	background-color: #42a5f6;
@@ -3486,8 +3545,9 @@ select.pAndC{
 .problem-content h2{
 	padding-top: 5px;
 	padding-bottom: 5px;
-	color: #42a5f6;
+	color: #868fa7;
 	font-size: 12px;
+	width: 700px;
 }
 
 .problem{
@@ -3498,10 +3558,11 @@ select.pAndC{
 
 .problem ul{
 	padding-left: 20px;
+	width: 680px;
 }
 
 .problem img{
-	width: 745px;
+	width: 700px;
 }
 
 .result-center{
@@ -3537,4 +3598,19 @@ select.pAndC{
 
 .background-white{
 	background-color: white;
+}
+
+.count-date{
+	width: 100px;
+}
+
+.count-name{
+	width: 400px;
+}
+
+.count-name div{
+	width: 400px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }

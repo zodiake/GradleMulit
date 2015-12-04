@@ -2586,7 +2586,7 @@ values(4,'product4','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product
 
 -- mary2 product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(5,'product5','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/1',1,31,32,2,5,'HD303',1,'10支',1,0,'2012-12-12 12:23:32','i');
+values(5,'producfsdavqbqfadvasvasfqwrgqvcafdfqwbgqwfdvqdqrqefdsgt5','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/1',1,31,32,2,5,'HD303',1,'10支',1,0,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
 values(6,'product6','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/2',1,31,32,2,6,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)

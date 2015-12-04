@@ -1,44 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content=""/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
 <title>联系我们</title>
-<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}"/>
+<link type="text/css" rel="stylesheet" th:href="@{/css/global.css}" />
 <script type="text/javascript" th:src="@{/js/jquery-min.js}"></script>
-<script  th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/script.js}"></script>
 </head>
 <body>
-<div th:include="head/head">Head</div>
-<div class="wrapper h400">
+	<div th:include="head/head">Head</div>
+	<div class="wrapper h400">
 		<div th:include="productcategory/secondCategories">Head</div>
-		<div class="crumb news-crumb">
-			<a href="/">首页</a>
-			<i>></i>
-			<i>联系我们</i>
-		</div>	
 		<div class="mainwrapper clearfix">
-			<div class="aside fl">
-				<a href="/about">公司简介</a>
-				<a href="/statement">法律声明</a>
-				<a href="/recruitment">招贤纳士</a>
-				<a class="active">联系我们</a>
+			<div class="footerlist fl">
+				<h3 class="aboutTitle">关于优捷实验</h3>
+				<a href="/about">公司简介</a> <a href="/statement">法律声明</a> 
+				<a href="/recruitment">招贤纳士</a> <a class="active">联系我们</a> 
 				<a href="/problems">常见问题</a>
 			</div>
-			<div class="mainpanel fr">
+			<div class="mainpaneltest fr">
 				<div class="news-wrap">
-					<h2>名称：上海申捷卫生科技股份有限公司</h2>
+					<div>
+						<img th:src="@{/img/problem/map.png}" style="width: 760px;" />
+					</div>
+					<h2>公司名称：上海申捷卫生科技股份有限公司</h2>
 					<h2>&nbsp;</h2>
-					<h2>地址：上海市普陀区金沙江路1518弄2号704室</h2>
+					<h2>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：上海市普陀区金沙江路1518弄2号704室</h2>
 					<h2>&nbsp;</h2>
-					<h2>电话：021-52658210</h2>
+					<h2>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：021-52658210</h2>
 					<h2>&nbsp;</h2>
-					<h2>传真：021-52658210</h2>
+					<h2>传&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;真：021-52658210</h2>
 					<h2>&nbsp;</h2>
-					<h2>邮编：200333</h2>
+					<h2>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编：200333</h2>
 					<h2>&nbsp;</h2>
-					<div><img th:src="@{/img/problem/map.png}" style="width: 805px;"/></div>
 				</div>
 			</div>
 		</div>

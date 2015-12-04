@@ -154,4 +154,9 @@ public class SubjectSearchServiceImpl implements SubjectSearchService {
 		ss.setTitle(s.getName());
 		repository.save(ss);
 	}
+
+	@Override
+	public void delete(SubjectSearch search) {
+		repository.delete(search);
+	}
 }

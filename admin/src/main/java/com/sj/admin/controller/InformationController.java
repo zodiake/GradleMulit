@@ -26,6 +26,7 @@ import com.sj.model.model.Information;
 import com.sj.model.type.ActivateEnum;
 import com.sj.repository.model.InformationDetailJson;
 import com.sj.repository.model.InformationJson;
+import com.sj.repository.search.service.InfoSearchService;
 import com.sj.repository.service.InformationService;
 
 @Controller
@@ -34,6 +35,8 @@ public class InformationController {
 	private InformationService informationService;
 	@Autowired
 	private CacheManager manager;
+	@Autowired
+	private InfoSearchService searchService;
 
 	@RequestMapping(value = "/admin/information", method = RequestMethod.GET)
 	@ResponseBody
