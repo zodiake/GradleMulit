@@ -282,14 +282,14 @@ public class ProductServiceImpl implements ProductService {
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		cq.select(cb.count(cq.from(Product.class)));
 		List<Predicate> criteria = new ArrayList<>();
-
-		if (fc != null) {
+		
+		if (fc != null && fc.getId() != null) {
 			criteria.add(cb.equal(product.get("firstCategory"), fc));
 		}
-		if (sc != null) {
+		if (sc != null && sc.getId() != null) {
 			criteria.add(cb.equal(product.get("secondCategory"), sc));
 		}
-		if (sc != null) {
+		if (tc != null && tc.getId() != null) {
 			criteria.add(cb.equal(product.get("thirdCategory"), tc));
 		}
 		if (status != null) {
