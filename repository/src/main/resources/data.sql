@@ -2485,7 +2485,6 @@ values(932,'仪器维修服务',4,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(933,'仪器维修服务',932,1,'2012-1-1','admin','pc');
-
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(934,'技术培训服务',4,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
@@ -2514,6 +2513,37 @@ values(945,'技术转让',940,1,'2012-1-1','admin','pc');
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(946,'其它',940,1,'2012-1-1','admin','pc');
 
+
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1000,'其它',90,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1001,'其它',387,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1002,'其它',424,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1003,'其它',769,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1004,'其它',777,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1005,'其它',785,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1006,'其它',857,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1007,'其它',885,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1008,'其它',900,1,'2012-1-1','admin','pc');
+
+insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
+values(1009,'其它',934,1,'2012-1-1','admin','pc');
 -- test content
 insert into content values(1,'<p>product1-content</p>');
 insert into content values(2,'product2-content');

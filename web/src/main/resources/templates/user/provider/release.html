@@ -168,7 +168,7 @@
 							</div>
 							<div class="fl">
 								<label><i>*</i>产品规格/单位</label> 
-								<input type="text" th:field="*{specifications}" placeholder="规格最长为50位" maxlength="50"/> 
+								<input type="text" th:field="*{specifications}" placeholder="规格最长为100位" maxlength="100"/> 
 								<i class="error" th:if="${#fields.hasErrors('specifications')}" th:errors="*{specifications}"></i>
 							</div>
 						</div>
