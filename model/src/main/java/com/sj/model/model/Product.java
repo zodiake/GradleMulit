@@ -41,7 +41,7 @@ public class Product {
 	protected Long id;
 
 	@NotBlank(message = "商品名称不能为空")
-	@Size(max = 100, message = "商品名字最长为64位")
+	@Size(max = 255, message = "商品名字最长为255位")
 	protected String name;
 
 	@NotBlank(message = "型号不能为空")

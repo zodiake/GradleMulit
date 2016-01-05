@@ -2608,21 +2608,21 @@ values(7,'上海申捷','shenjie','bmw','两亿','人体强化药剂','/provider
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type) 
 values(1,'人体超级强化药剂','http://139.196.30.55:8000/2015/9/witeg.jpg',10.01,'/product/1',1,31,32,1,1,'HD300',1,'10支',1,1,'2012-12-12 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(2,'product2','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/2',3,761,762,1,2,'HD302',1,'10支',1,1,'2012-12-12 12:23:32','c');
+values(2,'product2','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/2',3,761,762,1,2,'HD302',1,'10支',1,1,'2012-12-11 12:23:32','c');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(3,'product3','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/3',1,31,32,1,3,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(3,'product3','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/3',1,31,32,1,3,'HD303',1,'10支',1,1,'2012-12-10 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(4,'product4','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/4',4,889,890,1,4,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','s');
+values(4,'product4','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/4',4,889,890,1,4,'HD303',1,'10支',1,1,'2012-12-09 12:23:32','s');
 
 -- mary2 product
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(5,'producfsdavqbqfadvasvasfqwrgqvcafdfqwbgqwfdvqdqrqefdsgt5','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/1',1,31,32,2,5,'HD303',1,'10支',1,0,'2012-12-12 12:23:32','i');
+values(5,'producfsdavqbqfadvasvasfqwrgqvcafdfqwbgqwfdvqdqrqefdsgt5','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/1',1,31,32,2,5,'HD303',1,'10支',1,0,'2012-12-08 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(6,'product6','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/2',1,31,32,2,6,'HD303',1,'10支',1,1,'2012-12-12 12:23:32','i');
+values(6,'product6','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/2',1,31,32,2,6,'HD303',1,'10支',1,1,'2012-12-07 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(7,'product7','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/3',1,31,32,2,7,'HD303',1,'10支',1,2,'2012-12-12 12:23:32','i');
+values(7,'product7','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/3',1,31,32,2,7,'HD303',1,'10支',1,2,'2012-12-15 12:23:32','i');
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)
-values(8,'product8','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/4',1,31,32,2,8,'HD303',1,'10支',1,3,'2012-12-12 12:23:32','i');
+values(8,'product8','http://139.196.30.55:8000/2015/9/witeg.jpg',10.00,'/product/4',1,31,32,2,8,'HD303',1,'10支',1,3,'2012-12-22 12:23:32','i');
 
 -- 商品展示数据
 insert into product(id,name,cover_Img,price,url,first_category_id,second_category_id,third_category_id,created_by,content_id,model,place_of_production,specifications,brand_id,status,created_time,product_type)

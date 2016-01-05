@@ -296,6 +296,7 @@ public class ProductServiceImpl implements ProductService {
 			criteria.add(cb.equal(product.get("status"), status));
 		}
 		c.where(criteria.toArray(new Predicate[0]));
+		c.orderBy(cb.desc(product.get("createdTime").as(Calendar.class)));
 		cq.where(criteria.toArray(new Predicate[0]));
 
 		List<Product> lists = em
@@ -359,7 +360,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 3; i <= irLength; i++) {
 			XSSFRow xssfRow = sheet.getRow(i);
 			Product product = new Product();
-			String name = getStringCellValue(xssfRow, i, 0, 100);
+			String name = getStringCellValue(xssfRow, i, 0, 255);
 			product.setName(name);
 			String model = getStringCellValue(xssfRow, i, 1, 50);
 			product.setModel(model);

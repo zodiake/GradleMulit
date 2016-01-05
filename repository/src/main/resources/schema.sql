@@ -149,7 +149,7 @@ create table brand(
 
 create table product(
 	id bigint not null auto_increment,
-	name varchar(100) not null,
+	name varchar(255) not null,
 	model varchar(50),
 	place_of_production smallint,
 	status smallint,
