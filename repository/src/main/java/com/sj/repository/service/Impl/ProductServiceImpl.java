@@ -364,7 +364,7 @@ public class ProductServiceImpl implements ProductService {
 			String model = getStringCellValue(xssfRow, i, 1, 50);
 			product.setModel(model);
 
-			product.setSpecifications(getStringCellValue(xssfRow, i, 2, 50));
+			product.setSpecifications(getStringCellValue(xssfRow, i, 2, 100));
 			String brandName = getStringCellValue(xssfRow, i, 3);
 			Brand brand = brandRepository.findByNameAndActivate(brandName,
 					ActivateEnum.ACTIVATE);
