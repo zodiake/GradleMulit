@@ -52,7 +52,7 @@ public class Product {
 	protected PlaceEnum placeOfProduction;
 
 	@NotBlank(message = "规格不能为空")
-	@Size(max = 100, message = "规格最长为100位")
+	@Size(max = 255, message = "规格最长为255位")
 	protected String specifications;
 
 	@Enumerated

@@ -2534,15 +2534,6 @@ insert into category(id,name,parent_id,activate,created_Time,created_By,category
 values(1005,'其它',785,1,'2012-1-1','admin','pc');
 
 insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(1006,'其它',857,1,'2012-1-1','admin','pc');
-
-insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(1007,'其它',885,1,'2012-1-1','admin','pc');
-
-insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
-values(1008,'其它',900,1,'2012-1-1','admin','pc');
-
-insert into category(id,name,parent_id,activate,created_Time,created_By,category_type)
 values(1009,'其它',934,1,'2012-1-1','admin','pc');
 -- test content
 insert into content values(1,'<p>product1-content</p>');

@@ -93,7 +93,7 @@ public class ProductController {
 		} catch (BatchException e) {
 			return "\"" + e.getMessage() + "\"";
 		} catch (Exception e) {
-			return "\"error\"";
+			return "\""+e.getMessage()+"\"";
 		}
 		return "\"" + result + "\"";
 	}
