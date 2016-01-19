@@ -24,6 +24,5 @@ dependencies {
     compile('org.json:json:20141113')
     compile('net.sf.ehcache:ehcache:2.10.0')
     compile('mysql:mysql-connector-java:5.1.6')
-    compile("org.apache.poi:poi-ooxml:3.12")
    	compile project(":model")
 }
